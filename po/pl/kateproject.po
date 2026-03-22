@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-18 00:48+0000\n"
-"PO-Revision-Date: 2026-03-07 08:22+0100\n"
+"POT-Creation-Date: 2026-03-22 00:47+0000\n"
+"PO-Revision-Date: 2026-03-21 07:16+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -354,7 +354,7 @@ msgstr "Pokaż ostatnią zmianę"
 msgid "Open Commit..."
 msgstr "Otwórz zmianę..."
 
-#: gitwidget.cpp:1143 gitwidget.cpp:1188
+#: gitwidget.cpp:1143 gitwidget.cpp:1191
 #, kde-format
 msgid "Stash"
 msgstr "Schowek"
@@ -369,178 +369,183 @@ msgstr "Pokaż historię"
 msgid "Diff - stash"
 msgstr "Różnica - stash"
 
-#: gitwidget.cpp:1192
+#: gitwidget.cpp:1195
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Pobierz ostanie składowisko"
 
-#: gitwidget.cpp:1196
+#: gitwidget.cpp:1199
 #, kde-format
 msgid "Pop Stash"
 msgstr "Pobierz ze składowiska"
 
-#: gitwidget.cpp:1200
+#: gitwidget.cpp:1203
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Nałóż ostatnie składowisko"
 
-#: gitwidget.cpp:1202
+#: gitwidget.cpp:1205
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Na składowisko (zachowaj dobrane)"
 
-#: gitwidget.cpp:1206
+#: gitwidget.cpp:1209
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Na składowisko (wraz z plikami nieśledzonymi)"
 
-#: gitwidget.cpp:1210
+#: gitwidget.cpp:1213
 #, kde-format
 msgid "Apply Stash"
 msgstr "Nałóż składowisko"
 
-#: gitwidget.cpp:1211
+#: gitwidget.cpp:1214
 #, kde-format
 msgid "Drop Stash"
 msgstr "Porzuć składowisko"
 
-#: gitwidget.cpp:1212
-#, kde-format
-msgid "Show Stash Content"
-msgstr "Pokaż zawartość składowiska"
+#: gitwidget.cpp:1218
+#, fuzzy, kde-format
+#| msgid "Pop Stash"
+msgid "Show Stash"
+msgstr "Pobierz ze składowiska"
 
-#: gitwidget.cpp:1250
+#: gitwidget.cpp:1222
+#, fuzzy, kde-format
+#| msgid "Show raw diff"
+msgid "Show Stash Diff"
+msgstr "Pokaż surową różnicę"
+
+#: gitwidget.cpp:1260
 #, kde-format
 msgid "Stage All"
 msgstr "Dobierz wszystkie"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1262
 #, kde-format
 msgid "Remove All"
 msgstr "Usuń wszystkie"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1262
 #, kde-format
 msgid "Discard All"
 msgstr "Porzuć wszystkie"
 
-#: gitwidget.cpp:1255
+#: gitwidget.cpp:1265
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Otwórz .gitignore"
 
-#: gitwidget.cpp:1256 gitwidget.cpp:1305 gitwidget.cpp:1356
+#: gitwidget.cpp:1266 gitwidget.cpp:1315 gitwidget.cpp:1366
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Pokaż różnice"
 
-#: gitwidget.cpp:1273
+#: gitwidget.cpp:1283
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Czy na pewno chcesz usunąć te pliki?"
 
-#: gitwidget.cpp:1278
+#: gitwidget.cpp:1288
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Czy na pewno porzucić wszystkie zmiany?"
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1306
 #, kde-format
 msgid "Open File"
 msgstr "Otwórz plik"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1307
 #, kde-format
 msgid "Unstage File"
 msgstr "Odłóż plik"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1307
 #, kde-format
 msgid "Stage File"
 msgstr "Dobierz plik"
 
-#: gitwidget.cpp:1298
+#: gitwidget.cpp:1308
 #, kde-format
 msgid "Remove"
 msgstr "Usuń"
 
-#: gitwidget.cpp:1298
+#: gitwidget.cpp:1308
 #, kde-format
 msgid "Discard"
 msgstr "Porzuć"
 
-#: gitwidget.cpp:1306
+#: gitwidget.cpp:1316
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Pokaż w zewnętrznym narzędziu do różnic git"
 
-#: gitwidget.cpp:1307
+#: gitwidget.cpp:1317
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Otwórz na znaczniku HEAD"
 
-#: gitwidget.cpp:1311
+#: gitwidget.cpp:1321
 #, kde-format
 msgid "Show History"
 msgstr "Pokaż historię"
 
-#: gitwidget.cpp:1327
+#: gitwidget.cpp:1337
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Czy na pewno porzucić zmiany w tym pliku?"
 
-#: gitwidget.cpp:1338
+#: gitwidget.cpp:1348
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Czy na pewno usunąć ten plik?"
 
-#: gitwidget.cpp:1355
+#: gitwidget.cpp:1365
 #, kde-format
 msgid "Unstage All"
 msgstr "Odłóż wszystkie"
 
-#: gitwidget.cpp:1422
+#: gitwidget.cpp:1432
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Odłóż zaznaczone pliki"
 
-#: gitwidget.cpp:1422
+#: gitwidget.cpp:1432
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Dobierz zaznaczone pliki"
 
-#: gitwidget.cpp:1423
+#: gitwidget.cpp:1433
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Porzuć zaznaczone pliki"
 
-#: gitwidget.cpp:1427
+#: gitwidget.cpp:1437
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Usuń zaznaczone pliki"
 
-#: gitwidget.cpp:1440
+#: gitwidget.cpp:1450
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Czy na pewno porzucić te zmiany?"
 
-#: gitwidget.cpp:1445
+#: gitwidget.cpp:1455
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Czy na pewno usunąć te nieśledzone zmiany?"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "Zmieniony"
+msgstr "(Zmienione)"
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "Dobrane"
+msgstr "(Dobrane)"
 
 #: kateproject.cpp:357
 #, kde-format
@@ -1094,59 +1099,59 @@ msgstr ""
 "Opis składowiska (niewymagany). Naciśnij klawisz Enter, aby potwierdzić, "
 "Esc, aby opuścić."
 
-#: stashdialog.cpp:43
+#: stashdialog.cpp:44
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
 "Wpisz coś, aby zacząć filtrować, naciśnij klawisz Enter, aby pobrać ze "
 "składowiska, klawisz Esc, aby opuścić."
 
-#: stashdialog.cpp:143
+#: stashdialog.cpp:147
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Nie udało się wrzucić zmian na składowisko %1"
 
-#: stashdialog.cpp:145
+#: stashdialog.cpp:149
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Pomyślnie wrzucono zmiany na składowisko."
 
-#: stashdialog.cpp:164
+#: stashdialog.cpp:168
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Nie udało się pobrać spisu składu. Błąd: "
 
-#: stashdialog.cpp:180
+#: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Nie udało się nałożyć plików ze składowiska. Błąd: "
 
-#: stashdialog.cpp:182
+#: stashdialog.cpp:186
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Nie udało się porzucić składowiska. Błąd: "
 
-#: stashdialog.cpp:184
+#: stashdialog.cpp:188
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Nie udało się pobrać ze składowiska. Błąd: "
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:192
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Pomyślnie nałożono pliki ze składowiska."
 
-#: stashdialog.cpp:190
+#: stashdialog.cpp:194
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Pomyślnie porzucono pliki ze składowiska."
 
-#: stashdialog.cpp:192
+#: stashdialog.cpp:196
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Pomyślnie pobrano pliki ze składowiska."
 
-#: stashdialog.cpp:221
+#: stashdialog.cpp:225
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Nie udało się pokazać składowiska. Błąd: "
@@ -1156,6 +1161,9 @@ msgstr "Nie udało się pokazać składowiska. Błąd: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projekty"
+
+#~ msgid "Show Stash Content"
+#~ msgstr "Pokaż zawartość składowiska"
 
 #~ msgid "Delete File"
 #~ msgstr "Usuń plik"
@@ -1225,11 +1233,6 @@ msgstr "&Projekty"
 
 #~ msgid "Show diff"
 #~ msgstr "Pokaż różnice"
-
-#, fuzzy
-#~| msgid "Show raw diff"
-#~ msgid "Show Raw Diff"
-#~ msgstr "Pokaż surową różnicę"
 
 #~ msgid "Copy File Path"
 #~ msgstr "Skopiuj ścieżkę pliku"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-16 00:48+0000\n"
+"POT-Creation-Date: 2026-03-22 00:47+0000\n"
 "PO-Revision-Date: 2002-11-15 12:44+0200\n"
 "Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -158,43 +158,49 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "Kate - Umhleli Wombhalo we Wokubhekiswe phambili we KDE"
 
-#: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:369
+#: lib/commitfilesview.cpp:448 lib/kateviewmanager.cpp:369
 #: lib/kateviewmanager.cpp:371
 #, kde-format
 msgid "Open File"
 msgstr "Vula Ifayile"
 
-#: lib/commitfilesview.cpp:450 lib/katemainwindow.cpp:460
+#: lib/commitfilesview.cpp:454 lib/katemainwindow.cpp:460
 #, fuzzy, kde-format
 msgid "Copy Location"
 msgstr "Isicelo"
 
-#: lib/commitfilesview.cpp:473 lib/commitfilesview.cpp:580
-#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:477 lib/commitfilesview.cpp:594
+#: lib/commitfilesview.cpp:600 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:560
+#: lib/commitfilesview.cpp:574
 #, kde-format
 msgid "Renamed %1 => %2"
 msgstr ""
 
-#: lib/commitfilesview.cpp:580
+#: lib/commitfilesview.cpp:594
 #, kde-format
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:600 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:601
+#: lib/commitfilesview.cpp:610
 #, fuzzy, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
 msgstr "Gq&abaza"
+
+#: lib/commitfilesview.cpp:623
+#, kde-format
+msgctxt "@title:tab"
+msgid "Stash %1"
+msgstr ""
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6

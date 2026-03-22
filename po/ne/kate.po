@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-16 00:48+0000\n"
+"POT-Creation-Date: 2026-03-22 00:47+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -162,46 +162,52 @@ msgstr "केडीई राइट लेखक"
 msgid "KWrite - Text Editor"
 msgstr "क्येट - उन्नत पाठ सम्पादक"
 
-#: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:369
+#: lib/commitfilesview.cpp:448 lib/kateviewmanager.cpp:369
 #: lib/kateviewmanager.cpp:371
 #, kde-format
 msgid "Open File"
 msgstr "फाइल खोल्नुहोस्"
 
-#: lib/commitfilesview.cpp:450 lib/katemainwindow.cpp:460
+#: lib/commitfilesview.cpp:454 lib/katemainwindow.cpp:460
 #, fuzzy, kde-format
 #| msgid "Choose Location"
 msgid "Copy Location"
 msgstr "स्थान रोज्नुहोस्"
 
-#: lib/commitfilesview.cpp:473 lib/commitfilesview.cpp:580
-#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:477 lib/commitfilesview.cpp:594
+#: lib/commitfilesview.cpp:600 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:560
+#: lib/commitfilesview.cpp:574
 #, kde-format
 msgid "Renamed %1 => %2"
 msgstr ""
 
-#: lib/commitfilesview.cpp:580
+#: lib/commitfilesview.cpp:594
 #, fuzzy, kde-format
 #| msgid "Invalid Folder"
 msgid "Invalid hash"
 msgstr "अवैध फोल्डर"
 
-#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:600 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:601
+#: lib/commitfilesview.cpp:610
 #, fuzzy, kde-format
 #| msgid "Comment"
 msgctxt "@title:tab"
 msgid "Commit %1"
 msgstr "टिप्पणी"
+
+#: lib/commitfilesview.cpp:623
+#, kde-format
+msgctxt "@title:tab"
+msgid "Stash %1"
+msgstr ""
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-18 00:48+0000\n"
+"POT-Creation-Date: 2026-03-22 00:47+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -344,7 +344,7 @@ msgstr "显示上次提交"
 msgid "Open Commit..."
 msgstr "打开提交..."
 
-#: gitwidget.cpp:1143 gitwidget.cpp:1188
+#: gitwidget.cpp:1143 gitwidget.cpp:1191
 #, kde-format
 msgid "Stash"
 msgstr "储藏"
@@ -359,163 +359,170 @@ msgstr "显示历史"
 msgid "Diff - stash"
 msgstr "差异 - 储藏"
 
-#: gitwidget.cpp:1192
+#: gitwidget.cpp:1195
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "弹出上一个储藏"
 
-#: gitwidget.cpp:1196
+#: gitwidget.cpp:1199
 #, kde-format
 msgid "Pop Stash"
 msgstr "弹出储藏"
 
-#: gitwidget.cpp:1200
+#: gitwidget.cpp:1203
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "应用上一个储藏"
 
-#: gitwidget.cpp:1202
+#: gitwidget.cpp:1205
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "储藏（保留暂存区）"
 
-#: gitwidget.cpp:1206
+#: gitwidget.cpp:1209
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "储藏（包括未跟踪）"
 
-#: gitwidget.cpp:1210
+#: gitwidget.cpp:1213
 #, kde-format
 msgid "Apply Stash"
 msgstr "应用储藏"
 
-#: gitwidget.cpp:1211
+#: gitwidget.cpp:1214
 #, kde-format
 msgid "Drop Stash"
 msgstr "丢弃储藏"
 
-#: gitwidget.cpp:1212
-#, kde-format
-msgid "Show Stash Content"
-msgstr "显示储藏内容"
+#: gitwidget.cpp:1218
+#, fuzzy, kde-format
+#| msgid "Pop Stash"
+msgid "Show Stash"
+msgstr "弹出储藏"
 
-#: gitwidget.cpp:1250
+#: gitwidget.cpp:1222
+#, fuzzy, kde-format
+#| msgid "Show Diff"
+msgid "Show Stash Diff"
+msgstr "显示差异"
+
+#: gitwidget.cpp:1260
 #, kde-format
 msgid "Stage All"
 msgstr "暂存全部"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1262
 #, kde-format
 msgid "Remove All"
 msgstr "移除全部"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1262
 #, kde-format
 msgid "Discard All"
 msgstr "丢弃全部"
 
-#: gitwidget.cpp:1255
+#: gitwidget.cpp:1265
 #, kde-format
 msgid "Open .gitignore"
 msgstr "打开 .gitignore"
 
-#: gitwidget.cpp:1256 gitwidget.cpp:1305 gitwidget.cpp:1356
+#: gitwidget.cpp:1266 gitwidget.cpp:1315 gitwidget.cpp:1366
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "显示差异"
 
-#: gitwidget.cpp:1273
+#: gitwidget.cpp:1283
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "您确定要移除这些文件吗？"
 
-#: gitwidget.cpp:1278
+#: gitwidget.cpp:1288
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "您确定要放弃所有更改吗？"
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1306
 #, kde-format
 msgid "Open File"
 msgstr "打开文件"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1307
 #, kde-format
 msgid "Unstage File"
 msgstr "未暂存的文件"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1307
 #, kde-format
 msgid "Stage File"
 msgstr "暂存文件"
 
-#: gitwidget.cpp:1298
+#: gitwidget.cpp:1308
 #, kde-format
 msgid "Remove"
 msgstr "移除"
 
-#: gitwidget.cpp:1298
+#: gitwidget.cpp:1308
 #, kde-format
 msgid "Discard"
 msgstr "丢弃"
 
-#: gitwidget.cpp:1306
+#: gitwidget.cpp:1316
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "在外部 Git diff 工具中显示"
 
-#: gitwidget.cpp:1307
+#: gitwidget.cpp:1317
 #, kde-format
 msgid "Open at HEAD"
 msgstr "在 HEAD 打开"
 
-#: gitwidget.cpp:1311
+#: gitwidget.cpp:1321
 #, kde-format
 msgid "Show History"
 msgstr "显示历史"
 
-#: gitwidget.cpp:1327
+#: gitwidget.cpp:1337
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "您确定要丢弃在此文件中的更改吗？"
 
-#: gitwidget.cpp:1338
+#: gitwidget.cpp:1348
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "您确定要移除此文件吗？"
 
-#: gitwidget.cpp:1355
+#: gitwidget.cpp:1365
 #, kde-format
 msgid "Unstage All"
 msgstr "取消暂存全部"
 
-#: gitwidget.cpp:1422
+#: gitwidget.cpp:1432
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "取消暂存所选文件"
 
-#: gitwidget.cpp:1422
+#: gitwidget.cpp:1432
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "暂存所选文件"
 
-#: gitwidget.cpp:1423
+#: gitwidget.cpp:1433
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "丢弃所选文件更改"
 
-#: gitwidget.cpp:1427
+#: gitwidget.cpp:1437
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "移除所选文件"
 
-#: gitwidget.cpp:1440
+#: gitwidget.cpp:1450
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "您确定要丢弃这些更改吗？"
 
-#: gitwidget.cpp:1445
+#: gitwidget.cpp:1455
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "您确定要移除这些未跟踪的变更吗？"
@@ -1071,57 +1078,57 @@ msgstr "项目命令"
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr "储藏消息（可选）。Enter 键确认，Esc 键离开。"
 
-#: stashdialog.cpp:43
+#: stashdialog.cpp:44
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "输入以过滤，Enter 键以弹出储藏，Esc 键以离开。"
 
-#: stashdialog.cpp:143
+#: stashdialog.cpp:147
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "无法储藏更改 %1"
 
-#: stashdialog.cpp:145
+#: stashdialog.cpp:149
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "更改已储藏。"
 
-#: stashdialog.cpp:164
+#: stashdialog.cpp:168
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "获取储藏列表失败。错误："
 
-#: stashdialog.cpp:180
+#: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "应用储藏失败。错误："
 
-#: stashdialog.cpp:182
+#: stashdialog.cpp:186
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "丢弃储藏失败。错误："
 
-#: stashdialog.cpp:184
+#: stashdialog.cpp:188
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "弹出储藏失败。错误："
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:192
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "储藏已应用。"
 
-#: stashdialog.cpp:190
+#: stashdialog.cpp:194
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "储藏已丢弃。"
 
-#: stashdialog.cpp:192
+#: stashdialog.cpp:196
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "储藏已弹出。"
 
-#: stashdialog.cpp:221
+#: stashdialog.cpp:225
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "显示储藏失败。错误："
@@ -1131,3 +1138,6 @@ msgstr "显示储藏失败。错误："
 #, kde-format
 msgid "&Projects"
 msgstr "项目(&P)"
+
+#~ msgid "Show Stash Content"
+#~ msgstr "显示储藏内容"

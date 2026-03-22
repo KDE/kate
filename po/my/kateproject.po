@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-18 00:48+0000\n"
+"POT-Creation-Date: 2026-03-22 00:47+0000\n"
 "PO-Revision-Date: 2024-09-10 14:36+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -346,7 +346,7 @@ msgstr "နောက်ဆုံးအပ်နှံချက်ပြ"
 msgid "Open Commit..."
 msgstr "အပ်နှံချက်ဖွင့်…"
 
-#: gitwidget.cpp:1143 gitwidget.cpp:1188
+#: gitwidget.cpp:1143 gitwidget.cpp:1191
 #, kde-format
 msgid "Stash"
 msgstr "သိုလှောင်နေရာ"
@@ -362,164 +362,170 @@ msgstr "Gitမှတ်တမ်းပြမည်"
 msgid "Diff - stash"
 msgstr ""
 
-#: gitwidget.cpp:1192
+#: gitwidget.cpp:1195
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "နောက်ဆုံးသိုလှောင်မှု ထုတ်မည်"
 
-#: gitwidget.cpp:1196
+#: gitwidget.cpp:1199
 #, kde-format
 msgid "Pop Stash"
 msgstr ""
 
-#: gitwidget.cpp:1200
+#: gitwidget.cpp:1203
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "နောက်ဆုံးသိုလှောင်မှု သုံးမည်"
 
-#: gitwidget.cpp:1202
+#: gitwidget.cpp:1205
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "သိုလှောင်နေရာ (ပေးပို့မှုတွင် ပါဝင်သည်များ)"
 
-#: gitwidget.cpp:1206
+#: gitwidget.cpp:1209
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "သိုလှောင်နေရာ (မစောင့်ကြည့်ထားသောဖိုင်လ်များအပါအဝင်)"
 
-#: gitwidget.cpp:1210
+#: gitwidget.cpp:1213
 #, kde-format
 msgid "Apply Stash"
 msgstr "သိုလှောင်မှုသုံးမည်"
 
-#: gitwidget.cpp:1211
+#: gitwidget.cpp:1214
 #, kde-format
 msgid "Drop Stash"
 msgstr "သိုလှောင်နေရာ ပစ်ချမည်"
 
-#: gitwidget.cpp:1212
-#, kde-format
-msgid "Show Stash Content"
+#: gitwidget.cpp:1218
+#, fuzzy, kde-format
+#| msgid "Show Stash Content"
+msgid "Show Stash"
 msgstr "သိုလှောင်နေရာ၏ ပါဝင်ဒေတာများ ပြမည်"
 
-#: gitwidget.cpp:1250
+#: gitwidget.cpp:1222
+#, fuzzy, kde-format
+msgid "Show Stash Diff"
+msgstr "Diff အထုတ်"
+
+#: gitwidget.cpp:1260
 #, kde-format
 msgid "Stage All"
 msgstr "အားလုံးကို ပေးပို့မှုတွင် ပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1262
 #, kde-format
 msgid "Remove All"
 msgstr "အကုန်ဖယ်ရှားမည်"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1262
 #, kde-format
 msgid "Discard All"
 msgstr "အကုန် ပစ်ပယ်မည်"
 
-#: gitwidget.cpp:1255
+#: gitwidget.cpp:1265
 #, kde-format
 msgid "Open .gitignore"
 msgstr ".gitignore ဖွင့်မည်"
 
-#: gitwidget.cpp:1256 gitwidget.cpp:1305 gitwidget.cpp:1356
+#: gitwidget.cpp:1266 gitwidget.cpp:1315 gitwidget.cpp:1366
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Diff ပြ"
 
-#: gitwidget.cpp:1273
+#: gitwidget.cpp:1283
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr ""
 
-#: gitwidget.cpp:1278
+#: gitwidget.cpp:1288
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr ""
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1306
 #, kde-format
 msgid "Open File"
 msgstr "ဖိုင်ဖွင့်"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1307
 #, kde-format
 msgid "Unstage File"
 msgstr "ဖိုင်ခြေတစ်လှမ်းဆုတ်မည်"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1307
 #, kde-format
 msgid "Stage File"
 msgstr "ဖိုင်ခြေတစ်လှမ်းတိုးမည်"
 
-#: gitwidget.cpp:1298
+#: gitwidget.cpp:1308
 #, kde-format
 msgid "Remove"
 msgstr "ဖယ်ရှားမည်"
 
-#: gitwidget.cpp:1298
+#: gitwidget.cpp:1308
 #, kde-format
 msgid "Discard"
 msgstr "ပစ်ပယ်မည်"
 
-#: gitwidget.cpp:1306
+#: gitwidget.cpp:1316
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr ""
 
-#: gitwidget.cpp:1307
+#: gitwidget.cpp:1317
 #, kde-format
 msgid "Open at HEAD"
 msgstr "HEADတွင် ဖွင့်မည်"
 
-#: gitwidget.cpp:1311
+#: gitwidget.cpp:1321
 #, fuzzy, kde-format
 #| msgid "Show Git History"
 msgid "Show History"
 msgstr "Gitမှတ်တမ်းပြမည်"
 
-#: gitwidget.cpp:1327
+#: gitwidget.cpp:1337
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr ""
 
-#: gitwidget.cpp:1338
+#: gitwidget.cpp:1348
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "ဤဖိုင်လ်ကို သင်တကယ်ဖျက်တော့မည်လား။"
 
-#: gitwidget.cpp:1355
+#: gitwidget.cpp:1365
 #, kde-format
 msgid "Unstage All"
 msgstr "အားလုံးကို ပေးပို့မှုတွင် မပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1422
+#: gitwidget.cpp:1432
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "ရွေးထားသောဖိုင်လ်များကို ပေးပို့မှုတွင် မပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1422
+#: gitwidget.cpp:1432
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "ရွေးထားသောဖိုင်လ်များကို ပေးပို့မှုတွင် ပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1423
+#: gitwidget.cpp:1433
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "ရွေးထားသော ဖိုင်လ်များ ပစ်ပယ်မည်"
 
-#: gitwidget.cpp:1427
+#: gitwidget.cpp:1437
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "ရွေးထားသော ဖိုင်လ်များ ဖယ်ရှားမည်"
 
-#: gitwidget.cpp:1440
+#: gitwidget.cpp:1450
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr ""
 
-#: gitwidget.cpp:1445
+#: gitwidget.cpp:1455
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
@@ -1074,57 +1080,57 @@ msgstr "ပရောဂျက်ကူးရေးမှု"
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
 
-#: stashdialog.cpp:43
+#: stashdialog.cpp:44
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
 
-#: stashdialog.cpp:143
+#: stashdialog.cpp:147
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "ပြောင်းလဲမှုများ သိုလှောင်မှုမအောင်မြင်ပါ %1"
 
-#: stashdialog.cpp:145
+#: stashdialog.cpp:149
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "ပြောင်းလဲမှုများကို အောင်မြင်စွာသိုလှောင်နိုင်ခဲ့သည်"
 
-#: stashdialog.cpp:164
+#: stashdialog.cpp:168
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr ""
 
-#: stashdialog.cpp:180
+#: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr ""
 
-#: stashdialog.cpp:182
+#: stashdialog.cpp:186
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr ""
 
-#: stashdialog.cpp:184
+#: stashdialog.cpp:188
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr ""
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:192
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "သိုလှောင်နေရာမှ အရာများ အောင်မြင်စွာ အသုံးချခဲ့သည်။"
 
-#: stashdialog.cpp:190
+#: stashdialog.cpp:194
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "သိုလှောင်နေရာမှ အရာများ ပစ်ချခဲ့သည်။"
 
-#: stashdialog.cpp:192
+#: stashdialog.cpp:196
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "သိုလှောင်နေရာမှ အရာများ အောင်မြင်စွာ ပြန်လည်အသုံးချခဲ့သည်။"
 
-#: stashdialog.cpp:221
+#: stashdialog.cpp:225
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr ""
@@ -1185,10 +1191,6 @@ msgstr "&Pပရောဂျက်များ"
 
 #, fuzzy
 #~ msgid "Show diff"
-#~ msgstr "Diff အထုတ်"
-
-#, fuzzy
-#~ msgid "Show Raw Diff"
 #~ msgstr "Diff အထုတ်"
 
 #~ msgid "Copy File Path"

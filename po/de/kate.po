@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-16 00:48+0000\n"
+"POT-Creation-Date: 2026-03-22 00:47+0000\n"
 "PO-Revision-Date: 2026-03-16 17:27+0100\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -167,43 +167,49 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "KWrite – Texteditor"
 
-#: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:369
+#: lib/commitfilesview.cpp:448 lib/kateviewmanager.cpp:369
 #: lib/kateviewmanager.cpp:371
 #, kde-format
 msgid "Open File"
 msgstr "Datei öffnen"
 
-#: lib/commitfilesview.cpp:450 lib/katemainwindow.cpp:460
+#: lib/commitfilesview.cpp:454 lib/katemainwindow.cpp:460
 #, kde-format
 msgid "Copy Location"
 msgstr "Ort kopieren"
 
-#: lib/commitfilesview.cpp:473 lib/commitfilesview.cpp:580
-#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:477 lib/commitfilesview.cpp:594
+#: lib/commitfilesview.cpp:600 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:560
+#: lib/commitfilesview.cpp:574
 #, kde-format
 msgid "Renamed %1 => %2"
 msgstr "%1 umbenannt in %2"
 
-#: lib/commitfilesview.cpp:580
+#: lib/commitfilesview.cpp:594
 #, kde-format
 msgid "Invalid hash"
 msgstr "Ungültiger Hash"
 
-#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:600 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 existiert in keinem Git-Repo."
 
-#: lib/commitfilesview.cpp:601
+#: lib/commitfilesview.cpp:610
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
 msgstr "Commit %1"
+
+#: lib/commitfilesview.cpp:623
+#, kde-format
+msgctxt "@title:tab"
+msgid "Stash %1"
+msgstr ""
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6

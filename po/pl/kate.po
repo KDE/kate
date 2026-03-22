@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1731923 $
+# Version: $Revision: 1732857 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-10 02:47+0000\n"
-"PO-Revision-Date: 2026-03-07 08:43+0100\n"
+"PO-Revision-Date: 2026-03-21 07:16+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -1027,17 +1027,13 @@ msgid "PATH"
 msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:128
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
-"Lisa katalogów oddzielonych %1, w których Kate będzie szukać programów do "
+"Lista katalogów oddzielonych %1, w których Kate będzie szukać programów do "
 "uruchomienia. Lista ta dołączona do zmiennej środowiskowej PATH na jej "
 "początku, np.'/home/UŻYTKOWNIK/myapps/bin/:/home/UŻYTKOWNIK/.local/bin'"
 
@@ -1259,24 +1255,17 @@ msgstr "Gdy niezaznaczone, to nowa karta otworzy się na końcu."
 #: lib/kateconfigdialog.cpp:314
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "Zezwól na krążenie po kartach"
 
 #: lib/kateconfigdialog.cpp:316
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"Zezwól na krążenie po kartach. Gdy odznaczone, to działanie 'Następna "
-"Karta'/'Poprzednia karta' przejdzie do pierwszej/ostatniej karty po "
-"osiągnięciu końca"
+"Gdy odznaczone, to działanie '%1'/'%2' nie przejdzie do pierwszej/ostatniej "
+"karty po osiągnięciu końca."
 
 #: lib/kateconfigdialog.cpp:339
 #, kde-format
@@ -2141,10 +2130,9 @@ msgstr ""
 "\"%1\""
 
 #: lib/katemwmodonhddialog.cpp:281
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Failed to create a temporary file"
-msgstr "Nie udało się pobrać historii pliku: %1"
+msgstr "Nie udało się utworzyć pliku tymczasowego"
 
 #: lib/katemwmodonhddialog.cpp:292
 #, kde-format
@@ -2625,10 +2613,9 @@ msgid "Close &Other Tabs"
 msgstr "Zamknij p&ozostałe karty"
 
 #: lib/kateviewspace.cpp:1137
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Zamknij wszystkie"
+msgstr "Zamknij wszystkie kar&ty"
 
 #: lib/kateviewspace.cpp:1170
 #, kde-format
@@ -2643,12 +2630,12 @@ msgstr "Otwiera dokument w nowym oknie i zamyka go w bieżącym oknie"
 #: lib/kateviewspace.cpp:1216
 #, kde-format
 msgid "Compare with Active Document"
-msgstr "Porównaj z bieżącym dokumentem "
+msgstr "Porównaj z bieżącym dokumentem"
 
 #: lib/kateviewspace.cpp:1222
 #, kde-format
 msgid "Compare with Active Document Using"
-msgstr "Porównaj z bieżącym dokumentem używając"
+msgstr "Porównaj z bieżącym dokumentem, używając"
 
 #: lib/kateviewspace.cpp:1230
 #, kde-format

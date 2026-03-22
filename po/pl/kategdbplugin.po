@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2011, 2012, 2014, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+# SPDX-FileCopyrightText: 2011, 2012, 2014, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2013.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-21 00:49+0000\n"
-"PO-Revision-Date: 2025-07-26 19:33+0200\n"
+"PO-Revision-Date: 2026-03-21 07:14+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #: backend.cpp:48 dapbackend.cpp:175
 #, kde-format
@@ -28,48 +28,42 @@ msgstr ""
 "Trwa sesja diagnostyczna. Uruchom ponownie, aby zatrzymać bieżącą sesję."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Pułapka"
+msgstr "Pułapki na wierszach"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "pułapki funkcji"
+msgstr "Pułapki na funkcjach"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "pułapki funkcji"
+msgstr "Pułapki na wyjątkach"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "potwierdzona"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "oczekująca"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "pułapki funkcji"
+msgstr "Dodaj pułapkę na funkcji…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Wyczyść wszystkie pułapki"
+msgstr "Wyczyść wszystkie pułapki na funkcjach"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Usuń pułapkę"
 
@@ -81,26 +75,22 @@ msgstr "Pułapka"
 #: breakpointview.cpp:1556
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr "wierz %1 ma już pułapkę"
+msgstr "wiersz %1 ma już pułapkę"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "ustawiono pułapkę"
+msgstr "Nie ustawiono żadnej pułapki"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "pułapki funkcji"
+msgstr "Dodaj pułapkę na funkcji"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "Funkcja"
+msgstr "Nazwa funkcji:"
 
 #: configview.cpp:92
 #, kde-format
@@ -377,10 +367,9 @@ msgid "terminate debuggee"
 msgstr "zakończ diagnozowanego"
 
 #: dapbackend.cpp:665
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "pułapki funkcji"
+msgstr "filtry pułapek na wyjątkach"
 
 #: dapbackend.cpp:812
 #, kde-format
@@ -519,10 +508,9 @@ msgid "Debugger"
 msgstr "Debugger"
 
 #: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
+#, kde-format
 msgid "Failed to open file: %1"
-msgstr "nie określono pliku: %1"
+msgstr "Nie udało się otworzyć pliku: %1"
 
 #: debugconfigpage.cpp:136
 #, kde-format
@@ -548,13 +536,13 @@ msgstr "Dane JSON są nieprawidłowe: %1"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "Nie udało się przetworzyć .vscode/launch.json w %1. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " w %1:%2"
 
 #: localsview.cpp:39
 #, kde-format
@@ -622,10 +610,9 @@ msgid "Locals and Stack"
 msgstr "Lokalne i stos"
 
 #: plugin_kategdb.cpp:128
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Pułapka"
+msgstr "Pułapki"
 
 #: plugin_kategdb.cpp:215
 #, kde-kuit-format
@@ -730,10 +717,9 @@ msgid "Insert breakpoint"
 msgstr "Wstaw pułapkę"
 
 #: plugin_kategdb.cpp:444
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Usuń pułapkę"
+msgstr "Przełącz pułapkę"
 
 #: plugin_kategdb.cpp:559
 #, kde-format

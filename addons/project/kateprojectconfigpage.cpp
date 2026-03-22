@@ -55,8 +55,8 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
              "such as those excluded via .gitignore."));
     vbox->addWidget(m_cbDirectoryListing);
 
-    m_cbShowHiddenFiles = new QCheckBox(i18n("Show hidden files"), this);
-    m_cbShowHiddenFiles->setWhatsThis(i18n("Show hidden files (dotfiles) in the project file tree."));
+    m_cbShowHiddenFiles = new QCheckBox(i18n("Show hidden files in non-VCS projects"), this);
+    m_cbShowHiddenFiles->setWhatsThis(i18n("Show hidden files (dotfiles) in the project file tree for projects not loaded using version control."));
     vbox->addWidget(m_cbShowHiddenFiles);
 
     vbox->addStretch(1);

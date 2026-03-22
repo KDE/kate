@@ -389,7 +389,6 @@ void KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry
     if (m_directoryListing) {
         QVariantMap dirEntry;
         dirEntry[QStringLiteral("directory")] = QStringLiteral("./");
-        dirEntry[QStringLiteral("hidden")] = m_showHiddenFiles;
         dirEntry[QStringLiteral("recursive")] = recursive;
         filesFromDirectory(dir, recursive, dirEntry, outFiles);
         return;
@@ -717,7 +716,7 @@ void KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, const QVari
      * setup our filters
      */
     QDir::Filters filterFlags = QDir::Files | QDir::Dirs | QDir::NoDot | QDir::NoDotDot;
-    if (filesEntry.value(QStringLiteral("hidden")).toBool()) {
+    if (m_showHiddenFiles || filesEntry.value(QStringLiteral("hidden")).toBool()) {
         filterFlags |= QDir::Hidden;
     }
     dir.setFilter(filterFlags);

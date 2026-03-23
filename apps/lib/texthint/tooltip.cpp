@@ -15,6 +15,7 @@
 #include <QScreen>
 #include <QScrollBar>
 #include <QString>
+#include <QStyle>
 #include <QTextBrowser>
 #include <QTimer>
 
@@ -99,11 +100,14 @@ public:
         , m_manual(manual)
         , m_hoveredWordRange(wordRange)
     {
+        const auto margin = style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing, nullptr, this);
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         setAttribute(Qt::WA_DeleteOnClose, true);
-        document()->setDocumentMargin(5);
+        document()->setDocumentMargin(margin);
         document()->setTextWidth(-1);
-        setFrameStyle(QFrame::Box | QFrame::Raised);
+        setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+        setProperty("_breeze_force_frame", true);
+        setAttribute(Qt::WA_TranslucentBackground);
         connect(&m_hideTimer, &QTimer::timeout, this, &TooltipPrivate::hideTooltip);
         setWordWrapMode(QTextOption::WordWrap);
 

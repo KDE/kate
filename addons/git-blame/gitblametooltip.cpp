@@ -12,6 +12,7 @@
 #include <QMouseEvent>
 #include <QScrollBar>
 #include <QString>
+#include <QStyle>
 #include <QTextBrowser>
 #include <QTimer>
 
@@ -141,8 +142,11 @@ public:
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         setWordWrapMode(QTextOption::NoWrap);
-        document()->setDocumentMargin(10);
-        setFrameStyle(QFrame::Box | QFrame::Raised);
+        const auto margin = style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing, nullptr, this);
+        document()->setDocumentMargin(margin);
+        setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+        setProperty("_breeze_force_frame", true);
+        setAttribute(Qt::WA_TranslucentBackground);
         setOpenLinks(false);
         connect(&m_hideTimer, &QTimer::timeout, this, &GitBlameTooltipPrivate::hideTooltip);
 

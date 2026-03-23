@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-15 00:08+0100\n"
+"PO-Revision-Date: 2026-03-22 12:09+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -23,32 +23,32 @@ msgstr ""
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr "Hautatu eskuratu beharreko adarra. Sakatu 'Ihes' uzteko."
+msgstr "Hautatu aldatu beharreko adarra. Sakatu 'Ihes' ezeztatzeko."
 
 #: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr "%1 adarra eskuratuta"
+msgstr "%1 adarrera aldatu da"
 
 #: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr "%1 adarrera eskuratzea huts egin du, Errorea: %2"
+msgstr "%1 adarrera aldatzea huts egin du, Errorea: %2"
 
 #: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr "Sartu adar izen berria. Sakatu 'Ihes' uzteko."
+msgstr "Sartu adar berriaren izena. Sakatu 'Ihes' ezeztatzeko."
 
 #: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr "Hautatu hartatik eskuratu beharreko adarra. Sakatu 'Ihes' uzteko."
+msgstr "Hautatu zein adarretatik sortu. Sakatu 'Ihes' ezeztatzeko."
 
 #: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr "Adar berrira eskuratuta: %1"
+msgstr "Adar berrira aldatu da: %1"
 
 #: branchcheckoutdialog.cpp:135
 #, kde-format
@@ -401,16 +401,14 @@ msgid "Drop Stash"
 msgstr "Kendu aldi baterako gordetakoa"
 
 #: gitwidget.cpp:1218
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "Berreskuratu aldi baterako gordetakoa"
+msgstr "Erakutsi aldi baterako gordetakoa"
 
 #: gitwidget.cpp:1222
-#, fuzzy, kde-format
-#| msgid "Show raw diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "Erakutsi «diff» gordina"
+msgstr "Erakutsi aldi baterako gordetakoaren ezberdintasunak"
 
 #: gitwidget.cpp:1260
 #, kde-format
@@ -559,7 +557,7 @@ msgstr "Proiektua"
 #: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
-msgstr "<aztarna jarraitzeke>"
+msgstr "<jarraitu gabe>"
 
 #: kateprojectcompletion.cpp:52
 #, kde-format
@@ -578,7 +576,7 @@ msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"Proiektu-plugina, .kateproject fitxategia zehaztu gabe dagoenean,  "
+"Proiektu-plugina, oraindik .kateproject fitxategirik zehaztu gabe dagoenean, "
 "gordetegiko laneko kopiak automatikoki zamatzeko eta zuhaitzak eraikitzeko "
 "gai da."
 
@@ -616,12 +614,12 @@ msgstr "Saioaren jokabidea"
 #: kateprojectconfigpage.cpp:48
 #, kde-format
 msgid "Session settings for projects"
-msgstr "Proiektuetarako saioaren ezarpenak"
+msgstr "Proiektuen saio-ezarpenak"
 
 #: kateprojectconfigpage.cpp:49
 #, kde-format
 msgid "Restore Open Projects"
-msgstr "Lehengoratu Ireki proiektuak"
+msgstr "Lehengoratu irekitako proiektuak"
 
 #: kateprojectconfigpage.cpp:56
 #, kde-format
@@ -632,7 +630,7 @@ msgstr "Proiektuaren indizea"
 #: kateprojectconfigpage.cpp:57
 #, kde-format
 msgid "Project ctags index settings"
-msgstr "Proiektuaren «ctags» indizeen ezarpenak"
+msgstr "Proiektuaren ctags indizearen ezarpenak"
 
 #: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:208
 #, kde-format
@@ -650,8 +648,8 @@ msgid ""
 "The system temporary directory is used if not specified, which may overflow "
 "for very large repositories"
 msgstr ""
-"Sistemaren aldi baterako direktorioa erabiltzen da besterik adierazi ezean, "
-"gainezka egin dezake gordetegi oso handiekin."
+"Zehazten ez bada, sistemaren aldi baterako direktorioa erabiltzen da, eta "
+"gordetegi oso handiekin gainezka egin dezake."
 
 #: kateprojectconfigpage.cpp:72
 #, kde-format
@@ -664,17 +662,17 @@ msgstr "Proiektu-arteko funtzionaltasuna"
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
 msgstr ""
-"Proiektu plugina proiektu anitzen artean zenbait eragiketa gauzatzeko gai da"
+"Proiektu-plugina hainbat proiektutan zehar eragiketa batzuk egiteko gai da."
 
 #: kateprojectconfigpage.cpp:74
-#, kde-format
+#, fuzzy, kde-format
 msgid "Cross-Project Completion"
-msgstr "Proiektu-arteko osatzea"
+msgstr "Proiektu artean osatzea"
 
 #: kateprojectconfigpage.cpp:76
-#, kde-format
+#, fuzzy, kde-format
 msgid "Cross-Project Goto Symbol"
-msgstr "Proiektu-arteko Joan ikurrera"
+msgstr "Proiektu artean Joan ikurrera"
 
 #: kateprojectconfigpage.cpp:84
 #, kde-format
@@ -683,7 +681,7 @@ msgid "Git"
 msgstr "Git"
 
 #: kateprojectconfigpage.cpp:87
-#, kde-format
+#, fuzzy, kde-format
 msgid "Single click action in the git status view"
 msgstr "Klik bakarreko ekintza «git status» ikuspegian"
 
@@ -703,7 +701,7 @@ msgid "Stage / Unstage"
 msgstr "Prestatu / Prestaketatik kendu"
 
 #: kateprojectconfigpage.cpp:99
-#, kde-format
+#, fuzzy, kde-format
 msgid "Double click action in the git status view"
 msgstr "Klik bikoitzeko ekintza «git status» ikuspegian"
 
@@ -760,7 +758,7 @@ msgstr "Oharrak"
 #: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
-msgstr "Hasi analisiarekin..."
+msgstr "Hasi analisiarekin…"
 
 #: kateprojectinfoviewcodeanalysis.cpp:42
 #, kde-format
@@ -774,12 +772,12 @@ msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"'%1' ez dago zure sisteman instalatuta, %2.<br/><br/>%3. Tresna, fitxategi-"
+"'%1' ez dago instalatuta zure sisteman, %2.<br/><br/>%3. Tresna, fitxategi-"
 "luzapen zerrenda horrekin bat datozen proiektuko fitxategi guztietan "
 "exekutatuko da:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:109
-#, kde-format
+#, fuzzy, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"

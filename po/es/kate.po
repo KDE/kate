@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-16 14:21+0100\n"
+"PO-Revision-Date: 2026-03-22 18:55+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -211,7 +211,7 @@ msgstr "Confirmar %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "Reserva %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6

@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-16 14:35+0100\n"
+"PO-Revision-Date: 2026-03-22 15:55+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -216,7 +216,7 @@ msgstr "Vastleggen (commit) %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "Stapel %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6

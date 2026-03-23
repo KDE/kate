@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-19 20:46+0100\n"
+"PO-Revision-Date: 2026-03-22 09:55+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -204,13 +204,13 @@ msgstr "%1 ez da existitzen «git» gordetegi batean."
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Baliozkotu %1"
+msgstr "Finkatu %1"
 
 #: lib/commitfilesview.cpp:623
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "Aldi baterako gorde %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -543,7 +543,7 @@ msgstr "Diff %1 .. %2"
 #: lib/diff/diffwidget.cpp:151
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr "Erakutsi/Ezkutatu baliozkotze informazioa"
+msgstr "Erakutsi/Ezkutatu finkatze informazioa"
 
 #: lib/diff/diffwidget.cpp:156
 #, kde-format
@@ -617,10 +617,10 @@ msgstr ""
 "Egunkaria iragazi.<ul><li>Erabili<code>\"a:\"</code> aurrizkia egile-"
 "izenaren arabera iragazteko. Adibidez, <b>!a:aratz mendia</b></"
 "li><li>Erabili <code>\"since:\"</code> aurrizkia adierazitako data ondorengo "
-"baliozkotzeak (commits) erakusteko. Baliozkotze bakoitzaren egilearen data "
+"Finkapenak (commits) erakusteko. Finkapen bakoitzaren egilearen data "
 "egiaztatuko da. Dataren formatua uuuu-HH-ee da, adib., <b>since:2025-04-17</"
 "b></li><li>Erabili <code>\"until:\"</code> aurrizkia adierazitako data "
-"aurreko baliozkotzeak Baliozkotze bakoitzaren egilearen data egiaztatuko da. "
+"aurreko baliozkotzeak Finkapen bakoitzaren egilearen data egiaztatuko da. "
 "Dataren formatua uuuu-HH-ee da, adib., <b>since:2025-04-17</b></"
 "li><li>Mezuak iragazteko, bilatu beharreko terminoa tekleatu. Bilaketa "
 "termino anizkoitzak adierazten badira, bilaketa-termino guztiekin bat "
@@ -643,13 +643,13 @@ msgstr "Fitxategi-historia lortzea huts egin du: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr "Kopiatu baliozkotzearen «Hash»"
+msgstr "Kopiatu finkapenaren Hash-a"
 
 #: lib/filehistorywidget.cpp:576
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr "Erakutsi baliozkotze osoa"
+msgstr "Erakutsi finkapen osoa"
 
 #: lib/filehistorywidget.cpp:712
 #, kde-format

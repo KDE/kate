@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-11 11:13+0100\n"
+"PO-Revision-Date: 2026-03-22 09:21+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -402,16 +402,14 @@ msgid "Drop Stash"
 msgstr "Llença la modificació temporal"
 
 #: gitwidget.cpp:1218
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "Aplica («Pop») una modificació temporal"
+msgstr "Mostra una modificació temporal («Stash»)"
 
 #: gitwidget.cpp:1222
-#, fuzzy, kde-format
-#| msgid "Show Diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "Mostra el «diff»"
+msgstr "Mostra el «diff» d'una modificació temporal"
 
 #: gitwidget.cpp:1260
 #, kde-format

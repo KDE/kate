@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-11 11:03+0200\n"
+"PO-Revision-Date: 2026-03-22 23:05+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -404,16 +404,14 @@ msgid "Drop Stash"
 msgstr "Відкинути накопичення"
 
 #: gitwidget.cpp:1218
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "Виштовхнути накопичення"
+msgstr "Показати накопичення"
 
 #: gitwidget.cpp:1222
-#, fuzzy, kde-format
-#| msgid "Show Raw Diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "Показати необроблену різницю"
+msgstr "Показати різницю накопичення"
 
 #: gitwidget.cpp:1260
 #, kde-format

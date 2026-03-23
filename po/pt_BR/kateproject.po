@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-11 08:47-0300\n"
+"PO-Revision-Date: 2026-03-22 07:00-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -405,16 +405,14 @@ msgid "Drop Stash"
 msgstr "Soltar modificação temporária"
 
 #: gitwidget.cpp:1218
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "Repor uma modificação temporária"
+msgstr "Exibir modificação temporária"
 
 #: gitwidget.cpp:1222
-#, fuzzy, kde-format
-#| msgid "Show raw diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "Mostrar diff bruto"
+msgstr "Exibir diferença da modificação temporária"
 
 #: gitwidget.cpp:1260
 #, kde-format

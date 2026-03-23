@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-11 13:04+0300\n"
+"PO-Revision-Date: 2026-03-22 11:15+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -400,16 +400,14 @@ msgid "Drop Stash"
 msgstr "Zulayı Bırak"
 
 #: gitwidget.cpp:1218
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "Zulayı Patlat"
+msgstr "Zulayı Göster"
 
 #: gitwidget.cpp:1222
-#, fuzzy, kde-format
-#| msgid "Show Diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "Diff’i Göster"
+msgstr "Zula Diff’ini Göster"
 
 #: gitwidget.cpp:1260
 #, kde-format

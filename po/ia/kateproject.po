@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-11 12:50+0100\n"
+"PO-Revision-Date: 2026-03-23 17:02+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -400,16 +400,14 @@ msgid "Drop Stash"
 msgstr "Drop Stash (abandona celario)"
 
 #: gitwidget.cpp:1218
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "Pop Stash (emerge celario)"
+msgstr "Monstra Stash (celario)"
 
 #: gitwidget.cpp:1222
-#, fuzzy, kde-format
-#| msgid "Show raw diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "Monstra diff brute"
+msgstr "Monstra diff de Stash"
 
 #: gitwidget.cpp:1260
 #, kde-format

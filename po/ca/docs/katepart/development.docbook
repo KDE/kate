@@ -903,7 +903,7 @@
 <para
 ><userinput
 >char</userinput
->, és un caràcter codificat.</para>
+>, és un caràcter codificat. Si no s'especifica, la verificació de l'ortografia ignorarà aquesta codificació.</para>
 <para
 ><userinput
 >string</userinput

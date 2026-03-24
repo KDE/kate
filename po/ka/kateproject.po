@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-11 05:54+0100\n"
+"PO-Revision-Date: 2026-03-23 03:17+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -399,16 +399,14 @@ msgid "Drop Stash"
 msgstr "სამალავის მოცილება"
 
 #: gitwidget.cpp:1218
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "სამალავიდან ამოღება"
+msgstr "სამალავის ჩვენება"
 
 #: gitwidget.cpp:1222
-#, fuzzy, kde-format
-#| msgid "Show Raw Diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "დაუმუშავებელი სხვაობის ჩვენება"
+msgstr "სამალავის სხვაობის ჩვენება"
 
 #: gitwidget.cpp:1260
 #, kde-format

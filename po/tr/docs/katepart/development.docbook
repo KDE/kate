@@ -919,7 +919,7 @@
 <para
 ><userinput
 >char</userinput
->, bir kodlanmış karakterdir.</para>
+>, bir kodlanmış karakterdir. Belirtilmemişse yazım denetçisi bu kodlamayı yok sayar.</para>
 <para
 ><userinput
 >string</userinput

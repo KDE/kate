@@ -945,7 +945,7 @@
 <para
 >O <userinput
 >char</userinput
-> é um caractere codificado.</para>
+> é um caractere codificado. Caso não seja especificada, a verificação ortográfica ignorará essa codificação.</para>
 <para
 >O <userinput
 >string</userinput

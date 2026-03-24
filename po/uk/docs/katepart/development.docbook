@@ -921,7 +921,7 @@
 <para
 ><userinput
 >char</userinput
-> — кодований символ.</para>
+> — кодований символ. Якщо вказано, при перевірці правопису це кодування буде проігноровано.</para>
 <para
 ><userinput
 >string</userinput

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-17 11:09+0100\n"
+"PO-Revision-Date: 2026-03-23 17:00+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -200,7 +200,7 @@ msgstr "Commit (Committer) %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "Stash %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6

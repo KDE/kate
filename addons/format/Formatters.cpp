@@ -171,97 +171,6 @@ void FormatterRunner::onResultReady(const RunOutput &o)
     }
 }
 
-void PrettierFormat::setupNode()
-{
-    if (s_nodeProcess && s_nodeProcess->state() == QProcess::Running) {
-        return;
-    }
-
-    m_config = m_globalConfig.value(m_fmt.name).toObject();
-    const QStringList cmd = readCommandFromJson(m_config);
-    if (cmd.isEmpty()) {
-        return;
-    }
-    const QString node = safeExecutableName(cmd.first());
-    if (node.isEmpty()) {
-        Q_EMIT message(i18n("Please install node and prettier"));
-        return;
-    }
-
-    delete s_tempFile;
-    s_tempFile = new QTemporaryFile(KTextEditor::Editor::instance());
-    if (!s_tempFile->open()) {
-        Q_EMIT message(i18n("PrettierFormat: Failed to create temporary file"));
-        return;
-    }
-    QFile prettierServer(QStringLiteral(":/formatting/prettier_script.js"));
-    bool opened = prettierServer.open(QFile::ReadOnly);
-    Q_ASSERT(opened);
-    s_tempFile->write(prettierServer.readAll());
-    s_tempFile->close();
-
-    // Static node process
-    s_nodeProcess = new QProcess(KTextEditor::Editor::instance());
-    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::destroyed, s_nodeProcess, [] {
-        s_nodeProcess->kill();
-        s_nodeProcess->waitForFinished();
-    });
-
-    s_nodeProcess->setProgram(node);
-    s_nodeProcess->setArguments({s_tempFile->fileName()});
-
-    startHostProcess(*s_nodeProcess, QProcess::ReadWrite);
-    if (!s_nodeProcess->waitForStarted()) {
-        Q_EMIT message(i18n("PrettierFormat: Failed to start 'node': %1", s_nodeProcess->errorString()));
-    }
-}
-
-void PrettierFormat::onReadyReadOut()
-{
-    m_runOutput.out += s_nodeProcess->readAllStandardOutput();
-    if (m_runOutput.out.endsWith("[[{END_PRETTIER_SCRIPT}]]")) {
-        m_runOutput.out.truncate(m_runOutput.out.size() - (sizeof("[[{END_PRETTIER_SCRIPT}]]") - 1));
-        QJsonParseError e;
-        QJsonDocument doc = QJsonDocument::fromJson(m_runOutput.out, &e);
-        m_runOutput.out = {};
-        if (e.error != QJsonParseError::NoError) {
-            Q_EMIT message(e.errorString());
-        } else {
-            const auto obj = doc.object();
-            const auto formatted = obj[QLatin1String("formatted")].toString().toUtf8();
-            const auto cursor = obj[QLatin1String("cursorOffset")].toInt(-1);
-            Q_EMIT textFormatted(this, m_doc, formatted, cursor);
-        }
-    }
-}
-
-void PrettierFormat::onReadyReadErr()
-{
-    const QByteArray err = s_nodeProcess->readAllStandardError();
-    if (!err.isEmpty()) {
-        Q_EMIT message(QString::fromUtf8(err));
-    }
-}
-
-void PrettierFormat::run(KTextEditor::Document *doc)
-{
-    setupNode();
-    if (!s_nodeProcess) {
-        return;
-    }
-
-    const QString path = doc->url().toLocalFile();
-    connect(s_nodeProcess, &QProcess::readyReadStandardOutput, this, &PrettierFormat::onReadyReadOut);
-    connect(s_nodeProcess, &QProcess::readyReadStandardError, this, &PrettierFormat::onReadyReadErr);
-
-    QJsonObject o;
-    o[QLatin1String("filePath")] = path;
-    o[QLatin1String("stdinFilePath")] = filenameFromMode(doc);
-    o[QLatin1String("source")] = originalText;
-    o[QLatin1String("cursorOffset")] = doc->cursorToOffset(m_pos);
-    s_nodeProcess->write(QJsonDocument(o).toJson(QJsonDocument::Compact) + '\0');
-}
-
 static Formatter newStdinFmt(const char *name, QStringList &&args)
 {
     return {.name = QString::fromUtf8(name), .args = std::move(args), .supportsStdin = true};
@@ -278,9 +187,9 @@ inline static Formatter jqFmt(KTextEditor::Document *doc)
 }
 
 #define S(s) QStringLiteral(s)
-static Formatter prettier()
+static Formatter prettier(KTextEditor::Document *doc)
 {
-    return Formatter{.name = S("prettier"), .args = {}, .supportsStdin = true};
+    return Formatter{.name = S("prettier"), .args = {S("--stdin-filepath"), filenameFromMode(doc)}, .supportsStdin = true};
 }
 
 static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &config)
@@ -301,14 +210,14 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
         return newStdinFmt("dart",
                            {S("format"), S("--output=show"), S("--summary=none"), S("--stdin-name"), doc->url().toDisplayString(QUrl::PreferLocalFile)});
     } else if (is("html")) {
-        return prettier();
+        return prettier(doc);
     } else if (is("javascript") || is("typescript") || is("typescript react (tsx)") || is("javascript react (jsx)") || is("css")) {
-        return prettier();
+        return prettier(doc);
     } else if (is("json")) {
         const auto configValue = config.value(QLatin1String("formatterForJson")).toString();
         Formatters f = formatterForName(configValue, Formatters::Prettier);
         if (f == Formatters::Prettier) {
-            return prettier();
+            return prettier(doc);
         } else if (f == Formatters::ClangFormat) {
             return newStdinFmt("clang-format", {S("--assume-filename=%1").arg(filenameFromMode(doc))});
         } else if (f == Formatters::Jq) {
@@ -355,7 +264,7 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
         if (f == Formatters::YamlFmt) {
             return newStdinFmt("yamlfmt", {});
         } else if (f == Formatters::Prettier) {
-            return prettier();
+            return prettier(doc);
         }
         Utils::showMessage(i18n("Unknown formatterForYaml: %1, falling back to yamlfmt", configValue), {}, i18n("Format"), MessageType::Error);
         return newStdinFmt("yamlfmt", {});
@@ -390,9 +299,6 @@ FormatterRunner *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &
             Utils::showMessage(i18n("Failed to run formatter. Unsupported language %1", mode), QIcon(), i18n("Format"), MessageType::Info);
         }
         return nullptr;
-    }
-    if (fmt.name == QLatin1String("prettier")) {
-        return new PrettierFormat(std::move(fmt), config, doc);
     }
     if (fmt.name == QLatin1String("xmllint")) {
         return new XmlLintFormat(std::move(fmt), config, doc);

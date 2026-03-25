@@ -101,28 +101,6 @@ Q_SIGNALS:
     void message(const QString &error, MessageType = MessageType::Error);
 };
 
-class PrettierFormat : public FormatterRunner
-{
-public:
-    using FormatterRunner::FormatterRunner;
-
-    void run(KTextEditor::Document *) override;
-
-    QString workingDir() const override
-    {
-        return Utils::projectBaseDirForDocument(m_doc);
-    }
-
-private:
-    void onReadyReadOut();
-    void onReadyReadErr();
-
-    void setupNode();
-    static inline QPointer<QTemporaryFile> s_tempFile = nullptr;
-    static inline QPointer<QProcess> s_nodeProcess = nullptr;
-    RunOutput m_runOutput;
-};
-
 class XmlLintFormat : public FormatterRunner
 {
 public:

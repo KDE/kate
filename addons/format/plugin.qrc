@@ -2,7 +2,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/formatting">
-        <file>prettier_script.js</file>
         <file>FormatterSettings.json</file>
     </qresource>
     <qresource prefix="/kxmlgui5/formatplugin">

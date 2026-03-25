@@ -395,16 +395,14 @@ msgid "Drop Stash"
 msgstr "丢弃储藏"
 
 #: gitwidget.cpp:1218
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "弹出储藏"
+msgstr ""
 
 #: gitwidget.cpp:1222
-#, fuzzy, kde-format
-#| msgid "Show Diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "显示差异"
+msgstr ""
 
 #: gitwidget.cpp:1260
 #, kde-format
@@ -1138,6 +1136,3 @@ msgstr "显示储藏失败。错误："
 #, kde-format
 msgid "&Projects"
 msgstr "项目(&P)"
-
-#~ msgid "Show Stash Content"
-#~ msgstr "显示储藏内容"

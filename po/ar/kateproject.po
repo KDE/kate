@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-22 00:47+0000\n"
-"PO-Revision-Date: 2026-03-12 10:08+0400\n"
+"PO-Revision-Date: 2026-03-24 09:56+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -403,16 +403,14 @@ msgid "Drop Stash"
 msgstr "اسقط التخزين المؤقت"
 
 #: gitwidget.cpp:1218
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "أخرج التخزين المؤقت"
+msgstr "أظهر التخزين المؤقت"
 
 #: gitwidget.cpp:1222
-#, fuzzy, kde-format
-#| msgid "Show Diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "أظهر الفرق"
+msgstr "أظهر فرق التخزين المؤقت"
 
 #: gitwidget.cpp:1260
 #, kde-format

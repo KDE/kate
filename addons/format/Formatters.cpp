@@ -70,7 +70,7 @@ Q_LOGGING_CATEGORY(FORMATTING, "kate.formatting", QtWarningMsg)
         return prefix.append(QLatin1String(".cpp"));
     } else if (is("c")) {
         return prefix.append(QLatin1String(".c"));
-    } else if (is("json")) {
+    } else if (is("json") || is("jsonc")) {
         return prefix.append(QLatin1String(".json"));
     } else if (is("objective-c")) {
         return prefix.append(QLatin1String(".m"));
@@ -252,7 +252,7 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
                            {S("format"), S("--output=show"), S("--summary=none"), S("--stdin-name"), doc->url().toDisplayString(QUrl::PreferLocalFile)});
     } else if (is("javascript") || is("typescript") || is("typescript react (tsx)") || is("javascript react (jsx)") || is("css") || is("html")) {
         return prettier(doc);
-    } else if (is("json")) {
+    } else if (is("json") || is("jsonc")) {
         const auto configValue = config.value(QLatin1String("formatterForJson")).toString();
         Formatters f = formatterForName(configValue, Formatters::Prettier);
         if (f == Formatters::Prettier) {

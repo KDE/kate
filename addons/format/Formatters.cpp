@@ -38,7 +38,7 @@ Q_LOGGING_CATEGORY(FORMATTING, "kate.formatting", QtWarningMsg)
 {
     const QString m = doc->highlightingMode();
     auto is = [m](std::string_view s) {
-        return m.compare(QLatin1String(s.data(), s.size()), Qt::CaseInsensitive) == 0;
+        return m.compare(QLatin1String(s.data(), qsizetype(s.size())), Qt::CaseInsensitive) == 0;
     };
 
     const QString path = doc->url().toLocalFile();
@@ -237,7 +237,7 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
 {
     const auto mode = doc->highlightingMode().toLower();
     auto is = [mode](std::string_view s) {
-        return mode == QLatin1String(s.data(), s.size());
+        return mode == QLatin1String(s.data(), qsizetype(s.size()));
     };
     auto is_or_contains = [mode](const char *s) {
         return mode == QLatin1String(s) || mode.contains(QLatin1String(s));

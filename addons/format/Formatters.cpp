@@ -250,9 +250,7 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
     } else if (is("dart")) {
         return newStdinFmt("dart",
                            {S("format"), S("--output=show"), S("--summary=none"), S("--stdin-name"), doc->url().toDisplayString(QUrl::PreferLocalFile)});
-    } else if (is("html")) {
-        return prettier(doc);
-    } else if (is("javascript") || is("typescript") || is("typescript react (tsx)") || is("javascript react (jsx)") || is("css")) {
+    } else if (is("javascript") || is("typescript") || is("typescript react (tsx)") || is("javascript react (jsx)") || is("css") || is("html")) {
         return prettier(doc);
     } else if (is("json")) {
         const auto configValue = config.value(QLatin1String("formatterForJson")).toString();

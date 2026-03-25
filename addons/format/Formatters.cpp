@@ -271,19 +271,19 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
     } else if (is("go")) {
         return newStdinFmt("gofmt", {});
     } else if (is("zig")) {
-        return newStdinFmt("zig", {S("fmt"), S("--stdin")});
+        return newStdinFmt("zig", {});
     } else if (is("cmake")) {
         return newStdinFmt("cmake-format", {S("-")});
     } else if (is("python")) {
         const auto configValue = config.value(QLatin1String("formatterForPython")).toString();
         Formatters f = formatterForName(configValue, Formatters::Ruff);
         if (f == Formatters::Ruff) {
-            return newStdinFmt("ruff", {S("format"), S("-q"), S("--stdin-filename"), S("a.py")});
+            return newStdinFmt("ruff", {});
         } else if (f == Formatters::Autopep8) {
             return newStdinFmt("autopep8", {S("-")});
         }
         Utils::showMessage(i18n("Unknown formatterForPython: %1", configValue), {}, i18n("Format"), MessageType::Error);
-        return newStdinFmt("ruff", {S("format"), S("-q"), S("--stdin-filename"), S("a.py")});
+        return newStdinFmt("ruff", {});
     } else if (is("d")) {
         return newStdinFmt("dfmt", {});
     } else if (is("fish")) {
@@ -310,7 +310,7 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
     } else if (is("opsi-script")) {
         return newStdinFmt("opsi-script-beautifier", {});
     } else if (is("odin")) {
-        return newStdinFmt("odinfmt", {S("-stdin")});
+        return newStdinFmt("odinfmt", {});
     } else if (is("swift")) {
         return newStdinFmt("swiftformat", {});
     } else if (is("erlang")) {

@@ -64,7 +64,8 @@
     },
     "odinfmt": {
         "command": [
-            "odinfmt"
+            "odinfmt",
+            "-stdin"
         ]
     },
     "opsi-script-beautifier": {
@@ -85,7 +86,11 @@
     },
     "ruff": {
         "command": [
-            "ruff"
+            "ruff",
+            "format",
+            "-q",
+            "--stdin-filename",
+            "a.py"
         ]
     },
     "rustfmt": {
@@ -119,7 +124,9 @@
     },
     "zig": {
         "command": [
-            "zig"
+            "zig",
+            "fmt",
+            "--stdin"
         ]
     }
 }

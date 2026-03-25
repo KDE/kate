@@ -100,6 +100,24 @@ static QString filenameFromMode(KTextEditor::Document *doc)
     return {};
 }
 
+FormatterRunner::~FormatterRunner()
+{
+    if (m_procHandle && m_procHandle->state() != QProcess::NotRunning) {
+        m_procHandle->disconnect(this);
+        m_procHandle->kill();
+        m_procHandle->waitForFinished();
+    }
+}
+
+FormatterRunner::FormatterRunner(Formatter fmt, const QJsonObject &obj, KTextEditor::Document *parent)
+    : QObject(parent)
+    , originalText(parent->text())
+    , m_doc(parent)
+    , m_globalConfig(obj)
+    , m_fmt(std::move(fmt))
+{
+}
+
 void FormatterRunner::run(KTextEditor::Document *doc)
 {
     // QElapsedTimer t;
@@ -169,6 +187,29 @@ void FormatterRunner::onResultReady(const RunOutput &o)
     } else if (!o.out.isEmpty()) {
         Q_EMIT textFormatted(this, m_doc, o.out);
     }
+}
+
+QProcessEnvironment XmlLintFormat::env()
+{
+    auto environment = FormatterRunner::env();
+    auto ciface = m_doc;
+
+    // Reuse doc's indent
+    bool ok = false;
+    int width = ciface->configValue(QStringLiteral("indent-width")).toInt(&ok);
+    if (!ok) {
+        return environment;
+    }
+    bool spaces = ciface->configValue(QStringLiteral("replace-tabs")).toBool();
+    QString indent;
+    if (spaces) {
+        indent = QString(width, u' ');
+    } else {
+        indent = QStringLiteral("\t");
+    }
+
+    environment.insert(QStringLiteral("XMLLINT_INDENT"), indent);
+    return environment;
 }
 
 static Formatter newStdinFmt(const char *name, QStringList &&args)

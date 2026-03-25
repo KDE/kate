@@ -24,23 +24,9 @@ class FormatterRunner : public QObject
 {
     Q_OBJECT
 public:
-    FormatterRunner(Formatter fmt, const QJsonObject &obj, KTextEditor::Document *parent)
-        : QObject(parent)
-        , originalText(parent->text())
-        , m_doc(parent)
-        , m_globalConfig(obj)
-        , m_fmt(std::move(fmt))
-    {
-    }
+    FormatterRunner(Formatter fmt, const QJsonObject &obj, KTextEditor::Document *parent);
 
-    virtual ~FormatterRunner()
-    {
-        if (m_procHandle && m_procHandle->state() != QProcess::NotRunning) {
-            m_procHandle->disconnect(this);
-            m_procHandle->kill();
-            m_procHandle->waitForFinished();
-        }
-    }
+    ~FormatterRunner() override;
 
     virtual void run(KTextEditor::Document *doc);
 
@@ -106,28 +92,7 @@ class XmlLintFormat : public FormatterRunner
 public:
     using FormatterRunner::FormatterRunner;
 
-    QProcessEnvironment env() override
-    {
-        auto environment = FormatterRunner::env();
-        auto ciface = m_doc;
-
-        // Reuse doc's indent
-        bool ok = false;
-        int width = ciface->configValue(QStringLiteral("indent-width")).toInt(&ok);
-        if (!ok) {
-            return environment;
-        }
-        bool spaces = ciface->configValue(QStringLiteral("replace-tabs")).toBool();
-        QString indent;
-        if (spaces) {
-            indent = QString(width, u' ');
-        } else {
-            indent = QStringLiteral("\t");
-        }
-
-        environment.insert(QStringLiteral("XMLLINT_INDENT"), indent);
-        return environment;
-    }
+    QProcessEnvironment env() override;
 };
 
 FormatterRunner *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &config);

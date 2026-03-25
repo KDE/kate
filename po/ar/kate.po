@@ -9,13 +9,13 @@
 # محمد سعد  Mohamed SAAD <metehyi@free.fr>, 2006.
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Safa Alfulaij <safaalfulaij@hotmail.con>, 2013, 2016, 2017.
-# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024, 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-10 02:47+0000\n"
-"PO-Revision-Date: 2025-12-20 11:15+0400\n"
+"PO-Revision-Date: 2026-03-24 10:59+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -2243,12 +2243,12 @@ msgstr "انسخ اسم الملفّ"
 #: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid "Split Ve&rtical"
-msgstr "اقسم رأ&سيًّا"
+msgstr "اقسم &عموديًا"
 
 #: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Split the currently active view vertically into two views."
-msgstr "اقسم رأسيًّا المنظور النشط حاليًّا إلى إثنين."
+msgstr "اقسم عموديًّا المنظور النشط حاليًّا إلى إثنين."
 
 #: lib/kateviewmanager.cpp:158
 #, kde-format
@@ -2263,7 +2263,7 @@ msgstr "اقسم أفقيًّا المنظور النشط حاليًّا إلى 
 #: lib/kateviewmanager.cpp:166
 #, kde-format
 msgid "Move Document to New Vertical Split"
-msgstr "انقل المستند إلى قسم رأسي جديد"
+msgstr "انقل المستند إلى قسم عمودي جديد"
 
 #: lib/kateviewmanager.cpp:170
 #, kde-format
@@ -2271,7 +2271,7 @@ msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
 msgstr ""
-"اقسم رأسياً المنظور النشط حالياً إلى إثنين، وانقل المستند الحالي النشط إلى "
+"اقسم عمودياً المنظور النشط حالياً إلى إثنين، وانقل المستند الحالي النشط إلى "
 "القسم اليمين."
 
 #: lib/kateviewmanager.cpp:175

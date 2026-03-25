@@ -22,7 +22,7 @@
 
 Q_LOGGING_CATEGORY(FORMATTING, "kate.formatting", QtWarningMsg)
 
-static QStringList readCommandFromJson(const QJsonObject &o)
+[[nodiscard]] static QStringList readCommandFromJson(const QJsonObject &o)
 {
     const auto arr = o.value(QLatin1String("command")).toArray();
     QStringList args;
@@ -34,7 +34,7 @@ static QStringList readCommandFromJson(const QJsonObject &o)
 }
 
 // Makes up a fake file name for doc mode
-static QString filenameFromMode(KTextEditor::Document *doc)
+[[nodiscard]] static QString filenameFromMode(KTextEditor::Document *doc)
 {
     const QString m = doc->highlightingMode();
     auto is = [m](std::string_view s) {
@@ -212,12 +212,12 @@ QProcessEnvironment XmlLintFormat::env()
     return environment;
 }
 
-static Formatter newStdinFmt(const char *name, QStringList &&args)
+[[nodiscard]] static Formatter newStdinFmt(const char *name, QStringList &&args)
 {
     return {.name = QString::fromUtf8(name), .args = std::move(args), .supportsStdin = true};
 }
 
-inline static Formatter jqFmt(KTextEditor::Document *doc)
+[[nodiscard]] static Formatter jqFmt(KTextEditor::Document *doc)
 {
     // Reuse doc's indent
     bool ok = false;
@@ -228,7 +228,7 @@ inline static Formatter jqFmt(KTextEditor::Document *doc)
 }
 
 #define S(s) QStringLiteral(s)
-static Formatter prettier(KTextEditor::Document *doc)
+[[nodiscard]] static Formatter prettier(KTextEditor::Document *doc)
 {
     return Formatter{.name = S("prettier"), .args = {S("--stdin-filepath"), filenameFromMode(doc)}, .supportsStdin = true};
 }

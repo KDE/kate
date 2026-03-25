@@ -35,12 +35,12 @@ public:
         m_pos = c;
     }
 
-    bool formatOnSaveEnabled(bool defaultValue) const
+    [[nodiscard]] bool formatOnSaveEnabled(bool defaultValue) const
     {
         return m_globalConfig.value(m_fmt.name).toObject().value(QLatin1String("formatOnSave")).toBool(defaultValue);
     }
 
-    QString cmdline() const
+    [[nodiscard]] QString cmdline() const
     {
         if (m_procHandle) {
             return m_procHandle->program() + QLatin1String(" ") + m_procHandle->arguments().join(QLatin1String(" "));
@@ -59,7 +59,7 @@ protected:
 
     virtual void onResultReady(const RunOutput &o);
 
-    virtual QString workingDir() const
+    [[nodiscard]] virtual QString workingDir() const
     {
         return {};
     }
@@ -77,7 +77,7 @@ protected:
     const Formatter m_fmt;
 
 private:
-    QByteArray textForStdin() const
+    [[nodiscard]] QByteArray textForStdin() const
     {
         return originalText.toUtf8();
     }
@@ -95,4 +95,4 @@ public:
     QProcessEnvironment env() override;
 };
 
-FormatterRunner *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &config);
+[[nodiscard]] FormatterRunner *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &config);

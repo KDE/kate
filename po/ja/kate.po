@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-22 00:47+0000\n"
+"POT-Creation-Date: 2026-03-27 00:49+0000\n"
 "PO-Revision-Date: 2024-02-23 02:55+0900\n"
 "Last-Translator: Ryuichi Yamada <ryuichi_ya220@outlook.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -260,7 +260,7 @@ msgstr "ツール(&T)"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:305
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:315
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -304,147 +304,153 @@ msgid ""
 "offset %2: %3"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:62
+#: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
 msgid "All"
 msgstr "すべて"
 
-#: lib/diagnostics/diagnosticview.cpp:312
+#: lib/diagnostics/diagnosticview.cpp:322
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:355
+#: lib/diagnostics/diagnosticview.cpp:365
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "診断ビュー"
 
-#: lib/diagnostics/diagnosticview.cpp:360
+#: lib/diagnostics/diagnosticview.cpp:370
 #, kde-format
 msgid "Quick Fix"
 msgstr "素早く修復"
 
-#: lib/diagnostics/diagnosticview.cpp:366
+#: lib/diagnostics/diagnosticview.cpp:376
 #, kde-format
 msgid "Next Item"
 msgstr "次のアイテム"
 
-#: lib/diagnostics/diagnosticview.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:384
 #, kde-format
 msgid "Previous Item"
 msgstr "前のアイテム"
 
-#: lib/diagnostics/diagnosticview.cpp:384
+#: lib/diagnostics/diagnosticview.cpp:394
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "診断フィルタをクリア"
 
-#: lib/diagnostics/diagnosticview.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:404
 #, kde-format
 msgid "Show Hover Info"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:453 lib/kateconfigdialog.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:463 lib/kateconfigdialog.cpp:394
 #, kde-format
 msgid "Diagnostics"
 msgstr "診断"
 
-#: lib/diagnostics/diagnosticview.cpp:499
+#: lib/diagnostics/diagnosticview.cpp:509
 #, kde-format
 msgid "Errors"
 msgstr "エラー"
 
-#: lib/diagnostics/diagnosticview.cpp:515
+#: lib/diagnostics/diagnosticview.cpp:525
 #, kde-format
 msgid "Warnings"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:529 lib/filehistorywidget.cpp:467
+#: lib/diagnostics/diagnosticview.cpp:539 lib/filehistorywidget.cpp:467
 #: lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 #| msgid "Filter..."
 msgid "Filter…"
 msgstr "フィルタ..."
 
-#: lib/diagnostics/diagnosticview.cpp:535
+#: lib/diagnostics/diagnosticview.cpp:545
 #, fuzzy, kde-format
 #| msgid "Clear Diagnostics Filter"
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "診断フィルタをクリア"
 
-#: lib/diagnostics/diagnosticview.cpp:1181 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1199 lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Error"
 msgstr "エラー"
 
-#: lib/diagnostics/diagnosticview.cpp:1185 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1203 lib/kateconfigdialog.cpp:167
 #: lib/kateconfigdialog.cpp:812
 #, kde-format
 msgid "Warning"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:1189
+#: lib/diagnostics/diagnosticview.cpp:1207
 #, kde-format
 msgid "Information"
 msgstr "情報"
 
-#: lib/diagnostics/diagnosticview.cpp:1318
+#: lib/diagnostics/diagnosticview.cpp:1336
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1444
+#: lib/diagnostics/diagnosticview.cpp:1462
 #, kde-format
 msgid "Expand All"
 msgstr "すべて展開"
 
-#: lib/diagnostics/diagnosticview.cpp:1445
+#: lib/diagnostics/diagnosticview.cpp:1463
 #, kde-format
 msgid "Collapse All"
 msgstr "すべて折りたたむ"
 
-#: lib/diagnostics/diagnosticview.cpp:1451
+#: lib/diagnostics/diagnosticview.cpp:1469
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "クリップボードにコピー"
 
-#: lib/diagnostics/diagnosticview.cpp:1493
+#: lib/diagnostics/diagnosticview.cpp:1511
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1495
+#: lib/diagnostics/diagnosticview.cpp:1513
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "セッション(&I)"
 
-#: lib/diagnostics/diagnosticview.cpp:1499
+#: lib/diagnostics/diagnosticview.cpp:1517
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1501
+#: lib/diagnostics/diagnosticview.cpp:1519
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1516
+#: lib/diagnostics/diagnosticview.cpp:1534
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Disable Suppression"
 msgstr "セッション"
 
-#: lib/diagnostics/diagnosticview.cpp:1518
+#: lib/diagnostics/diagnosticview.cpp:1536
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
 msgstr "セッション管理"
+
+#: lib/diagnostics/diagnosticview.cpp:1603
+#, fuzzy, kde-format
+#| msgid "Show Side&bars"
+msgid "Show fixes"
+msgstr "サイドバーを表示(&B)"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-22 00:47+0000\n"
+"POT-Creation-Date: 2026-03-27 00:49+0000\n"
 "PO-Revision-Date: 2022-10-28 19:12+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
@@ -245,7 +245,7 @@ msgstr "U&tensiles"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:305
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:315
 #: lib/diagnostics/ui.rc:8
 #, fuzzy, kde-format
 msgid "Diagnostics View"
@@ -289,152 +289,157 @@ msgid ""
 "offset %2: %3"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:62
+#: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
 msgid "All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:312
+#: lib/diagnostics/diagnosticview.cpp:322
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:355
+#: lib/diagnostics/diagnosticview.cpp:365
 #, fuzzy, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Recent files"
 
-#: lib/diagnostics/diagnosticview.cpp:360
+#: lib/diagnostics/diagnosticview.cpp:370
 #, fuzzy, kde-format
 msgid "Quick Fix"
 msgstr "&Rapid"
 
-#: lib/diagnostics/diagnosticview.cpp:366
+#: lib/diagnostics/diagnosticview.cpp:376
 #, fuzzy, kde-format
 #| msgid "Next tab"
 msgid "Next Item"
 msgstr "Sequent carte"
 
-#: lib/diagnostics/diagnosticview.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:384
 #, fuzzy, kde-format
 #| msgid "Previous tab"
 msgid "Previous Item"
 msgstr "Precedent carte"
 
-#: lib/diagnostics/diagnosticview.cpp:384
+#: lib/diagnostics/diagnosticview.cpp:394
 #, fuzzy, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Recent files"
 
-#: lib/diagnostics/diagnosticview.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:404
 #, fuzzy, kde-format
 msgid "Show Hover Info"
 msgstr "Monstrar diariums del comette"
 
-#: lib/diagnostics/diagnosticview.cpp:453 lib/kateconfigdialog.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:463 lib/kateconfigdialog.cpp:394
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:499
+#: lib/diagnostics/diagnosticview.cpp:509
 #, fuzzy, kde-format
 #| msgid "Error"
 msgid "Errors"
 msgstr "Errore"
 
-#: lib/diagnostics/diagnosticview.cpp:515
+#: lib/diagnostics/diagnosticview.cpp:525
 #, fuzzy, kde-format
 #| msgid "Warning"
 msgid "Warnings"
 msgstr "Avise"
 
-#: lib/diagnostics/diagnosticview.cpp:529 lib/filehistorywidget.cpp:467
+#: lib/diagnostics/diagnosticview.cpp:539 lib/filehistorywidget.cpp:467
 #: lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 #| msgid "Filter..."
 msgid "Filter…"
 msgstr "Filtre..."
 
-#: lib/diagnostics/diagnosticview.cpp:535
+#: lib/diagnostics/diagnosticview.cpp:545
 #, fuzzy, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "Recent files"
 
-#: lib/diagnostics/diagnosticview.cpp:1181 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1199 lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Error"
 msgstr "Errore"
 
-#: lib/diagnostics/diagnosticview.cpp:1185 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1203 lib/kateconfigdialog.cpp:167
 #: lib/kateconfigdialog.cpp:812
 #, kde-format
 msgid "Warning"
 msgstr "Avise"
 
-#: lib/diagnostics/diagnosticview.cpp:1189
+#: lib/diagnostics/diagnosticview.cpp:1207
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Information"
 msgstr "Localisation"
 
-#: lib/diagnostics/diagnosticview.cpp:1318
+#: lib/diagnostics/diagnosticview.cpp:1336
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1444
+#: lib/diagnostics/diagnosticview.cpp:1462
 #, fuzzy, kde-format
 msgid "Expand All"
 msgstr "Tabulatores a spacies"
 
-#: lib/diagnostics/diagnosticview.cpp:1445
+#: lib/diagnostics/diagnosticview.cpp:1463
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "Clud&er omni"
 
-#: lib/diagnostics/diagnosticview.cpp:1451
+#: lib/diagnostics/diagnosticview.cpp:1469
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Copy to Clipboard"
 msgid "Copy to Clipboard"
 msgstr "Copiar al Paperiere"
 
-#: lib/diagnostics/diagnosticview.cpp:1493
+#: lib/diagnostics/diagnosticview.cpp:1511
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1495
+#: lib/diagnostics/diagnosticview.cpp:1513
 #, fuzzy, kde-format
 #| msgid "&All Sessions"
 msgid "Add Global Suppression"
 msgstr "&Omni sessiones"
 
-#: lib/diagnostics/diagnosticview.cpp:1499
+#: lib/diagnostics/diagnosticview.cpp:1517
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1501
+#: lib/diagnostics/diagnosticview.cpp:1519
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1516
+#: lib/diagnostics/diagnosticview.cpp:1534
 #, fuzzy, kde-format
 msgid "Disable Suppression"
 msgstr "Sessiones"
 
-#: lib/diagnostics/diagnosticview.cpp:1518
+#: lib/diagnostics/diagnosticview.cpp:1536
 #, fuzzy, kde-format
 msgid "Enable Suppression"
 msgstr "Sessiones"
+
+#: lib/diagnostics/diagnosticview.cpp:1603
+#, fuzzy, kde-format
+msgid "Show fixes"
+msgstr "_Monstrar..."
 
 #: lib/diff/diffeditor.cpp:195
 #, fuzzy, kde-format

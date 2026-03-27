@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-03-27 00:49+0000\n"
 "PO-Revision-Date: 2026-02-13 11:00+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "3 : 4\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:317 Formatters.cpp:337
-#: Formatters.cpp:360 Formatters.cpp:390
+#: FormatPlugin.cpp:237 Formatters.cpp:265 Formatters.cpp:285
+#: Formatters.cpp:308 Formatters.cpp:338
 #, kde-format
 msgid "Format"
 msgstr "Formáid"
@@ -76,12 +76,12 @@ msgstr "Formáidigh ar Shábháil"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Díchumasaigh formáidiú ar shábháil gan é a choinneáil sna socruithe"
 
-#: Formatters.cpp:111
+#: Formatters.cpp:129
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Ordú folamh gan choinne!"
 
-#: Formatters.cpp:118
+#: Formatters.cpp:136
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
@@ -89,37 +89,31 @@ msgstr ""
 "Níl %1 suiteáilte, suiteáil é le go mbeidh tú in ann an doiciméad seo a "
 "fhormáidiú!"
 
-#: Formatters.cpp:187
-#, kde-format
-msgid "Please install node and prettier"
-msgstr "Suiteáil node agus prettier le do thoil"
-
-#: Formatters.cpp:194
-#, kde-format
-msgid "PrettierFormat: Failed to create temporary file"
-msgstr "PrettierFormat: Theip ar chruthú comhad sealadach"
-
-#: Formatters.cpp:215
-#, kde-format
-msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr "PrettierFormat: Theip ar thosú 'node': %1"
-
-#: Formatters.cpp:317
+#: Formatters.cpp:265
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Formáideoir anaithnidDoJson: %1"
 
-#: Formatters.cpp:337
+#: Formatters.cpp:285
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Formáideoir anaithnidDoPython: %1"
 
-#: Formatters.cpp:360
+#: Formatters.cpp:308
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Unknown formatterForYaml: %1, ag titim ar ais go yamlfmtmt"
 
-#: Formatters.cpp:390
+#: Formatters.cpp:338
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Theip ar an fhormáideoir a rith. Teanga nach dtacaítear léi %1"
+
+#~ msgid "Please install node and prettier"
+#~ msgstr "Suiteáil node agus prettier le do thoil"
+
+#~ msgid "PrettierFormat: Failed to create temporary file"
+#~ msgstr "PrettierFormat: Theip ar chruthú comhad sealadach"
+
+#~ msgid "PrettierFormat: Failed to start 'node': %1"
+#~ msgstr "PrettierFormat: Theip ar thosú 'node': %1"

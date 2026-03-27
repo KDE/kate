@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1732894 $
+# Version: $Revision: 1733206 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-22 00:47+0000\n"
+"POT-Creation-Date: 2026-03-27 00:49+0000\n"
 "PO-Revision-Date: 2026-03-21 07:16+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -266,7 +266,7 @@ msgstr "&Narzędzia"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:305
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:315
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -312,12 +312,12 @@ msgstr ""
 "Błąd w wyrażeniu regularnym: %1\n"
 "przesunięcie %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:62
+#: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
 msgid "All"
 msgstr "Wszystkie"
 
-#: lib/diagnostics/diagnosticview.cpp:312
+#: lib/diagnostics/diagnosticview.cpp:322
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
@@ -326,130 +326,136 @@ msgstr ""
 "Osiągnięto granicę diagnostyczną, więc zaczęto pomijać dalsze wiadomości "
 "diagnostyczne. Granicę te można zmienić w ustawieniach."
 
-#: lib/diagnostics/diagnosticview.cpp:355
+#: lib/diagnostics/diagnosticview.cpp:365
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Widok diagnostyczny"
 
-#: lib/diagnostics/diagnosticview.cpp:360
+#: lib/diagnostics/diagnosticview.cpp:370
 #, kde-format
 msgid "Quick Fix"
 msgstr "Szybka poprawka"
 
-#: lib/diagnostics/diagnosticview.cpp:366
+#: lib/diagnostics/diagnosticview.cpp:376
 #, kde-format
 msgid "Next Item"
 msgstr "Następna rzecz"
 
-#: lib/diagnostics/diagnosticview.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:384
 #, kde-format
 msgid "Previous Item"
 msgstr "Poprzednia rzecz"
 
-#: lib/diagnostics/diagnosticview.cpp:384
+#: lib/diagnostics/diagnosticview.cpp:394
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Wyczyść filtr diagnostyczny"
 
-#: lib/diagnostics/diagnosticview.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:404
 #, kde-format
 msgid "Show Hover Info"
 msgstr "Pokaż szczegóły po najechaniu"
 
-#: lib/diagnostics/diagnosticview.cpp:453 lib/kateconfigdialog.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:463 lib/kateconfigdialog.cpp:394
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnostyka"
 
-#: lib/diagnostics/diagnosticview.cpp:499
+#: lib/diagnostics/diagnosticview.cpp:509
 #, kde-format
 msgid "Errors"
 msgstr "Błędy"
 
-#: lib/diagnostics/diagnosticview.cpp:515
+#: lib/diagnostics/diagnosticview.cpp:525
 #, kde-format
 msgid "Warnings"
 msgstr "Ostrzeżenia"
 
-#: lib/diagnostics/diagnosticview.cpp:529 lib/filehistorywidget.cpp:467
+#: lib/diagnostics/diagnosticview.cpp:539 lib/filehistorywidget.cpp:467
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Odfiltruj…"
 
-#: lib/diagnostics/diagnosticview.cpp:535
+#: lib/diagnostics/diagnosticview.cpp:545
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "Wyczyść diagnostykę"
 
-#: lib/diagnostics/diagnosticview.cpp:1181 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1199 lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Error"
 msgstr "Błąd"
 
-#: lib/diagnostics/diagnosticview.cpp:1185 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1203 lib/kateconfigdialog.cpp:167
 #: lib/kateconfigdialog.cpp:812
 #, kde-format
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1189
+#: lib/diagnostics/diagnosticview.cpp:1207
 #, kde-format
 msgid "Information"
 msgstr "Informacje"
 
-#: lib/diagnostics/diagnosticview.cpp:1318
+#: lib/diagnostics/diagnosticview.cpp:1336
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [wygaszone: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1444
+#: lib/diagnostics/diagnosticview.cpp:1462
 #, kde-format
 msgid "Expand All"
 msgstr "Rozwiń wszystko"
 
-#: lib/diagnostics/diagnosticview.cpp:1445
+#: lib/diagnostics/diagnosticview.cpp:1463
 #, kde-format
 msgid "Collapse All"
 msgstr "Zwiń wszystko"
 
-#: lib/diagnostics/diagnosticview.cpp:1451
+#: lib/diagnostics/diagnosticview.cpp:1469
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Skopiuj do schowka"
 
-#: lib/diagnostics/diagnosticview.cpp:1493
+#: lib/diagnostics/diagnosticview.cpp:1511
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Usuń globalne wygaszenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1495
+#: lib/diagnostics/diagnosticview.cpp:1513
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Dodaj globalne wygaszenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1499
+#: lib/diagnostics/diagnosticview.cpp:1517
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Usuń lokalne wygaszenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1501
+#: lib/diagnostics/diagnosticview.cpp:1519
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Dodaj lokalne wygaszenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1516
+#: lib/diagnostics/diagnosticview.cpp:1534
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Wyłącz wygaszenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1518
+#: lib/diagnostics/diagnosticview.cpp:1536
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Włącz wygaszenie"
+
+#: lib/diagnostics/diagnosticview.cpp:1603
+#, fuzzy, kde-format
+#| msgid "Show Side&bars"
+msgid "Show fixes"
+msgstr "Pokaż paski &boczne"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format

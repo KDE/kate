@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-22 00:47+0000\n"
+"POT-Creation-Date: 2026-03-27 00:49+0000\n"
 "PO-Revision-Date: 2014-01-31 19:52+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -279,7 +279,7 @@ msgstr "&Alati"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:305
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:315
 #: lib/diagnostics/ui.rc:8
 #, fuzzy, kde-format
 #| msgid "List View"
@@ -324,153 +324,159 @@ msgid ""
 "offset %2: %3"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:62
+#: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
 msgid "All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:312
+#: lib/diagnostics/diagnosticview.cpp:322
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:355
+#: lib/diagnostics/diagnosticview.cpp:365
 #, fuzzy, kde-format
 #| msgid "List View"
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Prrikaz u spisku"
 
-#: lib/diagnostics/diagnosticview.cpp:360
+#: lib/diagnostics/diagnosticview.cpp:370
 #, fuzzy, kde-format
 #| msgid "&Quick Open"
 msgid "Quick Fix"
 msgstr "&Brzo otvori"
 
-#: lib/diagnostics/diagnosticview.cpp:366
+#: lib/diagnostics/diagnosticview.cpp:376
 #, fuzzy, kde-format
 #| msgid "Menu Item:"
 msgid "Next Item"
 msgstr "Stavka menija:"
 
-#: lib/diagnostics/diagnosticview.cpp:374
+#: lib/diagnostics/diagnosticview.cpp:384
 #, fuzzy, kde-format
 #| msgid "Previous Document"
 msgid "Previous Item"
 msgstr "Prethodni dokument"
 
-#: lib/diagnostics/diagnosticview.cpp:384
+#: lib/diagnostics/diagnosticview.cpp:394
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:404
 #, kde-format
 msgid "Show Hover Info"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:453 lib/kateconfigdialog.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:463 lib/kateconfigdialog.cpp:394
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:499
+#: lib/diagnostics/diagnosticview.cpp:509
 #, kde-format
 msgid "Errors"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:515
+#: lib/diagnostics/diagnosticview.cpp:525
 #, kde-format
 msgid "Warnings"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:529 lib/filehistorywidget.cpp:467
+#: lib/diagnostics/diagnosticview.cpp:539 lib/filehistorywidget.cpp:467
 #: lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 #| msgid "Filter:"
 msgid "Filter…"
 msgstr "Filter:"
 
-#: lib/diagnostics/diagnosticview.cpp:535
+#: lib/diagnostics/diagnosticview.cpp:545
 #, fuzzy, kde-format
 #| msgid "List View"
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "Prrikaz u spisku"
 
-#: lib/diagnostics/diagnosticview.cpp:1181 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1199 lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1185 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1203 lib/kateconfigdialog.cpp:167
 #: lib/kateconfigdialog.cpp:812
 #, kde-format
 msgid "Warning"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1189
+#: lib/diagnostics/diagnosticview.cpp:1207
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "Metapodaci"
 
-#: lib/diagnostics/diagnosticview.cpp:1318
+#: lib/diagnostics/diagnosticview.cpp:1336
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1444
+#: lib/diagnostics/diagnosticview.cpp:1462
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1445
+#: lib/diagnostics/diagnosticview.cpp:1463
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "Zatvori sv&e"
 
-#: lib/diagnostics/diagnosticview.cpp:1451
+#: lib/diagnostics/diagnosticview.cpp:1469
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1493
+#: lib/diagnostics/diagnosticview.cpp:1511
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1495
+#: lib/diagnostics/diagnosticview.cpp:1513
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "&Sesije"
 
-#: lib/diagnostics/diagnosticview.cpp:1499
+#: lib/diagnostics/diagnosticview.cpp:1517
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1501
+#: lib/diagnostics/diagnosticview.cpp:1519
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1516
+#: lib/diagnostics/diagnosticview.cpp:1534
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Disable Suppression"
 msgstr "Sesije"
 
-#: lib/diagnostics/diagnosticview.cpp:1518
+#: lib/diagnostics/diagnosticview.cpp:1536
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
 msgstr "Upravljanje sesijama"
+
+#: lib/diagnostics/diagnosticview.cpp:1603
+#, fuzzy, kde-format
+#| msgid "Show Side&bars"
+msgid "Show fixes"
+msgstr "Prikaži &bočne trake"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format

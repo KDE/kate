@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-03-27 00:49+0000\n"
 "PO-Revision-Date: 2026-02-12 13:50+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -19,8 +19,8 @@ msgstr ""
 "X-Text-Markup: kde4\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:317 Formatters.cpp:337
-#: Formatters.cpp:360 Formatters.cpp:390
+#: FormatPlugin.cpp:237 Formatters.cpp:265 Formatters.cpp:285
+#: Formatters.cpp:308 Formatters.cpp:338
 #, kde-format
 msgid "Format"
 msgstr "Format"
@@ -80,12 +80,12 @@ msgstr "Formater ved lagring"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Deaktiver formatering ved lagring uten å endre i innstillinger"
 
-#: Formatters.cpp:111
+#: Formatters.cpp:129
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Uventet tom kommando!"
 
-#: Formatters.cpp:118
+#: Formatters.cpp:136
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
@@ -93,37 +93,31 @@ msgstr ""
 "%1 er ikke installert. Installer pakken for å kunne formatere dette "
 "dokumentet!"
 
-#: Formatters.cpp:187
-#, kde-format
-msgid "Please install node and prettier"
-msgstr "Installer «node» og «prettier»"
-
-#: Formatters.cpp:194
-#, kde-format
-msgid "PrettierFormat: Failed to create temporary file"
-msgstr "PrettierFormat: Klarte ikke opprette midlertidig fil."
-
-#: Formatters.cpp:215
-#, kde-format
-msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr "PrettierFormat: Klarte ikke å starte «node»: %1"
-
-#: Formatters.cpp:317
+#: Formatters.cpp:265
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Ukjent formatterForJson: %1"
 
-#: Formatters.cpp:337
+#: Formatters.cpp:285
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Ukjent formatterForPython: %1"
 
-#: Formatters.cpp:360
+#: Formatters.cpp:308
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Ukjent formatterForYaml: %1, faller tilbake til yamlfmt"
 
-#: Formatters.cpp:390
+#: Formatters.cpp:338
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Klarte ikke kjøre formaterer: Språket %1 er ikke støttet"
+
+#~ msgid "Please install node and prettier"
+#~ msgstr "Installer «node» og «prettier»"
+
+#~ msgid "PrettierFormat: Failed to create temporary file"
+#~ msgstr "PrettierFormat: Klarte ikke opprette midlertidig fil."
+
+#~ msgid "PrettierFormat: Failed to start 'node': %1"
+#~ msgstr "PrettierFormat: Klarte ikke å starte «node»: %1"

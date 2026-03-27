@@ -365,6 +365,9 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
     m_buildUi.u_tabWidget->tabBar()->setTabButton(0, QTabBar::RightSide, nullptr);
     m_buildUi.u_tabWidget->tabBar()->setTabButton(1, QTabBar::RightSide, nullptr);
     connect(m_buildUi.u_tabWidget, &QTabWidget::tabCloseRequested, this, [this](int index) {
+        // tab 0 and 1 should not be closable
+        if (index <= 1)
+            return;
         // FIXME check if the process is still running
         m_buildUi.u_tabWidget->widget(index)->deleteLater();
     });

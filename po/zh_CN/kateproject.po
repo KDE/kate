@@ -347,7 +347,7 @@ msgstr "打开提交..."
 #: gitwidget.cpp:1143 gitwidget.cpp:1188
 #, kde-format
 msgid "Stash"
-msgstr "储藏"
+msgstr "暂存"
 
 #: gitwidget.cpp:1147
 #, kde-format
@@ -357,47 +357,47 @@ msgstr "显示历史"
 #: gitwidget.cpp:1159
 #, kde-format
 msgid "Diff - stash"
-msgstr "差异 - 储藏"
+msgstr "差异 - 暂存"
 
 #: gitwidget.cpp:1192
 #, kde-format
 msgid "Pop Last Stash"
-msgstr "弹出上一个储藏"
+msgstr "弹出上一个暂存"
 
 #: gitwidget.cpp:1196
 #, kde-format
 msgid "Pop Stash"
-msgstr "弹出储藏"
+msgstr "弹出暂存"
 
 #: gitwidget.cpp:1200
 #, kde-format
 msgid "Apply Last Stash"
-msgstr "应用上一个储藏"
+msgstr "应用上次的暂存"
 
 #: gitwidget.cpp:1202
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr "储藏（保留暂存区）"
+msgstr "暂存 (保留暂存区)"
 
 #: gitwidget.cpp:1206
 #, kde-format
 msgid "Stash (Include Untracked)"
-msgstr "储藏（包括未跟踪）"
+msgstr "暂存 (包括未跟踪)"
 
 #: gitwidget.cpp:1210
 #, kde-format
 msgid "Apply Stash"
-msgstr "应用储藏"
+msgstr "应用暂存"
 
 #: gitwidget.cpp:1211
 #, kde-format
 msgid "Drop Stash"
-msgstr "丢弃储藏"
+msgstr "丢弃暂存"
 
 #: gitwidget.cpp:1212
 #, kde-format
 msgid "Show Stash Content"
-msgstr "显示储藏内容"
+msgstr "显示暂存内容"
 
 #: gitwidget.cpp:1250
 #, kde-format
@@ -1059,62 +1059,62 @@ msgstr "项目命令"
 #: stashdialog.cpp:36
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
-msgstr "储藏消息（可选）。Enter 键确认，Esc 键离开。"
+msgstr "暂存消息 (可选)。按回车键确认，按 Esc 键离开。"
 
 #: stashdialog.cpp:43
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
-msgstr "输入以过滤，Enter 键以弹出储藏，Esc 键以离开。"
+msgstr "输入以过滤，按 Enter 键以弹出暂存，按 Esc 键以离开。"
 
 #: stashdialog.cpp:143
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr "无法储藏更改 %1"
+msgstr "无法暂存更改 %1"
 
 #: stashdialog.cpp:145
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr "更改已储藏。"
+msgstr "更改已暂存。"
 
 #: stashdialog.cpp:164
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr "获取储藏列表失败。错误："
+msgstr "获取暂存列表失败。错误："
 
 #: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr "应用储藏失败。错误："
+msgstr "应用暂存失败。错误："
 
 #: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr "丢弃储藏失败。错误："
+msgstr "丢弃暂存失败。错误："
 
 #: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr "弹出储藏失败。错误："
+msgstr "弹出暂存失败。错误："
 
 #: stashdialog.cpp:188
 #, kde-format
 msgid "Stash applied successfully."
-msgstr "储藏已应用。"
+msgstr "暂存已成功应用。"
 
 #: stashdialog.cpp:190
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr "储藏已丢弃。"
+msgstr "暂存已成功丢弃。"
 
 #: stashdialog.cpp:192
 #, kde-format
 msgid "Stash popped successfully."
-msgstr "储藏已弹出。"
+msgstr "暂存已成功弹出。"
 
 #: stashdialog.cpp:221
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr "显示储藏失败。错误："
+msgstr "显示暂存失败。错误："
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

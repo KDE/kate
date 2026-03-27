@@ -174,16 +174,18 @@ public:
     }
 };
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 11, 0)
 // tab widget that closes tabs on middle click
+// not required since qt 6.11
 class ClosableTabWidget : public QTabWidget
 {
 public:
     ClosableTabWidget(QWidget *parent = nullptr)
         : QTabWidget(parent) { };
 
-    void mousePressEvent(QMouseEvent *event) override
+    void mouseReleaseEvent(QMouseEvent *event) override
     {
-        QTabWidget::mousePressEvent(event);
+        QTabWidget::mouseReleaseEvent(event);
 
         if (event->button() == Qt::MiddleButton) {
             int id = tabBar()->tabAt(event->pos());
@@ -193,6 +195,9 @@ public:
         }
     }
 };
+#else
+#define ClosableTabWidget QTabWidget
+#endif
 
 class LocationTreeDelegate : public QStyledItemDelegate
 {

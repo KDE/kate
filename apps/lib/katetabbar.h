@@ -140,6 +140,8 @@ protected:
     //! Override to request making the tab bar active.
     void mousePressEvent(QMouseEvent *event) override;
 
+    void mouseReleaseEvent(QMouseEvent *) override;
+
     void mouseMoveEvent(QMouseEvent *) override;
 
     //! Request context menu

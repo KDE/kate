@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-27 00:49+0000\n"
-"PO-Revision-Date: 2026-03-22 15:55+0100\n"
+"PO-Revision-Date: 2026-03-27 11:39+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -36,7 +36,7 @@ msgid "Your names"
 msgstr ""
 "Rinse de Vries - 2000 tot 2005; 2007,Douwe van der Schaaf - 2002,Tom Albers "
 "- 2004,Bram Schoenmakers - 2005; 2006,Wilbert Berendsen - 2003; 2004,Niels "
-"Reedijk - 2000,Luc Castermans 2024,Freek de Kruijf - 2009 t/m 2025"
+"Reedijk - 2000,Luc Castermans 2024,Freek de Kruijf - 2009 t/m 2026"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -454,10 +454,9 @@ msgid "Enable Suppression"
 msgstr "Onderdrukken inschakelen"
 
 #: lib/diagnostics/diagnosticview.cpp:1603
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "Show fixes"
-msgstr "Zij&balken tonen"
+msgstr "Reparaties tonen"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format

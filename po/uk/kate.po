@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-27 00:49+0000\n"
-"PO-Revision-Date: 2026-03-22 23:05+0200\n"
+"PO-Revision-Date: 2026-03-27 08:33+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -443,10 +443,9 @@ msgid "Enable Suppression"
 msgstr "Увімкнути придушення"
 
 #: lib/diagnostics/diagnosticview.cpp:1603
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "Show fixes"
-msgstr "Показати &бічні панелі"
+msgstr "Показати виправлення"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format

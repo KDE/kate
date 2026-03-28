@@ -437,10 +437,9 @@ msgid "Enable Suppression"
 msgstr "启用抑制"
 
 #: lib/diagnostics/diagnosticview.cpp:1603
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "Show fixes"
-msgstr "显示侧边栏(&B)"
+msgstr ""
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format

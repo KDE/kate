@@ -3,7 +3,7 @@
 # Nederlandse vertaling van Kwrite
 # Copyright (C) 2000 KDE-Nederlands team <i18n@kde.nl>
 # Proef gelezen 25Jan2002 Douwe van der Schaaf <dvdsch@bigfoot.com>
-# SPDX-FileCopyrightText: 2009, 2024, 2025 Freek de Kruijf <freekdekruijf@kde.nl>
+# SPDX-FileCopyrightText: 2009, 2024, 2025, 2026 Freek de Kruijf <freekdekruijf@kde.nl>
 # Rinse de Vries, 2000, 2001, 20002.
 # Niels Reedijk <n.reedijk@planet.nl>, 2000.
 # Rinse de Vries <rinse@kde.nl>, 2003, 2004.
@@ -20,14 +20,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-10 02:47+0000\n"
-"PO-Revision-Date: 2025-12-18 11:08+0100\n"
+"PO-Revision-Date: 2026-03-27 11:39+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -36,7 +36,7 @@ msgid "Your names"
 msgstr ""
 "Rinse de Vries - 2000 tot 2005; 2007,Douwe van der Schaaf - 2002,Tom Albers "
 "- 2004,Bram Schoenmakers - 2005; 2006,Wilbert Berendsen - 2003; 2004,Niels "
-"Reedijk - 2000,Luc Castermans 2024,Freek de Kruijf - 2009 t/m 2025"
+"Reedijk - 2000,Luc Castermans 2024,Freek de Kruijf - 2009 t/m 2026"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"

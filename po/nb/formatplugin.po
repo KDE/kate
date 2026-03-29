@@ -112,12 +112,3 @@ msgstr "Ukjent formatterForYaml: %1, faller tilbake til yamlfmt"
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Klarte ikke kjøre formaterer: Språket %1 er ikke støttet"
-
-#~ msgid "Please install node and prettier"
-#~ msgstr "Installer «node» og «prettier»"
-
-#~ msgid "PrettierFormat: Failed to create temporary file"
-#~ msgstr "PrettierFormat: Klarte ikke opprette midlertidig fil."
-
-#~ msgid "PrettierFormat: Failed to start 'node': %1"
-#~ msgstr "PrettierFormat: Klarte ikke å starte «node»: %1"

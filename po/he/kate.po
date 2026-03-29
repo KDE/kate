@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-27 00:49+0000\n"
-"PO-Revision-Date: 2026-03-22 10:25+0200\n"
+"PO-Revision-Date: 2026-03-28 09:28+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -449,10 +449,9 @@ msgid "Enable Suppression"
 msgstr "הפעלת הדחקה"
 
 #: lib/diagnostics/diagnosticview.cpp:1603
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "Show fixes"
-msgstr "הצגת סרגלי &כלים"
+msgstr "הצגת תיקונים"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format

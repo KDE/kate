@@ -21,8 +21,8 @@ class KateProject;
 class KateProjectPlugin;
 class KateProjectInfoView;
 class KateProjectView;
-class KSelectAction;
 class GitWidget;
+class QComboBox;
 class QStackedWidget;
 
 class KateProjectPluginView : public QObject, public KXMLGUIClient
@@ -322,12 +322,6 @@ private:
      */
     QString currentWord() const;
 
-    /**
-     * Search for the project action for the given filename and returns its index if found.
-     * Returns -1 if none is found.
-     */
-    int findProjectActionIndex(const QString &filename) const;
-
 private:
     /**
      * Watches for changes to .git/index
@@ -364,6 +358,11 @@ private:
      * our cross-projects toolview
      */
     QWidget *m_toolMultiView;
+
+    /**
+     * combo box with all loaded projects inside
+     */
+    QComboBox *m_projectsCombo;
 
     /**
      * Reload button
@@ -421,7 +420,6 @@ private:
     QAction *m_projectCloseAllAction;
     QAction *m_projectCloseWithoutDocumentsAction;
     QAction *m_projectReloadAction;
-    KSelectAction *m_projectSelectAction;
 
     /**
       checkout branch button in the statusbar

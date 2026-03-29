@@ -31,7 +31,6 @@
 #include <KActionMenu>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KSelectAction>
 #include <KStandardAction>
 #include <KStringHandler>
 #include <KXMLGUIFactory>
@@ -81,13 +80,9 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     /**
      * create the combo + buttons for the toolViews + stacked widgets
      */
-    m_projectSelectAction = new KSelectAction(i18n("Current Project"), this);
-    m_projectSelectAction->setToolBarMode(KSelectAction::ComboBoxMode);
-    m_projectSelectAction->setToolTip(i18n("Open projects list"));
-    actionCollection()->addAction(QStringLiteral("projects_select_project"), m_projectSelectAction);
-    auto *projectsCombo = qobject_cast<QComboBox *>(m_projectSelectAction->requestWidget(m_toolView));
-    projectsCombo->setFrame(false);
-
+    m_projectsCombo = new QComboBox(m_toolView);
+    m_projectsCombo->setToolTip(i18n("Open projects list"));
+    m_projectsCombo->setFrame(false);
     m_reloadButton = new QToolButton(m_toolView);
     m_reloadButton->setAutoRaise(true);
     m_reloadButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
@@ -98,7 +93,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_closeProjectButton->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
     auto *layout = new QHBoxLayout();
     layout->setSpacing(0);
-    layout->addWidget(projectsCombo);
+    layout->addWidget(m_projectsCombo);
     layout->addWidget(m_reloadButton);
     layout->addWidget(m_closeProjectButton);
     m_toolView->layout()->addItem(layout);
@@ -115,7 +110,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_stackedProjectInfoViews = new QStackedWidget(m_toolInfoView);
     m_gitWidget = new GitWidget(m_mainWindow, this, m_gitToolView.get());
 
-    connect(m_projectSelectAction, &KSelectAction::indexTriggered, this, &KateProjectPluginView::slotCurrentChanged);
+    connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
     connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
 
     connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotCloseProject);
@@ -266,7 +261,7 @@ KateProjectPluginView::~KateProjectPluginView()
 {
     // avoid that we trigger any view change or similar during destruction
     // might lead to crashes, in any case, it is unwanted
-    disconnect(m_projectSelectAction, &KSelectAction::indexTriggered, this, &KateProjectPluginView::slotCurrentChanged);
+    disconnect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
     disconnect(m_gitToolView.get(), SIGNAL(toolVisibleChanged(bool)), this, SLOT(slotUpdateStatus(bool)));
 
     /**
@@ -319,19 +314,6 @@ void KateProjectPluginView::slotConfigUpdated()
     updateActions();
 }
 
-int KateProjectPluginView::findProjectActionIndex(const QString &filename) const
-{
-    int index = -1;
-    const QList<QAction *> actions = m_projectSelectAction->actions();
-    for (int i = 0; i < actions.count(); i++) {
-        if (actions.at(i)->data().toString() == filename) {
-            index = i;
-            break;
-        }
-    }
-    return index;
-}
-
 void KateProjectPluginView::viewForProject(KateProject *project)
 {
     /**
@@ -359,19 +341,17 @@ void KateProjectPluginView::viewForProject(KateProject *project)
      */
     m_stackedProjectViews->addWidget(view);
     m_stackedProjectInfoViews->addWidget(infoView);
-    QAction *a = m_projectSelectAction->addAction(QIcon::fromTheme(QStringLiteral("project-open")), project->name());
-    a->setData(project->fileName());
-
+    m_projectsCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
     connect(project, &KateProject::projectMapChanged, this, [this] {
         auto widget = m_stackedProjectViews->currentWidget();
         auto changedProject = static_cast<KateProjectView *>(widget)->project();
         if (widget && changedProject == sender()) {
             Q_EMIT projectMapEdited();
 
-            const int index = findProjectActionIndex(changedProject->fileName());
-            Q_ASSERT(index == m_projectSelectAction->currentItem());
+            int index = m_projectsCombo->findData(changedProject->fileName());
+            Q_ASSERT(index == m_projectsCombo->currentIndex());
             if (index != -1) {
-                m_projectSelectAction->actions().at(index)->setText(changedProject->name());
+                m_projectsCombo->setItemText(index, changedProject->name());
             }
         }
     });
@@ -614,9 +594,9 @@ void KateProjectPluginView::slotDocumentUrlChanged(KTextEditor::Document *docume
      */
     auto *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
     if (active != m_project2View.value(project).tree) {
-        const int index = findProjectActionIndex(project->fileName());
+        int index = m_projectsCombo->findData(project->fileName());
         if (index >= 0) {
-            m_projectSelectAction->setCurrentItem(index);
+            m_projectsCombo->setCurrentIndex(index);
         }
     }
 }
@@ -637,9 +617,9 @@ void KateProjectPluginView::switchToProject(const QDir &dir)
      */
     auto *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
     if (active != m_project2View.value(project).tree) {
-        const int index = findProjectActionIndex(project->fileName());
+        int index = m_projectsCombo->findData(project->fileName());
         if (index >= 0) {
-            m_projectSelectAction->setCurrentItem(index);
+            m_projectsCombo->setCurrentIndex(index);
         }
     }
 }
@@ -672,22 +652,28 @@ void KateProjectPluginView::slotViewDestroyed(QObject *view)
 
 void KateProjectPluginView::slotProjectPrev()
 {
-    const int numProjects = m_projectSelectAction->actions().count();
-    if (!numProjects) {
+    if (!m_projectsCombo->count()) {
         return;
     }
-    const int newIndex = (m_projectSelectAction->currentItem() - 1) % numProjects;
-    m_projectSelectAction->setCurrentItem(newIndex);
+
+    if (m_projectsCombo->currentIndex() == 0) {
+        m_projectsCombo->setCurrentIndex(m_projectsCombo->count() - 1);
+    } else {
+        m_projectsCombo->setCurrentIndex(m_projectsCombo->currentIndex() - 1);
+    }
 }
 
 void KateProjectPluginView::slotProjectNext()
 {
-    const int numProjects = m_projectSelectAction->actions().count();
-    if (!numProjects) {
+    if (!m_projectsCombo->count()) {
         return;
     }
-    const int newIndex = (m_projectSelectAction->currentItem() + 1) % numProjects;
-    m_projectSelectAction->setCurrentItem(newIndex);
+
+    if (m_projectsCombo->currentIndex() + 1 == m_projectsCombo->count()) {
+        m_projectsCombo->setCurrentIndex(0);
+    } else {
+        m_projectsCombo->setCurrentIndex(m_projectsCombo->currentIndex() + 1);
+    }
 }
 
 void KateProjectPluginView::slotProjectReload()
@@ -750,12 +736,7 @@ void KateProjectPluginView::slotHandleProjectClosing(KateProject *project)
 
     m_project2View.erase(viewIt);
 
-    QAction *projectA = m_projectSelectAction->action(index);
-    if (projectA) {
-        m_projectSelectAction->removeAction(projectA);
-        delete projectA;
-        projectA = nullptr;
-    }
+    m_projectsCombo->removeItem(index);
 
     // Stop watching what no one is interesting anymore
     if (!m_gitChangedWatcherFile.isEmpty()) {
@@ -928,11 +909,10 @@ void KateProjectPluginView::openTerminal(const QString &dirPath, KateProject *pr
 
 void KateProjectPluginView::updateActions()
 {
-    const int numProjects = m_projectSelectAction->actions().count();
-    const bool hasMultipleProjects = numProjects > 1;
+    const bool hasMultipleProjects = m_projectsCombo->count() > 1;
     // currently some project active?
     const bool projectActive = !projectBaseDir().isEmpty();
-    m_projectSelectAction->setEnabled(projectActive);
+    m_projectsCombo->setEnabled(projectActive);
     m_reloadButton->setEnabled(projectActive);
     m_closeProjectButton->setEnabled(projectActive);
     m_projectTodosAction->setEnabled(projectActive);
@@ -940,7 +920,7 @@ void KateProjectPluginView::updateActions()
     m_projectNextAction->setEnabled(projectActive && hasMultipleProjects);
     m_projectCloseAction->setEnabled(projectActive);
     m_projectCloseAllAction->setEnabled(hasMultipleProjects);
-    m_projectCloseWithoutDocumentsAction->setEnabled(numProjects > 0);
+    m_projectCloseWithoutDocumentsAction->setEnabled(m_projectsCombo->count() > 0);
 
     const bool hasIndex = projectActive && m_plugin->getIndexEnabled();
     m_lookupAction->setVisible(hasIndex);
@@ -952,9 +932,9 @@ void KateProjectPluginView::updateActions()
 
 void KateProjectPluginView::slotActivateProject(KateProject *project)
 {
-    const int index = findProjectActionIndex(project->fileName());
+    const int index = m_projectsCombo->findData(project->fileName());
     if (index >= 0) {
-        m_projectSelectAction->setCurrentItem(index);
+        m_projectsCombo->setCurrentIndex(index);
     }
 }
 

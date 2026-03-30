@@ -8,8 +8,15 @@
 
 #include <KTextEditor/ConfigPage>
 
+class JSONSettings;
 class LSPClientPlugin;
 struct LSPClientPluginOptions;
+
+namespace KTextEditor
+{
+class Document;
+class View;
+}
 
 namespace Ui
 {
@@ -30,16 +37,12 @@ public:
     void apply() override;
     void defaults() override;
     void reset() override;
-    void configTextChanged();
-    void configUrlChanged();
-    void updateHighlighters();
     void showContextMenuAllowedBlocked(const QPoint &pos);
 
 private:
-    void resetUiTo(const LSPClientPluginOptions &options);
+    JSONSettings *m_jsonSettings;
 
-    void readUserConfig(const QString &fileName);
-    void updateConfigTextErrorState();
+    void resetUiTo(const LSPClientPluginOptions &options);
 
     Ui::LspConfigWidget *ui;
     LSPClientPlugin *m_plugin;

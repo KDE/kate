@@ -10,17 +10,19 @@
 #include <KTextEditor/ConfigPage>
 
 class KatePluginGDB;
+class JSONSettings;
 
-namespace Ui
+namespace KTextEditor
 {
-class DebugConfigWidget;
+class Document;
+class View;
 }
 
 class DebugConfigPage : public KTextEditor::ConfigPage
 {
 public:
     explicit DebugConfigPage(QWidget *parent = nullptr, KatePluginGDB *plugin = nullptr);
-    ~DebugConfigPage() override;
+    ~DebugConfigPage() override = default;
 
     QString name() const override;
     QString fullName() const override;
@@ -30,14 +32,9 @@ public Q_SLOTS:
     void apply() override;
     void defaults() override;
     void reset() override;
-    void configTextChanged();
-    void configUrlChanged();
-    void updateHighlighters();
 
 private:
-    void readUserConfig(const QString &fileName);
-    void updateConfigTextErrorState();
-
-    Ui::DebugConfigWidget *ui;
     KatePluginGDB *m_plugin;
+
+    JSONSettings *m_jsonSettings;
 };

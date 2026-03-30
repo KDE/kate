@@ -189,6 +189,9 @@ target_sources(
     welcomeview/recentitemsmodel.cpp
     welcomeview/savedsessionsmodel.cpp
 
+    jsonsettings.h
+    jsonsettings.cpp
+
     exec_io_utils.cpp
     ${LIB_KATE_TIME_SOURCES}
     ${LIB_KATE_EXEC_SOURCES}

@@ -39,6 +39,9 @@ public:
 
     Q_SIGNAL void configChanged();
 
+    const QUrl m_defaultConfigPath;
+    QUrl m_configPath;
+
 private:
     void readJsonConfig();
     const QJsonDocument m_defaultConfig;

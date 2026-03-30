@@ -38,6 +38,8 @@ static QJsonDocument readDefaultConfig()
 
 FormatPlugin::FormatPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
+    , m_defaultConfigPath(
+          QUrl::fromLocalFile(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation).append(QStringLiteral("/formatting/settings.json"))))
     , m_defaultConfig(readDefaultConfig())
 {
     readConfig();
@@ -67,6 +69,9 @@ void FormatPlugin::readConfig()
 
 void FormatPlugin::readJsonConfig()
 {
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("kateformatplugin"));
+    m_configPath = QUrl::fromLocalFile(config.readEntry("configPath", ""));
+
     QJsonDocument userConfig;
     const QString path = userConfigPath();
     if (QFile::exists(path)) {
@@ -97,7 +102,7 @@ void FormatPlugin::readJsonConfig()
 
 QString FormatPlugin::userConfigPath() const
 {
-    return QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation).append(QStringLiteral("/formatting/settings.json"));
+    return m_configPath.isEmpty() ? m_defaultConfigPath.toLocalFile() : m_configPath.toLocalFile();
 }
 
 QJsonObject FormatPlugin::formatterConfig() const
@@ -146,6 +151,9 @@ void FormatPluginView::onConfigChanged()
     m_lastMergedConfig = {};
     onActiveViewChanged(nullptr);
     onActiveViewChanged(m_mainWindow->activeView());
+
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("kateformatplugin"));
+    config.writeEntry(QStringLiteral("configPath"), m_plugin->m_configPath.toLocalFile());
 }
 
 void FormatPluginView::onActiveViewChanged(KTextEditor::View *v)

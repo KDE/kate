@@ -12,8 +12,6 @@ ecm_qt_declare_logging_category(
     CATEGORY_NAME "kategdbplugin"
 )
 
-ki18n_wrap_ui(kategdbplugin debugconfig.ui)
-
 set(DAP_SOURCES
     dap/bus.cpp
     dap/socketbus.cpp

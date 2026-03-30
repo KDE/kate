@@ -23,6 +23,7 @@ LineNumArea::LineNumArea(DiffEditor *parent)
     : QWidget(parent)
     , textEdit(parent)
 {
+    setMouseTracking(true);
     setFont(textEdit->font());
     auto updateColors = [this](KTextEditor::Editor *e) {
         if (!e) {
@@ -68,11 +69,11 @@ QSize LineNumArea::sizeHint() const
     return {lineNosWidth + textEdit->fontMetrics().height(), 0};
 }
 
-static void paintTriangle(QPainter &painter, QColor c, int xOffset, int yOffset, int width, int height, bool open)
+static void paintTriangle(QPainter &painter, QColor c, QRect r, bool open)
 {
     painter.setRenderHint(QPainter::Antialiasing);
 
-    qreal size = qMin(width, height);
+    qreal size = qMin(r.width(), r.height());
 
     QPen pen;
     pen.setJoinStyle(Qt::RoundJoin);
@@ -86,7 +87,7 @@ static void paintTriangle(QPainter &painter, QColor c, int xOffset, int yOffset,
 
     qreal halfSize = size / 2;
     qreal halfSizeP = halfSize * 0.6;
-    QPointF middle(xOffset + ((qreal)width / 2), yOffset + ((qreal)height / 2));
+    QPointF middle(r.x() + ((qreal)r.width() / 2), r.y() + ((qreal)r.height() / 2));
 
     if (open) {
         QPointF points[3] = {middle + QPointF(-halfSize, -halfSizeP), middle + QPointF(halfSize, -halfSizeP), middle + QPointF(0, halfSizeP)};
@@ -158,11 +159,9 @@ void LineNumArea::paintEvent(QPaintEvent *event)
 
             // Hunk fold marker
             if (textEdit->isHunkLine(blockNumber)) {
-                const int x = rect().width() - (textEdit->fontMetrics().height() + Margin);
-                const int y = top;
-                const int width = textEdit->fontMetrics().height();
-                const int height = width;
-                paintTriangle(painter, m_otherLinesColor, x, y, width, height, !textEdit->isHunkFolded(blockNumber));
+                QRect r = foldTriangleRect(block);
+                QColor c = (m_hoverData.mouseOverTriangle && m_hoverData.mouseOverBlockNumber == blockNumber) ? m_otherLinesColor.lighter() : m_otherLinesColor;
+                paintTriangle(painter, c, r, !textEdit->isHunkFolded(blockNumber));
             }
         }
 
@@ -216,6 +215,33 @@ void LineNumArea::mousePressEvent(QMouseEvent *e)
     if (textEdit->isHunkLine(block)) {
         textEdit->toggleFoldHunk(block);
     }
+}
+
+QRect LineNumArea::foldTriangleRect(const QTextBlock &block) const
+{
+    const int x = rect().width() - (textEdit->fontMetrics().height() + Margin);
+    int y = (int)textEdit->blockBoundingGeometry(block).translated(textEdit->contentOffset()).y();
+    const int width = textEdit->fontMetrics().height();
+    const int height = width;
+    return QRect(x, y, width, height);
+}
+
+void LineNumArea::mouseMoveEvent(QMouseEvent *e)
+{
+    const auto oldHoverData = m_hoverData;
+    m_hoverData.reset();
+
+    const auto block = textEdit->cursorForPosition(e->pos()).block();
+    if (block.isValid()) {
+        m_hoverData.mouseOverBlockNumber = block.blockNumber();
+        m_hoverData.mouseOverTriangle = textEdit->isHunkLine(block.blockNumber()) && foldTriangleRect(block).contains(e->pos());
+    }
+
+    if (oldHoverData != m_hoverData) {
+        update();
+    }
+
+    QWidget::mouseMoveEvent(e);
 }
 
 void LineNumArea::wheelEvent(QWheelEvent *e)

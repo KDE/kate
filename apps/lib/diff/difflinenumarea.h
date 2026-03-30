@@ -4,6 +4,7 @@
 */
 #pragma once
 
+#include <QTextBlock>
 #include <QWidget>
 
 class LineNumArea final : public QWidget
@@ -59,10 +60,32 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *e) override;
+    void mouseMoveEvent(QMouseEvent *e) override;
     void wheelEvent(QWheelEvent *e) override;
 
 private:
     void drawLineNumber(QPainter &painter, QRect rect, int blockNumber, int num, const struct LineNumColors &c);
+    QRect foldTriangleRect(const QTextBlock &block) const;
+
+    struct HoverData {
+        int mouseOverBlockNumber = -1;
+        bool mouseOverTriangle = false;
+        void reset()
+        {
+            mouseOverBlockNumber = -1;
+            mouseOverTriangle = false;
+        }
+
+        bool operator==(const HoverData &r) const
+        {
+            return mouseOverTriangle != r.mouseOverTriangle && mouseOverBlockNumber != r.mouseOverBlockNumber;
+        }
+
+        bool operator!=(const HoverData &r) const
+        {
+            return !(*this == r);
+        }
+    };
 
     class DiffEditor *const textEdit;
     //     QColor m_currentLineColor;
@@ -72,4 +95,5 @@ private:
     std::vector<int> m_lineToNumA;
     std::vector<int> m_lineToNumB;
     int maxLineNum = 0;
+    HoverData m_hoverData{};
 };

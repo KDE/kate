@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-29 00:46+0000\n"
+"POT-Creation-Date: 2026-03-30 00:46+0000\n"
 "PO-Revision-Date: 2023-04-17 16:12+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -84,7 +84,7 @@ msgstr[1] "Tem a certeza que deseja remover as ramificações seleccionadas?"
 msgid "Select Branch..."
 msgstr "Seleccionar a Ramificação..."
 
-#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:74
+#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -552,8 +552,8 @@ msgstr "Preparado"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Ficheiro JSON mal-formatado '%1': %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:79
-#: kateprojectpluginview.cpp:230 kateprojectviewtree.cpp:353
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:353
 #: kateprojectviewtree.cpp:364 kateprojectviewtree.cpp:394
 #: kateprojectviewtree.cpp:401
 #, kde-format
@@ -716,7 +716,7 @@ msgstr "Preparar / Retirar da Preparação"
 msgid "Double click action in the git status view"
 msgstr "Acção de duplo-click na área de estado do Git"
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:72
 #, kde-format
 msgid "Projects"
 msgstr "Projectos"
@@ -897,100 +897,94 @@ msgstr ""
 "Localização completa do projecto actual, excluindo o nome do ficheiro, com o "
 "separador de pastas nativo (barra invertida no Windows)."
 
-#: kateprojectpluginview.cpp:63
+#: kateprojectpluginview.cpp:62
 #, kde-format
 msgid "Project Manager"
 msgstr "Gestor de Projectos"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
-msgid "Current Project"
-msgstr "Fechar o Projecto"
-
-#: kateprojectpluginview.cpp:86
 #, kde-format
 msgid "Open projects list"
 msgstr "Abrir a lista de projectos"
 
-#: kateprojectpluginview.cpp:94
+#: kateprojectpluginview.cpp:89
 #, kde-format
 msgid "Reload project"
 msgstr "Recarregar o projecto"
 
-#: kateprojectpluginview.cpp:97
+#: kateprojectpluginview.cpp:92
 #, kde-format
 msgid "Close project"
 msgstr "Fechar o projecto"
 
-#: kateprojectpluginview.cpp:173
+#: kateprojectpluginview.cpp:168
 #, fuzzy, kde-format
 #| msgid "Open Folder..."
 msgid "Open &Folder..."
 msgstr "Abrir uma Pasta..."
 
-#: kateprojectpluginview.cpp:179
+#: kateprojectpluginview.cpp:174
 #, kde-format
 msgid "Project TODOs"
 msgstr "POR-FAZER'es dos Projectos"
 
-#: kateprojectpluginview.cpp:184
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Activar o Projecto Anterior"
 
-#: kateprojectpluginview.cpp:190
+#: kateprojectpluginview.cpp:185
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Activar o Projecto Seguinte"
 
-#: kateprojectpluginview.cpp:196
+#: kateprojectpluginview.cpp:191
 #, kde-format
 msgid "Lookup"
 msgstr "Procurar"
 
-#: kateprojectpluginview.cpp:201
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Close Project"
 msgstr "Fechar o Projecto"
 
-#: kateprojectpluginview.cpp:206
+#: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Close All Projects"
 msgstr "Fechar Todos os Projectos"
 
-#: kateprojectpluginview.cpp:211
+#: kateprojectpluginview.cpp:206
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Fechar os Projectos Órfãos"
 
-#: kateprojectpluginview.cpp:216
+#: kateprojectpluginview.cpp:211
 #, fuzzy, kde-format
 #| msgid "Reload project"
 msgid "Reload Project"
 msgstr "Recarregar o projecto"
 
-#: kateprojectpluginview.cpp:227
+#: kateprojectpluginview.cpp:222
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Seleccionar a Ramificação do Git"
 
-#: kateprojectpluginview.cpp:233 kateprojectpluginview.cpp:826
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Procurar: %1"
 
-#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:827
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:808
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ir para: %1"
 
-#: kateprojectpluginview.cpp:313
+#: kateprojectpluginview.cpp:308
 #, kde-format
 msgid "Projects Index"
 msgstr "Índice dos Projectos"
 
-#: kateprojectpluginview.cpp:871
+#: kateprojectpluginview.cpp:852
 #, kde-format
 msgid "Choose a directory"
 msgstr "Escolher uma pasta"
@@ -1183,12 +1177,15 @@ msgstr "Não foi possível mostrar os ficheiros preparados. Erro: "
 msgid "&Projects"
 msgstr "&Projectos"
 
-#. i18n: ectx: ToolBar (projectplugin)
-#: ui.rc:27
-#, fuzzy, kde-format
-#| msgid "Project Completion"
-msgid "Project Plugin"
-msgstr "Completação do Projecto"
+#, fuzzy
+#~| msgid "Close Project"
+#~ msgid "Current Project"
+#~ msgstr "Fechar o Projecto"
+
+#, fuzzy
+#~| msgid "Project Completion"
+#~ msgid "Project Plugin"
+#~ msgstr "Completação do Projecto"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "Mostrar o Conteúdo Preparado"

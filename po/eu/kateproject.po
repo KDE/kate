@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-29 00:46+0000\n"
-"PO-Revision-Date: 2026-03-22 12:09+0100\n"
+"POT-Creation-Date: 2026-03-30 00:46+0000\n"
+"PO-Revision-Date: 2026-03-29 22:10+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -87,7 +87,7 @@ msgstr[1] "Ziur zaude hautatutako adarrak ezabatu nahi dituzula?"
 msgid "Select Branch..."
 msgstr "Hautatu adarra…"
 
-#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:74
+#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -546,8 +546,8 @@ msgstr "(Prestatuta)"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Gaizki osatutako JSON fitxategia '%1': %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:79
-#: kateprojectpluginview.cpp:230 kateprojectviewtree.cpp:353
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:353
 #: kateprojectviewtree.cpp:364 kateprojectviewtree.cpp:394
 #: kateprojectviewtree.cpp:401
 #, kde-format
@@ -665,14 +665,14 @@ msgstr ""
 "Proiektu-plugina hainbat proiektutan zehar eragiketa batzuk egiteko gai da."
 
 #: kateprojectconfigpage.cpp:74
-#, fuzzy, kde-format
+#, kde-format
 msgid "Cross-Project Completion"
-msgstr "Proiektu artean osatzea"
+msgstr "Proiektu-arteko osaketa"
 
 #: kateprojectconfigpage.cpp:76
-#, fuzzy, kde-format
+#, kde-format
 msgid "Cross-Project Goto Symbol"
-msgstr "Proiektu artean Joan ikurrera"
+msgstr "Proiektu-arteko ikurrera joatea"
 
 #: kateprojectconfigpage.cpp:84
 #, kde-format
@@ -681,9 +681,9 @@ msgid "Git"
 msgstr "Git"
 
 #: kateprojectconfigpage.cpp:87
-#, fuzzy, kde-format
+#, kde-format
 msgid "Single click action in the git status view"
-msgstr "Klik bakarreko ekintza «git status» ikuspegian"
+msgstr "Git-en egoera ikuspegian klik bakarreko ekintza"
 
 #: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
@@ -701,11 +701,11 @@ msgid "Stage / Unstage"
 msgstr "Prestatu / Prestaketatik kendu"
 
 #: kateprojectconfigpage.cpp:99
-#, fuzzy, kde-format
+#, kde-format
 msgid "Double click action in the git status view"
-msgstr "Klik bikoitzeko ekintza «git status» ikuspegian"
+msgstr "Git-en egoera ikuspegian klik bikoitzeko ekintza"
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:72
 #, kde-format
 msgid "Projects"
 msgstr "Proiektuak"
@@ -777,14 +777,14 @@ msgstr ""
 "exekutatuko da:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:109
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1 erabiltzen, hemen instalatua: %2.<br/><br/>%3. Tresna, fitxategi-luzapen "
-"zerrenda horrekin bat datozen proiektuko fitxategi guztietan exekutatutako "
-"da:<br/><b>%4</b>"
+"%1 erabiltzen da, (%2 kokalekuan instalatua).<br/><br/>%3. Tresna, fitxategi-"
+"luzapen zerrenda honekin bat datozen proiektuko fitxategi guztietan "
+"exekutatutako da:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:151
 #: kateprojectinfoviewcodeanalysis.cpp:211
@@ -880,98 +880,92 @@ msgstr ""
 "Uneko proiektuaren bide-izen osoa, fitxategi-izena kenduta, sistemaren "
 "berezko bide-izen bereizlearekin (alderantzizko barra zeiharra Windowsen)."
 
-#: kateprojectpluginview.cpp:63
+#: kateprojectpluginview.cpp:62
 #, kde-format
 msgid "Project Manager"
 msgstr "Proiektu-kudeatzailea"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
-msgid "Current Project"
-msgstr "Itxi proiektua"
-
-#: kateprojectpluginview.cpp:86
 #, kde-format
 msgid "Open projects list"
 msgstr "Ireki proiektuen zerrenda"
 
-#: kateprojectpluginview.cpp:94
+#: kateprojectpluginview.cpp:89
 #, kde-format
 msgid "Reload project"
 msgstr "Birzamatu proiektua"
 
-#: kateprojectpluginview.cpp:97
+#: kateprojectpluginview.cpp:92
 #, kde-format
 msgid "Close project"
 msgstr "Itxi proiektua"
 
-#: kateprojectpluginview.cpp:173
+#: kateprojectpluginview.cpp:168
 #, kde-format
 msgid "Open &Folder..."
 msgstr "Ireki &karpeta…"
 
-#: kateprojectpluginview.cpp:179
+#: kateprojectpluginview.cpp:174
 #, kde-format
 msgid "Project TODOs"
 msgstr "Proiektuko zereginak"
 
-#: kateprojectpluginview.cpp:184
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Aktibatu aurreko proiektua"
 
-#: kateprojectpluginview.cpp:190
+#: kateprojectpluginview.cpp:185
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Aktibatu hurrengo proiektua"
 
-#: kateprojectpluginview.cpp:196
+#: kateprojectpluginview.cpp:191
 #, kde-format
 msgid "Lookup"
 msgstr "Bilatzea"
 
-#: kateprojectpluginview.cpp:201
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Close Project"
 msgstr "Itxi proiektua"
 
-#: kateprojectpluginview.cpp:206
+#: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Close All Projects"
 msgstr "Itxi proiektu denak"
 
-#: kateprojectpluginview.cpp:211
+#: kateprojectpluginview.cpp:206
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Itxi proiektu umezurtzak"
 
-#: kateprojectpluginview.cpp:216
+#: kateprojectpluginview.cpp:211
 #, kde-format
 msgid "Reload Project"
 msgstr "Birzamatu proiektua"
 
-#: kateprojectpluginview.cpp:227
+#: kateprojectpluginview.cpp:222
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Aldatu Git adarrera"
 
-#: kateprojectpluginview.cpp:233 kateprojectpluginview.cpp:826
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Bilatu: %1"
 
-#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:827
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:808
 #, kde-format
 msgid "Goto: %1"
 msgstr "Joan hona: %1"
 
-#: kateprojectpluginview.cpp:313
+#: kateprojectpluginview.cpp:308
 #, kde-format
 msgid "Projects Index"
 msgstr "Proiektuen indizea"
 
-#: kateprojectpluginview.cpp:871
+#: kateprojectpluginview.cpp:852
 #, kde-format
 msgid "Choose a directory"
 msgstr "Hautatu direktorio bat"
@@ -1164,12 +1158,13 @@ msgstr "Aldi baterako gordetakoa erakusteak huts egin du: Errorea: "
 msgid "&Projects"
 msgstr "&Proiektuak"
 
-#. i18n: ectx: ToolBar (projectplugin)
-#: ui.rc:27
-#, fuzzy, kde-format
-#| msgid "Project Completion"
-msgid "Project Plugin"
-msgstr "Proiektuaren osatze-maila"
+#~| msgid "Close Project"
+#~ msgid "Current Project"
+#~ msgstr "Uneko proiektua"
+
+#~| msgid "Project Completion"
+#~ msgid "Project Plugin"
+#~ msgstr "Proiektu-plugina"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "Erakutsi aldi baterako gordetakoaren edukia"

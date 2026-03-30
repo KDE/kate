@@ -439,7 +439,7 @@ msgstr "启用抑制"
 #: lib/diagnostics/diagnosticview.cpp:1603
 #, kde-format
 msgid "Show fixes"
-msgstr ""
+msgstr "显示修复"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format

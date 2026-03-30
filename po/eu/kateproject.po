@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-03 00:51+0000\n"
-"PO-Revision-Date: 2026-03-22 12:09+0100\n"
+"PO-Revision-Date: 2026-03-29 22:10+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -650,14 +650,14 @@ msgstr ""
 "Proiektu-plugina hainbat proiektutan zehar eragiketa batzuk egiteko gai da."
 
 #: kateprojectconfigpage.cpp:74
-#, fuzzy, kde-format
+#, kde-format
 msgid "Cross-Project Completion"
-msgstr "Proiektu artean osatzea"
+msgstr "Proiektu-arteko osaketa"
 
 #: kateprojectconfigpage.cpp:76
-#, fuzzy, kde-format
+#, kde-format
 msgid "Cross-Project Goto Symbol"
-msgstr "Proiektu artean Joan ikurrera"
+msgstr "Proiektu-arteko ikurrera joatea"
 
 #: kateprojectconfigpage.cpp:84
 #, kde-format
@@ -666,9 +666,9 @@ msgid "Git"
 msgstr "Git"
 
 #: kateprojectconfigpage.cpp:87
-#, fuzzy, kde-format
+#, kde-format
 msgid "Single click action in the git status view"
-msgstr "Klik bakarreko ekintza «git status» ikuspegian"
+msgstr "Git-en egoera ikuspegian klik bakarreko ekintza"
 
 #: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
@@ -686,9 +686,9 @@ msgid "Stage / Unstage"
 msgstr "Prestatu / Prestaketatik kendu"
 
 #: kateprojectconfigpage.cpp:99
-#, fuzzy, kde-format
+#, kde-format
 msgid "Double click action in the git status view"
-msgstr "Klik bikoitzeko ekintza «git status» ikuspegian"
+msgstr "Git-en egoera ikuspegian klik bikoitzeko ekintza"
 
 #: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:72
 #, kde-format
@@ -762,14 +762,14 @@ msgstr ""
 "exekutatuko da:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:109
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1 erabiltzen, hemen instalatua: %2.<br/><br/>%3. Tresna, fitxategi-luzapen "
-"zerrenda horrekin bat datozen proiektuko fitxategi guztietan exekutatutako "
-"da:<br/><b>%4</b>"
+"%1 erabiltzen da, (%2 kokalekuan instalatua).<br/><br/>%3. Tresna, fitxategi-"
+"luzapen zerrenda honekin bat datozen proiektuko fitxategi guztietan "
+"exekutatutako da:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:151
 #: kateprojectinfoviewcodeanalysis.cpp:211

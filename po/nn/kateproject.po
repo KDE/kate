@@ -1141,13 +1141,3 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "&Prosjekt"
-
-#, fuzzy
-#~| msgid "Close Project"
-#~ msgid "Current Project"
-#~ msgstr "Lukk prosjektet"
-
-#, fuzzy
-#~| msgid "Project Completion"
-#~ msgid "Project Plugin"
-#~ msgstr "Prosjektfullføring"

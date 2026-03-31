@@ -1154,13 +1154,3 @@ msgstr "Vis mellomlager feilet. Feil: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Prosjekter"
-
-#, fuzzy
-#~| msgid "Close Project"
-#~ msgid "Current Project"
-#~ msgstr "Lukk prosjekt"
-
-#, fuzzy
-#~| msgid "Project Completion"
-#~ msgid "Project Plugin"
-#~ msgstr "Prosjektfullføring"

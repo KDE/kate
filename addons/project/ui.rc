@@ -23,7 +23,7 @@
   <Menu name="ktexteditor_popup" noMerge="1">
     <Action name="popup_project"/>
   </Menu>
-  <ToolBar name="projectplugin">
+  <ToolBar name="projectplugin" hidden="true">
     <text>Project Plugin</text>
     <Action name="projects_open_project"/>
     <Action name="projects_select_project"/>

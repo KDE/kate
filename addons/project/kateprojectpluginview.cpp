@@ -332,6 +332,12 @@ int KateProjectPluginView::findProjectActionIndex(const QString &filename) const
     return index;
 }
 
+void KateProjectPluginView::setCurrentProject(int index)
+{
+    m_projectSelectAction->setCurrentItem(index);
+    slotCurrentChanged(index);
+}
+
 void KateProjectPluginView::viewForProject(KateProject *project)
 {
     /**
@@ -616,7 +622,7 @@ void KateProjectPluginView::slotDocumentUrlChanged(KTextEditor::Document *docume
     if (active != m_project2View.value(project).tree) {
         const int index = findProjectActionIndex(project->fileName());
         if (index >= 0) {
-            m_projectSelectAction->setCurrentItem(index);
+            setCurrentProject(index);
         }
     }
 }
@@ -639,7 +645,7 @@ void KateProjectPluginView::switchToProject(const QDir &dir)
     if (active != m_project2View.value(project).tree) {
         const int index = findProjectActionIndex(project->fileName());
         if (index >= 0) {
-            m_projectSelectAction->setCurrentItem(index);
+            setCurrentProject(index);
         }
     }
 }
@@ -677,7 +683,7 @@ void KateProjectPluginView::slotProjectPrev()
         return;
     }
     const int newIndex = (m_projectSelectAction->currentItem() - 1) % numProjects;
-    m_projectSelectAction->setCurrentItem(newIndex);
+    setCurrentProject(newIndex);
 }
 
 void KateProjectPluginView::slotProjectNext()
@@ -687,7 +693,7 @@ void KateProjectPluginView::slotProjectNext()
         return;
     }
     const int newIndex = (m_projectSelectAction->currentItem() + 1) % numProjects;
-    m_projectSelectAction->setCurrentItem(newIndex);
+    setCurrentProject(newIndex);
 }
 
 void KateProjectPluginView::slotProjectReload()
@@ -954,7 +960,7 @@ void KateProjectPluginView::slotActivateProject(KateProject *project)
 {
     const int index = findProjectActionIndex(project->fileName());
     if (index >= 0) {
-        m_projectSelectAction->setCurrentItem(index);
+        setCurrentProject(index);
     }
 }
 

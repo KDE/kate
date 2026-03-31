@@ -328,6 +328,11 @@ private:
      */
     int findProjectActionIndex(const QString &filename) const;
 
+    /**
+     * Set the project at the given index in the action and in the project view.
+     */
+    void setCurrentProject(int index);
+
 private:
     /**
      * Watches for changes to .git/index

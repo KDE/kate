@@ -110,6 +110,7 @@ protected:
     void resizeEvent(QResizeEvent *event) override;
     void paintEvent(QPaintEvent *e) override;
     void contextMenuEvent(QContextMenuEvent *e) override;
+    void mouseReleaseEvent(QMouseEvent *e) override;
 
 private:
     void updateLineNumberArea(const QRect &rect, int dy);

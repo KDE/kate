@@ -214,9 +214,9 @@ void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
             auto openFileAction = new QAction(i18n("Edit Line"), this);
             connect(openFileAction, &QAction::triggered, this, [this, lineNumA, lineNumB] {
                 if (m_openLineNumAEnabled && lineNumA != -1) {
-                    Q_EMIT openLineNumARequested(lineNumA, textCursor().columnNumber());
+                    Q_EMIT openLineNumARequested(lineNumA, textCursor().positionInBlock());
                 } else if (m_openLineNumBEnabled && lineNumB != -1) {
-                    Q_EMIT openLineNumBRequested(lineNumB, textCursor().columnNumber());
+                    Q_EMIT openLineNumBRequested(lineNumB, textCursor().positionInBlock());
                 }
             });
             menu->insertAction(before, openFileAction);
@@ -231,6 +231,32 @@ void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
     addStageUnstageDiscardActions(menu);
 
     menu->exec(viewport()->mapToGlobal(e->pos()));
+}
+
+void DiffEditor::mouseReleaseEvent(QMouseEvent *e)
+{
+    if (e->modifiers().testFlag(Qt::ControlModifier) && e->button() == Qt::LeftButton) {
+        const auto cursor = cursorForPosition(e->pos());
+        const auto block = cursor.block();
+        // ensure click is really inside block, and this isn't the nearest block
+        const auto blockHasPos = blockBoundingGeometry(block).translated(contentOffset()).contains(e->pos());
+        if (block.isValid() && blockHasPos) {
+            int lineNumA = m_lineNumArea->lineNumForBlock(block.blockNumber());
+            int lineNumB = m_lineNumArea->lineNumForBlockB(block.blockNumber());
+            if (m_openLineNumAEnabled && lineNumA != -1) {
+                Q_EMIT openLineNumARequested(lineNumA, cursor.positionInBlock());
+                e->accept();
+                return;
+
+            } else if (m_openLineNumBEnabled && lineNumB != -1) {
+                Q_EMIT openLineNumBRequested(lineNumB, cursor.positionInBlock());
+                e->accept();
+                return;
+            }
+        }
+    }
+
+    QPlainTextEdit::mouseReleaseEvent(e);
 }
 
 void DiffEditor::addStageUnstageDiscardActions(QMenu *menu)

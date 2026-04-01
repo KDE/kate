@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-30 00:46+0000\n"
-"PO-Revision-Date: 2026-03-22 10:25+0200\n"
+"PO-Revision-Date: 2026-03-31 09:56+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Poedit 3.8\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr "נא לבחור ענף לשליפה. לחיצה על ‚Esc’ לביטול."
+msgstr "נא לבחור ענף לשליפה. לחיצה על ‚Esc’ תבטל."
 
 #: branchcheckoutdialog.cpp:62
 #, kde-format
@@ -293,7 +293,7 @@ msgstr "השינויים קובעו בהצלחה."
 #: gitwidget.cpp:854
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr "אין מה לקבע. נא "
+msgstr "אין מה לקבע. נא לשים את השינויים שלך בבימוי קודם."
 
 #: gitwidget.cpp:868
 #, kde-format
@@ -1066,7 +1066,7 @@ msgid ""
 msgstr ""
 "לא ניתן לטעון מיזמים מבוססי %s כיוון שאו ש־%1 לא מותקן או שהוא לא נמצא "
 "במשתנה הסביבה PATH. נא להתקין את %1 או לחלופין להשבית את האפשרות ‚טעינת "
-"מאגרים אוטומטית ובניית עצים’ בהגדרות המיזם"
+"מאגרים אוטומטית ובניית עצים’ בהגדרות המיזם."
 
 #: project_commands.cpp:35
 #, kde-format

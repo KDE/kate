@@ -29,11 +29,9 @@ private:
     class DiffWidget *const m_diffWidget;
 };
 
-using IntT = qsizetype;
-
 struct Change {
-    IntT pos;
-    IntT len;
+    qsizetype pos;
+    qsizetype len;
     enum {
         FullBlock = -2
     };
@@ -41,7 +39,7 @@ struct Change {
 
 struct LineHighlight {
     std::vector<Change> changes;
-    IntT line;
+    qsizetype line;
     bool added;
 };
 

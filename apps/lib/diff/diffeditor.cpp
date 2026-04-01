@@ -379,8 +379,8 @@ void DiffEditor::paintEvent(QPaintEvent *e)
                     continue;
                 }
                 if (sl.isValid() && sl.lineNumber() == el.lineNumber()) {
-                    int sx = sl.cursorToX(c.pos);
-                    int ex = el.cursorToX(c.pos + c.len);
+                    qreal sx = sl.cursorToX(c.pos);
+                    qreal ex = el.cursorToX(c.pos + c.len);
                     QRectF r = sl.naturalTextRect();
                     r.setLeft(sx);
                     r.setRight(ex);
@@ -456,7 +456,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
 
 const LineHighlight *DiffEditor::highlightingForLine(int line)
 {
-    auto it = std::find_if(m_data.cbegin(), m_data.cend(), [line](LineHighlight hl) {
+    auto it = std::find_if(m_data.cbegin(), m_data.cend(), [line](const LineHighlight &hl) {
         return hl.line == line;
     });
     return it == m_data.cend() ? nullptr : &(*it);

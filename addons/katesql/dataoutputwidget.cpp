@@ -5,15 +5,21 @@
 */
 
 #include "dataoutputwidget.h"
+#include "dataoutputeditablemodel.h"
 #include "dataoutputmodel.h"
+#include "dataoutputmodelinterface.h"
+#include "dataoutputstylehelper.h"
 #include "dataoutputview.h"
 #include "exportwizard.h"
 
+#include <algorithm>
+
+#include <KMessageBox>
+#include <KTextEditor/Application>
 #include <KTextEditor/Document>
-#include <ktexteditor/application.h>
-#include <ktexteditor/editor.h>
-#include <ktexteditor/mainwindow.h>
-#include <ktexteditor/view.h>
+#include <KTextEditor/Editor>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
 
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -25,72 +31,196 @@
 #include <QClipboard>
 #include <QElapsedTimer>
 #include <QFile>
+#include <QFocusEvent>
 #include <QHeaderView>
+#include <QKeySequence>
+#include <QLabel>
 #include <QLayout>
+#include <QLineEdit>
 #include <QSize>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlRecord>
+#include <QSqlTableModel>
 #include <QStyle>
 #include <QTextStream>
 #include <QTime>
 #include <QTimer>
+#include <QCompleter>
+#include <QDir>
+#include <QIcon>
+#include <QList>
+#include <QMargins>
+#include <QSqlField>
+#include <QSqlIndex>
+#include <QSqlRecord>
+#include <QtTypes>
 
 DataOutputWidget::DataOutputWidget(QWidget *parent)
     : QWidget(parent)
-    , m_model(new DataOutputModel(this))
+    , m_model(nullptr)
     , m_view(new DataOutputView(this))
-    , m_isEmpty(true)
+    , m_editableSection(nullptr)
+    , m_isEditable(false)
+    , m_editableOnlyRightClickActions(QList<QAction *>(
+          qsizetype(6))) // change once we have more than insertRowAction + duplicateRowAction + removeRowAction + setNullAction + undoAction + pasteAction
 {
-    m_view->setModel(m_model);
+    m_styleHelper.readConfig();
+    m_view->setModel(nullptr);
 
     auto *layout = new QHBoxLayout(this);
     m_dataLayout = new QVBoxLayout();
 
-    auto *toolbar = new KToolBar(this);
-    toolbar->setOrientation(Qt::Vertical);
-    toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    // Create vertical toolbar on the left
+    auto *verticalToolbar = new KToolBar(this);
+    verticalToolbar->setOrientation(Qt::Vertical);
+    verticalToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
     // ensure reasonable icons sizes, like e.g. the quick-open and co. icons
     // the normal toolbar sizes are TOO large, e.g. for scaled stuff even more!
     const int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, this);
-    toolbar->setIconSize(QSize(iconSize, iconSize));
+    verticalToolbar->setIconSize(QSize(iconSize, iconSize));
 
     /// TODO: disable actions if no results are displayed or selected
 
     QAction *action;
 
-    action = new QAction(QIcon::fromTheme(QStringLiteral("distribute-horizontal-x")), i18nc("@action:intoolbar", "Resize columns to contents"), this);
-    toolbar->addAction(action);
-    connect(action, &QAction::triggered, this, &DataOutputWidget::resizeColumnsToContents);
+    QAction *refreshAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::ViewRefresh), i18nc("@action:intoolbar", "Refresh"), this);
+    verticalToolbar->addAction(refreshAction);
+    connect(refreshAction, &QAction::triggered, this, &DataOutputWidget::slotRefresh);
+    m_view->addAction(refreshAction);
+    refreshAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_R));
+    refreshAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    addAction(refreshAction);
+
+    auto *resizeColumnsAction =
+        new QAction(QIcon::fromTheme(QStringLiteral("distribute-horizontal-x")), i18nc("@action:intoolbar", "Resize columns to contents"), this);
+    verticalToolbar->addAction(resizeColumnsAction);
+    connect(resizeColumnsAction, &QAction::triggered, this, &DataOutputWidget::resizeColumnsToContents);
 
     action = new QAction(QIcon::fromTheme(QStringLiteral("distribute-vertical-y")), i18nc("@action:intoolbar", "Resize rows to contents"), this);
-    toolbar->addAction(action);
+    verticalToolbar->addAction(action);
     connect(action, &QAction::triggered, this, &DataOutputWidget::resizeRowsToContents);
 
-    action = new QAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@action:intoolbar", "Copy"), this);
-    toolbar->addAction(action);
-    m_view->addAction(action);
-    connect(action, &QAction::triggered, this, &DataOutputWidget::slotCopySelected);
-
     action = new QAction(QIcon::fromTheme(QStringLiteral("document-export-table")), i18nc("@action:intoolbar", "Export..."), this);
-    toolbar->addAction(action);
+    verticalToolbar->addAction(action);
     m_view->addAction(action);
     connect(action, &QAction::triggered, this, &DataOutputWidget::slotExport);
 
-    action = new QAction(QIcon::fromTheme(QStringLiteral("edit-clear")), i18nc("@action:intoolbar", "Clear"), this);
-    toolbar->addAction(action);
+    action = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy), i18nc("@action:intoolbar", "Copy"), this);
+    verticalToolbar->insertAction(resizeColumnsAction, action);
+    m_view->addAction(action);
+    connect(action, &QAction::triggered, this, &DataOutputWidget::slotCopySelected);
+    action->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_C));
+    action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    addAction(action);
+
+    action = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::EditClear), i18nc("@action:intoolbar", "Clear"), this);
+    verticalToolbar->addAction(action);
     connect(action, &QAction::triggered, this, &DataOutputWidget::clearResults);
 
-    toolbar->addSeparator();
+    verticalToolbar->addSeparator();
 
-    auto *toggleAction =
-        new KToggleAction(QIcon::fromTheme(QStringLiteral("applications-education-language")), i18nc("@action:intoolbar", "Use system locale"), this);
-    toolbar->addAction(toggleAction);
+    auto *toggleAction = new KToggleAction(QIcon::fromTheme(QIcon::ThemeIcon::FormatTextDirectionRtl), i18nc("@action:intoolbar", "Use system locale"), this);
+    verticalToolbar->addAction(toggleAction);
     connect(toggleAction, &QAction::triggered, this, &DataOutputWidget::slotToggleLocale);
 
+    // === Section for Editable Table (only visible for editable tables) ===
+    m_editableSection = new QWidget(this);
+    auto *editableLayout = new QHBoxLayout(m_editableSection);
+    editableLayout->setContentsMargins(0, 0, 0, 0);
+
+    auto *editableToolbar = new KToolBar(m_editableSection);
+    editableToolbar->setOrientation(Qt::Horizontal);
+    editableToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    editableToolbar->setIconSize(QSize(iconSize, iconSize));
+
+    QAction *pasteAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::EditPaste), i18nc("@action:intoolbar", "Paste"), this);
+    m_editableOnlyRightClickActions.push_back(pasteAction);
+    editableToolbar->addAction(pasteAction);
+
+    connect(pasteAction, &QAction::triggered, this, &DataOutputWidget::slotPaste);
+    pasteAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_V));
+    pasteAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    addAction(pasteAction);
+
+    QAction *setNullAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::DocumentRevert), i18nc("@action:intoolbar", "Set Null"), this);
+    m_editableOnlyRightClickActions.push_back(setNullAction);
+    editableToolbar->addAction(setNullAction);
+    connect(setNullAction, &QAction::triggered, this, &DataOutputWidget::slotSetNull);
+    setNullAction->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_X));
+    setNullAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    addAction(setNullAction);
+
+    QAction *insertRowAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::ListAdd), i18nc("@action:intoolbar", "Insert Row"), this);
+    m_editableOnlyRightClickActions.push_back(insertRowAction);
+    editableToolbar->addAction(insertRowAction);
+    connect(insertRowAction, &QAction::triggered, this, &DataOutputWidget::slotInsertRow);
+    insertRowAction->setShortcut(QKeySequence(Qt::ALT | Qt::Key_Insert));
+    insertRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    addAction(insertRowAction);
+
+    QAction *removeRowAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::ListRemove), i18nc("@action:intoolbar", "Remove Selected Rows"), this);
+    m_editableOnlyRightClickActions.push_back(removeRowAction);
+    editableToolbar->addAction(removeRowAction);
+    connect(removeRowAction, &QAction::triggered, this, &DataOutputWidget::slotRemoveSelectedRows);
+    removeRowAction->setShortcut(QKeySequence(Qt::Key_Delete));
+    removeRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    addAction(removeRowAction);
+
+    QAction *duplicateRowAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy), i18nc("@action:intoolbar", "Duplicate Selected Rows"), this);
+    m_editableOnlyRightClickActions.push_back(duplicateRowAction);
+    editableToolbar->addAction(duplicateRowAction);
+    connect(duplicateRowAction, &QAction::triggered, this, &DataOutputWidget::slotDuplicateRows);
+    duplicateRowAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_D));
+    duplicateRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    addAction(duplicateRowAction);
+
+    QAction *undoAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::EditUndo), i18nc("@action:intoolbar", "Undo"), this);
+    m_editableOnlyRightClickActions.push_back(undoAction);
+    editableToolbar->addAction(undoAction);
+    connect(undoAction, &QAction::triggered, this, &DataOutputWidget::slotUndo);
+    undoAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Z));
+    undoAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    addAction(undoAction);
+
+    QAction *saveAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::DocumentSave), i18nc("@action:intoolbar", "Save"), this);
+    editableToolbar->addAction(saveAction);
+    connect(saveAction, &QAction::triggered, this, &DataOutputWidget::slotSave);
+    saveAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_S));
+    saveAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    addAction(saveAction);
+
+    // Separator between sections
+    auto *separator = new QFrame(this);
+    separator->setFrameShape(QFrame::VLine);
+    separator->setFrameShadow(QFrame::Sunken);
+    editableToolbar->addWidget(separator);
+
+    auto *whereLabel = new QLabel(i18nc("@label", "Where:"), this);
+    QPalette palette = whereLabel->palette();
+    palette.setColor(QPalette::WindowText, palette.color(QPalette::Highlight));
+    whereLabel->setPalette(palette);
+    whereLabel->setContentsMargins(QMargins(16, 0, 8, 0));
+    editableToolbar->addWidget(whereLabel);
+
+    m_filterInput = new QLineEdit(this);
+    m_filterInput->setPlaceholderText(i18nc("@info:placeholder", "id > 0"));
+    m_filterInput->setToolTip(i18nc("@info:tooltip", "Enter SQL WHERE clause to filter data"));
+    m_filterInput->setClearButtonEnabled(true);
+    m_filterInput->setMaximumWidth(250);
+    editableToolbar->addWidget(m_filterInput);
+    connect(m_filterInput, &QLineEdit::returnPressed, this, &DataOutputWidget::slotSetFilter);
+
+    editableLayout->addWidget(editableToolbar);
+    m_editableSection->setLayout(editableLayout);
+    m_editableSection->setHidden(true); // Hidden by default
+
+    // Add horizontal toolbar container above the view
+    m_dataLayout->addWidget(m_editableSection);
     m_dataLayout->addWidget(m_view);
 
-    layout->addWidget(toolbar);
+    layout->addWidget(verticalToolbar);
     layout->addLayout(m_dataLayout);
     layout->setContentsMargins(0, 0, 0, 0);
 
@@ -110,9 +240,84 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
         return;
     }
 
-    m_model->setQuery(std::move(query));
+    for (auto *action : m_editableOnlyRightClickActions) {
+        m_view->removeAction(action);
+    }
 
-    m_isEmpty = false;
+    // If we didnt clean up table model, delete it
+    auto *tableModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+    if (tableModel) {
+        delete m_model;
+        m_model = nullptr;
+    }
+
+    // if model is now or was null, create a new DataOutputModel
+    if (m_model == nullptr) {
+        m_model = new DataOutputModel(this);
+        m_view->setModel(static_cast<QAbstractItemModel *>(m_model->asQObject()));
+    }
+
+    // Now m_model should be a DataOutputModel
+    auto *queryModel = qobject_cast<DataOutputModel *>(m_model->asQObject());
+    queryModel->setStyleHelper(&m_styleHelper);
+    queryModel->setQuery(std::move(query));
+
+    m_isEditable = false;
+    // Hide editable section for non-editable query results
+    m_editableSection->setHidden(!m_isEditable);
+
+    QTimer::singleShot(0, this, &DataOutputWidget::resizeColumnsToContents);
+
+    raise();
+}
+
+void DataOutputWidget::showEditableTable(DataOutputModelInterface *model)
+{
+    if (!model) {
+        return;
+    }
+
+    m_view->addActions(m_editableOnlyRightClickActions);
+
+    if (m_model != nullptr) {
+        // Delete current model
+        delete m_model;
+    }
+
+    m_model = model;
+    abstractModel()->setParent(this);
+
+    // Set the shared style helper and autocompleter
+    auto *editableModel = qobject_cast<DataOutputEditableModel *>(m_model->asQObject());
+    if (editableModel) {
+        editableModel->setStyleHelper(&m_styleHelper);
+        editableModel->setEditStrategy(DataOutputEditableModel::EditStrategy::OnManualSubmit);
+
+        if (m_filterInput->completer()) {
+            m_filterInput->completer()->deleteLater();
+        }
+
+        QStringList columnNamesFilterCompletionList;
+        columnNamesFilterCompletionList.reserve(editableModel->columnCount());
+
+        for (int i = 0; i < editableModel->columnCount(); ++i) {
+            columnNamesFilterCompletionList.emplace_back(editableModel->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString());
+        }
+
+        QCompleter *completer = new QCompleter(columnNamesFilterCompletionList, m_filterInput);
+        completer->setCaseSensitivity(Qt::CaseInsensitive);
+        completer->setFilterMode(Qt::MatchContains); // or MatchStartsWith
+
+        completer->setCompletionMode(QCompleter::CompletionMode::PopupCompletion);
+        m_filterInput->setCompleter(completer);
+    }
+
+    m_view->setModel(static_cast<QAbstractItemModel *>(m_model->asQObject()));
+    m_view->setSortingEnabled(true);
+
+    m_isEditable = true;
+    // Show editable section for editable tables
+    m_editableSection->setHidden(!m_isEditable);
 
     QTimer::singleShot(0, this, &DataOutputWidget::resizeColumnsToContents);
 
@@ -121,14 +326,17 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
 
 void DataOutputWidget::clearResults()
 {
-    // avoid crash when calling QSqlQueryModel::clear() after removing connection from the QSqlDatabase list
-    if (m_isEmpty) {
-        return;
+    if (m_model != nullptr) {
+        m_model->clear();
+        // Delete current model
+        delete m_model;
+        m_model = nullptr;
+        m_view->setModel(static_cast<QAbstractItemModel *>(nullptr));
     }
 
-    m_model->clear();
-
-    m_isEmpty = true;
+    m_isEditable = false;
+    m_editableSection->setHidden(true);
+    m_view->setSortingEnabled(false);
 
     /// HACK needed to refresh headers. please correct if there's a better way
     m_view->horizontalHeader()->hide();
@@ -138,9 +346,18 @@ void DataOutputWidget::clearResults()
     m_view->verticalHeader()->show();
 }
 
+void DataOutputWidget::readConfig()
+{
+    m_styleHelper.readConfig();
+
+    if (m_model != nullptr) {
+        m_model->readConfig();
+    }
+}
+
 void DataOutputWidget::resizeColumnsToContents()
 {
-    if (m_model->rowCount() == 0) {
+    if (m_model == nullptr || abstractModel()->rowCount() == 0) {
         return;
     }
 
@@ -149,7 +366,7 @@ void DataOutputWidget::resizeColumnsToContents()
 
 void DataOutputWidget::resizeRowsToContents()
 {
-    if (m_model->rowCount() == 0) {
+    if (m_model == nullptr || abstractModel()->rowCount() == 0) {
         return;
     }
 
@@ -164,20 +381,23 @@ void DataOutputWidget::resizeRowsToContents()
 
 void DataOutputWidget::slotToggleLocale()
 {
-    m_model->setUseSystemLocale(!m_model->useSystemLocale());
+    if (m_model != nullptr) {
+        m_model->setUseSystemLocale(!m_model->useSystemLocale());
+    }
 }
 
 void DataOutputWidget::slotCopySelected()
 {
-    if (m_model->rowCount() <= 0) {
+
+    if (m_model == nullptr || abstractModel()->rowCount() <= 0) {
         return;
     }
 
-    while (m_model->canFetchMore()) {
-        m_model->fetchMore();
-    }
-
     if (!m_view->selectionModel()->hasSelection()) {
+        while (abstractModel()->canFetchMore(QModelIndex())) {
+            abstractModel()->fetchMore(QModelIndex());
+        }
+
         m_view->selectAll();
     }
 
@@ -193,12 +413,12 @@ void DataOutputWidget::slotCopySelected()
 
 void DataOutputWidget::slotExport()
 {
-    if (m_model->rowCount() <= 0) {
+    if (m_model == nullptr || abstractModel()->rowCount() <= 0) {
         return;
     }
 
-    while (m_model->canFetchMore()) {
-        m_model->fetchMore();
+    while (abstractModel()->canFetchMore(QModelIndex())) {
+        abstractModel()->fetchMore(QModelIndex());
     }
 
     if (!m_view->selectionModel()->hasSelection()) {
@@ -233,7 +453,11 @@ void DataOutputWidget::slotExport()
     QChar stringsQuoteChar = (quoteStrings) ? wizard.field(QStringLiteral("quoteStringsChar")).toString().at(0) : u'\0';
     QChar numbersQuoteChar = (quoteNumbers) ? wizard.field(QStringLiteral("quoteNumbersChar")).toString().at(0) : u'\0';
 
-    QString fieldDelimiter = wizard.field(QStringLiteral("fieldDelimiter")).toString();
+    QString fieldDelimiter = wizard.field(QStringLiteral("fieldDelimiter"))
+                                 .toString()
+                                 .replace(QLatin1String("\\t"), QLatin1String("\t"))
+                                 .replace(QLatin1String("\\r"), QLatin1String("\r"))
+                                 .replace(QLatin1String("\\n"), QLatin1String("\n"));
 
     if (outputInDocument) {
         KTextEditor::MainWindow *mw = KTextEditor::Editor::instance()->application()->activeMainWindow();
@@ -272,10 +496,224 @@ void DataOutputWidget::slotExport()
     }
 }
 
+void DataOutputWidget::slotSave()
+{
+    m_view->commitCurrentEditorData();
+
+    auto *tableModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+    if (!tableModel) {
+        return;
+    }
+
+    if (!tableModel->submitAll()) {
+        QSqlError err = tableModel->lastError();
+        KMessageBox::error(this, xi18nc("@info", "Failed to save changes: <message>%1</message>", err.text()));
+        return;
+    }
+    // tableModel->refresh()
+}
+
+void DataOutputWidget::slotRefresh()
+{
+    if (m_model != nullptr) {
+        m_model->refresh();
+    }
+}
+
+void DataOutputWidget::slotInsertRow()
+{
+    if (m_model == nullptr || !m_isEditable) {
+        return;
+    }
+
+    auto *sqlModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+    if (sqlModel == nullptr) {
+        return;
+    }
+
+    int row = 0; // sqlModel->rowCount();
+    if (!sqlModel->insertRow(row)) {
+        return;
+    }
+
+    // Scroll to the new row and start editing
+    QModelIndex newIndex = sqlModel->index(row, 0);
+    m_view->scrollTo(newIndex);
+    m_view->setCurrentIndex(newIndex);
+}
+
+void DataOutputWidget::slotDuplicateRows()
+{
+    if (m_model == nullptr || !m_isEditable) {
+        return;
+    }
+
+    auto *sqlModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+    if (sqlModel == nullptr) {
+        return;
+    }
+
+    QItemSelectionModel *selectionModel = m_view->selectionModel();
+    if (selectionModel == nullptr) {
+        return;
+    }
+
+    QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
+
+    if (selectedIndexes.isEmpty()) {
+        return;
+    }
+    QSet<int> rowsToDuplicate;
+    rowsToDuplicate.reserve(selectedIndexes.length());
+    for (const QModelIndex &index : selectedIndexes) {
+        rowsToDuplicate.insert(index.row());
+    }
+
+    QList<QSqlRecord> recordsToInsert;
+    recordsToInsert.reserve(rowsToDuplicate.size());
+
+    for (int row : rowsToDuplicate) {
+        recordsToInsert.append(sqlModel->record(row));
+    }
+
+    QSqlIndex primary = sqlModel->primaryKey();
+    for (QSqlRecord record : recordsToInsert) {
+        for (int i = 0; i < primary.count(); ++i) {
+            QString col = primary.fieldName(i);
+            record.setNull(col);
+        }
+        sqlModel->insertRecord(0, record);
+    }
+
+    int firstPrimaryCol = primary.count() ? sqlModel->fieldIndex(primary.fieldName(0)) : 0;
+
+    QModelIndex newIndex = sqlModel->index(0, firstPrimaryCol);
+    m_view->scrollTo(newIndex);
+    m_view->setCurrentIndex(newIndex);
+}
+
+void DataOutputWidget::slotRemoveSelectedRows()
+{
+    if (m_model == nullptr || !m_isEditable) {
+        return;
+    }
+
+    auto *sqlModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+    if (sqlModel == nullptr) {
+        return;
+    }
+
+    QItemSelectionModel *selectionModel = m_view->selectionModel();
+    if (selectionModel == nullptr) {
+        return;
+    }
+
+    QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
+
+    if (selectedIndexes.isEmpty()) {
+        return;
+    }
+    // Extract unique row numbers
+    QSet<int> rowsToRemove;
+
+    rowsToRemove.reserve(selectedIndexes.length());
+    for (const QModelIndex &index : selectedIndexes) {
+        rowsToRemove.insert(index.row());
+    }
+
+    // Convert to list and sort in descending order
+    QList<int> sortedRows = rowsToRemove.values();
+    std::sort(sortedRows.begin(), sortedRows.end(), std::greater<int>());
+
+    // Remove selected rows
+    for (const int row : sortedRows) {
+        sqlModel->removeRow(row);
+        // m_view->hideRow(index.row()); to show this column when data is refreshed takes more state management than adding hihlighting which is gonna be the
+        // next steps
+    }
+}
+
+void DataOutputWidget::slotSetNull()
+{
+    if (m_model == nullptr || !m_isEditable) {
+        return;
+    }
+
+    auto *sqlModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+    if (sqlModel == nullptr) {
+        return;
+    }
+
+    QItemSelectionModel *selectionModel = m_view->selectionModel();
+    if (selectionModel == nullptr) {
+        return;
+    }
+
+    QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
+
+    if (selectedIndexes.isEmpty()) {
+        return;
+    }
+
+    for (const QModelIndex &index : selectedIndexes) {
+        sqlModel->setData(index, QVariant(), Qt::EditRole);
+    }
+}
+
+void DataOutputWidget::slotUndo()
+{
+    if (m_model == nullptr || !m_isEditable) {
+        return;
+    }
+
+    auto *sqlModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+    if (sqlModel == nullptr) {
+        return;
+    }
+
+    QItemSelectionModel *selectionModel = m_view->selectionModel();
+    if (selectionModel == nullptr) {
+        return;
+    }
+
+    QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
+
+    if (selectedIndexes.isEmpty()) {
+        // No selection: revert all changes
+        sqlModel->revertAll();
+    } else {
+        // Revert changes for selected rows
+        QSet<int> rowsToRevert;
+        for (const QModelIndex &index : selectedIndexes) {
+            rowsToRevert.insert(index.row());
+        }
+
+        for (const int row : rowsToRevert) {
+            sqlModel->revertRow(row);
+        }
+    }
+}
+
+void DataOutputWidget::slotSetFilter()
+{
+    if (m_model == nullptr || !m_isEditable) {
+        return;
+    }
+
+    auto *sqlModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+    if (sqlModel == nullptr) {
+        return;
+    }
+
+    QString filter = m_filterInput->text().trimmed();
+    sqlModel->setFilter(filter);
+    sqlModel->select();
+}
+
 void DataOutputWidget::exportData(QTextStream &stream,
                                   const QChar stringsQuoteChar,
                                   const QChar numbersQuoteChar,
-                                  const QString &fieldDelimiter,
+                                  const QString fieldDelimiter,
                                   const Options opt)
 {
     QItemSelectionModel *selectionModel = m_view->selectionModel();
@@ -283,13 +721,6 @@ void DataOutputWidget::exportData(QTextStream &stream,
     if (!selectionModel->hasSelection()) {
         return;
     }
-
-    QString fixedFieldDelimiter = fieldDelimiter;
-
-    /// FIXME: ugly workaround...
-    fixedFieldDelimiter.replace(QLatin1String("\\t"), QLatin1String("\t"));
-    fixedFieldDelimiter.replace(QLatin1String("\\r"), QLatin1String("\r"));
-    fixedFieldDelimiter.replace(QLatin1String("\\n"), QLatin1String("\n"));
 
     QElapsedTimer t;
     t.start();
@@ -313,13 +744,13 @@ void DataOutputWidget::exportData(QTextStream &stream,
 
         if (indexData.typeId() < 7) // is numeric or boolean
         {
-            if (numbersQuoteChar != u'\0') {
+            if (numbersQuoteChar != defaultExportValues.noQuotingChar) {
                 snapshot[qMakePair(row, col)] = numbersQuoteChar + indexData.toString() + numbersQuoteChar;
             } else {
                 snapshot[qMakePair(row, col)] = indexData.toString();
             }
         } else {
-            if (stringsQuoteChar != u'\0') {
+            if (stringsQuoteChar != defaultExportValues.noQuotingChar) {
                 snapshot[qMakePair(row, col)] = stringsQuoteChar + indexData.toString() + stringsQuoteChar;
             } else {
                 snapshot[qMakePair(row, col)] = indexData.toString();
@@ -335,41 +766,153 @@ void DataOutputWidget::exportData(QTextStream &stream,
 
     if (opt.testFlag(ExportColumnNames)) {
         if (opt.testFlag(ExportLineNumbers)) {
-            stream << fixedFieldDelimiter;
+            stream << fieldDelimiter;
         }
 
         for (auto it = columns.begin(); it != columns.end(); ++it) {
-            const QVariant headerData = m_model->headerData(*it, Qt::Horizontal);
+            const QVariant headerData = abstractModel()->headerData(*it, Qt::Horizontal);
 
-            if (stringsQuoteChar != u'\0') {
+            if (stringsQuoteChar != defaultExportValues.noQuotingChar) {
                 stream << stringsQuoteChar + headerData.toString() + stringsQuoteChar;
             } else {
                 stream << headerData.toString();
             }
 
             if (it + 1 != columns.end()) {
-                stream << fixedFieldDelimiter;
+                stream << fieldDelimiter;
             }
         }
-        stream << "\n";
+        stream << defaultExportValues.lineDelimiterForCopyPaste;
     }
 
     for (const int row : std::as_const(rows)) {
         if (opt.testFlag(ExportLineNumbers)) {
-            stream << row + 1 << fixedFieldDelimiter;
+            stream << row + 1 << fieldDelimiter;
         }
 
         for (auto it = columns.begin(); it != columns.end(); ++it) {
             stream << snapshot.value(qMakePair(row, *it));
 
             if (it + 1 != columns.end()) {
-                stream << fixedFieldDelimiter;
+                stream << fieldDelimiter;
             }
         }
-        stream << "\n";
+        stream << defaultExportValues.lineDelimiterForCopyPaste;
     }
 
     qDebug("Export in %lld ms", t.elapsed());
+}
+
+void DataOutputWidget::importData(QTextStream &stream, const QChar stringsQuoteChar, const QString &fieldDelimiter, const QString &lineDelimiter)
+{
+    QItemSelectionModel *selectionModel = m_view->selectionModel();
+
+    if (!selectionModel->hasSelection()) {
+        return;
+    }
+
+    auto *sqlModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+    if (sqlModel == nullptr) {
+        return;
+    }
+
+    // Get the top-left selected cell
+    QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
+    if (selectedIndexes.isEmpty()) {
+        return;
+    }
+
+    // Sort to get the top-left position
+    std::sort(selectedIndexes.begin(), selectedIndexes.end(), [](const QModelIndex &a, const QModelIndex &b) {
+        if (a.row() != b.row())
+            return a.row() < b.row();
+        return a.column() < b.column();
+    });
+
+    QModelIndex startIndex = selectedIndexes.first();
+
+    QString data = stream.readAll();
+    QStringList lines = data.split(lineDelimiter, Qt::SkipEmptyParts);
+
+    int startRow = startIndex.row();
+    int startCol = startIndex.column();
+
+    for (int lineIdx = 0; lineIdx < lines.size(); ++lineIdx) {
+        QString line = lines[lineIdx];
+        QStringList fields;
+
+        // Parse the line - handle quoted fields
+        int pos = 0;
+        while (pos < line.length()) {
+            QString field;
+
+            // Check if field starts with quote
+            if (stringsQuoteChar != defaultExportValues.noQuotingChar && pos < line.length() && line[pos] == stringsQuoteChar) {
+                pos++; // Skip opening quote
+                // Find closing quote
+                while (pos < line.length() && line[pos] != stringsQuoteChar) {
+                    field += line[pos];
+                    pos++;
+                }
+                if (pos < line.length()) {
+                    pos++; // Skip closing quote
+                }
+                // Skip delimiter if present
+                if (line.mid(pos, fieldDelimiter.length()) == fieldDelimiter) {
+                    pos += fieldDelimiter.length();
+                }
+            } else {
+                // Read until delimiter or end
+                while (pos < line.length() && line.mid(pos, fieldDelimiter.length()) != fieldDelimiter) {
+                    field += line[pos];
+                    pos++;
+                }
+                // Skip delimiter
+                if (pos < line.length()) {
+                    pos += fieldDelimiter.length();
+                }
+            }
+
+            fields.append(field);
+        }
+
+        int targetRow = startRow + lineIdx;
+
+        // Check if we're past the end of the model
+        if (targetRow >= sqlModel->rowCount()) {
+            break;
+        }
+
+        for (int fieldIdx = 0; fieldIdx < fields.size(); ++fieldIdx) {
+            int targetCol = startCol + fieldIdx;
+
+            if (targetCol >= sqlModel->columnCount()) {
+                break;
+            }
+
+            QModelIndex targetIndex = sqlModel->index(targetRow, targetCol);
+            sqlModel->setData(targetIndex, fields[fieldIdx]);
+        }
+    }
+}
+
+void DataOutputWidget::slotPaste()
+{
+    if (!m_isEditable) {
+        return;
+    }
+
+    QString text = QApplication::clipboard()->text();
+    if (text.isEmpty()) {
+        return;
+    }
+
+    QTextStream stream(&text);
+
+    importData(stream,
+               defaultExportValues.quoteStringCharForCopyPaste,
+               QString(defaultExportValues.fieldDelimiterForCopyPaste),
+               QString(defaultExportValues.lineDelimiterForCopyPaste));
 }
 
 #include "moc_dataoutputwidget.cpp"

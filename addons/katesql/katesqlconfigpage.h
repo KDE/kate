@@ -9,8 +9,6 @@
 class OutputStyleWidget;
 class QCheckBox;
 
-#include "katesqlplugin.h"
-
 #include <ktexteditor/configpage.h>
 
 /// TODO: add options to change datetime and numbers format

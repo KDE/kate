@@ -7,7 +7,7 @@
 #include "katesqlview.h"
 #include "connectionmodel.h"
 #include "connectionwizard.h"
-#include "dataoutputmodel.h"
+#include "dataoutputeditablemodel.h"
 #include "dataoutputwidget.h"
 #include "outputwidget.h"
 #include "schemabrowserwidget.h"
@@ -78,6 +78,7 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
     connect(m_manager, &SQLManager::error, this, &KateSQLView::slotError);
     connect(m_manager, &SQLManager::success, this, &KateSQLView::slotSuccess);
     connect(m_manager, &SQLManager::queryActivated, this, &KateSQLView::slotQueryActivated);
+    connect(m_manager, &SQLManager::editableQueryActivated, this, &KateSQLView::slotEditableQueryActivated);
     connect(m_manager, &SQLManager::connectionCreated, this, &KateSQLView::slotConnectionCreated);
     connect(m_manager, &SQLManager::connectionAboutToBeClosed, this, &KateSQLView::slotConnectionAboutToBeClosed);
     connect(m_connectionsComboBox, &QComboBox::currentIndexChanged, this, &KateSQLView::slotConnectionChanged);
@@ -102,12 +103,12 @@ void KateSQLView::setupActions()
 
     action = collection->addAction(QStringLiteral("connection_create"));
     action->setText(i18nc("@action:inmenu", "Add Connection..."));
-    action->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
+    action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ListAdd));
     connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionCreate);
 
     action = collection->addAction(QStringLiteral("connection_remove"));
     action->setText(i18nc("@action:inmenu", "Remove Connection"));
-    action->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
+    action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ListRemove));
     connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionRemove);
 
     action = collection->addAction(QStringLiteral("connection_edit"));
@@ -117,7 +118,7 @@ void KateSQLView::setupActions()
 
     action = collection->addAction(QStringLiteral("connection_reconnect"));
     action->setText(i18nc("@action:inmenu", "Reconnect"));
-    action->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+    action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ViewRefresh));
     connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionReconnect);
 
     auto *wa = new QWidgetAction(this);
@@ -185,7 +186,7 @@ void KateSQLView::slotConnectionChanged(int index)
 
 void KateSQLView::slotGlobalSettingsChanged()
 {
-    m_outputWidget->dataOutputWidget()->model()->readConfig();
+    m_outputWidget->dataOutputWidget()->readConfig();
 }
 
 void KateSQLView::readSessionConfig(KConfigGroup const &group)
@@ -338,6 +339,19 @@ void KateSQLView::slotQueryActivated(QSqlQuery &query, const QString &connection
         m_outputWidget->setCurrentWidget(m_outputWidget->dataOutputWidget());
         m_mainWindow->showToolView(m_outputToolView);
     }
+}
+
+void KateSQLView::slotEditableQueryActivated(DataOutputEditableModel *model, const QString &connection)
+{
+    if (!model) {
+        return;
+    }
+
+    m_currentResultsetConnection = connection;
+
+    m_outputWidget->dataOutputWidget()->showEditableTable(model);
+    m_outputWidget->setCurrentWidget(m_outputWidget->dataOutputWidget());
+    m_mainWindow->showToolView(m_outputToolView);
 }
 
 void KateSQLView::slotConnectionCreated(const QString &name)

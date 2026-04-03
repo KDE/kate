@@ -30,6 +30,8 @@ target_sources(
     sqlmanager.cpp
     cachedsqlquerymodel.cpp
     dataoutputmodel.cpp
+    dataoutputstylehelper.cpp
+    dataoutputeditablemodel.cpp
     dataoutputview.cpp
     dataoutputwidget.cpp
     textoutputwidget.cpp

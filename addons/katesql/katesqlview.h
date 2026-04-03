@@ -26,6 +26,7 @@ class KConfigBase;
 class KComboBox;
 
 class QSqlQuery;
+class DataOutputEditableModel;
 class QActionGroup;
 
 #include <KXMLGUIClient>
@@ -59,6 +60,7 @@ public:
     void slotError(const QString &message);
     void slotSuccess(const QString &message);
     void slotQueryActivated(QSqlQuery &query, const QString &connection);
+    void slotEditableQueryActivated(DataOutputEditableModel *model, const QString &connection);
     void slotConnectionCreated(const QString &name);
     void slotGlobalSettingsChanged();
     void slotSQLMenuAboutToShow();

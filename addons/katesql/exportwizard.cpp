@@ -17,6 +17,7 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QRadioButton>
+#include <QDir>
 
 // BEGIN ExportWizard
 ExportWizard::ExportWizard(QWidget *parent)
@@ -150,7 +151,7 @@ ExportFormatPage::ExportFormatPage(QWidget *parent)
     registerField(QStringLiteral("checkQuoteNumbers"), quoteNumbersCheckBox);
     registerField(QStringLiteral("quoteStringsChar"), quoteStringsLine);
     registerField(QStringLiteral("quoteNumbersChar"), quoteNumbersLine);
-    registerField(QStringLiteral("fieldDelimiter*"), fieldDelimiterLine);
+    registerField(QStringLiteral("fieldDelimiter"), fieldDelimiterLine);
 
     connect(quoteStringsCheckBox, &QCheckBox::toggled, quoteStringsLine, &KLineEdit::setEnabled);
     connect(quoteNumbersCheckBox, &QCheckBox::toggled, quoteNumbersLine, &KLineEdit::setEnabled);
@@ -158,16 +159,16 @@ ExportFormatPage::ExportFormatPage(QWidget *parent)
 
 void ExportFormatPage::initializePage()
 {
-    exportColumnNamesCheckBox->setChecked(true);
-    exportLineNumbersCheckBox->setChecked(false);
-    quoteStringsCheckBox->setChecked(false);
-    quoteNumbersCheckBox->setChecked(false);
-    quoteStringsLine->setEnabled(false);
-    quoteNumbersLine->setEnabled(false);
+    exportColumnNamesCheckBox->setChecked(defaultExportValues.isExportingColumnNames);
+    exportLineNumbersCheckBox->setChecked(defaultExportValues.isExportingLineNumbers);
+    quoteStringsCheckBox->setChecked(defaultExportValues.isQuotingStrings);
+    quoteNumbersCheckBox->setChecked(defaultExportValues.isQuotingNumbers);
+    quoteStringsLine->setEnabled(defaultExportValues.isQuotingStrings);
+    quoteNumbersLine->setEnabled(defaultExportValues.isQuotingNumbers);
 
-    quoteStringsLine->setText(QStringLiteral("\""));
-    quoteNumbersLine->setText(QStringLiteral("\""));
-    fieldDelimiterLine->setText(QStringLiteral("\\t"));
+    quoteStringsLine->setText(defaultExportValues.quoteStringCharForWizard);
+    quoteNumbersLine->setText(defaultExportValues.quoteNumbersCharForWizard);
+    fieldDelimiterLine->setText(defaultExportValues.fieldDelimiterForWizard);
 }
 
 bool ExportFormatPage::validatePage()

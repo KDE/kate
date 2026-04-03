@@ -6,13 +6,22 @@
 
 #pragma once
 
+#include "dataoutputmodelinterface.h"
+#include "exportwizard.h"
+#include "dataoutputstylehelper.h"
+
+#include <QAction>
+#include <QList>
+#include <QtAssert>
+#include <QAbstractItemModel>
+#include <QWidget>
+
+class QAbstractItemModel;
 class QTextStream;
 class QVBoxLayout;
 class QSqlQuery;
-class DataOutputModel;
 class DataOutputView;
-
-#include <QWidget>
+class QLineEdit;
 
 class DataOutputWidget : public QWidget
 {
@@ -31,12 +40,17 @@ public:
     ~DataOutputWidget() override;
 
     void exportData(QTextStream &stream,
-                    const QChar stringsQuoteChar = u'\0',
-                    const QChar numbersQuoteChar = u'\0',
-                    const QString &fieldDelimiter = QStringLiteral("\t"),
+                    const QChar stringsQuoteChar = defaultExportValues.quoteStringCharForCopyPaste,
+                    const QChar numbersQuoteChar = defaultExportValues.quoteNumbersCharForCopyPaste,
+                    const QString fieldDelimiter = defaultExportValues.fieldDelimiterForCopyPaste,
                     const Options opt = NoOptions);
 
-    DataOutputModel *model() const
+    void importData(QTextStream &stream,
+                    const QChar stringsQuoteChar = defaultExportValues.quoteStringCharForCopyPaste,
+                    const QString &fieldDelimiter = QString(defaultExportValues.fieldDelimiterForCopyPaste),
+                    const QString &lineDelimiter = QString(defaultExportValues.lineDelimiterForCopyPaste));
+
+    DataOutputModelInterface *model() const
     {
         return m_model;
     }
@@ -44,25 +58,50 @@ public:
     {
         return m_view;
     }
+    DataOutputStyleHelper *styleHelper()
+    {
+        return &m_styleHelper;
+    }
 
 public Q_SLOTS:
     void showQueryResultSets(QSqlQuery &query);
+    void showEditableTable(DataOutputModelInterface *model);
     void resizeColumnsToContents();
     void resizeRowsToContents();
     void clearResults();
+    void readConfig();
 
     void slotToggleLocale();
     void slotCopySelected();
+    void slotPaste();
     void slotExport();
+    void slotSave();
+    void slotRefresh();
+    void slotInsertRow();
+    void slotDuplicateRows();
+    void slotRemoveSelectedRows();
+    void slotSetNull();
+    void slotUndo();
+    void slotSetFilter();
 
 private:
+
+    QAbstractItemModel *abstractModel() const
+    {
+        Q_ASSERT(m_model != nullptr);
+        return qobject_cast<QAbstractItemModel *>(m_model->asQObject());
+    }
+    DataOutputStyleHelper m_styleHelper;
     QVBoxLayout *m_dataLayout;
 
-    /// TODO: manage multiple views for query with multiple resultsets
-    DataOutputModel *m_model;
+    DataOutputModelInterface *m_model;
     DataOutputView *m_view;
+    QWidget *m_editableSection;
+    QLineEdit *m_filterInput;
 
-    bool m_isEmpty;
+    bool m_isEditable;
+
+    QList<QAction *> m_editableOnlyRightClickActions;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(DataOutputWidget::Options)

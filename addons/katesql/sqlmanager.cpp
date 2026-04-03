@@ -6,6 +6,7 @@
 
 #include "sqlmanager.h"
 #include "connectionmodel.h"
+#include "dataoutputeditablemodel.h"
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -205,7 +206,7 @@ int SQLManager::readCredentials(const QString &name, QString &password)
     if (!job.error()) {
         // check if data makes any sense
         const QJsonObject map = QJsonDocument::fromJson(job.binaryData()).object();
-        if (!map.contains(QLatin1String("password"))) {
+        if (map.contains(QLatin1String("password"))) {
             password = map.value(QStringLiteral("password")).toString();
             return SQLManager::K_WALLET_CONNECTION_SUCCESSFUL;
         }
@@ -354,6 +355,39 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
 
     Q_EMIT success(message);
     Q_EMIT queryActivated(query, connection);
+}
+
+void SQLManager::runEditableQuery(const QString &tableName, const QString &connection)
+{
+    if (tableName.isEmpty()) {
+        return;
+    }
+
+    if (!isValidAndOpen(connection)) {
+        return;
+    }
+
+    QSqlDatabase db = QSqlDatabase::database(connection);
+
+    auto *model = new DataOutputEditableModel(nullptr, db);
+    model->setTable(tableName);
+
+    if (!model->select()) {
+        QSqlError err = model->lastError();
+
+        if (err.type() == QSqlError::ConnectionError) {
+            m_model->setStatus(connection, Connection::OFFLINE);
+        }
+
+        delete model;
+        Q_EMIT error(err.text());
+        return;
+    }
+
+    QString message = i18ncp("@info", "%1 record selected", "%1 records selected", model->rowCount());
+
+    Q_EMIT success(message);
+    Q_EMIT editableQueryActivated(model, connection);
 }
 
 #include "moc_sqlmanager.cpp"

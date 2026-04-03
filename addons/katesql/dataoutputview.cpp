@@ -6,14 +6,13 @@
 
 #include "dataoutputview.h"
 
-#include <QCursor>
+#include <QApplication>
 #include <QMenu>
 
 DataOutputView::DataOutputView(QWidget *parent)
     : QTableView(parent)
 {
     setContextMenuPolicy(Qt::CustomContextMenu);
-
     connect(this, &DataOutputView::customContextMenuRequested, this, &DataOutputView::slotCustomContextMenuRequested);
 }
 
@@ -22,4 +21,16 @@ void DataOutputView::slotCustomContextMenuRequested(const QPoint &pos)
     QMenu menu(this);
     menu.addActions(actions());
     menu.exec(mapToGlobal(pos));
+}
+
+void DataOutputView::commitCurrentEditorData()
+{
+    if (state() != EditingState) {
+        return;
+    }
+
+    QWidget *editor = QApplication::focusWidget();
+    if (editor && (editor->parent() == viewport() || editor->parent() == this)) {
+        QTableView::commitData(editor);
+    }
 }

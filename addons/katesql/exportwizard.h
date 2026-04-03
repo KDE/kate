@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include <QDir>
 class KUrlRequester;
 class KLineEdit;
 
@@ -21,6 +22,24 @@ public:
     explicit ExportWizard(QWidget *parent);
     ~ExportWizard() override;
 };
+
+static const struct DefaultExportValues {
+    const bool isExportingColumnNames = false;
+    const bool isExportingLineNumbers = false;
+    const bool isQuotingStrings = false;
+    const bool isQuotingNumbers = false;
+
+    const QChar noQuotingChar = u'\0';
+
+    const QChar quoteStringCharForCopyPaste = u'"';
+    const QChar quoteNumbersCharForCopyPaste = noQuotingChar;
+    const QChar fieldDelimiterForCopyPaste = u'\t';
+    const QChar lineDelimiterForCopyPaste = u'\n';
+
+    const QChar quoteStringCharForWizard = u'"';
+    const QChar quoteNumbersCharForWizard = u'"';
+    const QString fieldDelimiterForWizard = QStringLiteral("\\t");
+} defaultExportValues;
 
 class ExportOutputPage : public QWizardPage
 {

@@ -267,7 +267,7 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
             menu.addAction(QIcon::fromTheme(QStringLiteral("view-sort-descending")),
                            i18nc("@action:inmenu Context menu", "Select Data"),
                            this,
-                           &SchemaWidget::executeSelect);
+                           &SchemaWidget::browseData);
             QMenu *submenu = menu.addMenu(QIcon::fromTheme(QStringLiteral("tools-wizard")), i18nc("@action:inmenu Submenu title", "Generate"));
 
             submenu->addAction(i18n("SELECT"), this, &SchemaWidget::generateSelectIntoView);
@@ -370,9 +370,36 @@ void SchemaWidget::executeStatement(QSqlDriver::StatementType statementType)
         m_manager->runQuery(statement, m_connectionName);
     }
 }
-void SchemaWidget::executeSelect()
+void SchemaWidget::browseData()
 {
-    executeStatement(QSqlDriver::SelectStatement);
+    if (!isConnectionValidAndOpen()) {
+        return;
+    }
+
+    QTreeWidgetItem *item = currentItem();
+
+    if (!item) {
+        return;
+    }
+
+    QString tableName;
+
+    switch (item->type()) {
+    case TableType:
+    case SystemTableType:
+    case ViewType:
+        tableName = item->text(0);
+        break;
+
+    case FieldType:
+        tableName = item->parent()->text(0);
+        break;
+
+    default:
+        return;
+    }
+
+    m_manager->runEditableQuery(tableName, m_connectionName);
 }
 
 void SchemaWidget::generateAndPasteStatement(QSqlDriver::StatementType statementType)

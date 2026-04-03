@@ -8,6 +8,7 @@
 
 class ConnectionModel;
 class KConfigGroup;
+class DataOutputEditableModel;
 
 #include "connection.h"
 
@@ -39,6 +40,7 @@ public Q_SLOTS:
     void loadConnections(const KConfigGroup &connectionsGroup);
     void saveConnections(KConfigGroup *connectionsGroup);
     void runQuery(const QString &text, const QString &connection);
+    void runEditableQuery(const QString &tableName, const QString &connection);
 
 protected:
     static void saveConnection(KConfigGroup *connectionsGroup, const Connection &conn);
@@ -49,6 +51,7 @@ Q_SIGNALS:
     void connectionAboutToBeClosed(const QString &name);
 
     void queryActivated(QSqlQuery &query, const QString &connection);
+    void editableQueryActivated(DataOutputEditableModel *model, const QString &connection);
 
     void error(const QString &message);
     void success(const QString &message);

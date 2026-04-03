@@ -13,6 +13,8 @@ class DataOutputView : public QTableView
 public:
     explicit DataOutputView(QWidget *parent = nullptr);
 
+    void commitCurrentEditorData();
+
 private:
     void slotCustomContextMenuRequested(const QPoint &pos);
 };

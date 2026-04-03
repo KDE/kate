@@ -34,3 +34,5 @@ CMakeLists.txt.user*
 .flatpak/
 .flatpak-builder/
 /_build/
+
+*.sql

@@ -9,7 +9,6 @@
 class QHBoxLayout;
 class QTextEdit;
 
-#include "connection.h"
 #include <QWidget>
 
 class TextOutputWidget : public QWidget

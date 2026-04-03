@@ -41,7 +41,7 @@ public:
     void generateUpdateIntoView();
     void generateInsertIntoView();
     void generateDeleteIntoView();
-    void executeSelect();
+    void browseData();
     QString generateStatement(QSqlDriver::StatementType statementType);
     static void pasteStatementIntoActiveView(const QString &statement);
     void generateAndPasteStatement(QSqlDriver::StatementType statementType);

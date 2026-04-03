@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-03 00:47+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -465,38 +465,38 @@ msgstr "अपक्व"
 msgid "Edit Line"
 msgstr "रेखा प्रतिष्ठापयति"
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:279
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] "रेखा प्रतिष्ठापयति"
 msgstr[1] "रेखाः प्रतिष्ठापयति"
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:284
 #, kde-format
 msgid "Stage Hunk"
 msgstr "हंक प्रतिष्ठापयति"
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:291
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] "रेखां परित्यजतु"
 msgstr[1] "रेखाः परित्यजन्तु"
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:296
 #, kde-format
 msgid "Discard Hunk"
 msgstr "हङ्कं परित्यजन्तु"
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:303
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] "रेखा अप्रतिष्ठाप्यते"
 msgstr[1] "रेखाः अप्रतिष्ठाप्यते"
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:308
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "हंक अप्रतिष्ठाप्यते"

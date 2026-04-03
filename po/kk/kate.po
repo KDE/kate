@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-03 00:47+0000\n"
 "PO-Revision-Date: 2013-08-28 04:47+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -505,37 +505,37 @@ msgstr ""
 msgid "Edit Line"
 msgstr "&Жаңа терезе"
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:279
 #, fuzzy, kde-format
 #| msgid "&New Window"
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] "&Жаңа терезе"
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:284
 #, kde-format
 msgid "Stage Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:291
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] ""
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:296
 #, kde-format
 msgid "Discard Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:303
 #, fuzzy, kde-format
 #| msgid "&New Window"
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] "&Жаңа терезе"
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:308
 #, kde-format
 msgid "Unstage Hunk"
 msgstr ""

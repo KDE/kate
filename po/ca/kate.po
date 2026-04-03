@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-03 00:47+0000\n"
 "PO-Revision-Date: 2026-03-27 10:49+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -472,38 +472,38 @@ msgstr "En brut"
 msgid "Edit Line"
 msgstr "Edita la línia"
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:279
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] "Marca la línia"
 msgstr[1] "Marca les línies"
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:284
 #, kde-format
 msgid "Stage Hunk"
 msgstr "Marca el bloc"
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:291
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] "Descarta la línia"
 msgstr[1] "Descarta les línies"
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:296
 #, kde-format
 msgid "Discard Hunk"
 msgstr "Descarta un bloc"
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:303
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] "Desmarca la línia"
 msgstr[1] "Desmarca les línies"
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:308
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "Desmarca el bloc"

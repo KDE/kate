@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-03 00:47+0000\n"
 "PO-Revision-Date: 2025-11-07 18:21+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -474,7 +474,7 @@ msgstr "Neapstrādāts"
 msgid "Edit Line"
 msgstr "Rediģēt rindiņu"
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:279
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
@@ -482,12 +482,12 @@ msgstr[0] "Pievienot rindu"
 msgstr[1] "Pievienot rindas"
 msgstr[2] "Pievienot rindas"
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:284
 #, kde-format
 msgid "Stage Hunk"
 msgstr "Pievienot apgabalu"
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:291
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
@@ -495,12 +495,12 @@ msgstr[0] "Izmest rindu"
 msgstr[1] "Izmest rindas"
 msgstr[2] "Izmest rindas"
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:296
 #, kde-format
 msgid "Discard Hunk"
 msgstr "Izmest apgabalu"
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:303
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
@@ -508,7 +508,7 @@ msgstr[0] "Noņemt rindas pievienošanu"
 msgstr[1] "Noņemt rindu pievienošanu"
 msgstr[2] "Noņemt rindu pievienošanu"
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:308
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "Noņemt apgabala pievienošanu"

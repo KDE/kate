@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-03 00:47+0000\n"
 "PO-Revision-Date: 2025-12-28 14:36+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
@@ -478,38 +478,38 @@ msgstr "Hrátt"
 msgid "Edit Line"
 msgstr "Breyta línu"
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:279
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] "Sviðsetja línu"
 msgstr[1] "Sviðsetja línur"
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:284
 #, kde-format
 msgid "Stage Hunk"
 msgstr "Sviðsetja hluta"
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:291
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] "Henda línu"
 msgstr[1] "Henda línum"
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:296
 #, kde-format
 msgid "Discard Hunk"
 msgstr "Henda hluta"
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:303
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] "Fjarlægja línu af sviði"
 msgstr[1] "Fjarlægja línur af sviði"
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:308
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "Fjarlægja hluta af sviði"

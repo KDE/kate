@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-03 00:47+0000\n"
 "PO-Revision-Date: 2026-02-13 13:17+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -467,7 +467,7 @@ msgstr "Amh"
 msgid "Edit Line"
 msgstr "Líne a Chur in Eagar"
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:279
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
@@ -477,12 +477,12 @@ msgstr[2] "Línte Stáitse"
 msgstr[3] "Línte Stáitse"
 msgstr[4] "Línte Stáitse"
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:284
 #, kde-format
 msgid "Stage Hunk"
 msgstr "Hunk Céime"
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:291
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
@@ -492,12 +492,12 @@ msgstr[2] "Línte a Scriosadh"
 msgstr[3] "Línte a Scriosadh"
 msgstr[4] "Línte a Scriosadh"
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:296
 #, kde-format
 msgid "Discard Hunk"
 msgstr "Scrios an Hunk"
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:303
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
@@ -507,7 +507,7 @@ msgstr[2] "Línte Gan Stáid"
 msgstr[3] "Línte Gan Stáid"
 msgstr[4] "Línte Gan Stáid"
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:308
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "Hunk Gan Stádas"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-03 00:47+0000\n"
 "PO-Revision-Date: 2026-01-04 04:05+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -470,7 +470,7 @@ msgstr "Brut"
 msgid "Edit Line"
 msgstr "Modifică linia"
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:279
 #, fuzzy, kde-format
 #| msgid "&New Window"
 msgid "Stage Line"
@@ -479,12 +479,12 @@ msgstr[0] "Fereastră &nouă"
 msgstr[1] "Fereastră &nouă"
 msgstr[2] "Fereastră &nouă"
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:284
 #, kde-format
 msgid "Stage Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:291
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
@@ -492,12 +492,12 @@ msgstr[0] "Aruncă linia"
 msgstr[1] "Aruncă liniile"
 msgstr[2] "Aruncă liniile"
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:296
 #, kde-format
 msgid "Discard Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:303
 #, fuzzy, kde-format
 #| msgid "&New Window"
 msgid "Unstage Line"
@@ -506,7 +506,7 @@ msgstr[0] "Fereastră &nouă"
 msgstr[1] "Fereastră &nouă"
 msgstr[2] "Fereastră &nouă"
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:308
 #, kde-format
 msgid "Unstage Hunk"
 msgstr ""

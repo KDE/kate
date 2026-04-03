@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-03 00:47+0000\n"
 "PO-Revision-Date: 2026-03-28 09:28+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -478,7 +478,7 @@ msgstr "גולמי"
 msgid "Edit Line"
 msgstr "עריכת שורה"
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:279
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
@@ -487,12 +487,12 @@ msgstr[1] "העלאת שורות לבימוי"
 msgstr[2] "העלאת שורות לבימוי"
 msgstr[3] "העלאת שורות לבימוי"
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:284
 #, kde-format
 msgid "Stage Hunk"
 msgstr "העלאת גוש לבימוי"
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:291
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
@@ -501,12 +501,12 @@ msgstr[1] "התעלמות משורות"
 msgstr[2] "התעלמות משורות"
 msgstr[3] "התעלמות משורות"
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:296
 #, kde-format
 msgid "Discard Hunk"
 msgstr "התעלמות מגוש"
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:303
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
@@ -515,7 +515,7 @@ msgstr[1] "הורדת שורות מבימוי"
 msgstr[2] "הורדת שורות מבימוי"
 msgstr[3] "הורדת שורות מבימוי"
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:308
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "הורדת גוש מבימוי"

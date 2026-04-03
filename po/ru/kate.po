@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-03 00:47+0000\n"
 "PO-Revision-Date: 2026-02-13 22:13+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -490,7 +490,7 @@ msgstr "Исходный"
 msgid "Edit Line"
 msgstr "Редактировать строку"
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:279
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
@@ -499,12 +499,12 @@ msgstr[1] "Применить промежуточное состояние ст
 msgstr[2] "Применить промежуточное состояние строк"
 msgstr[3] "Применить промежуточное состояние строки"
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:284
 #, kde-format
 msgid "Stage Hunk"
 msgstr "Применить промежуточное сохранение блока"
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:291
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
@@ -513,12 +513,12 @@ msgstr[1] "Отбросить строки"
 msgstr[2] "Отбросить строки"
 msgstr[3] "Отбросить строку"
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:296
 #, kde-format
 msgid "Discard Hunk"
 msgstr "Отбросить блок"
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:303
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
@@ -527,7 +527,7 @@ msgstr[1] "Отменить промежуточное состояние стр
 msgstr[2] "Отменить промежуточное состояние строк"
 msgstr[3] "Отменить промежуточное состояние строки"
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:308
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "Отменить промежуточное сохранение блока"

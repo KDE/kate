@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-22 00:49+0000\n"
-"PO-Revision-Date: 2026-01-19 22:57+0100\n"
+"PO-Revision-Date: 2026-04-02 22:56+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -709,7 +709,7 @@ msgstr "Изчистване"
 #: SearchPlugin.cpp:2405 SearchPlugin.cpp:2447
 #, kde-format
 msgid "Clear history"
-msgstr ""
+msgstr "Изчистване на историята"
 
 #: SearchPlugin.cpp:2413 SearchPlugin.cpp:2454
 #, kde-format

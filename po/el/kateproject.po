@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-30 00:46+0000\n"
+"POT-Creation-Date: 2026-04-04 00:48+0000\n"
 "PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -89,7 +89,7 @@ msgstr[1] "Θέλετε πράγματι να διαγράψετε τους επ
 msgid "Select Branch..."
 msgstr "Επιλογή κλάδου..."
 
-#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:74
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -555,8 +555,8 @@ msgstr "Σε προετοιμασία υποβολής"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Κακοδιατυπωμένο JSON αρχείο '%1': %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:353
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:79
+#: kateprojectpluginview.cpp:230 kateprojectviewtree.cpp:353
 #: kateprojectviewtree.cpp:364 kateprojectviewtree.cpp:394
 #: kateprojectviewtree.cpp:401
 #, kde-format
@@ -718,7 +718,7 @@ msgstr "Προετοιμασία υποβολής / αναίρεση"
 msgid "Double click action in the git status view"
 msgstr "Ενέργεια με διπλό κλικ στην προβολή του git status"
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:72
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Projects"
 msgstr "Έργα"
@@ -904,92 +904,98 @@ msgstr ""
 "Πλήρης διαδρομή στο τρέχον έργο χωρίς το όνομα αρχείου, με εγγενές "
 "διαχωριστικό διαδρομής (ανάποδη πλαγιοκάθετος στα Windows)."
 
-#: kateprojectpluginview.cpp:62
+#: kateprojectpluginview.cpp:63
 #, kde-format
 msgid "Project Manager"
 msgstr "Διαχειριστής έργων"
 
 #: kateprojectpluginview.cpp:84
+#, fuzzy, kde-format
+#| msgid "Close Project"
+msgid "Current Project"
+msgstr "Κλείσιμο έργου"
+
+#: kateprojectpluginview.cpp:86
 #, kde-format
 msgid "Open projects list"
 msgstr "Άνοιγμα λίστας έργων"
 
-#: kateprojectpluginview.cpp:89
+#: kateprojectpluginview.cpp:94
 #, kde-format
 msgid "Reload project"
 msgstr "Επαναφόρτωση έργου"
 
-#: kateprojectpluginview.cpp:92
+#: kateprojectpluginview.cpp:97
 #, kde-format
 msgid "Close project"
 msgstr "Κλείσιμο έργου"
 
-#: kateprojectpluginview.cpp:168
+#: kateprojectpluginview.cpp:173
 #, kde-format
 msgid "Open &Folder..."
 msgstr "Άνοιγμα φακέ&λου..."
 
-#: kateprojectpluginview.cpp:174
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Project TODOs"
 msgstr "Μελλοντικά έργα"
 
-#: kateprojectpluginview.cpp:179
+#: kateprojectpluginview.cpp:184
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Ενεργοποίηση προηγούμενου έργου"
 
-#: kateprojectpluginview.cpp:185
+#: kateprojectpluginview.cpp:190
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Ενεργοποίηση επόμενου έργου"
 
-#: kateprojectpluginview.cpp:191
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Lookup"
 msgstr "Αναζήτηση"
 
-#: kateprojectpluginview.cpp:196
+#: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Close Project"
 msgstr "Κλείσιμο έργου"
 
-#: kateprojectpluginview.cpp:201
+#: kateprojectpluginview.cpp:206
 #, kde-format
 msgid "Close All Projects"
 msgstr "Κλείσιμο όλων των έργων"
 
-#: kateprojectpluginview.cpp:206
+#: kateprojectpluginview.cpp:211
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Κλείσιμο ορφανών έργων"
 
-#: kateprojectpluginview.cpp:211
+#: kateprojectpluginview.cpp:216
 #, kde-format
 msgid "Reload Project"
 msgstr "Επαναφόρτωση έργου"
 
-#: kateprojectpluginview.cpp:222
+#: kateprojectpluginview.cpp:227
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Εξαγωγή κλάδου του Git"
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
+#: kateprojectpluginview.cpp:233 kateprojectpluginview.cpp:832
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Αναζήτηση: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:808
+#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:833
 #, kde-format
 msgid "Goto: %1"
 msgstr "Μετάβαση: %1"
 
-#: kateprojectpluginview.cpp:308
+#: kateprojectpluginview.cpp:313
 #, kde-format
 msgid "Projects Index"
 msgstr "Ευρετήριο έργων"
 
-#: kateprojectpluginview.cpp:852
+#: kateprojectpluginview.cpp:877
 #, kde-format
 msgid "Choose a directory"
 msgstr "Επιλογή καταλόγου"
@@ -1185,15 +1191,12 @@ msgstr "Αποτυχία εμφάνισης της στοίβας. Σφάλμα:
 msgid "&Projects"
 msgstr "Έ&ργα"
 
-#, fuzzy
-#~| msgid "Close Project"
-#~ msgid "Current Project"
-#~ msgstr "Κλείσιμο έργου"
-
-#, fuzzy
-#~| msgid "Project Completion"
-#~ msgid "Project Plugin"
-#~ msgstr "Ολοκλήρωση έργου"
+#. i18n: ectx: ToolBar (projectplugin)
+#: ui.rc:27
+#, fuzzy, kde-format
+#| msgid "Project Completion"
+msgid "Project Plugin"
+msgstr "Ολοκλήρωση έργου"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "Εμφάνιση περιεχομένου στοίβας αναμονής"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-30 00:46+0000\n"
+"POT-Creation-Date: 2026-04-04 00:48+0000\n"
 "PO-Revision-Date: 2025-12-12 21:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -85,7 +85,7 @@ msgstr[1] "Seçilmiş şöbələri silmək istədiyinizə əminsiniz?"
 msgid "Select Branch..."
 msgstr "Şöbəni seçin..."
 
-#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:74
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -550,8 +550,8 @@ msgstr "Qeyd olundu"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Səhv formatlanmış JSON \"%1\": %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:353
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:79
+#: kateprojectpluginview.cpp:230 kateprojectviewtree.cpp:353
 #: kateprojectviewtree.cpp:364 kateprojectviewtree.cpp:394
 #: kateprojectviewtree.cpp:401
 #, kde-format
@@ -713,7 +713,7 @@ msgstr "İşarələyin/işarələməyin"
 msgid "Double click action in the git status view"
 msgstr "Git statusu görününşündə cüt klik əməli"
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:72
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Projects"
 msgstr "Layihələr"
@@ -895,94 +895,100 @@ msgstr ""
 "Yerli yol ayrıcısı (Windowsda tərs kəsir) ilə fayl adı istisna olmaqla cari "
 "layihəyə tam yol."
 
-#: kateprojectpluginview.cpp:62
+#: kateprojectpluginview.cpp:63
 #, kde-format
 msgid "Project Manager"
 msgstr "Layihə meneceri"
 
 #: kateprojectpluginview.cpp:84
+#, fuzzy, kde-format
+#| msgid "Close Project"
+msgid "Current Project"
+msgstr "Layihəni bağlayın"
+
+#: kateprojectpluginview.cpp:86
 #, kde-format
 msgid "Open projects list"
 msgstr "Layihələr siyaısını açın"
 
-#: kateprojectpluginview.cpp:89
+#: kateprojectpluginview.cpp:94
 #, kde-format
 msgid "Reload project"
 msgstr "Layihəni yenidən yükləyin"
 
-#: kateprojectpluginview.cpp:92
+#: kateprojectpluginview.cpp:97
 #, kde-format
 msgid "Close project"
 msgstr "Layihəni bağlayın"
 
-#: kateprojectpluginview.cpp:168
+#: kateprojectpluginview.cpp:173
 #, fuzzy, kde-format
 #| msgid "Open Folder..."
 msgid "Open &Folder..."
 msgstr "Qovluğu açın..."
 
-#: kateprojectpluginview.cpp:174
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Project TODOs"
 msgstr "TODO'lar layihəsi"
 
-#: kateprojectpluginview.cpp:179
+#: kateprojectpluginview.cpp:184
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Əvvəlki layihəni aktiv edin"
 
-#: kateprojectpluginview.cpp:185
+#: kateprojectpluginview.cpp:190
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Sonrakı layihəni aktv edin"
 
-#: kateprojectpluginview.cpp:191
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Lookup"
 msgstr "Araşdırmaq"
 
-#: kateprojectpluginview.cpp:196
+#: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Close Project"
 msgstr "Layihəni bağlayın"
 
-#: kateprojectpluginview.cpp:201
+#: kateprojectpluginview.cpp:206
 #, kde-format
 msgid "Close All Projects"
 msgstr "Bütün layihələri bağlayın"
 
-#: kateprojectpluginview.cpp:206
+#: kateprojectpluginview.cpp:211
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Sahibsiz layihələri bağlayın"
 
-#: kateprojectpluginview.cpp:211
+#: kateprojectpluginview.cpp:216
 #, fuzzy, kde-format
 #| msgid "Reload project"
 msgid "Reload Project"
 msgstr "Layihəni yenidən yükləyin"
 
-#: kateprojectpluginview.cpp:222
+#: kateprojectpluginview.cpp:227
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Git şöbəsinin iş nüsxəsini almaq"
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
+#: kateprojectpluginview.cpp:233 kateprojectpluginview.cpp:832
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Araşdırmaq: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:808
+#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:833
 #, kde-format
 msgid "Goto: %1"
 msgstr "GOTO: %1"
 
-#: kateprojectpluginview.cpp:308
+#: kateprojectpluginview.cpp:313
 #, kde-format
 msgid "Projects Index"
 msgstr "Layihələrin indeksi"
 
-#: kateprojectpluginview.cpp:852
+#: kateprojectpluginview.cpp:877
 #, kde-format
 msgid "Choose a directory"
 msgstr "Qovluq seçin"
@@ -1178,15 +1184,12 @@ msgstr "Toplanan göstərilə bilmədi. Xəta: "
 msgid "&Projects"
 msgstr "&Layihələr"
 
-#, fuzzy
-#~| msgid "Close Project"
-#~ msgid "Current Project"
-#~ msgstr "Layihəni bağlayın"
-
-#, fuzzy
-#~| msgid "Project Completion"
-#~ msgid "Project Plugin"
-#~ msgstr "Layihənin tamamlanması"
+#. i18n: ectx: ToolBar (projectplugin)
+#: ui.rc:27
+#, fuzzy, kde-format
+#| msgid "Project Completion"
+msgid "Project Plugin"
+msgstr "Layihənin tamamlanması"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "Toplananın tərkibini göstərmək"

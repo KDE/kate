@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-30 00:46+0000\n"
+"POT-Creation-Date: 2026-04-04 00:48+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -87,7 +87,7 @@ msgstr[3] ""
 msgid "Select Branch..."
 msgstr ""
 
-#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:74
 #, fuzzy, kde-format
 #| msgid "&Git"
 msgid "Git"
@@ -548,8 +548,8 @@ msgstr ""
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:353
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:79
+#: kateprojectpluginview.cpp:230 kateprojectviewtree.cpp:353
 #: kateprojectviewtree.cpp:364 kateprojectviewtree.cpp:394
 #: kateprojectviewtree.cpp:401
 #, kde-format
@@ -713,7 +713,7 @@ msgstr ""
 msgid "Double click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:72
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Projects"
 msgstr "Пројекти"
@@ -897,102 +897,108 @@ msgid ""
 "separator (backslash on Windows)."
 msgstr ""
 
-#: kateprojectpluginview.cpp:62
+#: kateprojectpluginview.cpp:63
 #, fuzzy, kde-format
 #| msgid "Kate Project Manager"
 msgid "Project Manager"
 msgstr "Кејтин менаџер пројеката"
 
 #: kateprojectpluginview.cpp:84
+#, fuzzy, kde-format
+#| msgid "Current Project"
+msgid "Current Project"
+msgstr "Текући пројекат"
+
+#: kateprojectpluginview.cpp:86
 #, kde-format
 msgid "Open projects list"
 msgstr ""
 
-#: kateprojectpluginview.cpp:89
+#: kateprojectpluginview.cpp:94
 #, kde-format
 msgid "Reload project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:92
+#: kateprojectpluginview.cpp:97
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close project"
 msgstr "Текући пројекат"
 
-#: kateprojectpluginview.cpp:168
+#: kateprojectpluginview.cpp:173
 #, fuzzy, kde-format
 #| msgid "Open With"
 msgid "Open &Folder..."
 msgstr "Отвори помоћу"
 
-#: kateprojectpluginview.cpp:174
+#: kateprojectpluginview.cpp:179
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "Project TODOs"
 msgstr "Пројекти"
 
-#: kateprojectpluginview.cpp:179
+#: kateprojectpluginview.cpp:184
 #, kde-format
 msgid "Activate Previous Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:185
+#: kateprojectpluginview.cpp:190
 #, kde-format
 msgid "Activate Next Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:191
+#: kateprojectpluginview.cpp:196
 #, fuzzy, kde-format
 #| msgid "Lookup: %1"
 msgid "Lookup"
 msgstr "Потрага: %1"
 
-#: kateprojectpluginview.cpp:196
+#: kateprojectpluginview.cpp:201
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close Project"
 msgstr "Текући пројекат"
 
-#: kateprojectpluginview.cpp:201
+#: kateprojectpluginview.cpp:206
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "Close All Projects"
 msgstr "Пројекти"
 
-#: kateprojectpluginview.cpp:206
+#: kateprojectpluginview.cpp:211
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr ""
 
-#: kateprojectpluginview.cpp:211
+#: kateprojectpluginview.cpp:216
 #, fuzzy, kde-format
 #| msgid "Project"
 msgid "Reload Project"
 msgstr "Пројект"
 
-#: kateprojectpluginview.cpp:222
+#: kateprojectpluginview.cpp:227
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
+#: kateprojectpluginview.cpp:233 kateprojectpluginview.cpp:832
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Потрага: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:808
+#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:833
 #, fuzzy, kde-format
 #| msgid "Lookup: %1"
 msgid "Goto: %1"
 msgstr "Потрага: %1"
 
-#: kateprojectpluginview.cpp:308
+#: kateprojectpluginview.cpp:313
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "Projects Index"
 msgstr "Пројекти"
 
-#: kateprojectpluginview.cpp:852
+#: kateprojectpluginview.cpp:877
 #, kde-format
 msgid "Choose a directory"
 msgstr ""
@@ -1183,15 +1189,12 @@ msgstr ""
 msgid "&Projects"
 msgstr "&Пројекти"
 
-#, fuzzy
-#~| msgid "Current Project"
-#~ msgid "Current Project"
-#~ msgstr "Текући пројекат"
-
-#, fuzzy
-#~| msgid "Project Completion"
-#~ msgid "Project Plugin"
-#~ msgstr "Допуњавање по пројекту"
+#. i18n: ectx: ToolBar (projectplugin)
+#: ui.rc:27
+#, fuzzy, kde-format
+#| msgid "Project Completion"
+msgid "Project Plugin"
+msgstr "Допуњавање по пројекту"
 
 # >> @title:column
 #, fuzzy

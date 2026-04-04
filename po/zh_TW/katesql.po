@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-04-04 00:48+0000\n"
 "PO-Revision-Date: 2025-01-24 22:32+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Database files"
 msgstr "資料庫檔"
 
-#: connectionwizard.cpp:175 exportwizard.cpp:52
+#: connectionwizard.cpp:175 exportwizard.cpp:53
 #, kde-format
 msgid "All files"
 msgstr "所有檔案"
@@ -152,96 +152,172 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "連線名稱："
 
-#: dataoutputwidget.cpp:62
+#: dataoutputwidget.cpp:88
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu Context menu"
+#| msgid "Refresh"
+msgctxt "@action:intoolbar"
+msgid "Refresh"
+msgstr "重新整理"
+
+#: dataoutputwidget.cpp:97
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "重新調整欄大小以符合內容"
 
-#: dataoutputwidget.cpp:66
+#: dataoutputwidget.cpp:101
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "重新調整列大小以符合內容"
 
-#: dataoutputwidget.cpp:70
-#, kde-format
-msgctxt "@action:intoolbar"
-msgid "Copy"
-msgstr "複製"
-
-#: dataoutputwidget.cpp:75
+#: dataoutputwidget.cpp:105
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "匯出..."
 
-#: dataoutputwidget.cpp:80 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:110
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Copy"
+msgstr "複製"
+
+#: dataoutputwidget.cpp:118 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "清除"
 
-#: dataoutputwidget.cpp:87
+#: dataoutputwidget.cpp:124
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "使用系統區域設定"
 
-#: dataoutputwidget.cpp:270
+#: dataoutputwidget.cpp:138
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Paste"
+msgstr ""
+
+#: dataoutputwidget.cpp:147
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Set Null"
+msgstr ""
+
+#: dataoutputwidget.cpp:155
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Insert Row"
+msgstr ""
+
+#: dataoutputwidget.cpp:163
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Remove Selected Rows"
+msgstr ""
+
+#: dataoutputwidget.cpp:171
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Duplicate Selected Rows"
+msgstr ""
+
+#: dataoutputwidget.cpp:179
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Undo"
+msgstr ""
+
+#: dataoutputwidget.cpp:187
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Save"
+msgstr ""
+
+#: dataoutputwidget.cpp:200
+#, kde-format
+msgctxt "@label"
+msgid "Where:"
+msgstr ""
+
+#: dataoutputwidget.cpp:208
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "id > 0"
+msgstr ""
+
+#: dataoutputwidget.cpp:209
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Enter SQL WHERE clause to filter data"
+msgstr ""
+
+#: dataoutputwidget.cpp:494
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "無法開啟檔案  <filename>%1</filename>"
 
-#: exportwizard.cpp:25
+#: dataoutputwidget.cpp:510
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+msgctxt "@info"
+msgid "Failed to save changes: <message>%1</message>"
+msgstr "無法連線到資料庫。<nl/><message>%1</message>"
+
+#: exportwizard.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "匯出精靈"
 
-#: exportwizard.cpp:38
+#: exportwizard.cpp:39
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "輸出目標"
 
-#: exportwizard.cpp:39
+#: exportwizard.cpp:40
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "選擇輸出目標。"
 
-#: exportwizard.cpp:43
+#: exportwizard.cpp:44
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "目前文件"
 
-#: exportwizard.cpp:44
+#: exportwizard.cpp:45
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "剪貼簿"
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "檔案"
 
-#: exportwizard.cpp:52
+#: exportwizard.cpp:53
 #, kde-format
 msgid "Comma Separated Values"
 msgstr "逗號分隔的數值 (CSV)"
 
-#: exportwizard.cpp:94
+#: exportwizard.cpp:95
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "欄位格式"
 
-#: exportwizard.cpp:95
+#: exportwizard.cpp:96
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -251,55 +327,55 @@ msgstr ""
 "選擇欄位格式。\n"
 "點擊「完成」即開始匯出資料。"
 
-#: exportwizard.cpp:99
+#: exportwizard.cpp:100
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "標頭"
 
-#: exportwizard.cpp:102
+#: exportwizard.cpp:103
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "匯出欄位名稱"
 
-#: exportwizard.cpp:103
+#: exportwizard.cpp:104
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "匯出行號"
 
-#: exportwizard.cpp:110
+#: exportwizard.cpp:111
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "引言"
 
-#: exportwizard.cpp:113
+#: exportwizard.cpp:114
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "引言字串"
 
-#: exportwizard.cpp:114
+#: exportwizard.cpp:115
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "引言編號"
 
-#: exportwizard.cpp:122 exportwizard.cpp:125
+#: exportwizard.cpp:123 exportwizard.cpp:126
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "字元："
 
-#: exportwizard.cpp:131
+#: exportwizard.cpp:132
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "分隔子"
 
-#: exportwizard.cpp:137
+#: exportwizard.cpp:138
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"
@@ -346,37 +422,37 @@ msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL 綱要"
 
-#: katesqlview.cpp:104
+#: katesqlview.cpp:105
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "新增連線..."
 
-#: katesqlview.cpp:109
+#: katesqlview.cpp:110
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "移除連線"
 
-#: katesqlview.cpp:114
+#: katesqlview.cpp:115
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "編輯連線..."
 
-#: katesqlview.cpp:119
+#: katesqlview.cpp:120
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "重新連線"
 
-#: katesqlview.cpp:125
+#: katesqlview.cpp:126
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "連線"
 
-#: katesqlview.cpp:129
+#: katesqlview.cpp:130
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
@@ -510,12 +586,12 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "重新整理"
 
-#: sqlmanager.cpp:314
+#: sqlmanager.cpp:315
 #, kde-format
 msgid "Prepare Statement Failure"
 msgstr "準備陳述式失敗"
 
-#: sqlmanager.cpp:315
+#: sqlmanager.cpp:316
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
@@ -523,20 +599,20 @@ msgid ""
 msgstr ""
 "<p>準備查詢時失敗，錯誤如下：%1</p><p>您要不將查詢進行準備而直接繼續嗎？</p>"
 
-#: sqlmanager.cpp:345
+#: sqlmanager.cpp:346
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "查詢已成功完成"
 
-#: sqlmanager.cpp:348
+#: sqlmanager.cpp:349 sqlmanager.cpp:387
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
 msgstr[0] "已選擇 %1 筆紀錄"
 
-#: sqlmanager.cpp:352
+#: sqlmanager.cpp:353
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

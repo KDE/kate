@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-04-04 00:48+0000\n"
 "PO-Revision-Date: 2025-02-24 17:09+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Database files"
 msgstr "Databasebestanden"
 
-#: connectionwizard.cpp:175 exportwizard.cpp:52
+#: connectionwizard.cpp:175 exportwizard.cpp:53
 #, kde-format
 msgid "All files"
 msgstr "Alle bestanden"
@@ -152,96 +152,174 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "Verbindingsnaam:"
 
-#: dataoutputwidget.cpp:62
+#: dataoutputwidget.cpp:88
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu Context menu"
+#| msgid "Refresh"
+msgctxt "@action:intoolbar"
+msgid "Refresh"
+msgstr "Vernieuwen"
+
+#: dataoutputwidget.cpp:97
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "Kolomgrootte aanpassen aan inhoud"
 
-#: dataoutputwidget.cpp:66
+#: dataoutputwidget.cpp:101
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "Rijgrootte aanpassen aan inhoud"
 
-#: dataoutputwidget.cpp:70
-#, kde-format
-msgctxt "@action:intoolbar"
-msgid "Copy"
-msgstr "Kopiëren"
-
-#: dataoutputwidget.cpp:75
+#: dataoutputwidget.cpp:105
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Exporteren..."
 
-#: dataoutputwidget.cpp:80 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:110
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: dataoutputwidget.cpp:118 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "Wissen"
 
-#: dataoutputwidget.cpp:87
+#: dataoutputwidget.cpp:124
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "Gebruik de taalcode van het systeem"
 
-#: dataoutputwidget.cpp:270
+#: dataoutputwidget.cpp:138
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Paste"
+msgstr ""
+
+#: dataoutputwidget.cpp:147
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Set Null"
+msgstr ""
+
+#: dataoutputwidget.cpp:155
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Insert Row"
+msgstr ""
+
+#: dataoutputwidget.cpp:163
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Remove Selected Rows"
+msgstr ""
+
+#: dataoutputwidget.cpp:171
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Duplicate Selected Rows"
+msgstr ""
+
+#: dataoutputwidget.cpp:179
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Undo"
+msgstr ""
+
+#: dataoutputwidget.cpp:187
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Save"
+msgstr ""
+
+#: dataoutputwidget.cpp:200
+#, kde-format
+msgctxt "@label"
+msgid "Where:"
+msgstr ""
+
+#: dataoutputwidget.cpp:208
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "id > 0"
+msgstr ""
+
+#: dataoutputwidget.cpp:209
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Enter SQL WHERE clause to filter data"
+msgstr ""
+
+#: dataoutputwidget.cpp:494
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Bestand <filename>%1</filename> kon niet worden geopend"
 
-#: exportwizard.cpp:25
+#: dataoutputwidget.cpp:510
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+msgctxt "@info"
+msgid "Failed to save changes: <message>%1</message>"
+msgstr ""
+"Er kon geen verbinding met de database worden gemaakt.<nl/><message>%1</"
+"message>"
+
+#: exportwizard.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "Assistent voor exporteren"
 
-#: exportwizard.cpp:38
+#: exportwizard.cpp:39
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "Doel van uitvoer"
 
-#: exportwizard.cpp:39
+#: exportwizard.cpp:40
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "Doel van uitvoer selecteren."
 
-#: exportwizard.cpp:43
+#: exportwizard.cpp:44
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "Huidig document"
 
-#: exportwizard.cpp:44
+#: exportwizard.cpp:45
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "Klembord"
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Bestand"
 
-#: exportwizard.cpp:52
+#: exportwizard.cpp:53
 #, kde-format
 msgid "Comma Separated Values"
 msgstr "Komma-gescheiden waarden"
 
-#: exportwizard.cpp:94
+#: exportwizard.cpp:95
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Opmaak van velden"
 
-#: exportwizard.cpp:95
+#: exportwizard.cpp:96
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -251,55 +329,55 @@ msgstr ""
 "Opmaak van velden selecteren.\n"
 "Klik op de knop \"Beëindigen\" om gegevens te exporteren."
 
-#: exportwizard.cpp:99
+#: exportwizard.cpp:100
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Koppen"
 
-#: exportwizard.cpp:102
+#: exportwizard.cpp:103
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Kolomnamen exporteren"
 
-#: exportwizard.cpp:103
+#: exportwizard.cpp:104
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Regelnummers exporteren"
 
-#: exportwizard.cpp:110
+#: exportwizard.cpp:111
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Aanhalingstekens"
 
-#: exportwizard.cpp:113
+#: exportwizard.cpp:114
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Tekenreeksen van aanhalingstekens voorzien"
 
-#: exportwizard.cpp:114
+#: exportwizard.cpp:115
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Getallen van aanhalingstekens voorzien"
 
-#: exportwizard.cpp:122 exportwizard.cpp:125
+#: exportwizard.cpp:123 exportwizard.cpp:126
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Teken:"
 
-#: exportwizard.cpp:131
+#: exportwizard.cpp:132
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Begrenzingstekens"
 
-#: exportwizard.cpp:137
+#: exportwizard.cpp:138
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"
@@ -346,37 +424,37 @@ msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL-schema"
 
-#: katesqlview.cpp:104
+#: katesqlview.cpp:105
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Verbinding toevoegen..."
 
-#: katesqlview.cpp:109
+#: katesqlview.cpp:110
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Verbinding verwijderen"
 
-#: katesqlview.cpp:114
+#: katesqlview.cpp:115
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Verbinding bewerken..."
 
-#: katesqlview.cpp:119
+#: katesqlview.cpp:120
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "Opnieuw verbinden"
 
-#: katesqlview.cpp:125
+#: katesqlview.cpp:126
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "Verbinding"
 
-#: katesqlview.cpp:129
+#: katesqlview.cpp:130
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
@@ -510,12 +588,12 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Vernieuwen"
 
-#: sqlmanager.cpp:314
+#: sqlmanager.cpp:315
 #, kde-format
 msgid "Prepare Statement Failure"
 msgstr "Mislukken van statement voorbereiden"
 
-#: sqlmanager.cpp:315
+#: sqlmanager.cpp:316
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
@@ -524,13 +602,13 @@ msgstr ""
 "<p>voorbereiden van de zoekopdracht is mislukt met de volgende fout: %1</"
 "p><p>Wilt u doorgaan zonder voorbereiden van de zoekopdracht?</p>"
 
-#: sqlmanager.cpp:345
+#: sqlmanager.cpp:346
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Zoekopdracht is met succes beëindigd"
 
-#: sqlmanager.cpp:348
+#: sqlmanager.cpp:349 sqlmanager.cpp:387
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -538,7 +616,7 @@ msgid_plural "%1 records selected"
 msgstr[0] "%1 record geselecteerd"
 msgstr[1] "%1 records geselecteerd"
 
-#: sqlmanager.cpp:352
+#: sqlmanager.cpp:353
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

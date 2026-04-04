@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-30 00:46+0000\n"
+"POT-Creation-Date: 2026-04-04 00:48+0000\n"
 "PO-Revision-Date: 2026-03-16 17:13+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -86,7 +86,7 @@ msgstr[0] "您確定要刪除選取的分支嗎？"
 msgid "Select Branch..."
 msgstr "選取分支..."
 
-#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:74
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -545,8 +545,8 @@ msgstr "(已暫存)"
 msgid "Malformed JSON file '%1': %2"
 msgstr "格式不正確的 JSON 檔案 '%1'：%2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:353
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:79
+#: kateprojectpluginview.cpp:230 kateprojectviewtree.cpp:353
 #: kateprojectviewtree.cpp:364 kateprojectviewtree.cpp:394
 #: kateprojectviewtree.cpp:401
 #, kde-format
@@ -700,7 +700,7 @@ msgstr "暫存 / 取消暫存"
 msgid "Double click action in the git status view"
 msgstr "git status 檢視中的雙擊動作"
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:72
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Projects"
 msgstr "專案"
@@ -870,92 +870,98 @@ msgstr ""
 "指向目前專案的完整路徑 (不含檔名，使用原生路徑分隔符 - 在 Windows 上是反斜"
 "線)。"
 
-#: kateprojectpluginview.cpp:62
+#: kateprojectpluginview.cpp:63
 #, kde-format
 msgid "Project Manager"
 msgstr "專案管理員"
 
 #: kateprojectpluginview.cpp:84
+#, fuzzy, kde-format
+#| msgid "Close Project"
+msgid "Current Project"
+msgstr "關閉專案"
+
+#: kateprojectpluginview.cpp:86
 #, kde-format
 msgid "Open projects list"
 msgstr "開啟專案列表"
 
-#: kateprojectpluginview.cpp:89
+#: kateprojectpluginview.cpp:94
 #, kde-format
 msgid "Reload project"
 msgstr "重新載入專案"
 
-#: kateprojectpluginview.cpp:92
+#: kateprojectpluginview.cpp:97
 #, kde-format
 msgid "Close project"
 msgstr "關閉專案"
 
-#: kateprojectpluginview.cpp:168
+#: kateprojectpluginview.cpp:173
 #, kde-format
 msgid "Open &Folder..."
 msgstr "開啟資料夾(&F)…"
 
-#: kateprojectpluginview.cpp:174
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Project TODOs"
 msgstr "專案待辦事項"
 
-#: kateprojectpluginview.cpp:179
+#: kateprojectpluginview.cpp:184
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "啟用前一個專案"
 
-#: kateprojectpluginview.cpp:185
+#: kateprojectpluginview.cpp:190
 #, kde-format
 msgid "Activate Next Project"
 msgstr "啟用下一個專案"
 
-#: kateprojectpluginview.cpp:191
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Lookup"
 msgstr "尋找"
 
-#: kateprojectpluginview.cpp:196
+#: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Close Project"
 msgstr "關閉專案"
 
-#: kateprojectpluginview.cpp:201
+#: kateprojectpluginview.cpp:206
 #, kde-format
 msgid "Close All Projects"
 msgstr "關閉所有專案"
 
-#: kateprojectpluginview.cpp:206
+#: kateprojectpluginview.cpp:211
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "關閉沒有開啟文件的專案"
 
-#: kateprojectpluginview.cpp:211
+#: kateprojectpluginview.cpp:216
 #, kde-format
 msgid "Reload Project"
 msgstr "重新載入專案"
 
-#: kateprojectpluginview.cpp:222
+#: kateprojectpluginview.cpp:227
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "簽出 Git 分支"
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
+#: kateprojectpluginview.cpp:233 kateprojectpluginview.cpp:832
 #, kde-format
 msgid "Lookup: %1"
 msgstr "尋找：%1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:808
+#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:833
 #, kde-format
 msgid "Goto: %1"
 msgstr "前往：%1"
 
-#: kateprojectpluginview.cpp:308
+#: kateprojectpluginview.cpp:313
 #, kde-format
 msgid "Projects Index"
 msgstr "專案索引"
 
-#: kateprojectpluginview.cpp:852
+#: kateprojectpluginview.cpp:877
 #, kde-format
 msgid "Choose a directory"
 msgstr "選擇目錄"
@@ -1142,15 +1148,12 @@ msgstr "顯示貯存時失敗。錯誤："
 msgid "&Projects"
 msgstr "專案(&P)"
 
-#, fuzzy
-#~| msgid "Close Project"
-#~ msgid "Current Project"
-#~ msgstr "關閉專案"
-
-#, fuzzy
-#~| msgid "Project Completion"
-#~ msgid "Project Plugin"
-#~ msgstr "專案補完"
+#. i18n: ectx: ToolBar (projectplugin)
+#: ui.rc:27
+#, fuzzy, kde-format
+#| msgid "Project Completion"
+msgid "Project Plugin"
+msgstr "專案補完"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "顯示貯存內容"

@@ -22,14 +22,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-03 00:47+0000\n"
-"PO-Revision-Date: 2026-02-13 22:13+0200\n"
+"PO-Revision-Date: 2026-04-03 20:36+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -223,7 +223,7 @@ msgstr "Фиксация %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "Временная панель %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -461,9 +461,9 @@ msgid "Enable Suppression"
 msgstr "Включить подавление"
 
 #: lib/diagnostics/diagnosticview.cpp:1603
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show fixes"
-msgstr "Показать панель \"%1\""
+msgstr "Показать исправления"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format
@@ -533,16 +533,14 @@ msgid "Unstage Hunk"
 msgstr "Отменить промежуточное сохранение блока"
 
 #: lib/diff/diffwidget.cpp:50
-#, fuzzy, kde-format
-#| msgid "Diff %1"
+#, kde-format
 msgid "Diff - %1"
-msgstr "Различия %1"
+msgstr "Различия — %1"
 
 #: lib/diff/diffwidget.cpp:53
-#, fuzzy, kde-format
-#| msgid "Diff %1..%2"
+#, kde-format
 msgid "Diff - %1..%2"
-msgstr "Различия между %1 и %2"
+msgstr "Различия между «%1» и «%2»"
 
 #: lib/diff/diffwidget.cpp:59
 #, kde-format
@@ -678,12 +676,10 @@ msgid "Show Full Commit"
 msgstr "Показать фиксацию полностью"
 
 #: lib/filehistorywidget.cpp:712
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "File History - %1"
+#, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
-msgstr "История файла — %1"
+msgstr "Журнал — %1"
 
 #: lib/kateapp.cpp:147
 msgid ""

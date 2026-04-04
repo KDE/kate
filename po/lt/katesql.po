@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-04-04 00:48+0000\n"
 "PO-Revision-Date: 2015-12-29 21:20+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Database files"
 msgstr "Duombazės failai"
 
-#: connectionwizard.cpp:175 exportwizard.cpp:52
+#: connectionwizard.cpp:175 exportwizard.cpp:53
 #, kde-format
 msgid "All files"
 msgstr "Visi failai"
@@ -156,96 +156,172 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "Prisijungimo pavadinimas:"
 
-#: dataoutputwidget.cpp:62
+#: dataoutputwidget.cpp:88
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu Context menu"
+#| msgid "Refresh"
+msgctxt "@action:intoolbar"
+msgid "Refresh"
+msgstr "Atnaujinti"
+
+#: dataoutputwidget.cpp:97
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "Keisti stulpelių plotį pagal turinį"
 
-#: dataoutputwidget.cpp:66
+#: dataoutputwidget.cpp:101
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "Keisti eilučių aukštį pagal turinį"
 
-#: dataoutputwidget.cpp:70
-#, kde-format
-msgctxt "@action:intoolbar"
-msgid "Copy"
-msgstr "Kopijuoti"
-
-#: dataoutputwidget.cpp:75
+#: dataoutputwidget.cpp:105
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Eksportuoti..."
 
-#: dataoutputwidget.cpp:80 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:110
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Copy"
+msgstr "Kopijuoti"
+
+#: dataoutputwidget.cpp:118 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "Išvalyti"
 
-#: dataoutputwidget.cpp:87
+#: dataoutputwidget.cpp:124
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "Naudoti sisteminę lokalę"
 
-#: dataoutputwidget.cpp:270
+#: dataoutputwidget.cpp:138
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Paste"
+msgstr ""
+
+#: dataoutputwidget.cpp:147
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Set Null"
+msgstr ""
+
+#: dataoutputwidget.cpp:155
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Insert Row"
+msgstr ""
+
+#: dataoutputwidget.cpp:163
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Remove Selected Rows"
+msgstr ""
+
+#: dataoutputwidget.cpp:171
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Duplicate Selected Rows"
+msgstr ""
+
+#: dataoutputwidget.cpp:179
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Undo"
+msgstr ""
+
+#: dataoutputwidget.cpp:187
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Save"
+msgstr ""
+
+#: dataoutputwidget.cpp:200
+#, kde-format
+msgctxt "@label"
+msgid "Where:"
+msgstr ""
+
+#: dataoutputwidget.cpp:208
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "id > 0"
+msgstr ""
+
+#: dataoutputwidget.cpp:209
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Enter SQL WHERE clause to filter data"
+msgstr ""
+
+#: dataoutputwidget.cpp:494
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Nepavyksta atverti failo <filename>%1</filename>"
 
-#: exportwizard.cpp:25
+#: dataoutputwidget.cpp:510
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+msgctxt "@info"
+msgid "Failed to save changes: <message>%1</message>"
+msgstr "Nepavyko prisijungti prie duomenų bazės.<nl/><message>%1</message>"
+
+#: exportwizard.cpp:26
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "Eksporto vedlys"
 
-#: exportwizard.cpp:38
+#: exportwizard.cpp:39
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "Išvesties adresatas"
 
-#: exportwizard.cpp:39
+#: exportwizard.cpp:40
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "Parinkite išvesties adresatą."
 
-#: exportwizard.cpp:43
+#: exportwizard.cpp:44
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "Dabartinis dokumentas"
 
-#: exportwizard.cpp:44
+#: exportwizard.cpp:45
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "Iškarpinė"
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Failas"
 
-#: exportwizard.cpp:52
+#: exportwizard.cpp:53
 #, kde-format
 msgid "Comma Separated Values"
 msgstr ""
 
-#: exportwizard.cpp:94
+#: exportwizard.cpp:95
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Laukų formatas"
 
-#: exportwizard.cpp:95
+#: exportwizard.cpp:96
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -255,55 +331,55 @@ msgstr ""
 "Parinkite laukų formatą.\n"
 "Norėdami eksportuoti duomenis spauskite mygtuką „Baigti“."
 
-#: exportwizard.cpp:99
+#: exportwizard.cpp:100
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Antraštės"
 
-#: exportwizard.cpp:102
+#: exportwizard.cpp:103
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Eksportuoti stulpelių pavadinimus"
 
-#: exportwizard.cpp:103
+#: exportwizard.cpp:104
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Eksportuoti eilučių numerius"
 
-#: exportwizard.cpp:110
+#: exportwizard.cpp:111
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Kabutės"
 
-#: exportwizard.cpp:113
+#: exportwizard.cpp:114
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Eilutes apgaubti kabutėmis"
 
-#: exportwizard.cpp:114
+#: exportwizard.cpp:115
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Skaičius apgaubti kabutėmis"
 
-#: exportwizard.cpp:122 exportwizard.cpp:125
+#: exportwizard.cpp:123 exportwizard.cpp:126
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Simbolis:"
 
-#: exportwizard.cpp:131
+#: exportwizard.cpp:132
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Skirtukai"
 
-#: exportwizard.cpp:137
+#: exportwizard.cpp:138
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"
@@ -358,7 +434,7 @@ msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL schemos naršyklė"
 
-#: katesqlview.cpp:104
+#: katesqlview.cpp:105
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Add connection..."
@@ -366,7 +442,7 @@ msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Pridėti jungtį..."
 
-#: katesqlview.cpp:109
+#: katesqlview.cpp:110
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Remove connection"
@@ -374,7 +450,7 @@ msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Pašalinti jungtį"
 
-#: katesqlview.cpp:114
+#: katesqlview.cpp:115
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Edit connection..."
@@ -382,19 +458,19 @@ msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Keisti jungtį..."
 
-#: katesqlview.cpp:119
+#: katesqlview.cpp:120
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "Prisijungti iš naujo"
 
-#: katesqlview.cpp:125
+#: katesqlview.cpp:126
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "Jungtis"
 
-#: katesqlview.cpp:129
+#: katesqlview.cpp:130
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Run query"
@@ -530,19 +606,19 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Atnaujinti"
 
-#: sqlmanager.cpp:314
+#: sqlmanager.cpp:315
 #, kde-format
 msgid "Prepare Statement Failure"
 msgstr ""
 
-#: sqlmanager.cpp:315
+#: sqlmanager.cpp:316
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
 
-#: sqlmanager.cpp:345
+#: sqlmanager.cpp:346
 #, fuzzy, kde-format
 #| msgctxt "@info/plain"
 #| msgid "Query completed successfully"
@@ -550,7 +626,7 @@ msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Užklausa sėkmingai baigta"
 
-#: sqlmanager.cpp:348
+#: sqlmanager.cpp:349 sqlmanager.cpp:387
 #, fuzzy, kde-format
 #| msgctxt "@info/plain"
 #| msgid "%1 record selected"
@@ -563,7 +639,7 @@ msgstr[1] "Parinkti %1 įrašai"
 msgstr[2] "Parinkta %1 įrašų"
 msgstr[3] "Parinktas %1 įrašas"
 
-#: sqlmanager.cpp:352
+#: sqlmanager.cpp:353
 #, fuzzy, kde-format
 #| msgctxt "@info/plain"
 #| msgid "%1 row affected"

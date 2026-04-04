@@ -119,6 +119,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
     m_symbols = new QTreeWidget();
     m_symbols->setFocusPolicy(Qt::NoFocus);
     m_symbols->setLayoutDirection(Qt::LeftToRight);
+    m_symbols->setFrameShape(QFrame::NoFrame);
     layout->addWidget(m_symbols, 10);
     layout->setContentsMargins(0, 0, 0, 0);
 

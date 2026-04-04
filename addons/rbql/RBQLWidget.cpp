@@ -22,6 +22,7 @@ RBQLWidget::RBQLWidget(KTextEditor::MainWindow *mainWindow, QWidget *parent)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
 {
+    m_tabWidget.setDocumentMode(true);
     new QVBoxLayout(this);
     layout()->setContentsMargins({});
     layout()->addWidget(&m_tabWidget);

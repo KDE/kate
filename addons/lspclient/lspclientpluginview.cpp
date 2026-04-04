@@ -692,6 +692,7 @@ public:
                                                       QIcon::fromTheme(QStringLiteral("format-text-code")),
                                                       i18n("LSP")));
         m_tabWidget = new ClosableTabWidget(m_toolView.get());
+        m_tabWidget->setDocumentMode(true);
         m_toolView->layout()->addWidget(m_tabWidget);
         m_tabWidget->setFocusPolicy(Qt::StrongFocus);
         m_tabWidget->setTabsClosable(true);

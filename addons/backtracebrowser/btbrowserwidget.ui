@@ -5,10 +5,10 @@
    <property name="margin" >
     <number>0</number>
    </property>
-   <item row="0" column="0" >
-    <widget class="QTreeWidget" name="lstBacktrace" >
-     <property name="horizontalScrollBarPolicy" >
-      <enum>Qt::ScrollBarAlwaysOff</enum>
+   <item row="0" column="0">
+    <widget class="QTreeWidget" name="lstBacktrace">
+     <property name="frameShape">
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="rootIsDecorated" >
       <bool>false</bool>

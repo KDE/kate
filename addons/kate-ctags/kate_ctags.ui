@@ -28,6 +28,9 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <property name="documentMode">
+      <bool>true</bool>
+     </property>
      <widget class="QWidget" name="widget">
       <attribute name="title">
        <string>Lookup</string>
@@ -61,6 +64,9 @@
        </item>
        <item row="1" column="0" colspan="2">
         <widget class="QTreeWidget" name="tagTreeWidget">
+         <property name="frameShape">
+          <enum>QFrame::Shape::NoFrame</enum>
+         </property>
          <property name="rootIsDecorated">
           <bool>false</bool>
          </property>
@@ -101,7 +107,11 @@
         <number>0</number>
        </property>
        <item row="0" column="0" rowspan="4" colspan="2">
-        <widget class="QListWidget" name="targetList"/>
+        <widget class="QListWidget" name="targetList">
+         <property name="frameShape">
+          <enum>QFrame::Shape::NoFrame</enum>
+         </property>
+        </widget>
        </item>
        <item row="0" column="2">
         <widget class="QPushButton" name="addButton">

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-03 00:51+0000\n"
-"PO-Revision-Date: 2026-03-07 08:22+0100\n"
+"PO-Revision-Date: 2026-04-04 19:45+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -115,7 +115,7 @@ msgstr "Wstecz"
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr "HEAD na wpisie %1"
+msgstr "HEAD na zmianie %1"
 
 #: currentgitbranchbutton.cpp:124
 #, kde-format
@@ -352,7 +352,7 @@ msgstr "Pokaż ostatnią zmianę"
 #: gitwidget.cpp:1140
 #, kde-format
 msgid "Open Commit..."
-msgstr "Otwórz zmianę..."
+msgstr "Otwórz zmianę…"
 
 #: gitwidget.cpp:1143 gitwidget.cpp:1188
 #, kde-format

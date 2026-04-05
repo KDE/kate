@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-04 00:48+0000\n"
-"PO-Revision-Date: 2026-03-22 11:15+0300\n"
+"PO-Revision-Date: 2026-04-04 21:33+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 25.12.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -882,10 +882,9 @@ msgid "Project Manager"
 msgstr "Proje Yöneticisi"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Current Project"
-msgstr "Projeyi Kapat"
+msgstr "Geçerli Proje"
 
 #: kateprojectpluginview.cpp:86
 #, kde-format
@@ -1158,10 +1157,9 @@ msgstr "Pro&jeler"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:27
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
-msgstr "Proje Tamamlama"
+msgstr "Proje Eklentisi"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "Zula İçeriğini Göster"

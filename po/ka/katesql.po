@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-04 00:48+0000\n"
-"PO-Revision-Date: 2025-01-17 03:19+0100\n"
+"PO-Revision-Date: 2026-04-04 05:15+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.9\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -152,9 +152,7 @@ msgid "Connection name:"
 msgstr "შეერთების სახელი:"
 
 #: dataoutputwidget.cpp:88
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "განახლება"
@@ -199,61 +197,61 @@ msgstr "სისტემური ენის გამოყენება"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "ჩასმა"
 
 #: dataoutputwidget.cpp:147
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "ნულის დაყენება"
 
 #: dataoutputwidget.cpp:155
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "მწკრივის ჩასმა"
 
 #: dataoutputwidget.cpp:163
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "მონიშნული მწკრივების წაშლა"
 
 #: dataoutputwidget.cpp:171
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "მონიშნული მწკრივების დუბლირება"
 
 #: dataoutputwidget.cpp:179
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "გაუქმება"
 
 #: dataoutputwidget.cpp:187
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "შენახვა"
 
 #: dataoutputwidget.cpp:200
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "სად:"
 
 #: dataoutputwidget.cpp:208
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:209
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "მონაცემების გასაფილტრად შეიყვანეთ SQL-ის WHERE პირობა"
 
 #: dataoutputwidget.cpp:494
 #, kde-kuit-format
@@ -262,12 +260,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "ფაილის გახსნის შეცდომა <filename>%1</filename>"
 
 #: dataoutputwidget.cpp:510
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "ბაზასთან მიერთების შეცდომა.<nl/><message>%1</message>"
+msgstr "ცვლილებების შენახვა ჩავარდა: <message>%1</message>"
 
 #: exportwizard.cpp:26
 #, kde-format

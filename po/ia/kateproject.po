@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-04 00:48+0000\n"
-"PO-Revision-Date: 2026-03-23 17:02+0100\n"
+"PO-Revision-Date: 2026-04-04 10:41+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -883,10 +883,9 @@ msgid "Project Manager"
 msgstr "Gerente de projectos"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Current Project"
-msgstr "Claude projecto"
+msgstr "Projecto currente"
 
 #: kateprojectpluginview.cpp:86
 #, kde-format
@@ -1163,10 +1162,9 @@ msgstr "&Projectos"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:27
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
-msgstr "Completion de projecto"
+msgstr "Plug-in de Projecto"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "Monstra contento de stash (celario)"

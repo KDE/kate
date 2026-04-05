@@ -151,12 +151,10 @@ msgid "Connection name:"
 msgstr "连接名称："
 
 #: dataoutputwidget.cpp:88
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
-msgstr "刷新"
+msgstr ""
 
 #: dataoutputwidget.cpp:97
 #, kde-format
@@ -261,12 +259,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "无法打开文件 <filename>%1</filename>"
 
 #: dataoutputwidget.cpp:510
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "无法连接数据库。<nl/><message>%1</message>"
+msgstr ""
 
 #: exportwizard.cpp:26
 #, kde-format

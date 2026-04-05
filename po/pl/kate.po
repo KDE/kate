@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1733610 $
+# Version: $Revision: 1733680 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-03 00:47+0000\n"
-"PO-Revision-Date: 2026-03-21 07:16+0100\n"
+"PO-Revision-Date: 2026-04-04 19:44+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -208,13 +208,13 @@ msgstr "%1 nie istnieje w repozytorium git."
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Wdrożenie %1"
+msgstr "Zmiana %1"
 
 #: lib/commitfilesview.cpp:623
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "Składowisko %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -452,10 +452,9 @@ msgid "Enable Suppression"
 msgstr "Włącz wygaszenie"
 
 #: lib/diagnostics/diagnosticview.cpp:1603
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "Show fixes"
-msgstr "Pokaż paski &boczne"
+msgstr "Pokaż poprawki"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format
@@ -557,7 +556,7 @@ msgstr "Różnica %1 .. %2"
 #: lib/diff/diffwidget.cpp:151
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr "Pokaż/Ukryj szczegóły o wdrożeniu"
+msgstr "Pokaż/Ukryj szczegóły zmiany"
 
 #: lib/diff/diffwidget.cpp:156
 #, kde-format
@@ -656,13 +655,13 @@ msgstr "Nie udało się pobrać historii pliku: %1"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr "Skopiuj skrót wdrożenia"
+msgstr "Skopiuj skrót zmiany"
 
 #: lib/filehistorywidget.cpp:576
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr "Pokaż pełne wdrożenie"
+msgstr "Pokaż pełną zmianę"
 
 #: lib/filehistorywidget.cpp:712
 #, kde-format

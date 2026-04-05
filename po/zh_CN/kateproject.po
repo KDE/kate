@@ -871,10 +871,9 @@ msgid "Project Manager"
 msgstr "项目管理器"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Current Project"
-msgstr "关闭项目"
+msgstr ""
 
 #: kateprojectpluginview.cpp:86
 #, kde-format
@@ -1145,7 +1144,6 @@ msgstr "项目(&P)"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:27
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
-msgstr "项目补全"
+msgstr ""

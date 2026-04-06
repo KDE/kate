@@ -673,50 +673,32 @@ static void balanceHunkLines(QStringList &left, QStringList &right, int &lineA, 
     }
 }
 
-struct ChangePair {
-    Change left;
-    Change right;
-};
-
-static ChangePair inlineDiff(QStringView l, QStringView r)
+DiffWidget::ChangePair DiffWidget::inlineDiff(QStringView l, QStringView r)
 {
-    auto sitl = l.begin();
-    auto sitr = r.begin();
-    while (sitl != l.end() || sitr != r.end()) {
-        if (*sitl != *sitr) {
-            break;
-        }
-        ++sitl;
-        ++sitr;
-    }
+    // Find the first difference from the front
+    const auto [sitl, sitr] = std::mismatch(l.begin(), l.end(), r.begin(), r.end());
 
-    int lStart = std::distance(l.begin(), sitl);
-    int rStart = std::distance(r.begin(), sitr);
+    const int lStart = (int)std::distance(l.begin(), sitl);
+    const int rStart = (int)std::distance(r.begin(), sitr);
 
-    auto eitl = l.rbegin();
-    auto eitr = r.rbegin();
-    int lcount = l.size();
-    int rcount = r.size();
-    while (eitl != l.rend() || eitr != r.rend()) {
-        if (*eitl != *eitr) {
-            break;
-        }
-        // do not allow overlap
-        if (lcount == lStart || rcount == rStart) {
-            break;
-        }
-        --lcount;
-        --rcount;
-        ++eitl;
-        ++eitr;
-    }
+    // Calculate remaining un-scanned characters to prevent overlap
+    // We stop the back-scan before it touches the characters already matched by the front-scan
+    const int remainingL = (int)std::distance(sitl, l.end());
+    const int remainingR = (int)std::distance(sitr, r.end());
+    const int maxBackScan = std::min(remainingL, remainingR);
 
-    int lEnd = l.size() - std::distance(l.rbegin(), eitl);
-    int rEnd = r.size() - std::distance(r.rbegin(), eitr);
+    // Find the first difference from the back, limited by maxBackScan
+    const auto [eitl, eitr] = std::mismatch(l.rbegin(), l.rbegin() + maxBackScan, r.rbegin(), r.rbegin() + maxBackScan);
 
-    Change cl{.pos = lStart, .len = lEnd - lStart};
-    Change cr{.pos = rStart, .len = rEnd - rStart};
-    return {.left = cl, .right = cr};
+    // Calculate final positions
+    // std::distance on reverse iterators gives us the offset from the end
+    const int lEnd = l.size() - std::distance(l.rbegin(), eitl);
+    const int rEnd = r.size() - std::distance(r.rbegin(), eitr);
+
+    return ChangePair{
+        .left = {.pos = lStart, .len = lEnd - lStart},
+        .right = {.pos = rStart, .len = rEnd - rStart},
+    };
 }
 
 // Struct representing a changed line in hunk
@@ -749,7 +731,7 @@ static void markInlineDiffs(HunkChangedLines &hunkChangedLinesA,
     }
     const int size = (int)hunkChangedLinesA.size();
     for (int i = 0; i < size; ++i) {
-        const auto [leftChange, rightChange] = inlineDiff(hunkChangedLinesA.at(i).line, hunkChangedLinesB.at(i).line);
+        const auto [leftChange, rightChange] = DiffWidget::inlineDiff(hunkChangedLinesA.at(i).line, hunkChangedLinesB.at(i).line);
         hunkChangedLinesA[i].c = leftChange;
         hunkChangedLinesB[i].c = rightChange;
     }

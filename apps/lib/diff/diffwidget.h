@@ -62,6 +62,12 @@ public:
     }
     int hunkLineCount(int hunkLine);
 
+    struct ChangePair {
+        Change left;
+        Change right;
+    };
+    static ChangePair inlineDiff(QStringView l, QStringView r);
+
 protected:
     void showEvent(QShowEvent *e) override;
 

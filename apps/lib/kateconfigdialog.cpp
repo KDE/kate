@@ -420,6 +420,17 @@ void KateConfigDialog::addBehaviorPage()
     m_hintViewEnabled->setChecked(cgGeneral.readEntry("Enable Context ToolView", false));
     connect(m_hintViewEnabled, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
+    buttonGroup = new QGroupBox(i18n("Selected Container"), generalFrame);
+    vbox = new QVBoxLayout(buttonGroup);
+    hlayout = new QHBoxLayout;
+    vbox->addLayout(hlayout);
+    layout->addWidget(buttonGroup);
+    m_containerPrefix = new QLineEdit(buttonGroup);
+    m_containerPrefix->setPlaceholderText(i18n("kap enter --"));
+    m_containerPrefix->setToolTip(i18n("A prefix for any commands Kate will run. This can be used to run anything inside a container."));
+    hlayout->addWidget(m_containerPrefix);
+    connect(m_containerPrefix, &QLineEdit::textChanged, this, &KateConfigDialog::slotChanged);
+
     layout->addStretch(1); // :-] works correct without autoadd
 }
 
@@ -693,6 +704,8 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Output With Date", m_withDate->isChecked());
 
         cg.writeEntry("Enable Context ToolView", m_hintViewEnabled->isChecked());
+
+        cg.writeEntry("Selected Container", m_containerPrefix->text());
 
         // patch document modified warn state
         const QList<KTextEditor::Document *> &docs = KateApp::self()->documentManager()->documentList();

@@ -13,3 +13,6 @@ KATE_PRIVATE_EXPORT [[nodiscard]] QString safeExecutableName(const QString &exec
 KATE_PRIVATE_EXPORT void startHostProcess(QProcess &proc, QProcess::OpenMode mode = QProcess::ReadWrite);
 KATE_PRIVATE_EXPORT void
 startHostProcess(QProcess &proc, const QString &program, const QStringList &arguments = {}, QProcess::OpenMode mode = QProcess::ReadWrite);
+KATE_PRIVATE_EXPORT [[nodiscard]] QString safePrefixedExecutableName(const QString &executableName, const QStringList &paths = {});
+KATE_PRIVATE_EXPORT void
+startPrefixedHostProcess(QProcess &proc, const QString &program, const QStringList &arguments = {}, QProcess::OpenMode mode = QProcess::ReadWrite);

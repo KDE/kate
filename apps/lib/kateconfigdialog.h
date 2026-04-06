@@ -109,6 +109,7 @@ private:
     QSpinBox *m_diagnosticsLimit = nullptr;
     QCheckBox *m_hintViewEnabled = nullptr;
     QLineEdit *m_pathEdit = nullptr;
+    QLineEdit *m_containerPrefix = nullptr;
 
     std::unique_ptr<Ui::SessionConfigWidget> sessionConfigUi;
 

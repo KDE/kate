@@ -236,7 +236,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "Uložit"
 
 #: dataoutputwidget.cpp:200
 #, kde-format

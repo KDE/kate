@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-12-25 09:39+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -482,53 +482,10 @@ msgstr "معرف الخيط المفقود"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "الإطار الحالي [%3]: %1: %2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "إعدادات محول التنقيح للمستخدم"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "ملف الإعدادات:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "إعدادات محول التنقيح المبدئيّة"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "المنقّح"
-
-#: debugconfigpage.cpp:96
-#, kde-format
-msgid "Failed to open file: %1"
-msgstr "فشل فتح الملف: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "لا توجد بيانات JSON للتحقق منها."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "بيانات JSON صالحة."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "بيانات JSON غير صالحة: لا كائن JSON"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "بيانات JSON غير صالحة: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -790,6 +747,30 @@ msgstr "&نقّح"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "ملحق التنقيح"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "إعدادات محول التنقيح للمستخدم"
+
+#~ msgid "Settings File:"
+#~ msgstr "ملف الإعدادات:"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "إعدادات محول التنقيح المبدئيّة"
+
+#~ msgid "Failed to open file: %1"
+#~ msgstr "فشل فتح الملف: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "لا توجد بيانات JSON للتحقق منها."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "بيانات JSON صالحة."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "بيانات JSON غير صالحة: لا كائن JSON"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "بيانات JSON غير صالحة: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "مُسحت نقطة التوقف"

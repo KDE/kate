@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-04 00:48+0000\n"
-"PO-Revision-Date: 2026-03-31 09:56+0300\n"
+"PO-Revision-Date: 2026-04-05 08:42+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -882,10 +882,9 @@ msgid "Project Manager"
 msgstr "הנהלת המיזם"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Current Project"
-msgstr "סגירת המיזם"
+msgstr "המיזם הנוכחי"
 
 #: kateprojectpluginview.cpp:86
 #, kde-format
@@ -1157,10 +1156,9 @@ msgstr "מי&זמים"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:27
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
-msgstr "השלמת מיזם"
+msgstr "תוסף מיזמים"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "הצגת תוכן הטמנה"

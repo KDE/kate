@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2026-02-13 14:05+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
@@ -19,34 +19,34 @@ msgstr ""
 msgid "RBQL"
 msgstr "RBQL"
 
-#: RBQLWidget.cpp:52
+#: RBQLWidget.cpp:53
 #, kde-format
 msgid "Enter RBQL query"
 msgstr "Cuir isteach fiosrúchán RBQL"
 
-#: RBQLWidget.cpp:54
+#: RBQLWidget.cpp:55
 #, kde-format
 msgid "Add new tab"
 msgstr "Cuir cluaisín nua leis"
 
-#: RBQLWidget.cpp:56
+#: RBQLWidget.cpp:57
 #, kde-format
 msgid "Execute query"
 msgstr "Cuir fiosrúchán i gcrích"
 
-#: RBQLWidget.cpp:71
+#: RBQLWidget.cpp:72
 #, kde-format
 msgid "File has header"
 msgstr "Tá ceanntásc sa chomhad"
 
-#: RBQLWidget.cpp:111
+#: RBQLWidget.cpp:112
 #, kde-format
 msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
 msgstr ""
 "Theip ar dheighilteoir a fháil don doiciméad reatha. Nach doiciméad CSV/TSV "
 "é?"
 
-#: RBQLWidget.cpp:120
+#: RBQLWidget.cpp:121
 #, kde-format
 msgid "Document is empty"
 msgstr "Tá an doiciméad folamh"

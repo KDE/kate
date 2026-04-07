@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2026-02-13 11:00+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
@@ -14,8 +14,8 @@ msgstr ""
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
 "3 : 4\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:265 Formatters.cpp:285
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
+#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
 #: Formatters.cpp:308 Formatters.cpp:338
 #, kde-format
 msgid "Format"
@@ -36,17 +36,7 @@ msgstr "Theip ar rith git diff: níl git suiteáilte"
 msgid "Failed to run git diff: %1"
 msgstr "Theip ar rith git diff: %1"
 
-#: FormatConfig.cpp:118
-#, kde-format
-msgid "User Settings"
-msgstr "Socruithe Úsáideora"
-
-#: FormatConfig.cpp:128
-#, kde-format
-msgid "Default Settings"
-msgstr "Socruithe Réamhshocraithe"
-
-#: FormatConfig.h:18 FormatPlugin.cpp:113
+#: FormatConfig.h:18 FormatPlugin.cpp:118
 #, kde-format
 msgid "Formatting"
 msgstr "Formáidiú"
@@ -56,22 +46,22 @@ msgstr "Formáidiú"
 msgid "Formatting Settings"
 msgstr "Socruithe Formáidithe"
 
-#: FormatPlugin.cpp:83
+#: FormatPlugin.cpp:88
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "Theip ar settings.json a léamh. Earráid: %1"
 
-#: FormatPlugin.cpp:119
+#: FormatPlugin.cpp:124
 #, kde-format
 msgid "Format Document"
 msgstr "Formáid an Doiciméid"
 
-#: FormatPlugin.cpp:129
+#: FormatPlugin.cpp:134
 #, kde-format
 msgid "Format on Save"
 msgstr "Formáidigh ar Shábháil"
 
-#: FormatPlugin.cpp:132
+#: FormatPlugin.cpp:137
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Díchumasaigh formáidiú ar shábháil gan é a choinneáil sna socruithe"
@@ -108,6 +98,12 @@ msgstr "Unknown formatterForYaml: %1, ag titim ar ais go yamlfmtmt"
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Theip ar an fhormáideoir a rith. Teanga nach dtacaítear léi %1"
+
+#~ msgid "User Settings"
+#~ msgstr "Socruithe Úsáideora"
+
+#~ msgid "Default Settings"
+#~ msgstr "Socruithe Réamhshocraithe"
 
 #~ msgid "Please install node and prettier"
 #~ msgstr "Suiteáil node agus prettier le do thoil"

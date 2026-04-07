@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2026-02-13 22:15+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -487,53 +487,10 @@ msgstr "отсутствует идентификатор потока"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Текущий вызов [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "Пользовательские параметры адаптера отладчика"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "Файл параметров:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "Параметры адаптера отладчика по умолчанию"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "Отладчик"
-
-#: debugconfigpage.cpp:96
-#, kde-format
-msgid "Failed to open file: %1"
-msgstr "Не удалось открыть файл «%1»"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "Отсутствуют данные JSON для проверки."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "Данные JSON верны."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "Неверные данные JSON: отсутствует объект JSON"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "Неверные данные JSON: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -796,6 +753,30 @@ msgstr "&Отладка"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Модуль отладки"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "Пользовательские параметры адаптера отладчика"
+
+#~ msgid "Settings File:"
+#~ msgstr "Файл параметров:"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "Параметры адаптера отладчика по умолчанию"
+
+#~ msgid "Failed to open file: %1"
+#~ msgstr "Не удалось открыть файл «%1»"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "Отсутствуют данные JSON для проверки."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "Данные JSON верны."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "Неверные данные JSON: отсутствует объект JSON"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "Неверные данные JSON: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "точка останова очищена"

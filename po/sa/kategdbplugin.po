@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Shreekant Kalwar\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -491,54 +491,10 @@ msgstr "लुप्तसूत्र परिचयः"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "वर्तमान खण्ड [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "उपयोक्ता त्रुटिनिवारणं संयोजक समयोजनानि"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "समयोजनानि सञ्चिका :"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "पूर्वनिर्धारितं त्रुटिनिवारणं संयोजक समयोजनानि"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "त्रुटिनिवारणकम्"
-
-#: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
-msgid "Failed to open file: %1"
-msgstr "सञ्चिका न निर्दिष्टा: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "प्रमाणीकरणार्थं कोऽपि JSON-दत्तांशः नास्ति ।."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "JSON दत्तांशः वैधः अस्ति ।."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "JSON दत्तांशः अमान्यः अस्ति: JSON वस्तु नास्ति"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "JSON दत्तांशः अमान्यः अस्ति: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -809,6 +765,32 @@ msgstr "&त्रुटिनिवारणं"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "प्लगिन् त्रुटिनिवारणं कुर्वन्तु"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "उपयोक्ता त्रुटिनिवारणं संयोजक समयोजनानि"
+
+#~ msgid "Settings File:"
+#~ msgstr "समयोजनानि सञ्चिका :"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "पूर्वनिर्धारितं त्रुटिनिवारणं संयोजक समयोजनानि"
+
+#, fuzzy
+#~| msgid "file not specified: %1"
+#~ msgid "Failed to open file: %1"
+#~ msgstr "सञ्चिका न निर्दिष्टा: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "प्रमाणीकरणार्थं कोऽपि JSON-दत्तांशः नास्ति ।."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "JSON दत्तांशः वैधः अस्ति ।."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "JSON दत्तांशः अमान्यः अस्ति: JSON वस्तु नास्ति"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "JSON दत्तांशः अमान्यः अस्ति: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "भङ्गबिन्दुः स्वच्छः अभवत्"

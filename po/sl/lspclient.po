@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:47+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-12-30 06:40+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -25,38 +25,28 @@ msgstr ""
 msgid "Filter…"
 msgstr "Filter…"
 
-#: lspclientconfigpage.cpp:105 lspclientconfigpage.cpp:110
+#: lspclientconfigpage.cpp:43
+#, kde-format
+msgid "User Server Settings"
+msgstr "Uporabnikove nastavitve strežnika"
+
+#: lspclientconfigpage.cpp:44
+#, kde-format
+msgid "Default Server Settings"
+msgstr "Privzete nastavitve strežnika"
+
+#: lspclientconfigpage.cpp:87 lspclientconfigpage.cpp:92
 #: lspclientpluginview.cpp:484 lspclientpluginview.cpp:632
 #, kde-format
 msgid "LSP Client"
 msgstr "Odjemalec LSP"
 
-#: lspclientconfigpage.cpp:230
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "Ni podatkov JSON, ki bi jih lahko preverili."
-
-#: lspclientconfigpage.cpp:239
-#, kde-format
-msgid "JSON data is valid."
-msgstr "Podatki JSON so veljavni."
-
-#: lspclientconfigpage.cpp:241
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "Podatki JSON niso veljavni: ni JSON predmeta"
-
-#: lspclientconfigpage.cpp:244
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "Podatki JSON niso veljavni: %1"
-
-#: lspclientconfigpage.cpp:292
+#: lspclientconfigpage.cpp:194
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Zbriši izbrane postavke"
 
-#: lspclientconfigpage.cpp:298
+#: lspclientconfigpage.cpp:200
 #, kde-format
 msgid "Delete all entries"
 msgstr "Zbriši vse postavke"
@@ -186,7 +176,7 @@ msgid "Include declaration in references"
 msgstr "Vključi deklaracijo v reference"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:577 lspconfigwidget.ui:103
+#: lspclientpluginview.cpp:577 lspconfigwidget.ui:131
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr "Dodaj oklepaje po zaključku funkcije"
@@ -197,7 +187,7 @@ msgid "Show hover information"
 msgstr "Ob prehodu prikaži informacijo"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:583 lspconfigwidget.ui:47
+#: lspclientpluginview.cpp:583 lspconfigwidget.ui:75
 #, kde-format
 msgid "Format on typing"
 msgstr "Oblikuj pri tipkanju"
@@ -262,119 +252,119 @@ msgstr "Pojdi na"
 msgid "More options"
 msgstr "Več možnosti"
 
-#: lspclientpluginview.cpp:873 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:874 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "Razširi vse"
 
-#: lspclientpluginview.cpp:874 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:875 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "Strni vse"
 
-#: lspclientpluginview.cpp:1080
+#: lspclientpluginview.cpp:1081
 #, kde-format
 msgid "RangeHighLight"
 msgstr "RangeHighLight"
 
-#: lspclientpluginview.cpp:1362
+#: lspclientpluginview.cpp:1363
 #, kde-format
 msgid "Line: %1: "
 msgstr "Vrsta: %1: "
 
-#: lspclientpluginview.cpp:1514 lspclientpluginview.cpp:1863
-#: lspclientpluginview.cpp:1983
+#: lspclientpluginview.cpp:1515 lspclientpluginview.cpp:1864
+#: lspclientpluginview.cpp:1984
 #, kde-format
 msgid "No results"
 msgstr "Ni rezultatov"
 
-#: lspclientpluginview.cpp:1573
+#: lspclientpluginview.cpp:1574
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Definicija: %1"
 
-#: lspclientpluginview.cpp:1579
+#: lspclientpluginview.cpp:1580
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Deklaracija: %1"
 
-#: lspclientpluginview.cpp:1585
+#: lspclientpluginview.cpp:1586
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Definicija vrste: %1"
 
-#: lspclientpluginview.cpp:1591
+#: lspclientpluginview.cpp:1592
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Reference: %1"
 
-#: lspclientpluginview.cpp:1603
+#: lspclientpluginview.cpp:1604
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Implementacija: %1"
 
-#: lspclientpluginview.cpp:1616
+#: lspclientpluginview.cpp:1617
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Poudarek: %1"
 
-#: lspclientpluginview.cpp:1640 lspclientpluginview.cpp:1651
-#: lspclientpluginview.cpp:1664
+#: lspclientpluginview.cpp:1641 lspclientpluginview.cpp:1652
+#: lspclientpluginview.cpp:1665
 #, kde-format
 msgid "No Actions"
 msgstr "Ni aktivnosti"
 
-#: lspclientpluginview.cpp:1655
+#: lspclientpluginview.cpp:1656
 #, kde-format
 msgid "Loading..."
 msgstr "Nalaganje..."
 
-#: lspclientpluginview.cpp:1747
+#: lspclientpluginview.cpp:1748
 #, kde-format
 msgid "No edits"
 msgstr "NI popravkov"
 
-#: lspclientpluginview.cpp:1822
+#: lspclientpluginview.cpp:1823
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Preimenuj"
 
-#: lspclientpluginview.cpp:1823
+#: lspclientpluginview.cpp:1824
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Novo ime (pozor:ni mogoča zamenjati vseh referenc)"
 
-#: lspclientpluginview.cpp:1869
+#: lspclientpluginview.cpp:1870
 #, kde-format
 msgid "Not enough results"
 msgstr "Ni dovolj rezultatov"
 
-#: lspclientpluginview.cpp:1938
+#: lspclientpluginview.cpp:1939
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "Ustrezne glave/vira ni mogoče najti"
 
-#: lspclientpluginview.cpp:2136 lspclientpluginview.cpp:2179
+#: lspclientpluginview.cpp:2137 lspclientpluginview.cpp:2180
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Strešnik LSP"
 
-#: lspclientpluginview.cpp:2202
+#: lspclientpluginview.cpp:2203
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Odjemalec LSP"
 
-#: lspclientpluginview.cpp:2452
+#: lspclientpluginview.cpp:2453
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Vprašanje iz strežnika LSP"
@@ -493,160 +483,142 @@ msgid "Client Settings"
 msgstr "Nastavitve odjemalcev"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
-#: lspconfigwidget.ui:54
+#: lspconfigwidget.ui:82
 #, kde-format
 msgid "Format on save"
 msgstr "Oblikuj pri shranjevanju"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
-#: lspconfigwidget.ui:61
+#: lspconfigwidget.ui:89
 #, kde-format
 msgid "Enable semantic highlighting"
 msgstr "Omogoči semantično poudarjanje"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkInlayHint)
-#: lspconfigwidget.ui:68
+#: lspconfigwidget.ui:96
 #, kde-format
 msgid "Enable inlay hints"
 msgstr "Omogoči namige"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lspconfigwidget.ui:75
+#: lspconfigwidget.ui:103
 #, kde-format
 msgid "Completions:"
 msgstr "Zaključki:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
-#: lspconfigwidget.ui:82
+#: lspconfigwidget.ui:110
 #, kde-format
 msgid "Show completions"
 msgstr "Prikaži zaključke"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
-#: lspconfigwidget.ui:89
+#: lspconfigwidget.ui:117
 #, kde-format
 msgid "Show inline docs for selected completion"
 msgstr "Pokaži znotraj vrstično dokumentacijo za izbrano dokončanje"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSignatureHelp)
-#: lspconfigwidget.ui:96
+#: lspconfigwidget.ui:124
 #, kde-format
 msgid "Show function signature when typing a function call"
 msgstr "Prikaži podpis funkcije kadar vtipkate klic funkcije"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
-#: lspconfigwidget.ui:110
+#: lspconfigwidget.ui:138
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
 msgstr "Doda uvoze samodejno, če so potrebni za zaključevanje"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: lspconfigwidget.ui:117
+#: lspconfigwidget.ui:145
 #, kde-format
 msgid "Navigation:"
 msgstr "Krmarjenje:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRefDeclaration)
-#: lspconfigwidget.ui:124
+#: lspconfigwidget.ui:152
 #, kde-format
 msgid "Count declarations when searching for references to a symbol"
 msgstr "Štej deklaracije, kadar iščeš sklicevanja na simbol"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoHover)
-#: lspconfigwidget.ui:131
+#: lspconfigwidget.ui:159
 #, kde-format
 msgid "Show information about currently hovered symbol"
 msgstr "Prikaži informacije o trenutnem simbolu pod miško"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightGoto)
-#: lspconfigwidget.ui:138
+#: lspconfigwidget.ui:166
 #, kde-format
 msgid "Highlight target line when hopping to it"
 msgstr "Osvetli vrstico s ciljem, kadar skačeš nanjo"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: lspconfigwidget.ui:145
+#: lspconfigwidget.ui:173
 #, kde-format
 msgid "Server:"
 msgstr "Strešnik:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkDiagnostics)
-#: lspconfigwidget.ui:152
+#: lspconfigwidget.ui:180
 #, kde-format
 msgid "Show program diagnostics"
 msgstr "Prikaži programske diagnoze"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMessages)
-#: lspconfigwidget.ui:159
+#: lspconfigwidget.ui:187
 #, kde-format
 msgid "Show notifications from the LSP server"
 msgstr "Prikaži obvestila iz strežnika LSP"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkIncrementalSync)
-#: lspconfigwidget.ui:166
+#: lspconfigwidget.ui:194
 #, kde-format
 msgid "Incrementally synchronize documents with the LSP server"
 msgstr "Postopoma sinhroniziraj dokument s strežnikom LSP"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: lspconfigwidget.ui:173
+#: lspconfigwidget.ui:201
 #, kde-format
 msgid "Document outline:"
 msgstr "Oris dokumenta:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolSort)
-#: lspconfigwidget.ui:180
+#: lspconfigwidget.ui:208
 #, kde-format
 msgid "Sort symbols alphabetically"
 msgstr "Uredi simbole po abecedi"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolDetails)
-#: lspconfigwidget.ui:187
+#: lspconfigwidget.ui:215
 #, kde-format
 msgid "Display additional details for symbols"
 msgstr "Prikaži dodatne podrobnosti simbolov"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolTree)
-#: lspconfigwidget.ui:194
+#: lspconfigwidget.ui:222
 #, kde-format
 msgid "Present symbols in a hierarchy instead of a flat list"
 msgstr "Prikaži simbole v hierarhiji namesto v seznamu"
 
-#. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
-#: lspconfigwidget.ui:209
-#, kde-format
-msgid "Automatically expand tree"
-msgstr "Samodejno razširi drevo"
-
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightSymbol)
-#: lspconfigwidget.ui:218
+#: lspconfigwidget.ui:229
 #, kde-format
 msgid "Highlight symbol under cursor"
 msgstr "Osvetli simbol pod kazalcem"
 
+#. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
+#: lspconfigwidget.ui:257
+#, kde-format
+msgid "Automatically expand tree"
+msgstr "Samodejno razširi drevo"
+
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
-#: lspconfigwidget.ui:241
+#: lspconfigwidget.ui:271
 #, kde-format
 msgid "Allowed && Blocked Servers"
 msgstr "Sproščeni in blokirani strežniki"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: lspconfigwidget.ui:251
-#, kde-format
-msgid "User Server Settings"
-msgstr "Uporabnikove nastavitve strežnika"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: lspconfigwidget.ui:259
-#, kde-format
-msgid "Settings File:"
-msgstr "Datoteka nastavitev:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
-#: lspconfigwidget.ui:286
-#, kde-format
-msgid "Default Server Settings"
-msgstr "Privzete nastavitve strežnika"
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
@@ -659,6 +631,21 @@ msgstr "Odjemalec &LSP"
 #, kde-format
 msgid "More Options"
 msgstr "Več možnosti"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "Ni podatkov JSON, ki bi jih lahko preverili."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "Podatki JSON so veljavni."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "Podatki JSON niso veljavni: ni JSON predmeta"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "Podatki JSON niso veljavni: %1"
+
+#~ msgid "Settings File:"
+#~ msgstr "Datoteka nastavitev:"
 
 #~ msgid "Quick Fix"
 #~ msgstr "Hitri popravek"

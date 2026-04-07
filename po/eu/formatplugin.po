@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-08-23 11:19+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 25.08.0\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:265 Formatters.cpp:285
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
+#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
 #: Formatters.cpp:308 Formatters.cpp:338
 #, kde-format
 msgid "Format"
@@ -42,17 +42,7 @@ msgstr "\"git diff\" exekutatzea huts egin du: git ez dago instalatuta"
 msgid "Failed to run git diff: %1"
 msgstr "\"git diff\" exekutatzea huts egin du: %1"
 
-#: FormatConfig.cpp:118
-#, kde-format
-msgid "User Settings"
-msgstr "Erabiltzaile-ezarpenak"
-
-#: FormatConfig.cpp:128
-#, kde-format
-msgid "Default Settings"
-msgstr "Ezarpen lehenetsiak"
-
-#: FormatConfig.h:18 FormatPlugin.cpp:113
+#: FormatConfig.h:18 FormatPlugin.cpp:118
 #, kde-format
 msgid "Formatting"
 msgstr "Formatua ematea"
@@ -62,22 +52,22 @@ msgstr "Formatua ematea"
 msgid "Formatting Settings"
 msgstr "Formatua emateko ezarpenak"
 
-#: FormatPlugin.cpp:83
+#: FormatPlugin.cpp:88
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "settings.json irakurtzea huts egin du. Errorea: %1"
 
-#: FormatPlugin.cpp:119
+#: FormatPlugin.cpp:124
 #, kde-format
 msgid "Format Document"
 msgstr "Dokumentu bati formatua ematea"
 
-#: FormatPlugin.cpp:129
+#: FormatPlugin.cpp:134
 #, kde-format
 msgid "Format on Save"
 msgstr "Eman formatua gordetzean"
 
-#: FormatPlugin.cpp:132
+#: FormatPlugin.cpp:137
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Ezgaitu gordetzean formatua ematea, ezarpenetan aldaketarik egin gabe"
@@ -115,6 +105,12 @@ msgstr "formatterForYaml ezezaguna: %1, yamlfmt-era atzera egiten"
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""
 "Formatu emailea exekutatzea huts egin du. Euskarririk gabeko lengoaia, %1"
+
+#~ msgid "User Settings"
+#~ msgstr "Erabiltzaile-ezarpenak"
+
+#~ msgid "Default Settings"
+#~ msgstr "Ezarpen lehenetsiak"
 
 #~ msgid "Please install node and prettier"
 #~ msgstr "Mesedez, instalatu node eta prettier"

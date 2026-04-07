@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-08-24 15:22+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -14,8 +14,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 25.08.0\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:265 Formatters.cpp:285
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
+#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
 #: Formatters.cpp:308 Formatters.cpp:338
 #, kde-format
 msgid "Format"
@@ -38,17 +38,7 @@ msgstr ""
 msgid "Failed to run git diff: %1"
 msgstr "Impossible de lancer un « git diff : %1"
 
-#: FormatConfig.cpp:118
-#, kde-format
-msgid "User Settings"
-msgstr "Configuration utilisateur"
-
-#: FormatConfig.cpp:128
-#, kde-format
-msgid "Default Settings"
-msgstr "Configuration par défaut"
-
-#: FormatConfig.h:18 FormatPlugin.cpp:113
+#: FormatConfig.h:18 FormatPlugin.cpp:118
 #, kde-format
 msgid "Formatting"
 msgstr "Formatage"
@@ -58,22 +48,22 @@ msgstr "Formatage"
 msgid "Formatting Settings"
 msgstr "Configuration du formatage"
 
-#: FormatPlugin.cpp:83
+#: FormatPlugin.cpp:88
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "Impossible de lire le fichier « settings.json ». Erreur : %1"
 
-#: FormatPlugin.cpp:119
+#: FormatPlugin.cpp:124
 #, kde-format
 msgid "Format Document"
 msgstr "Formater un document"
 
-#: FormatPlugin.cpp:129
+#: FormatPlugin.cpp:134
 #, kde-format
 msgid "Format on Save"
 msgstr "Formatage de l'enregistrement"
 
-#: FormatPlugin.cpp:132
+#: FormatPlugin.cpp:137
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
@@ -113,6 +103,12 @@ msgstr ""
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Impossible de lancer le formateur. Langue non prise en charge %1"
+
+#~ msgid "User Settings"
+#~ msgstr "Configuration utilisateur"
+
+#~ msgid "Default Settings"
+#~ msgstr "Configuration par défaut"
 
 #~ msgid "Please install node and prettier"
 #~ msgstr "Veuillez installer les paquets « node » et « prettier »"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-04 00:48+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2022-08-19 20:36+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -533,13 +533,13 @@ msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "BLOB"
 
-#: outputwidget.cpp:17
+#: outputwidget.cpp:18
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "Output Teks SQL"
 
-#: outputwidget.cpp:18
+#: outputwidget.cpp:19
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"

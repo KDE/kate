@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-12-23 11:36+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -485,53 +485,10 @@ msgstr "пропущено ідентифікатор потоку"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "поточний кадр [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "Параметри адаптера діагностики користувача"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "Файл параметрів:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "Типові параметри адаптера діагностики"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "Засіб діагностики"
-
-#: debugconfigpage.cpp:96
-#, kde-format
-msgid "Failed to open file: %1"
-msgstr "Не вдалося відкрити файл: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "Немає доступних даних JSON."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "Дані JSON є коректними."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "Дані JSON є некоректними: немає об'єкта JSON"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "Дані JSON є некоректними: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -793,6 +750,30 @@ msgstr "Зн&еваджування"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Додаток діагностики"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "Параметри адаптера діагностики користувача"
+
+#~ msgid "Settings File:"
+#~ msgstr "Файл параметрів:"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "Типові параметри адаптера діагностики"
+
+#~ msgid "Failed to open file: %1"
+#~ msgstr "Не вдалося відкрити файл: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "Немає доступних даних JSON."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "Дані JSON є коректними."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "Дані JSON є некоректними: немає об'єкта JSON"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "Дані JSON є некоректними: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "точку зупинки знято"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2017-06-04 11:51+0100\n"
 "Last-Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -20,43 +20,43 @@ msgstr ""
 "%100==4 ? 3 : 0);\n"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:27
+#: btbrowserwidget.ui:39
 #, kde-format
 msgid "#"
 msgstr "#"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:32
+#: btbrowserwidget.ui:44
 #, kde-format
 msgid "File"
 msgstr "Datoteka"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:37
+#: btbrowserwidget.ui:49
 #, kde-format
 msgid "Line"
 msgstr "Vrstica"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:42
+#: btbrowserwidget.ui:54
 #, kde-format
 msgid "Function"
 msgstr "Funkcija"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnConfigure)
-#: btbrowserwidget.ui:72
+#: btbrowserwidget.ui:84
 #, kde-format
 msgid "Configure Paths..."
 msgstr "Nastavi poti ..."
 
 #. i18n: ectx: property (text), widget (QPushButton, btnClipboard)
-#: btbrowserwidget.ui:79
+#: btbrowserwidget.ui:91
 #, kde-format
 msgid "Use Clipboard"
 msgstr "Uporabi odložišče"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnBacktrace)
-#: btbrowserwidget.ui:86
+#: btbrowserwidget.ui:98
 #, kde-format
 msgid "Load File..."
 msgstr "Naloži datoteko ..."

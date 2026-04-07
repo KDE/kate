@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-12-23 10:24+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -490,53 +490,10 @@ msgstr "eksik iş parçacığı kimliği"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Geçerli kare [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "Kullanıcı Hata Ayıklama Bağdaştırıcısı Ayarları"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "Ayarlar dosyası:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "Öntanımlı Hata Ayıklama Bağdaştırıcısı Ayarları"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "Hata Ayıklayıcısı"
-
-#: debugconfigpage.cpp:96
-#, kde-format
-msgid "Failed to open file: %1"
-msgstr "Dosya açılamadı: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "Doğrulanacak JSON verisi yok."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "JSON verisi geçerli."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "JSON verisi geçersiz: JSON nesnesi yok"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "JSON verisi geçersiz: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -798,6 +755,30 @@ msgstr "Hata &Ayıklama"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Hata Ayıklama Eklentisi"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "Kullanıcı Hata Ayıklama Bağdaştırıcısı Ayarları"
+
+#~ msgid "Settings File:"
+#~ msgstr "Ayarlar dosyası:"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "Öntanımlı Hata Ayıklama Bağdaştırıcısı Ayarları"
+
+#~ msgid "Failed to open file: %1"
+#~ msgstr "Dosya açılamadı: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "Doğrulanacak JSON verisi yok."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "JSON verisi geçerli."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "JSON verisi geçersiz: JSON nesnesi yok"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "JSON verisi geçersiz: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "kesme noktası temizlendi"

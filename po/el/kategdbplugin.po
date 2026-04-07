@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2023-01-02 10:17+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -499,56 +499,10 @@ msgstr "λείπει η ταυτότητα νήματος"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Τρέχον πλαίσιο [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
-msgid "Settings File:"
-msgstr "Ρυθμίσεις"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr ""
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "Αποσφαλματωτής"
-
-#: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
-msgid "Failed to open file: %1"
-msgstr "δεν ορίστηκε αρχείο: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr ""
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr ""
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr ""
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr ""
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -824,6 +778,17 @@ msgstr "&Διόρθωση"
 #| msgid "GDB Plugin"
 msgid "Debug Plugin"
 msgstr "Πρόσθετο GDB"
+
+#, fuzzy
+#~| msgctxt "Tab label"
+#~| msgid "Settings"
+#~ msgid "Settings File:"
+#~ msgstr "Ρυθμίσεις"
+
+#, fuzzy
+#~| msgid "file not specified: %1"
+#~ msgid "Failed to open file: %1"
+#~ msgstr "δεν ορίστηκε αρχείο: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "Σημείο διακοπής καθαρό"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-12-23 06:12-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -489,53 +489,10 @@ msgstr "ID da thread faltando"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Quadro atual [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "Configurações do adaptador de depuração do usuário"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "Arquivo de Configurações:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "Configurações padrão do adaptador de depuração"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "Depurador"
-
-#: debugconfigpage.cpp:96
-#, kde-format
-msgid "Failed to open file: %1"
-msgstr "Falha ao abrir arquivo: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "Não há dados JSON para validar."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "Os dados JSON são válidos."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "Os dados JSON são inválidos: nenhum objeto JSON"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "Os dados JSON são inválidos: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -797,6 +754,30 @@ msgstr "&Depurar"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Plugin de depuração"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "Configurações do adaptador de depuração do usuário"
+
+#~ msgid "Settings File:"
+#~ msgstr "Arquivo de Configurações:"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "Configurações padrão do adaptador de depuração"
+
+#~ msgid "Failed to open file: %1"
+#~ msgstr "Falha ao abrir arquivo: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "Não há dados JSON para validar."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "Os dados JSON são válidos."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "Os dados JSON são inválidos: nenhum objeto JSON"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "Os dados JSON são inválidos: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "ponto de parada limpo"

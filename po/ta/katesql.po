@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-04 00:48+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2024-03-10 11:49+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -502,13 +502,13 @@ msgctxt "@item:intable"
 msgid "BLOB"
 msgstr ""
 
-#: outputwidget.cpp:17
+#: outputwidget.cpp:18
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr ""
 
-#: outputwidget.cpp:18
+#: outputwidget.cpp:19
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"

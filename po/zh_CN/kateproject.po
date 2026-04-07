@@ -873,7 +873,7 @@ msgstr "项目管理器"
 #: kateprojectpluginview.cpp:84
 #, kde-format
 msgid "Current Project"
-msgstr ""
+msgstr "当前项目"
 
 #: kateprojectpluginview.cpp:86
 #, kde-format
@@ -1146,4 +1146,4 @@ msgstr "项目(&P)"
 #: ui.rc:27
 #, kde-format
 msgid "Project Plugin"
-msgstr ""
+msgstr "项目插件"

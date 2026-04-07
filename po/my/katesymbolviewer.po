@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2024-09-10 15:42+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -137,65 +137,65 @@ msgstr "Parameters ပြမည်"
 msgid "Symbol List"
 msgstr "သင်္ကေတ စာရင်း"
 
-#: plugin_katesymbolviewer.cpp:132
+#: plugin_katesymbolviewer.cpp:133
 #, fuzzy, kde-format
 #| msgid "Filter..."
 msgid "Filter…"
 msgstr "စစ်ထုတ်မည်…"
 
-#: plugin_katesymbolviewer.cpp:142
+#: plugin_katesymbolviewer.cpp:143
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "သင်္ကေတများ"
 
-#: plugin_katesymbolviewer.cpp:142
+#: plugin_katesymbolviewer.cpp:143
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
 msgstr "နေရာ"
 
-#: plugin_katesymbolviewer.cpp:360
+#: plugin_katesymbolviewer.cpp:361
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr "စိတ်မကောင်းပါဘူး။ မလုပ်နိုင်ပါ။"
 
-#: plugin_katesymbolviewer.cpp:364
+#: plugin_katesymbolviewer.cpp:365
 #, kde-format
 msgid "File type: %1"
 msgstr "ဖိုင်လ်အမျိုးအစား - %1"
 
-#: plugin_katesymbolviewer.cpp:475
+#: plugin_katesymbolviewer.cpp:476
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Functions ပေးချက်များ ပြမည်"
 
-#: plugin_katesymbolviewer.cpp:476
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "သစ်ပင်ပုံစံမြင်ကွင်းတွင် အမြဲတမ်း ဆုံမှတ်များတွင် ဖြန့်ပါ"
 
-#: plugin_katesymbolviewer.cpp:477
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "သင်္ကေတများကို အမြဲတမ်း သစ်ပင်ပုံစံမြင်ကွင်းတွင် ပြပါ"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always sort symbols"
 msgstr "သင်္ကေတများကို အမြဲစီပါ"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Parser Options"
 msgstr "Parserရွေးချယ်စရာများ"
 
-#: plugin_katesymbolviewer.cpp:506
+#: plugin_katesymbolviewer.cpp:507
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "သင်္ကေတ ကြည့်ရှုကိရိယာ"
 
-#: plugin_katesymbolviewer.cpp:511
+#: plugin_katesymbolviewer.cpp:512
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "သင်္ကေတ ကြည့်ရှုကိရိယာ ပြင်ဆင်မှုစာမျက်နှာ"

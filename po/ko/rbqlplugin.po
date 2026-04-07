@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2024-08-20 23:28+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -22,32 +22,32 @@ msgstr ""
 msgid "RBQL"
 msgstr "RBQL"
 
-#: RBQLWidget.cpp:52
+#: RBQLWidget.cpp:53
 #, kde-format
 msgid "Enter RBQL query"
 msgstr "RBQL 질의 입력"
 
-#: RBQLWidget.cpp:54
+#: RBQLWidget.cpp:55
 #, kde-format
 msgid "Add new tab"
 msgstr "새 탭 추가"
 
-#: RBQLWidget.cpp:56
+#: RBQLWidget.cpp:57
 #, kde-format
 msgid "Execute query"
 msgstr "질의 실행"
 
-#: RBQLWidget.cpp:71
+#: RBQLWidget.cpp:72
 #, kde-format
 msgid "File has header"
 msgstr "파일에 헤더 포함됨"
 
-#: RBQLWidget.cpp:111
+#: RBQLWidget.cpp:112
 #, kde-format
 msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
 msgstr "현재 문서의 구분자를 확인할 수 없습니다. CSV/TSV 문서가 맞습니까?"
 
-#: RBQLWidget.cpp:120
+#: RBQLWidget.cpp:121
 #, kde-format
 msgid "Document is empty"
 msgstr "문서가 비어 있음"

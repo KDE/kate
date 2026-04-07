@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: formatplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2023-12-09 09:24+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "X-Generator: Lokalize 23.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:265 Formatters.cpp:285
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
+#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
 #: Formatters.cpp:308 Formatters.cpp:338
 #, kde-format
 msgid "Format"
@@ -37,17 +37,7 @@ msgstr ""
 msgid "Failed to run git diff: %1"
 msgstr ""
 
-#: FormatConfig.cpp:118
-#, kde-format
-msgid "User Settings"
-msgstr ""
-
-#: FormatConfig.cpp:128
-#, kde-format
-msgid "Default Settings"
-msgstr "Štandardné nastavenia"
-
-#: FormatConfig.h:18 FormatPlugin.cpp:113
+#: FormatConfig.h:18 FormatPlugin.cpp:118
 #, kde-format
 msgid "Formatting"
 msgstr "Formátovanie"
@@ -57,22 +47,22 @@ msgstr "Formátovanie"
 msgid "Formatting Settings"
 msgstr ""
 
-#: FormatPlugin.cpp:83
+#: FormatPlugin.cpp:88
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr ""
 
-#: FormatPlugin.cpp:119
+#: FormatPlugin.cpp:124
 #, kde-format
 msgid "Format Document"
 msgstr ""
 
-#: FormatPlugin.cpp:129
+#: FormatPlugin.cpp:134
 #, kde-format
 msgid "Format on Save"
 msgstr "Formátovať pri uložení"
 
-#: FormatPlugin.cpp:132
+#: FormatPlugin.cpp:137
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
@@ -107,3 +97,6 @@ msgstr ""
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""
+
+#~ msgid "Default Settings"
+#~ msgstr "Štandardné nastavenia"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2026-02-05 10:50+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:265 Formatters.cpp:285
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
+#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
 #: Formatters.cpp:308 Formatters.cpp:338
 #, kde-format
 msgid "Format"
@@ -39,17 +39,7 @@ msgstr "Falleva a executar un diff de git: git non installate"
 msgid "Failed to run git diff: %1"
 msgstr "Falleva a executar un diff de git: %1"
 
-#: FormatConfig.cpp:118
-#, kde-format
-msgid "User Settings"
-msgstr "Preferentias de usator"
-
-#: FormatConfig.cpp:128
-#, kde-format
-msgid "Default Settings"
-msgstr "Preferentias predefinite"
-
-#: FormatConfig.h:18 FormatPlugin.cpp:113
+#: FormatConfig.h:18 FormatPlugin.cpp:118
 #, kde-format
 msgid "Formatting"
 msgstr "Fnormatation"
@@ -59,22 +49,22 @@ msgstr "Fnormatation"
 msgid "Formatting Settings"
 msgstr "Preferentias de fnormatation"
 
-#: FormatPlugin.cpp:83
+#: FormatPlugin.cpp:88
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "Falleva a leger settings.json. Error: %1"
 
-#: FormatPlugin.cpp:119
+#: FormatPlugin.cpp:124
 #, kde-format
 msgid "Format Document"
 msgstr "Fnormata Documento"
 
-#: FormatPlugin.cpp:129
+#: FormatPlugin.cpp:134
 #, kde-format
 msgid "Format on Save"
 msgstr "Fnormata sur salveguardar"
 
-#: FormatPlugin.cpp:132
+#: FormatPlugin.cpp:137
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
@@ -112,6 +102,12 @@ msgstr "Incognoscite  formatterForYaml: %1, retorna a  yamlfmt"
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Falleva a executar gnormatator (formatter). Linguage non supportate %1"
+
+#~ msgid "User Settings"
+#~ msgstr "Preferentias de usator"
+
+#~ msgid "Default Settings"
+#~ msgstr "Preferentias predefinite"
 
 #~ msgid "Please install node and prettier"
 #~ msgstr "Pro favor intalla nodo e prettier"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2026-01-22 17:20+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -483,53 +483,10 @@ msgstr "saknar trådidentifierare"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Aktuell aktiveringspost [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "Användarinställningar av avlusningsadapter"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "Inställningsfil:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "Standardinställningar av avlusningsadapter"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "Avlusare"
-
-#: debugconfigpage.cpp:96
-#, kde-format
-msgid "Failed to open file: %1"
-msgstr "Misslyckades öppna fil: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "Ingen JSON-data att validera."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "JSON-data är giltig."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "JSON-data är ogiltig: inget JSON-objekt"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "JSON-data är ogiltig: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -791,6 +748,30 @@ msgstr "&Avlusa"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Avlusningsinsticksprogram"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "Användarinställningar av avlusningsadapter"
+
+#~ msgid "Settings File:"
+#~ msgstr "Inställningsfil:"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "Standardinställningar av avlusningsadapter"
+
+#~ msgid "Failed to open file: %1"
+#~ msgstr "Misslyckades öppna fil: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "Ingen JSON-data att validera."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "JSON-data är giltig."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "JSON-data är ogiltig: inget JSON-objekt"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "JSON-data är ogiltig: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "brytpunkt borttagen"

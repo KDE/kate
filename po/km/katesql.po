@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-04 00:48+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2012-12-20 09:35+0700\n"
 "Last-Translator: sutha <sutha@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros>\n"
@@ -529,13 +529,13 @@ msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "BLOB"
 
-#: outputwidget.cpp:17
+#: outputwidget.cpp:18
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "ទិន្នផល​​អត្ថបទ​របស់​ SQL"
 
-#: outputwidget.cpp:18
+#: outputwidget.cpp:19
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"

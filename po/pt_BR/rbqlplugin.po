@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-02-20 02:17-0300\n"
 "Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -22,33 +22,33 @@ msgstr ""
 msgid "RBQL"
 msgstr "RBQL"
 
-#: RBQLWidget.cpp:52
+#: RBQLWidget.cpp:53
 #, kde-format
 msgid "Enter RBQL query"
 msgstr "Insira nova consulta RBQL"
 
-#: RBQLWidget.cpp:54
+#: RBQLWidget.cpp:55
 #, kde-format
 msgid "Add new tab"
 msgstr "Adicionar nova aba"
 
-#: RBQLWidget.cpp:56
+#: RBQLWidget.cpp:57
 #, kde-format
 msgid "Execute query"
 msgstr "Executar consulta"
 
-#: RBQLWidget.cpp:71
+#: RBQLWidget.cpp:72
 #, kde-format
 msgid "File has header"
 msgstr "O arquivo tem cabeçalho"
 
-#: RBQLWidget.cpp:111
+#: RBQLWidget.cpp:112
 #, kde-format
 msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
 msgstr ""
 "Falha ao obter separador para o documento atual. Não é um documento CSV/TSV?"
 
-#: RBQLWidget.cpp:120
+#: RBQLWidget.cpp:121
 #, kde-format
 msgid "Document is empty"
 msgstr "O documento está vazio"

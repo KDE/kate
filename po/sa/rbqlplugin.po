@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -22,32 +22,32 @@ msgstr ""
 msgid "RBQL"
 msgstr "आरबीक्यूएल"
 
-#: RBQLWidget.cpp:52
+#: RBQLWidget.cpp:53
 #, kde-format
 msgid "Enter RBQL query"
 msgstr "RBQL प्रश्नं प्रविष्टं कुर्वन्तु"
 
-#: RBQLWidget.cpp:54
+#: RBQLWidget.cpp:55
 #, kde-format
 msgid "Add new tab"
 msgstr "नूतनं ट्याब् योजयन्तु"
 
-#: RBQLWidget.cpp:56
+#: RBQLWidget.cpp:57
 #, kde-format
 msgid "Execute query"
 msgstr "प्रश्नं निष्पादयन्तु"
 
-#: RBQLWidget.cpp:71
+#: RBQLWidget.cpp:72
 #, kde-format
 msgid "File has header"
 msgstr "सञ्चिकायाः शीर्षकम् अस्ति"
 
-#: RBQLWidget.cpp:111
+#: RBQLWidget.cpp:112
 #, kde-format
 msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
 msgstr "वर्तमानदस्तावेजस्य कृते विभाजकं प्राप्तुं असफलम्। न CSV/TSV doc?"
 
-#: RBQLWidget.cpp:120
+#: RBQLWidget.cpp:121
 #, kde-format
 msgid "Document is empty"
 msgstr "दस्तावेजं रिक्तम् अस्ति"

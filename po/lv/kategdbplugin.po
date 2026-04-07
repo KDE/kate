@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-11-07 18:23+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -496,54 +496,10 @@ msgstr "trūkst pavediena ID"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Pašreizējais ietvars [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "Lietotāja atkļūdošana adaptera iestatījumi"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "Iestatījumu datne:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "Noklusējuma atkļūdošanas adaptera iestatījumi"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "Atkļūdotājs"
-
-#: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
-msgid "Failed to open file: %1"
-msgstr "datne nav norādīta: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "Nav validējamu JSON datu."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "JSON dati ir derīgi."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "JSON dati ir nederīgi: nav JSON objekta"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "JSON dati ir nederīgi: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -807,6 +763,32 @@ msgstr "Atkļū&dot"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Atkļūdošanas spraudnis"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "Lietotāja atkļūdošana adaptera iestatījumi"
+
+#~ msgid "Settings File:"
+#~ msgstr "Iestatījumu datne:"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "Noklusējuma atkļūdošanas adaptera iestatījumi"
+
+#, fuzzy
+#~| msgid "file not specified: %1"
+#~ msgid "Failed to open file: %1"
+#~ msgstr "datne nav norādīta: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "Nav validējamu JSON datu."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "JSON dati ir derīgi."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "JSON dati ir nederīgi: nav JSON objekta"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "JSON dati ir nederīgi: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "pārtraukumpunkts ir notīrīts"

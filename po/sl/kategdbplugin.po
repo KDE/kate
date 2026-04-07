@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-12-23 07:33+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -485,53 +485,10 @@ msgstr "neveljaven id niti"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Trenutni okvir [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "Nastavitve uporabniškega adapterja razhoroščevanja"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "Datoteka nastavitev:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "Privzete nastavitve adapterja razhroščevanja"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "Razhroščevalnik"
-
-#: debugconfigpage.cpp:96
-#, kde-format
-msgid "Failed to open file: %1"
-msgstr "Ni bilo mogoče odpreti datoteke: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "Ni podatkov JSON za validacijo."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "Podatki JSON so veljavni."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "Podatki JSON so neveljavni: ni predmeta JSON"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "Podatki JSON so neveljavni: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -793,6 +750,30 @@ msgstr "&Razhrošči"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Razhrošči vtičnik"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "Nastavitve uporabniškega adapterja razhoroščevanja"
+
+#~ msgid "Settings File:"
+#~ msgstr "Datoteka nastavitev:"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "Privzete nastavitve adapterja razhroščevanja"
+
+#~ msgid "Failed to open file: %1"
+#~ msgstr "Ni bilo mogoče odpreti datoteke: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "Ni podatkov JSON za validacijo."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "Podatki JSON so veljavni."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "Podatki JSON so neveljavni: ni predmeta JSON"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "Podatki JSON so neveljavni: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "prekinitvena točka izbrisana"

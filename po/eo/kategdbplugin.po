@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-03-01 17:55+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -497,54 +497,10 @@ msgstr "mankas fadenid"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Nuna kadro [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "Sencimig-adaptilaj agordoj de uzanto"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "Agorda dosiero:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "Defaŭltaj agordoj de sencimig-adaptilo"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "Sencimigilo"
-
-#: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
-msgid "Failed to open file: %1"
-msgstr "dosiero ne specifita: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "Neniuj JSON-datenoj por taksi."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "JSON-datenoj estas validaj."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "JSON-datenoj estas nevalidaj: neniu JSON-objekto"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "JSON-datenoj estas nevalidaj: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -809,6 +765,32 @@ msgstr "&Sencimigi"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Sencimiga kromprogramo"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "Sencimig-adaptilaj agordoj de uzanto"
+
+#~ msgid "Settings File:"
+#~ msgstr "Agorda dosiero:"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "Defaŭltaj agordoj de sencimig-adaptilo"
+
+#, fuzzy
+#~| msgid "file not specified: %1"
+#~ msgid "Failed to open file: %1"
+#~ msgstr "dosiero ne specifita: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "Neniuj JSON-datenoj por taksi."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "JSON-datenoj estas validaj."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "JSON-datenoj estas nevalidaj: neniu JSON-objekto"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "JSON-datenoj estas nevalidaj: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "paŭzopunkto malbarita"

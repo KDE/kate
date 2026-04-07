@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2024-03-21 20:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -23,43 +23,43 @@ msgstr ""
 "X-Generator: Lokalize 24.02.0\n"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:27
+#: btbrowserwidget.ui:39
 #, kde-format
 msgid "#"
 msgstr "#"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:32
+#: btbrowserwidget.ui:44
 #, kde-format
 msgid "File"
 msgstr "Dosya"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:37
+#: btbrowserwidget.ui:49
 #, kde-format
 msgid "Line"
 msgstr "Satır"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:42
+#: btbrowserwidget.ui:54
 #, kde-format
 msgid "Function"
 msgstr "İşlev"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnConfigure)
-#: btbrowserwidget.ui:72
+#: btbrowserwidget.ui:84
 #, kde-format
 msgid "Configure Paths..."
 msgstr "Yolları Yapılandır…"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnClipboard)
-#: btbrowserwidget.ui:79
+#: btbrowserwidget.ui:91
 #, kde-format
 msgid "Use Clipboard"
 msgstr "Panoyu Kullan"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnBacktrace)
-#: btbrowserwidget.ui:86
+#: btbrowserwidget.ui:98
 #, kde-format
 msgid "Load File..."
 msgstr "Dosya Yükle…"

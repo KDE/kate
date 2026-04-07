@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -20,46 +20,46 @@ msgstr ""
 
 # >> @title:column
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:27
+#: btbrowserwidget.ui:39
 #, kde-format
 msgid "#"
 msgstr "#"
 
 # >> @title:column
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:32
+#: btbrowserwidget.ui:44
 #, kde-format
 msgid "File"
 msgstr "фајл"
 
 # >> @title:column
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:37
+#: btbrowserwidget.ui:49
 #, kde-format
 msgid "Line"
 msgstr "ред"
 
 # >> @title:column
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
-#: btbrowserwidget.ui:42
+#: btbrowserwidget.ui:54
 #, kde-format
 msgid "Function"
 msgstr "функција"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnConfigure)
-#: btbrowserwidget.ui:72
+#: btbrowserwidget.ui:84
 #, kde-format
 msgid "Configure Paths..."
 msgstr "Подеси путање..."
 
 #. i18n: ectx: property (text), widget (QPushButton, btnClipboard)
-#: btbrowserwidget.ui:79
+#: btbrowserwidget.ui:91
 #, kde-format
 msgid "Use Clipboard"
 msgstr "Из клипборда"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnBacktrace)
-#: btbrowserwidget.ui:86
+#: btbrowserwidget.ui:98
 #, kde-format
 msgid "Load File..."
 msgstr "Учитај фајл..."

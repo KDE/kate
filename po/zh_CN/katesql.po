@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-04 00:48+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -154,7 +154,7 @@ msgstr "连接名称："
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
-msgstr ""
+msgstr "刷新"
 
 #: dataoutputwidget.cpp:97
 #, kde-format
@@ -196,61 +196,61 @@ msgstr "使用系统编码"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "粘贴"
 
 #: dataoutputwidget.cpp:147
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "设为 Null"
 
 #: dataoutputwidget.cpp:155
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "插入行"
 
 #: dataoutputwidget.cpp:163
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "移除选中行"
 
 #: dataoutputwidget.cpp:171
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "创建选中行的副本"
 
 #: dataoutputwidget.cpp:179
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "撤销"
 
 #: dataoutputwidget.cpp:187
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: dataoutputwidget.cpp:200
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "位置："
 
 #: dataoutputwidget.cpp:208
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:209
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "输入 SQL WHERE 语句来过滤数据"
 
 #: dataoutputwidget.cpp:494
 #, kde-kuit-format
@@ -262,7 +262,7 @@ msgstr "无法打开文件 <filename>%1</filename>"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr ""
+msgstr "保存更改失败：<message>%1</message>"
 
 #: exportwizard.cpp:26
 #, kde-format
@@ -506,13 +506,13 @@ msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "二进制"
 
-#: outputwidget.cpp:17
+#: outputwidget.cpp:18
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "SQL 文本输出"
 
-#: outputwidget.cpp:18
+#: outputwidget.cpp:19
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"

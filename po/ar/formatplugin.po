@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-08-23 16:59+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -18,8 +18,8 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:265 Formatters.cpp:285
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
+#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
 #: Formatters.cpp:308 Formatters.cpp:338
 #, kde-format
 msgid "Format"
@@ -40,17 +40,7 @@ msgstr "فشل تشغيل git diff: غت غير مثبت"
 msgid "Failed to run git diff: %1"
 msgstr "فشل تشغيل git diff: %1"
 
-#: FormatConfig.cpp:118
-#, kde-format
-msgid "User Settings"
-msgstr "إعدادات المستخدم"
-
-#: FormatConfig.cpp:128
-#, kde-format
-msgid "Default Settings"
-msgstr "الإعدادات المبدئية"
-
-#: FormatConfig.h:18 FormatPlugin.cpp:113
+#: FormatConfig.h:18 FormatPlugin.cpp:118
 #, kde-format
 msgid "Formatting"
 msgstr "التنسيق"
@@ -60,22 +50,22 @@ msgstr "التنسيق"
 msgid "Formatting Settings"
 msgstr "إعدادات التنسيق"
 
-#: FormatPlugin.cpp:83
+#: FormatPlugin.cpp:88
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "فشل في قراءة settings.json. الخطأ: %1"
 
-#: FormatPlugin.cpp:119
+#: FormatPlugin.cpp:124
 #, kde-format
 msgid "Format Document"
 msgstr "نسّق المستند"
 
-#: FormatPlugin.cpp:129
+#: FormatPlugin.cpp:134
 #, kde-format
 msgid "Format on Save"
 msgstr "نسّق عند الحفظ"
 
-#: FormatPlugin.cpp:132
+#: FormatPlugin.cpp:137
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "تعطيل التنسيق عند الحفظ دون استمراره في الإعدادات"
@@ -110,6 +100,12 @@ msgstr "تنسيق غير معروف لـYaml: %1، العودة إلى yamlfmt"
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "فشل تشغيل المنسق. لغة غير مدعومة %1"
+
+#~ msgid "User Settings"
+#~ msgstr "إعدادات المستخدم"
+
+#~ msgid "Default Settings"
+#~ msgstr "الإعدادات المبدئية"
 
 #~ msgid "Please install node and prettier"
 #~ msgstr "يُرجى تثبيت node و prettier"

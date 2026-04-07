@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-27 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2025-12-04 13:54+0300\n"
 "Last-Translator: Olesya Gerasimenko <goa@altlinux.org>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -19,8 +19,8 @@ msgstr ""
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:265 Formatters.cpp:285
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
+#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
 #: Formatters.cpp:308 Formatters.cpp:338
 #, kde-format
 msgid "Format"
@@ -42,17 +42,7 @@ msgstr ""
 msgid "Failed to run git diff: %1"
 msgstr "Не удалось запустить команду «git diff»: %1"
 
-#: FormatConfig.cpp:118
-#, kde-format
-msgid "User Settings"
-msgstr "Открыть настройки пользователя"
-
-#: FormatConfig.cpp:128
-#, kde-format
-msgid "Default Settings"
-msgstr "Параметры по умолчанию"
-
-#: FormatConfig.h:18 FormatPlugin.cpp:113
+#: FormatConfig.h:18 FormatPlugin.cpp:118
 #, kde-format
 msgid "Formatting"
 msgstr "Форматирование"
@@ -62,22 +52,22 @@ msgstr "Форматирование"
 msgid "Formatting Settings"
 msgstr "Параметры форматирования"
 
-#: FormatPlugin.cpp:83
+#: FormatPlugin.cpp:88
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "Не удалось прочитать файл «settings.json». Сообщение об ошибке: %1"
 
-#: FormatPlugin.cpp:119
+#: FormatPlugin.cpp:124
 #, kde-format
 msgid "Format Document"
 msgstr "Форматировать документ"
 
-#: FormatPlugin.cpp:129
+#: FormatPlugin.cpp:134
 #, kde-format
 msgid "Format on Save"
 msgstr "Форматировать при сохранении"
 
-#: FormatPlugin.cpp:132
+#: FormatPlugin.cpp:137
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
@@ -115,6 +105,12 @@ msgstr "Неизвестный formatterForYaml: %1, будет использо
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Не удалось запустить форматирование, неподдерживаемый язык: %1"
+
+#~ msgid "User Settings"
+#~ msgstr "Открыть настройки пользователя"
+
+#~ msgid "Default Settings"
+#~ msgstr "Параметры по умолчанию"
 
 #~ msgid "Please install node and prettier"
 #~ msgstr "Установите пакеты «node» и «prettier»"

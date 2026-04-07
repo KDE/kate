@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2026-03-20 08:13+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -481,53 +481,10 @@ msgstr "מזהה תהליכון חסר"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "מסגרת נוכחית [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "הגדרות מתאם ניפוי שגיאות משתמש"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "קובץ הגדרות:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "הגדרות מתאם ניפוי שגיאות כברירת מחדל"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "מנפה שגיאות"
-
-#: debugconfigpage.cpp:96
-#, kde-format
-msgid "Failed to open file: %1"
-msgstr "פתיחת הקובץ נכשלה: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "אין נתוני JSON לאימות."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "נתוני JSON תקפים."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "נתוני JSON שגויים: אין פריט JSON"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "נתוני JSON שגויים: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -789,6 +746,30 @@ msgstr "&ניפוי שגיאות"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "תוסף ניפוי שגיאות"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "הגדרות מתאם ניפוי שגיאות משתמש"
+
+#~ msgid "Settings File:"
+#~ msgstr "קובץ הגדרות:"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "הגדרות מתאם ניפוי שגיאות כברירת מחדל"
+
+#~ msgid "Failed to open file: %1"
+#~ msgstr "פתיחת הקובץ נכשלה: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "אין נתוני JSON לאימות."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "נתוני JSON תקפים."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "נתוני JSON שגויים: אין פריט JSON"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "נתוני JSON שגויים: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "נקודת עצירה פונתה"

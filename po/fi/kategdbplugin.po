@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2026-01-05 15:54+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -491,53 +491,10 @@ msgstr "puuttuva säietunniste"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Nykyinen kehys [%3]: %1:%2 (%4)"
 
-#. i18n: ectx: attribute (title), widget (QWidget, tab_1)
-#: debugconfig.ui:33
-#, kde-format
-msgid "User Debug Adapter Settings"
-msgstr "Virheenpaikannussovittimen käyttäjäasetukset"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: debugconfig.ui:41
-#, kde-format
-msgid "Settings File:"
-msgstr "Asetustiedosto:"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: debugconfig.ui:68
-#, kde-format
-msgid "Default Debug Adapter Settings"
-msgstr "Virheenpaikannussovittimen oletusasetukset"
-
-#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
+#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
 #, kde-format
 msgid "Debugger"
 msgstr "Virheenpaikannin"
-
-#: debugconfigpage.cpp:96
-#, kde-format
-msgid "Failed to open file: %1"
-msgstr "Ei voitu avata tiedostoa: %1"
-
-#: debugconfigpage.cpp:136
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "Ei validoitavaa JSON-dataa."
-
-#: debugconfigpage.cpp:144
-#, kde-format
-msgid "JSON data is valid."
-msgstr "JSON-data on kelvollista."
-
-#: debugconfigpage.cpp:146
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "JSON-data on kelvotonta: ei JSON-oliota"
-
-#: debugconfigpage.cpp:149
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "JSON-data on kelvotonta: %1"
 
 #: launch_json_reader.cpp:40
 #, kde-format
@@ -799,6 +756,30 @@ msgstr "&Virheenpaikannus"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Virheenpaikannusliitännäinen"
+
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "Virheenpaikannussovittimen käyttäjäasetukset"
+
+#~ msgid "Settings File:"
+#~ msgstr "Asetustiedosto:"
+
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "Virheenpaikannussovittimen oletusasetukset"
+
+#~ msgid "Failed to open file: %1"
+#~ msgstr "Ei voitu avata tiedostoa: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "Ei validoitavaa JSON-dataa."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "JSON-data on kelvollista."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "JSON-data on kelvotonta: ei JSON-oliota"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "JSON-data on kelvotonta: %1"
 
 #~ msgid "breakpoint cleared"
 #~ msgstr "keskeytyskohta poistettu"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2019-10-29 21:17+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -137,64 +137,64 @@ msgstr "Näita parameetreid"
 msgid "Symbol List"
 msgstr "Sümbolite nimekiri"
 
-#: plugin_katesymbolviewer.cpp:132
+#: plugin_katesymbolviewer.cpp:133
 #, kde-format
 msgid "Filter…"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:142
+#: plugin_katesymbolviewer.cpp:143
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
 msgstr "Sümbolid"
 
-#: plugin_katesymbolviewer.cpp:142
+#: plugin_katesymbolviewer.cpp:143
 #, kde-format
 msgctxt "@title:column"
 msgid "Position"
 msgstr "Asukoht"
 
-#: plugin_katesymbolviewer.cpp:360
+#: plugin_katesymbolviewer.cpp:361
 #, kde-format
 msgid "Sorry, not supported yet!"
 msgstr "Vabandust, see ei ole veel toetatud!"
 
-#: plugin_katesymbolviewer.cpp:364
+#: plugin_katesymbolviewer.cpp:365
 #, kde-format
 msgid "File type: %1"
 msgstr "Failitüüp: %1"
 
-#: plugin_katesymbolviewer.cpp:475
+#: plugin_katesymbolviewer.cpp:476
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Funktsiooni parameetrite näitamine"
 
-#: plugin_katesymbolviewer.cpp:476
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "Sõlmede automaatne avamine puuvaates"
 
-#: plugin_katesymbolviewer.cpp:477
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "Puuvaates alati sümbolite näitamine"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always sort symbols"
 msgstr "Alati sümbolite sortimine"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Parser Options"
 msgstr "Parseri valikud"
 
-#: plugin_katesymbolviewer.cpp:506
+#: plugin_katesymbolviewer.cpp:507
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Sümbolite näitaja"
 
-#: plugin_katesymbolviewer.cpp:511
+#: plugin_katesymbolviewer.cpp:512
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Sümbolite näitaja seadistustedialoog"

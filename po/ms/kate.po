@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-03 00:47+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2006-10-20 20:16+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
@@ -535,7 +535,7 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:62 lib/diff/diffwidget.cpp:1256
+#: lib/diff/diffwidget.cpp:62 lib/diff/diffwidget.cpp:1238
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
@@ -586,18 +586,18 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:864 lib/diff/diffwidget.cpp:1068
+#: lib/diff/diffwidget.cpp:846 lib/diff/diffwidget.cpp:1050
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Namafail"
 
-#: lib/diff/diffwidget.cpp:866 lib/diff/diffwidget.cpp:1070
+#: lib/diff/diffwidget.cpp:848 lib/diff/diffwidget.cpp:1052
 #, fuzzy, kde-format
 msgid "Deleted file %1"
 msgstr "Dipadam"
 
-#: lib/diff/diffwidget.cpp:1239 lib/diff/diffwidget.cpp:1240
+#: lib/diff/diffwidget.cpp:1221 lib/diff/diffwidget.cpp:1222
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -655,6 +655,41 @@ msgstr "&Paparkan Path"
 msgctxt "@title:tab"
 msgid "History - %1"
 msgstr "Pemilih Fail"
+
+#: lib/jsonsettings.cpp:29
+#, fuzzy, kde-format
+msgid "User Settings"
+msgstr "Memulakan daemon APM: "
+
+#: lib/jsonsettings.cpp:38
+#, fuzzy, kde-format
+msgid "Settings file:"
+msgstr "Memulakan daemon APM: "
+
+#: lib/jsonsettings.cpp:74
+#, fuzzy, kde-format
+msgid "Default Settings"
+msgstr "Memulakan daemon APM: "
+
+#: lib/jsonsettings.cpp:124
+#, kde-format
+msgid "No JSON data to validate."
+msgstr ""
+
+#: lib/jsonsettings.cpp:133
+#, kde-format
+msgid "JSON data is valid."
+msgstr ""
+
+#: lib/jsonsettings.cpp:135
+#, kde-format
+msgid "JSON data is invalid: no JSON object"
+msgstr ""
+
+#: lib/jsonsettings.cpp:138
+#, kde-format
+msgid "JSON data is invalid: %1"
+msgstr ""
 
 #: lib/kateapp.cpp:147
 msgid ""

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:47+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2026-01-02 08:03+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -27,38 +27,28 @@ msgstr ""
 msgid "Filter…"
 msgstr "過濾…"
 
-#: lspclientconfigpage.cpp:105 lspclientconfigpage.cpp:110
+#: lspclientconfigpage.cpp:43
+#, kde-format
+msgid "User Server Settings"
+msgstr "使用者伺服器設定"
+
+#: lspclientconfigpage.cpp:44
+#, kde-format
+msgid "Default Server Settings"
+msgstr "預設伺服器設定"
+
+#: lspclientconfigpage.cpp:87 lspclientconfigpage.cpp:92
 #: lspclientpluginview.cpp:484 lspclientpluginview.cpp:632
 #, kde-format
 msgid "LSP Client"
 msgstr "LSP 用戶端"
 
-#: lspclientconfigpage.cpp:230
-#, kde-format
-msgid "No JSON data to validate."
-msgstr "沒有要驗證的 JSON 資料。"
-
-#: lspclientconfigpage.cpp:239
-#, kde-format
-msgid "JSON data is valid."
-msgstr "JSON 資料有效。"
-
-#: lspclientconfigpage.cpp:241
-#, kde-format
-msgid "JSON data is invalid: no JSON object"
-msgstr "JSON 資料無效：沒有 JSON 物件"
-
-#: lspclientconfigpage.cpp:244
-#, kde-format
-msgid "JSON data is invalid: %1"
-msgstr "JSON 資料無效：%1"
-
-#: lspclientconfigpage.cpp:292
+#: lspclientconfigpage.cpp:194
 #, kde-format
 msgid "Delete selected entries"
 msgstr "刪除選取的項目"
 
-#: lspclientconfigpage.cpp:298
+#: lspclientconfigpage.cpp:200
 #, kde-format
 msgid "Delete all entries"
 msgstr "刪除所有項目"
@@ -188,7 +178,7 @@ msgid "Include declaration in references"
 msgstr "在參考中包含 (include) 宣告"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:577 lspconfigwidget.ui:103
+#: lspclientpluginview.cpp:577 lspconfigwidget.ui:131
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr "補完函式後加入括號"
@@ -199,7 +189,7 @@ msgid "Show hover information"
 msgstr "顯示懸停資訊"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:583 lspconfigwidget.ui:47
+#: lspclientpluginview.cpp:583 lspconfigwidget.ui:75
 #, kde-format
 msgid "Format on typing"
 msgstr "輸入時格式化"
@@ -264,119 +254,119 @@ msgstr "前往"
 msgid "More options"
 msgstr "更多選項"
 
-#: lspclientpluginview.cpp:873 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:874 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "全部展開"
 
-#: lspclientpluginview.cpp:874 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:875 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "全部收起"
 
-#: lspclientpluginview.cpp:1080
+#: lspclientpluginview.cpp:1081
 #, kde-format
 msgid "RangeHighLight"
 msgstr "RangeHighLight (範圍突顯)"
 
-#: lspclientpluginview.cpp:1362
+#: lspclientpluginview.cpp:1363
 #, kde-format
 msgid "Line: %1: "
 msgstr "行：%1: "
 
-#: lspclientpluginview.cpp:1514 lspclientpluginview.cpp:1863
-#: lspclientpluginview.cpp:1983
+#: lspclientpluginview.cpp:1515 lspclientpluginview.cpp:1864
+#: lspclientpluginview.cpp:1984
 #, kde-format
 msgid "No results"
 msgstr "沒有結果"
 
-#: lspclientpluginview.cpp:1573
+#: lspclientpluginview.cpp:1574
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "定義：%1"
 
-#: lspclientpluginview.cpp:1579
+#: lspclientpluginview.cpp:1580
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "宣告：%1"
 
-#: lspclientpluginview.cpp:1585
+#: lspclientpluginview.cpp:1586
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "類型定義：%1"
 
-#: lspclientpluginview.cpp:1591
+#: lspclientpluginview.cpp:1592
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "參考：%1"
 
-#: lspclientpluginview.cpp:1603
+#: lspclientpluginview.cpp:1604
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "實作：%1"
 
-#: lspclientpluginview.cpp:1616
+#: lspclientpluginview.cpp:1617
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "突顯：%1"
 
-#: lspclientpluginview.cpp:1640 lspclientpluginview.cpp:1651
-#: lspclientpluginview.cpp:1664
+#: lspclientpluginview.cpp:1641 lspclientpluginview.cpp:1652
+#: lspclientpluginview.cpp:1665
 #, kde-format
 msgid "No Actions"
 msgstr "沒有動作"
 
-#: lspclientpluginview.cpp:1655
+#: lspclientpluginview.cpp:1656
 #, kde-format
 msgid "Loading..."
 msgstr "載入中..."
 
-#: lspclientpluginview.cpp:1747
+#: lspclientpluginview.cpp:1748
 #, kde-format
 msgid "No edits"
 msgstr "沒有編輯記錄"
 
-#: lspclientpluginview.cpp:1822
+#: lspclientpluginview.cpp:1823
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "重新命名"
 
-#: lspclientpluginview.cpp:1823
+#: lspclientpluginview.cpp:1824
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "新名稱（警告：不是所有參考都會被取代）"
 
-#: lspclientpluginview.cpp:1869
+#: lspclientpluginview.cpp:1870
 #, kde-format
 msgid "Not enough results"
 msgstr "不夠多結果"
 
-#: lspclientpluginview.cpp:1938
+#: lspclientpluginview.cpp:1939
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "找不到對應的標頭/來源"
 
-#: lspclientpluginview.cpp:2136 lspclientpluginview.cpp:2179
+#: lspclientpluginview.cpp:2137 lspclientpluginview.cpp:2180
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP 伺服器"
 
-#: lspclientpluginview.cpp:2202
+#: lspclientpluginview.cpp:2203
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP 用戶端"
 
-#: lspclientpluginview.cpp:2452
+#: lspclientpluginview.cpp:2453
 #, kde-format
 msgid "Question from LSP server"
 msgstr "來自 LSP 伺服器的詢問"
@@ -495,160 +485,142 @@ msgid "Client Settings"
 msgstr "用戶端設定"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
-#: lspconfigwidget.ui:54
+#: lspconfigwidget.ui:82
 #, kde-format
 msgid "Format on save"
 msgstr "儲存時格式化"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
-#: lspconfigwidget.ui:61
+#: lspconfigwidget.ui:89
 #, kde-format
 msgid "Enable semantic highlighting"
 msgstr "啟用語意化標示"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkInlayHint)
-#: lspconfigwidget.ui:68
+#: lspconfigwidget.ui:96
 #, kde-format
 msgid "Enable inlay hints"
 msgstr "啟用行內提示"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: lspconfigwidget.ui:75
+#: lspconfigwidget.ui:103
 #, kde-format
 msgid "Completions:"
 msgstr "補完："
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
-#: lspconfigwidget.ui:82
+#: lspconfigwidget.ui:110
 #, kde-format
 msgid "Show completions"
 msgstr "顯示補完"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
-#: lspconfigwidget.ui:89
+#: lspconfigwidget.ui:117
 #, kde-format
 msgid "Show inline docs for selected completion"
 msgstr "為所選取的補完項目顯示行內說明"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSignatureHelp)
-#: lspconfigwidget.ui:96
+#: lspconfigwidget.ui:124
 #, kde-format
 msgid "Show function signature when typing a function call"
 msgstr "輸入函式呼叫時顯示函式型別"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
-#: lspconfigwidget.ui:110
+#: lspconfigwidget.ui:138
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
 msgstr "補完後如有需要則自動新增匯入"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: lspconfigwidget.ui:117
+#: lspconfigwidget.ui:145
 #, kde-format
 msgid "Navigation:"
 msgstr "導覽："
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRefDeclaration)
-#: lspconfigwidget.ui:124
+#: lspconfigwidget.ui:152
 #, kde-format
 msgid "Count declarations when searching for references to a symbol"
 msgstr "搜尋符號參考時計算宣告數量"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoHover)
-#: lspconfigwidget.ui:131
+#: lspconfigwidget.ui:159
 #, kde-format
 msgid "Show information about currently hovered symbol"
 msgstr "滑鼠停駐於符號上方時顯示關於它的資訊"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightGoto)
-#: lspconfigwidget.ui:138
+#: lspconfigwidget.ui:166
 #, kde-format
 msgid "Highlight target line when hopping to it"
 msgstr "跳到某行時突顯目標行"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: lspconfigwidget.ui:145
+#: lspconfigwidget.ui:173
 #, kde-format
 msgid "Server:"
 msgstr "伺服器："
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkDiagnostics)
-#: lspconfigwidget.ui:152
+#: lspconfigwidget.ui:180
 #, kde-format
 msgid "Show program diagnostics"
 msgstr "顯示程式診斷"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMessages)
-#: lspconfigwidget.ui:159
+#: lspconfigwidget.ui:187
 #, kde-format
 msgid "Show notifications from the LSP server"
 msgstr "顯示 LSP 伺服器來的通知"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkIncrementalSync)
-#: lspconfigwidget.ui:166
+#: lspconfigwidget.ui:194
 #, kde-format
 msgid "Incrementally synchronize documents with the LSP server"
 msgstr "漸進式的與 LSP 伺服器同步文件"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: lspconfigwidget.ui:173
+#: lspconfigwidget.ui:201
 #, kde-format
 msgid "Document outline:"
 msgstr "文件大綱："
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolSort)
-#: lspconfigwidget.ui:180
+#: lspconfigwidget.ui:208
 #, kde-format
 msgid "Sort symbols alphabetically"
 msgstr "依字母排序符號"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolDetails)
-#: lspconfigwidget.ui:187
+#: lspconfigwidget.ui:215
 #, kde-format
 msgid "Display additional details for symbols"
 msgstr "顯示符號的詳細資訊"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolTree)
-#: lspconfigwidget.ui:194
+#: lspconfigwidget.ui:222
 #, kde-format
 msgid "Present symbols in a hierarchy instead of a flat list"
 msgstr "以階層方式顯示符號而非扁平列表"
 
-#. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
-#: lspconfigwidget.ui:209
-#, kde-format
-msgid "Automatically expand tree"
-msgstr "自動展開樹狀圖"
-
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightSymbol)
-#: lspconfigwidget.ui:218
+#: lspconfigwidget.ui:229
 #, kde-format
 msgid "Highlight symbol under cursor"
 msgstr "突顯游標下的符號"
 
+#. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
+#: lspconfigwidget.ui:257
+#, kde-format
+msgid "Automatically expand tree"
+msgstr "自動展開樹狀圖"
+
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
-#: lspconfigwidget.ui:241
+#: lspconfigwidget.ui:271
 #, kde-format
 msgid "Allowed && Blocked Servers"
 msgstr "允許與封鎖的伺服器"
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: lspconfigwidget.ui:251
-#, kde-format
-msgid "User Server Settings"
-msgstr "使用者伺服器設定"
-
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: lspconfigwidget.ui:259
-#, kde-format
-msgid "Settings File:"
-msgstr "設定檔："
-
-#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
-#: lspconfigwidget.ui:286
-#, kde-format
-msgid "Default Server Settings"
-msgstr "預設伺服器設定"
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
@@ -661,6 +633,21 @@ msgstr "&LSP 用戶端"
 #, kde-format
 msgid "More Options"
 msgstr "更多選項"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "沒有要驗證的 JSON 資料。"
+
+#~ msgid "JSON data is valid."
+#~ msgstr "JSON 資料有效。"
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "JSON 資料無效：沒有 JSON 物件"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "JSON 資料無效：%1"
+
+#~ msgid "Settings File:"
+#~ msgstr "設定檔："
 
 #, fuzzy
 #~| msgid "Show diagnostics highlights"

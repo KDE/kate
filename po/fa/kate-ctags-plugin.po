@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2014-06-17 15:39+0430\n"
 "Last-Translator: Mohi Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <kde-i18n-fa@kde.org>\n"
@@ -24,13 +24,13 @@ msgid "Session-global index targets"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
-#: CTagsGlobalConfig.ui:33 kate_ctags.ui:109
+#: CTagsGlobalConfig.ui:33 kate_ctags.ui:119
 #, kde-format
 msgid "Add"
 msgstr "افزودن"
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
-#: CTagsGlobalConfig.ui:40 kate_ctags.ui:116
+#: CTagsGlobalConfig.ui:40 kate_ctags.ui:126
 #, kde-format
 msgid "Remove"
 msgstr "حذف"
@@ -43,7 +43,7 @@ msgstr "به‌روزرسانی"
 
 #. i18n: ectx: property (text), widget (QLabel, cmdLabel)
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: CTagsGlobalConfig.ui:66 kate_ctags.ui:172
+#: CTagsGlobalConfig.ui:66 kate_ctags.ui:182
 #, kde-format
 msgid "CTags command"
 msgstr ""
@@ -274,63 +274,63 @@ msgid "File for '%1' not found."
 msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
-#: kate_ctags.ui:33
+#: kate_ctags.ui:36
 #, kde-format
 msgid "Lookup"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, updateButton)
 #. i18n: ectx: property (text), widget (QPushButton, updateButton2)
-#: kate_ctags.ui:58 kate_ctags.ui:136
+#: kate_ctags.ui:61 kate_ctags.ui:146
 #, fuzzy, kde-format
 #| msgid "Update"
 msgid "Update Index"
 msgstr "به‌روزرسانی"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
-#: kate_ctags.ui:69
+#: kate_ctags.ui:75
 #, kde-format
 msgid "Tag"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
-#: kate_ctags.ui:74
+#: kate_ctags.ui:80
 #, kde-format
 msgid "Type"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
-#: kate_ctags.ui:79
+#: kate_ctags.ui:85
 #, kde-format
 msgid "File"
 msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, targets)
-#: kate_ctags.ui:88
+#: kate_ctags.ui:94
 #, kde-format
 msgid "Index Targets"
 msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, database)
-#: kate_ctags.ui:144
+#: kate_ctags.ui:154
 #, kde-format
 msgid "Database"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, fileLabel)
-#: kate_ctags.ui:162
+#: kate_ctags.ui:172
 #, kde-format
 msgid "CTags database file"
 msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, resetCMD)
-#: kate_ctags.ui:205
+#: kate_ctags.ui:215
 #, kde-format
 msgid "Revert to the default command"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QToolButton, resetCMD)
-#: kate_ctags.ui:208
+#: kate_ctags.ui:218
 #, kde-format
 msgid "..."
 msgstr ""

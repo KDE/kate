@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
 "PO-Revision-Date: 2024-07-23 21:27+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -29,13 +29,13 @@ msgid "Session-global index targets"
 msgstr "整個工作階段的索引目標"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
-#: CTagsGlobalConfig.ui:33 kate_ctags.ui:109
+#: CTagsGlobalConfig.ui:33 kate_ctags.ui:119
 #, kde-format
 msgid "Add"
 msgstr "新增"
 
 #. i18n: ectx: property (text), widget (QPushButton, delButton)
-#: CTagsGlobalConfig.ui:40 kate_ctags.ui:116
+#: CTagsGlobalConfig.ui:40 kate_ctags.ui:126
 #, kde-format
 msgid "Remove"
 msgstr "移除"
@@ -48,7 +48,7 @@ msgstr "更新"
 
 #. i18n: ectx: property (text), widget (QLabel, cmdLabel)
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: CTagsGlobalConfig.ui:66 kate_ctags.ui:172
+#: CTagsGlobalConfig.ui:66 kate_ctags.ui:182
 #, kde-format
 msgid "CTags command"
 msgstr "CTags 指令"
@@ -279,62 +279,62 @@ msgid "File for '%1' not found."
 msgstr "找不到「%1」的檔案。"
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
-#: kate_ctags.ui:33
+#: kate_ctags.ui:36
 #, kde-format
 msgid "Lookup"
 msgstr "尋找"
 
 #. i18n: ectx: property (text), widget (QPushButton, updateButton)
 #. i18n: ectx: property (text), widget (QPushButton, updateButton2)
-#: kate_ctags.ui:58 kate_ctags.ui:136
+#: kate_ctags.ui:61 kate_ctags.ui:146
 #, kde-format
 msgid "Update Index"
 msgstr "更新索引"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
-#: kate_ctags.ui:69
+#: kate_ctags.ui:75
 #, kde-format
 msgid "Tag"
 msgstr "標籤"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
-#: kate_ctags.ui:74
+#: kate_ctags.ui:80
 #, kde-format
 msgid "Type"
 msgstr "型態"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
-#: kate_ctags.ui:79
+#: kate_ctags.ui:85
 #, kde-format
 msgid "File"
 msgstr "檔案"
 
 #. i18n: ectx: attribute (title), widget (QWidget, targets)
-#: kate_ctags.ui:88
+#: kate_ctags.ui:94
 #, kde-format
 msgid "Index Targets"
 msgstr "索引目標"
 
 #. i18n: ectx: attribute (title), widget (QWidget, database)
-#: kate_ctags.ui:144
+#: kate_ctags.ui:154
 #, kde-format
 msgid "Database"
 msgstr "資料庫"
 
 #. i18n: ectx: property (text), widget (QLabel, fileLabel)
-#: kate_ctags.ui:162
+#: kate_ctags.ui:172
 #, kde-format
 msgid "CTags database file"
 msgstr "CTags 資料庫檔案"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, resetCMD)
-#: kate_ctags.ui:205
+#: kate_ctags.ui:215
 #, kde-format
 msgid "Revert to the default command"
 msgstr "回復為預設指令"
 
 #. i18n: ectx: property (text), widget (QToolButton, resetCMD)
-#: kate_ctags.ui:208
+#: kate_ctags.ui:218
 #, kde-format
 msgid "..."
 msgstr "..."

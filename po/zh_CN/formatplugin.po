@@ -99,9 +99,3 @@ msgstr "未知的 formatterForYaml：%1，将退而使用 yamlfmt"
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "无法运行格式化程序。不支持的语言 %1"
-
-#~ msgid "User Settings"
-#~ msgstr "用户设置"
-
-#~ msgid "Default Settings"
-#~ msgstr "默认设置"

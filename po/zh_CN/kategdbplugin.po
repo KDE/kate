@@ -745,27 +745,3 @@ msgstr "调试(&D)"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "调试插件"
-
-#~ msgid "User Debug Adapter Settings"
-#~ msgstr "用户调试适配器设置"
-
-#~ msgid "Settings File:"
-#~ msgstr "设置文件："
-
-#~ msgid "Default Debug Adapter Settings"
-#~ msgstr "默认调试适配器设置"
-
-#~ msgid "Failed to open file: %1"
-#~ msgstr "打开文件失败：%1"
-
-#~ msgid "No JSON data to validate."
-#~ msgstr "没有用于验证的 JSON 数据。"
-
-#~ msgid "JSON data is valid."
-#~ msgstr "JSON数据有效。"
-
-#~ msgid "JSON data is invalid: no JSON object"
-#~ msgstr "JSON 数据无效：没有 JSON 对象"
-
-#~ msgid "JSON data is invalid: %1"
-#~ msgstr "JSON 数据无效：%1"

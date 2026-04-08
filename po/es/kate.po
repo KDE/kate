@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2026-03-27 11:37+0100\n"
+"PO-Revision-Date: 2026-04-07 12:00+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -666,42 +666,39 @@ msgid "History - %1"
 msgstr "Historial - %1"
 
 #: lib/jsonsettings.cpp:29
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "User Settings"
-msgstr "&Preferencias"
+msgstr "Preferencias del usuario"
 
 #: lib/jsonsettings.cpp:38
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings file:"
-msgstr "&Preferencias"
+msgstr "Archivo de preferencias:"
 
 #: lib/jsonsettings.cpp:74
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Default Settings"
-msgstr "&Preferencias"
+msgstr "Preferencias predeterminadas"
 
 #: lib/jsonsettings.cpp:124
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "No hay datos JSON para validar."
 
 #: lib/jsonsettings.cpp:133
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "Los datos JSON son válidos."
 
 #: lib/jsonsettings.cpp:135
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "Los datos JSON no son válidos: ningún objeto JSON."
 
 #: lib/jsonsettings.cpp:138
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "Los datos JSON no son válidos: %1"
 
 #: lib/kateapp.cpp:147
 msgid ""

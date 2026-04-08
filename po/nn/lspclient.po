@@ -628,18 +628,3 @@ msgstr "LSP-klient"
 #, kde-format
 msgid "More Options"
 msgstr "Fleire val"
-
-#~ msgid "No JSON data to validate."
-#~ msgstr "Ingen JSON-data å validera."
-
-#~ msgid "JSON data is valid."
-#~ msgstr "JSON-dataa er gyldige."
-
-#~ msgid "JSON data is invalid: no JSON object"
-#~ msgstr "JSON-dataa er ugyldige: manglar JSON-objekt"
-
-#~ msgid "JSON data is invalid: %1"
-#~ msgstr "JSON-dataa er ugyldige: %1"
-
-#~ msgid "Settings File:"
-#~ msgstr "Innstillingsfil:"

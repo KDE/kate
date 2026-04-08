@@ -643,22 +643,19 @@ msgid "History - %1"
 msgstr "历史 - %1"
 
 #: lib/jsonsettings.cpp:29
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "User Settings"
-msgstr "设置(&S)"
+msgstr ""
 
 #: lib/jsonsettings.cpp:38
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings file:"
-msgstr "设置(&S)"
+msgstr ""
 
 #: lib/jsonsettings.cpp:74
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Default Settings"
-msgstr "设置(&S)"
+msgstr ""
 
 #: lib/jsonsettings.cpp:124
 #, kde-format

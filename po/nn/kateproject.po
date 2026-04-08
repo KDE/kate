@@ -877,10 +877,9 @@ msgid "Project Manager"
 msgstr "Prosjekthandsamar"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Current Project"
-msgstr "Lukk prosjektet"
+msgstr "Gjeldande prosjekt"
 
 #: kateprojectpluginview.cpp:86
 #, kde-format

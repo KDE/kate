@@ -628,18 +628,3 @@ msgstr "LSP 客户端(&L)"
 #, kde-format
 msgid "More Options"
 msgstr "更多选项"
-
-#~ msgid "No JSON data to validate."
-#~ msgstr "没有 JSON 数据进行验证。"
-
-#~ msgid "JSON data is valid."
-#~ msgstr "JSON数据是有效的。"
-
-#~ msgid "JSON data is invalid: no JSON object"
-#~ msgstr "JSON 数据无效：没有 JSON 对象"
-
-#~ msgid "JSON data is invalid: %1"
-#~ msgstr "JSON 数据无效：%1"
-
-#~ msgid "Settings File:"
-#~ msgstr "设置文件："

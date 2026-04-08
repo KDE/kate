@@ -749,27 +749,3 @@ msgstr "&Feilsøk"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Feilsøkingstillegg"
-
-#~ msgid "User Debug Adapter Settings"
-#~ msgstr "Brukerinnstillinger for feilsøkeradapter"
-
-#~ msgid "Settings File:"
-#~ msgstr "Innstillingsfil:"
-
-#~ msgid "Default Debug Adapter Settings"
-#~ msgstr "Standardinnstillinger for feilsøkeradapter"
-
-#~ msgid "Failed to open file: %1"
-#~ msgstr "Klarte ikke åpne fila: %1"
-
-#~ msgid "No JSON data to validate."
-#~ msgstr "Ingen JSON-data å validere."
-
-#~ msgid "JSON data is valid."
-#~ msgstr "JSON-dataene er gyldige."
-
-#~ msgid "JSON data is invalid: no JSON object"
-#~ msgstr "JSON-dataene er ugyldige: mangler JSON-objekt"
-
-#~ msgid "JSON data is invalid: %1"
-#~ msgstr "JSON-dataene er ugyldige: %1"

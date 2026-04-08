@@ -102,9 +102,3 @@ msgstr "Ukjent formatterForYaml: %1, faller tilbake til yamlfmt"
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Klarte ikke kjøre formaterer: Språket %1 er ikke støttet"
-
-#~ msgid "User Settings"
-#~ msgstr "Brukerinnstillinger"
-
-#~ msgid "Default Settings"
-#~ msgstr "Standardinnstillinger"

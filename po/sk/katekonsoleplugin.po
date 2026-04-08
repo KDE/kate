@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.04.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.04.1\n"
 
 #: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:795
 #, kde-format
@@ -55,9 +55,7 @@ msgid "&Focus Terminal Panel"
 msgstr "&Zamerať panel terminálu"
 
 #: kateconsole.cpp:189
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
 msgstr "&Skryť panel terminálu"
@@ -66,12 +64,10 @@ msgstr "&Skryť panel terminálu"
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "&Rozdeliť terminál vodorovne"
 
 #: kateconsole.cpp:199
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
 msgstr "Zo&braziť panel terminálu"
@@ -81,6 +77,8 @@ msgstr "Zo&braziť panel terminálu"
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"Konsole nie je nainštalovaná. Nainštalujte si Konsole, aby ste mohli "
+"používať terminál."
 
 #: kateconsole.cpp:439
 #, kde-format
@@ -148,20 +146,15 @@ msgstr "Zamerať panel terminálu"
 #: kateconsole.cpp:703
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "Režim synchronizácie terminálu"
 
 #: kateconsole.cpp:706
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "Synchronizovať terminál s aktuálnym dokumentom"
 
 #: kateconsole.cpp:709
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
@@ -169,10 +162,7 @@ msgstr ""
 "&Automaticky synchronizovať terminál s aktuálnym dokumentom, ak je to možné"
 
 #: kateconsole.cpp:712
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"

@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -46,7 +46,7 @@ msgstr "<b>Makrá klávesnice:</b> %1"
 #: keyboardmacrosplugin.cpp:170
 #, kde-format
 msgid "Can't save macro during recording. Please end recoding first"
-msgstr ""
+msgstr "Nie je možné uložiť makro počas nahrávania. Najprv ukončte nahrávanie"
 
 #: keyboardmacrosplugin.cpp:241
 #, kde-format
@@ -229,8 +229,7 @@ msgid "End Macro &Recording"
 msgstr "Ukončiť nah&rávanie makra"
 
 #: keyboardmacrospluginview.cpp:180
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
 msgstr "Načítané '%1'"
 
@@ -242,7 +241,7 @@ msgstr "Načítať makro '%1' ako aktuálne."
 #: keyboardmacrospluginview.cpp:193
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "Prehrať %1"
 
 #: keyboardmacrospluginview.cpp:194
 #, kde-format
@@ -250,8 +249,7 @@ msgid "Play the '%1' macro without loading it."
 msgstr "Prehrať makro '%1' bez jeho načítania."
 
 #: keyboardmacrospluginview.cpp:208
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
 msgstr "Vymazané '%1'"
 

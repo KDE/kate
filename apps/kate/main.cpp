@@ -119,11 +119,12 @@ int main(int argc, char **argv)
                          i18n("Kate"),
                          QStringLiteral(KATE_VERSION),
                          i18n("Kate - Advanced Text Editor"),
-                         KAboutLicense::LGPL_V2,
+                         KAboutLicense::GPL,
                          i18n("(c) 2000-2024 The Kate Authors"),
                          // use the other text field to get our mascot into the about dialog
                          QStringLiteral("<img height=\"362\" width=\"512\" src=\":/kate/mascot.png\"/>"),
                          QStringLiteral("https://kate-editor.org"));
+    aboutData.addLicense(KAboutLicense::GPL_V3);
 
     /**
      * right dbus prefix == org.kde.

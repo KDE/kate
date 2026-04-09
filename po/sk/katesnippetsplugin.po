@@ -13,8 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.04.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -91,6 +91,9 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"Text na vloženie do dokumentu (špeciálne polia pozrite v <a href=\"help:/"
+"kate/kate-application-plugin-snippets.html#snippet-input-template"
+"\">príručke</a>)."
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -98,15 +101,16 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"Kód JavaScript na vyhodnotenie (podrobnosti pozrite v <a href=\"help:/kate/"
+"kate-application-plugin-snippets.html#snippet-input-script\">príručke</a>)."
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "Textová šablóna"
 
 #: editsnippet.cpp:89
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "Script"
 msgstr "Skripty"
 
@@ -117,12 +121,17 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"Funkcie JavaScriptu zdieľané medzi všetkými úryvkami v tomto repozitári "
+"(pozrite <a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-"
+"input-library\">príručku</a>)."
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"Voliteľný popis zobrazovaný v bublinových tipoch. Môžete použiť základné "
+"formátovanie HTML."
 
 #: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
@@ -137,13 +146,10 @@ msgstr "Vytvoriť nový úryvok v repozitári %1"
 #: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
-msgstr ""
+msgstr "Názvy úryvkov s medzerami nemusia správne fungovať pri dopĺňaní"
 
 #: editsnippet.cpp:232
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
@@ -157,19 +163,17 @@ msgstr "Upozornenie - neuložené zmeny"
 #: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Pokračovať v úpravách"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
-#, fuzzy, kde-format
-#| msgid "will be shown in the completion list"
+#, kde-format
 msgid "Name to be shown in the completion list (required)"
 msgstr "sa zobrazí v zozname ukončovaní"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "&Snippet"
+#, kde-format
 msgid "Snippet Mode:"
 msgstr "Úryvok"
 
@@ -177,7 +181,7 @@ msgstr "Úryvok"
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "Klávesová skratka:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
@@ -187,8 +191,7 @@ msgstr "Úryvok"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "S&cript Library"
 msgstr "Skripty"
 
@@ -196,7 +199,7 @@ msgstr "Skripty"
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
@@ -237,6 +240,8 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Na použitie tohto typu úryvku musí byť Kate skompilovaná oproti KTExtEditor "
+"verzie 6.15.0 alebo vyššej."
 
 #: snippetrepository.cpp:45
 #, kde-format

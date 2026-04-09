@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2026-01-03 18:03+0100\n"
+"PO-Revision-Date: 2026-04-07 15:51+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -206,7 +206,7 @@ msgstr "Deposita %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "Stash %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -444,10 +444,9 @@ msgid "Enable Suppression"
 msgstr "Abilita soppressione"
 
 #: lib/diagnostics/diagnosticview.cpp:1603
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "Show fixes"
-msgstr "Mostra le &barre laterali"
+msgstr "Mostra correzioni"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format
@@ -511,16 +510,14 @@ msgid "Unstage Hunk"
 msgstr "Rimuovi frammento da stage"
 
 #: lib/diff/diffwidget.cpp:50
-#, fuzzy, kde-format
-#| msgid "Diff %1"
+#, kde-format
 msgid "Diff - %1"
-msgstr "Diff %1"
+msgstr "Diff - %1"
 
 #: lib/diff/diffwidget.cpp:53
-#, fuzzy, kde-format
-#| msgid "Diff %1..%2"
+#, kde-format
 msgid "Diff - %1..%2"
-msgstr "Diff %1..%2"
+msgstr "Diff - %1..%2"
 
 #: lib/diff/diffwidget.cpp:59
 #, kde-format
@@ -658,50 +655,45 @@ msgid "Show Full Commit"
 msgstr "Mostra deposito completo"
 
 #: lib/filehistorywidget.cpp:712
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "File History - %1"
+#, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
-msgstr "Cronologia del file - %1"
+msgstr "Cronologia - %1"
 
 #: lib/jsonsettings.cpp:29
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "User Settings"
-msgstr "Imp&ostazioni"
+msgstr "Impostazioni utente"
 
 #: lib/jsonsettings.cpp:38
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings file:"
-msgstr "Imp&ostazioni"
+msgstr "File impostazioni:"
 
 #: lib/jsonsettings.cpp:74
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Default Settings"
-msgstr "Imp&ostazioni"
+msgstr "Impostazioni predefinite"
 
 #: lib/jsonsettings.cpp:124
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Nessun dato JSON da convalidare."
 
 #: lib/jsonsettings.cpp:133
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "Il dato JSON è valido."
 
 #: lib/jsonsettings.cpp:135
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "Il dato JSON non è valido: nessun oggetto JSON"
 
 #: lib/jsonsettings.cpp:138
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "Il dato JSON non è valido: %1"
 
 #: lib/kateapp.cpp:147
 msgid ""

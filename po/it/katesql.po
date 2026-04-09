@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2026-02-07 17:13+0100\n"
+"PO-Revision-Date: 2026-04-07 15:55+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -152,9 +152,7 @@ msgid "Connection name:"
 msgstr "Nome della connessione:"
 
 #: dataoutputwidget.cpp:88
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Aggiorna"
@@ -199,61 +197,61 @@ msgstr "Usa la localizzazione di sistema"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "Incolla"
 
 #: dataoutputwidget.cpp:147
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "Imposta a nullo"
 
 #: dataoutputwidget.cpp:155
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "Inserisci riga"
 
 #: dataoutputwidget.cpp:163
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "Rimuovi le righe selezionate"
 
 #: dataoutputwidget.cpp:171
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "Duplica le righe selezionate"
 
 #: dataoutputwidget.cpp:179
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "Annulla"
 
 #: dataoutputwidget.cpp:187
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: dataoutputwidget.cpp:200
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "Dove:"
 
 #: dataoutputwidget.cpp:208
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:209
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "Inserisci la clausola SQL WHERE per filtrare i dati"
 
 #: dataoutputwidget.cpp:494
 #, kde-kuit-format
@@ -262,12 +260,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "Impossibile aprire il file <filename>%1</filename>"
 
 #: dataoutputwidget.cpp:510
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "Impossibile connettersi alla banca dati.<nl/><message>%1</message>"
+msgstr "Impossibile salvare le modifiche: <message>%1</message>"
 
 #: exportwizard.cpp:26
 #, kde-format

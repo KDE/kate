@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: backend.cpp:48 dapbackend.cpp:175
 #, kde-format
@@ -28,48 +28,42 @@ msgstr ""
 "aktuálne sedenie."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
 msgstr "Bod prerušenia"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
 msgstr "body prerušenia funkcie"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
 msgstr "body prerušenia funkcie"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "verified"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "pending"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
 msgstr "body prerušenia funkcie"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Function Breakpoints"
 msgstr "Bod prerušenia"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Odstrániť bod prerušenia"
 
@@ -81,24 +75,22 @@ msgstr "Bod prerušenia"
 #: breakpointview.cpp:1556
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "line %1 already has a breakpoint"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
 msgstr "bod prerušenia nastavený"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
 msgstr "body prerušenia funkcie"
 
 #: breakpointview.cpp:1625
 #, kde-format
 msgid "Function name:"
-msgstr ""
+msgstr "Function name:"
 
 #: configview.cpp:92
 #, kde-format
@@ -118,7 +110,7 @@ msgstr "Vymazať cieľ"
 #: configview.cpp:104
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Reload launch.json targets"
 
 #: configview.cpp:109
 #, kde-format
@@ -166,14 +158,13 @@ msgstr "Presmerovať ladené programové IO na oddelenú kartu"
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "No executable target set"
 
 #: configview.cpp:407
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "neplatné id vlákna: %1"
+msgstr "Invalid process id"
 
 #: configview.cpp:529 configview.cpp:542
 #, kde-format
@@ -181,22 +172,19 @@ msgid "Target %1"
 msgstr "Cieľ %1"
 
 #: configview.cpp:765
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
 msgstr "Spustiteľný súbor:"
 
 #: configview.cpp:778
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
 msgstr "Pracovný adresár:"
 
 #: dapbackend.cpp:187
-#, fuzzy, kde-format
-#| msgid "DAP backend failed"
+#, kde-format
 msgid "DAP backend '%1' failed"
-msgstr "Zlyhala výkonná časť DAP"
+msgstr "DAP backend '%1' failed"
 
 #: dapbackend.cpp:238
 #, kde-format
@@ -206,7 +194,7 @@ msgstr "program ukončený"
 #: dapbackend.cpp:243
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Nepodarilo sa terminate. Forcing shutdown..."
 
 #: dapbackend.cpp:254
 #, kde-format
@@ -379,8 +367,7 @@ msgid "terminate debuggee"
 msgstr "ukončiť ladeného"
 
 #: dapbackend.cpp:665
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
 msgstr "body prerušenia funkcie"
 
@@ -497,8 +484,7 @@ msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Aktuálny rámec [%3]: %1:%2 (%4)"
 
 #: debugconfigpage.cpp:55 debugconfigpage.cpp:60
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
 msgstr "Ladenie"
 
@@ -506,13 +492,13 @@ msgstr "Ladenie"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "Nepodarilo sa parse .vscode/launch.json at %1. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " at %1:%2"
 
 #: localsview.cpp:39
 #, kde-format
@@ -532,7 +518,7 @@ msgstr "pomenované položky"
 #: localsview.cpp:67 localsview.cpp:68
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Loading..."
 
 #: localsview.cpp:116
 #, kde-format
@@ -542,7 +528,7 @@ msgstr "Symbol"
 #: localsview.cpp:117
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: localsview.cpp:118
 #, kde-format
@@ -550,20 +536,17 @@ msgid "Value"
 msgstr "Hodnota"
 
 #: localsview.cpp:300
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
 msgstr "Symbol"
 
 #: localsview.cpp:315
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Kopírovať cieľ"
+msgstr "Kopírovať hodnotu"
 
 #: plugin_kategdb.cpp:112
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
 msgstr "Kate GDB"
 
@@ -583,8 +566,7 @@ msgid "Locals and Stack"
 msgstr "Miestne a zásobník"
 
 #: plugin_kategdb.cpp:128
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
 msgstr "Bod prerušenia"
 
@@ -592,7 +574,7 @@ msgstr "Bod prerušenia"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>Could not open file:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:229
 #, kde-format
@@ -620,8 +602,7 @@ msgid "Toggle Breakpoint / Break"
 msgstr "Prepnúť Breakpoint / Break"
 
 #: plugin_kategdb.cpp:264
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Bod prerušenia"
 
@@ -651,26 +632,24 @@ msgid "Restart Debugging"
 msgstr "Reštartovať ladenie"
 
 #: plugin_kategdb.cpp:304
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgid "Clear Output"
 msgstr "GDB výstup"
 
 #: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "Hot Reload"
 
 #: plugin_kategdb.cpp:319
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "Hot Restart"
 
 #: plugin_kategdb.cpp:328
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "Enable Hot Reload on Save"
 
 #: plugin_kategdb.cpp:337 plugin_kategdb.cpp:356
 #, kde-format
@@ -684,10 +663,9 @@ msgid "Print Value"
 msgstr "Vytlačiť hodnotu"
 
 #: plugin_kategdb.cpp:407
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "syntaktická chyba: %1"
+msgstr "Chyba: %1"
 
 #: plugin_kategdb.cpp:438
 #, kde-format
@@ -695,8 +673,7 @@ msgid "Insert breakpoint"
 msgstr "Vložiť bod prerušenia"
 
 #: plugin_kategdb.cpp:444
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
 msgstr "Odstrániť bod prerušenia"
 
@@ -706,9 +683,7 @@ msgid "Execution point"
 msgstr "Bod vykonania"
 
 #: plugin_kategdb.cpp:668
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "GDB výstup"
@@ -734,11 +709,10 @@ msgstr "č."
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Function"
 
 #: stackframe_model.cpp:99
-#, fuzzy, kde-format
-#| msgid "Local application"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
 msgstr "Miestna aplikácia"
@@ -749,20 +723,19 @@ msgid "Thread %1"
 msgstr "Vlákno %1"
 
 #: stackview.cpp:167
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
 msgstr "Kopírovať cieľ"
 
 #: stackview.cpp:186
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Open Location"
 
 #: stackview.cpp:193
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopírovať umiestnenie"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
@@ -772,19 +745,15 @@ msgstr "&Ladiť"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:33
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
 msgstr "GDB Plugin"
 
 #, fuzzy
-#~| msgctxt "Tab label"
-#~| msgid "Settings"
 #~ msgid "Settings File:"
 #~ msgstr "Nastavenia"
 
 #, fuzzy
-#~| msgid "file not specified: %1"
 #~ msgid "Failed to open file: %1"
 #~ msgstr "súbor nie je zadaný: %1"
 
@@ -810,7 +779,6 @@ msgstr "GDB Plugin"
 #~ msgstr "zabitie výkonnej časti"
 
 #, fuzzy
-#~| msgid "GDB command"
 #~ msgid "GDB command"
 #~ msgstr "GDB príkaz"
 

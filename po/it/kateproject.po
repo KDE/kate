@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-04 00:48+0000\n"
-"PO-Revision-Date: 2026-02-07 17:13+0100\n"
+"PO-Revision-Date: 2026-04-07 15:53+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -400,10 +400,9 @@ msgid "Drop Stash"
 msgstr "Rimuovi stash"
 
 #: gitwidget.cpp:1218
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "Estrai stash"
+msgstr "Mostra stash"
 
 #: gitwidget.cpp:1222
 #, fuzzy, kde-format
@@ -533,16 +532,14 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Sei sicuro di voler rimuovere queste modifiche non tracciate?"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "Modificato"
+msgstr "(Modificato)"
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "In stage"
+msgstr "(In stage)"
 
 #: kateproject.cpp:357
 #, kde-format
@@ -892,10 +889,9 @@ msgid "Project Manager"
 msgstr "Gestore del progetto"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Current Project"
-msgstr "Chiudi progetto"
+msgstr "Progetto corrente"
 
 #: kateprojectpluginview.cpp:86
 #, kde-format
@@ -1169,10 +1165,9 @@ msgstr "&Progetti"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:27
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
-msgstr "Progetto completamento"
+msgstr "Estensione di progetto"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "Mostra i contenuti dello stash"

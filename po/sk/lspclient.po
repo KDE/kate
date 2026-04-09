@@ -14,12 +14,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
 msgstr "Filtrovať..."
 
@@ -155,8 +154,7 @@ msgid "Code Action"
 msgstr "Akcia kódu"
 
 #: lspclientpluginview.cpp:565
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show lsp completions"
 msgstr "Dokončenia:"
 
@@ -238,8 +236,7 @@ msgid "Restart All LSP Servers"
 msgstr "Reštartovať všetky LSP Servery"
 
 #: lspclientpluginview.cpp:624
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Suspend All"
 msgstr "Rozbaliť všetko"
 
@@ -366,8 +363,7 @@ msgid "LSP Client"
 msgstr "LSP Klient"
 
 #: lspclientpluginview.cpp:2453
-#, fuzzy, kde-format
-#| msgid "Restart LSP Server"
+#, kde-format
 msgid "Question from LSP server"
 msgstr "Reštartovať LSP Server"
 
@@ -387,10 +383,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Server sa neočakávane ukončil ... %1 [%2] [domovská stránka: %3] "
 
 #: lspclientservermanager.cpp:903
-#, fuzzy, kde-format
-#| msgid "Failed to find server binary: %1"
+#, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
-msgstr "Spustiteľný súbor servera sa nepodarilo nájsť: %1"
+msgstr "Nepodarilo sa find server binary '%1' for language '%2'"
 
 #: lspclientservermanager.cpp:906 lspclientservermanager.cpp:971
 #, kde-format
@@ -403,10 +398,9 @@ msgid "See also %1 for installation or details"
 msgstr "Pozrite si tiež %1 pre inštaláciu alebo podrobnosti"
 
 #: lspclientservermanager.cpp:968
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to start server '%1' for language '%2'"
-msgstr "Nepodarilo sa spustiť server: %1"
+msgstr "Nepodarilo sa start server '%1' for language '%2'"
 
 #: lspclientservermanager.cpp:976
 #, kde-format
@@ -432,13 +426,13 @@ msgstr "Nepodarilo sa prečítať nastavenia serveru: %1"
 #, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "Prejsť na ďalšie zvýraznenie symbolu"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "Prejsť na predchádzajúce zvýraznenie symbolu"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format
@@ -473,7 +467,7 @@ msgstr "Symboly"
 #: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
-msgstr ""
+msgstr "Server LSP nepodporuje obrys symbolov."
 
 #: lspclientsymbolview.cpp:694
 #, kde-format
@@ -512,8 +506,7 @@ msgstr "Dokončenia:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:110
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show completions"
 msgstr "Dokončenia:"
 
@@ -611,7 +604,7 @@ msgstr "Prezentovať symboly v hierarchii namiesto plochého zoznamu"
 #: lspconfigwidget.ui:229
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "Zvýrazniť symbol pod kurzorom"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
 #: lspconfigwidget.ui:257
@@ -627,8 +620,7 @@ msgstr "Povolené && blokované servery"
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
-#, fuzzy, kde-format
-#| msgid "LSP Client"
+#, kde-format
 msgid "&LSP Client"
 msgstr "LSP klient"
 
@@ -657,22 +649,18 @@ msgstr "Viac možností"
 #~ msgstr "Rýchla oprava"
 
 #, fuzzy
-#~| msgid "Show diagnostics highlights"
 #~ msgid "Show Diagnostics Highlights"
 #~ msgstr "Zobraziť diagnostické zvýraznenia"
 
 #, fuzzy
-#~| msgid "Show diagnostics marks"
 #~ msgid "Show Diagnostics Marks"
 #~ msgstr "Zobraziť diagnostické značky"
 
 #, fuzzy
-#~| msgid "Show diagnostics on hover"
 #~ msgid "Show Diagnostics on Hover"
 #~ msgstr "Zobraziť diagnostiku pri umiestnení kurzora myši"
 
 #, fuzzy
-#~| msgid "Switch to diagnostics tab"
 #~ msgid "Switch to Diagnostics Tab"
 #~ msgstr "Prepnúť na kartu diagnostika"
 
@@ -793,7 +781,6 @@ msgstr "Viac možností"
 #~ msgstr "Nastavenia servera"
 
 #, fuzzy
-#~| msgid "Format"
 #~ msgid "Form"
 #~ msgstr "Formátovať"
 

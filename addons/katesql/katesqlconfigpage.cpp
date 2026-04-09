@@ -5,6 +5,7 @@
 */
 
 #include "katesqlconfigpage.h"
+#include "katesqlconstants.h"
 #include "outputstylewidget.h"
 
 #include <KConfigGroup>
@@ -13,6 +14,7 @@
 
 #include <QCheckBox>
 #include <QGroupBox>
+#include <QIcon>
 #include <QVBoxLayout>
 
 KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
@@ -58,14 +60,14 @@ QString KateSQLConfigPage::fullName() const
 
 QIcon KateSQLConfigPage::icon() const
 {
-    return QIcon::fromTheme(QStringLiteral("server-database"));
+    return QIcon::fromTheme(QStringLiteral("server-database")); // TODO better Icon from QIcon::ThemeIcon::...
 }
 
 void KateSQLConfigPage::apply()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
+    KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
 
-    config.writeEntry("SaveConnections", m_box->isChecked());
+    config.writeEntry(KateSQLConstants::Config::SaveConnections, m_box->isChecked());
 
     m_outputStyleWidget->writeConfig();
 
@@ -76,19 +78,19 @@ void KateSQLConfigPage::apply()
 
 void KateSQLConfigPage::reset()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
+    KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
 
-    m_box->setChecked(config.readEntry("SaveConnections", true));
+    m_box->setChecked(config.readEntry(KateSQLConstants::Config::SaveConnections, true));
 
     m_outputStyleWidget->readConfig();
 }
 
 void KateSQLConfigPage::defaults()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
+    KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
 
-    config.revertToDefault("SaveConnections");
-    config.revertToDefault("OutputCustomization");
+    config.revertToDefault(KateSQLConstants::Config::SaveConnections);
+    config.revertToDefault(KateSQLConstants::Config::OutputCustomizationGroup);
 }
 
 #include "moc_katesqlconfigpage.cpp"

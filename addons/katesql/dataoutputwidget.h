@@ -7,14 +7,14 @@
 #pragma once
 
 #include "dataoutputmodelinterface.h"
-#include "exportwizard.h"
 #include "dataoutputstylehelper.h"
+#include "katesqlconstants.h"
 
+#include <QAbstractItemModel>
 #include <QAction>
 #include <QList>
-#include <QtAssert>
-#include <QAbstractItemModel>
 #include <QWidget>
+#include <QtAssert>
 
 class QAbstractItemModel;
 class QTextStream;
@@ -40,15 +40,15 @@ public:
     ~DataOutputWidget() override;
 
     void exportData(QTextStream &stream,
-                    const QChar stringsQuoteChar = defaultExportValues.quoteStringCharForCopyPaste,
-                    const QChar numbersQuoteChar = defaultExportValues.quoteNumbersCharForCopyPaste,
-                    const QString fieldDelimiter = defaultExportValues.fieldDelimiterForCopyPaste,
+                    const QChar stringsQuoteChar = KateSQLConstants::Export::DefaultValues::QuoteStringCharForCopyPaste,
+                    const QChar numbersQuoteChar = KateSQLConstants::Export::DefaultValues::QuoteNumbersCharForCopyPaste,
+                    const QString fieldDelimiter = KateSQLConstants::Export::DefaultValues::FieldDelimiterForCopyPaste,
                     const Options opt = NoOptions);
 
     void importData(QTextStream &stream,
-                    const QChar stringsQuoteChar = defaultExportValues.quoteStringCharForCopyPaste,
-                    const QString &fieldDelimiter = QString(defaultExportValues.fieldDelimiterForCopyPaste),
-                    const QString &lineDelimiter = QString(defaultExportValues.lineDelimiterForCopyPaste));
+                    const QChar stringsQuoteChar = KateSQLConstants::Export::DefaultValues::QuoteStringCharForCopyPaste,
+                    const QString &fieldDelimiter = QString(KateSQLConstants::Export::DefaultValues::FieldDelimiterForCopyPaste),
+                    const QString &lineDelimiter = QString(KateSQLConstants::Export::DefaultValues::LineDelimiterForCopyPaste));
 
     DataOutputModelInterface *model() const
     {
@@ -85,7 +85,6 @@ public Q_SLOTS:
     void slotSetFilter();
 
 private:
-
     QAbstractItemModel *abstractModel() const
     {
         Q_ASSERT(m_model != nullptr);

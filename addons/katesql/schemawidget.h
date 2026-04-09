@@ -17,13 +17,15 @@ class QMouseEvent;
 class SchemaWidget : public QTreeWidget
 {
 public:
-    static const int TableType = QTreeWidgetItem::UserType + 1;
-    static const int SystemTableType = QTreeWidgetItem::UserType + 2;
-    static const int ViewType = QTreeWidgetItem::UserType + 3;
-    static const int FieldType = QTreeWidgetItem::UserType + 4;
-    static const int TablesFolderType = QTreeWidgetItem::UserType + 101;
-    static const int SystemTablesFolderType = QTreeWidgetItem::UserType + 102;
-    static const int ViewsFolderType = QTreeWidgetItem::UserType + 103;
+    enum CustomUIType {
+        TableType = QTreeWidgetItem::UserType + 1,
+        SystemTableType = QTreeWidgetItem::UserType + 2,
+        ViewType = QTreeWidgetItem::UserType + 3,
+        FieldType = QTreeWidgetItem::UserType + 4,
+        TablesFolderType = QTreeWidgetItem::UserType + 101,
+        SystemTablesFolderType = QTreeWidgetItem::UserType + 102,
+        ViewsFolderType = QTreeWidgetItem::UserType + 103,
+    };
 
     SchemaWidget(QWidget *parent, SQLManager *manager);
     ~SchemaWidget() override;
@@ -48,6 +50,8 @@ public:
     void executeStatement(QSqlDriver::StatementType statement);
 
 private:
+    static inline constexpr QLatin1String SqlTableIcon = QLatin1String(":/katesql/pics/16-actions-sql-table.png");
+
     void slotCustomContextMenuRequested(const QPoint &pos);
     void slotItemExpanded(QTreeWidgetItem *item);
 

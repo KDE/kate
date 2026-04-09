@@ -5,6 +5,7 @@
 */
 
 #include "connectionwizard.h"
+#include "katesqlconstants.h"
 #include "sqlmanager.h"
 
 #include <KComboBox>
@@ -18,6 +19,8 @@
 #include <QSpinBox>
 #include <QSqlDatabase>
 #include <QSqlError>
+#include <ktexteditor/codecompletionmodel.h>
+#include <qlatin1stringview.h>
 
 ConnectionWizard::ConnectionWizard(SQLManager *manager, Connection *conn, QWidget *parent, Qt::WindowFlags flags)
     : QWizard(parent, flags)
@@ -51,7 +54,7 @@ ConnectionDriverPage::ConnectionDriverPage(QWidget *parent)
 
     setLayout(layout);
 
-    registerField(QStringLiteral("driver"), driverComboBox, "currentText");
+    registerField(QLatin1String(KateSQLConstants::Connection::Driver), driverComboBox, "currentText");
 }
 
 void ConnectionDriverPage::initializePage()
@@ -66,7 +69,7 @@ void ConnectionDriverPage::initializePage()
 
 int ConnectionDriverPage::nextId() const
 {
-    if (driverComboBox->currentText().contains(QLatin1String("QSQLITE"))) {
+    if (driverComboBox->currentText().contains(KateSQLConstants::Connection::QSQLite)) {
         return ConnectionWizard::Page_SQLite_Server;
     } else {
         return ConnectionWizard::Page_Standard_Server;
@@ -101,12 +104,12 @@ ConnectionStandardServerPage::ConnectionStandardServerPage(QWidget *parent)
 
     setLayout(layout);
 
-    registerField(QStringLiteral("hostname*"), hostnameLineEdit);
-    registerField(QStringLiteral("username"), usernameLineEdit);
-    registerField(QStringLiteral("password"), passwordLineEdit, "password", "passwordChanged");
-    registerField(QStringLiteral("database"), databaseLineEdit);
-    registerField(QStringLiteral("stdOptions"), optionsLineEdit);
-    registerField(QStringLiteral("port"), portSpinBox);
+    registerField(QLatin1String(KateSQLConstants::Connection::Hostname) + FieldIsRequired, hostnameLineEdit);
+    registerField(QLatin1String(KateSQLConstants::Connection::Username), usernameLineEdit);
+    registerField(QLatin1String(KateSQLConstants::Connection::Password), passwordLineEdit, "password", "passwordChanged");
+    registerField(QLatin1String(KateSQLConstants::Connection::Database), databaseLineEdit);
+    registerField(QLatin1String(KateSQLConstants::Connection::StdOptions), optionsLineEdit);
+    registerField(QLatin1String(KateSQLConstants::Connection::Port), portSpinBox);
 }
 
 ConnectionStandardServerPage::~ConnectionStandardServerPage() = default;
@@ -118,7 +121,7 @@ void ConnectionStandardServerPage::initializePage()
 
     hostnameLineEdit->setText(QStringLiteral("localhost"));
 
-    if (c->driver == field(QStringLiteral("driver")).toString()) {
+    if (c->driver == field(QLatin1String(KateSQLConstants::Connection::Driver)).toString()) {
         hostnameLineEdit->setText(c->hostname);
         usernameLineEdit->setText(c->username);
         passwordLineEdit->setPassword(c->password);
@@ -134,13 +137,13 @@ bool ConnectionStandardServerPage::validatePage()
 {
     Connection c;
 
-    c.driver = field(QStringLiteral("driver")).toString();
-    c.hostname = field(QStringLiteral("hostname")).toString();
-    c.username = field(QStringLiteral("username")).toString();
-    c.password = field(QStringLiteral("password")).toString();
-    c.database = field(QStringLiteral("database")).toString();
-    c.options = field(QStringLiteral("stdOptions")).toString();
-    c.port = field(QStringLiteral("port")).toInt();
+    c.driver = field(QLatin1String(KateSQLConstants::Connection::Driver)).toString();
+    c.hostname = field(QLatin1String(KateSQLConstants::Connection::Hostname)).toString();
+    c.username = field(QLatin1String(KateSQLConstants::Connection::Username)).toString();
+    c.password = field(QLatin1String(KateSQLConstants::Connection::Password)).toString();
+    c.database = field(QLatin1String(KateSQLConstants::Connection::Database)).toString();
+    c.options = field(QLatin1String(KateSQLConstants::Connection::StdOptions)).toString();
+    c.port = field(QLatin1String(KateSQLConstants::Connection::Port)).toInt();
 
     QSqlError e;
 
@@ -178,8 +181,8 @@ ConnectionSQLiteServerPage::ConnectionSQLiteServerPage(QWidget *parent)
 
     setLayout(layout);
 
-    registerField(QStringLiteral("path*"), pathUrlRequester->lineEdit());
-    registerField(QStringLiteral("sqliteOptions"), optionsLineEdit);
+    registerField(QLatin1String(KateSQLConstants::Connection::Path) + FieldIsRequired, pathUrlRequester->lineEdit());
+    registerField(QLatin1String(KateSQLConstants::Connection::SqliteOptions), optionsLineEdit);
 }
 
 void ConnectionSQLiteServerPage::initializePage()
@@ -187,7 +190,7 @@ void ConnectionSQLiteServerPage::initializePage()
     auto *wiz = static_cast<ConnectionWizard *>(wizard());
     Connection *c = wiz->connection();
 
-    if (c->driver == field(QStringLiteral("driver")).toString()) {
+    if (c->driver == field(QLatin1String(KateSQLConstants::Connection::Driver)).toString()) {
         pathUrlRequester->lineEdit()->setText(c->database);
         optionsLineEdit->setText(c->options);
     }
@@ -197,9 +200,9 @@ bool ConnectionSQLiteServerPage::validatePage()
 {
     Connection c;
 
-    c.driver = field(QStringLiteral("driver")).toString();
-    c.database = field(QStringLiteral("path")).toString();
-    c.options = field(QStringLiteral("sqliteOptions")).toString();
+    c.driver = field(QLatin1String(KateSQLConstants::Connection::Driver)).toString();
+    c.database = field(QLatin1String(KateSQLConstants::Connection::Path)).toString();
+    c.options = field(QLatin1String(KateSQLConstants::Connection::SqliteOptions)).toString();
 
     QSqlError e;
 
@@ -232,7 +235,7 @@ ConnectionSavePage::ConnectionSavePage(QWidget *parent)
 
     setLayout(layout);
 
-    registerField(QStringLiteral("connectionName*"), connectionNameLineEdit);
+    registerField(QLatin1String(KateSQLConstants::Connection::ConnectionName) + FieldIsRequired, connectionNameLineEdit);
 }
 
 void ConnectionSavePage::initializePage()
@@ -244,20 +247,23 @@ void ConnectionSavePage::initializePage()
 
     if (!c->name.isEmpty()) {
         name = c->name;
-    } else if (field(QStringLiteral("driver")).toString().contains(QLatin1String("QSQLITE"))) {
-        /// TODO: use db file basename
-        name = QStringLiteral("SQLite");
+    } else if (field(QLatin1String(KateSQLConstants::Connection::Driver)).toString().contains(KateSQLConstants::Connection::QSQLite)) {
+        const QLatin1String SQLiteTempName("SQLite");
+        name = SQLiteTempName;
 
         for (int i = 1; QSqlDatabase::contains(name); i++) {
-            name = QStringLiteral("%1%2").arg(QLatin1String("SQLite")).arg(i);
+            name = QStringLiteral("%1%2").arg(SQLiteTempName).arg(i);
         }
     } else {
-        name = QStringLiteral("%1 on %2").arg(field(QStringLiteral("database")).toString(), field(QStringLiteral("hostname")).toString()).simplified();
+        name = QStringLiteral("%1 on %2")
+                   .arg(field(QLatin1String(KateSQLConstants::Connection::Database)).toString(),
+                        field(QLatin1String(KateSQLConstants::Connection::Hostname)).toString())
+                   .simplified();
 
         for (int i = 1; QSqlDatabase::contains(name); i++) {
             name = QStringLiteral("%1 on %2 (%3)")
-                       .arg(field(QStringLiteral("database")).toString())
-                       .arg(field(QStringLiteral("hostname")).toString())
+                       .arg(field(QLatin1String(KateSQLConstants::Connection::Database)).toString())
+                       .arg(field(QLatin1String(KateSQLConstants::Connection::Hostname)).toString())
                        .arg(i)
                        .simplified();
         }
@@ -269,24 +275,24 @@ void ConnectionSavePage::initializePage()
 
 bool ConnectionSavePage::validatePage()
 {
-    QString name = field(QStringLiteral("connectionName")).toString().simplified();
+    QString name = field(QLatin1String(KateSQLConstants::Connection::ConnectionName)).toString().simplified();
 
     auto *wiz = static_cast<ConnectionWizard *>(wizard());
     Connection *c = wiz->connection();
 
     c->name = name;
-    c->driver = field(QStringLiteral("driver")).toString();
+    c->driver = field(QLatin1String(KateSQLConstants::Connection::Driver)).toString();
 
-    if (field(QStringLiteral("driver")).toString().contains(QLatin1String("QSQLITE"))) {
-        c->database = field(QStringLiteral("path")).toString();
-        c->options = field(QStringLiteral("sqliteOptions")).toString();
+    if (field(QLatin1String(KateSQLConstants::Connection::Driver)).toString().contains(KateSQLConstants::Connection::QSQLite)) {
+        c->database = field(QLatin1String(KateSQLConstants::Connection::Path)).toString();
+        c->options = field(QLatin1String(KateSQLConstants::Connection::SqliteOptions)).toString();
     } else {
-        c->hostname = field(QStringLiteral("hostname")).toString();
-        c->username = field(QStringLiteral("username")).toString();
-        c->password = field(QStringLiteral("password")).toString();
-        c->database = field(QStringLiteral("database")).toString();
-        c->options = field(QStringLiteral("stdOptions")).toString();
-        c->port = field(QStringLiteral("port")).toInt();
+        c->hostname = field(QLatin1String(KateSQLConstants::Connection::Hostname)).toString();
+        c->username = field(QLatin1String(KateSQLConstants::Connection::Username)).toString();
+        c->password = field(QLatin1String(KateSQLConstants::Connection::Password)).toString();
+        c->database = field(QLatin1String(KateSQLConstants::Connection::Database)).toString();
+        c->options = field(QLatin1String(KateSQLConstants::Connection::StdOptions)).toString();
+        c->port = field(QLatin1String(KateSQLConstants::Connection::Port)).toInt();
     }
 
     return true;

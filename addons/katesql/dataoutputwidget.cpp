@@ -11,6 +11,7 @@
 #include "dataoutputstylehelper.h"
 #include "dataoutputview.h"
 #include "exportwizard.h"
+#include "katesqlconstants.h"
 
 #include <algorithm>
 
@@ -29,16 +30,23 @@
 
 #include <QApplication>
 #include <QClipboard>
+#include <QCompleter>
+#include <QDir>
 #include <QElapsedTimer>
 #include <QFile>
 #include <QFocusEvent>
 #include <QHeaderView>
+#include <QIcon>
 #include <QKeySequence>
 #include <QLabel>
 #include <QLayout>
 #include <QLineEdit>
+#include <QList>
+#include <QMargins>
 #include <QSize>
 #include <QSqlError>
+#include <QSqlField>
+#include <QSqlIndex>
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlTableModel>
@@ -46,14 +54,6 @@
 #include <QTextStream>
 #include <QTime>
 #include <QTimer>
-#include <QCompleter>
-#include <QDir>
-#include <QIcon>
-#include <QList>
-#include <QMargins>
-#include <QSqlField>
-#include <QSqlIndex>
-#include <QSqlRecord>
 #include <QtTypes>
 
 DataOutputWidget::DataOutputWidget(QWidget *parent)
@@ -65,7 +65,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
     , m_editableOnlyRightClickActions(QList<QAction *>(
           qsizetype(6))) // change once we have more than insertRowAction + duplicateRowAction + removeRowAction + setNullAction + undoAction + pasteAction
 {
-    m_styleHelper.readConfig();
+    readConfig();
     m_view->setModel(nullptr);
 
     auto *layout = new QHBoxLayout(this);
@@ -94,15 +94,15 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
     addAction(refreshAction);
 
     auto *resizeColumnsAction =
-        new QAction(QIcon::fromTheme(QStringLiteral("distribute-horizontal-x")), i18nc("@action:intoolbar", "Resize columns to contents"), this);
+        new QAction(QIcon::fromTheme(QLatin1String("distribute-horizontal-x")), i18nc("@action:intoolbar", "Resize columns to contents"), this);
     verticalToolbar->addAction(resizeColumnsAction);
     connect(resizeColumnsAction, &QAction::triggered, this, &DataOutputWidget::resizeColumnsToContents);
 
-    action = new QAction(QIcon::fromTheme(QStringLiteral("distribute-vertical-y")), i18nc("@action:intoolbar", "Resize rows to contents"), this);
+    action = new QAction(QIcon::fromTheme(QLatin1String("distribute-vertical-y")), i18nc("@action:intoolbar", "Resize rows to contents"), this);
     verticalToolbar->addAction(action);
     connect(action, &QAction::triggered, this, &DataOutputWidget::resizeRowsToContents);
 
-    action = new QAction(QIcon::fromTheme(QStringLiteral("document-export-table")), i18nc("@action:intoolbar", "Export..."), this);
+    action = new QAction(QIcon::fromTheme(QLatin1String("document-export-table")), i18nc("@action:intoolbar", "Export..."), this);
     verticalToolbar->addAction(action);
     m_view->addAction(action);
     connect(action, &QAction::triggered, this, &DataOutputWidget::slotExport);
@@ -349,10 +349,6 @@ void DataOutputWidget::clearResults()
 void DataOutputWidget::readConfig()
 {
     m_styleHelper.readConfig();
-
-    if (m_model != nullptr) {
-        m_model->readConfig();
-    }
 }
 
 void DataOutputWidget::resizeColumnsToContents()
@@ -388,7 +384,6 @@ void DataOutputWidget::slotToggleLocale()
 
 void DataOutputWidget::slotCopySelected()
 {
-
     if (m_model == nullptr || abstractModel()->rowCount() <= 0) {
         return;
     }
@@ -431,12 +426,12 @@ void DataOutputWidget::slotExport()
         return;
     }
 
-    bool outputInDocument = wizard.field(QStringLiteral("outDocument")).toBool();
-    bool outputInClipboard = wizard.field(QStringLiteral("outClipboard")).toBool();
-    bool outputInFile = wizard.field(QStringLiteral("outFile")).toBool();
+    bool outputInDocument = wizard.field(KateSQLConstants::Export::Fields::OutputDocument).toBool();
+    bool outputInClipboard = wizard.field(KateSQLConstants::Export::Fields::OutputClipboard).toBool();
+    bool outputInFile = wizard.field(KateSQLConstants::Export::Fields::OutputFile).toBool();
 
-    bool exportColumnNames = wizard.field(QStringLiteral("exportColumnNames")).toBool();
-    bool exportLineNumbers = wizard.field(QStringLiteral("exportLineNumbers")).toBool();
+    bool exportColumnNames = wizard.field(KateSQLConstants::Export::Fields::ExportColumnNames).toBool();
+    bool exportLineNumbers = wizard.field(KateSQLConstants::Export::Fields::ExportLineNumbers).toBool();
 
     Options opt = NoOptions;
 
@@ -447,17 +442,17 @@ void DataOutputWidget::slotExport()
         opt |= ExportLineNumbers;
     }
 
-    bool quoteStrings = wizard.field(QStringLiteral("checkQuoteStrings")).toBool();
-    bool quoteNumbers = wizard.field(QStringLiteral("checkQuoteNumbers")).toBool();
+    bool quoteStrings = wizard.field(KateSQLConstants::Export::Fields::CheckQuoteStrings).toBool();
+    bool quoteNumbers = wizard.field(KateSQLConstants::Export::Fields::CheckQuoteNumbers).toBool();
 
-    QChar stringsQuoteChar = (quoteStrings) ? wizard.field(QStringLiteral("quoteStringsChar")).toString().at(0) : u'\0';
-    QChar numbersQuoteChar = (quoteNumbers) ? wizard.field(QStringLiteral("quoteNumbersChar")).toString().at(0) : u'\0';
+    QChar stringsQuoteChar = (quoteStrings) ? wizard.field(KateSQLConstants::Export::Fields::QuoteStringsChar).toString().at(0) : u'\0';
+    QChar numbersQuoteChar = (quoteNumbers) ? wizard.field(KateSQLConstants::Export::Fields::QuoteNumbersChar).toString().at(0) : u'\0';
 
-    QString fieldDelimiter = wizard.field(QStringLiteral("fieldDelimiter"))
+    QString fieldDelimiter = wizard.field(KateSQLConstants::Export::Fields::FieldDelimiter)
                                  .toString()
-                                 .replace(QLatin1String("\\t"), QLatin1String("\t"))
-                                 .replace(QLatin1String("\\r"), QLatin1String("\r"))
-                                 .replace(QLatin1String("\\n"), QLatin1String("\n"));
+                                 .replace(KateSQLConstants::Export::Delimiters::Tab, QLatin1String("\t"))
+                                 .replace(KateSQLConstants::Export::Delimiters::CarriageReturn, QLatin1String("\r"))
+                                 .replace(KateSQLConstants::Export::Delimiters::Newline, QLatin1String("\n"));
 
     if (outputInDocument) {
         KTextEditor::MainWindow *mw = KTextEditor::Editor::instance()->application()->activeMainWindow();
@@ -482,7 +477,7 @@ void DataOutputWidget::slotExport()
 
         QApplication::clipboard()->setText(text);
     } else if (outputInFile) {
-        QString url = wizard.field(QStringLiteral("outFileUrl")).toString();
+        QString url = wizard.field(KateSQLConstants::Export::Fields::OutputFileUrl).toString();
         QFile file(url);
         if (file.open(QFile::WriteOnly | QFile::Truncate)) {
             QTextStream stream(&file);
@@ -744,13 +739,13 @@ void DataOutputWidget::exportData(QTextStream &stream,
 
         if (indexData.typeId() < 7) // is numeric or boolean
         {
-            if (numbersQuoteChar != defaultExportValues.noQuotingChar) {
+            if (numbersQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
                 snapshot[qMakePair(row, col)] = numbersQuoteChar + indexData.toString() + numbersQuoteChar;
             } else {
                 snapshot[qMakePair(row, col)] = indexData.toString();
             }
         } else {
-            if (stringsQuoteChar != defaultExportValues.noQuotingChar) {
+            if (stringsQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
                 snapshot[qMakePair(row, col)] = stringsQuoteChar + indexData.toString() + stringsQuoteChar;
             } else {
                 snapshot[qMakePair(row, col)] = indexData.toString();
@@ -772,7 +767,7 @@ void DataOutputWidget::exportData(QTextStream &stream,
         for (auto it = columns.begin(); it != columns.end(); ++it) {
             const QVariant headerData = abstractModel()->headerData(*it, Qt::Horizontal);
 
-            if (stringsQuoteChar != defaultExportValues.noQuotingChar) {
+            if (stringsQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
                 stream << stringsQuoteChar + headerData.toString() + stringsQuoteChar;
             } else {
                 stream << headerData.toString();
@@ -782,7 +777,7 @@ void DataOutputWidget::exportData(QTextStream &stream,
                 stream << fieldDelimiter;
             }
         }
-        stream << defaultExportValues.lineDelimiterForCopyPaste;
+        stream << KateSQLConstants::Export::DefaultValues::LineDelimiterForCopyPaste;
     }
 
     for (const int row : std::as_const(rows)) {
@@ -797,7 +792,7 @@ void DataOutputWidget::exportData(QTextStream &stream,
                 stream << fieldDelimiter;
             }
         }
-        stream << defaultExportValues.lineDelimiterForCopyPaste;
+        stream << KateSQLConstants::Export::DefaultValues::LineDelimiterForCopyPaste;
     }
 
     qDebug("Export in %lld ms", t.elapsed());
@@ -847,7 +842,7 @@ void DataOutputWidget::importData(QTextStream &stream, const QChar stringsQuoteC
             QString field;
 
             // Check if field starts with quote
-            if (stringsQuoteChar != defaultExportValues.noQuotingChar && pos < line.length() && line[pos] == stringsQuoteChar) {
+            if (stringsQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar && pos < line.length() && line[pos] == stringsQuoteChar) {
                 pos++; // Skip opening quote
                 // Find closing quote
                 while (pos < line.length() && line[pos] != stringsQuoteChar) {
@@ -910,9 +905,9 @@ void DataOutputWidget::slotPaste()
     QTextStream stream(&text);
 
     importData(stream,
-               defaultExportValues.quoteStringCharForCopyPaste,
-               QString(defaultExportValues.fieldDelimiterForCopyPaste),
-               QString(defaultExportValues.lineDelimiterForCopyPaste));
+               KateSQLConstants::Export::DefaultValues::QuoteStringCharForCopyPaste,
+               KateSQLConstants::Export::DefaultValues::FieldDelimiterForCopyPaste,
+               KateSQLConstants::Export::DefaultValues::LineDelimiterForCopyPaste);
 }
 
 #include "moc_dataoutputwidget.cpp"

@@ -71,6 +71,9 @@ protected:
     void setupActions();
 
 private:
+    inline static constexpr QLatin1String ActionQueryRun = QLatin1String("query_run");
+    inline static constexpr QLatin1String StateHasConnectionSelected = QLatin1String("has_connection_selected");
+    inline static constexpr QLatin1String MenuSQL = QLatin1String("SQL");
     QWidget *m_outputToolView;
     QWidget *m_schemaBrowserToolView;
     QActionGroup *m_connectionsGroup;

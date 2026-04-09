@@ -6,18 +6,19 @@
 
 #include "exportwizard.h"
 #include "dataoutputwidget.h"
+#include "katesqlconstants.h"
 
 #include <KLineEdit>
 #include <KLocalizedString>
 #include <KUrlRequester>
 
 #include <QCheckBox>
+#include <QDir>
 #include <QFormLayout>
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QLabel>
 #include <QRadioButton>
-#include <QDir>
 
 // BEGIN ExportWizard
 ExportWizard::ExportWizard(QWidget *parent)
@@ -61,10 +62,10 @@ ExportOutputPage::ExportOutputPage(QWidget *parent)
 
     setLayout(layout);
 
-    registerField(QStringLiteral("outDocument"), documentRadioButton);
-    registerField(QStringLiteral("outClipboard"), clipboardRadioButton);
-    registerField(QStringLiteral("outFile"), fileRadioButton);
-    registerField(QStringLiteral("outFileUrl"), fileUrl, "text");
+    registerField(KateSQLConstants::Export::Fields::OutputDocument, documentRadioButton);
+    registerField(KateSQLConstants::Export::Fields::OutputClipboard, clipboardRadioButton);
+    registerField(KateSQLConstants::Export::Fields::OutputFile, fileRadioButton);
+    registerField(KateSQLConstants::Export::Fields::OutputFileUrl, fileUrl, "text");
 
     connect(fileRadioButton, &QRadioButton::toggled, fileUrl, &KUrlRequester::setEnabled);
 }
@@ -145,13 +146,13 @@ ExportFormatPage::ExportFormatPage(QWidget *parent)
 
     setLayout(layout);
 
-    registerField(QStringLiteral("exportColumnNames"), exportColumnNamesCheckBox);
-    registerField(QStringLiteral("exportLineNumbers"), exportLineNumbersCheckBox);
-    registerField(QStringLiteral("checkQuoteStrings"), quoteStringsCheckBox);
-    registerField(QStringLiteral("checkQuoteNumbers"), quoteNumbersCheckBox);
-    registerField(QStringLiteral("quoteStringsChar"), quoteStringsLine);
-    registerField(QStringLiteral("quoteNumbersChar"), quoteNumbersLine);
-    registerField(QStringLiteral("fieldDelimiter"), fieldDelimiterLine);
+    registerField(KateSQLConstants::Export::Fields::ExportColumnNames, exportColumnNamesCheckBox);
+    registerField(KateSQLConstants::Export::Fields::ExportLineNumbers, exportLineNumbersCheckBox);
+    registerField(KateSQLConstants::Export::Fields::CheckQuoteStrings, quoteStringsCheckBox);
+    registerField(KateSQLConstants::Export::Fields::CheckQuoteNumbers, quoteNumbersCheckBox);
+    registerField(KateSQLConstants::Export::Fields::QuoteStringsChar, quoteStringsLine);
+    registerField(KateSQLConstants::Export::Fields::QuoteNumbersChar, quoteNumbersLine);
+    registerField(KateSQLConstants::Export::Fields::FieldDelimiter, fieldDelimiterLine);
 
     connect(quoteStringsCheckBox, &QCheckBox::toggled, quoteStringsLine, &KLineEdit::setEnabled);
     connect(quoteNumbersCheckBox, &QCheckBox::toggled, quoteNumbersLine, &KLineEdit::setEnabled);
@@ -159,16 +160,16 @@ ExportFormatPage::ExportFormatPage(QWidget *parent)
 
 void ExportFormatPage::initializePage()
 {
-    exportColumnNamesCheckBox->setChecked(defaultExportValues.isExportingColumnNames);
-    exportLineNumbersCheckBox->setChecked(defaultExportValues.isExportingLineNumbers);
-    quoteStringsCheckBox->setChecked(defaultExportValues.isQuotingStrings);
-    quoteNumbersCheckBox->setChecked(defaultExportValues.isQuotingNumbers);
-    quoteStringsLine->setEnabled(defaultExportValues.isQuotingStrings);
-    quoteNumbersLine->setEnabled(defaultExportValues.isQuotingNumbers);
+    exportColumnNamesCheckBox->setChecked(KateSQLConstants::Export::DefaultValues::IsExportingColumnNames);
+    exportLineNumbersCheckBox->setChecked(KateSQLConstants::Export::DefaultValues::IsExportingLineNumbers);
+    quoteStringsCheckBox->setChecked(KateSQLConstants::Export::DefaultValues::IsQuotingStrings);
+    quoteNumbersCheckBox->setChecked(KateSQLConstants::Export::DefaultValues::IsQuotingNumbers);
+    quoteStringsLine->setEnabled(KateSQLConstants::Export::DefaultValues::IsQuotingStrings);
+    quoteNumbersLine->setEnabled(KateSQLConstants::Export::DefaultValues::IsQuotingNumbers);
 
-    quoteStringsLine->setText(defaultExportValues.quoteStringCharForWizard);
-    quoteNumbersLine->setText(defaultExportValues.quoteNumbersCharForWizard);
-    fieldDelimiterLine->setText(defaultExportValues.fieldDelimiterForWizard);
+    quoteStringsLine->setText(KateSQLConstants::Export::DefaultValues::QuoteStringCharForWizard);
+    quoteNumbersLine->setText(KateSQLConstants::Export::DefaultValues::QuoteNumbersCharForWizard);
+    fieldDelimiterLine->setText(KateSQLConstants::Export::DefaultValues::FieldDelimiterForWizard);
 }
 
 bool ExportFormatPage::validatePage()

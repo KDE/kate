@@ -30,9 +30,6 @@ public:
 
     int storeCredentials(const Connection &conn);
     int readCredentials(const QString &name, QString &password);
-    static const int K_WALLET_CONNECTION_SUCCESSFUL = 0;
-    static const int K_WALLET_CONNECTION_ERROR = -1;
-    static const int K_WALLET_CONNECTION_REJECTED_BY_USER = -2;
 
 public Q_SLOTS:
     void removeConnection(const QString &name);
@@ -43,6 +40,8 @@ public Q_SLOTS:
     void runEditableQuery(const QString &tableName, const QString &connection);
 
 protected:
+    inline static constexpr QLatin1String KeychainService = QLatin1String("org.kde.kate.katesql");
+
     static void saveConnection(KConfigGroup *connectionsGroup, const Connection &conn);
 
 Q_SIGNALS:

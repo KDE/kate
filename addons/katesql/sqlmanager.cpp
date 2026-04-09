@@ -22,6 +22,8 @@
 #include <QSqlError>
 #include <QtCore/qlogging.h>
 
+#include "katesqlconstants.h"
+#include <qlatin1stringview.h>
 #include <qt6keychain/keychain.h>
 
 SQLManager::SQLManager(QObject *parent)
@@ -129,7 +131,7 @@ bool SQLManager::isValidAndOpen(const QString &connection)
             QString password;
             int ret = readCredentials(connection, password);
 
-            if (ret != SQLManager::K_WALLET_CONNECTION_SUCCESSFUL) {
+            if (ret != KWalletConnectionResponse::Success) {
                 qDebug("Can't retrieve password from kwallet. returned code %d", ret);
             } else {
                 db.setPassword(password);
@@ -162,22 +164,22 @@ void SQLManager::reopenConnection(const QString &name)
 int SQLManager::storeCredentials(const Connection &conn)
 {
     QJsonObject map;
-    map[QLatin1String("driver")] = conn.driver.toUpper();
-    map[QLatin1String("options")] = conn.options;
+    map[QLatin1String(KateSQLConstants::Connection::Driver)] = conn.driver.toUpper();
+    map[QLatin1String(KateSQLConstants::Connection::Options)] = conn.options;
 
     // Sqlite is without password
-    if (conn.driver.contains(QLatin1String("QSQLITE"))) {
-        map[QLatin1String("database")] = conn.database;
+    if (conn.driver.contains(KateSQLConstants::Connection::QSQLite)) {
+        map[QLatin1String(KateSQLConstants::Connection::Database)] = conn.database;
     } else {
-        map[QLatin1String("database")] = conn.database.toUpper();
-        map[QLatin1String("username")] = conn.username;
-        map[QLatin1String("password")] = conn.password;
-        map[QLatin1String("hostname")] = conn.hostname.toUpper();
-        map[QLatin1String("port")] = QString::number(conn.port);
+        map[QLatin1String(KateSQLConstants::Connection::Database)] = conn.database.toUpper();
+        map[QLatin1String(KateSQLConstants::Connection::Username)] = conn.username;
+        map[QLatin1String(KateSQLConstants::Connection::Password)] = conn.password;
+        map[QLatin1String(KateSQLConstants::Connection::Hostname)] = conn.hostname.toUpper();
+        map[QLatin1String(KateSQLConstants::Connection::Port)] = QString::number(conn.port);
     }
 
     // store the full map just as binary key as JSON
-    QKeychain::WritePasswordJob job(QStringLiteral("org.kde.kate.katesql"));
+    QKeychain::WritePasswordJob job(KeychainService);
     job.setAutoDelete(false);
     job.setKey(conn.name);
     job.setBinaryData(QJsonDocument(map).toJson(QJsonDocument::Compact));
@@ -187,14 +189,14 @@ int SQLManager::storeCredentials(const Connection &conn)
     connect(&job, &QKeychain::Job::finished, &loop, &QEventLoop::quit);
     job.start();
     loop.exec();
-    return job.error() ? SQLManager::K_WALLET_CONNECTION_ERROR : SQLManager::K_WALLET_CONNECTION_SUCCESSFUL;
+    return job.error() ? KWalletConnectionResponse::Error : KWalletConnectionResponse::Success;
 }
 
 // if success, password contain the password
 int SQLManager::readCredentials(const QString &name, QString &password)
 {
     // get the full map just as binary key as JSON
-    QKeychain::ReadPasswordJob job(QStringLiteral("org.kde.kate.katesql"));
+    QKeychain::ReadPasswordJob job(KeychainService);
     job.setAutoDelete(false);
     job.setKey(name);
 
@@ -206,12 +208,13 @@ int SQLManager::readCredentials(const QString &name, QString &password)
     if (!job.error()) {
         // check if data makes any sense
         const QJsonObject map = QJsonDocument::fromJson(job.binaryData()).object();
-        if (map.contains(QLatin1String("password"))) {
-            password = map.value(QStringLiteral("password")).toString();
-            return SQLManager::K_WALLET_CONNECTION_SUCCESSFUL;
+        const auto passwordKey = QLatin1String(KateSQLConstants::Connection::Password);
+        if (map.contains(passwordKey)) {
+            password = map.value(passwordKey).toString();
+            return KWalletConnectionResponse::Success;
         }
     }
-    return SQLManager::K_WALLET_CONNECTION_ERROR;
+    return KWalletConnectionResponse::Error;
 }
 
 ConnectionModel *SQLManager::connectionModel()
@@ -241,20 +244,20 @@ void SQLManager::loadConnections(const KConfigGroup &connectionsGroup)
         KConfigGroup group = connectionsGroup.group(groupName);
 
         c.name = groupName;
-        c.driver = group.readEntry("driver");
-        c.options = group.readEntry("options");
+        c.driver = group.readEntry(KateSQLConstants::Connection::Driver);
+        c.options = group.readEntry(KateSQLConstants::Connection::Options);
 
-        if (c.driver.contains(QLatin1String("QSQLITE"))) {
-            c.database = QUrl(group.readEntry("database")).path();
+        if (c.driver.contains(KateSQLConstants::Connection::QSQLite)) {
+            c.database = QUrl(group.readEntry(KateSQLConstants::Connection::Database)).path();
         } else {
-            c.database = group.readEntry("database");
-            c.hostname = group.readEntry("hostname");
-            c.username = group.readEntry("username");
-            c.port = group.readEntry("port", 0);
+            c.database = group.readEntry(KateSQLConstants::Connection::Database);
+            c.hostname = group.readEntry(KateSQLConstants::Connection::Hostname);
+            c.username = group.readEntry(KateSQLConstants::Connection::Username);
+            c.port = group.readEntry(KateSQLConstants::Connection::Port, 0);
 
             // for compatibility with version 0.2, when passwords
             // were stored in config file instead of kwallet
-            c.password = group.readEntry("password");
+            c.password = group.readEntry(KateSQLConstants::Connection::Password);
 
             if (!c.password.isEmpty()) {
                 c.status = Connection::ONLINE;
@@ -279,17 +282,17 @@ void SQLManager::saveConnection(KConfigGroup *connectionsGroup, const Connection
     //    qDebug() << "saving connection " << conn.name;
     KConfigGroup group = connectionsGroup->group(conn.name);
 
-    group.writeEntry("driver", conn.driver);
-    group.writeEntry("options", conn.options);
+    group.writeEntry(KateSQLConstants::Connection::Driver, conn.driver);
+    group.writeEntry(KateSQLConstants::Connection::Options, conn.options);
 
-    if (conn.driver.contains(QLatin1String("QSQLITE"))) {
-        group.writeEntry("database", QUrl::fromLocalFile(conn.database));
+    if (conn.driver.contains(KateSQLConstants::Connection::QSQLite)) {
+        group.writeEntry(KateSQLConstants::Connection::Database, QUrl::fromLocalFile(conn.database));
         return;
     }
-    group.writeEntry("database", conn.database);
-    group.writeEntry("hostname", conn.hostname);
-    group.writeEntry("username", conn.username);
-    group.writeEntry("port", conn.port);
+    group.writeEntry(KateSQLConstants::Connection::Database, conn.database);
+    group.writeEntry(KateSQLConstants::Connection::Hostname, conn.hostname);
+    group.writeEntry(KateSQLConstants::Connection::Username, conn.username);
+    group.writeEntry(KateSQLConstants::Connection::Port, conn.port);
 }
 
 void SQLManager::runQuery(const QString &text, const QString &connection)

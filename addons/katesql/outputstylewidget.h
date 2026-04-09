@@ -7,10 +7,22 @@
 #pragma once
 
 #include <QTreeWidget>
+#include <qtmetamacros.h>
 
 class OutputStyleWidget : public QTreeWidget
 {
     Q_OBJECT
+
+    enum ColumnsOrder {
+        TypeLabel = 0,
+        BoldCheckBox = 1,
+        ItalicCheckBox = 2,
+        UnderlineCheckBox = 3,
+        StrikeOutCheckBox = 4,
+        ForegroundColorButton = 5,
+        BackgroundColorButton = 6,
+    };
+    Q_ENUM(ColumnsOrder)
 
 public:
     explicit OutputStyleWidget(QWidget *parent = nullptr);

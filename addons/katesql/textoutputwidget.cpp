@@ -44,7 +44,7 @@ TextOutputWidget::TextOutputWidget(QWidget *parent)
 
     /// TODO: disable actions if no results are displayed
 
-    auto *action = new QAction(QIcon::fromTheme(QStringLiteral("edit-clear")), i18nc("@action:intoolbar", "Clear"), this);
+    auto *action = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::EditClear), i18nc("@action:intoolbar", "Clear"), this);
     toolbar->addAction(action);
     connect(action, &QAction::triggered, m_output, &QTextEdit::clear);
     m_layout->addWidget(toolbar);

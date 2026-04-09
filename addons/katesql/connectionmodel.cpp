@@ -15,10 +15,10 @@
 ConnectionModel::ConnectionModel(QObject *parent)
     : QAbstractListModel(parent)
 {
-    m_icons[Connection::UNKNOWN] = QIcon::fromTheme(QStringLiteral("user-offline"));
-    m_icons[Connection::ONLINE] = QIcon::fromTheme(QStringLiteral("user-online"));
-    m_icons[Connection::OFFLINE] = QIcon::fromTheme(QStringLiteral("user-offline"));
-    m_icons[Connection::REQUIRE_PASSWORD] = QIcon::fromTheme(QStringLiteral("user-invisible"));
+    m_icons[Connection::UNKNOWN] = QIcon::fromTheme(QIcon::ThemeIcon::UserOffline);
+    m_icons[Connection::ONLINE] = QIcon::fromTheme(QIcon::ThemeIcon::UserAvailable);
+    m_icons[Connection::OFFLINE] = QIcon::fromTheme(QIcon::ThemeIcon::UserOffline);
+    m_icons[Connection::REQUIRE_PASSWORD] = QIcon::fromTheme(QIcon::ThemeIcon::SecurityHigh);
 }
 
 ConnectionModel::~ConnectionModel() = default;

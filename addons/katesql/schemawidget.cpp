@@ -83,16 +83,16 @@ void SchemaWidget::buildDatabase(QTreeWidgetItem *databaseItem)
     QString dbname = (db.isValid() ? db.databaseName() : m_connectionName);
 
     databaseItem->setText(0, dbname);
-    databaseItem->setIcon(0, QIcon::fromTheme(QStringLiteral("server-database")));
+    databaseItem->setIcon(0, QIcon::fromTheme(QStringLiteral("server-database"))); // TODO better Icon from QIcon::ThemeIcon::...
 
-    auto *tablesItem = new QTreeWidgetItem(databaseItem, TablesFolderType);
+    auto *tablesItem = new QTreeWidgetItem(databaseItem, CustomUIType::TablesFolderType);
     tablesItem->setText(0, i18nc("@title Folder name", "Tables"));
-    tablesItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
+    tablesItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder"))); // TODO better Icon from QIcon::ThemeIcon::...
     tablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
-    auto *viewsItem = new QTreeWidgetItem(databaseItem, ViewsFolderType);
+    auto *viewsItem = new QTreeWidgetItem(databaseItem, CustomUIType::ViewsFolderType);
     viewsItem->setText(0, i18nc("@title Folder name", "Views"));
-    viewsItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
+    viewsItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder"))); // TODO better Icon from QIcon::ThemeIcon::...
     viewsItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
     databaseItem->setExpanded(true);
@@ -104,27 +104,27 @@ void SchemaWidget::buildTables(QTreeWidgetItem *tablesItem)
         return;
     }
 
-    auto *systemTablesItem = new QTreeWidgetItem(tablesItem, SystemTablesFolderType);
+    auto *systemTablesItem = new QTreeWidgetItem(tablesItem, CustomUIType::SystemTablesFolderType);
     systemTablesItem->setText(0, i18nc("@title Folder name", "System Tables"));
-    systemTablesItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
+    systemTablesItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder"))); // TODO better Icon from QIcon::ThemeIcon::...
     systemTablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     QStringList tables = db.tables(QSql::SystemTables);
 
     for (const QString &table : std::as_const(tables)) {
-        auto *item = new QTreeWidgetItem(systemTablesItem, SystemTableType);
+        auto *item = new QTreeWidgetItem(systemTablesItem, CustomUIType::SystemTableType);
         item->setText(0, table);
-        item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-table.png")));
+        item->setIcon(0, QIcon(SqlTableIcon));
         item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
     }
 
     tables = db.tables(QSql::Tables);
 
     for (const QString &table : std::as_const(tables)) {
-        auto *item = new QTreeWidgetItem(tablesItem, TableType);
+        auto *item = new QTreeWidgetItem(tablesItem, CustomUIType::TableType);
         item->setText(0, table);
-        item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-table.png")));
+        item->setIcon(0, QIcon(SqlTableIcon));
         item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
     }
 
@@ -142,7 +142,7 @@ void SchemaWidget::buildViews(QTreeWidgetItem *viewsItem)
     const QStringList views = db.tables(QSql::Views);
 
     for (const QString &view : views) {
-        auto *item = new QTreeWidgetItem(viewsItem, ViewType);
+        auto *item = new QTreeWidgetItem(viewsItem, CustomUIType::ViewType);
         item->setText(0, view);
         item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-view.png")));
         item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
@@ -169,7 +169,7 @@ void SchemaWidget::buildFields(QTreeWidgetItem *tableItem)
 
         QString fieldName = f.name();
 
-        auto *item = new QTreeWidgetItem(tableItem, FieldType);
+        auto *item = new QTreeWidgetItem(tableItem, CustomUIType::FieldType);
         item->setText(0, fieldName);
 
         if (pk.contains(fieldName)) {
@@ -204,15 +204,15 @@ void SchemaWidget::mouseMoveEvent(QMouseEvent *event)
         return;
     }
 
-    if (item->type() != SchemaWidget::SystemTableType && item->type() != SchemaWidget::TableType && item->type() != SchemaWidget::ViewType
-        && item->type() != SchemaWidget::FieldType) {
+    if (item->type() != CustomUIType::SystemTableType && item->type() != CustomUIType::TableType && item->type() != CustomUIType::ViewType
+        && item->type() != CustomUIType::FieldType) {
         return;
     }
 
     auto *drag = new QDrag(this);
     auto *mimeData = new QMimeData;
 
-    if (item->type() == SchemaWidget::FieldType) {
+    if (item->type() == CustomUIType::FieldType) {
         mimeData->setText(QStringLiteral("%1.%2").arg(item->parent()->text(0), item->text(0)));
     } else {
         mimeData->setText(item->text(0));
@@ -231,21 +231,21 @@ void SchemaWidget::slotItemExpanded(QTreeWidgetItem *item)
     }
 
     switch (item->type()) {
-    case SchemaWidget::TablesFolderType: {
+    case CustomUIType::TablesFolderType: {
         if (!m_tablesLoaded) {
             buildTables(item);
         }
     } break;
 
-    case SchemaWidget::ViewsFolderType: {
+    case CustomUIType::ViewsFolderType: {
         if (!m_viewsLoaded) {
             buildViews(item);
         }
     } break;
 
-    case SchemaWidget::TableType:
-    case SchemaWidget::SystemTableType:
-    case SchemaWidget::ViewType: {
+    case CustomUIType::TableType:
+    case CustomUIType::SystemTableType:
+    case CustomUIType::ViewType: {
         if (item->childCount() == 0) {
             buildFields(item);
         }
@@ -262,14 +262,14 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
     QTreeWidgetItem *item = itemAt(pos);
 
     if (item) {
-        if (item->type() == SchemaWidget::SystemTableType || item->type() == SchemaWidget::TableType || item->type() == SchemaWidget::ViewType
-            || item->type() == SchemaWidget::FieldType) {
-            menu.addAction(QIcon::fromTheme(QStringLiteral("view-sort-descending")),
+        if (item->type() == CustomUIType::SystemTableType || item->type() == CustomUIType::TableType || item->type() == CustomUIType::ViewType
+            || item->type() == CustomUIType::FieldType) {
+            menu.addAction(QIcon::fromTheme(QStringLiteral("view-sort-descending")), // TODO better Icon from QIcon::ThemeIcon::...
                            i18nc("@action:inmenu Context menu", "Select Data"),
                            this,
                            &SchemaWidget::browseData);
-            QMenu *submenu = menu.addMenu(QIcon::fromTheme(QStringLiteral("tools-wizard")), i18nc("@action:inmenu Submenu title", "Generate"));
-
+            QMenu *submenu = menu.addMenu(QIcon::fromTheme(QStringLiteral("tools-wizard")), // TODO better Icon from QIcon::ThemeIcon::...
+                                          i18nc("@action:inmenu Submenu title", "Generate"));
             submenu->addAction(i18n("SELECT"), this, &SchemaWidget::generateSelectIntoView);
             submenu->addAction(i18n("UPDATE"), this, &SchemaWidget::generateUpdateIntoView);
             submenu->addAction(i18n("INSERT"), this, &SchemaWidget::generateInsertIntoView);
@@ -277,7 +277,7 @@ void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)
             menu.addSeparator();
         }
     }
-    menu.addAction(QIcon::fromTheme(QStringLiteral("view-refresh")), i18nc("@action:inmenu Context menu", "Refresh"), this, &SchemaWidget::refresh);
+    menu.addAction(QIcon::fromTheme(QIcon::ThemeIcon::ViewRefresh), i18nc("@action:inmenu Context menu", "Refresh"), this, &SchemaWidget::refresh);
 
     menu.exec(mapToGlobal(pos));
 }
@@ -305,9 +305,9 @@ QString SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
     QString statement;
 
     switch (item->type()) {
-    case TableType:
-    case SystemTableType:
-    case ViewType: {
+    case CustomUIType::TableType:
+    case CustomUIType::SystemTableType:
+    case CustomUIType::ViewType: {
         QString tableName = item->text(0);
 
         QSqlRecord rec = db.record(tableName);
@@ -323,7 +323,7 @@ QString SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
         statement = drv->sqlStatement(statementType, tableName, rec, false);
     } break;
 
-    case FieldType: {
+    case CustomUIType::FieldType: {
         QString tableName = item->parent()->text(0);
         QSqlRecord rec = db.record(tableName);
 
@@ -385,13 +385,13 @@ void SchemaWidget::browseData()
     QString tableName;
 
     switch (item->type()) {
-    case TableType:
-    case SystemTableType:
-    case ViewType:
+    case CustomUIType::TableType:
+    case CustomUIType::SystemTableType:
+    case CustomUIType::ViewType:
         tableName = item->text(0);
         break;
 
-    case FieldType:
+    case CustomUIType::FieldType:
         tableName = item->parent()->text(0);
         break;
 

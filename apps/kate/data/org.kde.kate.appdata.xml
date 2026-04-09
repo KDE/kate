@@ -87,6 +87,7 @@
   <summary xml:lang="ro">Redactor de text avansat</summary>
   <summary xml:lang="ru">Улучшенный текстовый редактор</summary>
   <summary xml:lang="sa">उन्नत पाठ सम्पादक</summary>
+  <summary xml:lang="sk">Pokročilý textový editor</summary>
   <summary xml:lang="sl">Napredni urejevalnik besedil</summary>
   <summary xml:lang="sv">Avancerad texteditor</summary>
   <summary xml:lang="ta">மேம்பட்ட உரைத்திருத்தி</summary>
@@ -123,6 +124,7 @@
     <p xml:lang="pt-BR">O Kate é um editor de texto rápido, multidocumento e multivisualização para programadores, desenvolvido pela KDE. Ele oferece recursos como suporte a LSP (Language Server Protocol), projetos, múltiplos cursores e seleções, integração com o Git, busca em pastas, divisões horizontais e verticais, modo VI, realce de sintaxe para mais de 300 linguagens, terminal integrado, quebra de linha dinâmica e muito mais. Está disponível para Linux, BSD, Windows e MacOS.</p>
     <p xml:lang="ru">Kate — созданный разработчиками KDE текстовый редактор для программистов. Программа обеспечивает высокую скорость работы, при этом можно работать сразу с несколькими документами и использовать сразу несколько панелей просмотра. Вот лишь некоторые из возможностей: поддержка протокола языкового сервера (Language Server Protocol, LSP), проекты, несколько курсоров и выделенных фрагментов, интеграция с Git, поиск по папкам, разделение области просмотра по горизонтали и вертикали, режим vi, подсветка синтаксиса для более чем 300 языков, встроенный терминал, динамический перенос строк. Программу можно использовать в Linux, BSD, Windows и MacOS.</p>
     <p xml:lang="sa">केट् KDE द्वारा प्रोग्रामरस्य कृते द्रुतगतिः बहु-दस्तावेजः, बहु-दृश्य-पाठ-सम्पादकः अस्ति । अस्मिन् LSP (Language Server Protocol) समर्थनम्, परियोजनानि, बहु कर्सराः चयनं च, git एकीकरणं, फोल्डरव्यापी अन्वेषणं, क्षैतिजं ऊर्ध्वाधरं च विभाजनं, vi मोड्, 300+ भाषाणां कृते वाक्यविन्यासप्रकाशनं, अन्तःनिर्मितं टर्मिनल्, गतिशीलशब्दलपेटनं च इत्यादीनि वस्तूनि सन्ति बहु अधिकं। इदं Linux, BSD, Windows, MacOS इत्यत्र उपलभ्यते ।</p>
+    <p xml:lang="sk">Kate je rýchly textový editor s podporou viacerých dokumentov a pohľadov pre programátorov od KDE. Ponúka funkcie ako podpora LSP (Language Server Protocol), projekty, viacnásobné kurzory a výbery, integrácia s Git, vyhľadávanie v celom priečinku, horizontálne a vertikálne rozdelenie, režim vi, zvýrazňovanie syntaxe pre viac ako 300 jazykov, vstavaný terminál, dynamické zalamovanie riadkov a mnoho ďalšieho. Je dostupný na systémoch Linux, BSD, Windows a MacOS.</p>
     <p xml:lang="sl">Kate je hiter urejevalnik besedil z več dokumenti in več pogledi za programerje od skupnosti KDE. Vsebuje stvari, kot so podpora za LSP (Language Server Protocol), projekti, več kazalcev in izbir, povezovanje git, iskanje po celotni mapi, vodoravne in navpične razcepe zaslona, način vi, osvetljevanje skladnje za 300+ jezikov, vgrajen terminal, dinamično prelivanje besed in še veliko več več. Na voljo je v sistemih Linux, BSD, Windows in MacOS.</p>
     <p xml:lang="sv">Kate är en snabb texteditor med flera dokument och vyer för programmerare av KDE. Den innehåller saker som stöd för LSP (Language Server Protocol)x, projekt, flera markörer och markeringar, integrering med git, katalogsökning, horisontell och vertikal uppdelning, vi-läge, syntaxmarkering för över 300 språk, inbyggd terminal, dynamisk radbrytning och mycket mer. Den är tillgänglig på Linux, BSD, Windows och MacOS.</p>
     <p xml:lang="tr">Kate, KDE tarafından programcılar için yapılan hızlı bir çok belgeli, çok görünümlü bir metin düzenleyicisidir. LSP (Dil Sunucusu Protokolü) desteği, projeler, çoklu imleç ve seçim, Git tümleştirmesi, klasör çapında arama, yatay ve dikey bölmeler, vi(1) kipi, 300’den fazla dil için sözdizim vurgulaması, yerleşik uçbirim, devingen sözcük kaydırma ve çok daha fazlası gibi özelliklere sahiptir. Linux, BSD, Windows ve macOS üzerinde kullanılabilirdir.</p>
@@ -522,6 +524,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt-BR">Realce de sintaxe para mais de 300 linguagens</li>
       <li xml:lang="ru">Подсветка синтаксиса для более чем 300 языков;</li>
       <li xml:lang="sa">300+ भाषाणां कृते वाक्यविन्यासप्रकाशनम्</li>
+      <li xml:lang="sk">Zvýrazňovanie syntaxe pre viac ako 300 jazykov</li>
       <li xml:lang="sl">Osvetljevanje skladnje za 300+ jezikov</li>
       <li xml:lang="sv">Syntaxfärgläggning för över 300 språk</li>
       <li xml:lang="ta">300-க்கும் மேற்பட்ட நிரலாக்க மொழிகளுக்கான இலக்கணசார் முன்னிலைப்படுத்தல்</li>
@@ -608,6 +611,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt-BR">Cursores e seleções múltiplas</li>
       <li xml:lang="ru">Несколько курсоров и несколько выделенных фрагментов;</li>
       <li xml:lang="sa">बहुविधाः कर्सराः बहुचयनं च</li>
+      <li xml:lang="sk">Viacnásobné kurzory a viacnásobné výbery</li>
       <li xml:lang="sl">Večkratne kazalke in večkratne izbire</li>
       <li xml:lang="sv">Flera markörer och flera markeringar</li>
       <li xml:lang="ta">ஒரே நேரத்தில் பல இடஞ்சுட்டிகளும் தேர்வுகளும்</li>
@@ -893,6 +897,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt-BR">Expansível via plugins</li>
       <li xml:lang="ru">Расширение возможностей с помощью подключаемых модулей;</li>
       <li xml:lang="sa">प्लगिन्स् मार्गेण विस्तारणीयम्</li>
+      <li xml:lang="sk">Rozšíriteľný pomocou zásuvných modulov</li>
       <li xml:lang="sl">Razširljiv prek vtičnikov</li>
       <li xml:lang="sv">Utökningsbart via insticksprogram</li>
       <li xml:lang="ta">செருகுநிரல்களால் மேம்படுத்தக்கூடியது</li>
@@ -927,6 +932,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt-BR">Terminal integrado</li>
       <li xml:lang="ru">Встроенный терминал;</li>
       <li xml:lang="sa">एकीकृत टर्मिनल</li>
+      <li xml:lang="sk">Integrovaný príkazový riadok</li>
       <li xml:lang="sl">Integrirani terminal</li>
       <li xml:lang="sv">Integrerad terminal</li>
       <li xml:lang="ta">உள்ளமைந்த முனையம்</li>
@@ -1013,6 +1019,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ro">Regim Vi</li>
       <li xml:lang="ru">Режим vi;</li>
       <li xml:lang="sa">वयं फैशनं कुर्मः</li>
+      <li xml:lang="sk">Režim vi</li>
       <li xml:lang="sl">Način vi</li>
       <li xml:lang="sv">Vi-läge</li>
       <li xml:lang="ta">Vi பயன்முறை</li>
@@ -1046,6 +1053,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt-BR">Suporte a Intellisense usando LSP (Language Server Protocol)</li>
       <li xml:lang="ru">Поддержка IntelliSense с помощью протокола языкового сервера (Language Server Protocol, LSP);</li>
       <li xml:lang="sa">LSP (Language Server Protocol) इत्यस्य उपयोगेन Intellisense समर्थनम्</li>
+      <li xml:lang="sk">Podpora Intellisense pomocou LSP (Language Server Protocol)</li>
       <li xml:lang="sl">Podpora za intellisense z uporabo LSP (Language Server Protocol)</li>
       <li xml:lang="sv">Stöd för Intellisense med LSP (Language Server Protocol)</li>
       <li xml:lang="tr">LSP (Dil Sunucusu Protokolü) kullanarak Intellisense desteği</li>
@@ -1079,6 +1087,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ro">Suport pentru DAP (Debug Adapter Protocol)</li>
       <li xml:lang="ru">Поддержка протокола отладочного адаптера (Debug Adapter Protocol, DAP);</li>
       <li xml:lang="sa">DAP (Debug Adapter Protocol) समर्थनम्</li>
+      <li xml:lang="sk">Podpora DAP (Debug Adapter Protocol)</li>
       <li xml:lang="sl">Podpora DAP (Debug Adapter Protocol)</li>
       <li xml:lang="sv">Stöd för DAP (Debug Adapter Protocol)</li>
       <li xml:lang="tr">DAP (Hata Ayıklama Bağdaştırıcısı Protokolü) desteği</li>
@@ -1112,6 +1121,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ro">Listă verticală de file și documente</li>
       <li xml:lang="ru">Вертикальные вкладки/список документов;</li>
       <li xml:lang="sa">ऊर्ध्वाधर ट्याब्स्/दस्तावेजसूची</li>
+      <li xml:lang="sk">Vertikálne karty/zoznam dokumentov</li>
       <li xml:lang="sl">Navpični zavihki/seznam dokumentov</li>
       <li xml:lang="sv">Vertikala flikar och dokumentlista</li>
       <li xml:lang="ta">செங்குத்தான கீற்று/ஆவண பட்டியல்</li>
@@ -1145,6 +1155,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt-BR">Suporte a projetos leves. O Kate pode abrir pastas como projetos</li>
       <li xml:lang="ru">Легковесная поддержка проектов. Kate позволяет открывать папки как проекты;</li>
       <li xml:lang="sa">हल्के परियोजना समर्थन। केट् परियोजनारूपेण पुटं उद्घाटयितुं शक्नोति</li>
+      <li xml:lang="sk">Jednoduchá podpora projektov. Kate dokáže otvárať priečinky ako projekty</li>
       <li xml:lang="sl">Lahka projektna podpora. Kate lahko odpira mape kot projekte</li>
       <li xml:lang="sv">Lättviktigt projektstöd. Kate kan öppna kataloger som projekt.</li>
       <li xml:lang="ta">எளிய திட்டப்பணி ஆதரவு. அடைவுகளை திட்டப்பணிகளாக கேட்டில் திறக்கலாம்</li>
@@ -1178,6 +1189,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="pt-BR">Formatação de código usando formatadores nativos como clang-format, prettier etc.</li>
       <li xml:lang="ru">Форматирование кода с помощью стандартных для ОС средств (clang-format, prettier и так далее);</li>
       <li xml:lang="sa">clang-format, prettier इत्यादीनां देशीस्वरूपकानाम् उपयोगेन कोडस्वरूपणं</li>
+      <li xml:lang="sk">Formátovanie kódu pomocou natívnych formátovačov ako clang-format, prettier atď.</li>
       <li xml:lang="sl">Oblikovanje kode z uporabo izvornih formatov, kot so clang-format, prettier itd.</li>
       <li xml:lang="sv">Kodformatering med inbyggda formateringsverktyg såsom clang-format, prettier, etc.</li>
       <li xml:lang="tr">clang-format, prettier vb. gibi yerel biçimlendiricileri kullanarak kod biçimlendirmesi</li>
@@ -1211,6 +1223,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ro">Navigator încorporat pentru sistemul de fișiere</li>
       <li xml:lang="ru">Встроенный просмотр файловой системы;</li>
       <li xml:lang="sa">सञ्चिकातन्त्रब्राउजरे निर्मितम्</li>
+      <li xml:lang="sk">Vstavaný prehliadač súborového systému</li>
       <li xml:lang="sl">Vgrajeni brskalnik datotečnega sistema</li>
       <li xml:lang="sv">Inbyggd filsystemsbläddrare</li>
       <li xml:lang="ta">உள்ளமை கோப்பு முறைமை உலாவி</li>
@@ -1245,6 +1258,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ro">Suport pentru CTags</li>
       <li xml:lang="ru">Поддержка CTags;</li>
       <li xml:lang="sa">CTags समर्थनम्</li>
+      <li xml:lang="sk">Podpora CTags</li>
       <li xml:lang="sl">Podpora CTags</li>
       <li xml:lang="sv">CTags-stöd</li>
       <li xml:lang="ta">CTags ஆதரவு</li>
@@ -1279,6 +1293,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ro">Căutare în tot dosarul și tot proiectul</li>
       <li xml:lang="ru">Поиск по проекту и по папкам;</li>
       <li xml:lang="sa">परियोजना विस्तृतं तथा पुटव्यापी अन्वेषणम्</li>
+      <li xml:lang="sk">Vyhľadávanie v celom projekte a priečinku</li>
       <li xml:lang="sl">Iskanje po celotnem projektu in mapi</li>
       <li xml:lang="sv">Projektomfattande och katalogomfattande sökning</li>
       <li xml:lang="ta">திட்டப்பணி அல்லது அடைவு முழுவதிலும் தேடலாம்</li>
@@ -1314,6 +1329,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ro">Integrare cu Git</li>
       <li xml:lang="ru">Интеграция с Git.</li>
       <li xml:lang="sa">गिट् एकीकरणम्</li>
+      <li xml:lang="sk">Integrácia shellu</li>
       <li xml:lang="sl">Integracija Git-a</li>
       <li xml:lang="sv">Git-integrering</li>
       <li xml:lang="ta">Git ஒருங்கிணைப்பு</li>
@@ -1412,6 +1428,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ro">Kate cu un proiect bazat pe Git</caption>
       <caption xml:lang="ru">Kate с проектом на основе Git</caption>
       <caption xml:lang="sa">केट् किञ्चित् Git आधारित परियोजना सह</caption>
+      <caption xml:lang="sk">Kate s projektom založeným na Git</caption>
       <caption xml:lang="sl">Kate z nekim projektom, ki temelji na Gitu</caption>
       <caption xml:lang="sv">Kate med något Git-baserat projekt</caption>
       <caption xml:lang="ta">Git திட்டப்பணியில் கேட்</caption>
@@ -1454,6 +1471,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ro">Kate cu vizualizare despărțită</caption>
       <caption xml:lang="ru">Kate с разделённым окном</caption>
       <caption xml:lang="sa">विभक्तदृष्ट्या सह केट्</caption>
+      <caption xml:lang="sk">Kate s rozdeleným pohľadom</caption>
       <caption xml:lang="sl">Kate z deljenim pogledom</caption>
       <caption xml:lang="sv">Kate med delad vy</caption>
       <caption xml:lang="ta">பிரிந்த காட்சிமுறையுடன் கேட்</caption>
@@ -1496,6 +1514,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ro">Kate în regim întunecat</caption>
       <caption xml:lang="ru">Kate в тёмном режиме</caption>
       <caption xml:lang="sa">केट् डार्क मोड् मध्ये</caption>
+      <caption xml:lang="sk">Kate v tmavom režime</caption>
       <caption xml:lang="sl">Kate v temnem načinu</caption>
       <caption xml:lang="sv">Kate i mörkt läge</caption>
       <caption xml:lang="ta">கருமையான நிறத்திட்டத்துடன் கேட்</caption>
@@ -1537,6 +1556,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="pt-BR">Criar um novo branch Git com o Kate</caption>
       <caption xml:lang="ru">Создание новой ветви Git с помощью Kate</caption>
       <caption xml:lang="sa">केट् इत्यनेन सह नूतनं Git शाखां रचयन्तु</caption>
+      <caption xml:lang="sk">Vytvorenie novej vetvy Git pomocou Kate</caption>
       <caption xml:lang="sl">S Kate ustvari novo vejo Git</caption>
       <caption xml:lang="sv">Skapa en ny gren i Git med Kate</caption>
       <caption xml:lang="ta">கேட்டால் புதிய git கிளையை உருவாக்குவது</caption>

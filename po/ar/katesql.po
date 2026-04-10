@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Safa Alfulaij <safaalfulaij@hotmail.con>, 2013, 2016.
-# SPDX-FileCopyrightText: 2021, 2022, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2021, 2022, 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2025-10-15 20:07+0400\n"
+"POT-Creation-Date: 2026-04-10 00:57+0000\n"
+"PO-Revision-Date: 2026-04-09 11:28+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -19,90 +19,90 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: connectionwizard.cpp:27
+#: connectionwizard.cpp:30
 #, kde-format
 msgctxt "@title:window"
 msgid "Connection Wizard"
 msgstr "مُرشد الاتّصالات"
 
-#: connectionwizard.cpp:42
+#: connectionwizard.cpp:45
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Database Driver"
 msgstr "محرّك قاعدة البيانات"
 
-#: connectionwizard.cpp:43
+#: connectionwizard.cpp:46
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
 msgstr "اختر محرّك قاعدة البيانات"
 
-#: connectionwizard.cpp:50
+#: connectionwizard.cpp:53
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Database driver:"
 msgstr "محرّك قاعدة البيانات:"
 
-#: connectionwizard.cpp:79 connectionwizard.cpp:165
+#: connectionwizard.cpp:82 connectionwizard.cpp:168
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
 msgstr "معاملات الاتّصال"
 
-#: connectionwizard.cpp:80
+#: connectionwizard.cpp:83
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
 msgstr "فضلًا أدخل معاملات الاتّصال"
 
-#: connectionwizard.cpp:92
+#: connectionwizard.cpp:95
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
 msgstr "المبدئيّ"
 
-#: connectionwizard.cpp:95
+#: connectionwizard.cpp:98
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Hostname:"
 msgstr "اسم المضيف:"
 
-#: connectionwizard.cpp:96
+#: connectionwizard.cpp:99
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
 msgstr "اسم المستخدم:"
 
-#: connectionwizard.cpp:97
+#: connectionwizard.cpp:100
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Password:"
 msgstr "كلمة السر:"
 
-#: connectionwizard.cpp:98
+#: connectionwizard.cpp:101
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Port:"
 msgstr "المنفذ:"
 
-#: connectionwizard.cpp:99
+#: connectionwizard.cpp:102
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "اسم قاعدة البيانات:"
 
-#: connectionwizard.cpp:100 connectionwizard.cpp:177
+#: connectionwizard.cpp:103 connectionwizard.cpp:180
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
 msgstr "خيارات الاتّصال:"
 
-#: connectionwizard.cpp:150
+#: connectionwizard.cpp:153
 #, kde-format
 msgid "Unable to connect to database."
 msgstr "تعذّر الاتّصال بقاعدة البيانات."
 
-#: connectionwizard.cpp:167
+#: connectionwizard.cpp:170
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -112,50 +112,48 @@ msgstr ""
 "فضلًا أدخل مسار ملفّ قاعدة بيانات SQLite.\n"
 "إن لم يكن الملفّ موجودًا، ستُنشأ قاعدة بيانات جديدة."
 
-#: connectionwizard.cpp:175
+#: connectionwizard.cpp:178
 #, kde-format
 msgid "Database files"
 msgstr "ملفّات قواعد البيانات"
 
-#: connectionwizard.cpp:175 exportwizard.cpp:53
+#: connectionwizard.cpp:178 exportwizard.cpp:54
 #, kde-format
 msgid "All files"
 msgstr "كلّ الملفّات"
 
-#: connectionwizard.cpp:176
+#: connectionwizard.cpp:179
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "المسار:"
 
-#: connectionwizard.cpp:209
+#: connectionwizard.cpp:212
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "تعذّر الاتّصال بقاعدة البيانات.<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:224
+#: connectionwizard.cpp:227
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "اسم الاتّصال"
 
-#: connectionwizard.cpp:225
+#: connectionwizard.cpp:228
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "أدخل اسم اتّصال فريد"
 
-#: connectionwizard.cpp:231
+#: connectionwizard.cpp:234
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "اسم الاتّصال:"
 
 #: dataoutputwidget.cpp:88
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "حدّث"
@@ -200,124 +198,122 @@ msgstr "استخدم محليّة النّظام"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "ألصق"
 
 #: dataoutputwidget.cpp:147
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "اضبط فارغ"
 
 #: dataoutputwidget.cpp:155
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "أدرِج صفًا"
 
 #: dataoutputwidget.cpp:163
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "أزِل الصفوف المحددة"
 
 #: dataoutputwidget.cpp:171
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "ضاعِف القناع المختار"
 
 #: dataoutputwidget.cpp:179
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "تراجع"
 
 #: dataoutputwidget.cpp:187
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "احفظ"
 
 #: dataoutputwidget.cpp:200
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "Where:"
 
 #: dataoutputwidget.cpp:208
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:209
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "أدخل جملة WHERE في SQL لتصفية البيانات"
 
-#: dataoutputwidget.cpp:494
+#: dataoutputwidget.cpp:489
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "تعذّر فتح الملفّ <filename>%1</filename>"
 
-#: dataoutputwidget.cpp:510
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#: dataoutputwidget.cpp:505
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "تعذّر الاتّصال بقاعدة البيانات.<nl/><message>%1</message>"
+msgstr "فشل حفظ التغييرات: <message>%1</message>"
 
-#: exportwizard.cpp:26
+#: exportwizard.cpp:27
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "مُرشد التّصدير"
 
-#: exportwizard.cpp:39
+#: exportwizard.cpp:40
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "هدف الخرج"
 
-#: exportwizard.cpp:40
+#: exportwizard.cpp:41
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "اختر هدف الخرج."
 
-#: exportwizard.cpp:44
+#: exportwizard.cpp:45
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "المستند الحاليّ"
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "الحافظة"
 
-#: exportwizard.cpp:46
+#: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "ملفّ"
 
-#: exportwizard.cpp:53
+#: exportwizard.cpp:54
 #, kde-format
 msgid "Comma Separated Values"
 msgstr "قيم مفصولة بفواصل"
 
-#: exportwizard.cpp:95
+#: exportwizard.cpp:96
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "نسق الحقول"
 
-#: exportwizard.cpp:96
+#: exportwizard.cpp:97
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -325,198 +321,198 @@ msgid ""
 "Click on \"Finish\" button to export data."
 msgstr "اختر نسق الحقول.انقر زر \"أنهِ\" لتصدير البيانات."
 
-#: exportwizard.cpp:100
+#: exportwizard.cpp:101
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "التّرويسات"
 
-#: exportwizard.cpp:103
+#: exportwizard.cpp:104
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "صدّر أسماء الأعمدة"
 
-#: exportwizard.cpp:104
+#: exportwizard.cpp:105
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "صدّر أرقام الأسطر"
 
-#: exportwizard.cpp:111
+#: exportwizard.cpp:112
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "علامات الاقتباس"
 
-#: exportwizard.cpp:114
+#: exportwizard.cpp:115
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "ضع السّلاسل بين علامتيّ اقتباس"
 
-#: exportwizard.cpp:115
+#: exportwizard.cpp:116
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "ضع الأرقام بين علامتيّ اقتباس"
 
-#: exportwizard.cpp:123 exportwizard.cpp:126
+#: exportwizard.cpp:124 exportwizard.cpp:127
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "المحرف:"
 
-#: exportwizard.cpp:132
+#: exportwizard.cpp:133
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "الفواصل"
 
-#: exportwizard.cpp:138
+#: exportwizard.cpp:139
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"
 msgstr "فاصل الحقول:"
 
-#: katesqlconfigpage.cpp:23
+#: katesqlconfigpage.cpp:25
 #, kde-format
 msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
 msgstr "احفظ الاتّصالات في جلسة «كيت» واستعدها"
 
-#: katesqlconfigpage.cpp:25
+#: katesqlconfigpage.cpp:27
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "تخصيص الخرج"
 
-#: katesqlconfigpage.cpp:51
+#: katesqlconfigpage.cpp:53
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:56
+#: katesqlconfigpage.cpp:58
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "إعدادات صفحة ضبط SQL"
 
-#: katesqlview.cpp:43
+#: katesqlview.cpp:44
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:50
+#: katesqlview.cpp:51
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:56
+#: katesqlview.cpp:57
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "مخطّط SQL"
 
-#: katesqlview.cpp:105
+#: katesqlview.cpp:106
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "أضف اتّصالًا..."
 
-#: katesqlview.cpp:110
+#: katesqlview.cpp:111
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "أزل الاتّصال"
 
-#: katesqlview.cpp:115
+#: katesqlview.cpp:116
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "حرّر الاتّصال..."
 
-#: katesqlview.cpp:120
+#: katesqlview.cpp:121
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "أعد الاتّصال"
 
-#: katesqlview.cpp:126
+#: katesqlview.cpp:127
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "الاتّصال"
 
-#: katesqlview.cpp:130
+#: katesqlview.cpp:131
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "نفّذ الاستعلام"
 
-#: outputstylewidget.cpp:28
+#: outputstylewidget.cpp:32
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "السّياق"
 
-#: outputstylewidget.cpp:28
+#: outputstylewidget.cpp:32
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "لون النّصّ"
 
-#: outputstylewidget.cpp:29
+#: outputstylewidget.cpp:33
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "لون الخلفيّة"
 
-#: outputstylewidget.cpp:38
+#: outputstylewidget.cpp:42
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "النّصّوص"
 
-#: outputstylewidget.cpp:39
+#: outputstylewidget.cpp:43
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "الأرقام"
 
-#: outputstylewidget.cpp:40
+#: outputstylewidget.cpp:44
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "القيم المنطقيّة"
 
-#: outputstylewidget.cpp:41
+#: outputstylewidget.cpp:45
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "التّاريخ والوقت"
 
-#: outputstylewidget.cpp:42
+#: outputstylewidget.cpp:46
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "العدم"
 
-#: outputstylewidget.cpp:43
+#: outputstylewidget.cpp:47
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "القيم الثّنائيّة"
 
-#: outputwidget.cpp:18
+#: outputwidget.cpp:20
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "خرج نصّ SQL"
 
-#: outputwidget.cpp:19
+#: outputwidget.cpp:23
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"
@@ -552,7 +548,7 @@ msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "حدد البيانات"
 
-#: schemawidget.cpp:271
+#: schemawidget.cpp:272
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
@@ -584,12 +580,12 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "حدّث"
 
-#: sqlmanager.cpp:315
+#: sqlmanager.cpp:318
 #, kde-format
 msgid "Prepare Statement Failure"
 msgstr "إعداد بيان الفشل"
 
-#: sqlmanager.cpp:316
+#: sqlmanager.cpp:319
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
@@ -598,13 +594,13 @@ msgstr ""
 "<p>فشل إعداد الاستعلام مع الخطأ التالي: %1</p><p>هل تريد المتابعة دون إعداد "
 "الاستعلام؟ </p>"
 
-#: sqlmanager.cpp:346
+#: sqlmanager.cpp:349
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "انتهى الاستعلام بنجاح"
 
-#: sqlmanager.cpp:349 sqlmanager.cpp:387
+#: sqlmanager.cpp:352 sqlmanager.cpp:390
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -616,7 +612,7 @@ msgstr[3] "%1 سجلّات محدّدة"
 msgstr[4] "%1 سجلًّا محدّدًا"
 msgstr[5] "%1 سجلّ محدّد"
 
-#: sqlmanager.cpp:353
+#: sqlmanager.cpp:356
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

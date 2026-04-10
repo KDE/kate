@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-04 00:48+0000\n"
-"PO-Revision-Date: 2026-03-24 09:56+0400\n"
+"PO-Revision-Date: 2026-04-09 11:26+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -886,10 +886,9 @@ msgid "Project Manager"
 msgstr "مدير المشروع"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Current Project"
-msgstr "أغلق المشروع"
+msgstr "المشروع الحاليّ"
 
 #: kateprojectpluginview.cpp:86
 #, kde-format
@@ -1164,10 +1163,9 @@ msgstr "م&شاريع"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:27
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
-msgstr "إكمال المشروع"
+msgstr "ملحق المشروع"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "أظهر محتويات التخزين المؤقت"

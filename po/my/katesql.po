@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-04-10 00:57+0000\n"
 "PO-Revision-Date: 2024-09-10 15:37+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -18,90 +18,90 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.5\n"
 
-#: connectionwizard.cpp:27
+#: connectionwizard.cpp:30
 #, kde-format
 msgctxt "@title:window"
 msgid "Connection Wizard"
 msgstr "ချိတ်ဆက်မှု မှော်ဆရာ"
 
-#: connectionwizard.cpp:42
+#: connectionwizard.cpp:45
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Database Driver"
 msgstr "ဒေတာဘေ့စ် ဒရိုက်ဗာ"
 
-#: connectionwizard.cpp:43
+#: connectionwizard.cpp:46
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
 msgstr "ဒေတာဘေ့စ် ဒရိုက်ဗာ ရွေးပါ"
 
-#: connectionwizard.cpp:50
+#: connectionwizard.cpp:53
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Database driver:"
 msgstr "ဒေတာဘေ့စ် ဒရိုက်ဗာ"
 
-#: connectionwizard.cpp:79 connectionwizard.cpp:165
+#: connectionwizard.cpp:82 connectionwizard.cpp:168
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
 msgstr "ချိတ်ဆက်မှုဆိုင်ရာ ပေးချက်များ"
 
-#: connectionwizard.cpp:80
+#: connectionwizard.cpp:83
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
 msgstr "ချိတ်ဆက်မှုဆိုင်ရာ ပေးချက်များ ရိုက်သွင်းပါ"
 
-#: connectionwizard.cpp:92
+#: connectionwizard.cpp:95
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
 msgstr "မူလသတ်မှတ်ချက်"
 
-#: connectionwizard.cpp:95
+#: connectionwizard.cpp:98
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Hostname:"
 msgstr "အိမ်ရှင်အမည် -"
 
-#: connectionwizard.cpp:96
+#: connectionwizard.cpp:99
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
 msgstr "အသုံးပြုသူအမည် -"
 
-#: connectionwizard.cpp:97
+#: connectionwizard.cpp:100
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Password:"
 msgstr "စကားဝှက် -"
 
-#: connectionwizard.cpp:98
+#: connectionwizard.cpp:101
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Port:"
 msgstr "ကွန်ရက်ဆိပ်ကမ်း -"
 
-#: connectionwizard.cpp:99
+#: connectionwizard.cpp:102
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "ဒေတာဘေ့စ် အမည် -"
 
-#: connectionwizard.cpp:100 connectionwizard.cpp:177
+#: connectionwizard.cpp:103 connectionwizard.cpp:180
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
 msgstr "ချိတ်ဆက်မှုဆိုင်ရာ ရွေးချယ်စရာများ -"
 
-#: connectionwizard.cpp:150
+#: connectionwizard.cpp:153
 #, kde-format
 msgid "Unable to connect to database."
 msgstr "ဒေတာဘေ့စ် သို့ မချိတ်ဆက်နိုင်ခဲ့ပါ။"
 
-#: connectionwizard.cpp:167
+#: connectionwizard.cpp:170
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -111,41 +111,41 @@ msgstr ""
 "အက်စ်ကျူလိုက် ဒေတာဘေ့စ် ဖိုင်လ် လမ်းကြောင်း ရိုက်သွင်းပါ။\n"
 "ဖိုင်လ် မရှိလျှင် ဒေတာဘေ့စ် အသစ် ဖန်တီးမည်။"
 
-#: connectionwizard.cpp:175
+#: connectionwizard.cpp:178
 #, kde-format
 msgid "Database files"
 msgstr "ဒေတာဘေ့စ်ဖိုင်လ်များ"
 
-#: connectionwizard.cpp:175 exportwizard.cpp:53
+#: connectionwizard.cpp:178 exportwizard.cpp:54
 #, kde-format
 msgid "All files"
 msgstr "ဖိုင်လ်အားလုံး"
 
-#: connectionwizard.cpp:176
+#: connectionwizard.cpp:179
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "လမ်းကြောင်း -"
 
-#: connectionwizard.cpp:209
+#: connectionwizard.cpp:212
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "ဒေတာဘေ့စ်သို့ ချိတ်ဆက်မရပါ။<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:224
+#: connectionwizard.cpp:227
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "ချိတ်ဆက်မှု အမည်"
 
-#: connectionwizard.cpp:225
+#: connectionwizard.cpp:228
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "ကွဲပြားသော ချိတ်ဆက်မှုအမည်ရေးပါ"
 
-#: connectionwizard.cpp:231
+#: connectionwizard.cpp:234
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -255,13 +255,13 @@ msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr ""
 
-#: dataoutputwidget.cpp:494
+#: dataoutputwidget.cpp:489
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "<filename>%1</filename> ဖိုင်လ် ကိုမဖွင့်နိုင်ပါ"
 
-#: dataoutputwidget.cpp:510
+#: dataoutputwidget.cpp:505
 #, fuzzy, kde-kuit-format
 #| msgctxt "@info"
 #| msgid "Unable to connect to database.<nl/><message>%1</message>"
@@ -269,54 +269,54 @@ msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
 msgstr "ဒေတာဘေ့စ်သို့ ချိတ်ဆက်မရပါ။<nl/><message>%1</message>"
 
-#: exportwizard.cpp:26
+#: exportwizard.cpp:27
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "ထုတ်ပို့မှု မှော်ဆရာ"
 
-#: exportwizard.cpp:39
+#: exportwizard.cpp:40
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "အထုတ် ဦိးတည်မှု"
 
-#: exportwizard.cpp:40
+#: exportwizard.cpp:41
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "အထုတ် ဦိးတည်ဖိုင်လ် ရွေးပါ။"
 
-#: exportwizard.cpp:44
+#: exportwizard.cpp:45
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူ"
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "ကလစ်ဘုတ်"
 
-#: exportwizard.cpp:46
+#: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "ဖိုင်လ်"
 
-#: exportwizard.cpp:53
+#: exportwizard.cpp:54
 #, kde-format
 msgid "Comma Separated Values"
 msgstr "ကော်မာခြားထားသောဒေတာများ"
 
-#: exportwizard.cpp:95
+#: exportwizard.cpp:96
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "ကွက်လပ်များ အချိုးအစား"
 
-#: exportwizard.cpp:96
+#: exportwizard.cpp:97
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -326,198 +326,198 @@ msgstr ""
 "ကွက်လပ်အချိုးအစားရွေးချယ်ပါ။\n"
 "ဒေတာထုတ်ပို့ရန် \"ပြီးပြီ\" ခလုတ်ကိုနှိပ်ပါ။"
 
-#: exportwizard.cpp:100
+#: exportwizard.cpp:101
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "ခေါင်းစီးများ"
 
-#: exportwizard.cpp:103
+#: exportwizard.cpp:104
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "တိုင်အမည်များ ထုတ်ပို့မည်"
 
-#: exportwizard.cpp:104
+#: exportwizard.cpp:105
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "စာကြောင်းနံပါတ်များ ထုတ်ပို့မည်"
 
-#: exportwizard.cpp:111
+#: exportwizard.cpp:112
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "ကိုးကားမှုများ"
 
-#: exportwizard.cpp:114
+#: exportwizard.cpp:115
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "ကိုးကားမှု စာသားများ"
 
-#: exportwizard.cpp:115
+#: exportwizard.cpp:116
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "ကိုးကားမှုနံပါတ်များ ထုတ်ပို့မည်"
 
-#: exportwizard.cpp:123 exportwizard.cpp:126
+#: exportwizard.cpp:124 exportwizard.cpp:127
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "အက္ခရာ -"
 
-#: exportwizard.cpp:132
+#: exportwizard.cpp:133
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "အကန့်-အက္ခရာများ"
 
-#: exportwizard.cpp:138
+#: exportwizard.cpp:139
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"
 msgstr "ကွက်လပ် အကန့်-အက္ခရာ -"
 
-#: katesqlconfigpage.cpp:23
+#: katesqlconfigpage.cpp:25
 #, kde-format
 msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
 msgstr "ကိတ်ဆက်ရှင်တွင် ချိတ်ဆက်မှုများကို သိမ်းဆည်း၍ ပြန်ထားသိုမည်"
 
-#: katesqlconfigpage.cpp:25
+#: katesqlconfigpage.cpp:27
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "အထုတ်ကို စိတ်ကြိုက်ပြင်ဆင်မည်"
 
-#: katesqlconfigpage.cpp:51
+#: katesqlconfigpage.cpp:53
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "အက်စ်ကျူအယ်"
 
-#: katesqlconfigpage.cpp:56
+#: katesqlconfigpage.cpp:58
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "အက်စ်ကျူအယ် ကွန်ဖစ်ပေ့ချ် ဆက်တင်"
 
-#: katesqlview.cpp:43
+#: katesqlview.cpp:44
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:50
+#: katesqlview.cpp:51
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:56
+#: katesqlview.cpp:57
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL Schema"
 
-#: katesqlview.cpp:105
+#: katesqlview.cpp:106
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "ချိတ်ဆက်မှု ထည့်သွင်းမည်…"
 
-#: katesqlview.cpp:110
+#: katesqlview.cpp:111
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "ချိတ်ဆက်မှု ဖယ်ရှား"
 
-#: katesqlview.cpp:115
+#: katesqlview.cpp:116
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "ချိတ်ဆက်မှု တည်းဖြတ်မည်…"
 
-#: katesqlview.cpp:120
+#: katesqlview.cpp:121
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "ပြန်ချိတ်ဆက်မည်"
 
-#: katesqlview.cpp:126
+#: katesqlview.cpp:127
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "ချိတ်ဆက်မှု"
 
-#: katesqlview.cpp:130
+#: katesqlview.cpp:131
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "ဒေတာတောင်းဆိုမှု လုပ်မည်"
 
-#: outputstylewidget.cpp:28
+#: outputstylewidget.cpp:32
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "ဆက်စပ်နေရာ"
 
-#: outputstylewidget.cpp:28
+#: outputstylewidget.cpp:32
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "စာသားအရောင်"
 
-#: outputstylewidget.cpp:29
+#: outputstylewidget.cpp:33
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "နောက်ခံအရောင်"
 
-#: outputstylewidget.cpp:38
+#: outputstylewidget.cpp:42
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "စာသား"
 
-#: outputstylewidget.cpp:39
+#: outputstylewidget.cpp:43
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "နံပါတ်"
 
-#: outputstylewidget.cpp:40
+#: outputstylewidget.cpp:44
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "Bool"
 
-#: outputstylewidget.cpp:41
+#: outputstylewidget.cpp:45
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "အချိန်နှင့်ရက်စွဲ"
 
-#: outputstylewidget.cpp:42
+#: outputstylewidget.cpp:46
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:43
+#: outputstylewidget.cpp:47
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "BLOB"
 
-#: outputwidget.cpp:18
+#: outputwidget.cpp:20
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "အက်စ်ကျူအယ် စာသားအထုတ်"
 
-#: outputwidget.cpp:19
+#: outputwidget.cpp:23
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"
@@ -553,7 +553,7 @@ msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "ဒေတာရွေး"
 
-#: schemawidget.cpp:271
+#: schemawidget.cpp:272
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
@@ -585,32 +585,32 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "အသစ်တင်မည်"
 
-#: sqlmanager.cpp:315
+#: sqlmanager.cpp:318
 #, kde-format
 msgid "Prepare Statement Failure"
 msgstr ""
 
-#: sqlmanager.cpp:316
+#: sqlmanager.cpp:319
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
 
-#: sqlmanager.cpp:346
+#: sqlmanager.cpp:349
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "ဒေတာတောင်းဆိုထားမှု အောင်မြင်စွာရရှိခဲ့သည်"
 
-#: sqlmanager.cpp:349 sqlmanager.cpp:387
+#: sqlmanager.cpp:352 sqlmanager.cpp:390
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
 msgstr[0] "မှတ်တမ်း %1ခု ရွေးထားသည်"
 
-#: sqlmanager.cpp:353
+#: sqlmanager.cpp:356
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

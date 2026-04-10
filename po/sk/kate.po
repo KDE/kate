@@ -206,7 +206,7 @@ msgstr "Začleniť %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "Odloženie %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6

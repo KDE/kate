@@ -1,0 +1,47 @@
+{
+    "id": "org.kde.kwrite",
+    "branch": "master",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "6.10",
+    "sdk": "org.kde.Sdk",
+    "command": "kwrite",
+    "rename-icon": "kwrite",
+    "tags": [
+        "nightly"
+    ],
+    "desktop-file-name-suffix": " (Nightly)",
+    "finish-args": [
+        "--device=dri",
+        "--filesystem=host",
+        "--share=ipc",
+        "--share=network",
+        "--socket=cups",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--system-talk-name=org.freedesktop.UDisks2",
+        "--talk-name=org.freedesktop.Flatpak",
+        "--talk-name=org.freedesktop.FileManager1"
+    ],
+    "cleanup": [
+        "/bin/kate",
+        "/lib/pkgconfig",
+        "/lib/plugins",
+        "/share/doc",
+        "/share/kateproject",
+        "/share/man",
+        "/share/plasma"
+    ],
+    "modules": [
+        {
+            "name": "kate",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "../.."
+                }
+            ]
+        }
+    ]
+}

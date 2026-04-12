@@ -1,0 +1,221 @@
+# Slovak translations for kate package.
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# Roman Paholik <wizzardsk@gmail.com>, 2026.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"PO-Revision-Date: 2026-04-11 12:00+0200\n"
+"Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
+"Language-Team: Slovak <kde-sk@kde.org>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: gpgmeppwrapper.cpp:83
+#, kde-format
+msgid "Error! No keys found..."
+msgstr "Chyba! Nenašli sa žiadne kľúče..."
+
+#: gpgmeppwrapper.cpp:133 gpgmeppwrapper.cpp:135
+#, kde-format
+msgid "Error finding key: "
+msgstr "Chyba pri hľadaní kľúča: "
+
+#: gpgmeppwrapper.cpp:221 gpgmeppwrapper.cpp:223
+#, kde-format
+msgid "Error in symmetric encryption: "
+msgstr "Chyba pri symetrickom šifrovaní: "
+
+#: gpgmeppwrapper.cpp:239 gpgmeppwrapper.cpp:241
+#, kde-format
+msgid "Encryption Failed: "
+msgstr "Šifrovanie zlyhalo: "
+
+#: kategpgplugin.cpp:73
+#, kde-format
+msgid "GPG Plugin"
+msgstr "Modul GPG"
+
+#: kategpgplugin.cpp:78
+#, kde-format
+msgid "GPG Decrypt current document"
+msgstr "GPG dešifrovať aktuálny dokument"
+
+#: kategpgplugin.cpp:79
+#, kde-format
+msgid "GPG Encrypt current document"
+msgstr "GPG šifrovať aktuálny dokument"
+
+#: kategpgplugin.cpp:83
+#, kde-format
+msgid "<b>GPG Plugin Settings</b>"
+msgstr "<b>Nastavenia modulu GPG</b>"
+
+#: kategpgplugin.cpp:86
+#, kde-format
+msgid "Key ID"
+msgstr "ID kľúča"
+
+#: kategpgplugin.cpp:87
+#, kde-format
+msgid "A search string used to filter keys by available email addresses"
+msgstr ""
+"Vyhľadávací reťazec použitý na filtrovanie kľúčov podľa dostupných e-"
+"mailových adries"
+
+#: kategpgplugin.cpp:90
+#, kde-format
+msgid "Selected GPG Key finerprint for encryption"
+msgstr "Vybraný odtlačok kľúča GPG na šifrovanie"
+
+#: kategpgplugin.cpp:91
+#, kde-format
+msgid "<b>To: Email address used for encryption</b>"
+msgstr "<b>Komu: E-mailová adresa použitá na šifrovanie</b>"
+
+#: kategpgplugin.cpp:100
+#, kde-format
+msgid ""
+"Select an email address to which to encrypt.\n"
+"Only mail addresses associated with your currently selected\n"
+"key fingerprint are available."
+msgstr ""
+"Vyberte e-mailovú adresu, pre ktorú chcete šifrovať.\n"
+"K dispozícii sú iba e-mailové adresy priradené\n"
+"k aktuálne vybranému odtlačku kľúča."
+
+#: kategpgplugin.cpp:104
+#, kde-format
+msgid ""
+"This is your currently selected GPG key fingerprint that will be used for "
+"encryption."
+msgstr ""
+"Toto je váš aktuálne vybraný odtlačok kľúča GPG, ktorý sa použije na "
+"šifrovanie."
+
+#: kategpgplugin.cpp:107
+#, kde-format
+msgid "Save as ASCII encoded (.asc/.gpg)"
+msgstr "Uložiť ako ASCII kódované (.asc/.gpg)"
+
+#: kategpgplugin.cpp:110
+#, kde-format
+msgid "Enable symmetric encryption"
+msgstr "Povoliť symetrické šifrovanie"
+
+#: kategpgplugin.cpp:113
+#, kde-format
+msgid "Show only keys for which a private key is available"
+msgstr "Zobraziť iba kľúče, pre ktoré je dostupný súkromný kľúč"
+
+#: kategpgplugin.cpp:116
+#, kde-format
+msgid "Hide Expired Keys"
+msgstr "Skryť expirované kľúče"
+
+#: kategpgplugin.cpp:217
+#, kde-format
+msgid ""
+"Attempted double encryption detected!\n"
+"Encrypting more than once is disabled for now..."
+msgstr ""
+"Zistený pokus o dvojité šifrovanie!\n"
+"Šifrovanie viac ako raz je zatiaľ zakázané..."
+
+#: kategpgplugin.cpp:231 kategpgplugin.cpp:274
+#, kde-format
+msgid "Error! No views available..."
+msgstr "Chyba! Žiadne zobrazenia nie sú k dispozícii..."
+
+#: kategpgplugin.cpp:236
+#, kde-format
+msgid "Error Decrypting Text! Document is empty..."
+msgstr "Chyba pri dešifrovaní textu! Dokument je prázdny..."
+
+#: kategpgplugin.cpp:240
+#, kde-format
+msgid "Error Decrypting Text! No fingerprint selected..."
+msgstr "Chyba pri dešifrovaní textu! Nie je vybraný žiadny odtlačok..."
+
+#: kategpgplugin.cpp:245
+#, kde-format
+msgid ""
+"Error Decrypting Text!\n"
+"No matching fingerprint found!\n"
+"Or this is not a GPG encrypted text..."
+msgstr ""
+"Chyba pri dešifrovaní textu!\n"
+"Nenašiel sa zodpovedajúci odtlačok!\n"
+"Alebo toto nie je text šifrovaný pomocou GPG..."
+
+#: kategpgplugin.cpp:253
+#, kde-format
+msgid "Error Decrypting Text!\n"
+msgstr "Chyba pri dešifrovaní textu!\n"
+
+#: kategpgplugin.cpp:280
+#, kde-format
+msgid "Error Encrypting Text! No document available..."
+msgstr "Chyba pri šifrovaní textu! Nie je dostupný žiadny dokument..."
+
+#: kategpgplugin.cpp:284
+#, kde-format
+msgid "Error Encrypting Text! Document is empty..."
+msgstr "Chyba pri šifrovaní textu! Dokument je prázdny..."
+
+#: kategpgplugin.cpp:288
+#, kde-format
+msgid ""
+"Error Encrypting Text!\n"
+"No fingerprint selected..."
+msgstr ""
+"Chyba pri šifrovaní textu!\n"
+"Nie je vybraný žiadny odtlačok..."
+
+#: kategpgplugin.cpp:292
+#, kde-format
+msgid ""
+"Attempted double encryption detected! Encrypting twice is disabled for now..."
+msgstr ""
+"Zistený pokus o dvojité šifrovanie! Dvojité šifrovanie je zatiaľ zakázané..."
+
+#: kategpgplugin.cpp:305
+#, kde-format
+msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
+msgstr "Chyba pri šifrovaní textu! Nenašiel sa zodpovedajúci odtlačok...\n"
+
+#: kategpgplugin.cpp:309
+#, kde-format
+msgid "Error Encrypting Text!"
+msgstr "Chyba pri šifrovaní textu!"
+
+#: kategpgplugin.cpp:369
+#, kde-format
+msgid "Key Fingerprint"
+msgstr "Odtlačok kľúča"
+
+#: kategpgplugin.cpp:369
+#, kde-format
+msgid "Creation Date"
+msgstr "Dátum vytvorenia"
+
+#: kategpgplugin.cpp:369
+#, kde-format
+msgid "Expiry Date"
+msgstr "Dátum expirácie"
+
+#: kategpgplugin.cpp:369
+#, kde-format
+msgid "Key Length"
+msgstr "Dĺžka kľúča"
+
+#: kategpgplugin.cpp:369
+#, kde-format
+msgid "User IDs"
+msgstr "ID používateľov"

@@ -27,7 +27,7 @@
         "Description[nb]": "Legger til en innebygget forhåndsvisning av git linjelogg på slutten av hver linje",
         "Description[nl]": "Voegt een inline git-blame voorbeeldweergave aan het eind van de regel",
         "Description[nn]": "Legg til førehandsvising av git-blame på slutten av kvar linje",
-        "Description[pl]": "Dodaje podgląd git-blame w wierszu, na jego końcu",
+        "Description[pl]": "Dodaje podgląd git-blame w treści pliku, na końcach jego wierszy",
         "Description[pt]": "Adiciona pré-visualização incorporada do 'git-blame' no fim da linha",
         "Description[pt_BR]": "Adiciona uma visualização inline do git-blame no final da linha",
         "Description[ru]": "Добавление встроенного предварительного просмотра git-blame в конце строки",

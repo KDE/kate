@@ -38,6 +38,7 @@ inline constexpr QLatin1String OutputCustomizationGroup("OutputCustomization");
 /// Plugin-level KConfig entry keys.
 const auto SaveConnections("SaveConnections");
 const auto LastUsed("LastUsed");
+const auto UseSystemDefaults("UseSystemDefaults");
 
 /**
  * Keys identifying data-type style contexts.

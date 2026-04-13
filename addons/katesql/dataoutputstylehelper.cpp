@@ -28,6 +28,7 @@ DataOutputStyleHelper::DataOutputStyleHelper()
       })
     , m_useSystemLocale(false)
 {
+    updateDefaultStyle();
 }
 
 DataOutputStyleHelper::~DataOutputStyleHelper()
@@ -35,28 +36,38 @@ DataOutputStyleHelper::~DataOutputStyleHelper()
     qDeleteAll(m_styles);
 }
 
+void DataOutputStyleHelper::updateDefaultStyle()
+{
+    m_defaultStyle.font = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
+    m_defaultStyle.foreground = qApp->palette().text();
+    m_defaultStyle.background = qApp->palette().base();
+}
+
 void DataOutputStyleHelper::readConfig()
 {
+    updateDefaultStyle();
+
     const KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
 
-    const KConfigGroup group = config.group(KateSQLConstants::Config::OutputCustomizationGroup);
+    const bool useSystemDefaults = config.readEntry(KateSQLConstants::Config::UseSystemDefaults, false);
 
-    const QFont defaultFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
-    const QPalette defaultPalette = qApp->palette();
-    const QBrush defaultTextBrush = defaultPalette.text();
-    const QBrush defaultBaseBrush = defaultPalette.base();
+    const KConfigGroup group = config.group(KateSQLConstants::Config::OutputCustomizationGroup);
 
     const auto styleKeys = m_styles.keys();
     for (const QString &k : styleKeys) {
         OutputStyle *s = m_styles[k];
 
+        s->foreground = m_defaultStyle.foreground;
+        s->background = m_defaultStyle.background;
+        s->font = m_defaultStyle.font;
+
+        if (useSystemDefaults) {
+            continue;
+        }
+
         KConfigGroup g = group.group(k);
 
-        s->foreground = defaultTextBrush;
-        s->background = defaultBaseBrush;
-        s->font = defaultFont;
-
-        const QFont dummy = g.readEntry(KateSQLConstants::Config::Style::Font, defaultFont);
+        const QFont dummy = g.readEntry(KateSQLConstants::Config::Style::Font, m_defaultStyle.font);
 
         s->font.setBold(dummy.bold());
         s->font.setItalic(dummy.italic());

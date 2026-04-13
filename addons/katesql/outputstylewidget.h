@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include "outputstyle.h"
+
 #include <QTreeWidget>
 #include <qtmetamacros.h>
 
@@ -30,9 +32,14 @@ public:
 
     QTreeWidgetItem *addContext(const QString &key, const QString &name);
 
+    bool useSystemDefaults() const;
+    void setUseSystemDefaults(bool useSystemDefaults);
+
 public Q_SLOTS:
     void readConfig();
     void writeConfig();
+    void resetToSystemDefaults();
+    void updateDefaultStyle();
 
 protected Q_SLOTS:
     void slotChanged();
@@ -40,6 +47,13 @@ protected Q_SLOTS:
 
     void readConfig(QTreeWidgetItem *item);
     void writeConfig(QTreeWidgetItem *item);
+
+private:
+    void setTableToCurrentDefaults();
+    void setItemsEnabled(bool enabled);
+
+    OutputStyle m_defaultStyle;
+    bool m_useSystemDefaults;
 
 Q_SIGNALS:
     void changed();

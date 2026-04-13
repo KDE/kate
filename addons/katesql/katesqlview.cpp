@@ -31,9 +31,11 @@
 #include <QAction>
 
 #include <QActionGroup>
+#include <QGuiApplication>
 #include <QMenu>
 #include <QSqlQuery>
 #include <QString>
+#include <QStyleHints>
 #include <QWidgetAction>
 
 KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
@@ -83,6 +85,7 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
     connect(m_manager, &SQLManager::connectionCreated, this, &KateSQLView::slotConnectionCreated);
     connect(m_manager, &SQLManager::connectionAboutToBeClosed, this, &KateSQLView::slotConnectionAboutToBeClosed);
     connect(m_connectionsComboBox, &QComboBox::currentIndexChanged, this, &KateSQLView::slotConnectionChanged);
+    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, &KateSQLView::slotGlobalSettingsChanged);
 
     stateChanged(StateHasConnectionSelected, KXMLGUIClient::StateReverse);
 }

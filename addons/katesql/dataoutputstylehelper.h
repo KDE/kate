@@ -6,6 +6,7 @@ SPDX-License-Identifier: LGPL-2.0-only
 
 #pragma once
 
+#include "outputstyle.h"
 #include <QHash>
 #include <QMetaType>
 #include <QVariant>
@@ -19,6 +20,7 @@ public:
     ~DataOutputStyleHelper();
 
     void readConfig();
+    void updateDefaultStyle();
 
     bool useSystemLocale() const;
     void setUseSystemLocale(bool useSystemLocale);
@@ -27,5 +29,6 @@ public:
 
 private:
     QHash<QString, OutputStyle *> m_styles;
+    OutputStyle m_defaultStyle;
     bool m_useSystemLocale;
 };

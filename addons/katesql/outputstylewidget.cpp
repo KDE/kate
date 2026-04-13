@@ -11,7 +11,9 @@
 #include <QCheckBox>
 #include <QFont>
 #include <QFontDatabase>
+#include <QGuiApplication>
 #include <QIcon>
+#include <QStyleHints>
 
 #include <KColorButton>
 #include <KConfig>
@@ -21,7 +23,10 @@
 
 OutputStyleWidget::OutputStyleWidget(QWidget *parent)
     : QTreeWidget(parent)
+    , m_useSystemDefaults(false)
 {
+    updateDefaultStyle();
+
     QMetaEnum metaEnumForColumns = QMetaEnum::fromType<ColumnsOrder>();
 
     setColumnCount(metaEnumForColumns.keyCount());
@@ -50,6 +55,8 @@ OutputStyleWidget::OutputStyleWidget(QWidget *parent)
         resizeColumnToContents(i);
     }
 
+    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, &OutputStyleWidget::updateDefaultStyle);
+
     updatePreviews();
 }
 
@@ -69,8 +76,8 @@ QTreeWidgetItem *OutputStyleWidget::addContext(const QString &key, const QString
     auto *foregroundColorButton = new KColorButton(this);
     auto *backgroundColorButton = new KColorButton(this);
 
-    foregroundColorButton->setDefaultColor(palette().text().color());
-    backgroundColorButton->setDefaultColor(palette().base().color());
+    foregroundColorButton->setDefaultColor(m_defaultStyle.foreground.color());
+    backgroundColorButton->setDefaultColor(m_defaultStyle.background.color());
 
     setItemWidget(item, ColumnsOrder::BoldCheckBox, boldCheckBox);
     setItemWidget(item, ColumnsOrder::ItalicCheckBox, italicCheckBox);
@@ -103,15 +110,15 @@ void OutputStyleWidget::readConfig(QTreeWidgetItem *item)
     auto *foregroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ForegroundColorButton));
     auto *backgroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::BackgroundColorButton));
 
-    const QFont font = g.readEntry(KateSQLConstants::Config::Style::Font, QFontDatabase::systemFont(QFontDatabase::GeneralFont));
+    const QFont font = g.readEntry(KateSQLConstants::Config::Style::Font, m_defaultStyle.font);
 
     boldCheckBox->setChecked(font.bold());
     italicCheckBox->setChecked(font.italic());
     underlineCheckBox->setChecked(font.underline());
     strikeOutCheckBox->setChecked(font.strikeOut());
 
-    foregroundColorButton->setColor(g.readEntry(KateSQLConstants::Config::Style::ForegroundColor, foregroundColorButton->defaultColor()));
-    backgroundColorButton->setColor(g.readEntry(KateSQLConstants::Config::Style::BackgroundColor, backgroundColorButton->defaultColor()));
+    foregroundColorButton->setColor(g.readEntry(KateSQLConstants::Config::Style::ForegroundColor, m_defaultStyle.foreground.color()));
+    backgroundColorButton->setColor(g.readEntry(KateSQLConstants::Config::Style::BackgroundColor, m_defaultStyle.background.color()));
 }
 
 void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
@@ -127,7 +134,7 @@ void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
     auto *foregroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ForegroundColorButton));
     auto *backgroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::BackgroundColorButton));
 
-    QFont f(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
+    QFont f(m_defaultStyle.font);
 
     f.setBold(boldCheckBox->isChecked());
     f.setItalic(italicCheckBox->isChecked());
@@ -141,17 +148,26 @@ void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
 
 void OutputStyleWidget::readConfig()
 {
-    QTreeWidgetItem *root = invisibleRootItem();
+    updateDefaultStyle();
 
+    KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
+    m_useSystemDefaults = config.readEntry(KateSQLConstants::Config::UseSystemDefaults, false);
+
+    setItemsEnabled(!m_useSystemDefaults);
+
+    QTreeWidgetItem *root = invisibleRootItem();
     for (int i = 0; i < root->childCount(); ++i) {
         readConfig(root->child(i));
     }
+
+    updatePreviews();
 }
 
 void OutputStyleWidget::writeConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
-    config.deleteGroup(KateSQLConstants::Config::OutputCustomizationGroup);
+
+    config.writeEntry(KateSQLConstants::Config::UseSystemDefaults, m_useSystemDefaults);
 
     QTreeWidgetItem *root = invisibleRootItem();
 
@@ -160,11 +176,79 @@ void OutputStyleWidget::writeConfig()
     }
 }
 
+bool OutputStyleWidget::useSystemDefaults() const
+{
+    return m_useSystemDefaults;
+}
+
+void OutputStyleWidget::setUseSystemDefaults(bool useSystemDefaults)
+{
+    if (m_useSystemDefaults == useSystemDefaults) {
+        return;
+    }
+
+    m_useSystemDefaults = useSystemDefaults;
+
+    setItemsEnabled(!m_useSystemDefaults);
+    updatePreviews();
+    Q_EMIT changed();
+}
+
+void OutputStyleWidget::resetToSystemDefaults()
+{
+    updateDefaultStyle();
+
+    setTableToCurrentDefaults();
+    updatePreviews();
+    Q_EMIT changed();
+}
+
+void OutputStyleWidget::setTableToCurrentDefaults()
+{
+    QTreeWidgetItem *root = invisibleRootItem();
+    for (int i = 0; i < root->childCount(); ++i) {
+        QTreeWidgetItem *item = root->child(i);
+
+        auto *boldCheckBox = static_cast<QCheckBox *>(itemWidget(item, ColumnsOrder::BoldCheckBox));
+        auto *italicCheckBox = static_cast<QCheckBox *>(itemWidget(item, ColumnsOrder::ItalicCheckBox));
+        auto *underlineCheckBox = static_cast<QCheckBox *>(itemWidget(item, ColumnsOrder::UnderlineCheckBox));
+        auto *strikeOutCheckBox = static_cast<QCheckBox *>(itemWidget(item, ColumnsOrder::StrikeOutCheckBox));
+        auto *foregroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ForegroundColorButton));
+        auto *backgroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::BackgroundColorButton));
+
+        boldCheckBox->setChecked(false);
+        italicCheckBox->setChecked(false);
+        underlineCheckBox->setChecked(false);
+        strikeOutCheckBox->setChecked(false);
+        foregroundColorButton->setColor(m_defaultStyle.foreground.color());
+        backgroundColorButton->setColor(m_defaultStyle.background.color());
+    }
+}
+
+void OutputStyleWidget::updateDefaultStyle()
+{
+    m_defaultStyle.font = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
+    m_defaultStyle.foreground = palette().text();
+    m_defaultStyle.background = palette().base();
+
+    QTreeWidgetItem *root = invisibleRootItem();
+    for (int i = 0; i < root->childCount(); ++i) {
+        QTreeWidgetItem *item = root->child(i);
+        auto *fgButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ForegroundColorButton));
+        auto *bgButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::BackgroundColorButton));
+        if (fgButton) {
+            fgButton->setDefaultColor(m_defaultStyle.foreground.color());
+        }
+        if (bgButton) {
+            bgButton->setDefaultColor(m_defaultStyle.background.color());
+        }
+    }
+}
+
 void OutputStyleWidget::updatePreviews()
 {
     QTreeWidgetItem *root = invisibleRootItem();
 
-    QFont systemFont = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
     for (int i = 0; i < root->childCount(); ++i) {
         QTreeWidgetItem *item = root->child(i);
 
@@ -175,7 +259,7 @@ void OutputStyleWidget::updatePreviews()
         const KColorButton *foregroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ForegroundColorButton));
         const KColorButton *backgroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::BackgroundColorButton));
 
-        QFont f(systemFont);
+        QFont f(m_defaultStyle.font);
 
         f.setBold(boldCheckBox->isChecked());
         f.setItalic(italicCheckBox->isChecked());
@@ -193,6 +277,21 @@ void OutputStyleWidget::slotChanged()
     updatePreviews();
 
     Q_EMIT changed();
+}
+
+void OutputStyleWidget::setItemsEnabled(bool enabled)
+{
+    QTreeWidgetItem *root = invisibleRootItem();
+
+    for (int i = 0; i < root->childCount(); ++i) {
+        QTreeWidgetItem *item = root->child(i);
+
+        for (int col = ColumnsOrder::BoldCheckBox; col <= ColumnsOrder::BackgroundColorButton; ++col) {
+            if (auto *widget = itemWidget(item, col)) {
+                widget->setEnabled(enabled);
+            }
+        }
+    }
 }
 
 #include "moc_outputstylewidget.cpp"

@@ -8,6 +8,7 @@
 
 class OutputStyleWidget;
 class QCheckBox;
+class QPushButton;
 
 #include <ktexteditor/configpage.h>
 
@@ -30,8 +31,14 @@ public Q_SLOTS:
     void reset() override;
     void defaults() override;
 
+private Q_SLOTS:
+    void slotUseSystemDefaultsChanged();
+    void slotResetToSystemDefaults();
+
 private:
     QCheckBox *m_box;
+    QCheckBox *m_useSystemDefaultsCheckBox;
+    QPushButton *m_resetToDefaultsButton;
     OutputStyleWidget *m_outputStyleWidget;
 
 Q_SIGNALS:

@@ -14,7 +14,9 @@
 
 #include <QCheckBox>
 #include <QGroupBox>
+#include <QHBoxLayout>
 #include <QIcon>
+#include <QPushButton>
 #include <QVBoxLayout>
 
 KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
@@ -28,8 +30,15 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     auto *stylesLayout = new QVBoxLayout(stylesGroupBox);
 
     m_outputStyleWidget = new OutputStyleWidget(this);
-
     stylesLayout->addWidget(m_outputStyleWidget);
+
+    auto *bottomRow = new QHBoxLayout();
+    m_useSystemDefaultsCheckBox = new QCheckBox(i18nc("@option:check", "Use system defaults"), this);
+    m_resetToDefaultsButton = new QPushButton(i18nc("@action:button", "Reset to System Defaults"), this);
+    bottomRow->addWidget(m_useSystemDefaultsCheckBox);
+    bottomRow->addStretch();
+    bottomRow->addWidget(m_resetToDefaultsButton);
+    stylesLayout->addLayout(bottomRow);
 
     layout->addWidget(m_box);
     layout->addWidget(stylesGroupBox, 1);
@@ -40,9 +49,12 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(m_box, &QCheckBox::stateChanged, this, &KateSQLConfigPage::changed);
+    connect(m_useSystemDefaultsCheckBox, &QCheckBox::stateChanged, this, &KateSQLConfigPage::slotUseSystemDefaultsChanged);
 #else
     connect(m_box, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::changed);
+    connect(m_useSystemDefaultsCheckBox, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::slotUseSystemDefaultsChanged);
 #endif
+    connect(m_resetToDefaultsButton, &QPushButton::clicked, this, &KateSQLConfigPage::slotResetToSystemDefaults);
     connect(m_outputStyleWidget, &OutputStyleWidget::changed, this, &KateSQLConfigPage::changed);
 }
 
@@ -82,15 +94,35 @@ void KateSQLConfigPage::reset()
 
     m_box->setChecked(config.readEntry(KateSQLConstants::Config::SaveConnections, true));
 
+    m_useSystemDefaultsCheckBox->blockSignals(true);
     m_outputStyleWidget->readConfig();
+    m_useSystemDefaultsCheckBox->setChecked(m_outputStyleWidget->useSystemDefaults());
+    m_useSystemDefaultsCheckBox->blockSignals(false);
 }
 
 void KateSQLConfigPage::defaults()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
+    m_box->setChecked(true);
 
+    m_useSystemDefaultsCheckBox->blockSignals(true);
+    m_useSystemDefaultsCheckBox->setChecked(false);
+    m_outputStyleWidget->resetToSystemDefaults();
+    m_useSystemDefaultsCheckBox->blockSignals(false);
+
+    KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
     config.revertToDefault(KateSQLConstants::Config::SaveConnections);
+    config.revertToDefault(KateSQLConstants::Config::UseSystemDefaults);
     config.revertToDefault(KateSQLConstants::Config::OutputCustomizationGroup);
+}
+
+void KateSQLConfigPage::slotUseSystemDefaultsChanged()
+{
+    m_outputStyleWidget->setUseSystemDefaults(m_useSystemDefaultsCheckBox->isChecked());
+}
+
+void KateSQLConfigPage::slotResetToSystemDefaults()
+{
+    m_outputStyleWidget->resetToSystemDefaults();
 }
 
 #include "moc_katesqlconfigpage.cpp"

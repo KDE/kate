@@ -3,13 +3,13 @@
 #
 # Diego Iastrubni <elcuco@kde.org>, 2014.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
-# SPDX-FileCopyrightText: 2024, 2025 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025, 2026 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-13 08:44+0000\n"
-"PO-Revision-Date: 2025-08-02 21:12+0300\n"
+"PO-Revision-Date: 2026-04-11 22:16+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
 #: julia_parser.cpp:34 plugin_katesymbolviewer.cpp:86 python_parser.cpp:25
@@ -77,12 +77,12 @@ msgstr "מודולים"
 #: perl_parser.cpp:21
 #, kde-format
 msgid "Show Uses"
-msgstr "הצג Uses"
+msgstr "הצגת Uses"
 
 #: perl_parser.cpp:22
 #, kde-format
 msgid "Show Pragmas"
-msgstr "הצג Pragmas"
+msgstr "הצגת Pragmas"
 
 #: perl_parser.cpp:33
 #, kde-format

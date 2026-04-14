@@ -3,13 +3,13 @@
 #
 # Diego Iastrubni <elcuco@kde.org>, 2014.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
-# SPDX-FileCopyrightText: 2024, 2025 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025, 2026 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-03 00:51+0000\n"
-"PO-Revision-Date: 2025-11-09 08:24+0200\n"
+"PO-Revision-Date: 2026-04-13 21:25+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.08.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -313,7 +313,7 @@ msgstr "ההשוואה %1…%2 נכשלה"
 #: gitwidget.cpp:1020
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr "קבלת numstat נכשלה בעת בחינת ההבדלים %1...%2"
+msgstr "קבלת numstat נכשלה בעת בחינת ההבדלים %1…%2"
 
 #: gitwidget.cpp:1055
 #, kde-format

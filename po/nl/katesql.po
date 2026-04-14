@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-10 00:57+0000\n"
+"POT-Creation-Date: 2026-04-14 00:47+0000\n"
 "PO-Revision-Date: 2026-04-05 17:40+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -377,132 +377,146 @@ msgctxt "@label:textbox"
 msgid "Field delimiter:"
 msgstr "Veldscheidingsteken:"
 
-#: katesqlconfigpage.cpp:25
+#: katesqlconfigpage.cpp:27
 #, kde-format
 msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
 msgstr "Verbindingen in Kate-sessie opslaan en herstellen"
 
-#: katesqlconfigpage.cpp:27
+#: katesqlconfigpage.cpp:29
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "Aanpassen van uitvoer"
 
-#: katesqlconfigpage.cpp:53
+#: katesqlconfigpage.cpp:36
+#, fuzzy, kde-format
+#| msgctxt "@action:intoolbar"
+#| msgid "Use system locale"
+msgctxt "@option:check"
+msgid "Use system defaults"
+msgstr "Gebruik de taalcode van het systeem"
+
+#: katesqlconfigpage.cpp:37
+#, kde-format
+msgctxt "@action:button"
+msgid "Reset to System Defaults"
+msgstr ""
+
+#: katesqlconfigpage.cpp:65
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:58
+#: katesqlconfigpage.cpp:70
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "Instellingen van SQL-ConfigPage"
 
-#: katesqlview.cpp:44
+#: katesqlview.cpp:46
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:51
+#: katesqlview.cpp:53
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:57
+#: katesqlview.cpp:59
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL-schema"
 
-#: katesqlview.cpp:106
+#: katesqlview.cpp:109
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Verbinding toevoegen..."
 
-#: katesqlview.cpp:111
+#: katesqlview.cpp:114
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Verbinding verwijderen"
 
-#: katesqlview.cpp:116
+#: katesqlview.cpp:119
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Verbinding bewerken..."
 
-#: katesqlview.cpp:121
+#: katesqlview.cpp:124
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "Opnieuw verbinden"
 
-#: katesqlview.cpp:127
+#: katesqlview.cpp:130
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "Verbinding"
 
-#: katesqlview.cpp:131
+#: katesqlview.cpp:134
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "Zoekopdracht uitvoeren"
 
-#: outputstylewidget.cpp:32
+#: outputstylewidget.cpp:37
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "Context"
 
-#: outputstylewidget.cpp:32
+#: outputstylewidget.cpp:37
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "Tekstkleur"
 
-#: outputstylewidget.cpp:33
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "Achtergrondkleur"
 
-#: outputstylewidget.cpp:42
+#: outputstylewidget.cpp:47
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "Tekst"
 
-#: outputstylewidget.cpp:43
+#: outputstylewidget.cpp:48
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "Getal"
 
-#: outputstylewidget.cpp:44
+#: outputstylewidget.cpp:49
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "Bool"
 
-#: outputstylewidget.cpp:45
+#: outputstylewidget.cpp:50
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "Datum & tijd"
 
-#: outputstylewidget.cpp:46
+#: outputstylewidget.cpp:51
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:47
+#: outputstylewidget.cpp:52
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"

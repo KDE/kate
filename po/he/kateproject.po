@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-04 00:48+0000\n"
-"PO-Revision-Date: 2026-04-05 08:42+0300\n"
+"PO-Revision-Date: 2026-04-13 21:25+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -313,7 +313,7 @@ msgstr "ההשוואה %1…%2 נכשלה"
 #: gitwidget.cpp:1020
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr "קבלת numstat נכשלה בעת בחינת ההבדלים %1...%2"
+msgstr "קבלת numstat נכשלה בעת בחינת ההבדלים %1…%2"
 
 #: gitwidget.cpp:1055
 #, kde-format

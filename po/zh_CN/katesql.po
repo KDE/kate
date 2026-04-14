@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-10 00:57+0000\n"
+"POT-Creation-Date: 2026-04-14 00:47+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -375,132 +375,146 @@ msgctxt "@label:textbox"
 msgid "Field delimiter:"
 msgstr "字段分隔符："
 
-#: katesqlconfigpage.cpp:25
+#: katesqlconfigpage.cpp:27
 #, kde-format
 msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
 msgstr "在 Kate 会话中保存并还原连接"
 
-#: katesqlconfigpage.cpp:27
+#: katesqlconfigpage.cpp:29
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "输出自定义"
 
-#: katesqlconfigpage.cpp:53
+#: katesqlconfigpage.cpp:36
+#, fuzzy, kde-format
+#| msgctxt "@action:intoolbar"
+#| msgid "Use system locale"
+msgctxt "@option:check"
+msgid "Use system defaults"
+msgstr "使用系统编码"
+
+#: katesqlconfigpage.cpp:37
+#, kde-format
+msgctxt "@action:button"
+msgid "Reset to System Defaults"
+msgstr ""
+
+#: katesqlconfigpage.cpp:65
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:58
+#: katesqlconfigpage.cpp:70
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "SQL 配置页面设置"
 
-#: katesqlview.cpp:44
+#: katesqlview.cpp:46
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:51
+#: katesqlview.cpp:53
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:57
+#: katesqlview.cpp:59
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL 纲目结构"
 
-#: katesqlview.cpp:106
+#: katesqlview.cpp:109
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "添加连接..."
 
-#: katesqlview.cpp:111
+#: katesqlview.cpp:114
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "移除连接"
 
-#: katesqlview.cpp:116
+#: katesqlview.cpp:119
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "编辑连接..."
 
-#: katesqlview.cpp:121
+#: katesqlview.cpp:124
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "重新连接"
 
-#: katesqlview.cpp:127
+#: katesqlview.cpp:130
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "连接"
 
-#: katesqlview.cpp:131
+#: katesqlview.cpp:134
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "运行查询"
 
-#: outputstylewidget.cpp:32
+#: outputstylewidget.cpp:37
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "上下文"
 
-#: outputstylewidget.cpp:32
+#: outputstylewidget.cpp:37
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "文本颜色"
 
-#: outputstylewidget.cpp:33
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "背景颜色"
 
-#: outputstylewidget.cpp:42
+#: outputstylewidget.cpp:47
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "文本"
 
-#: outputstylewidget.cpp:43
+#: outputstylewidget.cpp:48
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "数字"
 
-#: outputstylewidget.cpp:44
+#: outputstylewidget.cpp:49
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "布尔量"
 
-#: outputstylewidget.cpp:45
+#: outputstylewidget.cpp:50
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "日期和时间"
 
-#: outputstylewidget.cpp:46
+#: outputstylewidget.cpp:51
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:47
+#: outputstylewidget.cpp:52
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"

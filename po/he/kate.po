@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2026-04-07 13:28+0300\n"
+"PO-Revision-Date: 2026-04-11 22:05+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1535,7 +1535,7 @@ msgstr "השתמש בפקודה זו כדי להציג או להסתיר את ה
 #: lib/katemainwindow.cpp:314
 #, kde-format
 msgid "Sho&w Path in Titlebar"
-msgstr "הצ&ג נתיב מלא בכותרת"
+msgstr "הצ&גת נתיב מלא בכותרת"
 
 #: lib/katemainwindow.cpp:319
 #, kde-format

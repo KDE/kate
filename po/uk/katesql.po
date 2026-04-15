@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-14 00:47+0000\n"
-"PO-Revision-Date: 2026-04-04 09:49+0300\n"
+"PO-Revision-Date: 2026-04-14 08:26+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -391,18 +391,16 @@ msgid "Output Customization"
 msgstr "Налаштування виводу даних"
 
 #: katesqlconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Використовувати локаль системи"
+msgstr "Використати типові для системи значення"
 
 #: katesqlconfigpage.cpp:37
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Повернути типові для системи значення"
 
 #: katesqlconfigpage.cpp:65
 #, kde-format

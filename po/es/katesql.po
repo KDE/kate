@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-14 00:47+0000\n"
-"PO-Revision-Date: 2026-04-04 12:36+0100\n"
+"PO-Revision-Date: 2026-04-14 22:44+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -392,18 +392,16 @@ msgid "Output Customization"
 msgstr "Personalización de la salida"
 
 #: katesqlconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Usar localización del sistema"
+msgstr "Usar valores predeterminados del sistema"
 
 #: katesqlconfigpage.cpp:37
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Reiniciar a los valores predeterminados del sistema"
 
 #: katesqlconfigpage.cpp:65
 #, kde-format

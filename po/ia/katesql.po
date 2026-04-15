@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-14 00:47+0000\n"
-"PO-Revision-Date: 2026-04-04 10:44+0200\n"
+"PO-Revision-Date: 2026-04-14 12:08+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -388,18 +388,16 @@ msgid "Output Customization"
 msgstr "Personalisation de exito"
 
 #: katesqlconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Usa locale de systema"
+msgstr "Usa predefinitiones de systema"
 
 #: katesqlconfigpage.cpp:37
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Re-Initia a predefinitiones de systema"
 
 #: katesqlconfigpage.cpp:65
 #, kde-format

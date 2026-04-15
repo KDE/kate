@@ -391,18 +391,16 @@ msgid "Output Customization"
 msgstr "Prispôsobenie výstupu"
 
 #: katesqlconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Použiť jazyk systému"
+msgstr "Použiť predvolené systémové nastavenia"
 
 #: katesqlconfigpage.cpp:37
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Obnoviť predvolené systémové nastavenia"
 
 #: katesqlconfigpage.cpp:65
 #, kde-format

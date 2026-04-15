@@ -78,8 +78,6 @@ static void adjustColorContrast(QColor &bg, QColor &fg)
 
 class NumStatStyle final : public QStyledItemDelegate
 {
-    static const int RightMargin = 2;
-
 public:
     explicit NumStatStyle(QObject *parent)
         : QStyledItemDelegate(parent)
@@ -103,15 +101,12 @@ public:
 
         const QString add = strs.at(0) + QStringLiteral(" ");
         const QString sub = strs.at(1) + QStringLiteral(" ");
-        const QString &Status = strs.at(2);
+        const QString &Status = strs.at(2) + QStringLiteral(" "); // Blank space needed to match the default delegate visual
 
         int ha = option.fontMetrics.horizontalAdvance(add);
         int hs = option.fontMetrics.horizontalAdvance(sub);
         int hS = option.fontMetrics.horizontalAdvance(Status);
-
-        QRect r = option.rect;
-        int mw = r.width() - (ha + hs + hS + RightMargin); // 2px margin on the right
-        r.setX(r.x() + mw);
+        auto r = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
 
         KColorScheme c;
         auto red = c.foreground(KColorScheme::NegativeText).color();
@@ -122,26 +117,19 @@ public:
             adjustColorContrast(bg, green);
         }
 
-        painter->setPen(green);
-        painter->drawText(r, Qt::AlignVCenter, add);
-        r.setX(r.x() + ha);
+        painter->setPen(index.data(Qt::ForegroundRole).value<QColor>());
+        painter->drawText(r, Qt::AlignVCenter | Qt::AlignRight, Status);
+        r.setRight(r.right() - hS);
 
         painter->setPen(red);
-        painter->drawText(r, Qt::AlignVCenter, sub);
-        r.setX(r.x() + hs);
+        painter->drawText(r, Qt::AlignVCenter | Qt::AlignRight, sub);
+        r.setRight(r.right() - hs);
 
-        painter->setPen(index.data(Qt::ForegroundRole).value<QColor>());
-        painter->drawText(r, Qt::AlignVCenter, Status);
+        painter->setPen(green);
+        painter->drawText(r, Qt::AlignVCenter | Qt::AlignRight, add);
+        r.setRight(r.right() - ha);
 
         painter->restore();
-    }
-
-    QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override
-    {
-        const auto str = index.data().toString();
-        auto sh = QStyledItemDelegate::sizeHint(option, index);
-        sh.setWidth(option.fontMetrics.horizontalAdvance(str) + RightMargin);
-        return sh;
     }
 };
 

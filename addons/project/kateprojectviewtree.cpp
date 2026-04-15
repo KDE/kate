@@ -136,16 +136,18 @@ public:
 
             QStyleOptionViewItem option = opt;
             initStyleOption(&option, index);
+
             QColor color = statusType == StatusType::Added ? green : red;
-            painter->setPen(color);
-            QRectF circle = option.rect;
-            circle.setLeft(option.rect.x() + (circle.width() - (8 + 4)));
-            circle.setHeight(8);
-            circle.setWidth(8);
+            QRect textRect = option.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &option, option.widget);
+
+            const int d = 8;
+            int pad = option.fontMetrics.horizontalAdvance(QStringLiteral(" "));
+            QRect circleRect(textRect.right() - d - pad, textRect.top() + (textRect.height() - d) / 2, d, d);
+
             painter->setRenderHint(QPainter::Antialiasing, true);
-            circle.moveTop(QStyle::alignedRect(Qt::LayoutDirectionAuto, Qt::AlignVCenter, circle.size().toSize(), option.rect).y());
+            painter->setPen(Qt::NoPen);
             painter->setBrush(color);
-            painter->drawEllipse(circle);
+            painter->drawEllipse(circleRect);
 
             painter->restore();
             return;

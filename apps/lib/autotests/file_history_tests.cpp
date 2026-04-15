@@ -55,6 +55,14 @@ private:
         return Utils::toolviewForName(mw->wrapper(), toolViewIdentifier);
     }
 
+    bool waitForGitLogFinish()
+    {
+        auto fileHistoryWidget = getToolview()->findChild<QWidget *>(QStringLiteral("FileHistoryWidget"));
+        Q_ASSERT(fileHistoryWidget);
+        QSignalSpy spy(fileHistoryWidget, SIGNAL(gitLogDone()));
+        return spy.count() == 1 || spy.wait();
+    }
+
     QToolButton *getCloseButton(QWidget *toolview)
     {
         const auto childs = toolview->findChildren<QToolButton *>();
@@ -142,6 +150,8 @@ void FileHistoryTest::testFiltering()
 
     KateMainWindow *mw = app->activeKateMainWindow();
     FileHistory::showFileHistory(testFile, mw->wrapper());
+    // wait for git log to finish
+    QVERIFY(waitForGitLogFinish());
 
     auto toolview = getToolview();
     QVERIFY(toolview);
@@ -193,12 +203,11 @@ void FileHistoryTest::testAuthorAndDateFiltering()
 
     KateMainWindow *mw = app->activeKateMainWindow();
     FileHistory::showFileHistory(testFile, mw->wrapper());
+    // wait for git log to finish
+    QVERIFY(waitForGitLogFinish());
 
     auto toolview = getToolview();
     QVERIFY(toolview);
-    auto fileHistoryWidget = toolview->findChild<QWidget *>(QStringLiteral("FileHistoryWidget"));
-    QVERIFY(fileHistoryWidget);
-    QSignalSpy spy(fileHistoryWidget, SIGNAL(gitLogDone()));
 
     auto filtersList = toolview->findChild<QListWidget *>();
     auto filterLineEdit = toolview->findChild<QLineEdit *>();
@@ -207,7 +216,6 @@ void FileHistoryTest::testAuthorAndDateFiltering()
     QVERIFY(filterLineEdit->text().isEmpty());
     QVERIFY(filtersList->count() == 0);
 
-    QTRY_VERIFY(spy.count() == 1);
     const int preFilterRowCount = commitProxyModel->rowCount();
 
     // Add a filter

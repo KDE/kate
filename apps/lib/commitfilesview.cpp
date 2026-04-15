@@ -144,27 +144,10 @@ public:
 
         painter->save();
 
-        // paint background
-        if (option.state & QStyle::State_Selected) {
-            painter->fillRect(option.rect, option.palette.highlight());
-        } else {
-            painter->fillRect(option.rect, option.palette.base());
-        }
-
         int add = index.data(FileItem::LinesAdded).toInt();
         int sub = index.data(FileItem::LinesRemoved).toInt();
-        QString adds = QString(QStringLiteral("+") + QString::number(add));
-        QString subs = QString(QStringLiteral(" -") + QString::number(sub));
-        QString file = options.text;
-
-        options.text = QString(); // clear old text
-        options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
-
-        QRect r = options.rect;
-
-        // don't draw over icon
-        r.setX(r.x() + option.decorationSize.width() + 5);
-
+        QString adds = QString(QStringLiteral("+") + QString::number(add) + QStringLiteral(" "));
+        QString subs = QString(QStringLiteral("-") + QString::number(sub) + QStringLiteral(" ")); // Blank space needed to match the default delegate visual
         const QFontMetrics &fm = options.fontMetrics;
 
         // adds width
@@ -172,26 +155,25 @@ public:
         // subs width
         int sw = fm.horizontalAdvance(subs);
 
-        // subtract this from total width of rect
-        int totalw = r.width();
-        totalw = totalw - (aw + sw);
+        QRect r = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
+        int textMaxWidth = r.width() - (aw + sw) - 5;
 
         // get file name, elide if necessary
-        QString filename = fm.elidedText(file, Qt::ElideRight, totalw);
-
-        painter->drawText(r, Qt::AlignVCenter, filename);
+        QString filename = options.text;
+        options.text = fm.elidedText(filename, Qt::ElideRight, textMaxWidth);
+        options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
         KColorScheme c;
         const QColor red = KColorScheme::shade(c.foreground(KColorScheme::NegativeText).color(), KColorScheme::MidlightShade, 1);
         const QColor green = KColorScheme::shade(c.foreground(KColorScheme::PositiveText).color(), KColorScheme::MidlightShade, 1);
 
-        r.setX(r.x() + totalw);
-        painter->setPen(green);
-        painter->drawText(r, Qt::AlignVCenter, adds);
-
         painter->setPen(red);
-        r.setX(r.x() + aw);
-        painter->drawText(r, Qt::AlignVCenter, subs);
+        painter->drawText(r, Qt::AlignVCenter | Qt::AlignRight, subs);
+        r.setRight(r.right() - sw);
+
+        painter->setPen(green);
+        painter->drawText(r, Qt::AlignVCenter | Qt::AlignRight, adds);
+        r.setRight(r.right() - aw);
 
         painter->restore();
     }

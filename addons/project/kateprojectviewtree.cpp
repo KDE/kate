@@ -244,9 +244,18 @@ void KateProjectViewTree::selectFile(const QString &file)
     /**
      * select it
      */
-    QPersistentModelIndex index = static_cast<QSortFilterProxyModel *>(model())->mapFromSource(m_project->model()->indexFromItem(item));
+    const auto index = static_cast<QSortFilterProxyModel *>(model())->mapFromSource(m_project->model()->indexFromItem(item));
+    if (!index.isValid()) {
+        return;
+    }
+
+    // scrollTo may lead to path flattening (see flattenPath) which might invalidate this index
+    const QPersistentModelIndex persistentIndex = index;
+
     scrollTo(index, QAbstractItemView::EnsureVisible);
-    selectionModel()->setCurrentIndex(index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+    if (persistentIndex.isValid()) {
+        selectionModel()->setCurrentIndex(persistentIndex, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+    }
 }
 
 void KateProjectViewTree::openSelectedDocument()

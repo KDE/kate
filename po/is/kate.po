@@ -6,14 +6,14 @@
 # Arnar Leósson <leosson@frisurf.no>, 2003.
 # Börkur Ingi Jónsson <berkz@internet.is>, 2004.
 # Arnar Leosson <leosson@frisurf.no>, 2004, 2005.
-# SPDX-FileCopyrightText: 2009, 2011, 2015, 2025 Sveinn í Felli <sveinki@nett.is>
+# SPDX-FileCopyrightText: 2009, 2011, 2015, 2025, 2026 Sveinn í Felli <sveinki@nett.is>
 # SPDX-FileCopyrightText: 2023, 2024 Guðmundur Erlingsson <gudmundure@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2025-12-28 14:36+0000\n"
+"PO-Revision-Date: 2026-04-15 14:25+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -31,14 +31,14 @@ msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 "Richard Allen, Smári P. McCarthy, Pjetur G. Hjaltason,Arnar Leósson, "
-"Guðmundur Erlingsson"
+"Guðmundur Erlingsson, Sveinn í Felli"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 "ra@ra.is, spm@vlug.eyjar.is, pjetur@pjetur.net, leosson@frisurf.no, "
-"gudmundure@gmail.com"
+"gudmundure@gmail.com, sv1@fellsnet.is"
 
 #: kate/main.cpp:119
 #, kde-format
@@ -210,7 +210,7 @@ msgstr "Setja inn %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "Stafla %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -448,10 +448,9 @@ msgid "Enable Suppression"
 msgstr "Virkja útilokun"
 
 #: lib/diagnostics/diagnosticview.cpp:1603
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "Show fixes"
-msgstr "Sýna &hliðarstikur"
+msgstr "Sýna lagfæringar"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format
@@ -515,16 +514,14 @@ msgid "Unstage Hunk"
 msgstr "Fjarlægja hluta af sviði"
 
 #: lib/diff/diffwidget.cpp:50
-#, fuzzy, kde-format
-#| msgid "Diff %1"
+#, kde-format
 msgid "Diff - %1"
-msgstr "Diff %1"
+msgstr "Mismunur %1"
 
 #: lib/diff/diffwidget.cpp:53
-#, fuzzy, kde-format
-#| msgid "Diff %1..%2"
+#, kde-format
 msgid "Diff - %1..%2"
-msgstr "Diff %1..%2"
+msgstr "Mismunur %1..%2"
 
 #: lib/diff/diffwidget.cpp:59
 #, kde-format
@@ -533,20 +530,20 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
-"<b>git</b> fannst ekki. Git er krafist til að keyra diff á skjölin. Ef git "
-"er nú þegar uppsett skaltu ganga úr skugga um að það sé PATH-breyta hjá þér. "
-"Sjá https://git-scm.com/downloads"
+"<b>git</b> fannst ekki. Git er krafist til að keyra diff-mismun á skjölin. "
+"Ef git er nú þegar uppsett skaltu ganga úr skugga um að það sé í PATH-breytu "
+"hjá þér. Sjá https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:62 lib/diff/diffwidget.cpp:1238
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
-msgstr "Diff"
+msgstr "Mismunur"
 
 #: lib/diff/diffwidget.cpp:121
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr "Diff %1 .. %2"
+msgstr "Mismunur %1 .. %2"
 
 #: lib/diff/diffwidget.cpp:151
 #, kde-format
@@ -577,13 +574,13 @@ msgstr "Hoppa í fyrri hluta"
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "Endurhlaða diff"
+msgstr "Endurhlaða mismun"
 
 #: lib/diff/diffwidget.cpp:176
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr "Sýna diff með öllu samhenginu, ekki bara breyttum línum"
+msgstr "Sýna mismun með öllu samhenginu, ekki bara breyttum línum"
 
 #: lib/diff/diffwidget.cpp:846 lib/diff/diffwidget.cpp:1050
 #, kde-format
@@ -598,7 +595,7 @@ msgstr "Eyða skrá %1"
 #: lib/diff/diffwidget.cpp:1221 lib/diff/diffwidget.cpp:1222
 #, kde-format
 msgid "No differences found"
-msgstr "Engin frávik fundust"
+msgstr "Enginn mismunur fannst"
 
 #: lib/filehistorywidget.cpp:253
 #, kde-format
@@ -646,50 +643,45 @@ msgid "Show Full Commit"
 msgstr "Sýna alla innsetninguna"
 
 #: lib/filehistorywidget.cpp:712
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "File History - %1"
+#, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
-msgstr "Ferill skrár - %1"
+msgstr "Ferill - %1"
 
 #: lib/jsonsettings.cpp:29
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "User Settings"
-msgstr "S&tillingar"
+msgstr "Stillingar notanda"
 
 #: lib/jsonsettings.cpp:38
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings file:"
-msgstr "S&tillingar"
+msgstr "Stillingaskrá:"
 
 #: lib/jsonsettings.cpp:74
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Default Settings"
-msgstr "S&tillingar"
+msgstr "Sjálfgefnar stillingar"
 
 #: lib/jsonsettings.cpp:124
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Engin JSON-gögn til að staðfesta."
 
 #: lib/jsonsettings.cpp:133
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON-gögn eru gild."
 
 #: lib/jsonsettings.cpp:135
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON-gögn eru ógild: enginn JSON-hlutur"
 
 #: lib/jsonsettings.cpp:138
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON-gögn eru ógild: %1"
 
 #: lib/kateapp.cpp:147
 msgid ""
@@ -1066,6 +1058,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Listi yfir %1 aðskildar möppur þar sem Kate mun leita að forritum til að "
+"keyra. Framan við þennan lista verður bætt PATH-umhverfisbreytunni þinni. T."
+"d. '/home/NOTANDI/forritin_mín/bin/:/home/NOTANDI/.local/bin'"
 
 #: lib/kateconfigdialog.cpp:144
 #, kde-format
@@ -1296,6 +1291,8 @@ msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
+"Ef ekki er merkt við hér, mun aðgerðin '%1'/'%2' ekki fara á fyrsta/síðasta "
+"flipann eftir að hafa náð út á enda."
 
 #: lib/kateconfigdialog.cpp:339
 #, kde-format
@@ -1335,7 +1332,7 @@ msgstr "Áfram í ferli"
 #: lib/kateconfigdialog.cpp:377
 #, kde-format
 msgid "Diff Style:"
-msgstr "Stílsnið fyrir diff:"
+msgstr "Stílsnið fyrir mismun:"
 
 #: lib/kateconfigdialog.cpp:384
 #, kde-format
@@ -1373,6 +1370,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"Verkfærayfirlit til að birta samhengi tengt fyrirliggjandi stöðu bendils "
+"(LSP-hint, ástandsgreiningar)"
 
 #: lib/kateconfigdialog.cpp:432
 #, kde-format
@@ -2109,7 +2108,7 @@ msgstr "Eytt"
 #: lib/katemwmodonhddialog.cpp:107
 #, kde-format
 msgid "&View Difference"
-msgstr "Sjá m&uninn"
+msgstr "Sjá mism&uninn"
 
 #: lib/katemwmodonhddialog.cpp:108
 #, kde-format
@@ -2170,13 +2169,13 @@ msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"Diff-skipunin brást. Gakktu úr skugga um að git sé uppsett og í leitarslóð "
-"þinni."
+"Diff-mismunaskipunin brást. Gakktu úr skugga um að git sé uppsett og í "
+"leitarslóð þinni."
 
 #: lib/katemwmodonhddialog.cpp:318
 #, kde-format
 msgid "Error Creating Diff"
-msgstr "Villa við að keyra diff"
+msgstr "Villa við að útbúa mismun"
 
 #: lib/katemwmodonhddialog.cpp:325
 #, kde-format
@@ -2678,11 +2677,13 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"Ekkert verkfærayfirlit fannst fyrir heitið: '%1'. Er viðbótin fyrir það "
+"óvirk eða er heitið ekki rétt stafað?"
 
 #: lib/mainwindow_commands.cpp:48
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
-msgstr ""
+msgstr "Villa í skriftu. Átti von á heiti verkfærayfirlits. Tiltæk eru: %1"
 
 #: lib/mainwindow_commands.cpp:56
 #, kde-format
@@ -2694,12 +2695,16 @@ msgstr "Skriftun"
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Sýna spjald með verkfærayfirliti. Tiltæk "
+"spjöld: %1"
 
 #: lib/mainwindow_commands.cpp:79
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Fela spjald með verkfærayfirliti. Tiltæk "
+"spjöld: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format

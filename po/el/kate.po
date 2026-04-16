@@ -13,21 +13,21 @@
 # Stelios <sstavra@gmail.com>, 2012, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Bouklis Panos <panos@echidna-band.com>, 2012.
 # Dimitris Kardarakos <dimkard@gmail.com>, 2014.
-# Petros Vidalis <pvidalis@gmail.com>, 2016.
+# SPDX-FileCopyrightText: 2016, 2026 Petros Vidalis <pvidalis@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2023-01-05 10:46+0200\n"
-"Last-Translator: Stelios <sstavra@gmail.com>\n"
+"PO-Revision-Date: 2026-04-15 23:40+0300\n"
+"Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -191,7 +191,7 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:574
 #, kde-format
 msgid "Renamed %1 => %2"
-msgstr ""
+msgstr "Μετονομάστηκε %1 => %2"
 
 #: lib/commitfilesview.cpp:594
 #, kde-format
@@ -213,7 +213,7 @@ msgstr "Υποβολή %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "Στοίβα αναμονής %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -352,10 +352,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "Καθαρισμός φίλτρου διαγνωστικών"
 
 #: lib/diagnostics/diagnosticview.cpp:404
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "Εμφάνιση/απόκρυψη πληροφοριών αποστολής (commit) στο αποθετήριο"
+msgstr "Εμφάνιση Πληροφοριών Αιώρησης"
 
 #: lib/diagnostics/diagnosticview.cpp:463 lib/kateconfigdialog.cpp:394
 #, kde-format
@@ -379,11 +378,10 @@ msgid "Filter…"
 msgstr "Φιλτράρισμα…"
 
 #: lib/diagnostics/diagnosticview.cpp:545
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "Καθαρισμός φίλτρου διαγνωστικών"
+msgstr "Καθαρισμός διαγνωστικών"
 
 #: lib/diagnostics/diagnosticview.cpp:1199 lib/kateconfigdialog.cpp:167
 #, kde-format
@@ -453,10 +451,9 @@ msgid "Enable Suppression"
 msgstr "Ενεργοποίηση καταστολής"
 
 #: lib/diagnostics/diagnosticview.cpp:1603
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "Show fixes"
-msgstr "Εμφάνιση &πλευρικών μπαρών"
+msgstr "Εμφάνιση διορθώσεων"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format
@@ -479,11 +476,9 @@ msgid "Raw"
 msgstr "Ακατέργαστο"
 
 #: lib/diff/diffeditor.cpp:214
-#, fuzzy, kde-format
-#| msgid "Stage Line"
-#| msgid_plural "Stage Lines"
+#, kde-format
 msgid "Edit Line"
-msgstr "Προετοιμασία γραμμής για το αποθετήριο"
+msgstr "Επεξεργασία γραμμής"
 
 #: lib/diff/diffeditor.cpp:279
 #, kde-format
@@ -522,16 +517,14 @@ msgid "Unstage Hunk"
 msgstr "Αναίρεση προετοιμασίας γραμμών που διαφέρουν"
 
 #: lib/diff/diffwidget.cpp:50
-#, fuzzy, kde-format
-#| msgid "Diff %1"
+#, kde-format
 msgid "Diff - %1"
-msgstr "Diff %1"
+msgstr "Diff - %1"
 
 #: lib/diff/diffwidget.cpp:53
-#, fuzzy, kde-format
-#| msgid "Diff %1..%2"
+#, kde-format
 msgid "Diff - %1..%2"
-msgstr "Diff %1..%2"
+msgstr "Diff - %1..%2"
 
 #: lib/diff/diffwidget.cpp:59
 #, kde-format
@@ -609,11 +602,10 @@ msgid "No differences found"
 msgstr "Δε βρέθηκαν διαφορές"
 
 #: lib/filehistorywidget.cpp:253
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Μη έγκυρος κατακερματισμός"
+msgstr "Μη έγκυρη ημερομηνία: %1"
 
 #: lib/filehistorywidget.cpp:475
 #, kde-format
@@ -631,6 +623,21 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Φιλτράρετε το αρχείο καταγραφής.<ul><li>Χρησιμοποιήστε το πρόθεμα <code>\"a:"
+"\"</code> για να φιλτράρετε κατά όνομα συγγραφέα. Για παράδειγμα, <b>a:john "
+"doe</b></li><li>Χρησιμοποιήστε το πρόθεμα <code>\"!a:\"</code> για να "
+"εξαιρέσετε έναν συγγραφέα. Για παράδειγμα, <b>!a:john doe</b></"
+"li><li>Χρησιμοποιήστε το πρόθεμα <code>\"since: \"</code> για να εμφανίσετε "
+"τις υποβολές μετά την καθορισμένη ημερομηνία. Η ημερομηνία συγγραφέα κάθε "
+"υποβολής θα ελεγχθεί. Η μορφή ημερομηνίας είναι yyyy-MM-dd. Για παράδειγμα, "
+"<b>since:2025-04-17</b></li><li>Χρησιμοποιήστε το πρόθεμα <code>\"until:\"</"
+"code> για να εμφανίσετε τις υποβολές πριν από την καθορισμένη ημερομηνία. Η "
+"ημερομηνία συγγραφέα κάθε υποβολής θα ελεγχθεί. Η μορφή ημερομηνίας είναι "
+"εεεε-ΜΜ-ηη. Π.χ., <b>until:2025-04-17</b></li> <li>Για να φιλτράρετε τα "
+"μηνύματα, απλώς πληκτρολογήστε τον όρο αναζήτησης. Εάν δίνονται πολλαπλοί "
+"όροι αναζήτησης, τότε θα εμφανίζονται μηνύματα που ταιριάζουν με όλους τους "
+"όρους αναζήτησης.</li></ul>Για να ενεργοποιήσετε το φίλτρο, πατήστε το "
+"πλήκτρο <b>Enter</b>."
 
 #: lib/filehistorywidget.cpp:537
 #, kde-format
@@ -657,50 +664,45 @@ msgid "Show Full Commit"
 msgstr "Εμφάνιση πλήρους υποβολής"
 
 #: lib/filehistorywidget.cpp:712
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "File History - %1"
+#, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
-msgstr "Ιστορικό αρχείου - %1"
+msgstr "Ιστορικό - %1"
 
 #: lib/jsonsettings.cpp:29
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "User Settings"
-msgstr "Ρ&υθμίσεις"
+msgstr "Ρυθμίσεις χρήστη"
 
 #: lib/jsonsettings.cpp:38
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings file:"
-msgstr "Ρ&υθμίσεις"
+msgstr "Αρχείο ρυθμίσεων:"
 
 #: lib/jsonsettings.cpp:74
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Default Settings"
-msgstr "Ρ&υθμίσεις"
+msgstr "Προκαθορισμένες ρυθμίσεις"
 
 #: lib/jsonsettings.cpp:124
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Δεν υπάρχουν JSON δεδομένα για επικύρωση."
 
 #: lib/jsonsettings.cpp:133
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "Τα δεδομένα JSON είναι έγκυρα."
 
 #: lib/jsonsettings.cpp:135
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "Τα δεδομένα JSON δεν είναι έγκυρα: δεν υπάρχει JSON αντικείμενο."
 
 #: lib/jsonsettings.cpp:138
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "Τα δεδομένα JSON δεν είναι έγκυρα: %1"
 
 #: lib/kateapp.cpp:147
 msgid ""
@@ -1071,7 +1073,7 @@ msgstr "Επιλογές συμπεριφοράς"
 #: lib/kateconfigdialog.cpp:122
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "Διαδρομή"
 
 #: lib/kateconfigdialog.cpp:128
 #, kde-format
@@ -1080,6 +1082,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Λίστα με %1 ξεχωριστούς καταλόγους όπου η Kate θα αναζητήσει προγράμματα για "
+"εκτέλεση.Αυτή η λίστα θα προστεθεί στη μεταβλητή περιβάλλοντος PATH. Π.χ. '/"
+"home/USER/myapps/bin/:/home/USER/.local/bin'"
 
 #: lib/kateconfigdialog.cpp:144
 #, kde-format
@@ -1287,8 +1292,7 @@ msgid "Elide tab text"
 msgstr "Αποκοπή κειμένου καρτέλας"
 
 #: lib/kateconfigdialog.cpp:297
-#, fuzzy, kde-format
-#| msgid "When checked tab text might be elided if its too long."
+#, kde-format
 msgid "When checked tab text might be elided if it is too long."
 msgstr ""
 "Όταν επιλεγεί το κείμενο της καρτέλας θα αποκόπτεται αν είναι πολύ μεγάλο."
@@ -1306,7 +1310,7 @@ msgstr "Μη επιλεγμένο, η νέα καρτέλα θα ανοίξει 
 #: lib/kateconfigdialog.cpp:314
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "Να επιτρέπεται η εναλλαγή μεταξύ καρτελών"
 
 #: lib/kateconfigdialog.cpp:316
 #, kde-format
@@ -1315,6 +1319,8 @@ msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
+"Εάν δεν επιλεγεί, η ενέργεια '%1'/'%2' δεν θα μεταβεί στην πρώτη/τελευταία "
+"καρτέλα αφού φτάσει στο τέλος."
 
 #: lib/kateconfigdialog.cpp:339
 #, kde-format
@@ -1378,15 +1384,14 @@ msgstr ""
 "Μέγιστος αριθμός διαγνωστικών που επιτρέπονται στη προβολή διαγνωστικών."
 
 #: lib/kateconfigdialog.cpp:410 lib/texthint/hintview.cpp:25
-#, fuzzy, kde-format
-#| msgid "Configure"
+#, kde-format
 msgid "Context"
-msgstr "Ρύθμιση"
+msgstr "Σχετικό"
 
 #: lib/kateconfigdialog.cpp:415
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "Ενεργοποίηση εργαλείου προβολής"
 
 #: lib/kateconfigdialog.cpp:417
 #, kde-format
@@ -1394,6 +1399,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"Ένα εργαλείο εμφάνισης για την προβολή του περιεχομένου που σχετίζεται με "
+"την τρέχουσα θέση του δρομέα (υποδείξεις LSP, διαγνωστικά)"
 
 #: lib/kateconfigdialog.cpp:432
 #, kde-format
@@ -1446,12 +1453,12 @@ msgstr "Σχόλια χρηστών"
 #: lib/kateconfigdialog.cpp:727
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "Κακή τιμή διαδρομής"
 
 #: lib/kateconfigdialog.cpp:727
 #, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr ""
+msgstr "Η διαδρομή '%1' δεν υπάρχει"
 
 #: lib/kateconfigdialog.cpp:811
 #, kde-format
@@ -1492,16 +1499,14 @@ msgid "Reopening files from the last session..."
 msgstr "Ξανά άνοιγμα των αρχείων της τελευταίας συνεδρίας..."
 
 #: lib/katedocmanager.cpp:528
-#, fuzzy, kde-format
-#| msgid "Cannot go to the document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "Αδυναμία μετάβασης στο έγγραφο"
+msgstr "Δεν είναι δυνατό το καρφίτσωμα εγγράφων χωρίς τίτλο."
 
 #: lib/katedocmanager.cpp:533
-#, fuzzy, kde-format
-#| msgid "Cannot go to the document"
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "Αδυναμία μετάβασης στο έγγραφο"
+msgstr "Δεν είναι δυνατό το καρφίτσωμα μη τοπικών εγγράφων."
 
 #: lib/katefileactions.cpp:80
 #, kde-format
@@ -1664,9 +1669,7 @@ msgid "Copies the file path of the current file to clipboard."
 msgstr "Αντιγράφει τη διαδρομή του τρέχοντος αρχείου στο πρόχειρο."
 
 #: lib/katemainwindow.cpp:469
-#, fuzzy, kde-format
-#| msgctxt "@menu:action"
-#| msgid "Copy Filename"
+#, kde-format
 msgid "Copy Filename"
 msgstr "Αντιγραφή ονόματος αρχείου"
 
@@ -1768,10 +1771,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "Επανάληψη ανοίγματος των εγγράφων που έκλεισαν πρόσφατα"
 
 #: lib/katemainwindow.cpp:547
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "Νέο &παράθυρο"
+msgstr "Κλείσιμο &παραθύρου"
 
 #: lib/katemainwindow.cpp:551
 #, kde-format
@@ -1779,10 +1781,9 @@ msgid "Close this window"
 msgstr "Κλείσιμο αυτού του παραθύρου"
 
 #: lib/katemainwindow.cpp:556
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "Άλλη εφαρμ&ογή..."
+msgstr "Έξοδος από την εφαρμογή"
 
 #: lib/katemainwindow.cpp:560
 #, kde-format
@@ -1872,17 +1873,14 @@ msgid "Save Session &As..."
 msgstr "Αποθήκευση συνεδρίας &ως..."
 
 #: lib/katemainwindow.cpp:659
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "Απόσπαση &εγγράφου"
+msgstr "Καρφίτσωμα/Ξεκαρφίτσωμα ενεργού εγγράφου"
 
 #: lib/katemainwindow.cpp:668
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "Άνοιγμα εγγράφων"
+msgstr "Άνοιγμα επόμενου καρφιτσωμένου έγγραφου"
 
 #: lib/katemainwindow.cpp:675 lib/kateviewspace.cpp:70
 #, kde-format
@@ -1900,10 +1898,9 @@ msgid "Show File Git History"
 msgstr "Εμφάνιση ιστορικού του αρχείου στο git"
 
 #: lib/katemainwindow.cpp:703
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "&Windows"
-msgstr "Νέο &παράθυρο"
+msgstr "&Παράθυρα"
 
 #: lib/katemainwindow.cpp:742
 #, kde-format
@@ -2202,15 +2199,14 @@ msgstr ""
 "'%1'"
 
 #: lib/katemwmodonhddialog.cpp:281
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Failed to create a temporary file"
-msgstr "Αποτυχία ανάκτησης ιστορικού του αρχείου: %1"
+msgstr "Αποτυχία δημιουργίας προσωρινού αρχείου"
 
 #: lib/katemwmodonhddialog.cpp:292
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "Παρακαλώ εγκαταστήστε το git για να δείτε τις διαφορές"
 
 #: lib/katemwmodonhddialog.cpp:316
 #, kde-format
@@ -2562,18 +2558,16 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "Εναλλαγή του συγχρονισμού κύλισης της τρέχουσας προβολής"
 
 #: lib/kateviewmanager.cpp:314
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "Απόσπαση &εγγράφου"
+msgstr "Αποσύνδεση ενεργού εγγράφου"
 
 #: lib/kateviewmanager.cpp:315
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "Ανοίγει το έγγραφο σε νέο παράθυρο και το κλείνει στο τρέχον"
+msgstr ""
+"Ανοίγει το ενεργό έγγραφο σε νέο παράθυρο και το κλείνει στο τρέχον παράθυρο"
 
 #: lib/kateviewmanager.cpp:390
 #, kde-format
@@ -2630,7 +2624,7 @@ msgstr "Αποτυχία ενεργοποίησης του πρόσθετου <b
 #: lib/kateviewmanager.cpp:650
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr ""
+msgstr "Το αρχείο '%1' δεν υπάρχει"
 
 #: lib/kateviewspace.cpp:107
 #, kde-format
@@ -2677,22 +2671,19 @@ msgstr[1] ""
 "έγγραφα, κάντε εναλλαγή σε προβολή \"Γρήγορου ανοίγματος\" κάνοντας κλικ εδώ."
 
 #: lib/kateviewspace.cpp:1125
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Κλείσιμο καρτέλας"
+msgstr "&Κλείσιμο καρτέλας"
 
 #: lib/kateviewspace.cpp:1132
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "Κλείσιμο των άλλων"
+msgstr "Κλείσιμο ά&λλων καρτελών"
 
 #: lib/kateviewspace.cpp:1146
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Κλείσιμο όλων"
+msgstr "Κλείσιμο όλων &των καρτελών"
 
 #: lib/kateviewspace.cpp:1179
 #, kde-format
@@ -2715,23 +2706,19 @@ msgid "Compare with Active Document Using"
 msgstr "Σύγκρινε με το ενεργό έγγραφο με χρήση"
 
 #: lib/kateviewspace.cpp:1239
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Άνοιγμα εγγράφων"
+msgstr "Ξεκαρφίτσωμα εγγράφου"
 
 #: lib/kateviewspace.cpp:1241
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Έγγραφα"
+msgstr "Καρφίτσωμα εγγράφου"
 
 #: lib/ktexteditor_utils.cpp:244
-#, fuzzy, kde-format
-#| msgid "File not found: %1"
+#, kde-format
 msgid "Can not open %1"
-msgstr "Το αρχείο δε βρέθηκε: %1"
+msgstr "Αδυναμία ανοίγματος του «%1»"
 
 #: lib/mainwindow_commands.cpp:45
 #, kde-format
@@ -2739,43 +2726,49 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"Δεν βρέθηκε εργαλείο εμφάνισης για το όνομα: '%1'. Είναι απενεργοποιημένο το "
+"πρόσθετο για αυτό ή το όνομα είναι γραμμένο λάθος;"
 
 #: lib/mainwindow_commands.cpp:48
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
 msgstr ""
+"Σφάλμα σεναρίου. Αναμενόταν ένα όνομα εργαλείου εμφάνισης. Διαθέσιμο: %1"
 
 #: lib/mainwindow_commands.cpp:56
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "Έλεγχος ποιότητας και συγγραφή σεναρίων"
+msgstr "Σενάρια"
 
 #: lib/mainwindow_commands.cpp:77
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Εμφάνιση ενός πίνακα toolview. Διαθέσιμοι "
+"πίνακες: %1"
 
 #: lib/mainwindow_commands.cpp:79
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Απόκρυψη ενός πίνακα toolview. Διαθέσιμοι "
+"πίνακες: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
-msgstr ""
+msgstr "Αναζήτηση αρχείων σε όλα τα έργα (κάντε δεξί κλικ για διαμόρφωση)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
-msgstr ""
+msgstr "Αναζήτηση αρχείων στο τρέχον έργο (κάντε δεξί κλικ για διαμόρφωση)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
@@ -2798,10 +2791,9 @@ msgid "Wildcard Filtering"
 msgstr "Φιλτράρισμα με υποκατάσταση"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "Όλα τα έργα"
+msgstr "Έργο: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

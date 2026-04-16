@@ -388,12 +388,10 @@ msgid "Output Customization"
 msgstr "输出自定义"
 
 #: katesqlconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "使用系统编码"
+msgstr ""
 
 #: katesqlconfigpage.cpp:37
 #, kde-format

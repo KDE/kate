@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-04-17 00:47+0000\n"
 "PO-Revision-Date: 2007-02-17 11:32+0100\n"
 "Last-Translator: Bozidar Proevski <bobibobi@freemail.com.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
@@ -164,47 +164,47 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "KWrite - Уредувач на текст"
 
-#: lib/commitfilesview.cpp:448 lib/kateviewmanager.cpp:369
+#: lib/commitfilesview.cpp:430 lib/kateviewmanager.cpp:369
 #: lib/kateviewmanager.cpp:371
 #, kde-format
 msgid "Open File"
 msgstr "Отворете датотека"
 
-#: lib/commitfilesview.cpp:454 lib/katemainwindow.cpp:460
+#: lib/commitfilesview.cpp:436 lib/katemainwindow.cpp:460
 #, fuzzy, kde-format
 msgid "Copy Location"
 msgstr "Локација"
 
-#: lib/commitfilesview.cpp:477 lib/commitfilesview.cpp:594
-#: lib/commitfilesview.cpp:600 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:459 lib/commitfilesview.cpp:576
+#: lib/commitfilesview.cpp:582 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:574
+#: lib/commitfilesview.cpp:556
 #, kde-format
 msgid "Renamed %1 => %2"
 msgstr ""
 
-#: lib/commitfilesview.cpp:594
+#: lib/commitfilesview.cpp:576
 #, fuzzy, kde-format
 #| msgid "Invalid Folder"
 msgid "Invalid hash"
 msgstr "Невалидна папка"
 
-#: lib/commitfilesview.cpp:600 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:582 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:610
+#: lib/commitfilesview.cpp:592
 #, fuzzy, kde-format
 #| msgid "Comment"
 msgctxt "@title:tab"
 msgid "Commit %1"
 msgstr "Коментар"
 
-#: lib/commitfilesview.cpp:623
+#: lib/commitfilesview.cpp:605
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"

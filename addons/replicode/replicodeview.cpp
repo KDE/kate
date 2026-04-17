@@ -119,7 +119,7 @@ void ReplicodeView::runReplicode()
 
     // ensure we only call replicode from PATH if not given as absolute path already
     if (!executorPath.isEmpty() && !QFileInfo(executorPath).isAbsolute()) {
-        executorPath = safeExecutableName(executorPath);
+        executorPath = safePrefixedExecutableNameInContainerIfAvailable(executorPath);
     }
 
     if (executorPath.isEmpty()) {

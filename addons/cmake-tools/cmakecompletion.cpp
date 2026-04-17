@@ -21,7 +21,7 @@ struct CMakeComplData {
 
 static QByteArray runCMake(const QString &arg)
 {
-    static const auto cmakeExecutable = safeExecutableName(QStringLiteral("cmake"));
+    static const auto cmakeExecutable = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("cmake"));
     if (cmakeExecutable.isEmpty()) {
         return {};
     }

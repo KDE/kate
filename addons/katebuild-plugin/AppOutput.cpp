@@ -154,7 +154,7 @@ void AppOutput::runCommand(const QString &cmd)
     } else {
         d->outputArea->clear();
         d->process.setShellCommand(cmd);
-        startHostProcess(d->process);
+        startHostProcessInContainerIfAvailable(d->process);
         d->process.waitForStarted(300);
     }
     Q_EMIT runningChanged();

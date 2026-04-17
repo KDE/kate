@@ -555,7 +555,7 @@ void KateCTagsView::updateSessionDB()
     QStringList arguments = m_proc.splitCommand(m_ctagsUi.cmdEdit->text());
     const QString command = arguments.takeFirst();
     arguments << QStringLiteral("-f") << m_ctagsUi.tagsFile->text() << targets;
-    startHostProcess(m_proc, command, arguments);
+    startHostProcessInContainerIfAvailable(m_proc, command, arguments);
 
     if (!m_proc.waitForStarted(500)) {
         Utils::showMessage(i18n("Failed to run. Error: %1, exit code: %2", m_proc.errorString(), m_proc.exitCode()),

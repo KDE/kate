@@ -489,7 +489,7 @@ void KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringL
     if (!setupGitProcess(git, dir.absolutePath(), args)) {
         return;
     }
-    startHostProcess(git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(git, QProcess::ReadOnly);
     if (!git.waitForStarted() || !git.waitForFinished(-1)) {
         return;
     }
@@ -509,7 +509,7 @@ void KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringL
 void KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles)
 {
     // only use version control from PATH
-    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("hg"));
+    static const auto fullExecutablePath = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("hg"));
     if (fullExecutablePath.isEmpty()) {
         Q_EMIT errorOccurred(notInstalledErrorString(QStringLiteral("'hg'")));
         return;
@@ -539,7 +539,7 @@ void KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive, std:
 void KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles)
 {
     // only use version control from PATH
-    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("svn"));
+    static const auto fullExecutablePath = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("svn"));
     if (fullExecutablePath.isEmpty()) {
         Q_EMIT errorOccurred(notInstalledErrorString(QStringLiteral("'svn'")));
         return;
@@ -604,7 +604,7 @@ void KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursive, std
 void KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles)
 {
     // only use version control from PATH
-    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("darcs"));
+    static const auto fullExecutablePath = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("darcs"));
     if (fullExecutablePath.isEmpty()) {
         Q_EMIT errorOccurred(notInstalledErrorString(QStringLiteral("'darcs'")));
         return;
@@ -665,7 +665,7 @@ void KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive, std::vec
 void KateProjectWorker::filesFromFossil(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles)
 {
     // only use version control from PATH
-    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("fossil"));
+    static const auto fullExecutablePath = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("fossil"));
     if (fullExecutablePath.isEmpty()) {
         Q_EMIT errorOccurred(notInstalledErrorString(QStringLiteral("'fossil'")));
         return;

@@ -271,7 +271,7 @@ void BasicUiTests::test_settingPATH()
     QCOMPARE(first, qApp->applicationDirPath());
 
     // verify that we are now able to find the test exe because its dir is in PATH
-    QVERIFY(!safeExecutableName(QStringLiteral("basic_ui_tests")).isEmpty());
+    QVERIFY(!safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("basic_ui_tests")).isEmpty());
 
     // 3. Remove the path, ensure its properly gone
     auto dialogTest2 = [acceptDialog] {

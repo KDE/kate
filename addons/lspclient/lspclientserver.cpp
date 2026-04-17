@@ -1888,7 +1888,7 @@ public:
         // we handle stdout/stderr internally, important stuff via stdout
         m_sproc.setProcessChannelMode(forwardStdError ? QProcess::ForwardedErrorChannel : QProcess::SeparateChannels);
         m_sproc.setReadChannel(QProcess::QProcess::StandardOutput);
-        startHostProcess(m_sproc, program, args);
+        startHostProcessInContainerIfAvailable(m_sproc, program, args);
         const bool result = m_sproc.waitForStarted();
         if (result) {
             setState(State::Started);

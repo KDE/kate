@@ -9,6 +9,18 @@
 
 #include <KSandbox>
 
+QString safePrefixedExecutableNameInContainerIfAvailable(const QString &executableName, const QStringList &paths)
+{
+    KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
+    const auto containerPrefix = cgGeneral.readEntry("Selected Container", QString());
+
+    if (containerPrefix.isEmpty()) {
+        return safeExecutableName(executableName, paths);
+    } else {
+        return safePrefixedExecutableName(executableName);
+    }
+}
+
 QString safeExecutableName(const QString &executableName, const QStringList &paths)
 {
     if (KSandbox::isFlatpak()) {
@@ -44,11 +56,27 @@ void startHostProcess(QProcess &proc, QProcess::OpenMode mode)
 
 void startHostProcess(QProcess &proc, const QString &program, const QStringList &arguments, QProcess::OpenMode mode)
 {
-    KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
     proc.setProgram(program);
     proc.setArguments(arguments);
     qWarning() << "Start host process" << proc.program() << proc.arguments();
     startHostProcess(proc, mode);
+}
+
+void startPrefixedHostProcess(QProcess &proc, QProcess::OpenMode mode)
+{
+    KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
+    const auto containerPrefix = cgGeneral.readEntry("Selected Container", QString());
+    auto containerItems = containerPrefix.split(QStringLiteral(" "));
+    auto prog = (containerItems.takeFirst());
+    auto args = containerItems;
+    args.append(proc.program());
+    args.append(proc.arguments());
+
+    proc.setProgram(prog);
+    proc.setArguments(args);
+    qWarning() << "Start prefixed host process1" << proc.program() << proc.arguments();
+
+    KSandbox::startHostProcess(proc, mode);
 }
 
 void startPrefixedHostProcess(QProcess &proc, const QString &program, const QStringList &arguments, QProcess::OpenMode mode)
@@ -63,6 +91,31 @@ void startPrefixedHostProcess(QProcess &proc, const QString &program, const QStr
 
     proc.setProgram(prog);
     proc.setArguments(args);
-    qWarning() << "Start prefixed host process" << proc.program() << proc.arguments();
+    qWarning() << "Start prefixed host process2" << proc.program() << proc.arguments();
     startHostProcess(proc, mode);
+}
+
+void startHostProcessInContainerIfAvailable(QProcess &proc, QProcess::OpenMode mode)
+{
+    KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
+    const auto containerPrefix = cgGeneral.readEntry("Selected Container", QString());
+    if (containerPrefix.isEmpty()) {
+        startHostProcess(proc, mode);
+    } else {
+        startPrefixedHostProcess(proc, mode);
+    }
+}
+
+void startHostProcessInContainerIfAvailable(QProcess &proc, const QString &program, const QStringList &arguments, QProcess::OpenMode mode)
+{
+    KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
+    const auto containerPrefix = cgGeneral.readEntry("Selected Container", QString());
+    proc.setProgram(program);
+    proc.setArguments(arguments);
+
+    if (containerPrefix.isEmpty()) {
+        startHostProcess(proc, mode);
+    } else {
+        startPrefixedHostProcess(proc, mode);
+    }
 }

@@ -99,7 +99,7 @@ static inline std::optional<std::vector<ModifiedLines>> getModifiedLines(const Q
 
     QProcess git;
     setupGitProcess(git, QFileInfo(filePath).absolutePath(), {QStringLiteral("diff"), QStringLiteral("--no-color"), QStringLiteral("-U0"), filePath});
-    startHostProcess(git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(git, QProcess::ReadOnly);
     if (!git.waitForStarted() || !git.waitForFinished()) {
         return std::nullopt;
     }

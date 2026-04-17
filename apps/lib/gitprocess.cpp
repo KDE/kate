@@ -17,7 +17,7 @@
 bool setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments)
 {
     // only use git from PATH
-    static const QString gitExecutable = safeExecutableName(QStringLiteral("git"));
+    static const QString gitExecutable = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("git"));
     if (gitExecutable.isEmpty()) {
         // ensure we have no valid QProcess setup
         process.setProgram(QString());
@@ -54,7 +54,7 @@ static GitVersionInfo getGitVersionUncached(const QString &workingDir)
     }
 
     // try to run, no version output feasible if not possible
-    startHostProcess(git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(git, QProcess::ReadOnly);
     if (!git.waitForStarted() || !git.waitForFinished() || git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
         return {.major = -1, .minor = -1};
     }
@@ -91,7 +91,7 @@ std::optional<QString> getRepoBasePath(const QString &repo)
         return std::nullopt;
     }
 
-    startHostProcess(git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return std::nullopt;
@@ -119,7 +119,7 @@ std::optional<QString> repoIndexFile(const QString &repo)
         return std::nullopt;
     }
 
-    startHostProcess(git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
             return QString::fromUtf8(git.readAllStandardOutput().trimmed());

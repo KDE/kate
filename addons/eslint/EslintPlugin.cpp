@@ -98,7 +98,7 @@ void ESLintPluginView::onSaved(KTextEditor::Document *)
         return;
     }
 
-    const auto name = safeExecutableName(QStringLiteral("npx"));
+    const auto name = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("npx"));
     if (name.isEmpty()) {
         // TODO: error
         return;
@@ -109,7 +109,7 @@ void ESLintPluginView::onSaved(KTextEditor::Document *)
     m_eslintProcess.setWorkingDirectory(workingDir);
 
     const QStringList args{QStringLiteral("eslint"), QStringLiteral("-f"), QStringLiteral("json"), {m_activeDoc->url().toLocalFile()}};
-    startHostProcess(m_eslintProcess, name, args);
+    startHostProcessInContainerIfAvailable(m_eslintProcess, name, args);
 }
 
 static FileDiagnostics parseLine(const QString &line, std::vector<DiagnosticWithFix> &diagWithFix)

@@ -92,7 +92,7 @@ void KateProjectInfoViewCodeAnalysis::slotToolSelectionChanged(int)
 {
     m_analysisTool = m_toolSelector->currentData(Qt::UserRole + 1).value<KateProjectCodeAnalysisTool *>();
     if (m_analysisTool) {
-        const QString fullExecutable = safeExecutableName(m_analysisTool->path());
+        const QString fullExecutable = safePrefixedExecutableNameInContainerIfAvailable(m_analysisTool->path());
         if (fullExecutable.isEmpty()) {
             m_startStopAnalysis->setEnabled(false);
             m_toolInfoLabel->setText(
@@ -141,7 +141,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     connect(m_analyzer, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateProjectInfoViewCodeAnalysis::finished);
 
     // ensure we only run the code analyzer from PATH
-    const QString fullExecutable = safeExecutableName(m_analysisTool->path());
+    const QString fullExecutable = safePrefixedExecutableNameInContainerIfAvailable(m_analysisTool->path());
     if (!fullExecutable.isEmpty()) {
         m_analyzer->setWorkingDirectory(m_project->baseDir());
         startHostProcess(*m_analyzer, fullExecutable, m_analysisTool->arguments());

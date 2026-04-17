@@ -61,7 +61,7 @@
 
 static QString ksshaskpass()
 {
-    static const QString res = safeExecutableName(QStringLiteral("ksshaskpass"));
+    static const QString res = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("ksshaskpass"));
     return res;
 }
 
@@ -458,7 +458,7 @@ void GitWidget::setSubmodulesPaths()
                      QStringLiteral("rev-parse"),
                      QStringLiteral("--show-toplevel")};
     auto git = gitp(args);
-    startHostProcess(*git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(*git, QProcess::ReadOnly);
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
             // no error on status failure
@@ -601,7 +601,7 @@ void GitWidget::slotUpdateStatus()
         }
         git->deleteLater();
     });
-    startHostProcess(*git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(*git, QProcess::ReadOnly);
 }
 
 void GitWidget::updateGitProjectFolder()
@@ -621,7 +621,7 @@ void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
         }
         git->deleteLater();
     });
-    startHostProcess(*git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(*git, QProcess::ReadOnly);
 }
 
 void GitWidget::runPushPullCmd(const QStringList &args)
@@ -659,7 +659,7 @@ void GitWidget::runPushPullCmd(const QStringList &args)
     });
 
     enableCancel(git);
-    startHostProcess(*git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(*git, QProcess::ReadOnly);
 }
 
 void GitWidget::stage(const QStringList &files, bool)
@@ -718,7 +718,7 @@ void GitWidget::openAtHEAD(const QString &file)
     auto args = QStringList{QStringLiteral("show"), QStringLiteral("--textconv")};
     args.append(QStringLiteral(":") + file);
     auto git = gitp(args);
-    startHostProcess(*git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(*git, QProcess::ReadOnly);
 
     connect(git, &QProcess::finished, this, [this, file, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
@@ -736,7 +736,7 @@ void GitWidget::openAtHEAD(const QString &file)
     });
 
     git->setArguments(args);
-    startHostProcess(*git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(*git, QProcess::ReadOnly);
 }
 
 void GitWidget::showDiff(const QString &file, bool staged)
@@ -781,7 +781,7 @@ void GitWidget::showDiff(const QString &file, bool staged)
         }
         git->deleteLater();
     });
-    startHostProcess(*git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(*git, QProcess::ReadOnly);
 }
 
 void GitWidget::launchExternalDiffTool(const QString &file, bool staged)
@@ -833,7 +833,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
         }
         git->deleteLater();
     });
-    startHostProcess(*git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(*git, QProcess::ReadOnly);
 }
 
 void GitWidget::openCommitChangesDialog(bool amend)
@@ -975,7 +975,7 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
         return;
     }
 
-    startHostProcess(git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             return;
@@ -1002,7 +1002,7 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
         return;
     }
 
-    startHostProcess(git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(git, QProcess::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
             sendMessage(i18n("Failed to get numstat when diffing %1...%2", from, to), true);

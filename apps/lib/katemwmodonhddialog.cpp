@@ -301,7 +301,7 @@ void KateMwModOnHdDialog::slotDiff()
     });
     setCursor(Qt::WaitCursor);
     btnDiff->setEnabled(false);
-    startHostProcess(*p);
+    startHostProcessInContainerIfAvailable(*p);
 }
 
 void KateMwModOnHdDialog::slotGitDiffDone(QProcess *p, KTextEditor::Document *doc)

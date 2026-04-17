@@ -222,7 +222,7 @@ void KateCTagsConfigPage::updateGlobalDB()
     QStringList arguments = m_proc.splitCommand(m_confUi.cmdEdit->text());
     const QString command = arguments.takeFirst();
     arguments << QStringLiteral("-f") << file << targets;
-    startHostProcess(m_proc, command, arguments);
+    startHostProcessInContainerIfAvailable(m_proc, command, arguments);
 
     if (!m_proc.waitForStarted(500)) {
         KMessageBox::error(nullptr, i18n("Failed to run. Error: %1, exit code: %2", m_proc.errorString(), m_proc.exitCode()));

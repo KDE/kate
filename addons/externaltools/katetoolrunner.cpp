@@ -42,7 +42,7 @@ KateExternalTool *KateToolRunner::tool() const
 void KateToolRunner::run()
 {
     // always only execute the tool from PATH
-    const auto fullExecutable = safeExecutableName(m_tool->executable);
+    const auto fullExecutable = safePrefixedExecutableNameInContainerIfAvailable(m_tool->executable);
     if (fullExecutable.isEmpty()) {
         return;
     }
@@ -80,7 +80,7 @@ void KateToolRunner::run()
     });
 
     const QStringList args = KShell::splitArgs(m_tool->arguments);
-    startHostProcess(*m_process, fullExecutable, args);
+    startHostProcessInContainerIfAvailable(*m_process, fullExecutable, args);
 }
 
 void KateToolRunner::waitForFinished()

@@ -61,7 +61,7 @@ void GotoSymbolModel::refresh(const QString &filePath)
     endResetModel();
 
     // only use ctags from PATH
-    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("ctags"));
+    static const auto fullExecutablePath = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("ctags"));
     if (fullExecutablePath.isEmpty()) {
         beginResetModel();
         m_rows.append(SymbolItem{.name = i18n("CTags executable not found."), .line = -1, .icon = QIcon()});
@@ -70,7 +70,9 @@ void GotoSymbolModel::refresh(const QString &filePath)
     }
 
     QProcess p;
-    startHostProcess(p, fullExecutablePath, {QStringLiteral("-x"), QStringLiteral("--_xformat=%{name}%{signature}\t%{kind}\t%{line}"), filePath});
+    startHostProcessInContainerIfAvailable(p,
+                                           fullExecutablePath,
+                                           {QStringLiteral("-x"), QStringLiteral("--_xformat=%{name}%{signature}\t%{kind}\t%{line}"), filePath});
 
     QByteArray out;
     if (p.waitForFinished()) {

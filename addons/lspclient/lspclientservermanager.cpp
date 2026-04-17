@@ -877,7 +877,7 @@ private:
 
             // ensure we always only take the server executable from the PATH or user defined paths
             // QProcess will take the executable even just from current working directory without this => BAD
-            auto cmd = safeExecutableName(cmdline[0]);
+            auto cmd = safePrefixedExecutableNameInContainerIfAvailable(cmdline[0]);
 
             // optionally search in supplied path(s)
             const auto vpath = serverConfig.value(QStringLiteral("path")).toArray();
@@ -889,7 +889,7 @@ private:
                     p = editor->expandText(p, view);
                     path.push_back(p);
                 }
-                cmd = safeExecutableName(cmdline[0], path);
+                cmd = safePrefixedExecutableNameInContainerIfAvailable(cmdline[0], path);
             }
 
             // we can only start the stuff if we did find the binary in the paths

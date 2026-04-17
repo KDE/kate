@@ -42,8 +42,8 @@ QCMakeFileApi::QCMakeFileApi(const QString &cmakeCacheFile, bool withSourceFiles
     qCDebug(KTEBUILD, "builddir: %ls cachefile %ls", qUtf16Printable(m_buildDir), qUtf16Printable(m_cacheFile));
 
     // get cmake name from file, ensure in any case we compute some absolute name, beside inside containers
-    m_cmakeExecutable = safeExecutableName(findCMakeExecutable(m_cacheFile));
-    m_cmakeGuiExecutable = safeExecutableName(findCMakeGuiExecutable(m_cmakeExecutable));
+    m_cmakeExecutable = safePrefixedExecutableNameInContainerIfAvailable(findCMakeExecutable(m_cacheFile));
+    m_cmakeGuiExecutable = safePrefixedExecutableNameInContainerIfAvailable(findCMakeGuiExecutable(m_cmakeExecutable));
 }
 
 const QString &QCMakeFileApi::getCMakeExecutable() const
@@ -117,7 +117,7 @@ bool QCMakeFileApi::runCMake()
     connect(&cmakeProc, &QProcess::started, this, &QCMakeFileApi::handleStarted);
     connect(&cmakeProc, &QProcess::stateChanged, this, &QCMakeFileApi::handleStateChanged);
     connect(&cmakeProc, &QProcess::errorOccurred, this, &QCMakeFileApi::handleError);
-    startHostProcess(cmakeProc);
+    startHostProcessInContainerIfAvailable(cmakeProc);
 
     cmakeProc.waitForFinished();
     return m_cmakeSuccess;

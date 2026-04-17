@@ -33,7 +33,7 @@
         Utils::showMessage(i18n("Failed to run git diff: git not installed"), {}, i18n("Format"), MessageType::Warning);
         return {};
     }
-    startHostProcess(p);
+    startHostProcessInContainerIfAvailable(p);
     if (!p.waitForStarted() || !p.waitForFinished()) {
         Utils::showMessage(i18n("Failed to run git diff: %1", p.errorString()), {}, i18n("Format"), MessageType::Warning);
         return {};

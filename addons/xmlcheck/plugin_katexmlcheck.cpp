@@ -237,7 +237,7 @@ bool PluginKateXMLCheckView::slotValidate()
 
     // ensure we only execute xmllint from PATH or application package
     static const auto executableName = QStringLiteral("xmllint");
-    QString exe = safeExecutableName(executableName);
+    QString exe = safePrefixedExecutableNameInContainerIfAvailable(executableName);
     if (exe.isEmpty()) {
         exe = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, executableName);
     }

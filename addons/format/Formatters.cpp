@@ -131,7 +131,7 @@ void FormatterRunner::run(KTextEditor::Document *doc)
     }
     QString path = command.takeFirst();
     const auto args = command + m_fmt.args;
-    const auto name = safeExecutableName(!path.isEmpty() ? path : m_fmt.name);
+    const auto name = safePrefixedExecutableNameInContainerIfAvailable(!path.isEmpty() ? path : m_fmt.name);
     if (name.isEmpty()) {
         Q_EMIT message(i18n("%1 is not installed, please install it to be able to format this document!", m_fmt.name), MessageType::Info);
         return;
@@ -176,7 +176,7 @@ void FormatterRunner::run(KTextEditor::Document *doc)
     }
 
     qCDebug(FORMATTING, "executing: %ls %ls", qUtf16Printable(name), qUtf16Printable(args.join(QStringLiteral(" "))));
-    startHostProcess(*p, name, args);
+    startHostProcessInContainerIfAvailable(*p, name, args);
 }
 
 void FormatterRunner::onResultReady(const RunOutput &o)

@@ -83,7 +83,7 @@ void KateProjectIndex::loadCtags(const QStringList &files, const QVariantMap &ct
     m_ctagsIndexFile->close();
 
     // only use ctags from PATH
-    static const auto fullExecutablePath = safeExecutableName(QStringLiteral("ctags"));
+    static const auto fullExecutablePath = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("ctags"));
     if (fullExecutablePath.isEmpty()) {
         return;
     }

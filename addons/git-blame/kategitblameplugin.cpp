@@ -311,7 +311,7 @@ void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
     if (!setupGitProcess(m_blameInfoProc, m_parentPath, {QStringLiteral("rev-parse"), QStringLiteral("--show-toplevel")})) {
         return;
     }
-    startHostProcess(m_blameInfoProc, QIODevice::ReadOnly);
+    startHostProcessInContainerIfAvailable(m_blameInfoProc, QIODevice::ReadOnly);
 }
 
 void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &hash)
@@ -326,7 +326,7 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
     if (!setupGitProcess(m_showProc, fi.absolutePath(), {QStringLiteral("show"), hash, QStringLiteral("--numstat")})) {
         return;
     }
-    startHostProcess(m_showProc, QIODevice::ReadOnly);
+    startHostProcessInContainerIfAvailable(m_showProc, QIODevice::ReadOnly);
 }
 
 void KateGitBlamePluginView::showCommitInfo(const QString &hash, KTextEditor::View *view)
@@ -357,7 +357,7 @@ void KateGitBlamePluginView::commandFinished(int exitCode, QProcess::ExitStatus 
             return;
         }
         m_currentCommand = Command::IgnoreRevsFile;
-        startHostProcess(m_blameInfoProc, QIODevice::ReadOnly);
+        startHostProcessInContainerIfAvailable(m_blameInfoProc, QIODevice::ReadOnly);
         break;
     }
     case Command::Config: {
@@ -377,7 +377,7 @@ void KateGitBlamePluginView::commandFinished(int exitCode, QProcess::ExitStatus 
         if (!setupGitProcess(m_blameInfoProc, m_parentPath, arguments)) {
             return;
         }
-        startHostProcess(m_blameInfoProc, QIODevice::ReadOnly);
+        startHostProcessInContainerIfAvailable(m_blameInfoProc, QIODevice::ReadOnly);
         break;
     }
     case Command::Blame:

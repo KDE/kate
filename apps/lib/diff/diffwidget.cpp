@@ -530,7 +530,7 @@ void DiffWidget::applyDiff(const QString &diff, ApplyFlags flags)
         delete file;
         git->deleteLater();
     });
-    startHostProcess(*git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(*git, QProcess::ReadOnly);
 }
 
 void DiffWidget::runGitDiff()
@@ -573,7 +573,7 @@ void DiffWidget::runGitDiff()
         m_blockShowEvent = false;
         git->deleteLater();
     });
-    startHostProcess(*git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(*git, QProcess::ReadOnly);
 }
 
 void DiffWidget::clearData()

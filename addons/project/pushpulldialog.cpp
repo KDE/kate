@@ -107,7 +107,7 @@ static QString currentBranchName(const QString &repo)
         return {};
     }
 
-    startHostProcess(git, QIODevice::ReadOnly);
+    startHostProcessInContainerIfAvailable(git, QIODevice::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
             return QString::fromUtf8(git.readAllStandardOutput().trimmed());
@@ -124,7 +124,7 @@ static QStringList remotesList(const QString &repo)
         return {};
     }
 
-    startHostProcess(git, QIODevice::ReadOnly);
+    startHostProcessInContainerIfAvailable(git, QIODevice::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
             return QString::fromUtf8(git.readAllStandardOutput()).split(u'\n', Qt::SkipEmptyParts);
@@ -141,7 +141,7 @@ static QString getRemoteForCurrentBranch(const QString &repo, const QString &bra
         return {};
     }
 
-    startHostProcess(git, QIODevice::ReadOnly);
+    startHostProcessInContainerIfAvailable(git, QIODevice::ReadOnly);
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
             return QString::fromUtf8(git.readAllStandardOutput().trimmed());

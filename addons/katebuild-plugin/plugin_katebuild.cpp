@@ -866,7 +866,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_proc.setProcessEnvironment(env);
     m_proc.setWorkingDirectory(m_makeDir);
     m_proc.setShellCommand(command);
-    startHostProcess(m_proc);
+    startHostProcessInContainerIfAvailable(m_proc);
 
     if (!m_proc.waitForStarted(500)) {
         sendError(i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));

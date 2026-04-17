@@ -468,7 +468,7 @@ void CommitDiffTreeView::openCommit(const QString &hash)
         QByteArray numstat = contents.mid(firstNull + 1);
         createFileTreeForCommit(numstat);
     });
-    startHostProcess(*git);
+    startHostProcessInContainerIfAvailable(*git);
 }
 
 void CommitDiffTreeView::createFileTreeForCommit(const QByteArray &rawNumStat)
@@ -543,7 +543,7 @@ void CommitDiffTreeView::showDiff(const QModelIndex &idx)
         return;
     }
 
-    startHostProcess(git, QProcess::ReadOnly);
+    startHostProcessInContainerIfAvailable(git, QProcess::ReadOnly);
 
     if (git.waitForStarted() && git.waitForFinished(-1)) {
         if (git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {

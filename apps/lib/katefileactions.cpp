@@ -169,9 +169,9 @@ QList<KateFileActions::DiffTool> KateFileActions::supportedDiffTools()
 {
     // query once if the tools are there in the path and store that
     // we will disable the actions for the tools not found
-    static QList<DiffTool> resultList{{.name = QStringLiteral("kdiff3"), .path = safeExecutableName(QStringLiteral("kdiff3"))},
-                                      {.name = QStringLiteral("kompare"), .path = safeExecutableName(QStringLiteral("kompare"))},
-                                      {.name = QStringLiteral("meld"), .path = safeExecutableName(QStringLiteral("meld"))}};
+    static QList<DiffTool> resultList{{.name = QStringLiteral("kdiff3"), .path = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("kdiff3"))},
+                                      {.name = QStringLiteral("kompare"), .path = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("kompare"))},
+                                      {.name = QStringLiteral("meld"), .path = safePrefixedExecutableNameInContainerIfAvailable(QStringLiteral("meld"))}};
     return resultList;
 }
 

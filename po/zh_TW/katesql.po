@@ -3,13 +3,13 @@
 #
 # Franklin Weng <franklin@goodhorse.idv.tw>, 2010, 2011, 2012, 2014.
 # Jeff Huang <s8321414@gmail.com>, 2020.
-# SPDX-FileCopyrightText: 2023, 2025 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023, 2025-2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-14 00:47+0000\n"
-"PO-Revision-Date: 2025-01-24 22:32+0900\n"
+"PO-Revision-Date: 2026-04-17 19:43+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 25.03.70\n"
+"X-Generator: Lokalize 26.07.70\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -153,9 +153,7 @@ msgid "Connection name:"
 msgstr "連線名稱："
 
 #: dataoutputwidget.cpp:88
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "重新整理"
@@ -200,55 +198,55 @@ msgstr "使用系統區域設定"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "貼上"
 
 #: dataoutputwidget.cpp:147
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "設為 NULL"
 
 #: dataoutputwidget.cpp:155
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "插入列"
 
 #: dataoutputwidget.cpp:163
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "移除選取的列"
 
 #: dataoutputwidget.cpp:171
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "重製選取的列"
 
 #: dataoutputwidget.cpp:179
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "復原"
 
 #: dataoutputwidget.cpp:187
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 #: dataoutputwidget.cpp:200
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "Where:"
 
 #: dataoutputwidget.cpp:208
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:209
 #, kde-format
@@ -263,12 +261,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "無法開啟檔案  <filename>%1</filename>"
 
 #: dataoutputwidget.cpp:505
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "無法連線到資料庫。<nl/><message>%1</message>"
+msgstr "儲存變更失敗：<message>%1</message>"
 
 #: exportwizard.cpp:27
 #, kde-format
@@ -394,18 +390,16 @@ msgid "Output Customization"
 msgstr "輸出調整"
 
 #: katesqlconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "使用系統區域設定"
+msgstr "使用系統預設值"
 
 #: katesqlconfigpage.cpp:37
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "重設為系統預設值"
 
 #: katesqlconfigpage.cpp:65
 #, kde-format

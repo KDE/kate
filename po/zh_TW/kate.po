@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-17 00:47+0000\n"
-"PO-Revision-Date: 2026-03-16 17:13+0900\n"
+"PO-Revision-Date: 2026-04-17 19:44+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 26.03.70\n"
+"X-Generator: Lokalize 26.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -203,7 +203,7 @@ msgstr "提交 %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "貯存 %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -439,10 +439,9 @@ msgid "Enable Suppression"
 msgstr "啟用抑制"
 
 #: lib/diagnostics/diagnosticview.cpp:1603
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "Show fixes"
-msgstr "顯示邊列(&B)"
+msgstr "顯示修正"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format
@@ -646,42 +645,39 @@ msgid "History - %1"
 msgstr "歷史 - %1"
 
 #: lib/jsonsettings.cpp:29
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "User Settings"
-msgstr "設定(&S)"
+msgstr "使用者設定"
 
 #: lib/jsonsettings.cpp:38
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings file:"
-msgstr "設定(&S)"
+msgstr "設定檔案："
 
 #: lib/jsonsettings.cpp:74
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Default Settings"
-msgstr "設定(&S)"
+msgstr "預設設定"
 
 #: lib/jsonsettings.cpp:124
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "沒有要驗證的 JSON 資料。"
 
 #: lib/jsonsettings.cpp:133
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON 資料有效。"
 
 #: lib/jsonsettings.cpp:135
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON 資料無效：沒有 JSON 物件"
 
 #: lib/jsonsettings.cpp:138
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON 資料是無效的：%1"
 
 #: lib/kateapp.cpp:147
 msgid ""

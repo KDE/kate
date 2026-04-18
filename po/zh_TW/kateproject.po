@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-17 00:47+0000\n"
-"PO-Revision-Date: 2026-03-16 17:13+0900\n"
+"PO-Revision-Date: 2026-04-17 19:44+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 26.03.70\n"
+"X-Generator: Lokalize 26.07.70\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -398,16 +398,14 @@ msgid "Drop Stash"
 msgstr "捨棄貯存"
 
 #: gitwidget.cpp:1206
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "彈出貯存"
+msgstr "顯示貯存"
 
 #: gitwidget.cpp:1210
-#, fuzzy, kde-format
-#| msgid "Show Diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "顯示差異"
+msgstr "顯示貯存差異"
 
 #: gitwidget.cpp:1248
 #, kde-format
@@ -876,10 +874,9 @@ msgid "Project Manager"
 msgstr "專案管理員"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Current Project"
-msgstr "關閉專案"
+msgstr "目前專案"
 
 #: kateprojectpluginview.cpp:86
 #, kde-format
@@ -1150,10 +1147,9 @@ msgstr "專案(&P)"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:27
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
-msgstr "專案補完"
+msgstr "專案外掛程式"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "顯示貯存內容"

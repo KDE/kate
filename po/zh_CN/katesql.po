@@ -391,13 +391,13 @@ msgstr "输出自定义"
 #, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr ""
+msgstr "使用系统默认值"
 
 #: katesqlconfigpage.cpp:37
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "重置为系统默认值"
 
 #: katesqlconfigpage.cpp:65
 #, kde-format

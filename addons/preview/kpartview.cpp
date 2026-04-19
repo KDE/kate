@@ -20,10 +20,12 @@
 
 // Qt
 #include <QDesktopServices>
+#include <QDir>
 #include <QEvent>
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QLabel>
+#include <QMimeDatabase>
 #include <QTemporaryFile>
 
 using namespace KTextEditorPreview;
@@ -210,7 +212,12 @@ void KPartView::updatePreview()
 
     // have to go via filesystem for now, not nice
     if (!m_bufferFile) {
-        m_bufferFile = new QTemporaryFile(this);
+        // try to add suffix that matches the document mime-type
+        // some applications that are used via openUrl need that
+        // see bug 518537
+        const QString suffix = QMimeDatabase().mimeTypeForName(mimeType).preferredSuffix();
+        const QString tmpl = QDir::tempPath() + QStringLiteral("/kate-preview-XXXXXX.%1").arg(suffix.isEmpty() ? QStringLiteral("preview-file") : suffix);
+        m_bufferFile = new QTemporaryFile(tmpl, this);
         if (!m_bufferFile->open()) {
             qCWarning(KTEPREVIEW, "Failed to open temporary file");
         }

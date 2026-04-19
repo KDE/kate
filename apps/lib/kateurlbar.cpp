@@ -905,21 +905,29 @@ public:
 
         QModelIndex selectedIndex = selectedIndexes().constFirst();
         auto path = selectedIndex.data(BreadCrumbRole::PathRole).toString();
+
         // -2 will be separator
         int lastUrlItem = lastIsSymbolCrumb ? m_model.rowCount() - 3 : m_model.rowCount() - 1;
-        const bool last = selectedIndex == m_model.index(lastUrlItem, 0);
-
-        if (!path.isEmpty()) {
-            menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18nc("@menu:action", "Copy Location"), this, [path] {
-                QGuiApplication::clipboard()->setText(path);
-            });
-        }
-        if (last) {
+        if (selectedIndex <= m_model.index(lastUrlItem, 0)) {
             const QString fileName = selectedIndex.data().toString();
+
+            if (!path.isEmpty()) {
+                menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18nc("@menu:action", "Copy Location"), this, [path, fileName] {
+                    QGuiApplication::clipboard()->setText(QDir(path).absoluteFilePath(fileName));
+                });
+            }
+
             menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@menu:action", "Copy Filename"), this, [fileName] {
                 QGuiApplication::clipboard()->setText(fileName);
             });
+        } else {
+            const QString item = selectedIndex.data().toString();
+
+            menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@menu:action", "Copy Item"), this, [item] {
+                QGuiApplication::clipboard()->setText(item);
+            });
         }
+
         menu.exec(mapToGlobal(pos));
     }
 

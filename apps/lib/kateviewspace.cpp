@@ -25,6 +25,7 @@
 #include <KSharedConfig>
 #include <KTextEditor/Editor>
 
+#include <QGridLayout>
 #include <QHelpEvent>
 #include <QMenu>
 #include <QMessageBox>
@@ -34,7 +35,6 @@
 #include <QTimer>
 #include <QToolButton>
 #include <QToolTip>
-#include <QGridLayout>
 #include <QWhatsThis>
 
 enum {
@@ -1399,8 +1399,8 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     // docList: 0 1 2 3
     // m_registeredDocuments: 0 1 2 3
     const QList<DocOrWidget> tabsList = m_tabBar->documentList();
-    if (tabsList.size() < docList.size()) {
-        int firstDocIndex = docList.size() - tabsList.size();
+    if (tabsList.size() < m_registeredDocuments.size()) {
+        const int firstDocIndex = m_registeredDocuments.size() - tabsList.size();
         auto docIt = m_registeredDocuments.begin() + firstDocIndex;
         for (int i = 0; i < tabsList.size() && docIt != m_registeredDocuments.end(); i++, ++docIt) {
             m_tabBar->setTabDocument(i, *docIt);

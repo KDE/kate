@@ -72,9 +72,6 @@ public:
         : QStyledItemDelegate(parent)
         , tree(parent)
     {
-        KColorScheme c;
-        red = c.foreground(KColorScheme::NegativeText).color();
-        green = c.foreground(KColorScheme::PositiveText).color();
     }
 
     void paint(QPainter *painter, const QStyleOptionViewItem &opt, const QModelIndex &index) const override
@@ -137,6 +134,14 @@ public:
             QStyleOptionViewItem option = opt;
             initStyleOption(&option, index);
 
+            const bool selected = option.state.testFlag(QStyle::State_Selected);
+            const bool active = option.state.testFlag(QStyle::State_Active);
+            const QPalette::ColorGroup cg = active ? QPalette::Active : QPalette::Inactive;
+            KColorScheme c(cg, selected ? KColorScheme::Selection : KColorScheme::View);
+
+            auto red = c.foreground(KColorScheme::NegativeText).color();
+            auto green = c.foreground(KColorScheme::PositiveText).color();
+
             QColor color = statusType == StatusType::Added ? green : red;
             QRect textRect = option.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &option, option.widget);
 
@@ -155,8 +160,6 @@ public:
     }
 
 private:
-    QColor red;
-    QColor green;
     KateProjectViewTree *const tree;
 };
 

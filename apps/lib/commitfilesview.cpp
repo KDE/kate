@@ -163,9 +163,13 @@ public:
         options.text = fm.elidedText(filename, Qt::ElideRight, textMaxWidth);
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
-        KColorScheme c;
-        const QColor red = KColorScheme::shade(c.foreground(KColorScheme::NegativeText).color(), KColorScheme::MidlightShade, 1);
-        const QColor green = KColorScheme::shade(c.foreground(KColorScheme::PositiveText).color(), KColorScheme::MidlightShade, 1);
+        const bool selected = options.state.testFlag(QStyle::State_Selected);
+        const bool active = options.state.testFlag(QStyle::State_Active);
+        const QPalette::ColorGroup cg = active ? QPalette::Active : QPalette::Inactive;
+        KColorScheme scheme(cg, selected ? KColorScheme::Selection : KColorScheme::View);
+
+        const QColor red = scheme.foreground(KColorScheme::NegativeText).color();
+        const QColor green = scheme.foreground(KColorScheme::PositiveText).color();
 
         painter->setPen(red);
         painter->drawText(r, Qt::AlignVCenter | Qt::AlignRight, subs);

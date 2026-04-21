@@ -517,7 +517,7 @@ public:
         m_findTypeDef->setText(i18n("Go to Type Definition"));
         m_findRef = actionCollection()->addAction(QStringLiteral("lspclient_find_references"), this, &self_type::findReferences);
         m_findRef->setText(i18n("Find References"));
-        KActionCollection::setDefaultShortcut(m_findRef, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_L));
+        KActionCollection::setDefaultShortcut(m_findRef, QKeySequence(Qt::SHIFT | Qt::Key_F12));
         m_findImpl = actionCollection()->addAction(QStringLiteral("lspclient_find_implementations"), this, &self_type::findImplementation);
         m_findImpl->setText(i18n("Find Implementations"));
         m_triggerHighlight = actionCollection()->addAction(QStringLiteral("lspclient_highlight"), this, &self_type::highlight);

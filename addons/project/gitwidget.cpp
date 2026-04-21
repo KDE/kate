@@ -65,17 +65,6 @@ static QString ksshaskpass()
     return res;
 }
 
-static void adjustColorContrast(QColor &bg, QColor &fg)
-{
-    if (KColorUtils::contrastRatio(bg, fg) < 3.0) {
-        if (KColorUtils::luma(fg) > KColorUtils::luma(bg)) {
-            fg = KColorUtils::lighten(fg);
-        } else {
-            fg = KColorUtils::darken(fg);
-        }
-    }
-}
-
 class NumStatStyle final : public QStyledItemDelegate
 {
 public:
@@ -108,16 +97,18 @@ public:
         int hS = option.fontMetrics.horizontalAdvance(Status);
         auto r = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
 
-        KColorScheme c;
+        const bool selected = options.state.testFlag(QStyle::State_Selected);
+        const bool active = options.state.testFlag(QStyle::State_Active);
+        const QPalette::ColorGroup cg = active ? QPalette::Active : QPalette::Inactive;
+        KColorScheme c(cg, selected ? KColorScheme::Selection : KColorScheme::View);
+
         auto red = c.foreground(KColorScheme::NegativeText).color();
         auto green = c.foreground(KColorScheme::PositiveText).color();
-        if (options.state.testFlag(QStyle::State_Selected) && options.state.testFlag(QStyle::State_Active)) {
-            auto bg = options.palette.highlight().color();
-            adjustColorContrast(bg, red);
-            adjustColorContrast(bg, green);
-        }
 
-        painter->setPen(index.data(Qt::ForegroundRole).value<QColor>());
+        auto type = static_cast<GitStatusModel::ItemType>(index.data(GitStatusModel::Role::GitItemType).toInt());
+        bool isStaged = type == GitStatusModel::NodeStage;
+
+        painter->setPen(isStaged ? green : red);
         painter->drawText(r, Qt::AlignVCenter | Qt::AlignRight, Status);
         r.setRight(r.right() - hS);
 

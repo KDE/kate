@@ -8,549 +8,547 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-17 00:47+0000\n"
-"PO-Revision-Date: 2013-09-08 07:04+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-04-20 21:25-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr ""
+msgstr "تەكشۈرىدىغان شاخ تاللىنىدۇ. «Esc» بېسىلسا ۋاز كېچىدۇ."
 
 #: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr ""
+msgstr "%1 شاخنى تەكشۈرۈپ چىقتى"
 
 #: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr ""
+msgstr "%1 شاخنى تەكشۈرەلمىدى، خاتالىق: %2"
 
 #: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr ""
+msgstr "يېڭى شاخ ئاتى كىرگۈزۈلىدۇ. «Esc» بېسىلسا ۋاز كېچىدۇ."
 
 #: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr ""
+msgstr "تەكشۈرىدىغان شاخ تاللىنىدۇ. «Esc» بېسىلسا ۋاز كېچىدۇ."
 
 #: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr ""
+msgstr "يېڭى شاخقا تەكشۈرۈپ چىقتى: %1"
 
 #: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr ""
+msgstr "يېڭى شاخ قۇرالمىدى، خاتالىق: «%1»"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Branch"
-msgstr ""
+msgstr "شاخ"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Activity"
-msgstr ""
+msgstr "ئاخىرقى پائالىيەت"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Commit"
-msgstr ""
+msgstr "ئاخىرقى تاپشۇرۇلما"
 
 #: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "ئۆچۈر"
 
 #: branchdeletedialog.cpp:142
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] ""
+msgstr[0] "تاللىغان شاخنى راستتىنلا ئۆچۈرەمسىز؟"
 
 #: branchesdialog.cpp:96
 #, kde-format
 msgid "Select Branch..."
-msgstr ""
+msgstr "شاخ تاللا…"
 
 #: branchesdialog.cpp:108 gitwidget.cpp:559 kateprojectpluginview.cpp:74
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: branchesdialogmodel.cpp:102
 #, kde-format
 msgid "Create New Branch"
-msgstr ""
+msgstr "يېڭى شاخ قۇر"
 
 #: branchesdialogmodel.cpp:108
 #, kde-format
 msgid "Create New Branch From..."
-msgstr ""
+msgstr "يېڭى شاق قۇرۇش ئورنى…"
 
 #: comparebranchesview.cpp:127
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "قايت"
 
 #: currentgitbranchbutton.cpp:122
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr ""
+msgstr "%1 تاپشۇرۇلمىدىكى HEAD"
 
 #: currentgitbranchbutton.cpp:124
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "بۇ %1 بەلگىدىكى HEAD"
 
 #: currentgitbranchbutton.cpp:126
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr ""
+msgstr "ئاكتىپ شاخ: %1"
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
 msgid "Commit Changes"
-msgstr ""
+msgstr "ئۆزگىرىشنى تاپشۇر"
 
 #: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:274
 #: gitwidget.cpp:1098
 #, kde-format
 msgid "Commit"
-msgstr ""
+msgstr "تاپشۇر(_C)"
 
 #: gitcommitdialog.cpp:75
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "ۋاز كەچ"
 
 #: gitcommitdialog.cpp:77
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "تاپشۇرۇش ئۇچۇرى ياز…"
 
 #: gitcommitdialog.cpp:84
 #, kde-format
 msgid "Extended commit description..."
-msgstr ""
+msgstr "كېڭەيتىلگەن تاپشۇرۇش ئۇچۇرى…"
 
 #: gitcommitdialog.cpp:108
 #, kde-format
 msgid "Sign off"
-msgstr ""
+msgstr "ئىمزا قوي"
 
 #: gitcommitdialog.cpp:112 gitcommitdialog.cpp:125
 #, kde-format
 msgid "Amend"
-msgstr ""
+msgstr "تۈزىتىش"
 
 #: gitcommitdialog.cpp:113 gitwidget.cpp:1051
 #, kde-format
 msgid "Amend Last Commit"
-msgstr ""
+msgstr "ئاخىرقى تاپشۇرۇلمىنى تۈزىتىدۇ"
 
 #: gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amending Commit"
-msgstr ""
+msgstr "تاپشۇرۇلمىنى تۈزىتىۋاتىدۇ"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr ""
+msgstr "%1 / 52"
 
 #: gitcommitdialog.cpp:211
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
-msgstr ""
+msgstr "<span style=\"color:%1;\">%2</span> / 52"
 
 #: gitstatusmodel.cpp:97
 #, kde-format
 msgid "Staged"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلاندى"
 
 #: gitstatusmodel.cpp:99
-#, fuzzy, kde-format
-#| msgid "<untracked>"
+#, kde-format
 msgid "Untracked"
-msgstr "<ئىزلانمىغان>"
+msgstr "ئىزلانمىغان"
 
 #: gitstatusmodel.cpp:101
 #, kde-format
 msgid "Conflict"
-msgstr ""
+msgstr "توقۇنۇش"
 
 #: gitstatusmodel.cpp:103
 #, kde-format
 msgid "Modified"
-msgstr ""
+msgstr "ئۆزگەرتىلگەن ۋاقتى"
 
 #: gitwidget.cpp:282
 #, kde-format
 msgid "Git Push"
-msgstr ""
+msgstr "Git ئىتتەر"
 
 #: gitwidget.cpp:295
 #, kde-format
 msgid "Git Pull"
-msgstr ""
+msgstr "Git تارت"
 
 #: gitwidget.cpp:308
 #, kde-format
 msgid "Cancel Operation"
-msgstr ""
+msgstr "مەشغۇلاتتىن ۋاز كەچ"
 
 #: gitwidget.cpp:316
 #, kde-format
 msgid " canceled."
-msgstr ""
+msgstr " ۋاز كەچتى."
 
 #: gitwidget.cpp:324
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "git ھالىتىنى يېڭىلا"
 
 #: gitwidget.cpp:346 kateprojectview.cpp:61
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "سۈزگۈچ…"
 
 #: gitwidget.cpp:436
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
-msgstr ""
+msgstr "«%1» نىڭ  .git مۇندەرىجىسىنى تاپالمىدى، نورمال ئىشلىمەسلىكى مۇمكىن"
 
 #: gitwidget.cpp:648
 #, kde-format
 msgid " error: %1"
-msgstr ""
+msgstr " خاتالىق: %1"
 
 #: gitwidget.cpp:654
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr ""
+msgstr "«%1» مۇۋەپپەقىيەتلىك ئىجرا قىلىندى: %2"
 
 #: gitwidget.cpp:674
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "باسقۇچلۇق ھۆججەتنى ۋاقىتلىق ساقلىيالمىدى، خاتالىق:"
 
 #: gitwidget.cpp:687
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "باسقۇچلۇق ھۆججەتنى ۋاقىتلىق ساقلاشنى بىكار قىلالمىدى، خاتالىق:"
 
 #: gitwidget.cpp:698
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr ""
+msgstr "ئۆزگىرىشنى تاشلىۋېتەلمىدى. خاتالىق:"
 
 #: gitwidget.cpp:709
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr ""
+msgstr "چىقىرىۋېتەلمىدى. خاتالىق:"
 
 #: gitwidget.cpp:725
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr ""
+msgstr "HEAD دىكى ھۆججەتنى ئاچالمىدى: %1"
 
 #: gitwidget.cpp:759
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr ""
+msgstr "ھۆججەت پەرقىگە ئېرىشەلمىدى: %1"
 
 #: gitwidget.cpp:828
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr ""
+msgstr "تاپشۇرالمىدى: %1"
 
 #: gitwidget.cpp:832
 #, kde-format
 msgid "Changes committed successfully."
-msgstr ""
+msgstr "ئۆزگىرىش مۇۋەپپەقىيەتلىك تاپشۇرۇلدى."
 
 #: gitwidget.cpp:842
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr ""
+"تاپشۇرىدىغان ھېچنېمە يوق. ئالدى بىلەن ئۆزگەرتىشىڭىزنى باسقۇچلۇق ساقلاڭ."
 
 #: gitwidget.cpp:856
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr ""
+msgstr "تاپشۇرۇش ئۇچۇرى بوش قالدۇرۇلمايدۇ."
 
 #: gitwidget.cpp:987
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr ""
+msgstr "%1...%2 ئارىسىدا پەرق يوق"
 
 #: gitwidget.cpp:993
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr ""
+msgstr "%1...%2 نى سېلىشتۇرالمىدى"
 
 #: gitwidget.cpp:1008
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr ""
+msgstr "%1...%2 پەرقىنى سېلىشتۇرغاندا numstat غا ئېرىشەلمىدى"
 
 #: gitwidget.cpp:1043
 #, kde-format
 msgid "Refresh"
-msgstr ""
+msgstr "يېڭىلا"
 
 #: gitwidget.cpp:1060
 #, kde-format
 msgid "Checkout Branch"
-msgstr ""
+msgstr "شاخ تەكشۈرۈپ چىقار"
 
 #: gitwidget.cpp:1072
 #, kde-format
 msgid "Delete Branch"
-msgstr ""
+msgstr "شاخ ئۆچۈر"
 
 #: gitwidget.cpp:1086
 #, kde-format
 msgid "Compare Branch with..."
-msgstr ""
+msgstr "شاخ سېلىشتۇر…"
 
 #: gitwidget.cpp:1092
 #, kde-format
 msgid "Show Commit"
-msgstr ""
+msgstr "تاپشۇرمىنى كۆرسەت"
 
 #: gitwidget.cpp:1110
 #, kde-format
 msgid "Show Last Commit"
-msgstr ""
+msgstr "ئاخىرقى تاپشۇرمىنى كۆرسەت"
 
 #: gitwidget.cpp:1128
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "Open Commit..."
-msgstr "بۇنىڭدا ئېچىش"
+msgstr "تاپشۇرمىنى ئاچ…"
 
 #: gitwidget.cpp:1131 gitwidget.cpp:1179
 #, kde-format
 msgid "Stash"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلا"
 
 #: gitwidget.cpp:1135
 #, kde-format
 msgid "Show history"
-msgstr ""
+msgstr "تارىخنى كۆرسەت"
 
 #: gitwidget.cpp:1147
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "پەرق - ۋاقىتلىق ساقلا"
 
 #: gitwidget.cpp:1183
 #, kde-format
 msgid "Pop Last Stash"
-msgstr ""
+msgstr "ئاخىرقى ۋاقىتلىق ساقلاشنى قاڭقىت"
 
 #: gitwidget.cpp:1187
 #, kde-format
 msgid "Pop Stash"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلاشنى قاڭقىت"
 
 #: gitwidget.cpp:1191
 #, kde-format
 msgid "Apply Last Stash"
-msgstr ""
+msgstr "ئاخىرقى ۋاقىتلىق ساقلاشنى قوللان"
 
 #: gitwidget.cpp:1193
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلا (ۋاقىتلىق ساقلاشنى ساقلاپ قال)"
 
 #: gitwidget.cpp:1197
 #, kde-format
 msgid "Stash (Include Untracked)"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلا (ئىزلانمىغانمۇ ئىچىدە)"
 
 #: gitwidget.cpp:1201
 #, kde-format
 msgid "Apply Stash"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلاشنى قوللان"
 
 #: gitwidget.cpp:1202
 #, kde-format
 msgid "Drop Stash"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلاشنى تاشلىۋەت"
 
 #: gitwidget.cpp:1206
 #, kde-format
 msgid "Show Stash"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلاشنى كۆرسەت"
 
 #: gitwidget.cpp:1210
 #, kde-format
 msgid "Show Stash Diff"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلاشنىڭ پەرقىنى كۆرسەت"
 
 #: gitwidget.cpp:1248
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "ھەممىنى ۋاقىتلىق ساقلا"
 
 #: gitwidget.cpp:1250
 #, kde-format
 msgid "Remove All"
-msgstr ""
+msgstr "ھەممىنى چىقىرىۋەت"
 
 #: gitwidget.cpp:1250
 #, kde-format
 msgid "Discard All"
-msgstr ""
+msgstr "ھەممىنى تاشلىۋەت"
 
 #: gitwidget.cpp:1253
 #, kde-format
 msgid "Open .gitignore"
-msgstr ""
+msgstr ".gitignore نى ئاچ"
 
 #: gitwidget.cpp:1254 gitwidget.cpp:1303 gitwidget.cpp:1354
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
-msgstr ""
+msgstr "پەرقنى كۆرسەت"
 
 #: gitwidget.cpp:1271
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr ""
+msgstr "بۇ ھۆججەتنى راستتىنلا چىقىرىۋېتەمسىز؟"
 
 #: gitwidget.cpp:1276
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr ""
+msgstr "ھەممە ئۆزگەرتىشنى راستتىنلا تاشلىۋېتەمسىز؟"
 
 #: gitwidget.cpp:1294
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "بۇنىڭدا ئېچىش"
+msgstr "ھۆججەت ئاچ"
 
 #: gitwidget.cpp:1295
 #, kde-format
 msgid "Unstage File"
-msgstr ""
+msgstr "تېخى ۋاقىتلىق ساقلانمىغان ھۆججەت"
 
 #: gitwidget.cpp:1295
 #, kde-format
 msgid "Stage File"
-msgstr ""
+msgstr "باسقۇچلۇق ھۆججەت"
 
 #: gitwidget.cpp:1296
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "چىقىرىۋەت"
 
 #: gitwidget.cpp:1296
 #, kde-format
 msgid "Discard"
-msgstr ""
+msgstr "تاشلىۋەت"
 
 #: gitwidget.cpp:1304
 #, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr ""
+msgstr "سىرتقى Git پەرق قورالىدا كۆرسەت"
 
 #: gitwidget.cpp:1305
 #, kde-format
 msgid "Open at HEAD"
-msgstr ""
+msgstr "HEAD دا ئاچ"
 
 #: gitwidget.cpp:1309
 #, kde-format
 msgid "Show History"
-msgstr ""
+msgstr "تارىخنى كۆرسەت"
 
 #: gitwidget.cpp:1325
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr ""
+msgstr "بۇ ھۆججەتنى ئۆزگىرىشىنى راستتىنلا تاشلىۋېتەمسىز؟"
 
 #: gitwidget.cpp:1336
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr ""
+msgstr "بۇ ھۆججەتنى راستتىنلا چىقىرىۋېتەمسىز؟"
 
 #: gitwidget.cpp:1353
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "ھەممىسىنى ۋاقىتلىق ساقلىما"
 
 #: gitwidget.cpp:1420
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "تاللانغان ھۆججەتنى ۋاقىتلىق ساقلىما"
 
 #: gitwidget.cpp:1420
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "تاللانغان ھۆججەتنى ۋاقىتلىق ساقلا"
 
 #: gitwidget.cpp:1421
 #, kde-format
 msgid "Discard Selected Files"
-msgstr ""
+msgstr "تاللانغان ھۆججەتنى تاشلىۋەت"
 
 #: gitwidget.cpp:1425
 #, kde-format
 msgid "Remove Selected Files"
-msgstr ""
+msgstr "تاللانغان ھۆججەتنى چىقىرىۋەت"
 
 #: gitwidget.cpp:1438
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
-msgstr ""
+msgstr "ئۆزگەرتىشنى راستتىنلا تاشلىۋېتەمسىز؟"
 
 #: gitwidget.cpp:1443
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
-msgstr ""
+msgstr "ئىزلانمىغان ئۆزگىرىشنى راستتىنلا چىقىرىۋېتەمسىز؟"
 
 #: kateproject.cpp:233
 #, kde-format
 msgid "(Modified)"
-msgstr ""
+msgstr "(ئۆزگەرتكەن)"
 
 #: kateproject.cpp:235
 #, kde-format
 msgid "(Staged)"
-msgstr ""
+msgstr "(ۋاقىتلىق ساقلاندى)"
 
 #: kateproject.cpp:357
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "پىچىمى خاتا JSON ھۆججەت «%1»: %2"
 
 #: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:79
 #: kateprojectpluginview.cpp:230 kateprojectviewtree.cpp:364
 #: kateprojectviewtree.cpp:375 kateprojectviewtree.cpp:405
 #: kateprojectviewtree.cpp:412
-#, fuzzy, kde-format
-#| msgid "Projects"
+#, kde-format
 msgid "Project"
-msgstr "قۇرۇلۇشلار"
+msgstr "قۇرۇلۇش"
 
 #: kateproject.cpp:723
 #, kde-format
@@ -566,7 +564,7 @@ msgstr "قۇرۇلۇشنىڭ تاماملىنىشى"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr ""
+msgstr "خەزىنە ۋە قۇرۇلما شاخنى ئۆزلۈكىدىن يۈكلە"
 
 #: kateprojectconfigpage.cpp:26
 #, kde-format
@@ -574,70 +572,70 @@ msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
+"قۇرۇلۇش قىستۇرمىسى .kateproject ھۆججەت بەلگىلەنمىگەن ئەھۋالدا خەزىنەدىكى "
+"خىزمەت نۇسخىسى ۋە قۇرۇلما شاخنى ئۆزلۈكىدىن يۈكلەيدۇ."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
 msgid "&Git"
-msgstr ""
+msgstr "&Git"
 
 #: kateprojectconfigpage.cpp:32
 #, kde-format
 msgid "&Subversion"
-msgstr ""
+msgstr "&Subversion"
 
 #: kateprojectconfigpage.cpp:34
 #, kde-format
 msgid "&Mercurial"
-msgstr ""
+msgstr "&Mercurial"
 
 #: kateprojectconfigpage.cpp:36
 #, kde-format
 msgid "&Fossil"
-msgstr ""
+msgstr "&Fossil"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
-msgstr ""
+msgstr "جەريانچاق مەشغۇلاتى"
 
 #: kateprojectconfigpage.cpp:48
 #, kde-format
 msgid "Session settings for projects"
-msgstr ""
+msgstr "قۇرۇلۇشنىڭ جەريانچاق تەڭشىكى"
 
 #: kateprojectconfigpage.cpp:49
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Restore Open Projects"
-msgstr "نۆۋەتتىكى قۇرۇلۇش"
+msgstr "ئوچۇقۇ قۇرۇلۇشنى ئەسلىگە قايتۇر"
 
 #: kateprojectconfigpage.cpp:56
-#, fuzzy, kde-format
-#| msgid "Projects"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
-msgstr "قۇرۇلۇشلار"
+msgstr "قۇرۇلۇش ئىندېكسى"
 
 #: kateprojectconfigpage.cpp:57
 #, kde-format
 msgid "Project ctags index settings"
-msgstr ""
+msgstr "قۇرۇلۇشنىڭ ctags ئىندېكس تەڭشىكى"
 
 #: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Enable indexing"
-msgstr ""
+msgstr "ئىندېكسلاشنى قوزغات"
 
 #: kateprojectconfigpage.cpp:61
 #, kde-format
 msgid "Directory for index files"
-msgstr ""
+msgstr "ئىندېكس ھۆججەتنىڭ مۇندەرىجىسى"
 
 #: kateprojectconfigpage.cpp:65
 #, kde-format
@@ -645,111 +643,106 @@ msgid ""
 "The system temporary directory is used if not specified, which may overflow "
 "for very large repositories"
 msgstr ""
+"ئەگەر بەلگىلەنمىسە سىستېمىنىڭ ۋاقىتلىق مۇندەرىجىسىنى ئىشلىتىدۇ، بۇ چوڭ كود "
+"خەزىنە سەۋەبىدىن بوشلۇق يېتىشمەسلىكنى كەلتۈرۈپ چىقىرىشى مۇمكىن"
 
 #: kateprojectconfigpage.cpp:72
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
-msgstr ""
+msgstr "قۇرۇلۇش ھالقىغان ئىقتىدار"
 
 #: kateprojectconfigpage.cpp:73
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
-msgstr ""
+msgstr "قۇرۇلۇش قىستۇرمىسى كۆپ قۇرۇلۇش ھالقىپ بەزى  مەشغۇلاتنى ئىجرا قىلالايدۇ"
 
 #: kateprojectconfigpage.cpp:74
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Cross-Project Completion"
-msgstr "قۇرۇلۇشنىڭ تاماملىنىشى"
+msgstr "قۇرۇلۇش ھالقىغان تاماملاش"
 
 #: kateprojectconfigpage.cpp:76
 #, kde-format
 msgid "Cross-Project Goto Symbol"
-msgstr ""
+msgstr "قۇرۇلۇش ھالقىغان يۆتكىلىش بەلگىسى"
 
 #: kateprojectconfigpage.cpp:84
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: kateprojectconfigpage.cpp:87
 #, kde-format
 msgid "Single click action in the git status view"
-msgstr ""
+msgstr "git ھالەت كۆرۈنۈشىدىكى يەككە چېكىش مەشغۇلاتى"
 
 #: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "No Action"
-msgstr ""
+msgstr "مەشغۇلات يوق"
 
 #: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "Open file"
-msgstr "بۇنىڭدا ئېچىش"
+msgstr "ھۆججەت ئاچ"
 
 #: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
-msgstr ""
+msgstr "ۋاقىتلىق ساقلا/ساقلىما"
 
 #: kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "Double click action in the git status view"
-msgstr ""
+msgstr "git ھالەت كۆرۈنۈشىدىكى قوش چېكىش مەشغۇلاتى"
 
 #: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Projects"
-msgstr "قۇرۇلۇشلار"
+msgstr "قۇرۇلۇش"
 
 #: kateprojectconfigpage.cpp:147
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
-msgstr "قۇرۇلۇشنىڭ تاماملىنىشى"
+msgstr "قۇرۇلۇش خاسلىقى"
 
 #: kateprojectinfoview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Terminal"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
 msgstr "تېرمىنال"
 
 #: kateprojectinfoview.cpp:93
-#, fuzzy, kde-format
-#| msgid "Terminal"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr "تېرمىنال"
+msgstr "تېرمىنال (قۇرۇلۇش)"
 
 #: kateprojectinfoview.cpp:102
-#, fuzzy, kde-format
-#| msgid "Terminal"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
-msgstr "تېرمىنال"
+msgstr "تېرمىنال (ئاساس)"
 
 #: kateprojectinfoview.cpp:111
-#, fuzzy, kde-format
-#| msgid "Terminal"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
-msgstr "تېرمىنال"
+msgstr "تېرمىنال (قۇرۇش)"
 
 #: kateprojectinfoview.cpp:118
 #, kde-format
 msgid "Code Index"
-msgstr "كود ئىدېكىسى"
+msgstr "كود ئىندېكسى"
 
 #: kateprojectinfoview.cpp:123
 #, kde-format
 msgid "Code Analysis"
-msgstr "كود ئانالىزى"
+msgstr "كود تەھلىلى"
 
 #: kateprojectinfoview.cpp:128
 #, kde-format
@@ -759,14 +752,13 @@ msgstr "ئىزاھ"
 #: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
-msgstr "ئانالىزنى باشلا…"
+msgstr "تەھلىلنى باشلا…"
 
 #: kateprojectinfoviewcodeanalysis.cpp:42
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "كود ئانالىزى"
+msgstr "كود تەھلىلى - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:99
 #, kde-format
@@ -774,6 +766,8 @@ msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"سىستېمىغا «%1» ئورنىتىلمىغان، %2.<br/><br/>%3. قورال بۇ كېڭەيتىلگەن ئات "
+"تىزىمىغا ماس كېلىدىغان بارلىق قۇرۇلۇش ھۆججىتىنى ئىجرا قىلىدۇ: <br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:109
 #, kde-format
@@ -781,14 +775,15 @@ msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"%2 غا %1 ئىشلىتىپ ئورناتقان.<br/><br/>%3. قورال بۇ كېڭەيتىلگەن ئات تىزىمىغا "
+"ماس كېلىدىغان بارلىق قۇرۇلۇش ھۆججىتىنى ئىجرا قىلىدۇ: <br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:151
 #: kateprojectinfoviewcodeanalysis.cpp:211
 #: kateprojectinfoviewcodeanalysis.cpp:215
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
-msgstr "كود ئانالىزى"
+msgstr "كود تەھلىلى"
 
 #: kateprojectinfoviewcodeanalysis.cpp:206
 #, kde-format
@@ -798,12 +793,12 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] ""
+msgstr[0] "[%1] %2 دىكى ھۆججەت نى تەھلىل قىلىش تامام."
 
 #: kateprojectinfoviewcodeanalysis.cpp:214
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr ""
+msgstr "تەھلىل قىلىش مەغلۇپ بولدى، چېكىنىش كودى %1، خاتالىق: %2"
 
 #: kateprojectinfoviewindex.cpp:36
 #, kde-format
@@ -828,42 +823,42 @@ msgstr "قۇر"
 #: kateprojectinfoviewindex.cpp:37
 #, kde-format
 msgid "Search"
-msgstr ""
+msgstr "ئىزدە"
 
 #: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
-msgstr "ئىندېكىسنى قۇرغىلى بولمىدى. ‹ctags› نى ئورنىتىڭ."
+msgstr "ئىندېكسنى قۇرغىلى بولمىدى. ‹ctags› نى ئورنىتىڭ."
 
 #: kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Indexing is not enabled"
-msgstr ""
+msgstr "ئىندېكسلاش قوزغىتىلمىغان"
 
 #: kateprojectitem.cpp:181
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: kateprojectitem.cpp:181
 #, kde-format
 msgid "File name already exists"
-msgstr ""
+msgstr "ھۆججەت ئاتى مەۋجۇت"
 
 #: kateprojectplugin.cpp:270
 #, kde-format
 msgid "Confirm project closing: %1"
-msgstr ""
+msgstr "قۇرۇلۇش تاقالغانلىقىنى جەزملەش: %1"
 
 #: kateprojectplugin.cpp:271
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
-msgstr ""
+msgstr "%1 قۇرۇلۇش ۋە  ئۇنىڭغا مۇناسىۋەتلىك %2 ئوچۇق پۈتۈكنى تاقامسىز؟"
 
 #: kateprojectplugin.cpp:656
 #, kde-format
 msgid "Full path to current project excluding the file name."
-msgstr ""
+msgstr "ھۆججەت ئاتىنى ئۆز ئىچىگە ئالمىغان نۆۋەتتىكى قۇرۇلۇشنىڭ تولۇق يولى."
 
 #: kateprojectplugin.cpp:673
 #, kde-format
@@ -871,207 +866,193 @@ msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
+"ھۆججەت ئاتىنى ئۆز ئىچىگە ئالمىغان نۆۋەتتىكى قۇرۇلۇشنىڭ تولۇق يولى، ئەسلى يول "
+"ئايرىغۇچ (Windows تىكى ئوڭ يانتۇ سىزىق)"
 
 #: kateprojectpluginview.cpp:63
-#, fuzzy, kde-format
-#| msgid "Projects"
+#, kde-format
 msgid "Project Manager"
-msgstr "قۇرۇلۇشلار"
+msgstr "قۇرۇلۇش باشقۇرغۇچ"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Current Project"
 msgstr "نۆۋەتتىكى قۇرۇلۇش"
 
 #: kateprojectpluginview.cpp:86
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Open projects list"
-msgstr "نۆۋەتتىكى قۇرۇلۇش"
+msgstr "قۇرۇلۇش تىزىمىنى ئاچ"
 
 #: kateprojectpluginview.cpp:94
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Reload project"
-msgstr "نۆۋەتتىكى قۇرۇلۇش"
+msgstr "قۇرۇلۇشنى قايتا يۈكلە"
 
 #: kateprojectpluginview.cpp:97
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close project"
-msgstr "نۆۋەتتىكى قۇرۇلۇش"
+msgstr "قۇرۇلۇشنى ياپ"
 
 #: kateprojectpluginview.cpp:173
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "Open &Folder..."
-msgstr "بۇنىڭدا ئېچىش"
+msgstr "قىسقۇچ ئاچ(&F)…"
 
 #: kateprojectpluginview.cpp:179
-#, fuzzy, kde-format
-#| msgid "Projects"
+#, kde-format
 msgid "Project TODOs"
-msgstr "قۇرۇلۇشلار"
+msgstr "قۇرۇلۇش ۋەزىپە تىزىمى"
 
 #: kateprojectpluginview.cpp:184
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "ئالدىنقى قۇرۇلۇشنى ئاكتىپلا"
 
 #: kateprojectpluginview.cpp:190
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "كېيىنكى قۇرۇلۇشنى ئاكتىپلا"
 
 #: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Lookup"
-msgstr ""
+msgstr "ئىزدە"
 
 #: kateprojectpluginview.cpp:201
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close Project"
-msgstr "نۆۋەتتىكى قۇرۇلۇش"
+msgstr "قۇرۇلۇشنى ياپ"
 
 #: kateprojectpluginview.cpp:206
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close All Projects"
-msgstr "نۆۋەتتىكى قۇرۇلۇش"
+msgstr "ھەممە قۇرۇلۇشنى ياپ"
 
 #: kateprojectpluginview.cpp:211
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close Orphaned Projects"
-msgstr "نۆۋەتتىكى قۇرۇلۇش"
+msgstr "يېتىم قۇرۇلۇشنى ياپ"
 
 #: kateprojectpluginview.cpp:216
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Reload Project"
-msgstr "نۆۋەتتىكى قۇرۇلۇش"
+msgstr "قۇرۇلۇشنى قايتا يۈكلە"
 
 #: kateprojectpluginview.cpp:227
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
+msgstr "Git شاخ تەكشۈرۈپ چىقار"
 
 #: kateprojectpluginview.cpp:233 kateprojectpluginview.cpp:832
 #, kde-format
 msgid "Lookup: %1"
-msgstr ""
+msgstr "ئىزدە: %1"
 
 #: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:833
 #, kde-format
 msgid "Goto: %1"
-msgstr ""
+msgstr "يۆتكەل: %1"
 
 #: kateprojectpluginview.cpp:313
-#, fuzzy, kde-format
-#| msgid "Projects"
+#, kde-format
 msgid "Projects Index"
-msgstr "قۇرۇلۇشلار"
+msgstr "قۇرۇلۇش ئىندېكسى"
 
 #: kateprojectpluginview.cpp:877
 #, kde-format
 msgid "Choose a directory"
-msgstr ""
+msgstr "مۇندەرىجە تاللىنىدۇ"
 
 #: kateprojecttreeviewcontextmenu.cpp:48
 #, kde-format
 msgid "Enter name:"
-msgstr ""
+msgstr "ئات كىرگۈزۈلىدۇ:"
 
 #: kateprojecttreeviewcontextmenu.cpp:113
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "ئورنىنى كۆچۈر"
 
 #: kateprojecttreeviewcontextmenu.cpp:120
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "New File…"
-msgstr "بۇنىڭدا ئېچىش"
+msgstr "يېڭى ھۆججەت…"
 
 #: kateprojecttreeviewcontextmenu.cpp:121
 #, kde-format
 msgid "New Folder…"
-msgstr ""
+msgstr "يېڭى قىسقۇچ…"
 
 #: kateprojecttreeviewcontextmenu.cpp:128
 #, kde-format
 msgid "&Rename"
-msgstr ""
+msgstr "ئات ئۆزگەرت(&R)"
 
 #: kateprojecttreeviewcontextmenu.cpp:139
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Properties"
-msgstr "قۇرۇلۇشنىڭ تاماملىنىشى"
+msgstr "خاسلىق"
 
 #: kateprojecttreeviewcontextmenu.cpp:143
 #, kde-format
 msgid "Open With"
-msgstr "بۇنىڭدا ئېچىش"
+msgstr "ئاچقۇز"
 
 #: kateprojecttreeviewcontextmenu.cpp:151
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "بۇ يەردە ئىچكى تېرمىنالنى ئاچ"
 
 #: kateprojecttreeviewcontextmenu.cpp:163
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "بۇ يەردە سىرتقى تېرمىنالنى ئاچ"
 
 #: kateprojecttreeviewcontextmenu.cpp:169
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr ""
+msgstr "ئىچىدىكى قىسقۇچنى ئاچ(&O)"
 
 #: kateprojecttreeviewcontextmenu.cpp:178
 #, kde-format
 msgid "Show Git History"
-msgstr ""
+msgstr "Git تارىخ خاتىرىسىنى كۆرسەت"
 
 #: kateprojecttreeviewcontextmenu.cpp:242
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "New File"
-msgstr "بۇنىڭدا ئېچىش"
+msgstr "يېڭى ھۆججەت"
 
 #: kateprojecttreeviewcontextmenu.cpp:247
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "New Folder"
-msgstr "بۇنىڭدا ئېچىش"
+msgstr "يېڭى قىسقۇچ"
 
 #: kateprojectviewtree.cpp:364
 #, kde-format
 msgid "The file already exists"
-msgstr ""
+msgstr "ھۆججەت مەۋجۇد"
 
 #: kateprojectviewtree.cpp:375
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr ""
+msgstr "ھۆججەت قۇرالمىدى: %1، خاتالىق: %2"
 
 #: kateprojectviewtree.cpp:405
 #, kde-format
 msgid "The directory already exists"
-msgstr ""
+msgstr "مۇندەرىجە مەۋجۇت"
 
 #: kateprojectviewtree.cpp:412
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr ""
+msgstr "مۇندەرىجە قۇرالمىدى: %1"
 
 #: kateprojectworker.cpp:208
 #, kde-format
 msgid "Unable to find directory: %1"
-msgstr ""
+msgstr "مۇندەرىجە تاپالمىدى: %1"
 
 #: kateprojectworker.cpp:735
 #, kde-format
@@ -1081,97 +1062,101 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"%1 ئاساسىدىكى قۇرۇلۇشنى يۈكلىيەلمەيدۇ چۈنكى %1 ئورنىتىلمىغان ياكى PATH يەنى "
+"يول مۇھىت ئۆزگەرگۈچىسىنى تاپالمىدى. %1 نى ئورنىتىڭ ياكى قۇرۇلۇش تەڭشىكىدىن "
+"«خەزىنە ۋە قۇرۇش شېخىنى ئۆزلۈكىدىن يۈكلەيدۇ» تاللانمىسىنى چەكلەڭ."
 
 #: project_commands.cpp:35
 #, kde-format
 msgid "Execute a command in the active project's terminal."
-msgstr ""
+msgstr "نۆۋەتتىقى قۇرۇلۇشنىڭ تېرمىنالىدا بىر بۇيرۇقنى ئىجرا قىلىدۇ."
 
 #: project_commands.cpp:47
 #, kde-format
 msgid "No cmd provided"
-msgstr ""
+msgstr "URI تەمىنلەنمىگەن"
 
 #: project_commands.cpp:60
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Command"
-msgstr "قۇرۇلۇشنىڭ تاماملىنىشى"
+msgstr "قۇرۇلۇش بۇيرۇقى"
 
 #: stashdialog.cpp:36
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
+"يوشۇرۇپ ساقلاش ئۇچۇرى (تاللاشچان). Enter كۇنۇپكىسىدا جەزملەيدۇ، Esc "
+"كۇنۇپكىسىدا ئايرىلىدۇ."
 
 #: stashdialog.cpp:44
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
+"كىرگۈزۈلسە سۈزىدۇ، Enter كۇنۇپكىسىدا يوشۇرۇپ ساقلاشنى قاڭقىتىدۇ، Esc "
+"كۇنۇپكىسىدا ئايرىلىدۇ."
 
 #: stashdialog.cpp:147
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr ""
+msgstr "%1 ئۆزگىرىشنى يوشۇرۇپ ساقلىيالمىدى"
 
 #: stashdialog.cpp:149
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr ""
+msgstr "ئۆزگىرىش مۇۋەپپەقىيەتلىك ھالدا يوشۇرۇپ ساقلاندى."
 
 #: stashdialog.cpp:168
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr ""
+msgstr "يوشۇرۇن ساقلاش تىزىمىغا ئېرىشەلمىدى. خاتالىق: "
 
 #: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr ""
+msgstr "يوشۇرۇن ساقلاشنى قوللىنالمىدى. خاتالىق: "
 
 #: stashdialog.cpp:186
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr ""
+msgstr "يوشۇرۇن ساقلاشنى تاشلىۋېتەلمىدى. خاتالىق: "
 
 #: stashdialog.cpp:188
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr ""
+msgstr "يوشۇرۇن ساقلاشنى قاڭقىتالمىدى. خاتالىق: "
 
 #: stashdialog.cpp:192
 #, kde-format
 msgid "Stash applied successfully."
-msgstr ""
+msgstr "يوشۇرۇن ساقلاشنى مۇۋەپپەقىيەتلىك قوللاندى."
 
 #: stashdialog.cpp:194
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr ""
+msgstr "يوشۇرۇن ساقلاشنى مۇۋەپپەقىيەتلىك تاشلىۋەتتى."
 
 #: stashdialog.cpp:196
 #, kde-format
 msgid "Stash popped successfully."
-msgstr ""
+msgstr "يوشۇرۇن ساقلاشنى مۇۋەپپەقىيەتلىك قاڭقىتتى."
 
 #: stashdialog.cpp:225
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr ""
+msgstr "يوشۇرۇن ساقلاشنى كۆرسىتەلمىدى. خاتالىق: "
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9
 #, kde-format
 msgid "&Projects"
-msgstr "قۇرۇلۇشلار(&P)"
+msgstr "قۇرۇلۇش(&P)"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:27
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
 msgstr "قۇرۇلۇشنىڭ تاماملىنىشى"
 
-#, fuzzy
 #~| msgid "File"
 #~ msgid "Add File"
 #~ msgstr "ھۆججەت"
@@ -1184,17 +1169,14 @@ msgstr "قۇرۇلۇشنىڭ تاماملىنىشى"
 #~ msgid "Your emails"
 #~ msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
 
-#, fuzzy
 #~| msgid "Copy Filename"
 #~ msgid "Copy File Path"
 #~ msgstr "كۆچۈرىدىغان ھۆججەت ئاتى"
 
-#, fuzzy
 #~| msgid "Open With"
 #~ msgid "Type to filter..."
 #~ msgstr "بۇنىڭدا ئېچىش"
 
-#, fuzzy
 #~| msgid "<untracked>"
 #~ msgid "Untracked (%1)"
 #~ msgstr "<ئىزلانمىغان>"

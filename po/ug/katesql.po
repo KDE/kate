@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-14 00:47+0000\n"
-"PO-Revision-Date: 2013-09-08 07:04+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-04-20 21:29-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -33,7 +34,7 @@ msgstr "ساندان قوزغاتقۇچ"
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
-msgstr "ساندان قوزغاتقۇچ تاللاڭ"
+msgstr "ساندان قوزغاتقۇچ تاللىنىدۇ"
 
 #: connectionwizard.cpp:53
 #, kde-format
@@ -45,7 +46,7 @@ msgstr "ساندان قوزغاتقۇچ:"
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
-msgstr "باغلىنىش پارامېتىرلىرى"
+msgstr "باغلىنىش پارامېتىرى"
 
 #: connectionwizard.cpp:83
 #, kde-format
@@ -192,7 +193,7 @@ msgstr "تازىلا"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
-msgstr "سىستېما locale نى ئىشلەت"
+msgstr "سىستېما كودلىنىشىنى ئىشلەت"
 
 #: dataoutputwidget.cpp:138
 #, kde-format
@@ -258,7 +259,7 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
-msgstr "ھۆججەت <filename>%1</filename> ئاچقىلى بولمىدى."
+msgstr "ھۆججەت <filename>%1</filename> ئاچقىلى بولمىدى"
 
 #: dataoutputwidget.cpp:505
 #, fuzzy, kde-kuit-format
@@ -307,7 +308,7 @@ msgstr "ھۆججەت"
 #: exportwizard.cpp:54
 #, kde-format
 msgid "Comma Separated Values"
-msgstr ""
+msgstr "پەش بىلەن ئايرىلغان قىممەت"
 
 #: exportwizard.cpp:96
 #, kde-format
@@ -323,19 +324,19 @@ msgid ""
 "Click on \"Finish\" button to export data."
 msgstr ""
 "سۆز بۆلەك پىچىمىنى تاللاڭ.\n"
-"«تامام» توپچا چېكىلسە سانلىق-مەلۇماتنى چىقىرىدۇ."
+"«تامام» توپچە چېكىلسە سانلىق-مەلۇماتنى چىقىرىدۇ."
 
 #: exportwizard.cpp:101
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
-msgstr "بەت قېشى"
+msgstr "بەت قاش"
 
 #: exportwizard.cpp:104
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
-msgstr "چىقىرىدىغان ئىستون ئاتى"
+msgstr "چىقىرىدىغان رەت ئاتى"
 
 #: exportwizard.cpp:105
 #, kde-format
@@ -383,7 +384,7 @@ msgstr "سۆز بۆلەك ئايرىش بەلگىسى:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
-msgstr "Kate ئەڭگىمەسىدىكى باغلىنىشلارنى ساقلا ۋە ئەسلىگە كەلتۈرىدۇ"
+msgstr "Kate جەريانچاقسىدىكى باغلىنىشلارنى ساقلا ۋە ئەسلىگە كەلتۈرىدۇ"
 
 #: katesqlconfigpage.cpp:29
 #, kde-format
@@ -397,7 +398,7 @@ msgstr "چىقىرىشنى ئۆزلەشتۈرۈش"
 #| msgid "Use system locale"
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "سىستېما locale نى ئىشلەت"
+msgstr "سىستېما كودلىنىشىنى ئىشلەت"
 
 #: katesqlconfigpage.cpp:37
 #, kde-format
@@ -412,56 +413,42 @@ msgid "SQL"
 msgstr "SQL"
 
 #: katesqlconfigpage.cpp:70
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "SQL Plugin Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
-msgstr "SQL قىستۇرمىسى تەڭشىكى"
+msgstr "SQL سەپلىمە بەت تەڭشىكى"
 
 #: katesqlview.cpp:46
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgid "SQL"
 msgstr "SQL"
 
 #: katesqlview.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
 #: katesqlview.cpp:59
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "SQL Schema Browser"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
-msgstr "SQL لايىھىسىنى كۆرگۈ"
+msgstr "SQL لايىھە"
 
 #: katesqlview.cpp:109
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "باغلىنىش قوش…"
 
 #: katesqlview.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove connection"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
-msgstr "باغلىنىش چىقىرىۋەت"
+msgstr "باغلىنىشنى چىقىۋەت"
 
 #: katesqlview.cpp:119
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Edit connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "باغلىنىش تەھرىر…"
@@ -479,12 +466,10 @@ msgid "Connection"
 msgstr "باغلىنىش"
 
 #: katesqlview.cpp:134
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run query"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr "سۈرۈشتۈرمىنى ئىجرا قىل"
+msgstr "سۈرۈشتۈرۈشنى ئىجرا قىل"
 
 #: outputstylewidget.cpp:37
 #, kde-format
@@ -520,7 +505,7 @@ msgstr "نومۇرى"
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
-msgstr "Bool"
+msgstr "بۇلىن قىممىتى"
 
 #: outputstylewidget.cpp:50
 #, kde-format
@@ -580,7 +565,7 @@ msgstr "سىستېما جەدۋەللىرى"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr ""
+msgstr "سانلىق مەلۇمات تاللىنىدۇ"
 
 #: schemawidget.cpp:272
 #, kde-format
@@ -591,22 +576,22 @@ msgstr "قۇر"
 #: schemawidget.cpp:273
 #, kde-format
 msgid "SELECT"
-msgstr ""
+msgstr "تاللا"
 
 #: schemawidget.cpp:274
 #, kde-format
 msgid "UPDATE"
-msgstr ""
+msgstr "يېڭىلا"
 
 #: schemawidget.cpp:275
 #, kde-format
 msgid "INSERT"
-msgstr ""
+msgstr "قىستۇر"
 
 #: schemawidget.cpp:276
 #, kde-format
 msgid "DELETE"
-msgstr ""
+msgstr "ئۆچۈر"
 
 #: schemawidget.cpp:280
 #, kde-format
@@ -617,7 +602,7 @@ msgstr "يېڭىلا"
 #: sqlmanager.cpp:318
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "جۈملىنى تەييارلىيالمىدى"
 
 #: sqlmanager.cpp:319
 #, kde-format
@@ -625,30 +610,24 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>تۆۋەندىكى خاتالىق سەۋەبىدى سۈرۈشتۈرۈشنى تەييارلىيالمىدى: %1</"
+"p><p>سۈرۈشتۈرۈشنى تەييارلىمايلا داۋاملاشتۇرامسىز؟</p>"
 
 #: sqlmanager.cpp:349
-#, fuzzy, kde-format
-#| msgctxt "@info/plain"
-#| msgid "Query completed successfully"
+#, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "سۈرۈشتۈرۈش مۇۋەپپەقىيەتلىك تاماملاندى"
 
 #: sqlmanager.cpp:352 sqlmanager.cpp:390
-#, fuzzy, kde-format
-#| msgctxt "@info/plain"
-#| msgid "%1 record selected"
-#| msgid_plural "%1 records selected"
+#, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
 msgstr[0] "%1 خاتىرە تاللاندى"
 
 #: sqlmanager.cpp:356
-#, fuzzy, kde-format
-#| msgctxt "@info/plain"
-#| msgid "%1 row affected"
-#| msgid_plural "%1 rows affected"
+#, kde-format
 msgctxt "@info"
 msgid "%1 row affected"
 msgid_plural "%1 rows affected"
@@ -680,7 +659,6 @@ msgstr "SQL قورال بالدىقى"
 #~ msgid "Your emails"
 #~ msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
 
-#, fuzzy
 #~| msgid "KateSQLPlugin"
 #~ msgid "Kate SQL Plugin"
 #~ msgstr "KateSQLPlugin"

@@ -8,82 +8,83 @@ msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-15 00:46+0000\n"
-"PO-Revision-Date: 2013-09-08 07:04+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-04-20 21:28-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "ئابدۇقادىر ئابلىز, غەيرەت كەنجى"
+msgstr "ئابدۇقادىر ئابلىز، غەيرەت كەنجى"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "sahran.ug@gmail.com,  gheyret@gmail.com"
+msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 
 #: editrepository.cpp:81 editrepository.cpp:126
 #, kde-format
 msgid "Edit Snippet Repository %1"
-msgstr ""
+msgstr "پۇرۇچ خەزىنە %1 نى تەھرىرلە"
 
 #: editrepository.cpp:83
 #, kde-format
 msgid "Create New Snippet Repository"
-msgstr ""
+msgstr "يېڭى پۇرۇچ خەزىنىسى قۇر"
 
 #: editrepository.cpp:142
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
-msgstr ""
+msgstr "<i>ئادەتتىكى مەقسەت ئۈچۈن ئىشلىتىلىدىغان پۇرۇچ بوش قالدۇرۇلىدۇ</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
 #: editrepository.ui:29 editsnippet.ui:37
 #, kde-format
 msgid "Name:"
-msgstr ""
+msgstr "ئاتى:"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNamespaceLabel)
 #: editrepository.ui:36
 #, kde-format
 msgid "Namespace:"
-msgstr ""
+msgstr "ئات بوشلۇقى:"
 
 #. i18n: ectx: property (text), widget (QLabel, repoLicenseLabel)
 #: editrepository.ui:43
 #, kde-format
 msgid "&License:"
-msgstr ""
+msgstr "ئىجازەتنامە(&L):"
 
 #. i18n: ectx: property (text), widget (QLabel, repoAuthorsLabel)
 #: editrepository.ui:56
 #, kde-format
 msgid "&Authors:"
-msgstr ""
+msgstr "يازغۇچى(&A):"
 
 #. i18n: ectx: property (text), widget (QLabel, repoFileTypesLabel)
 #: editrepository.ui:69
 #, kde-format
 msgid "&File types:"
-msgstr ""
+msgstr "ھۆججەت تۈرى(&F):"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNameEdit)
 #: editrepository.ui:96
 #, kde-format
 msgid "A short name for the repository"
-msgstr ""
+msgstr "خەزىنەنىڭ قىسقا ئاتى"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNamespaceEdit)
 #: editrepository.ui:103
 #, kde-format
 msgid "Prefix to show in code completion"
-msgstr ""
+msgstr "كود تاماملاشنىڭ ئالدى قوشۇلغۇچىسىنى كۆرسىتىدۇ"
 
 #: editsnippet.cpp:75
 #, kde-format
@@ -92,6 +93,9 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"پۈتۈككە قىستۇرىدىغان تېكىست (ئالاھىدە بۆلەكنى <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">قوللانما</a> دىن "
+"كۆرۈڭ)."
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -99,16 +103,19 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"مۆلچەرلەيدىغان JavaScript كودى (تەپسىلاتىنى <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-script\">قوللانما</a> دىن "
+"كۆرۈڭ)"
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "تېكست قېلىپى"
 
 #: editsnippet.cpp:89
 #, kde-format
 msgid "Script"
-msgstr ""
+msgstr "قوليازما"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -117,117 +124,117 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"بۇ كود خەزىنەدىكى بارلىق كود پۇرۇچلىرى ئارىسىدا ھەمبەھىرلەيدىغان JavaScript "
+"فۇنكسىيە (تەپسىلاتىنى <a href=\"help:/kate/kate-application-plugin-snippets."
+"html#snippet-input-library\">قوللانما</a> دىن كۆرۈڭ)."
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"تاللاشچان چۈشەندۈرۈش، قورال ئەسكەرتىشىنى كۆرسىتىشكە ئىشلىتىلىدۇ. ئاساسىي "
+"HTML پىچىمىنى ئىشلىتەلەيسىز."
 
 #: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
-msgstr ""
+msgstr "%2 دىكى %1 پۇرۇچنى تەھرىرلەيدۇ"
 
 #: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
-msgstr ""
+msgstr "%1 خەزىنەدە يېڭى پۇرۇچ قۇر"
 
 #: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
-msgstr ""
+msgstr "بوشلۇق بار پۇرۇچ ئىسمى كود تاماملاشتا ئادەتتىكىدەك ئىشلىمەسلىكى مۇمكىن"
 
 #: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
-msgstr ""
+msgstr "پۇرۇچتا ساقلانمىغان ئۆزگىرىش بار. ھەممە ئۆزگىرىشنى تاشلىۋېتەمسىز؟"
 
 #: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
-msgstr ""
+msgstr "ئاگاھلاندۇرۇش - ساقلانمىغان ئۆزگىرىش"
 
 #: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "تەھرىرلەشنى داۋاملاشتۇر"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
 #, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr ""
+msgstr "كود تاماملاش تىزىمىغا كۆرۈنىدىغان ئىسىم (زۆرۈر)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgid "Snippet Mode:"
-msgstr "پۇرۇچلار"
+msgstr "پۇرۇچ ھالىتى:"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "ھەرپتاختا تېزلەتمىسى:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgid "&Snippet"
-msgstr "پۇرۇچلار"
+msgstr "پۇرۇچ(&S)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
 #, kde-format
 msgid "S&cript Library"
-msgstr ""
+msgstr "قوليازما ئامبار(&C)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "چۈشەندۈرۈش"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
-#, fuzzy, kde-format
-#| msgid "Embedded Snippets"
+#, kde-format
 msgid "Test this snippet"
-msgstr "سىڭدۈرمە پۇرۇچلار"
+msgstr "بۇ پۇرۇچنى سىنا"
 
 #: katesnippetglobal.cpp:101
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
-msgstr "پۇرۇچلار"
+msgstr "%1 پۇرۇچ"
 
 #: katesnippets.cpp:42 katesnippets.cpp:50 snippetcompletionmodel.cpp:43
 #: snippetview.cpp:76 snippetview.cpp:202
 #, kde-format
 msgid "Snippets"
-msgstr "پۇرۇچلار"
+msgstr "پۇرۇچ"
 
 #: katesnippets.cpp:61
-#, fuzzy, kde-format
-#| msgid "Embedded Snippets"
+#, kde-format
 msgid "Create Snippet"
-msgstr "سىڭدۈرمە پۇرۇچلار"
+msgstr "پۇرۇچ قۇر"
 
 #: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
-msgstr ""
+msgstr "‹بوش بۇرۇچ›"
 
 #: snippet.cpp:92
 #, kde-format
 msgid "insert snippet %1"
-msgstr ""
+msgstr "%1 پۇرۇچ قىستۇر"
 
 #: snippet.cpp:109
 #, kde-format
@@ -235,11 +242,13 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Kate تەھرىرلىگۈچ KTExtEditor 6.15.0 ياكى يۇقىرى نەشرىدە تەرجىمە تەھرىرلەپ "
+"ھاسىللىغاندا ئاندىن بۇ خىل پۇرۇچنى ئىشلىتەلەيدۇ."
 
 #: snippetrepository.cpp:45
 #, kde-format
 msgid "<empty repository>"
-msgstr ""
+msgstr "‹بوش خەزىنە›"
 
 #: snippetrepository.cpp:232
 #, kde-format
@@ -248,130 +257,125 @@ msgid ""
 "directory; as such, a copy of the original file has been created within your "
 "personal data directory."
 msgstr ""
+"شەخسىي مۇندەرىجىڭىزدە يوق پۇرۇچ خەزىنە ھۆججەتنى تەھرىرلىدىڭىز: شۇڭلاشقا، "
+"شەخسىي سانلىق مەلۇمات مۇندەرىجىسىدە ئەسلى ھۆججەتتىن بىر نۇسخا قۇرىدۇ."
 
 #: snippetrepository.cpp:238
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
-msgstr ""
+msgstr "«%1» چىقىرىش ھۆججىتىنى ئېچىپ يېزىشقا بولمايدۇ"
 
 #: snippetrepository.cpp:273
 #, kde-format
 msgid "Cannot open snippet repository %1."
-msgstr ""
+msgstr "«%1» پۇرۇچ خەزىنە نى ئاچالمىدى."
 
 #: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
-msgstr ""
+msgstr "<qt>%1 ھۆججەتتىكى %2/%3 دا <b>%4</b><br /> خاتالىق بايقالدى</qt>"
 
 #: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
-msgstr ""
+msgstr "ئىناۋەتسىز XML پۇرۇچ ھۆججىتى: %1"
 
 #: snippetrepository.cpp:360
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
-msgstr ""
+msgstr "خەزىنە چەكلەنگەن. ئىچىدىكى پۇرۇچ كود تاماملاشتا كۆرۈنمەيدۇ."
 
 #: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to all filetypes"
-msgstr ""
+msgstr "بارلىق ھۆججەت تۈرىگە قوللىنىلىدۇ"
 
 #: snippetrepository.cpp:365
 #, kde-format
 msgid "Applies to the following filetypes: %1"
-msgstr ""
+msgstr "تۆۋەندىكى ھۆججەت تۈرىگە قوللىنىلىدۇ: %1"
 
 #: snippetview.cpp:93
 #, kde-format
 msgid "Add Repository"
-msgstr ""
+msgstr "خەزىنە قوش"
 
 #: snippetview.cpp:96
 #, kde-format
 msgid "Edit Repository"
-msgstr ""
+msgstr "خەزىنە تەھرىر"
 
 #: snippetview.cpp:99
 #, kde-format
 msgid "Remove Repository"
-msgstr ""
+msgstr "خەزىنەنى چىقىرىۋەت"
 
 #: snippetview.cpp:109
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgid "Add Snippet"
-msgstr "پۇرۇچلار"
+msgstr "پۇرۇچ قوش"
 
 #: snippetview.cpp:112
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgid "Edit Snippet"
-msgstr "پۇرۇچلار"
+msgstr "پۇرۇچ تەھرىر"
 
 #: snippetview.cpp:115
-#, fuzzy, kde-format
-#| msgid "Embedded Snippets"
+#, kde-format
 msgid "Remove Snippet"
-msgstr "سىڭدۈرمە پۇرۇچلار"
+msgstr "پۇرۇچنى چىقىرىۋەت"
 
 #: snippetview.cpp:121
-#, fuzzy, kde-format
-#| msgid "Embedded Snippets"
+#, kde-format
 msgid "Get New Snippets"
-msgstr "سىڭدۈرمە پۇرۇچلار"
+msgstr "يېڭى پۇرۇچقا ئېرىش"
 
 #: snippetview.cpp:210
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgid "Snippet: %1"
-msgstr "پۇرۇچلار"
+msgstr "پۇرۇچ: %1"
 
 #: snippetview.cpp:218
 #, kde-format
 msgid "Repository: %1"
-msgstr ""
+msgstr "خەزىنە: %1"
 
 #: snippetview.cpp:283
 #, kde-format
 msgid "Do you really want to delete the snippet \"%1\"?"
-msgstr ""
+msgstr "«%1» پۇرۇچنى راستتىنلا ئۆچۈرەمسىز؟"
 
 #: snippetview.cpp:327
 #, kde-format
 msgid ""
 "Do you really want to delete the repository \"%1\" with all its snippets?"
-msgstr ""
+msgstr "«%1» خەزىنە ۋە ئۇنىڭ پۇرۇچلىرىنىڭ ھەممىسىنى راستتىنلا ئۆچۈرەمسىز؟"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)
 #: snippetview.ui:35
 #, kde-format
 msgid "Define filter here"
-msgstr ""
+msgstr "بۇ جايدا سۈزگۈچ بەلگىلىنىدۇ"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, filterText)
 #: snippetview.ui:38
 #, kde-format
 msgid "Filter..."
-msgstr ""
+msgstr "سۈزگۈچ…"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6
 #, kde-format
 msgid "&Tools"
-msgstr ""
+msgstr "قورال(&T)"
 
-#, fuzzy
 #~| msgid "Snippets"
 #~ msgid "Snippets tool view"
 #~ msgstr "پۇرۇچلار"
 
-#, fuzzy
 #~| msgid "Snippets"
 #~ msgid "Snippets..."
 #~ msgstr "پۇرۇچلار"

@@ -8,33 +8,34 @@ msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2013-09-08 07:04+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-04-20 21:29-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
 #: julia_parser.cpp:34 plugin_katesymbolviewer.cpp:86 python_parser.cpp:25
 #: ruby_parser.cpp:21
 #, kde-format
 msgid "Show Functions"
-msgstr "فۇنكسىيىلەرنى كۆرسەت"
+msgstr "فۇنكسىيەنى كۆرسەت"
 
 #: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40
 #: julia_parser.cpp:57 php_parser.cpp:34 python_parser.cpp:45
 #: ruby_parser.cpp:33 tcl_parser.cpp:35
 #, kde-format
 msgid "Functions"
-msgstr "فۇنكسىيىلەر"
+msgstr "فۇنكسىيە"
 
 #: cpp_parser.cpp:29 julia_parser.cpp:32 plugin_katesymbolviewer.cpp:82
 #, kde-format
 msgid "Show Macros"
-msgstr "ماكرولارنى كۆرسەت"
+msgstr "ماكرونى كۆرسەت"
 
 #: cpp_parser.cpp:30 julia_parser.cpp:33 plugin_katesymbolviewer.cpp:84
 #, kde-format
@@ -64,7 +65,7 @@ msgstr "بۆلەكلەرنى كۆرسەت"
 #: fortran_parser.cpp:41 perl_parser.cpp:35
 #, kde-format
 msgid "Subroutines"
-msgstr "تارماق فۇنكسىيىلەر"
+msgstr "تارماق پىروگرامما"
 
 #: fortran_parser.cpp:42
 #, kde-format
@@ -74,22 +75,22 @@ msgstr "بۆلەكلەر"
 #: perl_parser.cpp:21
 #, kde-format
 msgid "Show Uses"
-msgstr "Uses نى كۆرسەت"
+msgstr "ئىشلىتىشنى كۆرسەت"
 
 #: perl_parser.cpp:22
 #, kde-format
 msgid "Show Pragmas"
-msgstr "Pragmas نى كۆرسەت"
+msgstr "ھاسىللاش ئەسكەرتىشىنى كۆرسەت"
 
 #: perl_parser.cpp:33
 #, kde-format
 msgid "Uses"
-msgstr "Uses"
+msgstr "ئىشلىتىلىشى"
 
 #: perl_parser.cpp:34
 #, kde-format
 msgid "Pragmas"
-msgstr "Pragmas"
+msgstr "ھاسىللاش ئەسكەرتىشى"
 
 #: php_parser.cpp:31
 #, kde-format
@@ -99,12 +100,12 @@ msgstr "ئات بوشلۇقى"
 #: php_parser.cpp:32
 #, kde-format
 msgid "Defines"
-msgstr "Defines"
+msgstr "ئېنىقلىما"
 
 #: php_parser.cpp:33 python_parser.cpp:44 ruby_parser.cpp:32
 #, kde-format
 msgid "Classes"
-msgstr "تىپلار"
+msgstr "تىپ"
 
 #: plugin_katesymbolviewer.cpp:66
 #, kde-format
@@ -112,43 +113,40 @@ msgid "SymbolViewer"
 msgstr "بەلگە كۆرگۈچ"
 
 #: plugin_katesymbolviewer.cpp:75
-#, fuzzy, kde-format
-#| msgid "List/Tree Mode"
+#, kde-format
 msgid "Tree Mode"
-msgstr "تىزىم/ شاخسىمان تىزىم ھالىتى"
+msgstr "شاخ ھالىتى"
 
 #: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Expand Tree"
-msgstr ""
+msgstr "شاخنى ياي"
 
 #: plugin_katesymbolviewer.cpp:79
-#, fuzzy, kde-format
-#| msgid "Show Structures"
+#, kde-format
 msgid "Show Sorted"
-msgstr "قۇرۇلمىلارنى كۆرسەت"
+msgstr "تەرتىپنى كۆرسەت"
 
 #: plugin_katesymbolviewer.cpp:88
-#, fuzzy, kde-format
-#| msgid "Show Params"
+#, kde-format
 msgid "Show Parameters"
-msgstr "پارامېتىرلارنى كۆرسەت"
+msgstr "ئۆزگەرگۈچىنى كۆرسەت"
 
 #: plugin_katesymbolviewer.cpp:114
 #, kde-format
 msgid "Symbol List"
-msgstr "بەلگىلەر تىزىمى"
+msgstr "بەلگە تىزىمى"
 
 #: plugin_katesymbolviewer.cpp:133
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "سۈزگۈچ…"
 
 #: plugin_katesymbolviewer.cpp:143
 #, kde-format
 msgctxt "@title:column"
 msgid "Symbols"
-msgstr "بەلگىلەر"
+msgstr "بەلگە"
 
 #: plugin_katesymbolviewer.cpp:143
 #, kde-format
@@ -157,40 +155,39 @@ msgid "Position"
 msgstr "ئورنى"
 
 #: plugin_katesymbolviewer.cpp:361
-#, fuzzy, kde-format
-#| msgid "Sorry. Language not supported yet"
+#, kde-format
 msgid "Sorry, not supported yet!"
-msgstr "كەچۈرۈڭ، بۇ تىلنى تېخى قوللىمايدۇ"
+msgstr "كەچۈرۈڭ، تېخى قوللىمايدۇ!"
 
 #: plugin_katesymbolviewer.cpp:365
 #, kde-format
 msgid "File type: %1"
-msgstr ""
+msgstr "ھۆججەت تۈرى: %1"
 
 #: plugin_katesymbolviewer.cpp:476
 #, kde-format
 msgid "Display functions parameters"
-msgstr "قۇنكىسىيە پارامېتىرلىرىنى كۆرسەت"
+msgstr "فۇنكسىيە پارامېتىرىنى كۆرسەت"
 
 #: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
-msgstr "تۈگۈنلەرنى شاخسىمان تىزىمدا ئاپتوماتىك ياي"
+msgstr "تۈگۈننى شاخسىمان تىزىمدا ئۆزلۈكىدىن ياي"
 
 #: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Always display symbols in tree mode"
-msgstr ""
+msgstr "شاخ ھالىتىدە بەلگىنى ھەمىشە كۆرسىتىدۇ"
 
 #: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always sort symbols"
-msgstr ""
+msgstr "بەلگىنى ھەمىشە تەرتىپلەيدۇ"
 
 #: plugin_katesymbolviewer.cpp:481
 #, kde-format
 msgid "Parser Options"
-msgstr "پارچىلىغۇچى تاللانمىسى"
+msgstr "تەھلىل قىلىش تاللانمىسى"
 
 #: plugin_katesymbolviewer.cpp:507
 #, kde-format
@@ -205,17 +202,17 @@ msgstr "بەلگە كۆرگۈچ سەپلىمە بېتى"
 #: python_parser.cpp:26 ruby_parser.cpp:22
 #, kde-format
 msgid "Show Methods"
-msgstr "فۇنكسىيىلەرنى(Methods) كۆرسەت"
+msgstr "ئۇسۇلنى كۆرسەت"
 
 #: python_parser.cpp:27 ruby_parser.cpp:23
 #, kde-format
 msgid "Show Classes"
-msgstr "تىپلار(Classes) نى كۆرسەت"
+msgstr "تىپنى كۆرسەت"
 
 #: tcl_parser.cpp:36
 #, kde-format
 msgid "Globals"
-msgstr "ئومۇمىي ئۆزگەرگۈچىلەر"
+msgstr "ئومۇمىيەت"
 
 #. i18n: ectx: Menu (view)
 #: ui.rc:6
@@ -224,40 +221,39 @@ msgid "&Settings"
 msgstr "تەڭشەك(&S)"
 
 #: xml_parser.cpp:25
-#, fuzzy, kde-format
-#| msgid "Show Pragmas"
+#, kde-format
 msgid "Show Tags"
-msgstr "Pragmas نى كۆرسەت"
+msgstr "بەلگە كۆرسەت"
 
 #: xslt_parser.cpp:22
 #, kde-format
 msgid "Show Params"
-msgstr "پارامېتىرلارنى كۆرسەت"
+msgstr "پارامېتىرنى كۆرسەت"
 
 #: xslt_parser.cpp:23
 #, kde-format
 msgid "Show Variables"
-msgstr "ئۆزگەرگۈچىلەرنى كۆرسەت"
+msgstr "ئۆزگەرگۈچىنى كۆرسەت"
 
 #: xslt_parser.cpp:24
 #, kde-format
 msgid "Show Templates"
-msgstr "قېلىپلارنى كۆرسەت"
+msgstr "قېلىپنى كۆرسەت"
 
 #: xslt_parser.cpp:34
 #, kde-format
 msgid "Params"
-msgstr "پارامېتىرلار"
+msgstr "پارامېتىر"
 
 #: xslt_parser.cpp:35
 #, kde-format
 msgid "Variables"
-msgstr "ئۆزگەرگۈچىلەر"
+msgstr "ئۆزگەرگۈچى"
 
 #: xslt_parser.cpp:36
 #, kde-format
 msgid "Templates"
-msgstr "قېلىپلار"
+msgstr "قېلىپ"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"
@@ -279,7 +275,6 @@ msgstr "قېلىپلار"
 #~ msgid "View symbols"
 #~ msgstr "بەلگىلەرنى كۆرسەت"
 
-#, fuzzy
 #~| msgid "Show Functions"
 #~ msgid "Show Clojure Functions"
 #~ msgstr "فۇنكسىيىلەرنى كۆرسەت"

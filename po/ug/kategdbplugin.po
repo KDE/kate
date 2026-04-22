@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2013-09-08 07:04+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-04-20 21:23-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #: backend.cpp:48 dapbackend.cpp:175
 #, kde-format
@@ -23,52 +24,48 @@ msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr ""
+"بىر سازلاش جەريانچاق ئىجرا قىلىنىۋاتىدۇ. قايتا ئىجرا قىلىڭ ياكى نۆۋەتتىكى "
+"جەريانچاقنى توختىتىڭ."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "توختاش نۇقتىسى"
+msgstr "قۇر توختاش نۇقتىسى"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
+msgstr "فۇنكسىيە توختاش نۇقتىسى"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
+msgstr "مۇستەسنا توختاش نۇقتىسى"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "دەلىللەندى"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "كۈتۈۋاتىدۇ"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
+msgstr "فۇنكسىيە توختاش نۇقتىسى قوش…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "توختاش نۇقتىسى"
+msgstr "بارلىق فۇنكسىيە توختاش نۇقتىسىنى تازىلا"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
-msgstr "ئۈزۈلۈش نۇقتىسىنى چىقىرىۋەت"
+msgstr "توختاش نۇقتىسىنى چىقىرىۋەت"
 
 #: breakpointview.cpp:1493
 #, kde-format
@@ -78,44 +75,42 @@ msgstr "توختاش نۇقتىسى"
 #: breakpointview.cpp:1556
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "%1-قۇردا توختاش نۇقتىسى بار"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "توختاش نۇقتىسى"
+msgstr "ھېچقانداق توختاش نۇقتىسى تەڭشەلمىگەن"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
+msgstr "فۇنكسىيە توختاش نۇقتىسى قوش"
 
 #: breakpointview.cpp:1625
 #, kde-format
 msgid "Function name:"
-msgstr ""
+msgstr "فۇنكسىيە ئاتى:"
 
 #: configview.cpp:92
 #, kde-format
 msgid "Add new target"
-msgstr ""
+msgstr "يېڭى نىشان قوش"
 
 #: configview.cpp:96
 #, kde-format
 msgid "Copy target"
-msgstr ""
+msgstr "نىشاننى كۆچۈر"
 
 #: configview.cpp:100
 #, kde-format
 msgid "Delete target"
-msgstr ""
+msgstr "نىشاننى ئۆچۈر"
 
 #: configview.cpp:104
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "launch.json نىشانىنى قايتا يۈكلە"
 
 #: configview.cpp:109
 #, kde-format
@@ -130,7 +125,7 @@ msgstr "خىزمەت مۇندەرىجىسى:"
 #: configview.cpp:137
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "جەريان كىملىكى:"
 
 #: configview.cpp:142
 #, kde-format
@@ -157,19 +152,19 @@ msgstr "قايتا نىشانلانغان IO"
 #: configview.cpp:149
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
-msgstr "سازلانغان پروگرامما IO نى ئايرىغۇچ بەلگىسى بىلەن قايتا نىشانلايدۇ"
+msgstr "سازلانغان پىروگرامما IO نى ئايرىغۇچ بەلگىسى بىلەن قايتا نىشانلايدۇ"
 
 #: configview.cpp:397
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "ھېچقانداق ئىجرا قىلغىلى بولىدىغان نىشان توپلىمى يوق"
 
 #: configview.cpp:407
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr ""
+msgstr "ئىناۋەتسىز جەريان كىملىكى"
 
 #: configview.cpp:529 configview.cpp:542
 #, kde-format
@@ -177,362 +172,353 @@ msgid "Target %1"
 msgstr "نىشان %1"
 
 #: configview.cpp:765
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "ئىجرا قىلغىلى بولىدۇ:"
+msgstr "ئىجرا قىلىدىغان ھۆججەت تاللىنىدۇ"
 
 #: configview.cpp:778
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "خىزمەت مۇندەرىجىسى:"
+msgstr "خىزمەت مۇندەرىجىسى تاللىنىدۇ"
 
 #: dapbackend.cpp:187
 #, kde-format
 msgid "DAP backend '%1' failed"
-msgstr ""
+msgstr "DAP ئارقا ئۇچ «%1» مەغلۇپ بولدى"
 
 #: dapbackend.cpp:238
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "پىروگرامما ئاخىرلاشتى"
 
 #: dapbackend.cpp:243
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "ئاخىرلاشتۇرالمىدى. مەجبۇرىي تاقاۋاتىدۇ…"
 
 #: dapbackend.cpp:254
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "ئۈزۈشنى ئىلتىماس قىلىۋاتىدۇ"
 
 #: dapbackend.cpp:269
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "تاقاشنى ئىلتىماس قىلىۋاتىدۇ"
 
 #: dapbackend.cpp:294
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "DAP ئارقا ئۇچ: %1"
 
 #: dapbackend.cpp:303
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "توختىدى(%1)."
 
 #: dapbackend.cpp:311
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "ئاكتىپ جەريانچاق: %1 (ھەممە جەريانچاق توختىدى)"
 
 #: dapbackend.cpp:313
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "ئاكتىپ جەريانچاق: %1."
 
 #: dapbackend.cpp:318
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr "توختاش نۇقتىسى"
+msgstr "توختاش نۇقتىسىغا يەتتى:"
 
 #: dapbackend.cpp:344
 #, kde-format
 msgid "(continued) thread %1"
-msgstr ""
+msgstr "(داۋاملاشتۇرىدىغان) جەريانچاق %1"
 
 #: dapbackend.cpp:346
 #, kde-format
 msgid "all threads continued"
-msgstr ""
+msgstr "ھەممە جەريانچاق داۋاملىشىۋاتىدۇ"
 
 #: dapbackend.cpp:353
 #, kde-format
 msgid "(running)"
-msgstr ""
+msgstr "(ئىجرا قىلىنىۋاتىدۇ)"
 
 #: dapbackend.cpp:404
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "***مۇلازىمېتىر بىلەن باغلىنىش تاقالدى***"
 
 #: dapbackend.cpp:411
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "پىروگرامما چېكىندى، چېكىنىش كودى %1"
 
 #: dapbackend.cpp:433
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "***ئىشلەتكۈچى مەشغۇلاتىنى كۈتۈۋاتىدۇ***"
 
 #: dapbackend.cpp:438
 #, kde-format
 msgid "error on response: %1"
-msgstr ""
+msgstr "ئىنكاس خاتالىقى: %1"
 
 #: dapbackend.cpp:454
 #, kde-format
 msgid "important"
-msgstr ""
+msgstr "مۇھىم"
 
 #: dapbackend.cpp:457
 #, kde-format
 msgid "telemetry"
-msgstr ""
+msgstr "يىراقتىن سېزىش"
 
 #: dapbackend.cpp:476
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "سازلاش جەريانى [%1] %2"
 
 #: dapbackend.cpp:478
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "سازلاش جەريانى %1"
 
 #: dapbackend.cpp:481
 #, kde-format
 msgid "Start method: %1"
-msgstr ""
+msgstr "باشلاش ئۇسۇلى: %1"
 
 #: dapbackend.cpp:496
 #, kde-format
 msgid "thread %1"
-msgstr ""
+msgstr "جەريانچاق %1"
 
 #: dapbackend.cpp:577
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint set"
-msgstr "توختاش نۇقتىسى"
+msgstr "توختاش نۇقتا توپلىمى"
 
 #: dapbackend.cpp:611
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "(%1) breakpoint"
-msgstr "توختاش نۇقتىسى"
+msgstr "(%1) توختاش نۇقتىسى"
 
 #: dapbackend.cpp:629
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "‹باھالانمىغان›"
 
 #: dapbackend.cpp:651
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "مۇلازىمېتىر ئىقتىدارى"
 
 #: dapbackend.cpp:653
 #, kde-format
 msgid "supported"
-msgstr ""
+msgstr "قوللايدىغانلىرى"
 
 #: dapbackend.cpp:653
 #, kde-format
 msgid "unsupported"
-msgstr ""
+msgstr "قوللىمايدىغانلىرى"
 
 #: dapbackend.cpp:656
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "conditional breakpoints"
-msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
+msgstr "شەرتلىك توختاش نۇقتىسى"
 
 #: dapbackend.cpp:657
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "function breakpoints"
-msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
+msgstr "فۇنكسىيە توختاش نۇقتىسى"
 
 #: dapbackend.cpp:658
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "شەرتلىك توختاش نۇقتىسىغا يولۇقتى"
 
 #: dapbackend.cpp:659
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "خاتىرە نۇقتىسى"
 
 #: dapbackend.cpp:659
 #, kde-format
 msgid "modules request"
-msgstr ""
+msgstr "بۆلەك ئىلتىماسى"
 
 #: dapbackend.cpp:660
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "نىشان ئىلتىماسىغا يۆتكىلىدۇ"
 
 #: dapbackend.cpp:661
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "ئىلتىماسنى ئاخىرلاشتۇر"
 
 #: dapbackend.cpp:662
 #, kde-format
 msgid "terminate debuggee"
-msgstr ""
+msgstr "سازلىغۇچىنى ئاخىرلاشتۇر"
 
 #: dapbackend.cpp:665
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
+msgstr "مۇستەسنا توختاش نۇقتا سۈزگۈچ"
 
 #: dapbackend.cpp:812
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "گىرامماتىكىلىق خاتالىق: مۇستەسنا تېپىلمىدى"
 
 #: dapbackend.cpp:831 dapbackend.cpp:867 dapbackend.cpp:907 dapbackend.cpp:942
 #: dapbackend.cpp:979 dapbackend.cpp:1016 dapbackend.cpp:1053
 #: dapbackend.cpp:1144 dapbackend.cpp:1198
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "گىرامماتىكىلىق خاتالىق: %1"
 
 #: dapbackend.cpp:839 dapbackend.cpp:875 dapbackend.cpp:1151
 #: dapbackend.cpp:1206
 #, kde-format
 msgid "invalid line: %1"
-msgstr ""
+msgstr "ئىناۋەتسىز قۇر: %1"
 
 #: dapbackend.cpp:847 dapbackend.cpp:852 dapbackend.cpp:883 dapbackend.cpp:888
 #: dapbackend.cpp:1176 dapbackend.cpp:1181 dapbackend.cpp:1214
 #: dapbackend.cpp:1219
 #, kde-format
 msgid "file not specified: %1"
-msgstr ""
+msgstr "ھۆججەت بەلگىلەنمىگەن: %1"
 
 #: dapbackend.cpp:919 dapbackend.cpp:954 dapbackend.cpp:991 dapbackend.cpp:1028
 #: dapbackend.cpp:1065
 #, kde-format
 msgid "invalid thread id: %1"
-msgstr ""
+msgstr "ئىناۋەتسىز جەريانچاق كىملىكى: %1"
 
 #: dapbackend.cpp:925 dapbackend.cpp:960 dapbackend.cpp:997 dapbackend.cpp:1034
 #: dapbackend.cpp:1071
 #, kde-format
 msgid "thread id not specified: %1"
-msgstr ""
+msgstr "جەريانچاق كىملىكى بەلگىلەنمىگەن: %1"
 
 #: dapbackend.cpp:1082
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "ئىشلىتىلىشچان بۇيرۇق:"
 
 #: dapbackend.cpp:1161
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "مۇلازىمېتىر شەرتلىك توختاش نۇقتىسىنى قوللىمايدۇ"
 
 #: dapbackend.cpp:1169
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "مۇلازىمېتىر شەرتلىك توختاش نۇقتىسىغا يولۇقۇشنى قوللىمايدۇ"
 
 #: dapbackend.cpp:1231
 #, kde-format
 msgid "Current thread: "
-msgstr ""
+msgstr "نۆۋەتتىكى جەريانچاق: "
 
 #: dapbackend.cpp:1236 dapbackend.cpp:1243 dapbackend.cpp:1264
 #, kde-format
 msgid "none"
-msgstr ""
+msgstr "يوق"
 
 #: dapbackend.cpp:1239
 #, kde-format
 msgid "Current frame: "
-msgstr ""
+msgstr "نۆۋەتتىكى كاندۇك: "
 
 #: dapbackend.cpp:1246
 #, kde-format
 msgid "Session state: "
-msgstr ""
+msgstr "جەريانچاق ھالىتى: "
 
 #: dapbackend.cpp:1249
 #, kde-format
 msgid "initializing"
-msgstr ""
+msgstr "دەسلەپلەشتۈرۈۋاتىدۇ"
 
 #: dapbackend.cpp:1252
 #, kde-format
 msgid "running"
-msgstr ""
+msgstr "ئىجرا قىلىنىۋاتىدۇ"
 
 #: dapbackend.cpp:1255
 #, kde-format
 msgid "stopped"
-msgstr ""
+msgstr "توختىتىلغان"
 
 #: dapbackend.cpp:1258
 #, kde-format
 msgid "terminated"
-msgstr ""
+msgstr "ئاخىرلاشتۇرۇلدى"
 
 #: dapbackend.cpp:1261
 #, kde-format
 msgid "disconnected"
-msgstr ""
+msgstr "ئۈزۈلدى"
 
 #: dapbackend.cpp:1319
 #, kde-format
 msgid "command not found"
-msgstr ""
+msgstr "بۇيرۇق تېپىلمىدى"
 
 #: dapbackend.cpp:1354
 #, kde-format
 msgid "missing thread id"
-msgstr ""
+msgstr "جەريانچاق كىملىكى كەم"
 
 #: dapbackend.cpp:1507
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "نۆۋەتتىكى كاندۇك [%3]: %1:%2 (%4)"
 
 #: debugconfigpage.cpp:55 debugconfigpage.cpp:60
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "سازلا"
+msgstr "سازلىغۇچ"
 
 #: launch_json_reader.cpp:40
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "%1 دىكى .vscode/launch.json تەھلىل قىلالمىدى. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " %1:%2 دا"
 
 #: localsview.cpp:39
 #, kde-format
 msgid "type"
-msgstr ""
+msgstr "تۈرى"
 
 #: localsview.cpp:48
 #, kde-format
 msgid "indexed items"
-msgstr ""
+msgstr "ئىندېكس تۈرى"
 
 #: localsview.cpp:51
 #, kde-format
 msgid "named items"
-msgstr ""
+msgstr "ئاتالغان تۈر"
 
 #: localsview.cpp:67 localsview.cpp:68
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "يۈكلەۋاتىدۇ…"
 
 #: localsview.cpp:116
 #, kde-format
@@ -542,7 +528,7 @@ msgstr "بەلگە"
 #: localsview.cpp:117
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "تۈرى"
 
 #: localsview.cpp:118
 #, kde-format
@@ -550,22 +536,19 @@ msgid "Value"
 msgstr "قىممەت"
 
 #: localsview.cpp:300
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "بەلگە"
+msgstr "بەلگە كۆچۈر"
 
 #: localsview.cpp:315
-#, fuzzy, kde-format
-#| msgid "Value"
+#, kde-format
 msgid "Copy Value"
-msgstr "قىممەت"
+msgstr "قىممىتىنى كۆچۈر"
 
 #: plugin_kategdb.cpp:112
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Kate Debug"
-msgstr "سازلا"
+msgstr "Kate سازلاش"
 
 #: plugin_kategdb.cpp:116
 #, kde-format
@@ -580,11 +563,10 @@ msgstr "سازلا"
 #: plugin_kategdb.cpp:119 plugin_kategdb.cpp:122
 #, kde-format
 msgid "Locals and Stack"
-msgstr ""
+msgstr "يەرلىك ئۆزگەرگۈچى ۋە دەستە"
 
 #: plugin_kategdb.cpp:128
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
 msgstr "توختاش نۇقتىسى"
 
@@ -592,12 +574,12 @@ msgstr "توختاش نۇقتىسى"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>ھۆججەتنى ئاچالمايدۇ:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:229
 #, kde-format
 msgid "Targets"
-msgstr "نىشانلار"
+msgstr "نىشان"
 
 #: plugin_kategdb.cpp:234
 #, kde-format
@@ -620,10 +602,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "توختاش نۇقتىسى/توختاشنى ئالماشتۇر"
 
 #: plugin_kategdb.cpp:264
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "توختاش نۇقتىسى"
+msgstr "بارلىق توختاش نۇقتىسىنى تازىلا"
 
 #: plugin_kategdb.cpp:269
 #, kde-format
@@ -651,26 +632,24 @@ msgid "Restart Debugging"
 msgstr "سازلاشنى قايتا قوزغات"
 
 #: plugin_kategdb.cpp:304
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "GDB چىقىرىش"
+msgstr "چىقىرىشنى تازىلا"
 
 #: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "قىزىق قايتا يۈكلە"
 
 #: plugin_kategdb.cpp:319
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "قىزىق قايتا قوزغات"
 
 #: plugin_kategdb.cpp:328
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "ساقلىغاندا قىزىق قايتا يۈكلەشنى قوزغات"
 
 #: plugin_kategdb.cpp:337 plugin_kategdb.cpp:356
 #, kde-format
@@ -686,18 +665,17 @@ msgstr "قىممەتنى باس"
 #: plugin_kategdb.cpp:407
 #, kde-format
 msgid "Error: %1"
-msgstr ""
+msgstr "خاتالىق: %1"
 
 #: plugin_kategdb.cpp:438
 #, kde-format
 msgid "Insert breakpoint"
-msgstr "ئۈزۈلۈش نۇقتىسى قىستۇر"
+msgstr "توختاش نۇقتىسى قىستۇر"
 
 #: plugin_kategdb.cpp:444
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "ئۈزۈلۈش نۇقتىسىنى چىقىرىۋەت"
+msgstr "توختاش نۇقتىسىنى ئالماشتۇر"
 
 #: plugin_kategdb.cpp:559
 #, kde-format
@@ -705,18 +683,16 @@ msgid "Execution point"
 msgstr "ئىجرا نۇقتىسى"
 
 #: plugin_kategdb.cpp:668
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "GDB چىقىرىش"
+msgstr "سازلاپ چىقىرىش"
 
 #: plugin_kategdb.cpp:669
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
-msgstr "تەڭشەكلەر"
+msgstr "تەڭشەك"
 
 #: plugin_kategdb.cpp:704
 #, kde-format
@@ -733,33 +709,33 @@ msgstr "نومۇرى"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "فۇنكسىيە"
 
 #: stackframe_model.cpp:99
 #, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr ""
+msgstr "ئورنى"
 
 #: stackview.cpp:96 stackview.cpp:128
 #, kde-format
 msgid "Thread %1"
-msgstr ""
+msgstr "%1-جەريانچاق"
 
 #: stackview.cpp:167
 #, kde-format
 msgid "Copy Stack Trace"
-msgstr ""
+msgstr "دەستە ئىزلاشنى كۆچۈر"
 
 #: stackview.cpp:186
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "ئورۇننى ئاچ"
 
 #: stackview.cpp:193
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "ئورنىنى كۆچۈر"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
@@ -769,18 +745,34 @@ msgstr "سازلا(&D)"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:33
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "GDB قىستۇرما"
+msgstr "سازلاش قىستۇرمىسى"
 
-#, fuzzy
-#~| msgctxt "Tab label"
-#~| msgid "Settings"
+#~ msgid "User Debug Adapter Settings"
+#~ msgstr "ئىشلەتكۈچى سازلاش ماسلاشتۇرغۇچ تەڭشىكى"
+
 #~ msgid "Settings File:"
-#~ msgstr "تەڭشەكلەر"
+#~ msgstr "تەڭشەك ھۆججىتى:"
 
-#, fuzzy
+#~ msgid "Default Debug Adapter Settings"
+#~ msgstr "كۆڭۈلدىكى سازلاش ماسلاشتۇرغۇچ تەڭشىكى"
+
+#~ msgid "Failed to open file: %1"
+#~ msgstr "ھۆججەتنى ئاچالمىدى: %1"
+
+#~ msgid "No JSON data to validate."
+#~ msgstr "دەلىللەشكە ئىشلىتىدىغان JSON سانلىق مەلۇماتى يوق."
+
+#~ msgid "JSON data is valid."
+#~ msgstr "JSON سانلىق مەلۇماتى ئىناۋەتلىك."
+
+#~ msgid "JSON data is invalid: no JSON object"
+#~ msgstr "JSON سانلىق مەلۇماتى ئىناۋەتسىز: JSON جىسىم يوق"
+
+#~ msgid "JSON data is invalid: %1"
+#~ msgstr "JSON سانلىق مەلۇماتى ئىناۋەتسىز: %1"
+
 #~| msgid "Breakpoint"
 #~ msgid "breakpoint cleared"
 #~ msgstr "توختاش نۇقتىسى"
@@ -807,7 +799,6 @@ msgstr "GDB قىستۇرما"
 #~ msgid "Could not start debugger process"
 #~ msgstr "سازلىغۇچ جەريانىنى قوزغىتالمايدۇ"
 
-#, fuzzy
 #~| msgid "Target %1"
 #~ msgid "Host: %1. Target: %1"
 #~ msgstr "نىشان %1"

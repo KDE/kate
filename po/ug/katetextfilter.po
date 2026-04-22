@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2013-09-08 07:04+0900\n"
-"Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
+"PO-Revision-Date: 2026-04-20 21:29-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.9\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -24,11 +25,13 @@ msgid ""
 "<title>Result of:</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 msgstr ""
+"<title>نەتىجە:</title><nl /><pre><code>$ %1\n"
+"<nl />%2</code></pre>"
 
 #: plugin_katetextfilter.cpp:142
 #, kde-format
 msgid "Failed to start process"
-msgstr ""
+msgstr "جەرياننى قوزغىتالمىدى"
 
 #: plugin_katetextfilter.cpp:156
 #, kde-format
@@ -36,7 +39,7 @@ msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
 "to be able to do this, contact your system administrator."
 msgstr ""
-"سىز بۇ سىرتقى پروگراممىنى ئىجرا قىلىشقا يول قويمىغان. ئەگەر بۇ چەكلىمىنى "
+"بۇ سىرتقى پىروگراممىنى ئىجرا قىلىشىڭىزغا يول قويۇلمىغان. ئەگەر بۇ چەكلىمىنى "
 "بىكار قىلماقچى بولسىڭىز، سىستېما باشقۇرغۇچىڭىز بىلەن ئالاقىلىشىڭ."
 
 #: plugin_katetextfilter.cpp:158
@@ -45,10 +48,9 @@ msgid "Access Restrictions"
 msgstr "زىيارەت چەكلىمىسى"
 
 #: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
-#, fuzzy, kde-format
-#| msgid "Filter"
+#, kde-format
 msgid "Text Filter"
-msgstr "سۈزگۈچ"
+msgstr "تېكىست سۈزگۈچ"
 
 #: plugin_katetextfilter.cpp:242
 #, kde-format
@@ -67,39 +69,39 @@ msgstr ""
 #: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
-msgstr ""
+msgstr "بۇيرۇق ئارقىلىق سۈز(&F)…"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, TextFilterWidget)
 #: textfilterwidget.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr ""
+msgstr "سۆزلەشكۈ"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFilter)
 #: textfilterwidget.ui:26
-#, fuzzy, kde-format
-#| msgid "Enter command to pipe selected text through:"
+#, kde-format
 msgid "Enter command to &pipe selected text through:"
 msgstr ""
-"تۇرۇبا ئارقىلىق تاللىغان تېكىستنىڭ بىر تەرەپ قىلىدىغان بۇيرۇقىنى كىرگۈزۈڭ:"
+"تۇرۇبا ئارقىلىق تاللىغان تېكىستنى بىر تەرەپ قىلىدىغان بۇيرۇق كىرگۈزۈلىدۇ:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, newDoc)
 #: textfilterwidget.ui:39
 #, kde-format
 msgid "Open results in a new document"
-msgstr ""
+msgstr "نەتىجىنى يېڭى پۈتۈكتە ئاچ"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:46
 #, kde-format
 msgid "Copy the result to clipboard leaving a document unchanged."
 msgstr ""
+"نەتىجىنى چاپلاش تاختىسىغا كۆچۈرۈپ پۈتۈكنى ئۆزگەرتمەي شۇ پېتى قالدۇرىدۇ."
 
 #. i18n: ectx: property (text), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:49
 #, kde-format
 msgid "Copy the result instead of pasting it"
-msgstr "نەتىجىنى چاپلىماستىن كۆچۈرىدۇ"
+msgstr "نەتىجىنى چاپلىماستىن كۆچۈر"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:57
@@ -109,18 +111,21 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
+"ئەگەر تاللانسا، STDOUT ۋە STDERR نىڭ چىقىرىشى بىرلەشتۈرۈلىدۇ ۋە خاتالىق "
+"مەلۇم قىلمايدۇ.\n"
+"تاللانمىسا، STDERR نى خاتالىق سۈپىتىدە كۆرسىتىدۇ."
 
 #. i18n: ectx: property (text), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:60
 #, kde-format
 msgid "Merge STDOUT and STDERR"
-msgstr ""
+msgstr "STDOUT ۋە STDERR نى بىرلەشتۈر"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6
 #, kde-format
 msgid "&Tools"
-msgstr "قوراللار(&T)"
+msgstr "قورال(&T)"
 
 #~ msgid "Filter Te&xt..."
 #~ msgstr "تېكىست سۈزگۈچ(&X)…"

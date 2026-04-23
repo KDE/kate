@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-17 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:47+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -154,45 +154,45 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "KWrite - पाठ्य सम्पादक"
 
-#: lib/commitfilesview.cpp:430 lib/kateviewmanager.cpp:369
+#: lib/commitfilesview.cpp:434 lib/kateviewmanager.cpp:369
 #: lib/kateviewmanager.cpp:371
 #, kde-format
 msgid "Open File"
 msgstr "सञ्चिकां उद्घाटयन्तु"
 
-#: lib/commitfilesview.cpp:436 lib/katemainwindow.cpp:460
+#: lib/commitfilesview.cpp:440 lib/katemainwindow.cpp:460
 #, kde-format
 msgid "Copy Location"
 msgstr "प्रतिलिपि स्थानम्"
 
-#: lib/commitfilesview.cpp:459 lib/commitfilesview.cpp:576
-#: lib/commitfilesview.cpp:582 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:463 lib/commitfilesview.cpp:580
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr "गिट्"
 
-#: lib/commitfilesview.cpp:556
+#: lib/commitfilesview.cpp:560
 #, kde-format
 msgid "Renamed %1 => %2"
 msgstr ""
 
-#: lib/commitfilesview.cpp:576
+#: lib/commitfilesview.cpp:580
 #, kde-format
 msgid "Invalid hash"
 msgstr "अमान्य हैश"
 
-#: lib/commitfilesview.cpp:582 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 git repo मध्ये नास्ति ।."
 
-#: lib/commitfilesview.cpp:592
+#: lib/commitfilesview.cpp:596
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
 msgstr "%1 प्रतिबद्धः"
 
-#: lib/commitfilesview.cpp:605
+#: lib/commitfilesview.cpp:609
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
@@ -2282,16 +2282,24 @@ msgid ""
 msgstr ""
 "भवता रक्षितुं याचितं दत्तांशं लिखितुं न शक्यते स्म । कृपया कथं प्रवर्तयितुम् इच्छसि इति चिनोतु।."
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:915
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "प्रतिलिपि स्थानम्"
 
-#: lib/kateurlbar.cpp:919
+#: lib/kateurlbar.cpp:920
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
+msgstr "सञ्चिकानाम प्रतिलिपि कुर्वन्तु"
+
+#: lib/kateurlbar.cpp:926
+#, fuzzy, kde-format
+#| msgctxt "@menu:action"
+#| msgid "Copy Filename"
+msgctxt "@menu:action"
+msgid "Copy Item"
 msgstr "सञ्चिकानाम प्रतिलिपि कुर्वन्तु"
 
 #: lib/kateviewmanager.cpp:150

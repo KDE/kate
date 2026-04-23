@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-17 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:47+0000\n"
 "PO-Revision-Date: 2011-08-04 10:19+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <danishka@gmail.com>\n"
@@ -175,47 +175,47 @@ msgstr "KWrite කතෲ"
 msgid "KWrite - Text Editor"
 msgstr "Kate - උසස් පෙළ සකසනය"
 
-#: lib/commitfilesview.cpp:430 lib/kateviewmanager.cpp:369
+#: lib/commitfilesview.cpp:434 lib/kateviewmanager.cpp:369
 #: lib/kateviewmanager.cpp:371
 #, kde-format
 msgid "Open File"
 msgstr "ගොනුව විවෘත කරන්න"
 
-#: lib/commitfilesview.cpp:436 lib/katemainwindow.cpp:460
+#: lib/commitfilesview.cpp:440 lib/katemainwindow.cpp:460
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy Location"
 msgstr "පිහිටුම"
 
-#: lib/commitfilesview.cpp:459 lib/commitfilesview.cpp:576
-#: lib/commitfilesview.cpp:582 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:463 lib/commitfilesview.cpp:580
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:556
+#: lib/commitfilesview.cpp:560
 #, kde-format
 msgid "Renamed %1 => %2"
 msgstr ""
 
-#: lib/commitfilesview.cpp:576
+#: lib/commitfilesview.cpp:580
 #, kde-format
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:582 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:592
+#: lib/commitfilesview.cpp:596
 #, fuzzy, kde-format
 #| msgid "Comment"
 msgctxt "@title:tab"
 msgid "Commit %1"
 msgstr "සටහන"
 
-#: lib/commitfilesview.cpp:605
+#: lib/commitfilesview.cpp:609
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
@@ -2361,18 +2361,25 @@ msgid ""
 "want to proceed."
 msgstr "ඔබ සුරැකීමට ඉල්ලූ දත්ත ලිවීමට නොහැ. කරුණාකර ඔබට ඉදිරියට යාමට ඇවැසි ආකාරය තෝරන්න."
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:915
 #, fuzzy, kde-format
 #| msgid "Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "පිහිටුම"
 
-#: lib/kateurlbar.cpp:919
+#: lib/kateurlbar.cpp:920
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"
 msgid "Copy Filename"
+msgstr "ගොනු නාමය"
+
+#: lib/kateurlbar.cpp:926
+#, fuzzy, kde-format
+#| msgid "Filename"
+msgctxt "@menu:action"
+msgid "Copy Item"
 msgstr "ගොනු නාමය"
 
 #: lib/kateviewmanager.cpp:150

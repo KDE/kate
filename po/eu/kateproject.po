@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-17 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:47+0000\n"
 "PO-Revision-Date: 2026-03-29 22:10+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -87,7 +87,7 @@ msgstr[1] "Ziur zaude hautatutako adarrak ezabatu nahi dituzula?"
 msgid "Select Branch..."
 msgstr "Hautatu adarra…"
 
-#: branchesdialog.cpp:108 gitwidget.cpp:559 kateprojectpluginview.cpp:74
+#: branchesdialog.cpp:108 gitwidget.cpp:550 kateprojectpluginview.cpp:74
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -102,7 +102,7 @@ msgstr "Sortu adar berria"
 msgid "Create New Branch From..."
 msgstr "Sortu adar berri bat honetatik..."
 
-#: comparebranchesview.cpp:127
+#: comparebranchesview.cpp:131
 #, kde-format
 msgid "Back"
 msgstr "Atzera"
@@ -130,8 +130,8 @@ msgstr "Adar aktiboa: %1"
 msgid "Commit Changes"
 msgstr "Finkatu aldaketak"
 
-#: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:274
-#: gitwidget.cpp:1098
+#: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:265
+#: gitwidget.cpp:1089
 #, kde-format
 msgid "Commit"
 msgstr "Finkatu"
@@ -161,7 +161,7 @@ msgstr "Sinatu"
 msgid "Amend"
 msgstr "Zuzendu"
 
-#: gitcommitdialog.cpp:113 gitwidget.cpp:1051
+#: gitcommitdialog.cpp:113 gitwidget.cpp:1042
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Zuzendu azken finkapena"
@@ -203,330 +203,330 @@ msgstr "Gatazka"
 msgid "Modified"
 msgstr "Aldatuta"
 
-#: gitwidget.cpp:282
+#: gitwidget.cpp:273
 #, kde-format
 msgid "Git Push"
 msgstr "Git Push"
 
-#: gitwidget.cpp:295
+#: gitwidget.cpp:286
 #, kde-format
 msgid "Git Pull"
 msgstr "Git Pull"
 
-#: gitwidget.cpp:308
+#: gitwidget.cpp:299
 #, kde-format
 msgid "Cancel Operation"
 msgstr "Ezeztatu eragiketa"
 
-#: gitwidget.cpp:316
+#: gitwidget.cpp:307
 #, kde-format
 msgid " canceled."
 msgstr " Ezeztatuta."
 
-#: gitwidget.cpp:324
+#: gitwidget.cpp:315
 #, kde-format
 msgid "Refresh git status"
 msgstr "Freskatu Git-en egoera"
 
-#: gitwidget.cpp:346 kateprojectview.cpp:61
+#: gitwidget.cpp:337 kateprojectview.cpp:61
 #, kde-format
 msgid "Filter…"
 msgstr "Iragazi…"
 
-#: gitwidget.cpp:436
+#: gitwidget.cpp:427
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
 "'%1'(r)en .git direktorioa aurkitzeak huts egin du; baliteke funtzio batzuk "
 "behar bezala ez ibiltzea"
 
-#: gitwidget.cpp:648
+#: gitwidget.cpp:639
 #, kde-format
 msgid " error: %1"
 msgstr " errorea: %1"
 
-#: gitwidget.cpp:654
+#: gitwidget.cpp:645
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "\"%1\" ondo exekutatu da: %2"
 
-#: gitwidget.cpp:674
+#: gitwidget.cpp:665
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Fitxategia prestatzeak huts egin du. Errorea:"
 
-#: gitwidget.cpp:687
+#: gitwidget.cpp:678
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Fitxategia prestaketatik kentzeak huts egin du. Errorea:"
 
-#: gitwidget.cpp:698
+#: gitwidget.cpp:689
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Aldaketak baztertzea huts egin du. Errorea:"
 
-#: gitwidget.cpp:709
+#: gitwidget.cpp:700
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Kentzeak huts egin du. Errorea:"
 
-#: gitwidget.cpp:725
+#: gitwidget.cpp:716
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "HEADeko fitxategia irekitzeak huts egin du: %1"
 
-#: gitwidget.cpp:759
+#: gitwidget.cpp:750
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Fitxategiaren ezberdintasunak lortzea huts egin du: %1"
 
-#: gitwidget.cpp:828
+#: gitwidget.cpp:819
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Finkatzeak huts egin du: %1"
 
-#: gitwidget.cpp:832
+#: gitwidget.cpp:823
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Aldaketak ondo baliozkotu dira."
 
-#: gitwidget.cpp:842
+#: gitwidget.cpp:833
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Ez dago finkatzeko ezer. Mesedez, aurrena zure aldaketak prestatu."
 
-#: gitwidget.cpp:856
+#: gitwidget.cpp:847
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Baliozkotzek-mezua ezin da hutsik egon."
 
-#: gitwidget.cpp:987
+#: gitwidget.cpp:978
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Ez dago «diff» %1(e)rako ... %2"
 
-#: gitwidget.cpp:993
+#: gitwidget.cpp:984
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Alderatzeak huts egin du %1…%2"
 
-#: gitwidget.cpp:1008
+#: gitwidget.cpp:999
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "%1...%2 arteko diff-ean numstat eskuratzeak huts egin du"
 
-#: gitwidget.cpp:1043
+#: gitwidget.cpp:1034
 #, kde-format
 msgid "Refresh"
 msgstr "Freskatu"
 
-#: gitwidget.cpp:1060
+#: gitwidget.cpp:1051
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Eskuratu adarra"
 
-#: gitwidget.cpp:1072
+#: gitwidget.cpp:1063
 #, kde-format
 msgid "Delete Branch"
 msgstr "Ezabatu adarra"
 
-#: gitwidget.cpp:1086
+#: gitwidget.cpp:1077
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Alderatu aldarra honekin…"
 
-#: gitwidget.cpp:1092
+#: gitwidget.cpp:1083
 #, kde-format
 msgid "Show Commit"
 msgstr "Erakutsi finkapena"
 
-#: gitwidget.cpp:1110
+#: gitwidget.cpp:1101
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Erakutsi azken finkapena"
 
-#: gitwidget.cpp:1128
+#: gitwidget.cpp:1119
 #, kde-format
 msgid "Open Commit..."
 msgstr "Ireki finkapena…"
 
-#: gitwidget.cpp:1131 gitwidget.cpp:1179
+#: gitwidget.cpp:1122 gitwidget.cpp:1170
 #, kde-format
 msgid "Stash"
 msgstr "Aldi baterako gorde"
 
-#: gitwidget.cpp:1135
+#: gitwidget.cpp:1126
 #, kde-format
 msgid "Show history"
 msgstr "Erakutsi historia"
 
-#: gitwidget.cpp:1147
+#: gitwidget.cpp:1138
 #, kde-format
 msgid "Diff - stash"
 msgstr "Diff - gordetako aldaketak"
 
-#: gitwidget.cpp:1183
+#: gitwidget.cpp:1174
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Berreskuratu aldi baterako gordetako azkena"
 
-#: gitwidget.cpp:1187
+#: gitwidget.cpp:1178
 #, kde-format
 msgid "Pop Stash"
 msgstr "Berreskuratu aldi baterako gordetakoa"
 
-#: gitwidget.cpp:1191
+#: gitwidget.cpp:1182
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Aplikatu aldi baterako gordetako azkena"
 
-#: gitwidget.cpp:1193
+#: gitwidget.cpp:1184
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Aldi baterako gorde (Mantendu prestatuta)"
 
-#: gitwidget.cpp:1197
+#: gitwidget.cpp:1188
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Aldi baterako gorde (Barneratu jarraitu gabekoak)"
 
-#: gitwidget.cpp:1201
+#: gitwidget.cpp:1192
 #, kde-format
 msgid "Apply Stash"
 msgstr "Aplikatu aldi baterako gordetakoa"
 
-#: gitwidget.cpp:1202
+#: gitwidget.cpp:1193
 #, kde-format
 msgid "Drop Stash"
 msgstr "Kendu aldi baterako gordetakoa"
 
-#: gitwidget.cpp:1206
+#: gitwidget.cpp:1197
 #, kde-format
 msgid "Show Stash"
 msgstr "Erakutsi aldi baterako gordetakoa"
 
-#: gitwidget.cpp:1210
+#: gitwidget.cpp:1201
 #, kde-format
 msgid "Show Stash Diff"
 msgstr "Erakutsi aldi baterako gordetakoaren ezberdintasunak"
 
-#: gitwidget.cpp:1248
+#: gitwidget.cpp:1239
 #, kde-format
 msgid "Stage All"
 msgstr "Prestatu dena"
 
-#: gitwidget.cpp:1250
+#: gitwidget.cpp:1241
 #, kde-format
 msgid "Remove All"
 msgstr "Kendu dena"
 
-#: gitwidget.cpp:1250
+#: gitwidget.cpp:1241
 #, kde-format
 msgid "Discard All"
 msgstr "Baztertu dena"
 
-#: gitwidget.cpp:1253
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Ireki .gitignore"
 
-#: gitwidget.cpp:1254 gitwidget.cpp:1303 gitwidget.cpp:1354
+#: gitwidget.cpp:1245 gitwidget.cpp:1294 gitwidget.cpp:1345
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Erakutsi ezberdintasunak"
 
-#: gitwidget.cpp:1271
+#: gitwidget.cpp:1262
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Ziur zaude fitxategi hauek ezabatu nahi dituzula?"
 
-#: gitwidget.cpp:1276
+#: gitwidget.cpp:1267
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Ziur zaude aldaketa guztiak baztertu nahi dituzula?"
 
-#: gitwidget.cpp:1294
+#: gitwidget.cpp:1285
 #, kde-format
 msgid "Open File"
 msgstr "Ireki fitxategia"
 
-#: gitwidget.cpp:1295
+#: gitwidget.cpp:1286
 #, kde-format
 msgid "Unstage File"
 msgstr "Kendu fitxategia prestaketatik"
 
-#: gitwidget.cpp:1295
+#: gitwidget.cpp:1286
 #, kde-format
 msgid "Stage File"
 msgstr "Prestatu fitxategia"
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1287
 #, kde-format
 msgid "Remove"
 msgstr "Ezabatu"
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1287
 #, kde-format
 msgid "Discard"
 msgstr "Baztertu"
 
-#: gitwidget.cpp:1304
+#: gitwidget.cpp:1295
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Erakutsi kanpoko Git diff tresnan"
 
-#: gitwidget.cpp:1305
+#: gitwidget.cpp:1296
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Ireki HEADeko bertsioa"
 
-#: gitwidget.cpp:1309
+#: gitwidget.cpp:1300
 #, kde-format
 msgid "Show History"
 msgstr "Erakutsi historia"
 
-#: gitwidget.cpp:1325
+#: gitwidget.cpp:1316
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Ziur zaude fitxategi honetako aldaketak baztertu nahi dituzula?"
 
-#: gitwidget.cpp:1336
+#: gitwidget.cpp:1327
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Ziur zaude fitxategi hau ezabatu nahi duzula?"
 
-#: gitwidget.cpp:1353
+#: gitwidget.cpp:1344
 #, kde-format
 msgid "Unstage All"
 msgstr "Kendu dena prestaketatik"
 
-#: gitwidget.cpp:1420
+#: gitwidget.cpp:1411
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Kendu hautatutako fitxategiak prestaketatik"
 
-#: gitwidget.cpp:1420
+#: gitwidget.cpp:1411
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Prestatu hautatutako fitxategiak"
 
-#: gitwidget.cpp:1421
+#: gitwidget.cpp:1412
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Baztertu hautatutako fitxategiak"
 
-#: gitwidget.cpp:1425
+#: gitwidget.cpp:1416
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Ezabatu hautatutako fitxategiak"
 
-#: gitwidget.cpp:1438
+#: gitwidget.cpp:1429
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Ziur zaude aldaketak baztertu nahi dituzula?"
 
-#: gitwidget.cpp:1443
+#: gitwidget.cpp:1434
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Ziur zaude jarraitu gabeko aldaketa hauek kendu nahi dituzula?"
@@ -547,9 +547,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Gaizki osatutako JSON fitxategia '%1': %2"
 
 #: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:79
-#: kateprojectpluginview.cpp:230 kateprojectviewtree.cpp:364
-#: kateprojectviewtree.cpp:375 kateprojectviewtree.cpp:405
-#: kateprojectviewtree.cpp:412
+#: kateprojectpluginview.cpp:230 kateprojectviewtree.cpp:367
+#: kateprojectviewtree.cpp:378 kateprojectviewtree.cpp:408
+#: kateprojectviewtree.cpp:415
 #, kde-format
 msgid "Project"
 msgstr "Proiektua"
@@ -1040,22 +1040,22 @@ msgstr "Fitxategi berria"
 msgid "New Folder"
 msgstr "Karpeta berria"
 
-#: kateprojectviewtree.cpp:364
+#: kateprojectviewtree.cpp:367
 #, kde-format
 msgid "The file already exists"
 msgstr "Fitxategia lehendik ere badago"
 
-#: kateprojectviewtree.cpp:375
+#: kateprojectviewtree.cpp:378
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Fitxategia sortzeak huts egin du: %1, Errorea: %2"
 
-#: kateprojectviewtree.cpp:405
+#: kateprojectviewtree.cpp:408
 #, kde-format
 msgid "The directory already exists"
 msgstr "Direktorioa lehendik ere badago"
 
-#: kateprojectviewtree.cpp:412
+#: kateprojectviewtree.cpp:415
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Direktorioa sortzeak huts egin du: %1"

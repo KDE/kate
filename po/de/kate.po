@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-17 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:47+0000\n"
 "PO-Revision-Date: 2026-03-16 17:27+0100\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -167,45 +167,45 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "KWrite – Texteditor"
 
-#: lib/commitfilesview.cpp:430 lib/kateviewmanager.cpp:369
+#: lib/commitfilesview.cpp:434 lib/kateviewmanager.cpp:369
 #: lib/kateviewmanager.cpp:371
 #, kde-format
 msgid "Open File"
 msgstr "Datei öffnen"
 
-#: lib/commitfilesview.cpp:436 lib/katemainwindow.cpp:460
+#: lib/commitfilesview.cpp:440 lib/katemainwindow.cpp:460
 #, kde-format
 msgid "Copy Location"
 msgstr "Ort kopieren"
 
-#: lib/commitfilesview.cpp:459 lib/commitfilesview.cpp:576
-#: lib/commitfilesview.cpp:582 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:463 lib/commitfilesview.cpp:580
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:556
+#: lib/commitfilesview.cpp:560
 #, kde-format
 msgid "Renamed %1 => %2"
 msgstr "%1 umbenannt in %2"
 
-#: lib/commitfilesview.cpp:576
+#: lib/commitfilesview.cpp:580
 #, kde-format
 msgid "Invalid hash"
 msgstr "Ungültiger Hash"
 
-#: lib/commitfilesview.cpp:582 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 existiert in keinem Git-Repo."
 
-#: lib/commitfilesview.cpp:592
+#: lib/commitfilesview.cpp:596
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
 msgstr "Commit %1"
 
-#: lib/commitfilesview.cpp:605
+#: lib/commitfilesview.cpp:609
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
@@ -2335,16 +2335,23 @@ msgstr ""
 "Einige zu speichernde Daten lassen sich nicht schreiben. Wie soll damit "
 "verfahren werden?"
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:915
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Ort kopieren"
 
-#: lib/kateurlbar.cpp:919
+#: lib/kateurlbar.cpp:920
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
+msgstr "Dateinamen kopieren"
+
+#: lib/kateurlbar.cpp:926
+#, fuzzy, kde-format
+#| msgid "Copy Filename"
+msgctxt "@menu:action"
+msgid "Copy Item"
 msgstr "Dateinamen kopieren"
 
 #: lib/kateviewmanager.cpp:150

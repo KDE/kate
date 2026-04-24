@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-23 00:47+0000\n"
-"PO-Revision-Date: 2026-04-07 08:28+0300\n"
+"PO-Revision-Date: 2026-04-23 14:04+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2330,11 +2330,10 @@ msgid "Copy Filename"
 msgstr "Копіювати назву файла"
 
 #: lib/kateurlbar.cpp:926
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Item"
-msgstr "Копіювати назву файла"
+msgstr "Копіювати запис"
 
 #: lib/kateviewmanager.cpp:150
 #, kde-format

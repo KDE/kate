@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-23 00:47+0000\n"
-"PO-Revision-Date: 2026-04-07 08:26+0200\n"
+"PO-Revision-Date: 2026-04-23 09:17+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -2322,11 +2322,10 @@ msgid "Copy Filename"
 msgstr "Copia el nom del fitxer"
 
 #: lib/kateurlbar.cpp:926
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Item"
-msgstr "Copia el nom del fitxer"
+msgstr "Copia l'element"
 
 #: lib/kateviewmanager.cpp:150
 #, kde-format

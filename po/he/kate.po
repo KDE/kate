@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-23 00:47+0000\n"
-"PO-Revision-Date: 2026-04-11 22:05+0300\n"
+"PO-Revision-Date: 2026-04-23 08:25+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2284,11 +2284,10 @@ msgid "Copy Filename"
 msgstr "העתקת שם הקובץ"
 
 #: lib/kateurlbar.cpp:926
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Item"
-msgstr "העתקת שם הקובץ"
+msgstr "העתקת פריט"
 
 #: lib/kateviewmanager.cpp:150
 #, kde-format

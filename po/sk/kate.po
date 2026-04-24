@@ -2303,11 +2303,10 @@ msgid "Copy Filename"
 msgstr "Kopírovať názov súboru"
 
 #: lib/kateurlbar.cpp:926
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Item"
-msgstr "Kopírovať názov súboru"
+msgstr "Kopírovať položku"
 
 #: lib/kateviewmanager.cpp:150
 #, kde-format

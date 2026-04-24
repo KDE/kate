@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-23 00:47+0000\n"
-"PO-Revision-Date: 2026-04-07 05:45+0200\n"
+"PO-Revision-Date: 2026-04-23 06:32+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2299,11 +2299,10 @@ msgid "Copy Filename"
 msgstr "ფაილის სახელის კოპირება"
 
 #: lib/kateurlbar.cpp:926
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Item"
-msgstr "ფაილის სახელის კოპირება"
+msgstr "ელემენტის კოპირება"
 
 #: lib/kateviewmanager.cpp:150
 #, kde-format

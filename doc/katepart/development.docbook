@@ -727,6 +727,10 @@ An empty or absent context is equivalent to <userinput>#stay</userinput>.</para>
 (<emphasis>!</emphasis>) and an <emphasis>identifier</emphasis>, which
 will make the engine first follow the order and then switch to the
 other context, &eg; <userinput>#pop#pop!OtherContext</userinput>.</para>
+<para>You can stack multiple contexts by repeating mark
+(<emphasis>!</emphasis>) and an <emphasis>identifier</emphasis>`, e.g.
+<userinput>ContextA!ContextB!ContextC</userinput>. The last context in
+the list is active immediately; the others will be accessed using `#pop`.</para>
 </listitem>
 <listitem>
 <para>An <emphasis>identifier</emphasis>, which is a context name,

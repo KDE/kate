@@ -22,6 +22,8 @@ class QVBoxLayout;
 class QSqlQuery;
 class DataOutputView;
 class QLineEdit;
+class KActionCollection;
+class KToolBar;
 
 class DataOutputWidget : public QWidget
 {
@@ -36,7 +38,7 @@ public:
 
     Q_DECLARE_FLAGS(Options, Option)
 
-    DataOutputWidget(QWidget *parent);
+    DataOutputWidget(QWidget *parent, KActionCollection *actionCollection);
     ~DataOutputWidget() override;
 
     void exportData(QTextStream &stream,
@@ -84,6 +86,9 @@ public Q_SLOTS:
     void slotUndo();
     void slotSetFilter();
 
+protected:
+    void changeEvent(QEvent *event) override;
+
 private:
     QAbstractItemModel *abstractModel() const
     {
@@ -93,14 +98,19 @@ private:
     DataOutputStyleHelper m_styleHelper;
     QVBoxLayout *m_dataLayout;
 
+    KActionCollection *m_actionCollection;
+
     DataOutputModelInterface *m_model;
     DataOutputView *m_view;
     QWidget *m_editableSection;
     QLineEdit *m_filterInput;
+    KToolBar *m_verticalToolbar;
+    KToolBar *m_editableToolbar;
 
     bool m_isEditable;
 
     QList<QAction *> m_editableOnlyRightClickActions;
+    void adjustToEditableStateChange();
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(DataOutputWidget::Options)

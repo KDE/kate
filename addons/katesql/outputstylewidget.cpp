@@ -8,6 +8,7 @@
 #include "katesqlconstants.h"
 
 #include <KSharedConfig>
+#include <QApplication>
 #include <QCheckBox>
 #include <QFont>
 #include <QFontDatabase>
@@ -228,8 +229,8 @@ void OutputStyleWidget::setTableToCurrentDefaults()
 void OutputStyleWidget::updateDefaultStyle()
 {
     m_defaultStyle.font = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
-    m_defaultStyle.foreground = palette().text();
-    m_defaultStyle.background = palette().base();
+    m_defaultStyle.foreground = qApp->palette().text();
+    m_defaultStyle.background = qApp->palette().base();
 
     QTreeWidgetItem *root = invisibleRootItem();
     for (int i = 0; i < root->childCount(); ++i) {

@@ -58,7 +58,7 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
                                                  QIcon::fromTheme(QStringLiteral("server-database")), // TODO better Icon from QIcon::ThemeIcon::...
                                                  i18nc("@title:window", "SQL Schema"));
 
-    m_outputWidget = new KateSQLOutputWidget(m_outputToolView);
+    m_outputWidget = new KateSQLOutputWidget(m_outputToolView, actionCollection());
 
     m_schemaBrowserWidget = new SchemaBrowserWidget(m_schemaBrowserToolView, m_manager);
 

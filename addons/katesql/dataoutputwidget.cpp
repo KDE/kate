@@ -22,6 +22,7 @@
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
+#include <KActionCollection>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KToggleAction>
@@ -33,6 +34,7 @@
 #include <QCompleter>
 #include <QDir>
 #include <QElapsedTimer>
+#include <QEvent>
 #include <QFile>
 #include <QFocusEvent>
 #include <QHeaderView>
@@ -56,15 +58,17 @@
 #include <QTimer>
 #include <QtTypes>
 
-DataOutputWidget::DataOutputWidget(QWidget *parent)
+DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCollection)
     : QWidget(parent)
+    , m_actionCollection(actionCollection)
     , m_model(nullptr)
     , m_view(new DataOutputView(this))
     , m_editableSection(nullptr)
     , m_isEditable(false)
-    , m_editableOnlyRightClickActions(QList<QAction *>(
-          qsizetype(6))) // change once we have more than insertRowAction + duplicateRowAction + removeRowAction + setNullAction + undoAction + pasteAction
+    , m_editableOnlyRightClickActions(QList<QAction *>(qsizetype(
+          7))) // change once we have more than insertRowAction + duplicateRowAction + removeRowAction + setNullAction + undoAction + pasteAction + saveAction
 {
+    m_styleHelper.readConfig();
     readConfig();
     m_view->setModel(nullptr);
 
@@ -72,57 +76,70 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
     m_dataLayout = new QVBoxLayout();
 
     // Create vertical toolbar on the left
-    auto *verticalToolbar = new KToolBar(this);
-    verticalToolbar->setOrientation(Qt::Vertical);
-    verticalToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    m_verticalToolbar = new KToolBar(this);
+    m_verticalToolbar->setOrientation(Qt::Vertical);
+    m_verticalToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
     // ensure reasonable icons sizes, like e.g. the quick-open and co. icons
     // the normal toolbar sizes are TOO large, e.g. for scaled stuff even more!
     const int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, this);
-    verticalToolbar->setIconSize(QSize(iconSize, iconSize));
+    m_verticalToolbar->setIconSize(QSize(iconSize, iconSize));
 
     /// TODO: disable actions if no results are displayed or selected
 
     QAction *action;
 
-    QAction *refreshAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::ViewRefresh), i18nc("@action:intoolbar", "Refresh"), this);
-    verticalToolbar->addAction(refreshAction);
-    connect(refreshAction, &QAction::triggered, this, &DataOutputWidget::slotRefresh);
-    m_view->addAction(refreshAction);
-    refreshAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_R));
+    auto *refreshAction = m_actionCollection->addAction(QStringLiteral("data_refresh"));
+    refreshAction->setText(i18nc("@action:intoolbar", "Refresh"));
+    refreshAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ViewRefresh));
     refreshAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    KActionCollection::setDefaultShortcut(refreshAction, Qt::CTRL | Qt::Key_R);
+    connect(refreshAction, &QAction::triggered, this, &DataOutputWidget::slotRefresh);
+    m_verticalToolbar->addAction(refreshAction);
+    m_view->addAction(refreshAction);
     addAction(refreshAction);
 
-    auto *resizeColumnsAction =
-        new QAction(QIcon::fromTheme(QLatin1String("distribute-horizontal-x")), i18nc("@action:intoolbar", "Resize columns to contents"), this);
-    verticalToolbar->addAction(resizeColumnsAction);
+    auto *resizeColumnsAction = m_actionCollection->addAction(QStringLiteral("data_resize_columns"));
+    resizeColumnsAction->setText(i18nc("@action:intoolbar", "Resize columns to contents"));
+    resizeColumnsAction->setIcon(QIcon::fromTheme(QLatin1String("distribute-horizontal-x")));
     connect(resizeColumnsAction, &QAction::triggered, this, &DataOutputWidget::resizeColumnsToContents);
+    m_verticalToolbar->addAction(resizeColumnsAction);
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("distribute-vertical-y")), i18nc("@action:intoolbar", "Resize rows to contents"), this);
-    verticalToolbar->addAction(action);
+    action = m_actionCollection->addAction(QStringLiteral("data_resize_rows"));
+    action->setText(i18nc("@action:intoolbar", "Resize rows to contents"));
+    action->setIcon(QIcon::fromTheme(QLatin1String("distribute-vertical-y")));
     connect(action, &QAction::triggered, this, &DataOutputWidget::resizeRowsToContents);
+    m_verticalToolbar->addAction(action);
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("document-export-table")), i18nc("@action:intoolbar", "Export..."), this);
-    verticalToolbar->addAction(action);
-    m_view->addAction(action);
+    action = m_actionCollection->addAction(QStringLiteral("data_export"));
+    action->setText(i18nc("@action:intoolbar", "Export..."));
+    action->setIcon(QIcon::fromTheme(QLatin1String("document-export-table")));
     connect(action, &QAction::triggered, this, &DataOutputWidget::slotExport);
-
-    action = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy), i18nc("@action:intoolbar", "Copy"), this);
-    verticalToolbar->insertAction(resizeColumnsAction, action);
+    m_verticalToolbar->addAction(action);
     m_view->addAction(action);
-    connect(action, &QAction::triggered, this, &DataOutputWidget::slotCopySelected);
-    action->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_C));
+
+    action = m_actionCollection->addAction(QStringLiteral("data_copy"));
+    action->setText(i18nc("@action:intoolbar", "Copy"));
+    action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy));
     action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    KActionCollection::setDefaultShortcut(action, Qt::CTRL | Qt::Key_C);
+    connect(action, &QAction::triggered, this, &DataOutputWidget::slotCopySelected);
+    m_verticalToolbar->insertAction(resizeColumnsAction, action);
+    m_view->addAction(action);
     addAction(action);
 
-    action = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::EditClear), i18nc("@action:intoolbar", "Clear"), this);
-    verticalToolbar->addAction(action);
+    action = m_actionCollection->addAction(QStringLiteral("data_clear"));
+    action->setText(i18nc("@action:intoolbar", "Clear"));
+    action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditClear));
     connect(action, &QAction::triggered, this, &DataOutputWidget::clearResults);
+    m_verticalToolbar->addAction(action);
 
-    verticalToolbar->addSeparator();
+    m_verticalToolbar->addSeparator();
 
-    auto *toggleAction = new KToggleAction(QIcon::fromTheme(QIcon::ThemeIcon::FormatTextDirectionRtl), i18nc("@action:intoolbar", "Use system locale"), this);
-    verticalToolbar->addAction(toggleAction);
+    auto *toggleAction =
+        new KToggleAction(QIcon::fromTheme(QIcon::ThemeIcon::FormatTextDirectionRtl), i18nc("@action:intoolbar", "Use system locale"), m_actionCollection);
+    m_actionCollection->addAction(QStringLiteral("data_toggle_locale"), toggleAction);
+    m_verticalToolbar->addAction(toggleAction);
     connect(toggleAction, &QAction::triggered, this, &DataOutputWidget::slotToggleLocale);
 
     // === Section for Editable Table (only visible for editable tables) ===
@@ -130,104 +147,140 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
     auto *editableLayout = new QHBoxLayout(m_editableSection);
     editableLayout->setContentsMargins(0, 0, 0, 0);
 
-    auto *editableToolbar = new KToolBar(m_editableSection);
-    editableToolbar->setOrientation(Qt::Horizontal);
-    editableToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
-    editableToolbar->setIconSize(QSize(iconSize, iconSize));
+    m_editableToolbar = new KToolBar(m_editableSection);
+    m_editableToolbar->setOrientation(Qt::Horizontal);
+    m_editableToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    m_editableToolbar->setIconSize(QSize(iconSize, iconSize));
 
-    QAction *pasteAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::EditPaste), i18nc("@action:intoolbar", "Paste"), this);
-    m_editableOnlyRightClickActions.push_back(pasteAction);
-    editableToolbar->addAction(pasteAction);
-
-    connect(pasteAction, &QAction::triggered, this, &DataOutputWidget::slotPaste);
-    pasteAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_V));
+    auto *pasteAction = m_actionCollection->addAction(QStringLiteral("data_paste"));
+    pasteAction->setText(i18nc("@action:intoolbar", "Paste"));
+    pasteAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditPaste));
     pasteAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    KActionCollection::setDefaultShortcut(pasteAction, Qt::CTRL | Qt::Key_V);
+    connect(pasteAction, &QAction::triggered, this, &DataOutputWidget::slotPaste);
+    m_editableOnlyRightClickActions.push_back(pasteAction);
+    m_editableToolbar->addAction(pasteAction);
     addAction(pasteAction);
 
-    QAction *setNullAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::DocumentRevert), i18nc("@action:intoolbar", "Set Null"), this);
-    m_editableOnlyRightClickActions.push_back(setNullAction);
-    editableToolbar->addAction(setNullAction);
-    connect(setNullAction, &QAction::triggered, this, &DataOutputWidget::slotSetNull);
-    setNullAction->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_X));
+    auto *setNullAction = m_actionCollection->addAction(QStringLiteral("data_set_null"));
+    setNullAction->setText(i18nc("@action:intoolbar", "Set Null"));
+    setNullAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentRevert));
     setNullAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    KActionCollection::setDefaultShortcut(setNullAction, Qt::CTRL | Qt::SHIFT | Qt::Key_X);
+    connect(setNullAction, &QAction::triggered, this, &DataOutputWidget::slotSetNull);
+    m_editableOnlyRightClickActions.push_back(setNullAction);
+    m_editableToolbar->addAction(setNullAction);
     addAction(setNullAction);
 
-    QAction *insertRowAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::ListAdd), i18nc("@action:intoolbar", "Insert Row"), this);
-    m_editableOnlyRightClickActions.push_back(insertRowAction);
-    editableToolbar->addAction(insertRowAction);
-    connect(insertRowAction, &QAction::triggered, this, &DataOutputWidget::slotInsertRow);
-    insertRowAction->setShortcut(QKeySequence(Qt::ALT | Qt::Key_Insert));
+    auto *insertRowAction = m_actionCollection->addAction(QStringLiteral("data_insert_row"));
+    insertRowAction->setText(i18nc("@action:intoolbar", "Insert Row"));
+    insertRowAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ListAdd));
     insertRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    KActionCollection::setDefaultShortcut(insertRowAction, Qt::ALT | Qt::Key_Insert);
+    connect(insertRowAction, &QAction::triggered, this, &DataOutputWidget::slotInsertRow);
+    m_editableOnlyRightClickActions.push_back(insertRowAction);
+    m_editableToolbar->addAction(insertRowAction);
     addAction(insertRowAction);
 
-    QAction *removeRowAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::ListRemove), i18nc("@action:intoolbar", "Remove Selected Rows"), this);
-    m_editableOnlyRightClickActions.push_back(removeRowAction);
-    editableToolbar->addAction(removeRowAction);
-    connect(removeRowAction, &QAction::triggered, this, &DataOutputWidget::slotRemoveSelectedRows);
-    removeRowAction->setShortcut(QKeySequence(Qt::Key_Delete));
+    auto *removeRowAction = m_actionCollection->addAction(QStringLiteral("data_remove_rows"));
+    removeRowAction->setText(i18nc("@action:intoolbar", "Remove Selected Rows"));
+    removeRowAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ListRemove));
     removeRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    KActionCollection::setDefaultShortcut(removeRowAction, Qt::Key_Delete);
+    connect(removeRowAction, &QAction::triggered, this, &DataOutputWidget::slotRemoveSelectedRows);
+    m_editableOnlyRightClickActions.push_back(removeRowAction);
+    m_editableToolbar->addAction(removeRowAction);
     addAction(removeRowAction);
 
-    QAction *duplicateRowAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy), i18nc("@action:intoolbar", "Duplicate Selected Rows"), this);
-    m_editableOnlyRightClickActions.push_back(duplicateRowAction);
-    editableToolbar->addAction(duplicateRowAction);
-    connect(duplicateRowAction, &QAction::triggered, this, &DataOutputWidget::slotDuplicateRows);
-    duplicateRowAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_D));
+    auto *duplicateRowAction = m_actionCollection->addAction(QStringLiteral("data_duplicate_rows"));
+    duplicateRowAction->setText(i18nc("@action:intoolbar", "Duplicate Selected Rows"));
+    duplicateRowAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy));
     duplicateRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    KActionCollection::setDefaultShortcut(duplicateRowAction, Qt::CTRL | Qt::Key_D);
+    connect(duplicateRowAction, &QAction::triggered, this, &DataOutputWidget::slotDuplicateRows);
+    m_editableOnlyRightClickActions.push_back(duplicateRowAction);
+    m_editableToolbar->addAction(duplicateRowAction);
     addAction(duplicateRowAction);
 
-    QAction *undoAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::EditUndo), i18nc("@action:intoolbar", "Undo"), this);
-    m_editableOnlyRightClickActions.push_back(undoAction);
-    editableToolbar->addAction(undoAction);
-    connect(undoAction, &QAction::triggered, this, &DataOutputWidget::slotUndo);
-    undoAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Z));
+    auto *undoAction = m_actionCollection->addAction(QStringLiteral("data_undo"));
+    undoAction->setText(i18nc("@action:intoolbar", "Undo"));
+    undoAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditUndo));
     undoAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    KActionCollection::setDefaultShortcut(undoAction, Qt::CTRL | Qt::Key_Z);
+    connect(undoAction, &QAction::triggered, this, &DataOutputWidget::slotUndo);
+    m_editableOnlyRightClickActions.push_back(undoAction);
+    m_editableToolbar->addAction(undoAction);
     addAction(undoAction);
 
-    QAction *saveAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::DocumentSave), i18nc("@action:intoolbar", "Save"), this);
-    editableToolbar->addAction(saveAction);
-    connect(saveAction, &QAction::triggered, this, &DataOutputWidget::slotSave);
-    saveAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_S));
+    auto *saveAction = m_actionCollection->addAction(QStringLiteral("data_save"));
+    saveAction->setText(i18nc("@action:intoolbar", "Save"));
+    saveAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentSave));
     saveAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    KActionCollection::setDefaultShortcut(saveAction, Qt::CTRL | Qt::Key_S);
+    connect(saveAction, &QAction::triggered, this, &DataOutputWidget::slotSave);
+    m_editableOnlyRightClickActions.push_back(saveAction);
+    m_editableToolbar->addAction(saveAction);
     addAction(saveAction);
 
     // Separator between sections
     auto *separator = new QFrame(this);
     separator->setFrameShape(QFrame::VLine);
     separator->setFrameShadow(QFrame::Sunken);
-    editableToolbar->addWidget(separator);
+    m_editableToolbar->addWidget(separator);
 
     auto *whereLabel = new QLabel(i18nc("@label", "Where:"), this);
     QPalette palette = whereLabel->palette();
     palette.setColor(QPalette::WindowText, palette.color(QPalette::Highlight));
     whereLabel->setPalette(palette);
     whereLabel->setContentsMargins(QMargins(16, 0, 8, 0));
-    editableToolbar->addWidget(whereLabel);
+    m_editableToolbar->addWidget(whereLabel);
 
     m_filterInput = new QLineEdit(this);
     m_filterInput->setPlaceholderText(i18nc("@info:placeholder", "id > 0"));
     m_filterInput->setToolTip(i18nc("@info:tooltip", "Enter SQL WHERE clause to filter data"));
     m_filterInput->setClearButtonEnabled(true);
     m_filterInput->setMaximumWidth(250);
-    editableToolbar->addWidget(m_filterInput);
+    m_editableToolbar->addWidget(m_filterInput);
     connect(m_filterInput, &QLineEdit::returnPressed, this, &DataOutputWidget::slotSetFilter);
 
-    editableLayout->addWidget(editableToolbar);
+    editableLayout->addWidget(m_editableToolbar);
     m_editableSection->setLayout(editableLayout);
-    m_editableSection->setHidden(true); // Hidden by default
 
     // Add horizontal toolbar container above the view
     m_dataLayout->addWidget(m_editableSection);
     m_dataLayout->addWidget(m_view);
 
-    layout->addWidget(verticalToolbar);
+    layout->addWidget(m_verticalToolbar);
     layout->addLayout(m_dataLayout);
     layout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(layout);
+    adjustToEditableStateChange();
 }
 
 DataOutputWidget::~DataOutputWidget() = default;
+
+// TODO dig deeper of why system theme change may breaks the toolbar style - remove this once the issue is fixed
+void DataOutputWidget::changeEvent(QEvent *event)
+{
+    QWidget::changeEvent(event);
+    if (event->type() == QEvent::PaletteChange || event->type() == QEvent::StyleChange) {
+        m_verticalToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        m_editableToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    }
+}
+
+void DataOutputWidget::adjustToEditableStateChange()
+{
+    m_editableSection->setHidden(!m_isEditable);
+    m_view->setSortingEnabled(m_isEditable);
+
+    for (auto *action : std::as_const(m_editableOnlyRightClickActions)) {
+        if (action) {
+            action->setEnabled(m_isEditable);
+        }
+    }
+}
 
 void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
 {
@@ -263,8 +316,8 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
     queryModel->setQuery(std::move(query));
 
     m_isEditable = false;
-    // Hide editable section for non-editable query results
-    m_editableSection->setHidden(!m_isEditable);
+
+    adjustToEditableStateChange();
 
     QTimer::singleShot(0, this, &DataOutputWidget::resizeColumnsToContents);
 
@@ -313,11 +366,10 @@ void DataOutputWidget::showEditableTable(DataOutputModelInterface *model)
     }
 
     m_view->setModel(static_cast<QAbstractItemModel *>(m_model->asQObject()));
-    m_view->setSortingEnabled(true);
 
     m_isEditable = true;
-    // Show editable section for editable tables
-    m_editableSection->setHidden(!m_isEditable);
+
+    adjustToEditableStateChange();
 
     QTimer::singleShot(0, this, &DataOutputWidget::resizeColumnsToContents);
 
@@ -335,8 +387,7 @@ void DataOutputWidget::clearResults()
     }
 
     m_isEditable = false;
-    m_editableSection->setHidden(true);
-    m_view->setSortingEnabled(false);
+    adjustToEditableStateChange();
 
     /// HACK needed to refresh headers. please correct if there's a better way
     m_view->horizontalHeader()->hide();

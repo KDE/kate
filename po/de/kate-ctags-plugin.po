@@ -269,7 +269,7 @@ msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
 msgstr ""
 "Tags-Datei nicht gefunden. Bitte generieren Sie manuell diese Datei oder "
-"benutzen Sie das CTags-Modul."
+"verwenden Sie das CTags-Modul."
 
 #: gotosymbolwidget.cpp:321
 #, kde-format

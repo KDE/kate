@@ -4,13 +4,13 @@
 # SPDX-FileCopyrightText: 2012 Jonas Schürmann <jonasschuermann@aol.de>
 # SPDX-FileCopyrightText: 2012, 2014, 2021 Burkhard Lück <lueck@hube-lueck.de>
 # SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
-# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
+# SPDX-FileCopyrightText: 2025-2026 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-14 00:47+0000\n"
-"PO-Revision-Date: 2025-06-25 21:47+0200\n"
+"PO-Revision-Date: 2026-04-21 22:41+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 26.04.0\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -156,9 +156,7 @@ msgid "Connection name:"
 msgstr "Verbindungsname:"
 
 #: dataoutputwidget.cpp:88
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Aktualisieren"
@@ -203,61 +201,61 @@ msgstr "Regionaleinstellungen des Systems verwenden"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "Einfügen"
 
 #: dataoutputwidget.cpp:147
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "Auf Null setzen"
 
 #: dataoutputwidget.cpp:155
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "Zeile einfügen"
 
 #: dataoutputwidget.cpp:163
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "Ausgewählte Zeilen entfernen"
 
 #: dataoutputwidget.cpp:171
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "Ausgewählte Zeilen duplizieren"
 
 #: dataoutputwidget.cpp:179
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "Rückgängig"
 
 #: dataoutputwidget.cpp:187
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: dataoutputwidget.cpp:200
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "Wo:"
 
 #: dataoutputwidget.cpp:208
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "ID > 0"
 
 #: dataoutputwidget.cpp:209
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "Geben Sie eine „SQL WHERE“-Klausel ein, um Daten zu filtern"
 
 #: dataoutputwidget.cpp:489
 #, kde-kuit-format
@@ -266,14 +264,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "Die Datei <filename>%1</filename> kann nicht geöffnet werden"
 
 #: dataoutputwidget.cpp:505
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr ""
-"Die Verbindung zur Datenbank kann nicht hergestellt werden.<nl/><message>%1</"
-"message>"
+msgstr "Speichern von Änderungen fehlgeschlagen: <message>%1</message>"
 
 #: exportwizard.cpp:27
 #, kde-format

@@ -46,7 +46,7 @@ struct TempConfigChanger {
             return;
         }
         // fallback to default
-        didReset = false;
+        didReset = true;
         KSharedConfig::Ptr config = KSharedConfig::openConfig();
         KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
         cgGeneral.deleteEntry(setingKey);
@@ -935,6 +935,47 @@ void KateViewManagementTests::testTabbarContextMenu2()
     QVERIFY(filename->isEnabled());
     filename->trigger();
     QCOMPARE(qApp->clipboard()->text(), QStringLiteral("File2"));
+}
+
+void KateViewManagementTests::testTabbarMiddleClick()
+{
+    app->sessionManager()->sessionNew();
+    QCOMPARE(app->mainWindowsCount(), 1);
+    KateMainWindow *mw = app->activeKateMainWindow();
+    KateViewManager *vm = mw->viewManager();
+    QTabBar *tabbar = vm->activeViewSpace()->m_tabBar;
+
+    const QDir d = QDir::current();
+    const QUrl file1 = QUrl::fromLocalFile(d.absoluteFilePath(QStringLiteral("File1")));
+    const QUrl file2 = QUrl::fromLocalFile(d.absoluteFilePath(QStringLiteral("File2")));
+
+    struct TestCase {
+        bool middleClickEnable = true;
+        bool closeButtonEnable = true;
+        int expectedTabCountAfterMiddleClick = 1;
+    };
+
+    constexpr int testCount = 4;
+    const TestCase testCases[testCount]{
+        TestCase{.middleClickEnable = true, .closeButtonEnable = true, .expectedTabCountAfterMiddleClick = 1},
+        TestCase{.middleClickEnable = true, .closeButtonEnable = false, .expectedTabCountAfterMiddleClick = 1},
+        TestCase{.middleClickEnable = false, .closeButtonEnable = false, .expectedTabCountAfterMiddleClick = 2},
+        TestCase{.middleClickEnable = false, .closeButtonEnable = true, .expectedTabCountAfterMiddleClick = 2},
+    };
+
+    for (auto test : testCases) {
+        TempConfigChanger changeMiddleClick(app.get(), "Tab Middle Click Close Document", test.middleClickEnable);
+        TempConfigChanger changeCloseButton(app.get(), "Show Tabs Close Button", test.closeButtonEnable);
+
+        std::ignore = app->openDocUrl(file1, QString(), false, /*activateView=*/false);
+        std::ignore = app->openDocUrl(file2, QString(), false, /*activateView=*/false);
+
+        QCOMPARE(tabbar->count(), 2);
+
+        QTest::mouseClick(tabbar, Qt::MiddleButton, Qt::NoModifier, tabbar->tabRect(1).center());
+
+        QTRY_COMPARE(tabbar->count(), test.expectedTabCountAfterMiddleClick);
+    }
 }
 
 #include "moc_kate_view_mgmt_tests.cpp"

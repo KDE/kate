@@ -204,25 +204,17 @@ void KateTabBar::mousePressEvent(QMouseEvent *event)
 
 void KateTabBar::mouseReleaseEvent(QMouseEvent *event)
 {
-// Qt 6.11 added its own middle click tab closing
-#if QT_VERSION >= QT_VERSION_CHECK(6, 11, 0)
     if (event->button() == Qt::MiddleButton) {
+        // handle close for middle mouse button
         if (m_middleClickCloseDocument) {
-            QTabBar::mouseReleaseEvent(event);
+            int id = tabAt(event->pos());
+            if (id >= 0) {
+                Q_EMIT tabCloseRequested(id);
+            }
         }
     } else {
         QTabBar::mouseReleaseEvent(event);
     }
-#else
-    QTabBar::mouseReleaseEvent(event);
-    // handle close for middle mouse button
-    if (m_middleClickCloseDocument && event->button() == Qt::MiddleButton) {
-        int id = tabAt(event->pos());
-        if (id >= 0) {
-            Q_EMIT tabCloseRequested(id);
-        }
-    }
-#endif
 }
 
 void KateTabBar::mouseMoveEvent(QMouseEvent *event)

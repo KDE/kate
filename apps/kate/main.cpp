@@ -124,7 +124,6 @@ int main(int argc, char **argv)
                          // use the other text field to get our mascot into the about dialog
                          QStringLiteral("<img height=\"362\" width=\"512\" src=\":/kate/mascot.png\"/>"),
                          QStringLiteral("https://kate-editor.org"));
-    aboutData.addLicense(KAboutLicense::GPL_V3);
 
     /**
      * right dbus prefix == org.kde.

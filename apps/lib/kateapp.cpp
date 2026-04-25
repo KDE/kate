@@ -423,6 +423,14 @@ void KateApp::initPostApplicationCreation(KAboutData &aboutData)
     aboutData.addCredit(i18n("Cristi Dumitrescu"), i18n("PHP Keyword/Datatype list"));
     aboutData.addCredit(i18n("Carsten Pfeiffer"), i18n("Very nice help"));
     aboutData.addCredit(i18n("All people who have contributed and I have forgotten to mention"));
+
+    // set all licenses we use, set GPL2+ as the main license
+    // should match the LICENSE folder in our repository
+    // we don't add CC0 as that is just there for build files and Co.
+    aboutData.setLicense(KAboutLicense::GPL_V2, KAboutLicense::OrLaterVersions);
+    aboutData.addLicense(KAboutLicense::LGPL_V2, KAboutLicense::OnlyThisVersion);
+    aboutData.addLicense(KAboutLicense::LGPL_V2, KAboutLicense::OrLaterVersions);
+    aboutData.addLicense(KAboutLicense::MIT);
 }
 
 bool KateApp::init()

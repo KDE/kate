@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-14 00:47+0000\n"
+"POT-Creation-Date: 2026-04-26 00:47+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -155,7 +155,7 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "Име везе:"
 
-#: dataoutputwidget.cpp:88
+#: dataoutputwidget.cpp:93
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu Context menu"
 #| msgid "Refresh"
@@ -163,109 +163,109 @@ msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Освјежи"
 
-#: dataoutputwidget.cpp:97
+#: dataoutputwidget.cpp:103
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "Величина колона према садржају"
 
-#: dataoutputwidget.cpp:101
+#: dataoutputwidget.cpp:109
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "Величина врста према садржају"
 
-#: dataoutputwidget.cpp:105
+#: dataoutputwidget.cpp:115
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Извези..."
 
-#: dataoutputwidget.cpp:110
+#: dataoutputwidget.cpp:122
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "Копирај"
 
-#: dataoutputwidget.cpp:118 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:132 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "Очисти"
 
-#: dataoutputwidget.cpp:124
+#: dataoutputwidget.cpp:140
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "Системски локалитет"
 
-#: dataoutputwidget.cpp:138
+#: dataoutputwidget.cpp:156
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr ""
 
-#: dataoutputwidget.cpp:147
+#: dataoutputwidget.cpp:166
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr ""
 
-#: dataoutputwidget.cpp:155
+#: dataoutputwidget.cpp:176
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr ""
 
-#: dataoutputwidget.cpp:163
+#: dataoutputwidget.cpp:186
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr ""
 
-#: dataoutputwidget.cpp:171
+#: dataoutputwidget.cpp:196
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr ""
 
-#: dataoutputwidget.cpp:179
+#: dataoutputwidget.cpp:206
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr ""
 
-#: dataoutputwidget.cpp:187
+#: dataoutputwidget.cpp:216
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr ""
 
-#: dataoutputwidget.cpp:200
+#: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr ""
 
-#: dataoutputwidget.cpp:208
+#: dataoutputwidget.cpp:239
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr ""
 
-#: dataoutputwidget.cpp:209
+#: dataoutputwidget.cpp:240
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr ""
 
-#: dataoutputwidget.cpp:489
+#: dataoutputwidget.cpp:540
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Не могу да отворим фајл <filename>%1</filename>."
 
-#: dataoutputwidget.cpp:505
+#: dataoutputwidget.cpp:556
 #, fuzzy, kde-kuit-format
 #| msgctxt "@info"
 #| msgid "Unable to connect to database.<nl/><message>%1</message>"
@@ -496,67 +496,67 @@ msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "Изврши упит"
 
-#: outputstylewidget.cpp:37
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "контекст"
 
-#: outputstylewidget.cpp:37
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "боја текста"
 
-#: outputstylewidget.cpp:38
+#: outputstylewidget.cpp:39
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "боја позадине"
 
-#: outputstylewidget.cpp:47
+#: outputstylewidget.cpp:48
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "текст"
 
-#: outputstylewidget.cpp:48
+#: outputstylewidget.cpp:49
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "број"
 
-#: outputstylewidget.cpp:49
+#: outputstylewidget.cpp:50
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "логичка"
 
-#: outputstylewidget.cpp:50
+#: outputstylewidget.cpp:51
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "датум и вријеме"
 
-#: outputstylewidget.cpp:51
+#: outputstylewidget.cpp:52
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "празно"
 
-#: outputstylewidget.cpp:52
+#: outputstylewidget.cpp:53
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "бинарно"
 
-#: outputwidget.cpp:20
+#: outputwidget.cpp:21
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "Излаз СКуЛ текста"
 
-#: outputwidget.cpp:23
+#: outputwidget.cpp:24
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"

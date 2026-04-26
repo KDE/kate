@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-14 00:47+0000\n"
+"POT-Creation-Date: 2026-04-26 00:47+0000\n"
 "PO-Revision-Date: 2025-03-04 19:08+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -153,7 +153,7 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "Savienojuma nosaukums:"
 
-#: dataoutputwidget.cpp:88
+#: dataoutputwidget.cpp:93
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu Context menu"
 #| msgid "Refresh"
@@ -161,109 +161,109 @@ msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Pārlādēt"
 
-#: dataoutputwidget.cpp:97
+#: dataoutputwidget.cpp:103
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "Kolonnu izmēru pielāgot saturam"
 
-#: dataoutputwidget.cpp:101
+#: dataoutputwidget.cpp:109
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "Rindu izmēru pielāgot saturam"
 
-#: dataoutputwidget.cpp:105
+#: dataoutputwidget.cpp:115
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Eksportēt..."
 
-#: dataoutputwidget.cpp:110
+#: dataoutputwidget.cpp:122
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "Kopēt"
 
-#: dataoutputwidget.cpp:118 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:132 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "Notīrīt"
 
-#: dataoutputwidget.cpp:124
+#: dataoutputwidget.cpp:140
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "Lietot sistēmas lokāli"
 
-#: dataoutputwidget.cpp:138
+#: dataoutputwidget.cpp:156
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr ""
 
-#: dataoutputwidget.cpp:147
+#: dataoutputwidget.cpp:166
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr ""
 
-#: dataoutputwidget.cpp:155
+#: dataoutputwidget.cpp:176
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr ""
 
-#: dataoutputwidget.cpp:163
+#: dataoutputwidget.cpp:186
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr ""
 
-#: dataoutputwidget.cpp:171
+#: dataoutputwidget.cpp:196
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr ""
 
-#: dataoutputwidget.cpp:179
+#: dataoutputwidget.cpp:206
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr ""
 
-#: dataoutputwidget.cpp:187
+#: dataoutputwidget.cpp:216
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr ""
 
-#: dataoutputwidget.cpp:200
+#: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr ""
 
-#: dataoutputwidget.cpp:208
+#: dataoutputwidget.cpp:239
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr ""
 
-#: dataoutputwidget.cpp:209
+#: dataoutputwidget.cpp:240
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr ""
 
-#: dataoutputwidget.cpp:489
+#: dataoutputwidget.cpp:540
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Neizdevās atvērt datni <filename>%1></filename>"
 
-#: dataoutputwidget.cpp:505
+#: dataoutputwidget.cpp:556
 #, fuzzy, kde-kuit-format
 #| msgctxt "@info"
 #| msgid "Unable to connect to database.<nl/><message>%1</message>"
@@ -473,67 +473,67 @@ msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "Palaist vaicājumu"
 
-#: outputstylewidget.cpp:37
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "Konteksts"
 
-#: outputstylewidget.cpp:37
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "Teksta krāsa"
 
-#: outputstylewidget.cpp:38
+#: outputstylewidget.cpp:39
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "Fona krāsa"
 
-#: outputstylewidget.cpp:47
+#: outputstylewidget.cpp:48
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "Teksts"
 
-#: outputstylewidget.cpp:48
+#: outputstylewidget.cpp:49
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "Skaitlis"
 
-#: outputstylewidget.cpp:49
+#: outputstylewidget.cpp:50
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "Bool"
 
-#: outputstylewidget.cpp:50
+#: outputstylewidget.cpp:51
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "Datums un laiks"
 
-#: outputstylewidget.cpp:51
+#: outputstylewidget.cpp:52
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:52
+#: outputstylewidget.cpp:53
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "BLOB"
 
-#: outputwidget.cpp:20
+#: outputwidget.cpp:21
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "SQL teksta izvade"
 
-#: outputwidget.cpp:23
+#: outputwidget.cpp:24
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"

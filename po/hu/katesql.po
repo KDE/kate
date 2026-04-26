@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-14 00:47+0000\n"
+"POT-Creation-Date: 2026-04-26 00:47+0000\n"
 "PO-Revision-Date: 2024-02-15 22:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -152,7 +152,7 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "Kapcsolatnév:"
 
-#: dataoutputwidget.cpp:88
+#: dataoutputwidget.cpp:93
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu Context menu"
 #| msgid "Refresh"
@@ -160,109 +160,109 @@ msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Frissítés"
 
-#: dataoutputwidget.cpp:97
+#: dataoutputwidget.cpp:103
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "Oszlopok átméretezése a tartalomra"
 
-#: dataoutputwidget.cpp:101
+#: dataoutputwidget.cpp:109
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "Sorok átméretezése a tartalomra"
 
-#: dataoutputwidget.cpp:105
+#: dataoutputwidget.cpp:115
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Exportálás…"
 
-#: dataoutputwidget.cpp:110
+#: dataoutputwidget.cpp:122
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "Másolás"
 
-#: dataoutputwidget.cpp:118 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:132 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "Törlés"
 
-#: dataoutputwidget.cpp:124
+#: dataoutputwidget.cpp:140
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "A rendszer területi beállításainak használata"
 
-#: dataoutputwidget.cpp:138
+#: dataoutputwidget.cpp:156
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr ""
 
-#: dataoutputwidget.cpp:147
+#: dataoutputwidget.cpp:166
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr ""
 
-#: dataoutputwidget.cpp:155
+#: dataoutputwidget.cpp:176
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr ""
 
-#: dataoutputwidget.cpp:163
+#: dataoutputwidget.cpp:186
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr ""
 
-#: dataoutputwidget.cpp:171
+#: dataoutputwidget.cpp:196
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr ""
 
-#: dataoutputwidget.cpp:179
+#: dataoutputwidget.cpp:206
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr ""
 
-#: dataoutputwidget.cpp:187
+#: dataoutputwidget.cpp:216
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr ""
 
-#: dataoutputwidget.cpp:200
+#: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr ""
 
-#: dataoutputwidget.cpp:208
+#: dataoutputwidget.cpp:239
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr ""
 
-#: dataoutputwidget.cpp:209
+#: dataoutputwidget.cpp:240
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr ""
 
-#: dataoutputwidget.cpp:489
+#: dataoutputwidget.cpp:540
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Nem sikerült megnyitni a(z) <filename>%1</filename> fájlt"
 
-#: dataoutputwidget.cpp:505
+#: dataoutputwidget.cpp:556
 #, fuzzy, kde-kuit-format
 #| msgctxt "@info"
 #| msgid "Unable to connect to database.<nl/><message>%1</message>"
@@ -472,67 +472,67 @@ msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "Lekérdezés futtatása"
 
-#: outputstylewidget.cpp:37
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "Kontextus"
 
-#: outputstylewidget.cpp:37
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "Szövegszín"
 
-#: outputstylewidget.cpp:38
+#: outputstylewidget.cpp:39
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "Háttérszín"
 
-#: outputstylewidget.cpp:47
+#: outputstylewidget.cpp:48
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "Szöveg"
 
-#: outputstylewidget.cpp:48
+#: outputstylewidget.cpp:49
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "Szám"
 
-#: outputstylewidget.cpp:49
+#: outputstylewidget.cpp:50
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "Logikai"
 
-#: outputstylewidget.cpp:50
+#: outputstylewidget.cpp:51
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "Dátum és idő"
 
-#: outputstylewidget.cpp:51
+#: outputstylewidget.cpp:52
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:52
+#: outputstylewidget.cpp:53
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "BLOB"
 
-#: outputwidget.cpp:20
+#: outputwidget.cpp:21
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "SQL szöveges kimenet"
 
-#: outputwidget.cpp:23
+#: outputwidget.cpp:24
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-14 00:47+0000\n"
+"POT-Creation-Date: 2026-04-26 00:47+0000\n"
 "PO-Revision-Date: 2026-04-14 14:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -155,115 +155,115 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "Bağlantı adı:"
 
-#: dataoutputwidget.cpp:88
+#: dataoutputwidget.cpp:93
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Yenile"
 
-#: dataoutputwidget.cpp:97
+#: dataoutputwidget.cpp:103
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "Sütunları içeriğe göre yeniden boyutlandır"
 
-#: dataoutputwidget.cpp:101
+#: dataoutputwidget.cpp:109
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "Satırları içeriğe göre yeniden boyutlandır"
 
-#: dataoutputwidget.cpp:105
+#: dataoutputwidget.cpp:115
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Dışa Aktar…"
 
-#: dataoutputwidget.cpp:110
+#: dataoutputwidget.cpp:122
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "Kopyala"
 
-#: dataoutputwidget.cpp:118 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:132 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "Temizle"
 
-#: dataoutputwidget.cpp:124
+#: dataoutputwidget.cpp:140
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "Sistemin yerel ayarlarını kullan"
 
-#: dataoutputwidget.cpp:138
+#: dataoutputwidget.cpp:156
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr "Yapıştır"
 
-#: dataoutputwidget.cpp:147
+#: dataoutputwidget.cpp:166
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr "Boş Yap"
 
-#: dataoutputwidget.cpp:155
+#: dataoutputwidget.cpp:176
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr "Satır Ekle"
 
-#: dataoutputwidget.cpp:163
+#: dataoutputwidget.cpp:186
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr "Seçili Satırları Kaldır"
 
-#: dataoutputwidget.cpp:171
+#: dataoutputwidget.cpp:196
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr "Seçili Satırları Çoğalt"
 
-#: dataoutputwidget.cpp:179
+#: dataoutputwidget.cpp:206
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr "Geri Al"
 
-#: dataoutputwidget.cpp:187
+#: dataoutputwidget.cpp:216
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr "Kaydet"
 
-#: dataoutputwidget.cpp:200
+#: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr "Şuraya:"
 
-#: dataoutputwidget.cpp:208
+#: dataoutputwidget.cpp:239
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr "kimlik > 0"
 
-#: dataoutputwidget.cpp:209
+#: dataoutputwidget.cpp:240
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr "Veri süzmek için SQL WHERE ifadesini gir"
 
-#: dataoutputwidget.cpp:489
+#: dataoutputwidget.cpp:540
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "<filename>%1</filename> dosyası açılamadı"
 
-#: dataoutputwidget.cpp:505
+#: dataoutputwidget.cpp:556
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
@@ -469,67 +469,67 @@ msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "Sorgu Çalıştır"
 
-#: outputstylewidget.cpp:37
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "Bağlam"
 
-#: outputstylewidget.cpp:37
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "Metin Rengi"
 
-#: outputstylewidget.cpp:38
+#: outputstylewidget.cpp:39
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "Arka Plan Rengi"
 
-#: outputstylewidget.cpp:47
+#: outputstylewidget.cpp:48
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "Metin"
 
-#: outputstylewidget.cpp:48
+#: outputstylewidget.cpp:49
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "Sayı"
 
-#: outputstylewidget.cpp:49
+#: outputstylewidget.cpp:50
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "Boole"
 
-#: outputstylewidget.cpp:50
+#: outputstylewidget.cpp:51
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "Tarih ve Saat"
 
-#: outputstylewidget.cpp:51
+#: outputstylewidget.cpp:52
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:52
+#: outputstylewidget.cpp:53
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "Geniş İkili Öge"
 
-#: outputwidget.cpp:20
+#: outputwidget.cpp:21
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "SQL Metin Çıktısı"
 
-#: outputwidget.cpp:23
+#: outputwidget.cpp:24
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"

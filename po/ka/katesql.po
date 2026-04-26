@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-14 00:47+0000\n"
+"POT-Creation-Date: 2026-04-26 00:47+0000\n"
 "PO-Revision-Date: 2026-04-14 04:54+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -151,115 +151,115 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "შეერთების სახელი:"
 
-#: dataoutputwidget.cpp:88
+#: dataoutputwidget.cpp:93
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "განახლება"
 
-#: dataoutputwidget.cpp:97
+#: dataoutputwidget.cpp:103
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "სვეტების ზომის მათ შემცველობამდე შეცვლა"
 
-#: dataoutputwidget.cpp:101
+#: dataoutputwidget.cpp:109
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "მწკრივების ზომის მათ შემცველობამდე შეცვლა"
 
-#: dataoutputwidget.cpp:105
+#: dataoutputwidget.cpp:115
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "გატანა..."
 
-#: dataoutputwidget.cpp:110
+#: dataoutputwidget.cpp:122
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "ასლი"
 
-#: dataoutputwidget.cpp:118 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:132 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "სუფთა ცა"
 
-#: dataoutputwidget.cpp:124
+#: dataoutputwidget.cpp:140
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "სისტემური ენის გამოყენება"
 
-#: dataoutputwidget.cpp:138
+#: dataoutputwidget.cpp:156
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr "ჩასმა"
 
-#: dataoutputwidget.cpp:147
+#: dataoutputwidget.cpp:166
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr "ნულის დაყენება"
 
-#: dataoutputwidget.cpp:155
+#: dataoutputwidget.cpp:176
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr "მწკრივის ჩასმა"
 
-#: dataoutputwidget.cpp:163
+#: dataoutputwidget.cpp:186
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr "მონიშნული მწკრივების წაშლა"
 
-#: dataoutputwidget.cpp:171
+#: dataoutputwidget.cpp:196
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr "მონიშნული მწკრივების დუბლირება"
 
-#: dataoutputwidget.cpp:179
+#: dataoutputwidget.cpp:206
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr "გაუქმება"
 
-#: dataoutputwidget.cpp:187
+#: dataoutputwidget.cpp:216
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr "შენახვა"
 
-#: dataoutputwidget.cpp:200
+#: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr "სად:"
 
-#: dataoutputwidget.cpp:208
+#: dataoutputwidget.cpp:239
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr "id > 0"
 
-#: dataoutputwidget.cpp:209
+#: dataoutputwidget.cpp:240
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr "მონაცემების გასაფილტრად შეიყვანეთ SQL-ის WHERE პირობა"
 
-#: dataoutputwidget.cpp:489
+#: dataoutputwidget.cpp:540
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "ფაილის გახსნის შეცდომა <filename>%1</filename>"
 
-#: dataoutputwidget.cpp:505
+#: dataoutputwidget.cpp:556
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
@@ -465,67 +465,67 @@ msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "მოთხოვნის გაშვება"
 
-#: outputstylewidget.cpp:37
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "კონტექსტი"
 
-#: outputstylewidget.cpp:37
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "ტექსტის ფერი"
 
-#: outputstylewidget.cpp:38
+#: outputstylewidget.cpp:39
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "ფონის ფერი"
 
-#: outputstylewidget.cpp:47
+#: outputstylewidget.cpp:48
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "ტექსტი"
 
-#: outputstylewidget.cpp:48
+#: outputstylewidget.cpp:49
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "რიცხვი"
 
-#: outputstylewidget.cpp:49
+#: outputstylewidget.cpp:50
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "ლოგიკური მნიშვნელობა"
 
-#: outputstylewidget.cpp:50
+#: outputstylewidget.cpp:51
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "თარიღი & დრო"
 
-#: outputstylewidget.cpp:51
+#: outputstylewidget.cpp:52
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:52
+#: outputstylewidget.cpp:53
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "BLOB"
 
-#: outputwidget.cpp:20
+#: outputwidget.cpp:21
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "SQL -ის ტექსტურად გამოტანა"
 
-#: outputwidget.cpp:23
+#: outputwidget.cpp:24
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"

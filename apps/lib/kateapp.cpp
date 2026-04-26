@@ -427,9 +427,10 @@ void KateApp::initPostApplicationCreation(KAboutData &aboutData)
     // set all licenses we use, set GPL2+ as the main license
     // should match the LICENSE folder in our repository
     // we don't add CC0 as that is just there for build files and Co.
-    aboutData.setLicense(KAboutLicense::GPL_V2, KAboutLicense::OrLaterVersions);
-    aboutData.addLicense(KAboutLicense::LGPL_V2, KAboutLicense::OnlyThisVersion);
-    aboutData.addLicense(KAboutLicense::LGPL_V2, KAboutLicense::OrLaterVersions);
+    aboutData.addLicense(KAboutLicense::GPL_V3);
+    aboutData.addLicense(KAboutLicense::LGPL_V2);
+    aboutData.addLicense(KAboutLicense::LGPL_V2_1);
+    aboutData.addLicense(KAboutLicense::LGPL_V3);
     aboutData.addLicense(KAboutLicense::MIT);
 }
 

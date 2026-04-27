@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2020, 2021, 2022, 2023, 2025 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2020, 2021, 2022, 2023, 2025, 2026 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-26 00:47+0000\n"
-"PO-Revision-Date: 2025-04-06 22:26+0200\n"
+"PO-Revision-Date: 2026-04-26 21:45+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -151,9 +151,7 @@ msgid "Connection name:"
 msgstr "연결 이름:"
 
 #: dataoutputwidget.cpp:93
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "새로 고침"
@@ -198,61 +196,61 @@ msgstr "시스템 로캘 사용하기"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "붙여넣기"
 
 #: dataoutputwidget.cpp:166
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "Null 설정"
 
 #: dataoutputwidget.cpp:176
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "행 삽입"
 
 #: dataoutputwidget.cpp:186
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "선택한 행 삭제"
 
 #: dataoutputwidget.cpp:196
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "선택한 행 복제"
 
 #: dataoutputwidget.cpp:206
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "실행 취소"
 
 #: dataoutputwidget.cpp:216
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "저장"
 
 #: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "Where:"
 
 #: dataoutputwidget.cpp:239
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:240
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "데이터를 필터할 때 사용할 SQL WHERE 절 입력"
 
 #: dataoutputwidget.cpp:540
 #, kde-kuit-format
@@ -261,12 +259,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "파일 <filename>%1</filename>을(를) 열 수 없음"
 
 #: dataoutputwidget.cpp:556
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "데이터베이스에 연결할 수 없습니다.<nl/><message>%1</message>"
+msgstr "변경 사항을 저장할 수 없음: <message>%1</message>"
 
 #: exportwizard.cpp:27
 #, kde-format
@@ -392,18 +388,16 @@ msgid "Output Customization"
 msgstr "출력 사용자 정의"
 
 #: katesqlconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "시스템 로캘 사용하기"
+msgstr "시스템 기본값 사용"
 
 #: katesqlconfigpage.cpp:37
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "시스템 기본값으로 복원"
 
 #: katesqlconfigpage.cpp:65
 #, kde-format

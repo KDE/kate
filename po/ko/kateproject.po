@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-23 00:47+0000\n"
-"PO-Revision-Date: 2026-02-04 00:35+0100\n"
+"PO-Revision-Date: 2026-04-26 21:43+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -396,16 +396,14 @@ msgid "Drop Stash"
 msgstr "스태시 드롭"
 
 #: gitwidget.cpp:1197
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "스태시 팝"
+msgstr "스태시 표시"
 
 #: gitwidget.cpp:1201
-#, fuzzy, kde-format
-#| msgid "Show raw diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "원본 Diff 표시"
+msgstr "스태시 차이점 표시"
 
 #: gitwidget.cpp:1239
 #, kde-format
@@ -529,16 +527,14 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr "추적하지 않는 변경 사항을 삭제하시겠습니까?"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "수정됨"
+msgstr "(수정됨)"
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "스테이지됨"
+msgstr "(스테이지됨)"
 
 #: kateproject.cpp:357
 #, kde-format
@@ -881,10 +877,9 @@ msgid "Project Manager"
 msgstr "프로젝트 관리자"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Current Project"
-msgstr "프로젝트 닫기"
+msgstr "현재 프로젝트"
 
 #: kateprojectpluginview.cpp:86
 #, kde-format
@@ -1160,10 +1155,9 @@ msgstr "프로젝트(&P)"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:27
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
-msgstr "프로젝트 완성"
+msgstr "프로젝트 플러그인"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "스태시 내용 표시"

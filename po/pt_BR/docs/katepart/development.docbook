@@ -1201,6 +1201,14 @@
 >, que fará com que o mecanismo siga primeiro a ordem e depois mude para o outro contexto, &eg; <userinput
 >#pop#pop!OtherContext</userinput
 >.</para>
+<para
+>Você pode empilhar vários contextos repetindo a marca (<emphasis
+>!</emphasis
+>) e um <emphasis
+>identificador</emphasis
+>`, por exemplo, <userinput
+>ContextA!ContextB!ContextC</userinput
+>. O último contexto da lista fica ativo imediatamente; os outros serão acessados ​​usando `#pop`.</para>
 </listitem>
 <listitem>
 <para

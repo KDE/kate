@@ -1175,6 +1175,14 @@
 >, işletkenin ilk sırayı izlemesini ve başka bir bağlama geçmesini söyler; örneğin, <userinput
 >#pop#pop!OtherContext</userinput
 >.</para>
+<para
+>İmi (<emphasis
+>!</emphasis
+>) veya bir <emphasis
+>tanımlayıcıyı</emphasis
+>`; örneğin, <userinput
+>ContextA!ContextB!ContextC</userinput
+> yineleyerek, birden çok bağlamı üst üste yığabilirsiniz. Listedeki en son bağlam hemen etkin olur, diğerlerine `#pop` kullanarak erişebilirsiniz.</para>
 </listitem>
 <listitem>
 <para

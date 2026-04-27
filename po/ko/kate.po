@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-23 00:47+0000\n"
-"PO-Revision-Date: 2026-02-04 00:34+0100\n"
+"POT-Creation-Date: 2026-04-27 00:47+0000\n"
+"PO-Revision-Date: 2026-04-26 22:11+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -199,7 +199,7 @@ msgstr "%1 커밋"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "%1 스태시"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -437,10 +437,9 @@ msgid "Enable Suppression"
 msgstr "억제 활성화"
 
 #: lib/diagnostics/diagnosticview.cpp:1603
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "Show fixes"
-msgstr "사이드바 표시(&B)"
+msgstr "수리 표시"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format
@@ -501,16 +500,14 @@ msgid "Unstage Hunk"
 msgstr "조각 스테이지 해제"
 
 #: lib/diff/diffwidget.cpp:50
-#, fuzzy, kde-format
-#| msgid "Diff %1"
+#, kde-format
 msgid "Diff - %1"
-msgstr "%1 차이점"
+msgstr "Diff - %1"
 
 #: lib/diff/diffwidget.cpp:53
-#, fuzzy, kde-format
-#| msgid "Diff %1..%2"
+#, kde-format
 msgid "Diff - %1..%2"
-msgstr "%1..%2 차이점"
+msgstr "Diff - %1..%2"
 
 #: lib/diff/diffwidget.cpp:59
 #, kde-format
@@ -643,50 +640,45 @@ msgid "Show Full Commit"
 msgstr "전체 커밋 표시"
 
 #: lib/filehistorywidget.cpp:712
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "File History - %1"
+#, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
-msgstr "파일 기록 - %1"
+msgstr "과거 기록 - %1"
 
 #: lib/jsonsettings.cpp:29
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "User Settings"
-msgstr "설정(&S)"
+msgstr "사용자 설정"
 
 #: lib/jsonsettings.cpp:38
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings file:"
-msgstr "설정(&S)"
+msgstr "설정 파일:"
 
 #: lib/jsonsettings.cpp:74
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Default Settings"
-msgstr "설정(&S)"
+msgstr "기본 설정"
 
 #: lib/jsonsettings.cpp:124
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "검증할 JSON 데이터가 없습니다."
 
 #: lib/jsonsettings.cpp:133
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON 데이터가 올바릅니다."
 
 #: lib/jsonsettings.cpp:135
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON 데이터가 잘못됨: JSON 객체가 없음"
 
 #: lib/jsonsettings.cpp:138
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON 데이터가 잘못됨: %1"
 
 #: lib/kateapp.cpp:147
 msgid ""
@@ -1024,12 +1016,12 @@ msgstr "매우 좋은 도움말"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "여기에 언급하지 않았지만 기여를 해 준 많은 좋은 사람"
 
-#: lib/kateapp.cpp:579
+#: lib/kateapp.cpp:588
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "프로젝트 플러그인이 활성화되어 있어야만 폴더를 열 수 있음"
 
-#: lib/kateapp.cpp:672
+#: lib/kateapp.cpp:681
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2273,11 +2265,10 @@ msgid "Copy Filename"
 msgstr "파일 이름 복사"
 
 #: lib/kateurlbar.cpp:926
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Item"
-msgstr "파일 이름 복사"
+msgstr "항목 복사"
 
 #: lib/kateviewmanager.cpp:150
 #, kde-format

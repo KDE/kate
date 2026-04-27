@@ -1159,6 +1159,14 @@
 >, el qual farà que el motor segueixi primer l'ordre i després passi a l'altre context, &pex;, <userinput
 >#pop#pop!AltreContext</userinput
 >.</para>
+<para
+>Podeu apilar diversos contexts amb una marca de repetició (<emphasis
+>!</emphasis
+>) i un <emphasis
+>identificador</emphasis
+>`, p. ex. <userinput
+>ContextA!ContextB!ContextC</userinput
+>. L'últim context de la llista és actiu immediatament; els altres seran accessibles fent servir `#pop`.</para>
 </listitem>
 <listitem>
 <para

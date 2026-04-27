@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-23 00:47+0000\n"
+"POT-Creation-Date: 2026-04-27 00:47+0000\n"
 "PO-Revision-Date: 2026-03-01 12:27+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -1038,12 +1038,12 @@ msgstr "Kjempebra hjelp"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Alle de som har bidratt og som jeg har glemt å nevne"
 
-#: lib/kateapp.cpp:579
+#: lib/kateapp.cpp:588
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Mapper kan bare åpnes når prosjekt-programtillegget er slått på"
 
-#: lib/kateapp.cpp:672
+#: lib/kateapp.cpp:681
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

@@ -576,7 +576,7 @@ msgstr "Hľadať v súboroch (v novej karte)"
 #: SearchPlugin.cpp:339
 #, kde-format
 msgid "Go to Next Match"
-msgstr "Prejsť na ďaľšiu zhodu"
+msgstr "Prejsť na ďalšiu zhodu"
 
 #: SearchPlugin.cpp:345
 #, kde-format

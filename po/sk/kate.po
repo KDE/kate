@@ -1238,12 +1238,12 @@ msgstr "Keď začiarknuté karty majú čo najväčšiu veľkosť."
 #: lib/kateconfigdialog.cpp:301
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr "Open new tabs to the right of aktuálny tab"
+msgstr "Otvárať nové karty napravo od aktuálnej karty"
 
 #: lib/kateconfigdialog.cpp:303
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr "Ak nie je zaškrtnuté the new tab will open at the end."
+msgstr "Ak nie je zaškrtnuté, nová karta sa otvorí na konci."
 
 #: lib/kateconfigdialog.cpp:314
 #, kde-format
@@ -1257,8 +1257,8 @@ msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"Ak nie je zaškrtnuté, the action '%1'/'%2' will not go to first/last tab "
-"after reaching the end."
+"Ak nie je zaškrtnuté, akcia '%1'/'%2' nebude po dosiahnutí konca prechádzať "
+"na prvú/poslednú kartu."
 
 #: lib/kateconfigdialog.cpp:339
 #, kde-format
@@ -1336,8 +1336,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
-"A tool view to display context associated with aktuálny cursor position (LSP "
-"hints, diagnostics)"
+"Zobrazenie nástrojov na zobrazenie kontextu spojeného s aktuálnou pozíciou "
+"kurzora (tipy LSP, diagnostika)"
 
 #: lib/kateconfigdialog.cpp:432
 #, kde-format

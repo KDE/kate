@@ -25,6 +25,7 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     auto *layout = new QVBoxLayout(this);
 
     m_box = new QCheckBox(i18nc("@option:check", "Save and restore connections in Kate session"), this);
+    m_enableEditableTableCheckBox = new QCheckBox(i18nc("@option:check", "Enable editable table for Browse Data"), this);
 
     auto *stylesGroupBox = new QGroupBox(i18nc("@title:group", "Output Customization"), this);
     auto *stylesLayout = new QVBoxLayout(stylesGroupBox);
@@ -41,6 +42,7 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     stylesLayout->addLayout(bottomRow);
 
     layout->addWidget(m_box);
+    layout->addWidget(m_enableEditableTableCheckBox);
     layout->addWidget(stylesGroupBox, 1);
 
     setLayout(layout);
@@ -49,9 +51,11 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(m_box, &QCheckBox::stateChanged, this, &KateSQLConfigPage::changed);
+    connect(m_enableEditableTableCheckBox, &QCheckBox::stateChanged, this, &KateSQLConfigPage::changed);
     connect(m_useSystemDefaultsCheckBox, &QCheckBox::stateChanged, this, &KateSQLConfigPage::slotUseSystemDefaultsChanged);
 #else
     connect(m_box, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::changed);
+    connect(m_enableEditableTableCheckBox, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::changed);
     connect(m_useSystemDefaultsCheckBox, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::slotUseSystemDefaultsChanged);
 #endif
     connect(m_resetToDefaultsButton, &QPushButton::clicked, this, &KateSQLConfigPage::slotResetToSystemDefaults);
@@ -80,6 +84,7 @@ void KateSQLConfigPage::apply()
     KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
 
     config.writeEntry(KateSQLConstants::Config::SaveConnections, m_box->isChecked());
+    config.writeEntry(KateSQLConstants::Config::EnableEditableTable, m_enableEditableTableCheckBox->isChecked());
 
     m_outputStyleWidget->writeConfig();
 
@@ -92,7 +97,9 @@ void KateSQLConfigPage::reset()
 {
     KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
 
-    m_box->setChecked(config.readEntry(KateSQLConstants::Config::SaveConnections, true));
+    m_box->setChecked(config.readEntry(KateSQLConstants::Config::SaveConnections, KateSQLConstants::Config::DefaultValues::SaveConnections));
+    m_enableEditableTableCheckBox->setChecked(
+        config.readEntry(KateSQLConstants::Config::EnableEditableTable, KateSQLConstants::Config::DefaultValues::EnableEditableTable));
 
     m_useSystemDefaultsCheckBox->blockSignals(true);
     m_outputStyleWidget->readConfig();
@@ -102,10 +109,11 @@ void KateSQLConfigPage::reset()
 
 void KateSQLConfigPage::defaults()
 {
-    m_box->setChecked(true);
+    m_box->setChecked(KateSQLConstants::Config::DefaultValues::SaveConnections);
+    m_enableEditableTableCheckBox->setChecked(KateSQLConstants::Config::DefaultValues::EnableEditableTable);
 
     m_useSystemDefaultsCheckBox->blockSignals(true);
-    m_useSystemDefaultsCheckBox->setChecked(false);
+    m_useSystemDefaultsCheckBox->setChecked(KateSQLConstants::Config::DefaultValues::UseSystemDefaults);
     m_outputStyleWidget->resetToSystemDefaults();
     m_useSystemDefaultsCheckBox->blockSignals(false);
 

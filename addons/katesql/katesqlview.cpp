@@ -209,7 +209,7 @@ void KateSQLView::writeSessionConfig(KConfigGroup &group)
     group.deleteGroup(QLatin1String());
 
     KConfigGroup globalConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
-    bool saveConnections = globalConfig.readEntry(KateSQLConstants::Config::SaveConnections, true);
+    bool saveConnections = globalConfig.readEntry(KateSQLConstants::Config::SaveConnections, KateSQLConstants::Config::DefaultValues::SaveConnections);
 
     if (saveConnections) {
         m_manager->saveConnections(&group);

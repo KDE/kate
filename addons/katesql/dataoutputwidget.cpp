@@ -68,7 +68,6 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     , m_editableOnlyRightClickActions(QList<QAction *>(qsizetype(
           7))) // change once we have more than insertRowAction + duplicateRowAction + removeRowAction + setNullAction + undoAction + pasteAction + saveAction
 {
-    m_styleHelper.readConfig();
     readConfig();
     m_view->setModel(nullptr);
 
@@ -267,6 +266,7 @@ void DataOutputWidget::changeEvent(QEvent *event)
     if (event->type() == QEvent::PaletteChange || event->type() == QEvent::StyleChange) {
         m_verticalToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
         m_editableToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        readConfig();
     }
 }
 

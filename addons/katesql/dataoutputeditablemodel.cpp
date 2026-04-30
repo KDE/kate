@@ -17,7 +17,6 @@ DataOutputEditableModel::DataOutputEditableModel(QObject *parent, QSqlDatabase d
 
 DataOutputEditableModel::~DataOutputEditableModel() = default;
 
-
 void DataOutputEditableModel::clear()
 {
     QSqlTableModel::clear();
@@ -59,7 +58,7 @@ QVariant DataOutputEditableModel::data(const QModelIndex &index, int role) const
     QVariant value(QSqlTableModel::data(index, Qt::DisplayRole));
 
     if (m_styleHelper) {
-        QVariant styled = m_styleHelper->styleData(value, role);
+        QVariant styled = m_styleHelper->styleData(value, role, QSqlTableModel::isDirty(index));
         if (styled.isValid()) {
             return styled;
         }

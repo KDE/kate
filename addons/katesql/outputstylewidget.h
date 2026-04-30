@@ -23,6 +23,8 @@ class OutputStyleWidget : public QTreeWidget
         StrikeOutCheckBox = 4,
         ForegroundColorButton = 5,
         BackgroundColorButton = 6,
+        ChangedForegroundColorButton = 7,
+        ChangedBackgroundColorButton = 8,
     };
     Q_ENUM(ColumnsOrder)
 

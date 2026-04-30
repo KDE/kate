@@ -39,6 +39,15 @@ inline constexpr QLatin1String OutputCustomizationGroup("OutputCustomization");
 const auto SaveConnections("SaveConnections");
 const auto LastUsed("LastUsed");
 const auto UseSystemDefaults("UseSystemDefaults");
+const auto EnableEditableTable("EnableEditableTable");
+
+namespace DefaultValues
+{
+inline constexpr bool SaveConnections(true);
+inline constexpr bool UseSystemDefaults(true);
+inline constexpr bool EnableEditableTable(true);
+inline constexpr int HighlightForChangedFieldColorBlend = 25;
+}
 
 /**
  * Keys identifying data-type style contexts.
@@ -61,9 +70,11 @@ inline constexpr QLatin1String Bool("bool");
  */
 namespace Style
 {
-const auto Font("font");
-const auto ForegroundColor("foregroundColor");
-const auto BackgroundColor("backgroundColor");
+inline constexpr QLatin1String Font("font");
+inline constexpr QLatin1String ForegroundColor("foregroundColor");
+inline constexpr QLatin1String BackgroundColor("backgroundColor");
+inline constexpr QLatin1String ChangedForegroundColor("changedForegroundColor");
+inline constexpr QLatin1String ChangedBackgroundColor("changedBackgroundColor");
 }
 
 }

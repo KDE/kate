@@ -36,7 +36,8 @@ OutputStyleWidget::OutputStyleWidget(QWidget *parent)
     QStringList headerLabels;
 
     headerLabels << i18nc("@title:column", "Context") << QString() << QString() << QString() << QString() << i18nc("@title:column", "Text Color")
-                 << i18nc("@title:column", "Background Color");
+                 << i18nc("@title:column", "Background Color") << i18nc("@title:column", "Changed Text Color")
+                 << i18nc("@title:column", "Changed Background Color");
 
     setHeaderLabels(headerLabels);
 
@@ -87,6 +88,15 @@ QTreeWidgetItem *OutputStyleWidget::addContext(const QString &key, const QString
     setItemWidget(item, ColumnsOrder::ForegroundColorButton, foregroundColorButton);
     setItemWidget(item, ColumnsOrder::BackgroundColorButton, backgroundColorButton);
 
+    auto *changedForegroundColorButton = new KColorButton(this);
+    auto *changedBackgroundColorButton = new KColorButton(this);
+
+    changedForegroundColorButton->setDefaultColor(m_defaultStyle.changedForeground.color());
+    changedBackgroundColorButton->setDefaultColor(m_defaultStyle.changedBackground.color());
+
+    setItemWidget(item, ColumnsOrder::ChangedForegroundColorButton, changedForegroundColorButton);
+    setItemWidget(item, ColumnsOrder::ChangedBackgroundColorButton, changedBackgroundColorButton);
+
     readConfig(item);
 
     connect(boldCheckBox, &QCheckBox::toggled, this, &OutputStyleWidget::slotChanged);
@@ -95,6 +105,8 @@ QTreeWidgetItem *OutputStyleWidget::addContext(const QString &key, const QString
     connect(strikeOutCheckBox, &QCheckBox::toggled, this, &OutputStyleWidget::slotChanged);
     connect(foregroundColorButton, &KColorButton::changed, this, &OutputStyleWidget::slotChanged);
     connect(backgroundColorButton, &KColorButton::changed, this, &OutputStyleWidget::slotChanged);
+    connect(changedForegroundColorButton, &KColorButton::changed, this, &OutputStyleWidget::slotChanged);
+    connect(changedBackgroundColorButton, &KColorButton::changed, this, &OutputStyleWidget::slotChanged);
 
     return item;
 }
@@ -110,6 +122,8 @@ void OutputStyleWidget::readConfig(QTreeWidgetItem *item)
     auto *strikeOutCheckBox = static_cast<QCheckBox *>(itemWidget(item, ColumnsOrder::StrikeOutCheckBox));
     auto *foregroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ForegroundColorButton));
     auto *backgroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::BackgroundColorButton));
+    auto *changedForegroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ChangedForegroundColorButton));
+    auto *changedBackgroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ChangedBackgroundColorButton));
 
     const QFont font = g.readEntry(KateSQLConstants::Config::Style::Font, m_defaultStyle.font);
 
@@ -120,6 +134,8 @@ void OutputStyleWidget::readConfig(QTreeWidgetItem *item)
 
     foregroundColorButton->setColor(g.readEntry(KateSQLConstants::Config::Style::ForegroundColor, m_defaultStyle.foreground.color()));
     backgroundColorButton->setColor(g.readEntry(KateSQLConstants::Config::Style::BackgroundColor, m_defaultStyle.background.color()));
+    changedForegroundColorButton->setColor(g.readEntry(KateSQLConstants::Config::Style::ChangedForegroundColor, m_defaultStyle.changedForeground.color()));
+    changedBackgroundColorButton->setColor(g.readEntry(KateSQLConstants::Config::Style::ChangedBackgroundColor, m_defaultStyle.changedBackground.color()));
 }
 
 void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
@@ -134,6 +150,8 @@ void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
     auto *strikeOutCheckBox = static_cast<QCheckBox *>(itemWidget(item, ColumnsOrder::StrikeOutCheckBox));
     auto *foregroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ForegroundColorButton));
     auto *backgroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::BackgroundColorButton));
+    auto *changedForegroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ChangedForegroundColorButton));
+    auto *changedBackgroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ChangedBackgroundColorButton));
 
     QFont f(m_defaultStyle.font);
 
@@ -145,6 +163,8 @@ void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
     g.writeEntry(KateSQLConstants::Config::Style::Font, f);
     g.writeEntry(KateSQLConstants::Config::Style::ForegroundColor, foregroundColorButton->color());
     g.writeEntry(KateSQLConstants::Config::Style::BackgroundColor, backgroundColorButton->color());
+    g.writeEntry(KateSQLConstants::Config::Style::ChangedForegroundColor, changedForegroundColorButton->color());
+    g.writeEntry(KateSQLConstants::Config::Style::ChangedBackgroundColor, changedBackgroundColorButton->color());
 }
 
 void OutputStyleWidget::readConfig()
@@ -152,7 +172,7 @@ void OutputStyleWidget::readConfig()
     updateDefaultStyle();
 
     KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
-    m_useSystemDefaults = config.readEntry(KateSQLConstants::Config::UseSystemDefaults, false);
+    m_useSystemDefaults = config.readEntry(KateSQLConstants::Config::UseSystemDefaults, KateSQLConstants::Config::DefaultValues::UseSystemDefaults);
 
     setItemsEnabled(!m_useSystemDefaults);
 
@@ -216,6 +236,8 @@ void OutputStyleWidget::setTableToCurrentDefaults()
         auto *strikeOutCheckBox = static_cast<QCheckBox *>(itemWidget(item, ColumnsOrder::StrikeOutCheckBox));
         auto *foregroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ForegroundColorButton));
         auto *backgroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::BackgroundColorButton));
+        auto *changedForegroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ChangedForegroundColorButton));
+        auto *changedBackgroundColorButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ChangedBackgroundColorButton));
 
         boldCheckBox->setChecked(false);
         italicCheckBox->setChecked(false);
@@ -223,14 +245,14 @@ void OutputStyleWidget::setTableToCurrentDefaults()
         strikeOutCheckBox->setChecked(false);
         foregroundColorButton->setColor(m_defaultStyle.foreground.color());
         backgroundColorButton->setColor(m_defaultStyle.background.color());
+        changedForegroundColorButton->setColor(m_defaultStyle.changedForeground.color());
+        changedBackgroundColorButton->setColor(m_defaultStyle.changedBackground.color());
     }
 }
 
 void OutputStyleWidget::updateDefaultStyle()
 {
-    m_defaultStyle.font = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
-    m_defaultStyle.foreground = qApp->palette().text();
-    m_defaultStyle.background = qApp->palette().base();
+    OutputStyle::updateDefault(m_defaultStyle);
 
     QTreeWidgetItem *root = invisibleRootItem();
     for (int i = 0; i < root->childCount(); ++i) {
@@ -243,6 +265,34 @@ void OutputStyleWidget::updateDefaultStyle()
         if (bgButton) {
             bgButton->setDefaultColor(m_defaultStyle.background.color());
         }
+        if (m_useSystemDefaults) {
+            if (fgButton) {
+                fgButton->setColor(m_defaultStyle.foreground.color());
+            }
+            if (bgButton) {
+                bgButton->setColor(m_defaultStyle.background.color());
+            }
+        }
+        auto *changedFgButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ChangedForegroundColorButton));
+        auto *changedBgButton = static_cast<KColorButton *>(itemWidget(item, ColumnsOrder::ChangedBackgroundColorButton));
+        if (changedFgButton) {
+            changedFgButton->setDefaultColor(m_defaultStyle.changedForeground.color());
+        }
+        if (changedBgButton) {
+            changedBgButton->setDefaultColor(m_defaultStyle.changedBackground.color());
+        }
+        if (m_useSystemDefaults) {
+            if (changedFgButton) {
+                changedFgButton->setColor(m_defaultStyle.changedForeground.color());
+            }
+            if (changedBgButton) {
+                changedBgButton->setColor(m_defaultStyle.changedBackground.color());
+            }
+        }
+    }
+
+    if (m_useSystemDefaults) {
+        updatePreviews();
     }
 }
 
@@ -287,7 +337,7 @@ void OutputStyleWidget::setItemsEnabled(bool enabled)
     for (int i = 0; i < root->childCount(); ++i) {
         QTreeWidgetItem *item = root->child(i);
 
-        for (int col = ColumnsOrder::BoldCheckBox; col <= ColumnsOrder::BackgroundColorButton; ++col) {
+        for (int col = ColumnsOrder::BoldCheckBox; col <= ColumnsOrder::ChangedBackgroundColorButton; ++col) {
             if (auto *widget = itemWidget(item, col)) {
                 widget->setEnabled(enabled);
             }

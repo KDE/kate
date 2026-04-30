@@ -38,9 +38,7 @@ DataOutputStyleHelper::~DataOutputStyleHelper()
 
 void DataOutputStyleHelper::updateDefaultStyle()
 {
-    m_defaultStyle.font = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
-    m_defaultStyle.foreground = qApp->palette().text();
-    m_defaultStyle.background = qApp->palette().base();
+    OutputStyle::updateDefault(m_defaultStyle);
 }
 
 void DataOutputStyleHelper::readConfig()
@@ -49,7 +47,7 @@ void DataOutputStyleHelper::readConfig()
 
     const KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
 
-    const bool useSystemDefaults = config.readEntry(KateSQLConstants::Config::UseSystemDefaults, false);
+    m_useSystemTheme = config.readEntry(KateSQLConstants::Config::UseSystemDefaults, KateSQLConstants::Config::DefaultValues::UseSystemDefaults);
 
     const KConfigGroup group = config.group(KateSQLConstants::Config::OutputCustomizationGroup);
 
@@ -59,9 +57,11 @@ void DataOutputStyleHelper::readConfig()
 
         s->foreground = m_defaultStyle.foreground;
         s->background = m_defaultStyle.background;
+        s->changedForeground = m_defaultStyle.changedForeground;
+        s->changedBackground = m_defaultStyle.changedBackground;
         s->font = m_defaultStyle.font;
 
-        if (useSystemDefaults) {
+        if (m_useSystemTheme) {
             continue;
         }
 
@@ -75,6 +75,8 @@ void DataOutputStyleHelper::readConfig()
         s->font.setStrikeOut(dummy.strikeOut());
         s->foreground.setColor(g.readEntry(KateSQLConstants::Config::Style::ForegroundColor, s->foreground.color()));
         s->background.setColor(g.readEntry(KateSQLConstants::Config::Style::BackgroundColor, s->background.color()));
+        s->changedForeground.setColor(g.readEntry(KateSQLConstants::Config::Style::ChangedForegroundColor, s->changedForeground.color()));
+        s->changedBackground.setColor(g.readEntry(KateSQLConstants::Config::Style::ChangedBackgroundColor, s->changedBackground.color()));
     }
 }
 
@@ -99,27 +101,37 @@ static QVariant displayValue(const QVariant &value, bool useSystemLocale)
         return QLatin1String("NULL");
     }
 
-    switch (value.typeId()) {
-    case QMetaType::Type::UnknownType:
-    case QMetaType::Type::Void:
-    case QMetaType::Type::Nullptr:
-        return QLatin1String("NULL");
-    case QMetaType::Type::QByteArray:
-        return value.toByteArray().left(255);
-    case QMetaType::Type::Bool:
+    const auto type = value.typeId();
+    if (type == QMetaType::Type::Bool) {
         return value.toBool() ? QLatin1String("True") : QLatin1String("False");
-    case QMetaType::Type::QDate:
-        if (useSystemLocale)
+    }
+    if (type == QMetaType::Type::QByteArray) {
+        return value.toByteArray().left(255);
+    }
+    if (useSystemLocale) {
+        switch (type) {
+        case QMetaType::Type::QDate:
             return QLocale().toString(value.toDate(), QLocale::ShortFormat);
-        break;
-    case QMetaType::Type::QTime:
-        if (useSystemLocale)
+        case QMetaType::Type::QTime:
             return QLocale().toString(value.toTime());
-        break;
-    case QMetaType::Type::QDateTime:
-        if (useSystemLocale)
+        case QMetaType::Type::QDateTime:
             return QLocale().toString(value.toDateTime(), QLocale::ShortFormat);
-        break;
+        case QMetaType::Type::Short:
+        case QMetaType::Type::Int:
+            return QLocale().toString(value.toInt());
+        case QMetaType::Type::UInt:
+            return QLocale().toString(value.toUInt());
+        case QMetaType::Type::Long:
+        case QMetaType::Type::LongLong:
+            return QLocale().toString(value.toLongLong());
+        case QMetaType::Type::ULongLong:
+            return QLocale().toString(value.toULongLong());
+        case QMetaType::Type::Float16:
+        case QMetaType::Type::Float:
+            return QLocale().toString(value.toFloat());
+        case QMetaType::Type::Double:
+            return QLocale().toString(value.toDouble());
+        }
     }
     return value.toString();
 }
@@ -135,13 +147,15 @@ static QLatin1String getStyleKey(const QVariant &value, int type)
     switch (type) {
     case QMetaType::Type::Bool:
         return Key::Bool;
+    case QMetaType::Type::Short:
     case QMetaType::Type::Int:
     case QMetaType::Type::UInt:
+    case QMetaType::Type::Long:
     case QMetaType::Type::LongLong:
     case QMetaType::Type::ULongLong:
+    case QMetaType::Type::Float16:
+    case QMetaType::Type::Float:
     case QMetaType::Type::Double:
-    case QMetaType::Type::Long:
-    case QMetaType::Type::Short:
         return Key::Number;
     case QMetaType::Type::QByteArray:
         return Key::Blob;
@@ -154,17 +168,24 @@ static QLatin1String getStyleKey(const QVariant &value, int type)
     }
 }
 
-QVariant DataOutputStyleHelper::styleData(const QVariant &value, int role) const
+QVariant DataOutputStyleHelper::styleData(const QVariant &value, int role, bool isDirty) const
 {
     const auto type = value.typeId();
 
     switch (role) {
     case Qt::FontRole:
+        if (m_useSystemTheme) {
+            return m_defaultStyle.font;
+        }
         return m_styles.value(getStyleKey(value, type))->font;
-    case Qt::ForegroundRole:
-        return m_styles.value(getStyleKey(value, type))->foreground;
-    case Qt::BackgroundRole:
-        return m_styles.value(getStyleKey(value, type))->background;
+    case Qt::ForegroundRole: {
+        const auto *s = m_useSystemTheme ? &m_defaultStyle : m_styles.value(getStyleKey(value, type));
+        return isDirty ? s->changedForeground : s->foreground;
+    }
+    case Qt::BackgroundRole: {
+        const auto *s = m_useSystemTheme ? &m_defaultStyle : m_styles.value(getStyleKey(value, type));
+        return isDirty ? s->changedBackground : s->background;
+    }
     case Qt::TextAlignmentRole:
         return QVariant(isNumeric(type) ? (Qt::AlignRight | Qt::AlignVCenter) : Qt::AlignVCenter);
     case Qt::DisplayRole:

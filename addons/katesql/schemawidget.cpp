@@ -5,9 +5,12 @@
 */
 
 #include "schemawidget.h"
+#include "katesqlconstants.h"
 #include "sqlmanager.h"
 
+#include <KConfigGroup>
 #include <KLocalizedString>
+#include <KSharedConfig>
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/mainwindow.h>
@@ -399,7 +402,15 @@ void SchemaWidget::browseData()
         return;
     }
 
-    m_manager->runEditableQuery(tableName, m_connectionName);
+    const KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
+    const bool enableEditableTable =
+        config.readEntry(KateSQLConstants::Config::EnableEditableTable, KateSQLConstants::Config::DefaultValues::EnableEditableTable);
+
+    if (enableEditableTable) {
+        m_manager->runEditableQuery(tableName, m_connectionName);
+    } else {
+        executeStatement(QSqlDriver::StatementType::SelectStatement);
+    }
 }
 
 void SchemaWidget::generateAndPasteStatement(QSqlDriver::StatementType statementType)

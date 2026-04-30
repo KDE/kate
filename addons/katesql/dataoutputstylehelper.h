@@ -25,10 +25,11 @@ public:
     bool useSystemLocale() const;
     void setUseSystemLocale(bool useSystemLocale);
 
-    QVariant styleData(const QVariant &value, int role) const;
+    QVariant styleData(const QVariant &value, int role, bool isDirty = false) const;
 
 private:
     QHash<QString, OutputStyle *> m_styles;
     OutputStyle m_defaultStyle;
     bool m_useSystemLocale;
+    bool m_useSystemTheme;
 };

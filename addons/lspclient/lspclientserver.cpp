@@ -9,6 +9,7 @@
 #include "hostprocess.h"
 #include "lspclient_debug.h"
 
+#include "kateapp.h"
 #include "ktexteditor_utils.h"
 
 #include <QCoreApplication>
@@ -56,6 +57,7 @@ static constexpr char MEMBER_ARGUMENTS[] = "arguments";
 static constexpr char MEMBER_DIAGNOSTICS[] = "diagnostics";
 static constexpr char MEMBER_PREVIOUS_RESULT_ID[] = "previousResultId";
 static constexpr char MEMBER_QUERY[] = "query";
+static constexpr char MEMBER_SELECTION_RANGE[] = "selection";
 static constexpr char MEMBER_TARGET_URI[] = "targetUri";
 static constexpr char MEMBER_TARGET_SELECTION_RANGE[] = "";
 static constexpr char MEMBER_TARGET_RANGE[] = "targetRange";
@@ -642,6 +644,16 @@ static LSPLocation parseLocation(const rapidjson::Value &loc)
     auto uri = urlFromRemote(GetStringValue(loc, MEMBER_URI));
     KTextEditor::Range range;
     if (auto it = loc.FindMember(MEMBER_RANGE); it != loc.MemberEnd()) {
+        range = parseRange(it->value);
+    }
+    return {uri, range};
+}
+
+static LSPLocation parseSelection(const rapidjson::Value &loc)
+{
+    auto uri = urlFromRemote(GetStringValue(loc, MEMBER_URI));
+    KTextEditor::Range range;
+    if (auto it = loc.FindMember(MEMBER_SELECTION_RANGE); it != loc.MemberEnd()) {
         range = parseRange(it->value);
     }
     return {uri, range};
@@ -2273,6 +2285,21 @@ public:
             // e.g. typst-lsp, see https://invent.kde.org/utilities/kate/-/issues/108
             auto h = prepareResponse(msgId);
             h(QJsonValue());
+        } else if (method == QLatin1String("window/showDocument")) {
+            auto selection = parseSelection(params);
+
+            if (selection.range.isValid()) {
+                // do something eventually here
+                auto mainWindow = KateApp::self()->activeMainWindow();
+                if (mainWindow != NULL) {
+                    Utils::goToDocumentLocation(mainWindow, selection.uri, selection.range);
+                }
+            }
+
+            auto responder = prepareResponse(msgId);
+            auto nullResponse = [responder]() {
+                responder(QJsonObject());
+            };
         } else if (method == QLatin1String("window/showMessageRequest")) {
             auto actions = GetJsonArrayForKey(params, MEMBER_ACTIONS).GetArray();
             QList<LSPMessageRequestAction> v;

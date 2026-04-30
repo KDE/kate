@@ -2286,20 +2286,7 @@ public:
             auto h = prepareResponse(msgId);
             h(QJsonValue());
         } else if (method == QLatin1String("window/showDocument")) {
-            auto selection = parseSelection(params);
-
-            if (selection.range.isValid()) {
-                // do something eventually here
-                auto mainWindow = KateApp::self()->activeMainWindow();
-                if (mainWindow != NULL) {
-                    Utils::goToDocumentLocation(mainWindow, selection.uri, selection.range);
-                }
-            }
-
-            auto responder = prepareResponse(msgId);
-            auto nullResponse = [responder]() {
-                responder(QJsonObject());
-            };
+            Q_EMIT q->showDocument(parseSelection(params), handled);
         } else if (method == QLatin1String("window/showMessageRequest")) {
             auto actions = GetJsonArrayForKey(params, MEMBER_ACTIONS).GetArray();
             QList<LSPMessageRequestAction> v;

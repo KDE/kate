@@ -980,6 +980,7 @@ private:
                 connect(server.get(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
                 connect(server.get(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
                 connect(server.get(), &LSPClientServer::configuration, this, std::bind(&self_type::onConfiguration, this, root, langId, _1, _2, _3));
+                connect(server.get(), &LSPClientServer::showDocument, this, &self_type::showDocument);
                 connect(server.get(), &LSPClientServer::showMessageRequest, this, &self_type::showMessageRequest);
             }
         }

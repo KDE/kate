@@ -7,7 +7,9 @@
 #pragma once
 
 #include "lspclientplugin.h"
+#include "lspclientprotocol.h"
 #include "lspclientserver.h"
+
 
 #include <KTextEditor/Message>
 
@@ -79,6 +81,7 @@ Q_SIGNALS:
     void serverShowMessage(LSPClientServer *server, const LSPShowMessageParams &);
     void serverLogMessage(LSPClientServer *server, const LSPShowMessageParams &);
     void serverWorkDoneProgress(LSPClientServer *server, const LSPWorkDoneProgressParams &);
+    void showDocument(const LSPLocation &location, bool &handled);
     void showMessageRequest(const LSPShowMessageParams &message,
                             const QList<LSPMessageRequestAction> &actions,
                             const std::function<void()> chooseNothing,

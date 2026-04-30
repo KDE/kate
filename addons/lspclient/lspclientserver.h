@@ -238,6 +238,7 @@ Q_SIGNALS:
     void applyEdit(const LSPApplyWorkspaceEditParams &req, const ApplyEditReplyHandler &h, bool &handled);
     void workspaceFolders(const WorkspaceFoldersReplyHandler &h, bool &handled);
     void configuration(const LSPConfigurationParams &params, const ConfigurationReplyHandler &h, bool &handled);
+    void showDocument(const LSPLocation &location, bool &handled);
     void showMessageRequest(const LSPShowMessageParams &message,
                             const QList<LSPMessageRequestAction> &actions,
                             const std::function<void()> chooseNothing,

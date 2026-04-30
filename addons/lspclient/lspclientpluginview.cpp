@@ -476,6 +476,7 @@ public:
             onMessage(server, params);
         });
         connect(m_serverManager.get(), &LSPClientServerManager::serverWorkDoneProgress, this, &self_type::onWorkDoneProgress);
+        connect(m_serverManager.get(), &LSPClientServerManager::showDocument, this, &self_type::showDocument);
         connect(m_serverManager.get(), &LSPClientServerManager::showMessageRequest, this, &self_type::showMessageRequest);
 
         m_findDef = actionCollection()->addAction(QStringLiteral("lspclient_find_definition"), this, &self_type::goToDefinition);
@@ -2407,6 +2408,19 @@ public:
     Q_INVOKABLE QAbstractItemModel *documentSymbolsModel()
     {
         return m_symbolView->documentSymbolsModel();
+    }
+
+    void showDocument(const LSPLocation &location, bool &handled)
+    {
+        if (handled) {
+            return;
+        }
+
+        handled = true;
+
+        if (location.range.isValid()) {
+            Utils::goToDocumentLocation(m_mainWindow, location.uri, location.range);
+        }
     }
 
     void showMessageRequest(const LSPShowMessageParams &message,

@@ -57,7 +57,9 @@ public:
 
     KateDocumentInfo *documentInfo(KTextEditor::Document *doc);
 
-    /** Returns the documentNumber of the doc with url URL or -1 if no such doc is found */
+    /**
+     * Returns a pointer to the document for a given url, or a nullptr if there is no document for that url
+     */
     KTextEditor::Document *findDocument(const QUrl &url) const;
 
     /**

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-26 00:47+0000\n"
+"POT-Creation-Date: 2026-05-01 00:47+0000\n"
 "PO-Revision-Date: 2026-04-20 21:29-0400\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -151,7 +151,7 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "باغلىنىش ئاتى:"
 
-#: dataoutputwidget.cpp:93
+#: dataoutputwidget.cpp:92
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu Context menu"
 #| msgid "Refresh"
@@ -159,97 +159,97 @@ msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "يېڭىلا"
 
-#: dataoutputwidget.cpp:103
+#: dataoutputwidget.cpp:102
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "مەزمۇننى ئىستونغا سىغدۇر"
 
-#: dataoutputwidget.cpp:109
+#: dataoutputwidget.cpp:108
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "مەزمۇننى قۇرغا سىغدۇر"
 
-#: dataoutputwidget.cpp:115
+#: dataoutputwidget.cpp:114
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "چىقار…"
 
-#: dataoutputwidget.cpp:122
+#: dataoutputwidget.cpp:121
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "كۆچۈر"
 
-#: dataoutputwidget.cpp:132 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:131 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "تازىلا"
 
-#: dataoutputwidget.cpp:140
+#: dataoutputwidget.cpp:139
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "سىستېما كودلىنىشىنى ئىشلەت"
 
-#: dataoutputwidget.cpp:156
+#: dataoutputwidget.cpp:155
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr ""
 
-#: dataoutputwidget.cpp:166
+#: dataoutputwidget.cpp:165
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr ""
 
-#: dataoutputwidget.cpp:176
+#: dataoutputwidget.cpp:175
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr ""
 
-#: dataoutputwidget.cpp:186
+#: dataoutputwidget.cpp:185
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr ""
 
-#: dataoutputwidget.cpp:196
+#: dataoutputwidget.cpp:195
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr ""
 
-#: dataoutputwidget.cpp:206
+#: dataoutputwidget.cpp:205
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr ""
 
-#: dataoutputwidget.cpp:216
+#: dataoutputwidget.cpp:215
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr ""
 
-#: dataoutputwidget.cpp:231
+#: dataoutputwidget.cpp:230
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr ""
 
-#: dataoutputwidget.cpp:239
+#: dataoutputwidget.cpp:238
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr ""
 
-#: dataoutputwidget.cpp:240
+#: dataoutputwidget.cpp:239
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
@@ -386,13 +386,19 @@ msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
 msgstr "Kate جەريانچاقسىدىكى باغلىنىشلارنى ساقلا ۋە ئەسلىگە كەلتۈرىدۇ"
 
-#: katesqlconfigpage.cpp:29
+#: katesqlconfigpage.cpp:28
+#, kde-format
+msgctxt "@option:check"
+msgid "Enable editable table for Browse Data"
+msgstr ""
+
+#: katesqlconfigpage.cpp:30
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "چىقىرىشنى ئۆزلەشتۈرۈش"
 
-#: katesqlconfigpage.cpp:36
+#: katesqlconfigpage.cpp:37
 #, fuzzy, kde-format
 #| msgctxt "@action:intoolbar"
 #| msgid "Use system locale"
@@ -400,19 +406,19 @@ msgctxt "@option:check"
 msgid "Use system defaults"
 msgstr "سىستېما كودلىنىشىنى ئىشلەت"
 
-#: katesqlconfigpage.cpp:37
+#: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
 msgstr ""
 
-#: katesqlconfigpage.cpp:65
+#: katesqlconfigpage.cpp:69
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:70
+#: katesqlconfigpage.cpp:74
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
@@ -489,37 +495,53 @@ msgctxt "@title:column"
 msgid "Background Color"
 msgstr "تەگلىك رەڭگى"
 
-#: outputstylewidget.cpp:48
+#: outputstylewidget.cpp:39
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Text Color"
+msgctxt "@title:column"
+msgid "Changed Text Color"
+msgstr "تېكىست رەڭگى"
+
+#: outputstylewidget.cpp:40
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Background Color"
+msgctxt "@title:column"
+msgid "Changed Background Color"
+msgstr "تەگلىك رەڭگى"
+
+#: outputstylewidget.cpp:49
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "تېكىست"
 
-#: outputstylewidget.cpp:49
+#: outputstylewidget.cpp:50
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "نومۇرى"
 
-#: outputstylewidget.cpp:50
+#: outputstylewidget.cpp:51
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "بۇلىن قىممىتى"
 
-#: outputstylewidget.cpp:51
+#: outputstylewidget.cpp:52
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "چېسلا & ۋاقىت"
 
-#: outputstylewidget.cpp:52
+#: outputstylewidget.cpp:53
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:53
+#: outputstylewidget.cpp:54
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
@@ -537,63 +559,63 @@ msgctxt "@title:window"
 msgid "SQL Data Output"
 msgstr "SQL سانلىق-مەلۇمات چىقار"
 
-#: schemawidget.cpp:34
+#: schemawidget.cpp:37
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "ساندان ئەندىزە"
 
-#: schemawidget.cpp:89
+#: schemawidget.cpp:92
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "جەدۋەللەر"
 
-#: schemawidget.cpp:94
+#: schemawidget.cpp:97
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "كۆرۈنۈشلەر"
 
-#: schemawidget.cpp:108
+#: schemawidget.cpp:111
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "سىستېما جەدۋەللىرى"
 
-#: schemawidget.cpp:268
+#: schemawidget.cpp:271
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "سانلىق مەلۇمات تاللىنىدۇ"
 
-#: schemawidget.cpp:272
+#: schemawidget.cpp:275
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "قۇر"
 
-#: schemawidget.cpp:273
+#: schemawidget.cpp:276
 #, kde-format
 msgid "SELECT"
 msgstr "تاللا"
 
-#: schemawidget.cpp:274
+#: schemawidget.cpp:277
 #, kde-format
 msgid "UPDATE"
 msgstr "يېڭىلا"
 
-#: schemawidget.cpp:275
+#: schemawidget.cpp:278
 #, kde-format
 msgid "INSERT"
 msgstr "قىستۇر"
 
-#: schemawidget.cpp:276
+#: schemawidget.cpp:279
 #, kde-format
 msgid "DELETE"
 msgstr "ئۆچۈر"
 
-#: schemawidget.cpp:280
+#: schemawidget.cpp:283
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-26 00:47+0000\n"
+"POT-Creation-Date: 2026-05-01 00:47+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -150,103 +150,103 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "连接名称："
 
-#: dataoutputwidget.cpp:93
+#: dataoutputwidget.cpp:92
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "刷新"
 
-#: dataoutputwidget.cpp:103
+#: dataoutputwidget.cpp:102
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "列缩放到内容大小"
 
-#: dataoutputwidget.cpp:109
+#: dataoutputwidget.cpp:108
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "行缩放到内容大小"
 
-#: dataoutputwidget.cpp:115
+#: dataoutputwidget.cpp:114
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "导出..."
 
-#: dataoutputwidget.cpp:122
+#: dataoutputwidget.cpp:121
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "复制"
 
-#: dataoutputwidget.cpp:132 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:131 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "清除"
 
-#: dataoutputwidget.cpp:140
+#: dataoutputwidget.cpp:139
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "使用系统编码"
 
-#: dataoutputwidget.cpp:156
+#: dataoutputwidget.cpp:155
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr "粘贴"
 
-#: dataoutputwidget.cpp:166
+#: dataoutputwidget.cpp:165
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr "设为 Null"
 
-#: dataoutputwidget.cpp:176
+#: dataoutputwidget.cpp:175
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr "插入行"
 
-#: dataoutputwidget.cpp:186
+#: dataoutputwidget.cpp:185
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr "移除选中行"
 
-#: dataoutputwidget.cpp:196
+#: dataoutputwidget.cpp:195
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr "创建选中行的副本"
 
-#: dataoutputwidget.cpp:206
+#: dataoutputwidget.cpp:205
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr "撤销"
 
-#: dataoutputwidget.cpp:216
+#: dataoutputwidget.cpp:215
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr "保存"
 
-#: dataoutputwidget.cpp:231
+#: dataoutputwidget.cpp:230
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr "位置："
 
-#: dataoutputwidget.cpp:239
+#: dataoutputwidget.cpp:238
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr "id > 0"
 
-#: dataoutputwidget.cpp:240
+#: dataoutputwidget.cpp:239
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
@@ -381,31 +381,37 @@ msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
 msgstr "在 Kate 会话中保存并还原连接"
 
-#: katesqlconfigpage.cpp:29
+#: katesqlconfigpage.cpp:28
+#, kde-format
+msgctxt "@option:check"
+msgid "Enable editable table for Browse Data"
+msgstr ""
+
+#: katesqlconfigpage.cpp:30
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "输出自定义"
 
-#: katesqlconfigpage.cpp:36
+#: katesqlconfigpage.cpp:37
 #, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
 msgstr "使用系统默认值"
 
-#: katesqlconfigpage.cpp:37
+#: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
 msgstr "重置为系统默认值"
 
-#: katesqlconfigpage.cpp:65
+#: katesqlconfigpage.cpp:69
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:70
+#: katesqlconfigpage.cpp:74
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
@@ -482,37 +488,53 @@ msgctxt "@title:column"
 msgid "Background Color"
 msgstr "背景颜色"
 
-#: outputstylewidget.cpp:48
+#: outputstylewidget.cpp:39
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Text Color"
+msgctxt "@title:column"
+msgid "Changed Text Color"
+msgstr "文本颜色"
+
+#: outputstylewidget.cpp:40
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Background Color"
+msgctxt "@title:column"
+msgid "Changed Background Color"
+msgstr "背景颜色"
+
+#: outputstylewidget.cpp:49
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "文本"
 
-#: outputstylewidget.cpp:49
+#: outputstylewidget.cpp:50
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "数字"
 
-#: outputstylewidget.cpp:50
+#: outputstylewidget.cpp:51
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "布尔量"
 
-#: outputstylewidget.cpp:51
+#: outputstylewidget.cpp:52
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "日期和时间"
 
-#: outputstylewidget.cpp:52
+#: outputstylewidget.cpp:53
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:53
+#: outputstylewidget.cpp:54
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
@@ -530,63 +552,63 @@ msgctxt "@title:window"
 msgid "SQL Data Output"
 msgstr "SQL 数据输出"
 
-#: schemawidget.cpp:34
+#: schemawidget.cpp:37
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "数据库模式"
 
-#: schemawidget.cpp:89
+#: schemawidget.cpp:92
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "表"
 
-#: schemawidget.cpp:94
+#: schemawidget.cpp:97
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "视图"
 
-#: schemawidget.cpp:108
+#: schemawidget.cpp:111
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "系统表"
 
-#: schemawidget.cpp:268
+#: schemawidget.cpp:271
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "选择数据"
 
-#: schemawidget.cpp:272
+#: schemawidget.cpp:275
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "生成"
 
-#: schemawidget.cpp:273
+#: schemawidget.cpp:276
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:274
+#: schemawidget.cpp:277
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:275
+#: schemawidget.cpp:278
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:276
+#: schemawidget.cpp:279
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:280
+#: schemawidget.cpp:283
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-27 00:47+0000\n"
-"PO-Revision-Date: 2026-04-23 09:28+0200\n"
+"PO-Revision-Date: 2026-04-30 17:09+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -2704,7 +2704,7 @@ msgstr "Affixa Documento"
 #: lib/ktexteditor_utils.cpp:244
 #, kde-format
 msgid "Can not open %1"
-msgstr "Nonpote aperir %1"
+msgstr "Non pote aperir %1"
 
 #: lib/mainwindow_commands.cpp:45
 #, kde-format

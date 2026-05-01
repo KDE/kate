@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-26 00:47+0000\n"
+"POT-Creation-Date: 2026-05-01 00:47+0000\n"
 "PO-Revision-Date: 2012-12-20 09:35+0700\n"
 "Last-Translator: sutha <sutha@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros>\n"
@@ -153,7 +153,7 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "ឈ្មោះ​តភ្ជាប់​ ៖​"
 
-#: dataoutputwidget.cpp:93
+#: dataoutputwidget.cpp:92
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu Context menu"
 #| msgid "Refresh"
@@ -161,97 +161,97 @@ msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "ធ្វើ​ឲ្យ​ស្រស់​"
 
-#: dataoutputwidget.cpp:103
+#: dataoutputwidget.cpp:102
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "ប្ដូរ​ទំហំ​ជួរ​ឈរ​ទៅកាន់​មាតិកា​"
 
-#: dataoutputwidget.cpp:109
+#: dataoutputwidget.cpp:108
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "ប្ដូរ​ទំហំ​ជួរ​ដេក​ទៅកាន់​មាតិកា​​"
 
-#: dataoutputwidget.cpp:115
+#: dataoutputwidget.cpp:114
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "នាំចេញ​..."
 
-#: dataoutputwidget.cpp:122
+#: dataoutputwidget.cpp:121
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "ច្បាប់​ចម្លង​"
 
-#: dataoutputwidget.cpp:132 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:131 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "សម្អាត"
 
-#: dataoutputwidget.cpp:140
+#: dataoutputwidget.cpp:139
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "ប្រើ​មូលដ្ឋាន​​របស់​ប្រព័ន្ធ​​"
 
-#: dataoutputwidget.cpp:156
+#: dataoutputwidget.cpp:155
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr ""
 
-#: dataoutputwidget.cpp:166
+#: dataoutputwidget.cpp:165
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr ""
 
-#: dataoutputwidget.cpp:176
+#: dataoutputwidget.cpp:175
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr ""
 
-#: dataoutputwidget.cpp:186
+#: dataoutputwidget.cpp:185
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr ""
 
-#: dataoutputwidget.cpp:196
+#: dataoutputwidget.cpp:195
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr ""
 
-#: dataoutputwidget.cpp:206
+#: dataoutputwidget.cpp:205
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr ""
 
-#: dataoutputwidget.cpp:216
+#: dataoutputwidget.cpp:215
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr ""
 
-#: dataoutputwidget.cpp:231
+#: dataoutputwidget.cpp:230
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr ""
 
-#: dataoutputwidget.cpp:239
+#: dataoutputwidget.cpp:238
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr ""
 
-#: dataoutputwidget.cpp:240
+#: dataoutputwidget.cpp:239
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
@@ -388,13 +388,19 @@ msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
 msgstr "រក្សាទុក​ និង​ស្ដារ​ការ​តភ្ជាប់​ក្នុង​សម័យ​របស់​ Kate"
 
-#: katesqlconfigpage.cpp:29
+#: katesqlconfigpage.cpp:28
+#, kde-format
+msgctxt "@option:check"
+msgid "Enable editable table for Browse Data"
+msgstr ""
+
+#: katesqlconfigpage.cpp:30
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "ការ​ប្ដូរ​ទិន្នផល​តាម​បំណង"
 
-#: katesqlconfigpage.cpp:36
+#: katesqlconfigpage.cpp:37
 #, fuzzy, kde-format
 #| msgctxt "@action:intoolbar"
 #| msgid "Use system locale"
@@ -402,19 +408,19 @@ msgctxt "@option:check"
 msgid "Use system defaults"
 msgstr "ប្រើ​មូលដ្ឋាន​​របស់​ប្រព័ន្ធ​​"
 
-#: katesqlconfigpage.cpp:37
+#: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
 msgstr ""
 
-#: katesqlconfigpage.cpp:65
+#: katesqlconfigpage.cpp:69
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:70
+#: katesqlconfigpage.cpp:74
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "SQL Plugin Settings"
@@ -507,37 +513,53 @@ msgctxt "@title:column"
 msgid "Background Color"
 msgstr "ពណ៌​ផ្ទៃ​ខាង​ក្រោយ​"
 
-#: outputstylewidget.cpp:48
+#: outputstylewidget.cpp:39
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Text Color"
+msgctxt "@title:column"
+msgid "Changed Text Color"
+msgstr "ពណ៌​​របស់​អត្ថបទ​"
+
+#: outputstylewidget.cpp:40
+#, fuzzy, kde-format
+#| msgctxt "@title:column"
+#| msgid "Background Color"
+msgctxt "@title:column"
+msgid "Changed Background Color"
+msgstr "ពណ៌​ផ្ទៃ​ខាង​ក្រោយ​"
+
+#: outputstylewidget.cpp:49
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "អត្ថបទ​"
 
-#: outputstylewidget.cpp:49
+#: outputstylewidget.cpp:50
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "ចំនួន​"
 
-#: outputstylewidget.cpp:50
+#: outputstylewidget.cpp:51
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "Bool"
 
-#: outputstylewidget.cpp:51
+#: outputstylewidget.cpp:52
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "កាលបរិច្ឆេទ​ និង​ពេលវេលា​"
 
-#: outputstylewidget.cpp:52
+#: outputstylewidget.cpp:53
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "គ្មាន​សោះ​"
 
-#: outputstylewidget.cpp:53
+#: outputstylewidget.cpp:54
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
@@ -555,63 +577,63 @@ msgctxt "@title:window"
 msgid "SQL Data Output"
 msgstr "ទិន្នផល​​ទិន្នន័យ​របស់​ SQL"
 
-#: schemawidget.cpp:34
+#: schemawidget.cpp:37
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "គ្រោងការណ៍​មូលដ្ឋាន​ទិន្នន័យ​"
 
-#: schemawidget.cpp:89
+#: schemawidget.cpp:92
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "តារាង​"
 
-#: schemawidget.cpp:94
+#: schemawidget.cpp:97
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "មើល​"
 
-#: schemawidget.cpp:108
+#: schemawidget.cpp:111
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "តារាង​ប្រព័ន្ធ​"
 
-#: schemawidget.cpp:268
+#: schemawidget.cpp:271
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr ""
 
-#: schemawidget.cpp:272
+#: schemawidget.cpp:275
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "បង្កើត​"
 
-#: schemawidget.cpp:273
+#: schemawidget.cpp:276
 #, kde-format
 msgid "SELECT"
 msgstr ""
 
-#: schemawidget.cpp:274
+#: schemawidget.cpp:277
 #, kde-format
 msgid "UPDATE"
 msgstr ""
 
-#: schemawidget.cpp:275
+#: schemawidget.cpp:278
 #, kde-format
 msgid "INSERT"
 msgstr ""
 
-#: schemawidget.cpp:276
+#: schemawidget.cpp:279
 #, kde-format
 msgid "DELETE"
 msgstr ""
 
-#: schemawidget.cpp:280
+#: schemawidget.cpp:283
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

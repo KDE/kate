@@ -39,6 +39,8 @@
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor_version.h>
 
+#include "kateapp.h"
+
 #include <QAction>
 #include <QApplication>
 #include <QClipboard>
@@ -2418,7 +2420,9 @@ public:
 
         handled = true;
 
-        if (location.range.isValid()) {
+        // ensure that the requesteed file is actually open and that the range is valid
+        // before actually trying to navigate to it.
+        if (KateApp::self()->documentManager()->findDocument(location.uri) != nullptr && location.range.isValid()) {
             Utils::goToDocumentLocation(m_mainWindow, location.uri, location.range);
         }
     }

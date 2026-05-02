@@ -9,7 +9,6 @@
 #include "hostprocess.h"
 #include "lspclient_debug.h"
 
-#include "kateapp.h"
 #include "ktexteditor_utils.h"
 
 #include <QCoreApplication>

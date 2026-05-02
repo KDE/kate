@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-01 00:47+0000\n"
-"PO-Revision-Date: 2026-04-14 09:34+0200\n"
+"PO-Revision-Date: 2026-05-01 10:06+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -390,7 +390,7 @@ msgstr "Desa i restaura les connexions a les sessions del Kate"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Habilita una taula editable per a explorar les dades"
 
 #: katesqlconfigpage.cpp:30
 #, kde-format
@@ -494,20 +494,16 @@ msgid "Background Color"
 msgstr "Color del fons"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "Color del text"
+msgstr "Color del text canviat"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "Color del fons"
+msgstr "Color del fons canviat"
 
 #: outputstylewidget.cpp:49
 #, kde-format

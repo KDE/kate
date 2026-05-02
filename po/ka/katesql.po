@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-01 00:47+0000\n"
-"PO-Revision-Date: 2026-04-14 04:54+0200\n"
+"PO-Revision-Date: 2026-05-01 04:40+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -386,7 +386,7 @@ msgstr "შეერთებების Kate-ის სესიაში შ�
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "ჩასწორებადი ცხრილის ჩართვა ბრაუზერის მონაცემებისთვის"
 
 #: katesqlconfigpage.cpp:30
 #, kde-format
@@ -490,20 +490,16 @@ msgid "Background Color"
 msgstr "ფონის ფერი"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "ტექსტის ფერი"
+msgstr "შეცვლილი ტექსტის ფერი"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "ფონის ფერი"
+msgstr "შეცვლილი ფონის ფერი"
 
 #: outputstylewidget.cpp:49
 #, kde-format

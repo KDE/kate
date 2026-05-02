@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2010, 2011, 2012, 2014, 2018, 2021, 2022, 2023, 2025, 2026 Freek de Kruijf <freekdekruijf@kde.nl>
+# SPDX-FileCopyrightText: 2010-2012, 2014, 2018, 2021-2023, 2025-2026 Freek de Kruijf <freekdekruijf@kde.nl>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-01 00:47+0000\n"
-"PO-Revision-Date: 2026-04-16 10:33+0200\n"
+"PO-Revision-Date: 2026-05-01 11:25+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.04.0\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -387,7 +387,7 @@ msgstr "Verbindingen in Kate-sessie opslaan en herstellen"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Schakel de bewerkbare tabel in voor bladergegevens."
 
 #: katesqlconfigpage.cpp:30
 #, kde-format
@@ -491,20 +491,16 @@ msgid "Background Color"
 msgstr "Achtergrondkleur"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "Tekstkleur"
+msgstr "Tekstkleur gewijzigd"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "Achtergrondkleur"
+msgstr "Achtergrondkleur gewijzigd"
 
 #: outputstylewidget.cpp:49
 #, kde-format

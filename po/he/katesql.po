@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-01 00:47+0000\n"
-"PO-Revision-Date: 2026-04-14 21:38+0300\n"
+"PO-Revision-Date: 2026-05-01 09:18+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.04.0\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -386,7 +386,7 @@ msgstr "שמירת ושחזור החיבורים בהפעלת Kate"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "הפעלת טבלה פתוחה לעריכה לנתוני עיון"
 
 #: katesqlconfigpage.cpp:30
 #, kde-format
@@ -490,20 +490,16 @@ msgid "Background Color"
 msgstr "צבע רקע"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "צבע טקסט"
+msgstr "צבע טקסט של שינוי"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "צבע רקע"
+msgstr "צבע רקע של שינוי"
 
 #: outputstylewidget.cpp:49
 #, kde-format

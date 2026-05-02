@@ -2,7 +2,7 @@
 # Copyright (C) 2010-2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2010, 2020, 2021, 2022, 2023, 2025, 2026 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2010, 2020-2023, 2025-2026 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2010 Ricardo Varas Santana <ricardoivaras@gmail.com>
 # SPDX-FileCopyrightText: 2011, 2012 Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>
 # SPDX-FileCopyrightText: 2012, 2014 Rocio Gallego <traducciones@rociogallego.com>
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-01 00:47+0000\n"
-"PO-Revision-Date: 2026-04-14 22:44+0100\n"
+"PO-Revision-Date: 2026-05-01 13:38+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.04.0\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -389,7 +389,7 @@ msgstr "Guardar y restaurar las conexiones en la sesión de Kate"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Activar tabla editable para exploración de datos"
 
 #: katesqlconfigpage.cpp:30
 #, kde-format
@@ -493,20 +493,16 @@ msgid "Background Color"
 msgstr "Color del fondo"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "Color del texto"
+msgstr "Color del texto cambiado"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "Color del fondo"
+msgstr "Color del fondo cambiado"
 
 #: outputstylewidget.cpp:49
 #, kde-format

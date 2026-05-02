@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-01 00:47+0000\n"
-"PO-Revision-Date: 2026-04-14 09:54+0200\n"
+"PO-Revision-Date: 2026-05-01 06:41+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -390,7 +390,7 @@ msgstr "Povezave shrani v in obnovi iz sej Kate"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Omogoči urejanje tabele za brskanje po podatkih"
 
 #: katesqlconfigpage.cpp:30
 #, kde-format
@@ -494,20 +494,16 @@ msgid "Background Color"
 msgstr "Barva ozadja"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "Barva besedila"
+msgstr "Spremenjena barva besedila"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "Barva ozadja"
+msgstr "Spremenjena barva ozadja"
 
 #: outputstylewidget.cpp:49
 #, kde-format

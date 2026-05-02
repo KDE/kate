@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-01 00:47+0000\n"
-"PO-Revision-Date: 2026-04-14 08:26+0300\n"
+"PO-Revision-Date: 2026-05-01 08:29+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -388,7 +388,7 @@ msgstr "Зберігати і відновлювати параметри з’�
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Увімкнути придатну до редагування таблицю для даних навігації"
 
 #: katesqlconfigpage.cpp:30
 #, kde-format
@@ -492,20 +492,16 @@ msgid "Background Color"
 msgstr "Колір тла"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "Колір тексту"
+msgstr "Змінений колір тексту"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "Колір тла"
+msgstr "Змінений колір тла"
 
 #: outputstylewidget.cpp:49
 #, kde-format

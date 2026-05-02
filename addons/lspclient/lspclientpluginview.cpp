@@ -2422,7 +2422,7 @@ public:
 
         // ensure that the requesteed file is actually open and that the range is valid
         // before actually trying to navigate to it.
-        if (KateApp::self()->documentManager()->findDocument(location.uri) != nullptr && location.range.isValid()) {
+        if (KTextEditor::Editor::instance()->application()->findUrl(location.uri) != nullptr && location.range.isValid()) {
             Utils::goToDocumentLocation(m_mainWindow, location.uri, location.range);
         }
     }

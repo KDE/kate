@@ -113,7 +113,7 @@
 ></term>
 <listitem>
 <para
->Bu, geçerli belgeyi kaydeder. Belge halihazırda kaydedilmişse kullanıcının izni istenmeden önceden kaydedilen dosyanın üzerine yazılır. Yeni bir belgenin ilk kaydı ise farklı kaydet iletişim kutusu (aşağıda açıklanmıştır) çağrılacaktır. </para>
+>Bu, geçerli belgeyi kaydeder. Belge hâlihazırda kaydedilmişse kullanıcının izni istenmeden önceden kaydedilen dosyanın üzerine yazılır. Yeni bir belgenin ilk kaydı ise farklı kaydet iletişim kutusu (aşağıda açıklanmıştır) çağrılacaktır. </para>
 </listitem>
 </varlistentry>
 

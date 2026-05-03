@@ -170,7 +170,7 @@
 <para
 >&kate;’i <parameter
 >ad</parameter
-> oturumuyla başlatır. Oturum halihazırda yoksa oluşturulur. Belirtilen oturumu çalıştıran bir &kate; örneği varsa belirtilen dosyalar bu örneğe yüklenir. </para>
+> oturumuyla başlatır. Oturum hâlihazırda yoksa oluşturulur. Belirtilen oturumu çalıştıran bir &kate; örneği varsa belirtilen dosyalar bu örneğe yüklenir. </para>
 </listitem>
 </varlistentry>
 
@@ -307,7 +307,7 @@
 ><para
 >Yeni bir &kate; örneğinin başlatılmasını zorla (<option
 >start</option
-> kullanılırsa ve verilen oturum başka bir &kate; örneğinde halihazırda açıksa yok sayılır), hiçbir parametre ve hiçbir URL belirtilmemişse zorlanır.</para
+> kullanılırsa ve verilen oturum başka bir &kate; örneğinde hâlihazırda açıksa yok sayılır), hiçbir parametre ve hiçbir URL belirtilmemişse zorlanır.</para
 ></listitem>
 </varlistentry>
 
@@ -324,7 +324,7 @@
 ></term>
 <listitem
 ><para
->Halihazırda çalışan bir &kate; örneği kullanıyorsanız URL’ler açılmaları için verilmişse çıkana kadar engelleyin.</para>
+>Hâlihazırda çalışan bir &kate; örneği kullanıyorsanız URL’ler açılmaları için verilmişse çıkana kadar engelleyin.</para>
 <para
 >Bu seçenekle, &git; veya <application
 >Subversion</application
@@ -956,7 +956,7 @@ action="simul"
 <para
 >Öntanımlı olarak, süzme sırasında yalnızca dosya adı eşleştirilir. Yolu eşleştirmek isterseniz yazılan metinde bir "/" olmalıdır. Örneğin: "belge/indeks", "belge" klasöründe "indeks" içeren tüm belgelerle eşleşecektir. </para>
 <para
->Halihazırda açık olan belgeler kalın harflerle vurgulanır ve iletişim kutusu açıldığında en üstte listelenir. Ayrıca, Tez Aç görüntülendiğinde önceki açık belge halihazırda seçilidir, böylece yalnızca &Enter; düğmesine basabilirsiniz ve bu sizi o belgeye götürecektir. </para>
+>hâlihazırda açık olan belgeler kalın harflerle vurgulanır ve iletişim kutusu açıldığında en üstte listelenir. Ayrıca, Tez Aç görüntülendiğinde önceki açık belge hâlihazırda seçilidir, böylece yalnızca &Enter; düğmesine basabilirsiniz ve bu sizi o belgeye götürecektir. </para>
 
 </sect2>
 

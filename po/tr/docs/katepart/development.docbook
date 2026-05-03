@@ -216,7 +216,7 @@
 <para
 ><acronym
 >XSD</acronym
-> olarak da bilinen resmi tanım, <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
+> olarak da bilinen resmî tanım, <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
 >Sözdizim Vurgulama</ulink
 > deposundaki <filename
 >language.xsd</filename
@@ -944,7 +944,7 @@
 >Kullanılabilir Öntanımlı Biçemler</title>
 <para
 >Öntanımlı Biçemler daha önce <link linkend="kate-highlight-system-default-styles"
->halihazırda kısa bir özet olarak</link
+>hâlihazırda kısa bir özet olarak</link
 > açıklammıştı: Öntanımlı biçemler, önceden tanımlanan yazıtipi ve renk biçemleridir.</para>
 <variablelist>
 <varlistentry>
@@ -5594,7 +5594,7 @@ require ("range.js");
 > gibi davranırlar. </para>
 
 <para
->Çeviri işlevleri, sarılmış dizileri &kde;’nin çeviri sistemi aracılığıyla uygulamada kullanılan dile çevirir. Resmi &kappname; kaynaklarında geliştirilen komut dosyalarındaki dizeler otomatik olarak çıkarılır ve çevrilebilir. Başka bir deyişle, bir &kappname; geliştiricisi olarak ileti çıkarma ve çeviri ile uğraşmanıza gerek yoktur. Bununla birlikte, çevirinin yalnızca &kde; altyapısı içinde çalıştığını, yani &kde; dışında geliştirilen 3. taraf betiklerdeki yeni dizilerin çevrilmediğini de belirtmek gerekir. Bu nedenle, doğru çevirinin olabilmesi için lütfen betiklerinizle &kate;’e katkıda bulunmayı düşünün. </para>
+>Çeviri işlevleri, sarılmış dizileri &kde;’nin çeviri sistemi aracılığıyla uygulamada kullanılan dile çevirir. Resmî &kappname; kaynaklarında geliştirilen komut dosyalarındaki dizeler otomatik olarak çıkarılır ve çevrilebilir. Başka bir deyişle, bir &kappname; geliştiricisi olarak ileti çıkarma ve çeviri ile uğraşmanıza gerek yoktur. Bununla birlikte, çevirinin yalnızca &kde; altyapısı içinde çalıştığını, yani &kde; dışında geliştirilen 3. taraf betiklerdeki yeni dizilerin çevrilmediğini de belirtmek gerekir. Bu nedenle, doğru çevirinin olabilmesi için lütfen betiklerinizle &kate;’e katkıda bulunmayı düşünün. </para>
 
 <variablelist
 ><varlistentry>

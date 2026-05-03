@@ -1885,7 +1885,7 @@
 <title
 >Giriş</title>
 <para
->Eklenti, halihazırda düzenlenen metin belgesinin kenar çubuğunda son biçiminin canlı önizlemesini sağlar. Örneğin, bir &Markdown; metni veya &SVG; görseli düzenlerken, çıktı, kaynak metnin yanında anında görünür. </para>
+>Eklenti, hâlihazırda düzenlenen metin belgesinin kenar çubuğunda son biçiminin canlı önizlemesini sağlar. Örneğin, bir &Markdown; metni veya &SVG; görseli düzenlerken, çıktı, kaynak metnin yanında anında görünür. </para>
 
 <para
 >Görüntüleme için eklenti, şu anda belgenin &MIME; türü için tercih edilen olarak seçili &kparts; eklentisini kullanır. Bu tür için &kparts; eklentisi yoksa önizleme olanaklı değildir. </para>
@@ -3441,7 +3441,7 @@ folder if possible.</para
 > dosyası için tarar. Bulunursa proje kendiliğinden yüklenir.</para>
 
 <para
->Ayrıca &kate;’de başka bir projeye ait başka bir belge açarsanız proje eklentisi kendiliğinden geçerli projeye geçiş yapar. Yani sezgisel olarak her zaman doğru proje etkindir. Tabii ki, halihazırda etkin olan projeyi açılır kutuyu kullanarak da değiştirebilirsiniz.</para>
+>Ayrıca &kate;’de başka bir projeye ait başka bir belge açarsanız proje eklentisi kendiliğinden geçerli projeye geçiş yapar. Yani sezgisel olarak her zaman doğru proje etkindir. Tabii ki, hâlihazırda etkin olan projeyi açılır kutuyu kullanarak da değiştirebilirsiniz.</para>
 
 </sect2>
 
@@ -4593,7 +4593,7 @@ exec myserver
                 "exec": { "hostname": "foobar" },
                 // bu sunucuyu bu proje köküne sınırlandırın ki
                 // açılan başka projeler tarafından kullanılamasın
-                // (başka sunucular halihazırda belirli kökler kullanabilir;
+                // (başka sunucular hâlihazırda belirli kökler kullanabilir;
                 // ancak Python genelde kullanmaz)
                 "root": "."
             },
@@ -6987,7 +6987,7 @@ VALUES ("<replaceable
 
 <para
 >&XML; hakkında daha fazla bilgi için <ulink url="https://www.w3.org/XML/"
->resmi W3C &XML; sayfalarına</ulink
+>resmî W3C &XML; sayfalarına</ulink
 > bir bakın.</para>
 
 <para

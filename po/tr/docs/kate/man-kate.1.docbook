@@ -158,7 +158,7 @@
 ><para
 >Yeni bir &kate; örneğinin başlatılmasını zorla (<option
 >start</option
-> kullanılmışsa ve başka bir &kate; örneği verilen oturumu halihazırda açmışsa yok sayılır), herhangi bir URL veya parametre verilmemişse bu zorlanır.</para
+> kullanılmışsa ve başka bir &kate; örneği verilen oturumu hâlihazırda açmışsa yok sayılır), herhangi bir URL veya parametre verilmemişse bu zorlanır.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -170,7 +170,7 @@
 ></term>
 <listitem
 ><para
->Açmak için URL’ler verilmişse ve halihazırda çalışan bir &kate; örneği kullanılıyorsa o çıkana kadar engelle.</para
+>Açmak için URL’ler verilmişse ve hâlihazırda çalışan bir &kate; örneği kullanılıyorsa o çıkana kadar engelle.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -186,7 +186,7 @@
 >pid</replaceable
 > ile yeniden kullanmaya çalış (<option
 >start</option
-> kullanılmışsa ve başka bir &kate; örneği verilen oturumu halihazırda açmışsa yok sayılır).</para
+> kullanılmışsa ve başka bir &kate; örneği verilen oturumu hâlihazırda açmışsa yok sayılır).</para
 ></listitem>
 </varlistentry>
 <varlistentry>

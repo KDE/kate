@@ -5,16 +5,24 @@
 */
 
 #include "schemawidget.h"
+#include "helpers/databaseconfigserializinghelper.h"
+#include "helpers/enumhelper.h"
+#include "helpers/foreignkeyhelper.h"
 #include "katesqlconstants.h"
 #include "sqlmanager.h"
 
 #include <KConfigGroup>
 #include <KLocalizedString>
+#include <KMessageBox>
 #include <KSharedConfig>
+#include <kmessagebox.h>
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/view.h>
+
+#include <QJsonDocument>
+#include <QJsonObject>
 
 #include <QApplication>
 #include <QDrag>
@@ -26,10 +34,14 @@
 #include <QSqlIndex>
 #include <QSqlRecord>
 #include <QStringList>
+#include <qcontainerfwd.h>
+#include <qdir.h>
 
 SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
     : QTreeWidget(parent)
     , m_manager(manager)
+    , m_columnToForeignKeysMap()
+    , m_tableToDisplayColumnMap()
 {
     m_tablesLoaded = false;
     m_viewsLoaded = false;
@@ -47,7 +59,7 @@ SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
 
 SchemaWidget::~SchemaWidget() = default;
 
-bool SchemaWidget::isConnectionValidAndOpen()
+bool SchemaWidget::isConnectionValidAndOpen() const
 {
     return m_manager->isValidAndOpen(m_connectionName);
 }
@@ -71,12 +83,20 @@ void SchemaWidget::buildTree(const QString &connection)
     m_viewsLoaded = false;
 
     if (!m_connectionName.isEmpty()) {
+        loadForeignKeys();
         buildDatabase(new QTreeWidgetItem(this));
     }
 }
 
 void SchemaWidget::refresh()
 {
+    // Force a live re-query of foreign keys and enums, and update the cache
+    if (!m_connectionName.isEmpty() && isConnectionValidAndOpen()) {
+        KConfigGroup fkConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseForeignKeysGroup);
+        DatabaseConfigSerializerHelper::removeForeignKeys(fkConfig, m_connectionName);
+        KConfigGroup enumConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseEnumsGroup);
+        DatabaseConfigSerializerHelper::removeEnums(enumConfig, m_connectionName);
+    }
     buildTree(m_connectionName);
 }
 
@@ -407,7 +427,11 @@ void SchemaWidget::browseData()
         config.readEntry(KateSQLConstants::Config::EnableEditableTable, KateSQLConstants::Config::DefaultValues::EnableEditableTable);
 
     if (enableEditableTable) {
-        m_manager->runEditableQuery(tableName, m_connectionName);
+        if (canUseRelationalModel(tableName)) {
+            m_manager->runEditableRelationalQuery(tableName, m_connectionName, m_columnToForeignKeysMap, m_tableToDisplayColumnMap);
+        } else {
+            m_manager->runEditableQuery(tableName, m_connectionName, m_tableToDisplayColumnMap);
+        }
     } else {
         executeStatement(QSqlDriver::StatementType::SelectStatement);
     }
@@ -436,4 +460,213 @@ void SchemaWidget::generateInsertIntoView()
 void SchemaWidget::generateDeleteIntoView()
 {
     generateAndPasteStatement(QSqlDriver::DeleteStatement);
+}
+
+bool SchemaWidget::isRelationalTablesEnabled() const
+{
+    const KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
+    return config.readEntry(KateSQLConstants::Config::EnableEditableRelationalTable, false);
+}
+
+void SchemaWidget::reloadDisplayColumnMap(const QString &tableName, const QString &columnName)
+{
+    if (!isConnectionValidAndOpen()) {
+        return;
+    }
+
+    m_tableToDisplayColumnMap[tableName] = columnName;
+
+    // Persist the full map to config
+    KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseDisplayColumnsGroup);
+    DatabaseConfigSerializerHelper::writeTableToDisplayColumnMap(config, m_connectionName, m_tableToDisplayColumnMap);
+}
+
+void SchemaWidget::loadForeignKeys()
+{
+    if (!isConnectionValidAndOpen()) {
+        m_columnToForeignKeysMap.clear();
+        m_columnToEnumsMap.clear();
+        m_tableToDisplayColumnMap.clear();
+        return;
+    }
+
+    m_columnToForeignKeysMap.clear();
+    if (isRelationalTablesEnabled()) {
+        KConfigGroup fkConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseForeignKeysGroup);
+
+        // Try to read from cache first to avoid hitting the database on every buildTree()
+        if (DatabaseConfigSerializerHelper::hasForeignKeys(fkConfig, m_connectionName)) {
+            m_columnToForeignKeysMap = DatabaseConfigSerializerHelper::readForeignKeys(fkConfig, m_connectionName);
+        }
+
+        // If cache was empty or missing, query the live database
+        if (m_columnToForeignKeysMap.isEmpty()) {
+            QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+            m_columnToForeignKeysMap = ForeignKeyHelper::getForeignKeys(db);
+
+            if (!m_columnToForeignKeysMap.isEmpty()) {
+                DatabaseConfigSerializerHelper::writeForeignKeys(fkConfig, m_connectionName, m_columnToForeignKeysMap);
+            }
+        }
+    }
+
+    // Load enum column values
+    loadEnums();
+
+    // Fill display column map after updating foreign keys
+    fillTableToColumnMap();
+}
+
+void SchemaWidget::loadEnums()
+{
+    if (!isConnectionValidAndOpen()) {
+        m_columnToEnumsMap.clear();
+        return;
+    }
+
+    m_columnToEnumsMap.clear();
+
+    KConfigGroup enumConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseEnumsGroup);
+
+    // Try to read from cache first to avoid hitting the database on every buildTree()
+    if (DatabaseConfigSerializerHelper::hasEnums(enumConfig, m_connectionName)) {
+        m_columnToEnumsMap = DatabaseConfigSerializerHelper::readEnums(enumConfig, m_connectionName);
+    }
+
+    // If cache was empty or missing, query the live database
+    if (m_columnToEnumsMap.isEmpty()) {
+        QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+        m_columnToEnumsMap = EnumHelper::getEnums(db);
+
+        if (!m_columnToEnumsMap.isEmpty()) {
+            DatabaseConfigSerializerHelper::writeEnums(enumConfig, m_connectionName, m_columnToEnumsMap);
+        }
+    }
+}
+
+void SchemaWidget::fillTableToColumnMap()
+{
+    if (!isConnectionValidAndOpen() || m_columnToForeignKeysMap.isEmpty()) {
+        m_tableToDisplayColumnMap.clear();
+        return;
+    }
+
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+
+    // Collect all referenced tables from foreign key relationships
+    QSet<QString> referencedTables;
+    for (const auto &columnFks : std::as_const(m_columnToForeignKeysMap)) {
+        for (const auto &ref : columnFks) {
+            referencedTables.insert(ref.first);
+        }
+    }
+
+    // Load persisted mappings as fallback for tables not yet in memory
+    KConfigGroup dcConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseDisplayColumnsGroup);
+    const QMap<QString, QString> persisted = DatabaseConfigSerializerHelper::readTableToDisplayColumnMap(dcConfig, m_connectionName);
+
+    bool schemaChanged = false;
+
+    for (const QString &refTable : std::as_const(referencedTables)) {
+        // Already resolved in-memory (from a prior run or user selection)
+        if (m_tableToDisplayColumnMap.contains(refTable)) {
+            continue;
+        }
+
+        // Previously persisted to config
+        if (persisted.contains(refTable)) {
+            m_tableToDisplayColumnMap[refTable] = persisted[refTable];
+            continue;
+        }
+
+        // Auto-detect a display column
+        schemaChanged = true;
+        QString displayColumn;
+
+        QSqlRecord tableRecord = db.record(refTable);
+        static const QStringList keywords = {
+            QStringLiteral("name"),
+            QStringLiteral("title"),
+            QStringLiteral("label"),
+            QStringLiteral("display"),
+            QStringLiteral("description"),
+        };
+
+        for (int i = 0; i < tableRecord.count(); ++i) {
+            const QString fieldName = tableRecord.fieldName(i).toLower();
+            for (const QString &keyword : keywords) {
+                if (fieldName.contains(keyword)) {
+                    displayColumn = tableRecord.fieldName(i);
+                    break;
+                }
+            }
+            if (!displayColumn.isEmpty()) {
+                break;
+            }
+        }
+
+        if (displayColumn.isEmpty()) {
+            QSqlIndex pk = db.primaryIndex(refTable);
+            if (pk.count() > 0) {
+                displayColumn = pk.fieldName(0);
+            } else if (tableRecord.count() > 0) {
+                displayColumn = tableRecord.fieldName(0);
+            }
+        }
+
+        m_tableToDisplayColumnMap[refTable] = displayColumn;
+    }
+
+    if (schemaChanged) {
+        DatabaseConfigSerializerHelper::writeTableToDisplayColumnMap(dcConfig, m_connectionName, m_tableToDisplayColumnMap);
+    }
+}
+
+bool SchemaWidget::canUseRelationalModel(const QString &tableName) const
+{
+    if (!isConnectionValidAndOpen()) {
+        return false;
+    }
+
+    // // convert to json recursively for debugging
+    // QJsonObject debugObj;
+    // for (auto tableIt = m_columnToForeignKeysMap.cbegin(); tableIt != m_columnToForeignKeysMap.cend(); ++tableIt) {
+    //     QJsonObject tableObj;
+    //     for (auto colIt = tableIt->cbegin(); colIt != tableIt->cend(); ++colIt) {
+    //         QJsonObject refObj;
+    //         tableObj[colIt->first] = colIt->second;
+    //     }
+    //     debugObj[tableIt.key()] = tableObj;
+    // }
+    // const auto json = QJsonDocument(debugObj);
+    // KMessageBox::information(nullptr, QString::fromStdString(json.toJson().toStdString()));
+
+    // KMessageBox::information(nullptr, tableName, i18n("Table Name"));
+
+    // Check if table has foreign keys
+    if (!m_columnToForeignKeysMap.contains(tableName) || m_columnToForeignKeysMap.value(tableName).isEmpty()) {
+        // KMessageBox::information(nullptr, i18n("Table has no foreign keys"));
+        return false;
+    }
+
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    // Check if table has a primary key
+    QSqlIndex pk = db.primaryIndex(tableName);
+    if (pk.isEmpty()) {
+        // KMessageBox::error(nullptr, i18n("Table has no primary key"), i18n("Error"));
+        return false;
+    }
+
+    // Check if primary key contains a relation to another table
+    const ColumnForeignKeys tableFks = m_columnToForeignKeysMap.value(tableName);
+    for (int i = 0; i < pk.count(); ++i) {
+        const QString pkField = pk.fieldName(i);
+        if (tableFks.contains(pkField)) {
+            // KMessageBox::error(nullptr, i18n("Table primary key is a foreign key"), i18n("Error"));
+            // Primary key column has a foreign key - not supported by QSqlRelationalTableModel
+            return false;
+        }
+    }
+
+    return true;
 }

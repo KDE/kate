@@ -5,17 +5,25 @@
 */
 
 #include "dataoutputwidget.h"
-#include "dataoutputeditablemodel.h"
-#include "dataoutputmodel.h"
-#include "dataoutputmodelinterface.h"
-#include "dataoutputstylehelper.h"
+#include "dataoutput/columndelegates/booleandelegate.h"
+#include "dataoutput/columndelegates/datedelegate.h"
+#include "dataoutput/columndelegates/datetimedelegate.h"
+#include "dataoutput/columndelegates/enumdelegate.h"
+#include "dataoutput/dataoutputeditablerelationalmodel.h"
+#include "dataoutput/dataoutputmodel.h"
+#include "dataoutput/dataoutputmodelinterface.h"
 #include "dataoutputview.h"
 #include "exportwizard.h"
+#include "helpers/databaseconfigserializinghelper.h"
+#include "helpers/dataoutputstylehelper.h"
+#include "helpers/enumhelper.h"
 #include "katesqlconstants.h"
 
 #include <algorithm>
 
+#include <KConfigGroup>
 #include <KMessageBox>
+#include <KSharedConfig>
 #include <KTextEditor/Application>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
@@ -51,12 +59,20 @@
 #include <QSqlIndex>
 #include <QSqlQuery>
 #include <QSqlRecord>
+#include <QSqlRelationalDelegate>
 #include <QSqlTableModel>
 #include <QStyle>
+#include <QStyledItemDelegate>
 #include <QTextStream>
 #include <QTime>
 #include <QTimer>
 #include <QtTypes>
+#include <kmessagebox.h>
+#include <qdir.h>
+#include <qlatin1stringview.h>
+#include <qlist.h>
+#include <qmap.h>
+#include <qsqldatabase.h>
 
 DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCollection)
     : QWidget(parent)
@@ -68,8 +84,9 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     , m_editableOnlyRightClickActions(QList<QAction *>(qsizetype(
           7))) // change once we have more than insertRowAction + duplicateRowAction + removeRowAction + setNullAction + undoAction + pasteAction + saveAction
 {
-    readConfig();
     m_view->setModel(nullptr);
+
+    connect(m_view, &DataOutputView::contextMenuAboutToShow, this, &DataOutputWidget::slotUpdateMakeColumnPresentableAction);
 
     auto *layout = new QHBoxLayout(this);
     m_dataLayout = new QVBoxLayout();
@@ -92,7 +109,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     refreshAction->setText(i18nc("@action:intoolbar", "Refresh"));
     refreshAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ViewRefresh));
     refreshAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    KActionCollection::setDefaultShortcut(refreshAction, Qt::CTRL | Qt::Key_R);
+    // KActionCollection::setDefaultShortcut(refreshAction, Qt::CTRL | Qt::Key_R);
     connect(refreshAction, &QAction::triggered, this, &DataOutputWidget::slotRefresh);
     m_verticalToolbar->addAction(refreshAction);
     m_view->addAction(refreshAction);
@@ -121,7 +138,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     action->setText(i18nc("@action:intoolbar", "Copy"));
     action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy));
     action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    KActionCollection::setDefaultShortcut(action, Qt::CTRL | Qt::Key_C);
+    // KActionCollection::setDefaultShortcut(action, Qt::CTRL | Qt::Key_C);
     connect(action, &QAction::triggered, this, &DataOutputWidget::slotCopySelected);
     m_verticalToolbar->insertAction(resizeColumnsAction, action);
     m_view->addAction(action);
@@ -155,7 +172,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     pasteAction->setText(i18nc("@action:intoolbar", "Paste"));
     pasteAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditPaste));
     pasteAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    KActionCollection::setDefaultShortcut(pasteAction, Qt::CTRL | Qt::Key_V);
+    // KActionCollection::setDefaultShortcut(pasteAction, Qt::CTRL | Qt::Key_V);
     connect(pasteAction, &QAction::triggered, this, &DataOutputWidget::slotPaste);
     m_editableOnlyRightClickActions.push_back(pasteAction);
     m_editableToolbar->addAction(pasteAction);
@@ -165,7 +182,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     setNullAction->setText(i18nc("@action:intoolbar", "Set Null"));
     setNullAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentRevert));
     setNullAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    KActionCollection::setDefaultShortcut(setNullAction, Qt::CTRL | Qt::SHIFT | Qt::Key_X);
+    // KActionCollection::setDefaultShortcut(setNullAction, Qt::CTRL | Qt::SHIFT | Qt::Key_X);
     connect(setNullAction, &QAction::triggered, this, &DataOutputWidget::slotSetNull);
     m_editableOnlyRightClickActions.push_back(setNullAction);
     m_editableToolbar->addAction(setNullAction);
@@ -175,7 +192,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     insertRowAction->setText(i18nc("@action:intoolbar", "Insert Row"));
     insertRowAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ListAdd));
     insertRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    KActionCollection::setDefaultShortcut(insertRowAction, Qt::ALT | Qt::Key_Insert);
+    // KActionCollection::setDefaultShortcut(insertRowAction, Qt::ALT | Qt::Key_Insert);
     connect(insertRowAction, &QAction::triggered, this, &DataOutputWidget::slotInsertRow);
     m_editableOnlyRightClickActions.push_back(insertRowAction);
     m_editableToolbar->addAction(insertRowAction);
@@ -185,7 +202,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     removeRowAction->setText(i18nc("@action:intoolbar", "Remove Selected Rows"));
     removeRowAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ListRemove));
     removeRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    KActionCollection::setDefaultShortcut(removeRowAction, Qt::Key_Delete);
+    // KActionCollection::setDefaultShortcut(removeRowAction, Qt::Key_Delete);
     connect(removeRowAction, &QAction::triggered, this, &DataOutputWidget::slotRemoveSelectedRows);
     m_editableOnlyRightClickActions.push_back(removeRowAction);
     m_editableToolbar->addAction(removeRowAction);
@@ -195,7 +212,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     duplicateRowAction->setText(i18nc("@action:intoolbar", "Duplicate Selected Rows"));
     duplicateRowAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy));
     duplicateRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    KActionCollection::setDefaultShortcut(duplicateRowAction, Qt::CTRL | Qt::Key_D);
+    // KActionCollection::setDefaultShortcut(duplicateRowAction, Qt::CTRL | Qt::Key_D);
     connect(duplicateRowAction, &QAction::triggered, this, &DataOutputWidget::slotDuplicateRows);
     m_editableOnlyRightClickActions.push_back(duplicateRowAction);
     m_editableToolbar->addAction(duplicateRowAction);
@@ -205,7 +222,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     undoAction->setText(i18nc("@action:intoolbar", "Undo"));
     undoAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditUndo));
     undoAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    KActionCollection::setDefaultShortcut(undoAction, Qt::CTRL | Qt::Key_Z);
+    // KActionCollection::setDefaultShortcut(undoAction, Qt::CTRL | Qt::Key_Z);
     connect(undoAction, &QAction::triggered, this, &DataOutputWidget::slotUndo);
     m_editableOnlyRightClickActions.push_back(undoAction);
     m_editableToolbar->addAction(undoAction);
@@ -215,11 +232,17 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     saveAction->setText(i18nc("@action:intoolbar", "Save"));
     saveAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentSave));
     saveAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    KActionCollection::setDefaultShortcut(saveAction, Qt::CTRL | Qt::Key_S);
+    // KActionCollection::setDefaultShortcut(saveAction, Qt::CTRL | Qt::Key_S);
     connect(saveAction, &QAction::triggered, this, &DataOutputWidget::slotSave);
     m_editableOnlyRightClickActions.push_back(saveAction);
     m_editableToolbar->addAction(saveAction);
     addAction(saveAction);
+
+    m_makeColumnPresentableAction = m_actionCollection->addAction(QStringLiteral("data_make_column_presentable"));
+    m_makeColumnPresentableAction->setText(i18nc("@action:intoolbar", "Make this column presentable for relatied tables"));
+    m_makeColumnPresentableAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::FormatIndentMore));
+    connect(m_makeColumnPresentableAction, &QAction::triggered, this, &DataOutputWidget::slotMakeColumnPresentable);
+    m_view->addAction(m_makeColumnPresentableAction);
 
     // Separator between sections
     auto *separator = new QFrame(this);
@@ -254,6 +277,8 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     layout->setContentsMargins(0, 0, 0, 0);
 
     setLayout(layout);
+
+    readConfig();
     adjustToEditableStateChange();
 }
 
@@ -280,10 +305,99 @@ void DataOutputWidget::adjustToEditableStateChange()
             action->setEnabled(m_isEditable);
         }
     }
+
+    m_makeColumnPresentableAction->setEnabled(m_relationalTablesEnabled);
+
+    m_makeColumnPresentableAction->setVisible(m_relationalTablesEnabled);
+
+    if (m_relationalTablesEnabled && m_model) {
+        const auto table = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+        if (table) {
+            const auto column = m_tableToDisplayColumnMap.value(table->tableName());
+            if (column.isEmpty()) {
+                m_currentPresentableColumn = 0;
+            } else {
+                m_currentPresentableColumn = table->fieldIndex(column);
+            }
+        }
+    }
+    setupColumnDelegates();
 }
 
-void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
+void DataOutputWidget::setupColumnDelegates()
 {
+    if (!m_model || m_connectionName.isEmpty()) {
+        return;
+    }
+
+    auto *model = abstractModel();
+
+    // Remove and delete old per-column delegates
+    for (int col = 0; col < model->columnCount(); ++col) {
+        if (auto *oldDelegate = m_view->itemDelegateForColumn(col)) {
+            m_view->setItemDelegateForColumn(col, nullptr);
+            oldDelegate->deleteLater();
+        }
+    }
+
+    auto *sqlTableModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+
+    if (!sqlTableModel) {
+        return;
+    }
+
+    const auto rec = sqlTableModel->record();
+
+    // Load enum column values from config cache for the current table
+    TableEnums columnEnums;
+    const QString tableName = sqlTableModel->tableName();
+    if (!tableName.isEmpty()) {
+        KConfigGroup enumConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseEnumsGroup);
+        if (DatabaseConfigSerializerHelper::hasEnums(enumConfig, m_connectionName)) {
+            const DatabaseEnums dbEnums = DatabaseConfigSerializerHelper::readEnums(enumConfig, m_connectionName);
+            columnEnums = dbEnums.value(tableName);
+        }
+    }
+
+    const auto relationalModel = qobject_cast<DataOutputEditableRelationalModel *>(m_model->asQObject());
+
+    for (int col = 0; col < model->columnCount() && col < rec.count(); ++col) {
+        const auto field = rec.field(col);
+
+        // Only set QSqlRelationalDelegate for columns that actually have a
+        // relation defined in the relational model. Do not override delegates
+        // for other columns.
+        if (relationalModel && relationalModel->relation(col).isValid()) {
+            m_view->setItemDelegateForColumn(col, new QSqlRelationalDelegate(m_view));
+            continue;
+        }
+
+        // Check if this column has enum values
+        const QString fieldName = rec.fieldName(col);
+        if (columnEnums.contains(fieldName)) {
+            m_view->setItemDelegateForColumn(col, new EnumDelegate(columnEnums.value(fieldName), m_view));
+            continue;
+        }
+
+        switch (field.metaType().id()) {
+        case QMetaType::Bool:
+            m_view->setItemDelegateForColumn(col, new BooleanDelegate(m_view));
+            break;
+        case QMetaType::QDate:
+            m_view->setItemDelegateForColumn(col, new DateDelegate(m_view));
+            break;
+        case QMetaType::QDateTime:
+            m_view->setItemDelegateForColumn(col, new DateTimeDelegate(m_view));
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void DataOutputWidget::showQueryResultSets(QSqlQuery &query, const QString &connectionName)
+{
+    m_connectionName = connectionName;
     /// TODO: loop resultsets if > 1
     /// NOTE from Qt Documentation:
     /// When one of the statements is a non-select statement a count of affected rows
@@ -298,10 +412,12 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
     }
 
     // If we didnt clean up table model, delete it
-    auto *tableModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
-    if (tableModel) {
-        delete m_model;
-        m_model = nullptr;
+    if (m_model) {
+        auto *tableModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+        if (tableModel) {
+            delete m_model;
+            m_model = nullptr;
+        }
     }
 
     // if model is now or was null, create a new DataOutputModel
@@ -324,11 +440,13 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
     raise();
 }
 
-void DataOutputWidget::showEditableTable(DataOutputModelInterface *model)
+void DataOutputWidget::showEditableTable(DataOutputModelInterface *model, const QString &connectionName, const QMap<QString, QString> &tableToDisplayColumnMap)
 {
     if (!model) {
         return;
     }
+    m_connectionName = connectionName;
+    m_tableToDisplayColumnMap = tableToDisplayColumnMap;
 
     m_view->addActions(m_editableOnlyRightClickActions);
 
@@ -340,11 +458,12 @@ void DataOutputWidget::showEditableTable(DataOutputModelInterface *model)
     m_model = model;
     abstractModel()->setParent(this);
 
+    m_model->setStyleHelper(&m_styleHelper);
+
     // Set the shared style helper and autocompleter
-    auto *editableModel = qobject_cast<DataOutputEditableModel *>(m_model->asQObject());
+    auto *editableModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
     if (editableModel) {
-        editableModel->setStyleHelper(&m_styleHelper);
-        editableModel->setEditStrategy(DataOutputEditableModel::EditStrategy::OnManualSubmit);
+        editableModel->setEditStrategy(QSqlTableModel::EditStrategy::OnManualSubmit);
 
         if (m_filterInput->completer()) {
             m_filterInput->completer()->deleteLater();
@@ -365,7 +484,7 @@ void DataOutputWidget::showEditableTable(DataOutputModelInterface *model)
         m_filterInput->setCompleter(completer);
     }
 
-    m_view->setModel(static_cast<QAbstractItemModel *>(m_model->asQObject()));
+    m_view->setModel(abstractModel());
 
     m_isEditable = true;
 
@@ -400,6 +519,13 @@ void DataOutputWidget::clearResults()
 void DataOutputWidget::readConfig()
 {
     m_styleHelper.readConfig();
+
+    const KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
+    m_relationalTablesEnabled = config.readEntry(KateSQLConstants::Config::EnableEditableRelationalTable, false);
+
+    if (m_makeColumnPresentableAction) {
+        m_makeColumnPresentableAction->setVisible(m_relationalTablesEnabled);
+    }
 }
 
 void DataOutputWidget::resizeColumnsToContents()
@@ -545,6 +671,10 @@ void DataOutputWidget::slotExport()
 void DataOutputWidget::slotSave()
 {
     m_view->commitCurrentEditorData();
+
+    if (!m_model) {
+        return;
+    }
 
     auto *tableModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
     if (!tableModel) {
@@ -959,6 +1089,51 @@ void DataOutputWidget::slotPaste()
                KateSQLConstants::Export::DefaultValues::QuoteStringCharForCopyPaste,
                KateSQLConstants::Export::DefaultValues::FieldDelimiterForCopyPaste,
                KateSQLConstants::Export::DefaultValues::LineDelimiterForCopyPaste);
+}
+
+void DataOutputWidget::slotUpdateMakeColumnPresentableAction(const QPoint &pos, int column)
+{
+    Q_UNUSED(pos);
+
+    if (!m_makeColumnPresentableAction) {
+        return;
+    }
+
+    // Check if this column can have a relation set up
+    m_makeColumnPresentableAction->setEnabled(m_currentPresentableColumn != column);
+}
+
+void DataOutputWidget::slotMakeColumnPresentable()
+{
+    if (!m_model || !m_isEditable) {
+        return;
+    }
+
+    auto *editableModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+    if (!editableModel) {
+        return;
+    }
+
+    // Get the current column from the selection
+    const QModelIndex currentIndex = m_view->currentIndex();
+    if (!currentIndex.isValid()) {
+        return;
+    }
+
+    const int column = currentIndex.column();
+
+    if (m_currentPresentableColumn == column) {
+        return;
+    }
+
+    m_currentPresentableColumn = column;
+
+    const QString columnName = editableModel->record().fieldName(column);
+    const QString tableName = editableModel->tableName();
+
+    m_tableToDisplayColumnMap[tableName] = columnName;
+
+    Q_EMIT displayColumnMapChanged(tableName, columnName);
 }
 
 #include "moc_dataoutputwidget.cpp"

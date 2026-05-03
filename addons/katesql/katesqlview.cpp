@@ -7,7 +7,8 @@
 #include "katesqlview.h"
 #include "connectionmodel.h"
 #include "connectionwizard.h"
-#include "dataoutputeditablemodel.h"
+#include "dataoutput/dataoutputeditablemodel.h"
+#include "dataoutput/dataoutputmodelinterface.h"
 #include "dataoutputwidget.h"
 #include "katesqlconstants.h"
 #include "outputwidget.h"
@@ -82,10 +83,16 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
     connect(m_manager, &SQLManager::success, this, &KateSQLView::slotSuccess);
     connect(m_manager, &SQLManager::queryActivated, this, &KateSQLView::slotQueryActivated);
     connect(m_manager, &SQLManager::editableQueryActivated, this, &KateSQLView::slotEditableQueryActivated);
+    connect(m_manager, &SQLManager::editableRelationalQueryActivated, this, &KateSQLView::slotEditableRelationalQueryActivated);
     connect(m_manager, &SQLManager::connectionCreated, this, &KateSQLView::slotConnectionCreated);
     connect(m_manager, &SQLManager::connectionAboutToBeClosed, this, &KateSQLView::slotConnectionAboutToBeClosed);
     connect(m_connectionsComboBox, &QComboBox::currentIndexChanged, this, &KateSQLView::slotConnectionChanged);
     connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, &KateSQLView::slotGlobalSettingsChanged);
+
+    connect(m_outputWidget->dataOutputWidget(),
+            &DataOutputWidget::displayColumnMapChanged,
+            m_schemaBrowserWidget->schemaWidget(),
+            &SchemaWidget::reloadDisplayColumnMap);
 
     stateChanged(StateHasConnectionSelected, KXMLGUIClient::StateReverse);
 }
@@ -339,13 +346,13 @@ void KateSQLView::slotQueryActivated(QSqlQuery &query, const QString &connection
     if (query.isSelect()) {
         m_currentResultsetConnection = connection;
 
-        m_outputWidget->dataOutputWidget()->showQueryResultSets(query);
+        m_outputWidget->dataOutputWidget()->showQueryResultSets(query, connection);
         m_outputWidget->setCurrentWidget(m_outputWidget->dataOutputWidget());
         m_mainWindow->showToolView(m_outputToolView);
     }
 }
 
-void KateSQLView::slotEditableQueryActivated(DataOutputEditableModel *model, const QString &connection)
+void KateSQLView::slotEditableQueryActivated(DataOutputEditableModel *model, const QString &connection, const QMap<QString, QString> &displayColumns)
 {
     if (!model) {
         return;
@@ -353,7 +360,20 @@ void KateSQLView::slotEditableQueryActivated(DataOutputEditableModel *model, con
 
     m_currentResultsetConnection = connection;
 
-    m_outputWidget->dataOutputWidget()->showEditableTable(model);
+    m_outputWidget->dataOutputWidget()->showEditableTable(model, connection, displayColumns);
+    m_outputWidget->setCurrentWidget(m_outputWidget->dataOutputWidget());
+    m_mainWindow->showToolView(m_outputToolView);
+}
+
+void KateSQLView::slotEditableRelationalQueryActivated(DataOutputModelInterface *model, const QString &connection, const QMap<QString, QString> &displayColumns)
+{
+    if (!model) {
+        return;
+    }
+
+    m_currentResultsetConnection = connection;
+
+    m_outputWidget->dataOutputWidget()->showEditableTable(model, connection, displayColumns);
     m_outputWidget->setCurrentWidget(m_outputWidget->dataOutputWidget());
     m_mainWindow->showToolView(m_outputToolView);
 }

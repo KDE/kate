@@ -18,6 +18,9 @@ DataOutputView::DataOutputView(QWidget *parent)
 
 void DataOutputView::slotCustomContextMenuRequested(const QPoint &pos)
 {
+    const int column = columnAt(pos.x());
+    Q_EMIT contextMenuAboutToShow(pos, column);
+
     QMenu menu(this);
     menu.addActions(actions());
     menu.exec(mapToGlobal(pos));

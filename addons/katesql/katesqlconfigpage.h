@@ -38,6 +38,7 @@ private Q_SLOTS:
 private:
     QCheckBox *m_box;
     QCheckBox *m_enableEditableTableCheckBox;
+    QCheckBox *m_enableEditableRelationalTableCheckBox;
     QCheckBox *m_useSystemDefaultsCheckBox;
     QPushButton *m_resetToDefaultsButton;
     OutputStyleWidget *m_outputStyleWidget;

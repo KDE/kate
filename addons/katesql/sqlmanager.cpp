@@ -6,7 +6,8 @@
 
 #include "sqlmanager.h"
 #include "connectionmodel.h"
-#include "dataoutputeditablemodel.h"
+#include "dataoutput/dataoutputeditablemodel.h"
+#include "dataoutput/dataoutputeditablerelationalmodel.h"
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -20,6 +21,7 @@
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QSqlError>
+#include <QSqlRecord>
 #include <QtCore/qlogging.h>
 
 #include "katesqlconstants.h"
@@ -360,7 +362,7 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
     Q_EMIT queryActivated(query, connection);
 }
 
-void SQLManager::runEditableQuery(const QString &tableName, const QString &connection)
+void SQLManager::runEditableQuery(const QString &tableName, const QString &connection, const QMap<QString, QString> &displayColumns)
 {
     if (tableName.isEmpty()) {
         return;
@@ -390,7 +392,68 @@ void SQLManager::runEditableQuery(const QString &tableName, const QString &conne
     QString message = i18ncp("@info", "%1 record selected", "%1 records selected", model->rowCount());
 
     Q_EMIT success(message);
-    Q_EMIT editableQueryActivated(model, connection);
+    Q_EMIT editableQueryActivated(model, connection, displayColumns);
+}
+
+void SQLManager::runEditableRelationalQuery(const QString &tableName,
+                                            const QString &connection,
+                                            const DatabaseForeignKeys &foreignKeys,
+                                            const QMap<QString, QString> &displayColumns)
+{
+    if (tableName.isEmpty()) {
+        return;
+    }
+
+    if (!isValidAndOpen(connection)) {
+        return;
+    }
+
+    QSqlDatabase db = QSqlDatabase::database(connection);
+
+    auto *model = new DataOutputEditableRelationalModel(nullptr, db);
+    model->setTable(tableName);
+    model->setEditStrategy(QSqlRelationalTableModel::OnManualSubmit);
+    model->setJoinMode(QSqlRelationalTableModel::LeftJoin);
+
+    // Set up relationships for columns that have foreign keys
+    if (foreignKeys.contains(tableName)) {
+        const ColumnForeignKeys &tableFks = foreignKeys[tableName];
+        QSqlRecord rec = db.record(tableName);
+
+        for (int i = 0; i < rec.count(); ++i) {
+            const QString fieldName = rec.fieldName(i);
+            if (tableFks.contains(fieldName)) {
+                const ColumnReference &ref = tableFks[fieldName];
+                const QString &refTable = ref.first;
+                const QString &refColumn = ref.second;
+
+                // Determine the display column for the referenced table
+                QString displayColumn = refColumn; // Default to the referenced column
+                if (displayColumns.contains(refTable)) {
+                    displayColumn = displayColumns[refTable];
+                }
+
+                model->setRelation(i, QSqlRelation(refTable, refColumn, displayColumn));
+            }
+        }
+    }
+
+    if (!model->select()) {
+        QSqlError err = model->lastError();
+
+        if (err.type() == QSqlError::ConnectionError) {
+            m_model->setStatus(connection, Connection::OFFLINE);
+        }
+
+        delete model;
+        Q_EMIT error(err.text());
+        return;
+    }
+
+    QString message = i18ncp("@info", "%1 record selected", "%1 records selected", model->rowCount());
+
+    Q_EMIT success(message);
+    Q_EMIT editableRelationalQueryActivated(model, connection, displayColumns);
 }
 
 #include "moc_sqlmanager.cpp"

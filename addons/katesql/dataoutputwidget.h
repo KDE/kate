@@ -6,13 +6,14 @@
 
 #pragma once
 
-#include "dataoutputmodelinterface.h"
-#include "dataoutputstylehelper.h"
+#include "dataoutput/dataoutputmodelinterface.h"
+#include "helpers/dataoutputstylehelper.h"
 #include "katesqlconstants.h"
 
 #include <QAbstractItemModel>
 #include <QAction>
 #include <QList>
+#include <QMap>
 #include <QWidget>
 #include <QtAssert>
 
@@ -66,8 +67,8 @@ public:
     }
 
 public Q_SLOTS:
-    void showQueryResultSets(QSqlQuery &query);
-    void showEditableTable(DataOutputModelInterface *model);
+    void showQueryResultSets(QSqlQuery &query, const QString &connectionName);
+    void showEditableTable(DataOutputModelInterface *model, const QString &connectionName, const QMap<QString, QString> &tableToDisplayColumnMap);
     void resizeColumnsToContents();
     void resizeRowsToContents();
     void clearResults();
@@ -85,6 +86,8 @@ public Q_SLOTS:
     void slotSetNull();
     void slotUndo();
     void slotSetFilter();
+    void slotMakeColumnPresentable();
+    void slotUpdateMakeColumnPresentableAction(const QPoint &pos, int column);
 
 protected:
     void changeEvent(QEvent *event) override;
@@ -108,9 +111,19 @@ private:
     KToolBar *m_editableToolbar;
 
     bool m_isEditable;
+    bool m_relationalTablesEnabled = false;
 
     QList<QAction *> m_editableOnlyRightClickActions;
+    QAction *m_makeColumnPresentableAction = nullptr;
+
+    QString m_connectionName;
+    int m_currentPresentableColumn = 0;
+    QMap<QString, QString> m_tableToDisplayColumnMap;
     void adjustToEditableStateChange();
+    void setupColumnDelegates();
+
+Q_SIGNALS:
+    void displayColumnMapChanged(const QString &tableName, const QString &columnName);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(DataOutputWidget::Options)

@@ -10,10 +10,14 @@
 
 class DataOutputView : public QTableView
 {
+    Q_OBJECT
 public:
     explicit DataOutputView(QWidget *parent = nullptr);
 
     void commitCurrentEditorData();
+
+Q_SIGNALS:
+    void contextMenuAboutToShow(const QPoint &pos, int column);
 
 private:
     void slotCustomContextMenuRequested(const QPoint &pos);

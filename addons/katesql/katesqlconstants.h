@@ -34,18 +34,23 @@ namespace Config
 /// KConfig group names.
 inline constexpr QLatin1String PluginGroup("KateSQLPlugin");
 inline constexpr QLatin1String OutputCustomizationGroup("OutputCustomization");
+inline constexpr QLatin1String DatabaseForeignKeysGroup("DatabaseForeignKeys");
+inline constexpr QLatin1String DatabaseDisplayColumnsGroup("DatabaseDisplayColumns");
+inline constexpr QLatin1String DatabaseEnumsGroup("DatabaseEnums");
 
 /// Plugin-level KConfig entry keys.
-const auto SaveConnections("SaveConnections");
-const auto LastUsed("LastUsed");
-const auto UseSystemDefaults("UseSystemDefaults");
-const auto EnableEditableTable("EnableEditableTable");
+inline constexpr QLatin1String SaveConnections("SaveConnections");
+inline constexpr QLatin1String LastUsed("LastUsed");
+inline constexpr QLatin1String UseSystemDefaults("UseSystemDefaults");
+inline constexpr QLatin1String EnableEditableTable("EnableEditableTable");
+inline constexpr QLatin1String EnableEditableRelationalTable("EnableEditableRelationalTable");
 
 namespace DefaultValues
 {
 inline constexpr bool SaveConnections(true);
 inline constexpr bool UseSystemDefaults(true);
 inline constexpr bool EnableEditableTable(true);
+inline constexpr bool EnableEditableRelationTable(false);
 inline constexpr int HighlightForChangedFieldColorBlend = 25;
 }
 

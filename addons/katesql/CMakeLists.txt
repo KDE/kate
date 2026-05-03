@@ -12,7 +12,7 @@ kate_add_plugin(katesqlplugin)
 target_compile_definitions(katesqlplugin PRIVATE TRANSLATION_DOMAIN="katesql")
 
 target_link_libraries(
-  katesqlplugin 
+  katesqlplugin
   PRIVATE
     KF6::I18n
     KF6::TextEditor
@@ -28,10 +28,20 @@ target_sources(
     katesqlview.cpp
     connectionmodel.cpp
     sqlmanager.cpp
-    cachedsqlquerymodel.cpp
-    dataoutputmodel.cpp
-    dataoutputstylehelper.cpp
-    dataoutputeditablemodel.cpp
+    dataoutput/cachedsqlquerymodel.cpp
+    dataoutput/dataoutputmodel.h
+    dataoutput/dataoutputmodelbase.h
+    dataoutput/dataoutputmodelinterface.h
+    dataoutput/dataoutputeditablemodel.h
+    dataoutput/dataoutputeditablerelationalmodel.h
+    dataoutput/columndelegates/booleandelegate.cpp
+    dataoutput/columndelegates/datedelegate.cpp
+    dataoutput/columndelegates/datetimedelegate.cpp
+    dataoutput/columndelegates/enumdelegate.cpp
+    helpers/dataoutputstylehelper.cpp
+    helpers/databaseconfigserializinghelper.cpp
+    helpers/enumhelper.cpp
+    helpers/foreignkeyhelper.cpp
     dataoutputview.cpp
     dataoutputwidget.cpp
     textoutputwidget.cpp

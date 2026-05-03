@@ -9,10 +9,14 @@
 class SQLManager;
 class QMouseEvent;
 
+#include <QMap>
 #include <QSqlDriver>
 #include <QString>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
+
+#include "helpers/enumhelper.h"
+#include "helpers/foreignkeyhelper.h"
 
 class SchemaWidget : public QTreeWidget
 {
@@ -38,6 +42,7 @@ public:
 public:
     void buildTree(const QString &connection);
     void refresh();
+    void reloadDisplayColumnMap(const QString &tableName, const QString &columnName);
 
     void generateSelectIntoView();
     void generateUpdateIntoView();
@@ -59,7 +64,13 @@ private:
     static void deleteChildren(QTreeWidgetItem *item);
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
-    bool isConnectionValidAndOpen();
+    bool isConnectionValidAndOpen() const;
+    void loadForeignKeys();
+    void loadEnums();
+    void fillTableToColumnMap();
+    bool canUseRelationalModel(const QString &tableName) const;
+    bool isRelationalTablesEnabled() const;
+
     QString m_connectionName;
     QPoint m_dragStartPosition;
 
@@ -67,4 +78,8 @@ private:
     bool m_viewsLoaded;
 
     SQLManager *m_manager;
+
+    DatabaseForeignKeys m_columnToForeignKeysMap;
+    DatabaseEnums m_columnToEnumsMap;
+    QMap<QString, QString> m_tableToDisplayColumnMap;
 };

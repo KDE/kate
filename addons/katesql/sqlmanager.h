@@ -9,9 +9,12 @@
 class ConnectionModel;
 class KConfigGroup;
 class DataOutputEditableModel;
+class DataOutputModelInterface;
 
 #include "connection.h"
+#include "helpers/foreignkeyhelper.h"
 
+#include <QMap>
 #include <QSqlQuery>
 #include <QUrl>
 
@@ -37,7 +40,11 @@ public Q_SLOTS:
     void loadConnections(const KConfigGroup &connectionsGroup);
     void saveConnections(KConfigGroup *connectionsGroup);
     void runQuery(const QString &text, const QString &connection);
-    void runEditableQuery(const QString &tableName, const QString &connection);
+    void runEditableQuery(const QString &tableName, const QString &connection, const QMap<QString, QString> &displayColumns);
+    void runEditableRelationalQuery(const QString &tableName,
+                                    const QString &connection,
+                                    const DatabaseForeignKeys &foreignKeys,
+                                    const QMap<QString, QString> &displayColumns);
 
 protected:
     inline static constexpr QLatin1String KeychainService = QLatin1String("org.kde.kate.katesql");
@@ -50,7 +57,8 @@ Q_SIGNALS:
     void connectionAboutToBeClosed(const QString &name);
 
     void queryActivated(QSqlQuery &query, const QString &connection);
-    void editableQueryActivated(DataOutputEditableModel *model, const QString &connection);
+    void editableQueryActivated(DataOutputEditableModel *model, const QString &connection, const QMap<QString, QString> &displayColumns);
+    void editableRelationalQueryActivated(DataOutputModelInterface *model, const QString &connection, const QMap<QString, QString> &displayColumns);
 
     void error(const QString &message);
     void success(const QString &message);

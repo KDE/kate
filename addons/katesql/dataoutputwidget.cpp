@@ -239,7 +239,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     addAction(saveAction);
 
     m_makeColumnPresentableAction = m_actionCollection->addAction(QStringLiteral("data_make_column_presentable"));
-    m_makeColumnPresentableAction->setText(i18nc("@action:intoolbar", "Make this column presentable for relatied tables"));
+    m_makeColumnPresentableAction->setText(i18nc("@action:intoolbar", "Make this column presentable for related tables"));
     m_makeColumnPresentableAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::FormatIndentMore));
     connect(m_makeColumnPresentableAction, &QAction::triggered, this, &DataOutputWidget::slotMakeColumnPresentable);
     m_view->addAction(m_makeColumnPresentableAction);

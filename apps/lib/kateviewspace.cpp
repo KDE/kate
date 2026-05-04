@@ -193,6 +193,18 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
     });
     m_layout->addWidget(m_urlBar, GridRow_UrlBar, 0, 1, GridColumn_Count);
 
+    // ensure we show/hide nav bar the right way
+    connect(m_viewManager, &KateViewManager::showUrlNavBarChanged, this, [this](bool show) {
+        if (m_urlBar->isVisible() != show) {
+            m_urlBar->setHidden(!show);
+            if (show) {
+                m_urlBar->onViewChanged(m_viewManager->activeView());
+            }
+            updateButtonVisibility();
+        }
+    });
+    m_urlBar->setHidden(!m_viewManager->showUrlNavBar());
+
     stack = new QStackedWidget(this);
     stack->setFocus();
     stack->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding));
@@ -330,6 +342,22 @@ void KateViewSpace::tabBarToggled()
     } else {
         m_layout->addWidget(m_urlBar, GridRow_ButtonsAndTabs, GridColumn_TabBarOrUrlBar);
     }
+
+    updateButtonVisibility();
+}
+
+void KateViewSpace::updateButtonVisibility()
+{
+    const bool showButtons = m_tabBar->isVisible() || m_urlBar->isVisible();
+    if (showButtons == m_split->isVisible()) {
+        return;
+    }
+
+    KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
+    m_split->setVisible(showButtons);
+    m_quickOpen->setVisible(showButtons);
+    m_historyBack->setVisible(showButtons);
+    m_historyForward->setVisible(showButtons);
 }
 
 KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)

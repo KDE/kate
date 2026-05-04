@@ -319,6 +319,8 @@ private:
 
     void buildContextMenu(int tabIndex, QMenu &menu);
 
+    void updateButtonVisibility();
+
 private:
     // Kate's view manager
     KateViewManager *m_viewManager;

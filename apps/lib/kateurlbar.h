@@ -20,11 +20,11 @@ public:
     QIcon separator();
 
     void updateForDocument(KTextEditor::Document *doc);
+    void onViewChanged(KTextEditor::View *v);
 
 private:
     void setupLayout();
 
-    void onViewChanged(KTextEditor::View *v);
     class QStackedWidget *const m_stack;
     class UrlbarContainer *const m_urlBarView;
     class QLabel *const m_untitledDocLabel;

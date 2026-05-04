@@ -1213,15 +1213,6 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
 
     auto *vm = parent->viewManager();
     connect(vm, &KateViewManager::viewChanged, this, &KateUrlBar::onViewChanged);
-
-    connect(vm, &KateViewManager::showUrlNavBarChanged, this, [this, vm](bool show) {
-        setHidden(!show);
-        if (show) {
-            onViewChanged(vm->activeView());
-        }
-    });
-
-    setHidden(!vm->showUrlNavBar());
 }
 
 void KateUrlBar::open()

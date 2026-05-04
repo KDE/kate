@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-01 00:47+0000\n"
+"POT-Creation-Date: 2026-05-04 00:47+0000\n"
 "PO-Revision-Date: 2026-04-14 12:08+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -150,115 +150,121 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "Nomine de connexion:"
 
-#: dataoutputwidget.cpp:92
+#: dataoutputwidget.cpp:109
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Refresca"
 
-#: dataoutputwidget.cpp:102
+#: dataoutputwidget.cpp:119
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "Redimensiona columnas a contentos"
 
-#: dataoutputwidget.cpp:108
+#: dataoutputwidget.cpp:125
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "Redimensiona lineas a contentos"
 
-#: dataoutputwidget.cpp:114
+#: dataoutputwidget.cpp:131
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Exporta..."
 
-#: dataoutputwidget.cpp:121
+#: dataoutputwidget.cpp:138
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "Copia"
 
-#: dataoutputwidget.cpp:131 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:148 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "Netta"
 
-#: dataoutputwidget.cpp:139
+#: dataoutputwidget.cpp:156
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "Usa locale de systema"
 
-#: dataoutputwidget.cpp:155
+#: dataoutputwidget.cpp:172
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr "Colla"
 
-#: dataoutputwidget.cpp:165
+#: dataoutputwidget.cpp:182
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr "Assigna Null"
 
-#: dataoutputwidget.cpp:175
+#: dataoutputwidget.cpp:192
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr "Inserta rango"
 
-#: dataoutputwidget.cpp:185
+#: dataoutputwidget.cpp:202
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr "Remove Rangos Selectionate"
 
-#: dataoutputwidget.cpp:195
+#: dataoutputwidget.cpp:212
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr "Duplica Rangos Selectionate"
 
-#: dataoutputwidget.cpp:205
+#: dataoutputwidget.cpp:222
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr "Annulla"
 
-#: dataoutputwidget.cpp:215
+#: dataoutputwidget.cpp:232
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr "Salveguarda"
 
-#: dataoutputwidget.cpp:230
+#: dataoutputwidget.cpp:242
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Make this column presentable for relatied tables"
+msgstr ""
+
+#: dataoutputwidget.cpp:253
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr "Ubi:"
 
-#: dataoutputwidget.cpp:238
+#: dataoutputwidget.cpp:261
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr "id > 0"
 
-#: dataoutputwidget.cpp:239
+#: dataoutputwidget.cpp:262
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr "Inserta clausula SQL WHERE per filtrar datos"
 
-#: dataoutputwidget.cpp:540
+#: dataoutputwidget.cpp:666
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Incapace de aperir file <filename>%1</filename>"
 
-#: dataoutputwidget.cpp:556
+#: dataoutputwidget.cpp:686
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
@@ -375,96 +381,108 @@ msgctxt "@label:textbox"
 msgid "Field delimiter:"
 msgstr "Delimitator de campo:"
 
-#: katesqlconfigpage.cpp:27
+#: katesqlconfigpage.cpp:28
 #, kde-format
 msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
 msgstr "Salveguarda e  restabili connexiones in session de Kate"
 
-#: katesqlconfigpage.cpp:28
+#: katesqlconfigpage.cpp:29
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
 msgstr ""
 
-#: katesqlconfigpage.cpp:30
+#: katesqlconfigpage.cpp:31
+#, kde-format
+msgctxt "@option:check"
+msgid "Enable editable relational tables"
+msgstr ""
+
+#: katesqlconfigpage.cpp:32
+#, kde-format
+msgctxt "@option:check"
+msgid "Experimental"
+msgstr ""
+
+#: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "Personalisation de exito"
 
-#: katesqlconfigpage.cpp:37
+#: katesqlconfigpage.cpp:45
 #, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
 msgstr "Usa predefinitiones de systema"
 
-#: katesqlconfigpage.cpp:38
+#: katesqlconfigpage.cpp:46
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
 msgstr "Re-Initia a predefinitiones de systema"
 
-#: katesqlconfigpage.cpp:69
+#: katesqlconfigpage.cpp:81
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:74
+#: katesqlconfigpage.cpp:86
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "Preferentias deConfigPage de SQL"
 
-#: katesqlview.cpp:46
+#: katesqlview.cpp:47
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:53
+#: katesqlview.cpp:54
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:59
+#: katesqlview.cpp:60
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "Schema SQL"
 
-#: katesqlview.cpp:109
+#: katesqlview.cpp:116
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Adde connexion..."
 
-#: katesqlview.cpp:114
+#: katesqlview.cpp:121
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Remove connexion"
 
-#: katesqlview.cpp:119
+#: katesqlview.cpp:126
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Edita connexion..."
 
-#: katesqlview.cpp:124
+#: katesqlview.cpp:131
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "Reconnecte"
 
-#: katesqlview.cpp:130
+#: katesqlview.cpp:137
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "Connexion"
 
-#: katesqlview.cpp:134
+#: katesqlview.cpp:141
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
@@ -552,74 +570,74 @@ msgctxt "@title:window"
 msgid "SQL Data Output"
 msgstr "Exito de datos de SQL"
 
-#: schemawidget.cpp:37
+#: schemawidget.cpp:49
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "Schema de base de datos"
 
-#: schemawidget.cpp:92
+#: schemawidget.cpp:112
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "Tabulas"
 
-#: schemawidget.cpp:97
+#: schemawidget.cpp:117
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "Vistas"
 
-#: schemawidget.cpp:111
+#: schemawidget.cpp:131
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "Tabulas de systema"
 
-#: schemawidget.cpp:271
+#: schemawidget.cpp:291
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "Selectiona  datos"
 
-#: schemawidget.cpp:275
+#: schemawidget.cpp:295
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "Genera"
 
-#: schemawidget.cpp:276
+#: schemawidget.cpp:296
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:277
+#: schemawidget.cpp:297
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:278
+#: schemawidget.cpp:298
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:279
+#: schemawidget.cpp:299
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:283
+#: schemawidget.cpp:303
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Refresca"
 
-#: sqlmanager.cpp:318
+#: sqlmanager.cpp:320
 #, kde-format
 msgid "Prepare Statement Failure"
 msgstr "Prepara fallimento de declaration (statement)"
 
-#: sqlmanager.cpp:319
+#: sqlmanager.cpp:321
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
@@ -628,13 +646,13 @@ msgstr ""
 "<p>Preparante le query fallite con le sequent error: %1</p><p>Tu vole "
 "continuar sin preparar le query?</p>"
 
-#: sqlmanager.cpp:349
+#: sqlmanager.cpp:351
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Requesta completate con successo"
 
-#: sqlmanager.cpp:352 sqlmanager.cpp:390
+#: sqlmanager.cpp:354 sqlmanager.cpp:392 sqlmanager.cpp:453
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -642,7 +660,7 @@ msgid_plural "%1 records selected"
 msgstr[0] "%1 registro seligite"
 msgstr[1] "%1 registros seligite"
 
-#: sqlmanager.cpp:356
+#: sqlmanager.cpp:358
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

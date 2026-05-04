@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-01 00:47+0000\n"
+"POT-Creation-Date: 2026-05-04 00:47+0000\n"
 "PO-Revision-Date: 2026-05-01 08:29+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -153,115 +153,121 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "Назва з’єднання:"
 
-#: dataoutputwidget.cpp:92
+#: dataoutputwidget.cpp:109
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Освіжити"
 
-#: dataoutputwidget.cpp:102
+#: dataoutputwidget.cpp:119
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "Ширина стовпчиків за вмістом"
 
-#: dataoutputwidget.cpp:108
+#: dataoutputwidget.cpp:125
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "Висота рядків за вмістом"
 
-#: dataoutputwidget.cpp:114
+#: dataoutputwidget.cpp:131
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Експортувати..."
 
-#: dataoutputwidget.cpp:121
+#: dataoutputwidget.cpp:138
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "Копіювати"
 
-#: dataoutputwidget.cpp:131 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:148 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "Спорожнити"
 
-#: dataoutputwidget.cpp:139
+#: dataoutputwidget.cpp:156
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "Використовувати локаль системи"
 
-#: dataoutputwidget.cpp:155
+#: dataoutputwidget.cpp:172
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr "Вставити"
 
-#: dataoutputwidget.cpp:165
+#: dataoutputwidget.cpp:182
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr "Встановити нуль"
 
-#: dataoutputwidget.cpp:175
+#: dataoutputwidget.cpp:192
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr "Вставити рядок"
 
-#: dataoutputwidget.cpp:185
+#: dataoutputwidget.cpp:202
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr "Вилучити позначені рядки"
 
-#: dataoutputwidget.cpp:195
+#: dataoutputwidget.cpp:212
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr "Дублювати позначені рядки"
 
-#: dataoutputwidget.cpp:205
+#: dataoutputwidget.cpp:222
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr "Скасувати"
 
-#: dataoutputwidget.cpp:215
+#: dataoutputwidget.cpp:232
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr "Зберегти"
 
-#: dataoutputwidget.cpp:230
+#: dataoutputwidget.cpp:242
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid "Make this column presentable for relatied tables"
+msgstr ""
+
+#: dataoutputwidget.cpp:253
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr "Де:"
 
-#: dataoutputwidget.cpp:238
+#: dataoutputwidget.cpp:261
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr "id > 0"
 
-#: dataoutputwidget.cpp:239
+#: dataoutputwidget.cpp:262
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr "Введіть інструкцію WHERE SQL для фільтрування даних"
 
-#: dataoutputwidget.cpp:540
+#: dataoutputwidget.cpp:666
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Не вдалося відкрити файл <filename>%1</filename>."
 
-#: dataoutputwidget.cpp:556
+#: dataoutputwidget.cpp:686
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
@@ -378,96 +384,110 @@ msgctxt "@label:textbox"
 msgid "Field delimiter:"
 msgstr "Роздільник полів:"
 
-#: katesqlconfigpage.cpp:27
+#: katesqlconfigpage.cpp:28
 #, kde-format
 msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
 msgstr "Зберігати і відновлювати параметри з’єднання у сеансах Kate"
 
-#: katesqlconfigpage.cpp:28
+#: katesqlconfigpage.cpp:29
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
 msgstr "Увімкнути придатну до редагування таблицю для даних навігації"
 
-#: katesqlconfigpage.cpp:30
+#: katesqlconfigpage.cpp:31
+#, fuzzy, kde-format
+#| msgctxt "@option:check"
+#| msgid "Enable editable table for Browse Data"
+msgctxt "@option:check"
+msgid "Enable editable relational tables"
+msgstr "Увімкнути придатну до редагування таблицю для даних навігації"
+
+#: katesqlconfigpage.cpp:32
+#, kde-format
+msgctxt "@option:check"
+msgid "Experimental"
+msgstr ""
+
+#: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "Налаштування виводу даних"
 
-#: katesqlconfigpage.cpp:37
+#: katesqlconfigpage.cpp:45
 #, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
 msgstr "Використати типові для системи значення"
 
-#: katesqlconfigpage.cpp:38
+#: katesqlconfigpage.cpp:46
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
 msgstr "Повернути типові для системи значення"
 
-#: katesqlconfigpage.cpp:69
+#: katesqlconfigpage.cpp:81
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:74
+#: katesqlconfigpage.cpp:86
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "Параметри сторінки налаштовування SQL"
 
-#: katesqlview.cpp:46
+#: katesqlview.cpp:47
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:53
+#: katesqlview.cpp:54
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:59
+#: katesqlview.cpp:60
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "Схема SQL"
 
-#: katesqlview.cpp:109
+#: katesqlview.cpp:116
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Додати з’єднання…"
 
-#: katesqlview.cpp:114
+#: katesqlview.cpp:121
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Вилучити з'єднання"
 
-#: katesqlview.cpp:119
+#: katesqlview.cpp:126
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Змінити параметри з’єднання…"
 
-#: katesqlview.cpp:124
+#: katesqlview.cpp:131
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "З’єднати знову"
 
-#: katesqlview.cpp:130
+#: katesqlview.cpp:137
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "З'єднання"
 
-#: katesqlview.cpp:134
+#: katesqlview.cpp:141
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
@@ -551,74 +571,74 @@ msgctxt "@title:window"
 msgid "SQL Data Output"
 msgstr "Вивід даних SQL"
 
-#: schemawidget.cpp:37
+#: schemawidget.cpp:49
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "Схема бази даних"
 
-#: schemawidget.cpp:92
+#: schemawidget.cpp:112
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "Таблиці"
 
-#: schemawidget.cpp:97
+#: schemawidget.cpp:117
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "Перегляди"
 
-#: schemawidget.cpp:111
+#: schemawidget.cpp:131
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "Системні таблиці"
 
-#: schemawidget.cpp:271
+#: schemawidget.cpp:291
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "Вибрати дані"
 
-#: schemawidget.cpp:275
+#: schemawidget.cpp:295
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "Створити"
 
-#: schemawidget.cpp:276
+#: schemawidget.cpp:296
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:277
+#: schemawidget.cpp:297
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:278
+#: schemawidget.cpp:298
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:279
+#: schemawidget.cpp:299
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:283
+#: schemawidget.cpp:303
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Оновити"
 
-#: sqlmanager.cpp:318
+#: sqlmanager.cpp:320
 #, kde-format
 msgid "Prepare Statement Failure"
 msgstr "Помилка під час приготування інструкції"
 
-#: sqlmanager.cpp:319
+#: sqlmanager.cpp:321
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
@@ -627,13 +647,13 @@ msgstr ""
 "<p>Спроба приготувати запит завершилася помилкою: %1</p><p>Хочете продовжити "
 "без приготування запиту?</p>"
 
-#: sqlmanager.cpp:349
+#: sqlmanager.cpp:351
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Запит успішно виконано"
 
-#: sqlmanager.cpp:352 sqlmanager.cpp:390
+#: sqlmanager.cpp:354 sqlmanager.cpp:392 sqlmanager.cpp:453
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -643,7 +663,7 @@ msgstr[1] "Позначено %1 записи"
 msgstr[2] "Позначено %1 записів"
 msgstr[3] "Позначено запис"
 
-#: sqlmanager.cpp:356
+#: sqlmanager.cpp:358
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

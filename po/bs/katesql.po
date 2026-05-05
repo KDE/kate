@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-04 00:47+0000\n"
+"POT-Creation-Date: 2026-05-05 00:47+0000\n"
 "PO-Revision-Date: 2013-01-28 12:51+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -244,7 +244,7 @@ msgstr ""
 #: dataoutputwidget.cpp:242
 #, kde-format
 msgctxt "@action:intoolbar"
-msgid "Make this column presentable for relatied tables"
+msgid "Make this column presentable for related tables"
 msgstr ""
 
 #: dataoutputwidget.cpp:253

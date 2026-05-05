@@ -6,13 +6,13 @@
 # obsoleteman <tulliana@gmail.com>, 2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022-2026 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-04 00:47+0000\n"
-"PO-Revision-Date: 2026-05-01 14:57+0300\n"
+"POT-Creation-Date: 2026-05-05 00:47+0000\n"
+"PO-Revision-Date: 2026-05-04 20:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.04.0\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -240,10 +240,12 @@ msgid "Save"
 msgstr "Kaydet"
 
 #: dataoutputwidget.cpp:242
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:intoolbar"
+#| msgid "Make this column presentable for relatied tables"
 msgctxt "@action:intoolbar"
-msgid "Make this column presentable for relatied tables"
-msgstr ""
+msgid "Make this column presentable for related tables"
+msgstr "İlişkisel Tabloda Sütunu Sunulabilir Yap"
 
 #: dataoutputwidget.cpp:253
 #, kde-format
@@ -399,18 +401,16 @@ msgid "Enable editable table for Browse Data"
 msgstr "Veri taramada düzenlenebilir tabloları etkinleştir"
 
 #: katesqlconfigpage.cpp:31
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Enable editable table for Browse Data"
+#, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr "Veri taramada düzenlenebilir tabloları etkinleştir"
+msgstr "Düzenlenebilir ilişkisel tabloları etkinleştir"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "Deneysel"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format

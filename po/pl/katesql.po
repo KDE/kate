@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-04 00:47+0000\n"
+"POT-Creation-Date: 2026-05-05 00:47+0000\n"
 "PO-Revision-Date: 2026-04-04 19:47+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -238,7 +238,7 @@ msgstr "Zapisz"
 #: dataoutputwidget.cpp:242
 #, kde-format
 msgctxt "@action:intoolbar"
-msgid "Make this column presentable for relatied tables"
+msgid "Make this column presentable for related tables"
 msgstr ""
 
 #: dataoutputwidget.cpp:253

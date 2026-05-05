@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-04 00:47+0000\n"
-"PO-Revision-Date: 2026-05-01 08:29+0300\n"
+"POT-Creation-Date: 2026-05-05 00:47+0000\n"
+"PO-Revision-Date: 2026-05-04 08:31+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -238,10 +238,12 @@ msgid "Save"
 msgstr "Зберегти"
 
 #: dataoutputwidget.cpp:242
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:intoolbar"
+#| msgid "Make this column presentable for relatied tables"
 msgctxt "@action:intoolbar"
-msgid "Make this column presentable for relatied tables"
-msgstr ""
+msgid "Make this column presentable for related tables"
+msgstr "Зробити цей стовпчик представленим у пов'язаних таблицях"
 
 #: dataoutputwidget.cpp:253
 #, kde-format
@@ -397,18 +399,16 @@ msgid "Enable editable table for Browse Data"
 msgstr "Увімкнути придатну до редагування таблицю для даних навігації"
 
 #: katesqlconfigpage.cpp:31
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Enable editable table for Browse Data"
+#, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr "Увімкнути придатну до редагування таблицю для даних навігації"
+msgstr "Увімкнути редаговані реляційні таблиці"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "Експериментальні"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format

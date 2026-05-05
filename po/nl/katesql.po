@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-04 00:47+0000\n"
-"PO-Revision-Date: 2026-05-01 11:25+0200\n"
+"POT-Creation-Date: 2026-05-05 00:47+0000\n"
+"PO-Revision-Date: 2026-05-04 12:47+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -237,10 +237,12 @@ msgid "Save"
 msgstr "Opslaan"
 
 #: dataoutputwidget.cpp:242
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:intoolbar"
+#| msgid "Make this column presentable for relatied tables"
 msgctxt "@action:intoolbar"
-msgid "Make this column presentable for relatied tables"
-msgstr ""
+msgid "Make this column presentable for related tables"
+msgstr "Maak deze kolom overzichtelijk uitziet voor gerelateerde tabellen"
 
 #: dataoutputwidget.cpp:253
 #, kde-format
@@ -396,18 +398,16 @@ msgid "Enable editable table for Browse Data"
 msgstr "Schakel de bewerkbare tabel in voor bladergegevens."
 
 #: katesqlconfigpage.cpp:31
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Enable editable table for Browse Data"
+#, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr "Schakel de bewerkbare tabel in voor bladergegevens."
+msgstr "Schakel bewerkbare relationele tabellen in"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "Experimenteel"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format

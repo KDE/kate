@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-04 00:47+0000\n"
-"PO-Revision-Date: 2026-05-01 05:44-0300\n"
+"POT-Creation-Date: 2026-05-05 00:47+0000\n"
+"PO-Revision-Date: 2026-05-04 08:06-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -240,10 +240,12 @@ msgid "Save"
 msgstr "Salvar"
 
 #: dataoutputwidget.cpp:242
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@action:intoolbar"
+#| msgid "Make this column presentable for relatied tables"
 msgctxt "@action:intoolbar"
-msgid "Make this column presentable for relatied tables"
-msgstr ""
+msgid "Make this column presentable for related tables"
+msgstr "Deixe esta coluna apresentável para tabelas relacionadas"
 
 #: dataoutputwidget.cpp:253
 #, kde-format
@@ -399,18 +401,16 @@ msgid "Enable editable table for Browse Data"
 msgstr "Ativar tabela editável para Navegar nos dados"
 
 #: katesqlconfigpage.cpp:31
-#, fuzzy, kde-format
-#| msgctxt "@option:check"
-#| msgid "Enable editable table for Browse Data"
+#, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr "Ativar tabela editável para Navegar nos dados"
+msgstr "Ativar tabelas relacionais editáveis"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "Experimental"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format

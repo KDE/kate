@@ -16,6 +16,7 @@
 #include <QTextBrowser>
 #include <QTimer>
 
+#include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
@@ -24,6 +25,8 @@
 #include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/Repository>
 #include <KSyntaxHighlighting/State>
+
+#include <KWindowSystem>
 
 #include <ktexteditor_utils.h>
 
@@ -241,17 +244,65 @@ public:
             m_view->focusProxy()->installEventFilter(this);
         }
 
-        const int scrollBarHeight = horizontalScrollBar()->height();
-        QFontMetrics fm(font());
-        QSize size = fm.size(Qt::TextSingleLine, QStringLiteral("m"));
-        int fontHeight = size.height();
-        size.setHeight(m_view->height() - (fontHeight * 2) - scrollBarHeight);
-        size.setWidth(qRound(m_view->width() * 0.7));
+        // get a natural size for the document
+        document()->adjustSize();
+        QSize size = document()->size().toSize();
+
+        const int contentsMarginsWidth = this->contentsMargins().left() + this->contentsMargins().right();
+        const int contentsMarginsHeight = this->contentsMargins().top() + this->contentsMargins().bottom();
+        const int docMargin = 2 * document()->documentMargin();
+        int wMargins = contentsMarginsWidth + docMargin;
+        int hMargins = contentsMarginsHeight;
+
+        // add internal document padding and possible scrollbars to size
+        size.setHeight(size.height() + hMargins);
+        size.setWidth(size.width() + wMargins);
+
+        int maxWidth = (m_view->window() ? m_view->window()->width() : m_view->width()) / 2;
+        int maxHeight = (m_view->window() ? m_view->window()->height() : m_view->height()) / 2;
+
+        // this makes it so the scrollbar margins are only added when we need a scrollbar
+        setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+        if ((size.height() - hMargins) > maxHeight) {
+            setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            size.rwidth() += verticalScrollBar()->width();
+            maxWidth += horizontalScrollBar()->width();
+        }
+
+        if ((size.width() - wMargins) > maxWidth) {
+            setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            size.rheight() += horizontalScrollBar()->height();
+            maxHeight += horizontalScrollBar()->height();
+        }
+
+        // limit the tool tip size; the resize call will respect these limits
+        setMaximumSize(maxWidth, maxHeight);
+
         resize(size);
 
-        QPoint p = m_view->mapToGlobal(m_view->pos());
-        p.setY(p.y() + fontHeight);
-        p.setX(p.x() + m_view->textAreaRect().left() + m_view->textAreaRect().width() - size.width() - fontHeight);
+        auto cursor = m_view->cursorPosition();
+        cursor.setColumn(m_view->document()->lineLength(cursor.line()));
+        QPoint p = m_view->mapToGlobal(m_view->cursorToCoordinate(cursor));
+        // FIXME: need to account for line height multiplier but ktexteditor doesn't expose that apparently :/
+        auto fontConfig = m_view->configValue(QStringLiteral("font"));
+        QFontMetrics fontMetris(fontConfig.value<QFont>());
+        int lineHeight = fontMetris.height();
+
+        p.setY(p.y() + lineHeight);
+        p.setX(p.x() + fontMetris.horizontalAdvance(QChar::Space) * 4);
+
+        auto screenSize = screen()->availableGeometry();
+        // on wayland the tooltip can't overlap panels so it will get shifted and overlap the word we are hovering
+        // so by clipping it to the window it wont overlap the panel (assuming the kate window is not overlapping the panel) and get shifted
+        if (KWindowSystem::isPlatformWayland()) {
+            screenSize = m_view->window()->geometry();
+        }
+        if (p.y() + this->height() > screenSize.y() + screenSize.height()) {
+            p.ry() -= lineHeight + this->height();
+        }
+
         this->move(p);
 
         show();

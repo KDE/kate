@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-05 00:47+0000\n"
-"PO-Revision-Date: 2026-05-04 05:49+0200\n"
+"PO-Revision-Date: 2026-05-05 04:36+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -236,12 +236,10 @@ msgid "Save"
 msgstr "შენახვა"
 
 #: dataoutputwidget.cpp:242
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Make this column presentable for relatied tables"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr "ამ სვეტის წარმოდგენადად გადაკეთება რელაციური ცხრილებისთვის"
+msgstr "ამ სვეტის წარმოდგენადად გადაკეთება შესაბამისი ცხრილებისთვის"
 
 #: dataoutputwidget.cpp:253
 #, kde-format

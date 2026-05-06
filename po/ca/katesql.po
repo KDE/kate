@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-05 00:47+0000\n"
-"PO-Revision-Date: 2026-05-04 09:01+0200\n"
+"PO-Revision-Date: 2026-05-05 09:02+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -240,9 +240,7 @@ msgid "Save"
 msgstr "Desa"
 
 #: dataoutputwidget.cpp:242
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Make this column presentable for relatied tables"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
 msgstr "Fes aquesta columna que es pugui presentar a taules relacionades"

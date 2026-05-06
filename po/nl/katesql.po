@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-05 00:47+0000\n"
-"PO-Revision-Date: 2026-05-04 12:47+0200\n"
+"PO-Revision-Date: 2026-05-05 14:50+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -237,12 +237,10 @@ msgid "Save"
 msgstr "Opslaan"
 
 #: dataoutputwidget.cpp:242
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Make this column presentable for relatied tables"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr "Maak deze kolom overzichtelijk uitziet voor gerelateerde tabellen"
+msgstr "Maak deze kolom overzichtelijk voor gerelateerde tabellen"
 
 #: dataoutputwidget.cpp:253
 #, kde-format

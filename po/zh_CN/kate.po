@@ -2254,7 +2254,7 @@ msgstr "复制文件名"
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Item"
-msgstr ""
+msgstr "复制项目"
 
 #: lib/kateviewmanager.cpp:150
 #, kde-format

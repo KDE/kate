@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-05 00:47+0000\n"
-"PO-Revision-Date: 2026-05-04 08:06-0300\n"
+"PO-Revision-Date: 2026-05-05 07:49-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -240,9 +240,7 @@ msgid "Save"
 msgstr "Salvar"
 
 #: dataoutputwidget.cpp:242
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Make this column presentable for relatied tables"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
 msgstr "Deixe esta coluna apresentável para tabelas relacionadas"

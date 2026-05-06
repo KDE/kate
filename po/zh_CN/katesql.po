@@ -507,20 +507,16 @@ msgid "Background Color"
 msgstr "背景颜色"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "文本颜色"
+msgstr ""
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "背景颜色"
+msgstr ""
 
 #: outputstylewidget.cpp:49
 #, kde-format

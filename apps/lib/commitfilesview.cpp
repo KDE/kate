@@ -22,14 +22,18 @@
 #include <QMimeDatabase>
 #include <QPainter>
 #include <QProcess>
+#include <QSortFilterProxyModel>
 #include <QStandardItem>
 #include <QStyledItemDelegate>
+#include <QTimer>
 #include <QToolButton>
 #include <QTreeView>
 #include <QUrl>
 #include <QVBoxLayout>
 
 #include <KColorScheme>
+#include <KFuzzyMatcher>
+#include <KLineEdit>
 #include <KLocalizedString>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
@@ -336,6 +340,51 @@ static void parseNumStat(const QByteArray &raw, std::vector<GitFileItem> *items)
     }
 }
 
+class CommitFilesViewFilterProxyModel : public QSortFilterProxyModel
+{
+public:
+    CommitFilesViewFilterProxyModel(QObject *parent = nullptr)
+        : QSortFilterProxyModel(parent)
+    {
+    }
+
+    void setFilterString(const QString &string)
+    {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+        beginFilterChange();
+#endif
+        m_pattern = string;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+        endFilterChange(QSortFilterProxyModel::Direction::Rows);
+#else
+        invalidateFilter();
+#endif
+    }
+
+protected:
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
+    {
+        if (m_pattern.isEmpty()) {
+            return true;
+        }
+
+        // If index is invalid(root index), return true
+        // The rowCount(invalidIndex) can be same as model->rowCount() and when
+        // we are recursively filtering, we get stuck on this index i.e.,
+        // trying to check its children again and again recursively.
+        auto index = sourceModel()->index(sourceRow, 0, sourceParent);
+        if (!index.isValid()) {
+            return true;
+        }
+
+        const QString file = index.data().toString();
+        return KFuzzyMatcher::matchSimple(m_pattern, file);
+    }
+
+private:
+    QString m_pattern;
+};
+
 class CommitDiffTreeView : public QWidget
 {
 public:
@@ -359,10 +408,12 @@ private:
     QToolButton m_backBtn;
     QTreeView m_tree;
     QStandardItemModel m_model;
+    CommitFilesViewFilterProxyModel m_filterModel;
     QString m_gitDir;
     QString m_commitHash;
     QLabel m_icon;
     QLabel m_label;
+    KLineEdit m_filter;
 };
 
 CommitDiffTreeView::CommitDiffTreeView(const QString &labelText,
@@ -403,7 +454,9 @@ CommitDiffTreeView::CommitDiffTreeView(const QString &labelText,
 
     vLayout->addLayout(hLayout);
 
-    m_tree.setModel(&m_model);
+    m_filterModel.setSourceModel(&m_model);
+    m_filterModel.setRecursiveFilteringEnabled(true);
+    m_tree.setModel(&m_filterModel);
     layout()->addWidget(&m_tree);
 
     m_tree.setHeaderHidden(true);
@@ -416,6 +469,18 @@ CommitDiffTreeView::CommitDiffTreeView(const QString &labelText,
     connect(&m_tree, &QTreeView::customContextMenuRequested, this, &CommitDiffTreeView::openContextMenu);
 
     connect(&m_tree, &QTreeView::clicked, this, &CommitDiffTreeView::showDiff);
+
+    layout()->addWidget(&m_filter);
+    m_filter.setPlaceholderText(i18n("Filter…"));
+    m_filter.setClearButtonEnabled(true);
+    m_filter.setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
+    connect(&m_filter, &KLineEdit::textChanged, this, [this]() {
+        m_filterModel.setFilterString(m_filter.text());
+        if (!m_filter.text().isEmpty()) {
+            QTimer::singleShot(100, &m_tree, &QTreeView::expandAll);
+        }
+    });
+
     openCommit(hash);
 }
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-05 00:47+0000\n"
-"PO-Revision-Date: 2026-04-16 09:29+0400\n"
+"PO-Revision-Date: 2026-05-07 12:34+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -240,7 +240,7 @@ msgstr "احفظ"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "اجعل هذا العمود قابلاً للعرض في الجداول ذات الصلة"
 
 #: dataoutputwidget.cpp:253
 #, kde-format
@@ -391,19 +391,19 @@ msgstr "احفظ الاتّصالات في جلسة «كيت» واستعدها"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "مكّن الجدول القابل للتحرير في ”تصفح البيانات“"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "مكّن الجداول العلائقية القابلة للتحرير"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "تجريبي"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
@@ -507,20 +507,16 @@ msgid "Background Color"
 msgstr "لون الخلفيّة"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "لون النّصّ"
+msgstr "لون النص المُعدل"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "لون الخلفيّة"
+msgstr "لون الخلفيّة المُعدل"
 
 #: outputstylewidget.cpp:49
 #, kde-format

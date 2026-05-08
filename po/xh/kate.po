@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-27 00:47+0000\n"
+"POT-Creation-Date: 2026-05-08 00:47+0000\n"
 "PO-Revision-Date: 2002-11-15 12:44+0200\n"
 "Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -158,45 +158,51 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "Kate - Umhleli Wombhalo we Wokubhekiswe phambili we KDE"
 
-#: lib/commitfilesview.cpp:434 lib/kateviewmanager.cpp:369
+#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:539
+#: lib/filehistorywidget.cpp:467 lib/kateconfigplugindialogpage.cpp:109
+#, fuzzy, kde-format
+msgid "Filter…"
+msgstr "&Iifayile:"
+
+#: lib/commitfilesview.cpp:499 lib/kateviewmanager.cpp:369
 #: lib/kateviewmanager.cpp:371
 #, kde-format
 msgid "Open File"
 msgstr "Vula Ifayile"
 
-#: lib/commitfilesview.cpp:440 lib/katemainwindow.cpp:460
+#: lib/commitfilesview.cpp:505 lib/katemainwindow.cpp:460
 #, fuzzy, kde-format
 msgid "Copy Location"
 msgstr "Isicelo"
 
-#: lib/commitfilesview.cpp:463 lib/commitfilesview.cpp:580
-#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:560
+#: lib/commitfilesview.cpp:625
 #, kde-format
 msgid "Renamed %1 => %2"
 msgstr ""
 
-#: lib/commitfilesview.cpp:580
+#: lib/commitfilesview.cpp:645
 #, kde-format
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:596
+#: lib/commitfilesview.cpp:661
 #, fuzzy, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
 msgstr "Gq&abaza"
 
-#: lib/commitfilesview.cpp:609
+#: lib/commitfilesview.cpp:674
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
@@ -354,12 +360,6 @@ msgstr ""
 #, kde-format
 msgid "Warnings"
 msgstr ""
-
-#: lib/diagnostics/diagnosticview.cpp:539 lib/filehistorywidget.cpp:467
-#: lib/kateconfigplugindialogpage.cpp:109
-#, fuzzy, kde-format
-msgid "Filter…"
-msgstr "&Iifayile:"
 
 #: lib/diagnostics/diagnosticview.cpp:545
 #, fuzzy, kde-format

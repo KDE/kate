@@ -622,9 +622,14 @@ void KateProjectPluginView::slotDocumentUrlChanged(KTextEditor::Document *docume
     /**
      * get active project view and switch it, if it is for a different project
      * do this AFTER file selection
+     *
+     * The very first time m_stackedProjectViews->addWidget() is called, it makes that widget
+     * the current one; however the first time m_projectSelectAction->addAction() is called,
+     * the KSelectAction current index isn't changed, so we have to ensure it'll be changed.
      */
     auto *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
-    if (active != m_project2View.value(project).tree) {
+    const bool wasEmpty = m_projectSelectAction->currentItem() == -1;
+    if (wasEmpty || active != m_project2View.value(project).tree) {
         const int index = findProjectActionIndex(project->fileName());
         if (index >= 0) {
             setCurrentProject(index);

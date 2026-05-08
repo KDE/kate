@@ -646,9 +646,14 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
         rightHl->setDefinition(repo.definitionForMimeType(r->mimeType()));
     }
 
+    auto workingDir = QFileInfo(l->url().toLocalFile()).absoluteDir();
+    if (!workingDir.exists()) {
+        workingDir = QDir::home();
+    }
+
     QProcess git;
     const QStringList args = diffDocsGitArgs(l, r);
-    if (!setupGitProcess(git, qApp->applicationDirPath(), args)) {
+    if (!setupGitProcess(git, workingDir.absolutePath(), args)) {
         gitNotFoundMessage();
         return;
     }

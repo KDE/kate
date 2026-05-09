@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-10 02:47+0000\n"
+"POT-Creation-Date: 2026-05-09 02:43+0000\n"
 "PO-Revision-Date: 2025-03-23 07:29+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -504,7 +504,7 @@ msgstr ""
 "estas instalita, certigu, ke ĝi estas via PATH-variablo. Vidu https://git-"
 "scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1251
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
@@ -562,17 +562,17 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "Montri diferencon kun plena kunteksto, ne nur la ŝanĝitajn liniojn"
 
-#: lib/diff/diffwidget.cpp:854 lib/diff/diffwidget.cpp:1058
+#: lib/diff/diffwidget.cpp:859 lib/diff/diffwidget.cpp:1063
 #, kde-format
 msgid "New file %1"
 msgstr "Nova dosiero %1"
 
-#: lib/diff/diffwidget.cpp:856 lib/diff/diffwidget.cpp:1060
+#: lib/diff/diffwidget.cpp:861 lib/diff/diffwidget.cpp:1065
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Forigita dosiero %1"
 
-#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
+#: lib/diff/diffwidget.cpp:1234 lib/diff/diffwidget.cpp:1235
 #, kde-format
 msgid "No differences found"
 msgstr "Neniuj diferencoj trovitaj"

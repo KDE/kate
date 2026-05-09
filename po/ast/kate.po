@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-10 02:47+0000\n"
+"POT-Creation-Date: 2026-05-09 02:43+0000\n"
 "PO-Revision-Date: 2023-11-07 21:26+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -486,7 +486,7 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1251
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
@@ -544,17 +544,17 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:854 lib/diff/diffwidget.cpp:1058
+#: lib/diff/diffwidget.cpp:859 lib/diff/diffwidget.cpp:1063
 #, kde-format
 msgid "New file %1"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:856 lib/diff/diffwidget.cpp:1060
+#: lib/diff/diffwidget.cpp:861 lib/diff/diffwidget.cpp:1065
 #, kde-format
 msgid "Deleted file %1"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
+#: lib/diff/diffwidget.cpp:1234 lib/diff/diffwidget.cpp:1235
 #, kde-format
 msgid "No differences found"
 msgstr ""

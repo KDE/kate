@@ -75,6 +75,8 @@ enum {
     FileUrlRole = Qt::UserRole + 1,
     RangeRole,
     KindRole,
+    LazyLoadRole,
+    ExpandRole,
 };
 
 static constexpr KTextEditor::Document::MarkTypes markType = KTextEditor::Document::markType31;
@@ -1241,7 +1243,7 @@ public:
 
             auto lineVariant = data(Qt::UserRole);
             // either of these mean we tried to obtain line already
-            if (lineVariant.isValid() || rootItem->data(RangeData::KindRole).toBool()) {
+            if (lineVariant.isValid() || rootItem->data(RangeData::LazyLoadRole).toBool()) {
                 return QStandardItem::data(role).toString().append(lineVariant.toString());
             }
 
@@ -1262,7 +1264,7 @@ public:
             }
 
             // mark as processed
-            rootItem->setData(RangeData::KindRole, true);
+            rootItem->setData(true, RangeData::LazyLoadRole);
 
             // should work ok
             return data(role);
@@ -1338,7 +1340,7 @@ public:
 
         // plain heuristic; mark for auto-expand all when safe and/or useful to do so
         if (treeModel->rowCount() <= 2 || locations.size() <= 20) {
-            treeModel->invisibleRootItem()->setData(true, RangeData::KindRole);
+            treeModel->invisibleRootItem()->setData(true, RangeData::ExpandRole);
         }
 
         m_ownedModel.reset(treeModel);
@@ -1371,7 +1373,7 @@ public:
         int index = m_tabWidget->addTab(treeView, title);
         connect(treeView, &QTreeView::clicked, this, &self_type::goToItemLocation);
 
-        if (treeModel->invisibleRootItem()->data(RangeData::KindRole).toBool()) {
+        if (treeModel->invisibleRootItem()->data(RangeData::ExpandRole).toBool()) {
             treeView->expandAll();
         }
 

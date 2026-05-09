@@ -77,39 +77,6 @@ enum {
     KindRole,
 };
 
-class KindEnum
-{
-public:
-    enum _kind {
-        Text = static_cast<int>(LSPDocumentHighlightKind::Text),
-        Read = static_cast<int>(LSPDocumentHighlightKind::Read),
-        Write = static_cast<int>(LSPDocumentHighlightKind::Write),
-    };
-
-    KindEnum(int v)
-    {
-        m_value = _kind(v);
-    }
-
-    KindEnum(LSPDocumentHighlightKind hl)
-        : KindEnum(static_cast<_kind>(hl))
-    {
-    }
-
-    KindEnum(LSPDiagnosticSeverity sev)
-        : KindEnum(_kind(10 + static_cast<int>(sev)))
-    {
-    }
-
-    operator _kind()
-    {
-        return m_value;
-    }
-
-private:
-    _kind m_value;
-};
-
 static constexpr KTextEditor::Document::MarkTypes markType = KTextEditor::Document::markType31;
 }
 
@@ -1013,13 +980,12 @@ public:
             return;
         }
         auto line = range.start().line();
-        RangeData::KindEnum kind = RangeData::KindEnum(item->data(RangeData::KindRole).toInt());
 
         KTextEditor::Attribute::Ptr attr;
 
         bool enabled = false;
-        switch (kind) {
-        case RangeData::KindEnum::Text: {
+        switch (item->data(RangeData::KindRole).value<LSPDocumentHighlightKind>()) {
+        case LSPDocumentHighlightKind::Text: {
             // well, it's a bit like searching for something, so reuse that color
             static KTextEditor::Attribute::Ptr searchAttr;
             if (!searchAttr) {
@@ -1034,7 +1000,7 @@ public:
             break;
         }
         // FIXME are there any symbolic/configurable ways to pick these colors?
-        case RangeData::KindEnum::Read: {
+        case LSPDocumentHighlightKind::Read: {
             static KTextEditor::Attribute::Ptr greenAttr;
             if (!greenAttr) {
                 const auto theme = KTextEditor::Editor::instance()->theme();
@@ -1046,7 +1012,7 @@ public:
             enabled = true;
             break;
         }
-        case RangeData::KindEnum::Write: {
+        case LSPDocumentHighlightKind::Write: {
             static KTextEditor::Attribute::Ptr redAttr;
             if (!redAttr) {
                 const auto theme = KTextEditor::Editor::instance()->theme();
@@ -1303,15 +1269,18 @@ public:
         }
     };
 
-    static void
-    fillItemRoles(QStandardItem *item, const QUrl &url, const LSPRange _range, RangeData::KindEnum kind, const LSPClientRevisionSnapshot *snapshot = nullptr)
+    static void fillItemRoles(QStandardItem *item,
+                              const QUrl &url,
+                              const LSPRange _range,
+                              const LSPDocumentHighlightKind kind,
+                              const LSPClientRevisionSnapshot *snapshot = nullptr)
     {
         auto range = snapshot ? transformRange(url, *snapshot, _range) : _range;
         item->setData(QVariant(url), RangeData::FileUrlRole);
         QVariant vrange;
         vrange.setValue(range);
         item->setData(vrange, RangeData::RangeRole);
-        item->setData(static_cast<int>(kind), RangeData::KindRole);
+        item->setData(QVariant::fromValue(kind), RangeData::KindRole);
     }
 
     QString getProjectBaseDir()

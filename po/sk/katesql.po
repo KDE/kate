@@ -236,12 +236,10 @@ msgid "Save"
 msgstr "Uložiť"
 
 #: dataoutputwidget.cpp:242
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Make this column presentable for relatied tables"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr "Sprehľadniť tento stĺpec pre súvisiace tabuľky"
+msgstr "Sprístupniť tento stĺpec pre súvisiace tabuľky"
 
 #: dataoutputwidget.cpp:253
 #, kde-format

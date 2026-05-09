@@ -238,7 +238,7 @@ msgstr "保存"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "优化此列在关联表中的显示"
 
 #: dataoutputwidget.cpp:253
 #, kde-format
@@ -391,19 +391,19 @@ msgstr "在 Kate 会话中保存并还原连接"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "启用浏览数据的表格编辑功能"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "启用可编辑的关系表"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "实验性"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
@@ -510,13 +510,13 @@ msgstr "背景颜色"
 #, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr ""
+msgstr "已更改文本颜色"
 
 #: outputstylewidget.cpp:40
 #, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr ""
+msgstr "已更改背景颜色"
 
 #: outputstylewidget.cpp:49
 #, kde-format

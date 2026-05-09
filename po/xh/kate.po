@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-08 00:47+0000\n"
+"POT-Creation-Date: 2026-05-09 00:47+0000\n"
 "PO-Revision-Date: 2002-11-15 12:44+0200\n"
 "Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -519,7 +519,7 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:62 lib/diff/diffwidget.cpp:1238
+#: lib/diff/diffwidget.cpp:62 lib/diff/diffwidget.cpp:1243
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
@@ -570,17 +570,17 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:846 lib/diff/diffwidget.cpp:1050
+#: lib/diff/diffwidget.cpp:851 lib/diff/diffwidget.cpp:1055
 #, fuzzy, kde-format
 msgid "New file %1"
 msgstr "Intlanganiso"
 
-#: lib/diff/diffwidget.cpp:848 lib/diff/diffwidget.cpp:1052
+#: lib/diff/diffwidget.cpp:853 lib/diff/diffwidget.cpp:1057
 #, fuzzy, kde-format
 msgid "Deleted file %1"
 msgstr "&Template:"
 
-#: lib/diff/diffwidget.cpp:1221 lib/diff/diffwidget.cpp:1222
+#: lib/diff/diffwidget.cpp:1226 lib/diff/diffwidget.cpp:1227
 #, kde-format
 msgid "No differences found"
 msgstr ""

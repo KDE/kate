@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-08 00:47+0000\n"
+"POT-Creation-Date: 2026-05-09 00:47+0000\n"
 "PO-Revision-Date: 2010-09-24 20:22+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Maithili <bhashaghar@googlegroups.com>\n"
@@ -536,7 +536,7 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:62 lib/diff/diffwidget.cpp:1238
+#: lib/diff/diffwidget.cpp:62 lib/diff/diffwidget.cpp:1243
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
@@ -585,19 +585,19 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:846 lib/diff/diffwidget.cpp:1050
+#: lib/diff/diffwidget.cpp:851 lib/diff/diffwidget.cpp:1055
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "फाइलनाम"
 
-#: lib/diff/diffwidget.cpp:848 lib/diff/diffwidget.cpp:1052
+#: lib/diff/diffwidget.cpp:853 lib/diff/diffwidget.cpp:1057
 #, fuzzy, kde-format
 #| msgid "Deleted"
 msgid "Deleted file %1"
 msgstr "मेटाएल"
 
-#: lib/diff/diffwidget.cpp:1221 lib/diff/diffwidget.cpp:1222
+#: lib/diff/diffwidget.cpp:1226 lib/diff/diffwidget.cpp:1227
 #, kde-format
 msgid "No differences found"
 msgstr ""

@@ -10,6 +10,7 @@
 #include "ktexteditor_utils.h"
 
 #include <QApplication>
+#include <QDir>
 #include <QFileInfo>
 #include <QHBoxLayout>
 #include <QPainter>

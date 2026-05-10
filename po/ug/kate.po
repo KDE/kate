@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-08 00:47+0000\n"
+"POT-Creation-Date: 2026-05-10 00:47+0000\n"
 "PO-Revision-Date: 2026-04-20 21:21-0400\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -500,17 +500,17 @@ msgstr[0] "ۋاقىتلىق ساقلىغان قۇرنى بىكار قىل"
 msgid "Unstage Hunk"
 msgstr "ۋاقىتلىق ساقلىغان بۆلەكنى بىكار قىل"
 
-#: lib/diff/diffwidget.cpp:50
+#: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Diff - %1"
 msgstr "پەرق - %1"
 
-#: lib/diff/diffwidget.cpp:53
+#: lib/diff/diffwidget.cpp:54
 #, kde-format
 msgid "Diff - %1..%2"
 msgstr "پەرق - %1..%2"
 
-#: lib/diff/diffwidget.cpp:59
+#: lib/diff/diffwidget.cpp:60
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -521,66 +521,66 @@ msgstr ""
 "ئورنىتىلغان بولسا، يول ئۆزگەرگۈچى يەنى PATH قوشقانلىقىڭىزنى جەزملەڭ. "
 "تەپسىلاتىنى https://git-scm.com/downloads دىن كۆرۈڭ"
 
-#: lib/diff/diffwidget.cpp:62 lib/diff/diffwidget.cpp:1238
+#: lib/diff/diffwidget.cpp:63 lib/diff/diffwidget.cpp:1244
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
 msgstr "پەرق"
 
-#: lib/diff/diffwidget.cpp:121
+#: lib/diff/diffwidget.cpp:122
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "پەرق %1 .. %2"
 
-#: lib/diff/diffwidget.cpp:151
+#: lib/diff/diffwidget.cpp:152
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "تاپشۇرۇش ئۇچۇرىنى كۆرسەت/يوشۇر"
 
-#: lib/diff/diffwidget.cpp:156
+#: lib/diff/diffwidget.cpp:157
 #, kde-format
 msgid "Jump to Next File"
 msgstr "كېيىنكى ھۆججەتكە ئاتلا"
 
-#: lib/diff/diffwidget.cpp:160
+#: lib/diff/diffwidget.cpp:161
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "ئالدىنقى ھۆججەتكە ئاتلا"
 
-#: lib/diff/diffwidget.cpp:164
+#: lib/diff/diffwidget.cpp:165
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "كېيىنكى بۆلەككە ئاتلا"
 
-#: lib/diff/diffwidget.cpp:168
+#: lib/diff/diffwidget.cpp:169
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "ئالدىنقى بۆلەككە ئاتلا"
 
-#: lib/diff/diffwidget.cpp:172
+#: lib/diff/diffwidget.cpp:173
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "پەرقنى قايتا يۈكلە"
 
-#: lib/diff/diffwidget.cpp:176
+#: lib/diff/diffwidget.cpp:177
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 "پەقەت ئۆزگەرگەن قۇرنىلا كۆرسەتمەستىن بەلكى تولۇق مەزمۇننىڭ پەرقىنى كۆرسىتىدۇ"
 
-#: lib/diff/diffwidget.cpp:846 lib/diff/diffwidget.cpp:1050
+#: lib/diff/diffwidget.cpp:852 lib/diff/diffwidget.cpp:1056
 #, kde-format
 msgid "New file %1"
 msgstr "يېڭى ھۆججەت %1"
 
-#: lib/diff/diffwidget.cpp:848 lib/diff/diffwidget.cpp:1052
+#: lib/diff/diffwidget.cpp:854 lib/diff/diffwidget.cpp:1058
 #, kde-format
 msgid "Deleted file %1"
 msgstr "ئۆچۈرۈلگەن ھۆججەت %1"
 
-#: lib/diff/diffwidget.cpp:1221 lib/diff/diffwidget.cpp:1222
+#: lib/diff/diffwidget.cpp:1227 lib/diff/diffwidget.cpp:1228
 #, kde-format
 msgid "No differences found"
 msgstr "ھېچقانداق پەرق تېپىلمىدى"

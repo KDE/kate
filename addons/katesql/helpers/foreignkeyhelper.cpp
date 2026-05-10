@@ -59,7 +59,7 @@ void ForeignKeyHelper::insertForeignKey(DatabaseForeignKeys &result,
 
 DatabaseForeignKeys ForeignKeyHelper::getSQLiteForeignKeys(const QSqlDatabase &db)
 {
-    QStringList tables = db.tables();
+    const QStringList tables = db.tables();
 
     DatabaseForeignKeys result;
     for (const QString &table : tables) {

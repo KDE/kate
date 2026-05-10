@@ -407,7 +407,7 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query, const QString &conn
         return;
     }
 
-    for (auto *action : m_editableOnlyRightClickActions) {
+    for (auto *action : std::as_const(m_editableOnlyRightClickActions)) {
         m_view->removeAction(action);
     }
 
@@ -734,7 +734,7 @@ void DataOutputWidget::slotDuplicateRows()
         return;
     }
 
-    QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
+    const QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
 
     if (selectedIndexes.isEmpty()) {
         return;
@@ -784,7 +784,7 @@ void DataOutputWidget::slotRemoveSelectedRows()
         return;
     }
 
-    QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
+    const QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
 
     if (selectedIndexes.isEmpty()) {
         return;
@@ -802,7 +802,7 @@ void DataOutputWidget::slotRemoveSelectedRows()
     std::sort(sortedRows.begin(), sortedRows.end(), std::greater<int>());
 
     // Remove selected rows
-    for (const int row : sortedRows) {
+    for (const int row : std::as_const(sortedRows)) {
         sqlModel->removeRow(row);
         // m_view->hideRow(index.row()); to show this column when data is refreshed takes more state management than adding hihlighting which is gonna be the
         // next steps
@@ -825,7 +825,7 @@ void DataOutputWidget::slotSetNull()
         return;
     }
 
-    QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
+    const QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
 
     if (selectedIndexes.isEmpty()) {
         return;
@@ -852,7 +852,7 @@ void DataOutputWidget::slotUndo()
         return;
     }
 
-    QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
+    const QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
 
     if (selectedIndexes.isEmpty()) {
         // No selection: revert all changes

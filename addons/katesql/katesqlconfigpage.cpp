@@ -31,7 +31,7 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     const auto labelForRelationshipOption = i18nc("@option:check", "Enable editable relational tables");
     const auto expirimentalLabel = i18nc("@option:check", "Experimental");
 
-    const auto labelForRelationship = labelForRelationshipOption + u' ' + u'(' + expirimentalLabel + u')';
+    const QString labelForRelationship = labelForRelationshipOption + u' ' + u'(' + expirimentalLabel + u')';
 
     m_enableEditableRelationalTableCheckBox = new QCheckBox(labelForRelationship, this);
 

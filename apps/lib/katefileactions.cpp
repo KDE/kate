@@ -108,7 +108,7 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
         auto *copyJob = static_cast<KIO::CopyJob *>(finishedJob);
         if (!copyJob->error()) {
             doc->openUrl(copyJob->destUrl());
-            doc->documentSavedOrUploaded(doc, true);
+            Q_EMIT doc->documentSavedOrUploaded(doc, true);
         } else {
             KMessageBox::error(parent,
                                i18n("File \"%1\" could not be moved to \"%2\"",

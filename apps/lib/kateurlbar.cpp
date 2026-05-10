@@ -941,7 +941,7 @@ public:
         const auto last = m_model.index(m_model.rowCount() - 1, 0);
         if (last.isValid()) {
             setCurrentIndex(last);
-            clicked(last);
+            Q_EMIT clicked(last);
         }
     }
 

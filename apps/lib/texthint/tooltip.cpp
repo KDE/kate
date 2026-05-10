@@ -444,7 +444,7 @@ private:
                     auto fmt = table->format();
                     auto bg = fmt.background().color();
                     // Apply foreground and background color to actions bar
-                    if (bg == QColor("#100001")) {
+                    if (bg == QColor(0x100001)) {
                         QTextTableFormat newFmt = fmt;
                         newFmt.setBackground(QColor(m_actionBarBgColor));
                         table->setFormat(newFmt);

@@ -56,7 +56,7 @@ void StashDialog::openDialog(StashMode m)
     }
 
     // trigger reselect first
-    m_lineEdit.textChanged(QString());
+    Q_EMIT m_lineEdit.textChanged(QString());
     raise();
     show();
 }

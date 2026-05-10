@@ -36,7 +36,7 @@ MatchModel::MatchModel(QObject *parent)
     m_infoUpdateTimer.setInterval(100); // FIXME why does this delay not work?
     m_infoUpdateTimer.setSingleShot(true);
     connect(&m_infoUpdateTimer, &QTimer::timeout, this, [this]() {
-        dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId));
+        Q_EMIT dataChanged(createIndex(0, 0, InfoItemId), createIndex(0, 0, InfoItemId));
     });
 }
 
@@ -248,7 +248,7 @@ void MatchModel::updateMatchRanges(const QList<KTextEditor::MovingRange *> &rang
         matches[i].range = ranges[i]->toRange();
     }
     QModelIndex rootFileIndex = index(fileRow, 0, createIndex(0, 0, InfoItemId));
-    dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex));
+    Q_EMIT dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex));
 }
 
 QRegularExpressionMatch MatchModel::rangeTextMatches(const QString &rangeText, QRegularExpression regExp)
@@ -392,7 +392,7 @@ bool MatchModel::replaceSingleMatch(KTextEditor::Document *doc, const QModelInde
     }
     Q_ASSERT(matchRanges.isEmpty());
 
-    dataChanged(createIndex(matchRow, 0, fileRow), createIndex(matches.size() - 1, 0, fileRow));
+    Q_EMIT dataChanged(createIndex(matchRow, 0, fileRow), createIndex(matches.size() - 1, 0, fileRow));
 
     return true;
 }
@@ -467,7 +467,7 @@ void MatchModel::doReplaceNextMatch()
         }
     }
 
-    dataChanged(createIndex(0, 0, m_replaceFile), createIndex(matches.size() - 1, 0, m_replaceFile));
+    Q_EMIT dataChanged(createIndex(0, 0, m_replaceFile), createIndex(matches.size() - 1, 0, m_replaceFile));
 
     // free our moving ranges
     qDeleteAll(matchRanges);
@@ -1061,8 +1061,8 @@ bool MatchModel::setFileChecked(int fileRow, bool checked)
     }
     m_matchFiles[fileRow].checkState = checked ? Qt::Checked : Qt::Unchecked;
     QModelIndex rootFileIndex = index(fileRow, 0, createIndex(0, 0, InfoItemId));
-    dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex), QList<int>{Qt::CheckStateRole});
-    dataChanged(rootFileIndex, rootFileIndex, QList<int>{Qt::CheckStateRole});
+    Q_EMIT dataChanged(index(0, 0, rootFileIndex), index(matches.count() - 1, 0, rootFileIndex), QList<int>{Qt::CheckStateRole});
+    Q_EMIT dataChanged(rootFileIndex, rootFileIndex, QList<int>{Qt::CheckStateRole});
     return true;
 }
 
@@ -1086,7 +1086,7 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
         }
         m_infoCheckState = checked ? Qt::Checked : Qt::Unchecked;
         QModelIndex infoIndex = createIndex(0, 0, InfoItemId);
-        dataChanged(infoIndex, infoIndex, QList<int>{Qt::CheckStateRole});
+        Q_EMIT dataChanged(infoIndex, infoIndex, QList<int>{Qt::CheckStateRole});
         return true;
     }
 
@@ -1108,7 +1108,7 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
         }
         m_infoCheckState = checkState;
         QModelIndex infoIndex = createIndex(0, 0, InfoItemId);
-        dataChanged(infoIndex, infoIndex, QList<int>{Qt::CheckStateRole});
+        Q_EMIT dataChanged(infoIndex, infoIndex, QList<int>{Qt::CheckStateRole});
         return true;
     }
 
@@ -1139,8 +1139,8 @@ bool MatchModel::setData(const QModelIndex &itemIndex, const QVariant &, int rol
     }
 
     QModelIndex rootFileIndex = index(rootRow, 0);
-    dataChanged(rootFileIndex, rootFileIndex, QList<int>{Qt::CheckStateRole});
-    dataChanged(index(row, 0, rootFileIndex), index(row, 0, rootFileIndex), QList<int>{Qt::CheckStateRole});
+    Q_EMIT dataChanged(rootFileIndex, rootFileIndex, QList<int>{Qt::CheckStateRole});
+    Q_EMIT dataChanged(index(row, 0, rootFileIndex), index(row, 0, rootFileIndex), QList<int>{Qt::CheckStateRole});
     return true;
 }
 

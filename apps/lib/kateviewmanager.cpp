@@ -769,7 +769,7 @@ KTextEditor::View *KateViewManager::createView(KTextEditor::Document *doc, KateV
     // clang-format on
     connect(view, &KTextEditor::View::focusIn, this, &KateViewManager::activateSpace);
 
-    viewCreated(view);
+    Q_EMIT viewCreated(view);
 
     if (!vs) {
         activateView(view);

@@ -212,7 +212,7 @@ void ESLintPluginView::onReadyRead()
     }
 
     for (auto it = fileDiagnostics.cbegin(); it != fileDiagnostics.cend(); ++it) {
-        m_provider.diagnosticsAdded(FileDiagnostics{.uri = it.key(), .diagnostics = it.value()});
+        Q_EMIT m_provider.diagnosticsAdded(FileDiagnostics{.uri = it.key(), .diagnostics = it.value()});
     }
 }
 

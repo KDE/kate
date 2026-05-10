@@ -165,21 +165,21 @@ KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWin
 
 void KateGPGPluginView::onPreferredEmailAddressChanged()
 {
-    m_gpgKeyTable->itemSelectionChanged();
+    Q_EMIT m_gpgKeyTable->itemSelectionChanged();
     m_preferredEmailAddress = m_preferredEmailLineEdit->text();
     updateKeyTable();
 }
 
 void KateGPGPluginView::onShowOnlyPrivateKeysChanged()
 {
-    m_gpgKeyTable->itemSelectionChanged();
+    Q_EMIT m_gpgKeyTable->itemSelectionChanged();
     m_preferredEmailAddress = m_preferredEmailLineEdit->text();
     updateKeyTable();
 }
 
 void KateGPGPluginView::onHideExpiredKeysChanged()
 {
-    m_gpgKeyTable->itemSelectionChanged();
+    Q_EMIT m_gpgKeyTable->itemSelectionChanged();
     m_preferredEmailAddress = m_preferredEmailLineEdit->text();
     updateKeyTable();
 }

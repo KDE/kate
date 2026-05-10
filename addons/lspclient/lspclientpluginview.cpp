@@ -1950,7 +1950,7 @@ public:
         QPointer<KTextEditor::View> v(activeView);
         auto h = [this, v, position](const LSPExpandedMacro &reply) {
             if (v && !reply.expansion.isEmpty()) {
-                m_textHintprovider.showTextHint(reply.expansion, TextHintMarkupKind::PlainText, position);
+                Q_EMIT m_textHintprovider.showTextHint(reply.expansion, TextHintMarkupKind::PlainText, position);
             } else {
                 showMessage(i18n("No results"), KTextEditor::Message::Information);
             }
@@ -2034,7 +2034,7 @@ public:
 
     void onServerChanged()
     {
-        m_diagnosticProvider.requestClearSuppressions(&m_diagnosticProvider);
+        Q_EMIT m_diagnosticProvider.requestClearSuppressions(&m_diagnosticProvider);
         updateState();
     }
 

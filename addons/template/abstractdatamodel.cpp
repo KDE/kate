@@ -165,7 +165,7 @@ bool AbstractDataModel::setAbstractData(std::unique_ptr<AbstractData> data, cons
 
     TreeNode *node = static_cast<TreeNode *>(mIndex.internalPointer());
     node->m_data.swap(data);
-    dataChanged(mIndex, mIndex);
+    Q_EMIT dataChanged(mIndex, mIndex);
     return true;
 }
 
@@ -221,7 +221,7 @@ bool AbstractDataModel::setData(const QModelIndex &index, const QVariant &value,
     }
     bool ok = node->m_data->setData(value, role, index.column());
     if (ok) {
-        dataChanged(index, index, {role});
+        Q_EMIT dataChanged(index, index, {role});
     }
     return ok;
 }

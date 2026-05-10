@@ -186,7 +186,7 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead()
     }
 
     for (auto it = fileDiagnostics.cbegin(); it != fileDiagnostics.cend(); ++it) {
-        m_diagnosticProvider->diagnosticsAdded(FileDiagnostics{.uri = it.key(), .diagnostics = it.value()});
+        Q_EMIT m_diagnosticProvider->diagnosticsAdded(FileDiagnostics{.uri = it.key(), .diagnostics = it.value()});
     }
 
     if (!fileDiagnostics.isEmpty()) {

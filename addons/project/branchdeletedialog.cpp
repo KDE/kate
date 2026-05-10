@@ -74,7 +74,7 @@ protected:
         QMetaObject::invokeMethod(
             this,
             [this] {
-                checkAll(m_isChecked);
+                Q_EMIT checkAll(m_isChecked);
             },
             Qt::QueuedConnection);
 

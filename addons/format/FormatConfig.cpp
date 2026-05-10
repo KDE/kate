@@ -49,7 +49,7 @@ void FormatConfigPage::apply()
 {
     m_jsonSettings->saveUserConfig();
     m_plugin->m_configPath = m_jsonSettings->userConfigPath();
-    m_plugin->configChanged();
+    Q_EMIT m_plugin->configChanged();
 }
 
 void FormatConfigPage::reset()

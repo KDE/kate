@@ -285,7 +285,7 @@ public:
                         self->m_matches[i.row()].documentation.value += c.documentation.value;
                         self->m_matches[i.row()].additionalTextEdits = c.additionalTextEdits;
                         self->m_matches[i.row()].m_docResolved = true;
-                        self->dataChanged(i, i, {KTextEditor::CodeCompletionModel::ExpandingWidget});
+                        Q_EMIT self->dataChanged(i, i, {KTextEditor::CodeCompletionModel::ExpandingWidget});
                     }
                 };
 

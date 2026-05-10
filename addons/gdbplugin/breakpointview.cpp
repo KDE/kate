@@ -1562,9 +1562,9 @@ void BreakpointView::onListBreakpointsRequested()
     QString out = QStringLiteral("\n");
     out.append(m_breakpointModel->printBreakpoints());
     if (out.isEmpty()) {
-        m_backend->outputText(i18n("No breakpoints set"));
+        Q_EMIT m_backend->outputText(i18n("No breakpoints set"));
     } else {
-        m_backend->outputText(out);
+        Q_EMIT m_backend->outputText(out);
     }
 }
 

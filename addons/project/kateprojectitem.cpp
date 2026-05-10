@@ -190,7 +190,7 @@ void KateProjectItem::setData(const QVariant &value, int role)
         // update URL of the open document
         if (documentToRename != nullptr) {
             documentToRename->openUrl(QUrl::fromLocalFile(newName));
-            documentToRename->documentSavedOrUploaded(documentToRename, true);
+            Q_EMIT documentToRename->documentSavedOrUploaded(documentToRename, true);
         }
 
         // change internal path

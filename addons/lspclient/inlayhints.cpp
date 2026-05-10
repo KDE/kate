@@ -183,13 +183,13 @@ void InlayHintsManager::registerView(KTextEditor::View *v)
 
         // If the document was found and checksum hasn't changed
         if (it != m_hintDataByDoc.end() && it->checksum == d->checksum() && !it->m_hints.empty() && !reloaded) {
-            m_noteProvider.inlineNotesReset();
+            Q_EMIT m_noteProvider.inlineNotesReset();
         } else {
             if (it != m_hintDataByDoc.end()) {
                 m_hintDataByDoc.erase(it);
             }
             // clear hints from the inline note provider and reset it
-            m_noteProvider.inlineNotesReset();
+            Q_EMIT m_noteProvider.inlineNotesReset();
             // Send delayed request for inlay hints
             sendRequestDelayed(v->document()->documentRange(), 1);
         }

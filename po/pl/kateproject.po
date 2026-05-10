@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+# SPDX-FileCopyrightText: 2012-2016, 2018-2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2013.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-03 00:51+0000\n"
-"PO-Revision-Date: 2026-04-04 19:45+0200\n"
+"PO-Revision-Date: 2026-05-09 15:24+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -17,24 +17,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 25.08.2\n"
+"X-Generator: Lokalize 26.04.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr ""
-"Wybierz gałąź, z której pobrać wersję wyjściową. Naciśnij klawisz 'Esc', aby "
-"anulować."
+"Wybierz gałąź, na którą się przełączyć. Naciśnij klawisz 'Esc', aby anulować."
 
 #: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr "Pobrano wersję wyjściową gałęzi %1"
+msgstr "Przełączono się na gałąź %1"
 
 #: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr "Nie udało się pobrać wersji wyjściowej gałęzi %1, Błąd: %2"
+msgstr "Nie udało się przełączyć na gałąź %1, Błąd: %2"
 
 #: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
@@ -45,13 +44,12 @@ msgstr "Wpisz nazwę nowej gałęzi. Naciśnij klawisz 'Esc', aby anulować."
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
-"Wybierz gałąź, z której pobrać wersję wyjściową. Naciśnij klawisz 'Esc', aby "
-"anulować."
+"Wybierz gałąź, na którą się przełączyć. Naciśnij klawisz 'Esc', aby anulować."
 
 #: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr "Pobrano wersję wyjściową do nowej gałęzi: %1"
+msgstr "Przełączono się na nową gałąź: %1"
 
 #: branchcheckoutdialog.cpp:135
 #, kde-format
@@ -168,7 +166,7 @@ msgstr "Dołącz"
 #: gitcommitdialog.cpp:113 gitwidget.cpp:1063
 #, kde-format
 msgid "Amend Last Commit"
-msgstr "Dołącz do poprzedniego zmiany"
+msgstr "Dopisz do poprzedniej zmiany"
 
 #: gitcommitdialog.cpp:124
 #, kde-format
@@ -327,7 +325,7 @@ msgstr "Odśwież"
 #: gitwidget.cpp:1072
 #, kde-format
 msgid "Checkout Branch"
-msgstr "Pobierz wersję wyjściową gałęzi"
+msgstr "Przełącz się na gałąź"
 
 #: gitwidget.cpp:1084
 #, kde-format
@@ -337,7 +335,7 @@ msgstr "Usuń gałąź"
 #: gitwidget.cpp:1098
 #, kde-format
 msgid "Compare Branch with..."
-msgstr "Porównaj gałąź z..."
+msgstr "Porównaj gałąź z…"
 
 #: gitwidget.cpp:1104
 #, kde-format
@@ -367,47 +365,47 @@ msgstr "Pokaż historię"
 #: gitwidget.cpp:1159
 #, kde-format
 msgid "Diff - stash"
-msgstr "Różnica - stash"
+msgstr "Różnica - schowek"
 
 #: gitwidget.cpp:1192
 #, kde-format
 msgid "Pop Last Stash"
-msgstr "Pobierz ostanie składowisko"
+msgstr "Pobierz ostatni schowek"
 
 #: gitwidget.cpp:1196
 #, kde-format
 msgid "Pop Stash"
-msgstr "Pobierz ze składowiska"
+msgstr "Pobierz ze schowka"
 
 #: gitwidget.cpp:1200
 #, kde-format
 msgid "Apply Last Stash"
-msgstr "Nałóż ostatnie składowisko"
+msgstr "Nałóż ostatni schowek"
 
 #: gitwidget.cpp:1202
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr "Na składowisko (zachowaj dobrane)"
+msgstr "Do schowka (nie ruszaj dobranych)"
 
 #: gitwidget.cpp:1206
 #, kde-format
 msgid "Stash (Include Untracked)"
-msgstr "Na składowisko (wraz z plikami nieśledzonymi)"
+msgstr "Do schowka (wraz z plikami nieśledzonymi)"
 
 #: gitwidget.cpp:1210
 #, kde-format
 msgid "Apply Stash"
-msgstr "Nałóż składowisko"
+msgstr "Nałóż schowek"
 
 #: gitwidget.cpp:1211
 #, kde-format
 msgid "Drop Stash"
-msgstr "Porzuć składowisko"
+msgstr "Porzuć schowek"
 
 #: gitwidget.cpp:1212
 #, kde-format
 msgid "Show Stash Content"
-msgstr "Pokaż zawartość składowiska"
+msgstr "Pokaż zawartość schowka"
 
 #: gitwidget.cpp:1250
 #, kde-format
@@ -935,7 +933,7 @@ msgstr "Wczytaj projekt ponownie"
 #: kateprojectpluginview.cpp:222
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr "Pobierz wersję wyjściową gałęzi Git"
+msgstr "Przełącz się na gałąź Git"
 
 #: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
 #, kde-format
@@ -1079,65 +1077,65 @@ msgstr "Polecenie projektu"
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
-"Opis składowiska (niewymagany). Naciśnij klawisz Enter, aby potwierdzić, "
-"Esc, aby opuścić."
+"Opis schowka (niewymagany). Naciśnij klawisz Enter, aby potwierdzić, Esc, "
+"aby opuścić."
 
 #: stashdialog.cpp:43
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
 "Wpisz coś, aby zacząć filtrować, naciśnij klawisz Enter, aby pobrać ze "
-"składowiska, klawisz Esc, aby opuścić."
+"schowka, klawisz Esc, aby opuścić."
 
 #: stashdialog.cpp:143
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr "Nie udało się wrzucić zmian na składowisko %1"
+msgstr "Nie udało się wrzucić zmian do schowka %1"
 
 #: stashdialog.cpp:145
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr "Pomyślnie wrzucono zmiany na składowisko."
+msgstr "Pomyślnie wrzucono zmiany do schowka."
 
 #: stashdialog.cpp:164
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr "Nie udało się pobrać spisu składu. Błąd: "
+msgstr "Nie udało się pobrać wykazu rzeczy w schowku. Błąd: "
 
 #: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr "Nie udało się nałożyć plików ze składowiska. Błąd: "
+msgstr "Nie udało się nałożyć zmian ze schowka. Błąd: "
 
 #: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr "Nie udało się porzucić składowiska. Błąd: "
+msgstr "Nie udało się porzucić schowka. Błąd: "
 
 #: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr "Nie udało się pobrać ze składowiska. Błąd: "
+msgstr "Nie udało się pobrać ze schowka. Błąd: "
 
 #: stashdialog.cpp:188
 #, kde-format
 msgid "Stash applied successfully."
-msgstr "Pomyślnie nałożono pliki ze składowiska."
+msgstr "Pomyślnie nałożono pliki ze schowka."
 
 #: stashdialog.cpp:190
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr "Pomyślnie porzucono pliki ze składowiska."
+msgstr "Pomyślnie porzucono pliki ze schowka."
 
 #: stashdialog.cpp:192
 #, kde-format
 msgid "Stash popped successfully."
-msgstr "Pomyślnie pobrano pliki ze składowiska."
+msgstr "Pomyślnie pobrano pliki ze schowka."
 
 #: stashdialog.cpp:221
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr "Nie udało się pokazać składowiska. Błąd: "
+msgstr "Nie udało się pokazać schowka. Błąd: "
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

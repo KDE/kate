@@ -1,9 +1,9 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1736538 $
+# Version: $Revision: 1736565 $
 # Kate polish translation file.
 # Main translation work:
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+# SPDX-FileCopyrightText: 2011-2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 # Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
 # Michal Rudolf <mrudolf@kdewebdev.org>, 2003, 2004.
 # Mikolaj Machowski <mikmach@wp.pl>, 2004, 2005.
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-09 02:43+0000\n"
-"PO-Revision-Date: 2026-04-04 19:44+0200\n"
+"PO-Revision-Date: 2026-05-09 16:57+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 25.08.2\n"
+"X-Generator: Lokalize 26.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2471,7 +2471,7 @@ msgstr "Przełącz na pasek przemieszczania się"
 #: lib/kateviewmanager.cpp:292
 #, kde-format
 msgid "Welcome Page"
-msgstr "Stronę powitalna"
+msgstr "Strona powitalna"
 
 #: lib/kateviewmanager.cpp:297
 #, kde-format
@@ -3079,7 +3079,7 @@ msgstr "&Usuń"
 #: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
-msgstr "Witaj"
+msgstr "Strona powitalna"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
@@ -3127,7 +3127,7 @@ msgstr "Odwiedź stronę domową"
 #: lib/welcomeview/welcomeview.ui:293
 #, kde-format
 msgid "Get involved"
-msgstr "Dołącz do twórców"
+msgstr "Zacznij współtworzyć"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:306

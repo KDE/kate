@@ -240,7 +240,7 @@ DatabaseForeignKeys ForeignKeyHelper::getOracleForeignKeys(const QSqlDatabase &d
 
 DatabaseForeignKeys ForeignKeyHelper::getSybaseForeignKeys(const QSqlDatabase &db)
 {
-    DatabaseForeignKeys result;
+    // DatabaseForeignKeys result;
 
     // // Use sysreferences which is available in Sybase ASE.
     // // Note: fkey1/refkey1 only captures the first column of multi-column foreign keys.

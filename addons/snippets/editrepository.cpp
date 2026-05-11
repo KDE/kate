@@ -10,6 +10,7 @@
  */
 
 #include "editrepository.h"
+#include "editsnippet.h"
 #include "snippetrepository.h"
 #include "snippetstore.h"
 
@@ -24,8 +25,6 @@
 
 #include <QDialogButtonBox>
 #include <QPushButton>
-
-static const char s_configFile[] = "kate-snippetsrc";
 
 EditRepository::EditRepository(SnippetRepository *repository, QWidget *parent)
     : QDialog(parent)

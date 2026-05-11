@@ -27,6 +27,8 @@ namespace Ui
 class EditSnippetBase;
 }
 
+static constexpr inline char s_configFile[] = "kate-snippetsrc";
+
 /**
  * This dialog is used to create/edit snippets in a given repository.
  *

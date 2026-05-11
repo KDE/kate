@@ -29,8 +29,6 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
-static const char s_configFile[] = "kate-snippetsrc";
-
 static KTextEditor::View *createView(QWidget *tabWidget)
 {
     auto document = KTextEditor::Editor::instance()->createDocument(tabWidget);

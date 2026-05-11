@@ -329,8 +329,8 @@ void KateFileBrowser::fixOpenWithMenu()
 
 void KateFileBrowser::openWithMenuAction(QAction *a)
 {
-    const QString application = a->data().toStringList().first();
-    const QString fileName = a->data().toStringList().last();
+    const QString application = a->data().toStringList().constFirst();
+    const QString fileName = a->data().toStringList().constLast();
 
     a->setData(application);
     KateFileActions::showOpenWithMenu(this, QUrl(fileName), a);

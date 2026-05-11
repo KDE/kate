@@ -136,7 +136,7 @@ Response::Response(const QJsonObject &msg)
     , command(msg[DAP_COMMAND].toString())
     , message(msg[QLatin1String("message")].toString())
     , body(msg[DAP_BODY])
-    , errorBody(success ? std::nullopt : parseOptionalObject<Message>(body.toObject()[QLatin1String("error")]))
+    , errorBody(success ? std::nullopt : parseOptionalObject<Message>(body.toObject().value(QLatin1String("error"))))
 {
 }
 

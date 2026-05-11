@@ -295,7 +295,7 @@ void Client::processResponseLaunch(const Response &response, const QJsonValue &)
 void Client::processResponseThreads(const Response &response, const QJsonValue &)
 {
     if (response.success) {
-        Q_EMIT threads(Thread::parseList(response.body.toObject()[DAP_THREADS].toArray()), false, {});
+        Q_EMIT threads(Thread::parseList(response.body.toObject().value(DAP_THREADS).toArray()), false, {});
     } else {
         Q_EMIT threads({}, true, response.message);
     }
@@ -303,7 +303,7 @@ void Client::processResponseThreads(const Response &response, const QJsonValue &
 
 void Client::processResponseStackTrace(const Response &response, const QJsonValue &request)
 {
-    const int threadId = request.toObject()[DAP_THREAD_ID].toInt();
+    const int threadId = request.toObject().value(DAP_THREAD_ID).toInt();
     if (response.success) {
         Q_EMIT stackTrace(threadId, StackTraceInfo(response.body.toObject(), *m_msgContext));
     } else {
@@ -313,9 +313,9 @@ void Client::processResponseStackTrace(const Response &response, const QJsonValu
 
 void Client::processResponseScopes(const Response &response, const QJsonValue &request)
 {
-    const int frameId = request.toObject()[DAP_FRAME_ID].toInt();
+    const int frameId = request.toObject().value(DAP_FRAME_ID).toInt();
     if (response.success) {
-        Q_EMIT scopes(frameId, Scope::parseList(response.body.toObject()[DAP_SCOPES].toArray(), *m_msgContext));
+        Q_EMIT scopes(frameId, Scope::parseList(response.body.toObject().value(DAP_SCOPES).toArray(), *m_msgContext));
     } else {
         Q_EMIT scopes(frameId, QList<Scope>());
     }
@@ -323,9 +323,9 @@ void Client::processResponseScopes(const Response &response, const QJsonValue &r
 
 void Client::processResponseVariables(const Response &response, const QJsonValue &request)
 {
-    const int variablesReference = request.toObject()[DAP_VARIABLES_REFERENCE].toInt();
+    const int variablesReference = request.toObject().value(DAP_VARIABLES_REFERENCE).toInt();
     if (response.success) {
-        Q_EMIT variables(variablesReference, Variable::parseList(response.body.toObject()[DAP_VARIABLES].toArray()));
+        Q_EMIT variables(variablesReference, Variable::parseList(response.body.toObject().value(DAP_VARIABLES).toArray()));
     } else {
         Q_EMIT variables(variablesReference, QList<Variable>());
     }
@@ -343,14 +343,16 @@ void Client::processResponseModules(const Response &response, const QJsonValue &
 void Client::processResponseNext(const Response &response, const QJsonValue &request)
 {
     if (response.success) {
-        Q_EMIT debuggeeContinued(ContinuedEvent(request.toObject()[DAP_THREAD_ID].toInt(), !response.body.toObject()[DAP_SINGLE_THREAD].toBool(false)));
+        Q_EMIT debuggeeContinued(
+            ContinuedEvent(request.toObject().value(DAP_THREAD_ID).toInt(), !response.body.toObject().value(DAP_SINGLE_THREAD).toBool(false)));
     }
 }
 
 void Client::processResponseContinue(const Response &response, const QJsonValue &request)
 {
     if (response.success) {
-        Q_EMIT debuggeeContinued(ContinuedEvent(request.toObject()[DAP_THREAD_ID].toInt(), response.body.toObject()[DAP_ALL_THREADS_CONTINUED].toBool(true)));
+        Q_EMIT debuggeeContinued(
+            ContinuedEvent(request.toObject().value(DAP_THREAD_ID).toInt(), response.body.toObject().value(DAP_ALL_THREADS_CONTINUED).toBool(true)));
     }
 }
 
@@ -377,7 +379,7 @@ void Client::processResponseDisconnect(const Response &response, const QJsonValu
 void Client::processResponseSource(const Response &response, const QJsonValue &request)
 {
     const auto req = request.toObject();
-    const auto path = m_msgContext->toLocal(req[DAP_SOURCE].toObject()[DAP_PATH].toString());
+    const auto path = m_msgContext->toLocal(req[DAP_SOURCE].toObject().value(DAP_PATH).toString());
     const auto reference = req[DAP_SOURCE_REFERENCE].toInt(0);
     if (response.success) {
         Q_EMIT sourceContent(path, reference, SourceContent(response.body.toObject()));
@@ -389,7 +391,7 @@ void Client::processResponseSource(const Response &response, const QJsonValue &r
 
 void Client::processResponseSetBreakpoints(const Response &response, const QJsonValue &request)
 {
-    const auto source = Source(request.toObject()[DAP_SOURCE].toObject(), *m_msgContext);
+    const auto source = Source(request.toObject().value(DAP_SOURCE).toObject(), *m_msgContext);
     if (response.success) {
         const auto resp = response.body.toObject();
         if (resp.contains(DAP_BREAKPOINTS)) {
@@ -415,7 +417,7 @@ void Client::processResponseSetBreakpoints(const Response &response, const QJson
 void Client::processResponseSetFunctionBreakpoints(const Response &response, const QJsonValue &request)
 {
     QList<dap::FunctionBreakpoint> requested;
-    const auto array = request.toObject()[DAP_BREAKPOINTS].toArray();
+    const auto array = request.toObject().value(DAP_BREAKPOINTS).toArray();
     requested.reserve(array.size());
     for (const auto &jv : array) {
         requested.push_back(dap::FunctionBreakpoint(jv.toObject()));
@@ -446,7 +448,7 @@ void Client::processResponseSetExceptionBreakpoints(const Response &response, co
 
 void Client::processResponseEvaluate(const Response &response, const QJsonValue &request)
 {
-    const auto &expression = request.toObject()[DAP_EXPRESSION].toString();
+    const auto &expression = request.toObject().value(DAP_EXPRESSION).toString();
     if (response.success) {
         Q_EMIT expressionEvaluated(expression, EvaluateInfo(response.body.toObject()));
     } else {
@@ -460,7 +462,7 @@ void Client::processResponseGotoTargets(const Response &response, const QJsonVal
     const auto source = Source(req[DAP_SOURCE].toObject(), *m_msgContext);
     const int line = req[DAP_LINE].toInt();
     if (response.success) {
-        Q_EMIT gotoTargets(source, line, GotoTarget::parseList(response.body.toObject()[QLatin1String("targets")].toArray()));
+        Q_EMIT gotoTargets(source, line, GotoTarget::parseList(response.body.toObject().value(QLatin1String("targets")).toArray()));
     } else {
         Q_EMIT gotoTargets(source, line, QList<GotoTarget>());
     }

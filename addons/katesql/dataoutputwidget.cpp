@@ -117,19 +117,19 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
 
     auto *resizeColumnsAction = m_actionCollection->addAction(QStringLiteral("data_resize_columns"));
     resizeColumnsAction->setText(i18nc("@action:intoolbar", "Resize columns to contents"));
-    resizeColumnsAction->setIcon(QIcon::fromTheme(QLatin1String("distribute-horizontal-x")));
+    resizeColumnsAction->setIcon(QIcon::fromTheme(QStringLiteral("distribute-horizontal-x")));
     connect(resizeColumnsAction, &QAction::triggered, this, &DataOutputWidget::resizeColumnsToContents);
     m_verticalToolbar->addAction(resizeColumnsAction);
 
     action = m_actionCollection->addAction(QStringLiteral("data_resize_rows"));
     action->setText(i18nc("@action:intoolbar", "Resize rows to contents"));
-    action->setIcon(QIcon::fromTheme(QLatin1String("distribute-vertical-y")));
+    action->setIcon(QIcon::fromTheme(QStringLiteral("distribute-vertical-y")));
     connect(action, &QAction::triggered, this, &DataOutputWidget::resizeRowsToContents);
     m_verticalToolbar->addAction(action);
 
     action = m_actionCollection->addAction(QStringLiteral("data_export"));
     action->setText(i18nc("@action:intoolbar", "Export..."));
-    action->setIcon(QIcon::fromTheme(QLatin1String("document-export-table")));
+    action->setIcon(QIcon::fromTheme(QStringLiteral("document-export-table")));
     connect(action, &QAction::triggered, this, &DataOutputWidget::slotExport);
     m_verticalToolbar->addAction(action);
     m_view->addAction(action);

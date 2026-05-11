@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-04 00:49+0000\n"
+"POT-Creation-Date: 2026-05-11 00:47+0000\n"
 "PO-Revision-Date: 2023-06-30 13:44+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -109,9 +109,11 @@ msgid "Prettier Format Current File"
 msgstr "Cari faylın Prettier formatı"
 
 #. i18n: file: 8
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "External tool name"
+#| msgid "Qt Quick 2 Preview (qmlscene)"
 msgctxt "External tool name"
-msgid "Qt Quick 2 Preview (qmlscene)"
+msgid "Qt Quick 2 Preview"
 msgstr "Qt Quick 2-yə öncədən baxış (qmlscene)"
 
 #. i18n: file: 4

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LGPL-2.0-or-later
 
 #include "template.h"
+#include "importcategory.h"
 #include "ui_template.h"
 
 #include <KLocalizedString>
@@ -32,9 +33,9 @@ static QString lastPath(const QString &path)
     return path;
 }
 
-static QString userTemplatePath()
+static QString userTemplatePathString()
 {
-    return QFileInfo(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1String("/templates")).absoluteFilePath();
+    return userTemplatePath().absoluteFilePath();
 }
 
 QVariant Template::TreeData::data(int role, int column)
@@ -45,7 +46,7 @@ QVariant Template::TreeData::data(int role, int column)
 
     switch (role) {
     case Qt::DisplayRole:
-        if (path == userTemplatePath()) {
+        if (path == userTemplatePathString()) {
             return i18n("User Templates");
         }
         return lastPath(path);
@@ -185,7 +186,7 @@ Template::Template(QWidget *parent)
     addAppWizardTemplates();
 #endif
     // Add user templates if they exist
-    QString userTemplates = userTemplatePath();
+    QString userTemplates = userTemplatePathString();
     const QDir userTemplDir(userTemplates);
     const auto userEntries = userTemplDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
     if (!userEntries.isEmpty()) {
@@ -217,7 +218,7 @@ QModelIndex Template::findChildIndex(const QString &folderName, const QModelInde
 
 QModelIndex Template::addUserTemplateEntry(const QFileInfo &info)
 {
-    const QString root = userTemplatePath();
+    const QString root = userTemplatePathString();
     QString templatePath = info.absoluteFilePath();
     ;
     templatePath.remove(root);
@@ -444,7 +445,7 @@ void Template::templateIndexChanged(const QModelIndex &newIndex)
     QString path = newIndex.data(TreeData::PathRole).toString();
     QString config = newIndex.data(TreeData::ConfigJsonRole).toString();
 
-    if (!path.isEmpty() && !config.isEmpty() && path.startsWith(userTemplatePath())) {
+    if (!path.isEmpty() && !config.isEmpty() && path.startsWith(userTemplatePathString())) {
         m_removeButton->setEnabled(true);
     } else {
         m_removeButton->setEnabled(false);
@@ -814,7 +815,7 @@ void Template::importTemplate()
     }
     const auto &categoryAndName = categoryOpt.value();
 
-    const QString localTemplates = userTemplatePath();
+    const QString localTemplates = userTemplatePathString();
     const QString destPath = QDir(localTemplates).filePath(categoryAndName);
 
     if (QFileInfo::exists(destPath)) {
@@ -864,7 +865,7 @@ void Template::removeTemplate()
         return;
 
     QFileInfo info(path);
-    if (!path.startsWith(userTemplatePath())) {
+    if (!path.startsWith(userTemplatePathString())) {
         KMessageBox::error(this, i18n("You do not have permission to delete this template."));
         return;
     }
@@ -888,7 +889,7 @@ void Template::removeTemplate()
     currDir.cdUp();
 
     if (success) {
-        QString root = userTemplatePath();
+        QString root = userTemplatePathString();
 
         while (currDir.absolutePath().startsWith(root)) {
             const auto entries = currDir.entryList(QDir::AllEntries | QDir::NoDotAndDotDot);

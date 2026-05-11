@@ -8,7 +8,7 @@
 
 using namespace Qt::Literals::StringLiterals;
 
-static QFileInfo userTemplatePath()
+QFileInfo userTemplatePath()
 {
     return QFileInfo(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1String("/templates"));
 }

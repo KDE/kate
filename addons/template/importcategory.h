@@ -16,6 +16,8 @@ class ImportCategory;
 }
 class QPushButton;
 
+[[nodiscard]] QFileInfo userTemplatePath();
+
 class ImportCategory : public QDialog
 {
     Q_OBJECT

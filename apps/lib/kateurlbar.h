@@ -24,7 +24,7 @@ public:
 private:
     void setupLayout();
 
-    void onViewChanged(KTextEditor::View *v);
+    bool onViewChanged(KTextEditor::View *v); // returns true if setVisible and maybeHiddenChanged were called inside this function
     class QStackedWidget *const m_stack;
     class UrlbarContainer *const m_urlBarView;
     class QLabel *const m_untitledDocLabel;
@@ -36,4 +36,5 @@ private:
 
 Q_SIGNALS:
     void openUrlRequested(const QUrl &url, Qt::KeyboardModifiers);
+    void maybeHiddenChanged(); // "maybe" means it might be called even when isHidden() didn't change
 };

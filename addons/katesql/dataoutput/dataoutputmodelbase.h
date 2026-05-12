@@ -10,6 +10,7 @@ SPDX-License-Identifier: LGPL-2.0-only
 
 #include <QSqlTableModel>
 
+#include <QVariant>
 #include <type_traits>
 
 /**
@@ -90,6 +91,15 @@ public:
         }
 
         return SqlModel::data(index, role);
+    }
+
+    bool setData(const QModelIndex &index, const QVariant &value, int role) override
+    {
+        if (role == Qt::EditRole && value == KateSQLConstants::NullDisplayString) {
+            return SqlModel::setData(index, QVariant(), role);
+        }
+
+        return SqlModel::setData(index, value, role);
     }
 
     void clear() override

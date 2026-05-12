@@ -15,6 +15,7 @@ SPDX-License-Identifier: LGPL-2.0-only
 
 // edge-cases, which are more convinient too keep here outside of the KateSQLConstants namespace
 inline constexpr QChar FieldIsRequired(u'*');
+inline constexpr QChar EscapeChar(u'\\');
 enum KWalletConnectionResponse {
     Success = 0,
     Error = -1,
@@ -26,6 +27,8 @@ enum KWalletConnectionResponse {
  */
 namespace KateSQLConstants
 {
+inline constexpr QLatin1String NullDisplayString("NULL");
+
 /**
  * Configuration constants: KConfig group names and entry keys.
  */

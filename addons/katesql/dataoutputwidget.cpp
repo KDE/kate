@@ -9,9 +9,9 @@
 #include "dataoutput/columndelegates/datedelegate.h"
 #include "dataoutput/columndelegates/datetimedelegate.h"
 #include "dataoutput/columndelegates/enumdelegate.h"
-#include "dataoutput/dataoutputeditablerelationalmodel.h"
-#include "dataoutput/dataoutputmodel.h"
 #include "dataoutput/dataoutputmodelinterface.h"
+#include "dataoutput/models/dataoutputeditablerelationalmodel.h"
+#include "dataoutput/models/dataoutputmodel.h"
 #include "dataoutputview.h"
 #include "exportwizard.h"
 #include "helpers/databaseconfigserializinghelper.h"
@@ -47,6 +47,7 @@
 #include <QFocusEvent>
 #include <QHeaderView>
 #include <QIcon>
+#include <QKeyEvent>
 #include <QKeySequence>
 #include <QLabel>
 #include <QLayout>
@@ -73,10 +74,13 @@
 #include <qlist.h>
 #include <qmap.h>
 #include <qsqldatabase.h>
+#include <qtypes.h>
+#include <qvariant.h>
+#include <qvarlengtharray.h>
 
-DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCollection)
+DataOutputWidget::DataOutputWidget(QWidget *parent)
     : QWidget(parent)
-    , m_actionCollection(actionCollection)
+    , KXMLGUIClient()
     , m_model(nullptr)
     , m_view(new DataOutputView(this))
     , m_editableSection(nullptr)
@@ -84,6 +88,8 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     , m_editableOnlyRightClickActions(QList<QAction *>(qsizetype(
           7))) // change once we have more than insertRowAction + duplicateRowAction + removeRowAction + setNullAction + undoAction + pasteAction + saveAction
 {
+    KXMLGUIClient::setComponentName(QStringLiteral("katesql/datatable"), i18n("SQL"));
+    setXMLFile(QStringLiteral("dataoutputwidgetui.rc"));
     m_view->setModel(nullptr);
 
     connect(m_view, &DataOutputView::contextMenuAboutToShow, this, &DataOutputWidget::slotUpdateMakeColumnPresentableAction);
@@ -105,46 +111,47 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
 
     QAction *action;
 
-    auto *refreshAction = m_actionCollection->addAction(QStringLiteral("data_refresh"));
+    auto *refreshAction = actionCollection()->addAction(QStringLiteral("data_refresh"));
     refreshAction->setText(i18nc("@action:intoolbar", "Refresh"));
     refreshAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ViewRefresh));
     refreshAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    // KActionCollection::setDefaultShortcut(refreshAction, Qt::CTRL | Qt::Key_R);
+    KActionCollection::setDefaultShortcut(refreshAction, Qt::CTRL | Qt::Key_R);
+
     connect(refreshAction, &QAction::triggered, this, &DataOutputWidget::slotRefresh);
     m_verticalToolbar->addAction(refreshAction);
     m_view->addAction(refreshAction);
     addAction(refreshAction);
 
-    auto *resizeColumnsAction = m_actionCollection->addAction(QStringLiteral("data_resize_columns"));
+    auto *resizeColumnsAction = actionCollection()->addAction(QStringLiteral("data_resize_columns"));
     resizeColumnsAction->setText(i18nc("@action:intoolbar", "Resize columns to contents"));
     resizeColumnsAction->setIcon(QIcon::fromTheme(QStringLiteral("distribute-horizontal-x")));
     connect(resizeColumnsAction, &QAction::triggered, this, &DataOutputWidget::resizeColumnsToContents);
     m_verticalToolbar->addAction(resizeColumnsAction);
 
-    action = m_actionCollection->addAction(QStringLiteral("data_resize_rows"));
+    action = actionCollection()->addAction(QStringLiteral("data_resize_rows"));
     action->setText(i18nc("@action:intoolbar", "Resize rows to contents"));
     action->setIcon(QIcon::fromTheme(QStringLiteral("distribute-vertical-y")));
     connect(action, &QAction::triggered, this, &DataOutputWidget::resizeRowsToContents);
     m_verticalToolbar->addAction(action);
 
-    action = m_actionCollection->addAction(QStringLiteral("data_export"));
+    action = actionCollection()->addAction(QStringLiteral("data_export"));
     action->setText(i18nc("@action:intoolbar", "Export..."));
     action->setIcon(QIcon::fromTheme(QStringLiteral("document-export-table")));
     connect(action, &QAction::triggered, this, &DataOutputWidget::slotExport);
     m_verticalToolbar->addAction(action);
     m_view->addAction(action);
 
-    action = m_actionCollection->addAction(QStringLiteral("data_copy"));
+    action = actionCollection()->addAction(QStringLiteral("data_copy"));
     action->setText(i18nc("@action:intoolbar", "Copy"));
     action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy));
     action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    // KActionCollection::setDefaultShortcut(action, Qt::CTRL | Qt::Key_C);
+    KActionCollection::setDefaultShortcut(action, Qt::CTRL | Qt::Key_C);
     connect(action, &QAction::triggered, this, &DataOutputWidget::slotCopySelected);
     m_verticalToolbar->insertAction(resizeColumnsAction, action);
     m_view->addAction(action);
     addAction(action);
 
-    action = m_actionCollection->addAction(QStringLiteral("data_clear"));
+    action = actionCollection()->addAction(QStringLiteral("data_clear"));
     action->setText(i18nc("@action:intoolbar", "Clear"));
     action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditClear));
     connect(action, &QAction::triggered, this, &DataOutputWidget::clearResults);
@@ -153,8 +160,8 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     m_verticalToolbar->addSeparator();
 
     auto *toggleAction =
-        new KToggleAction(QIcon::fromTheme(QIcon::ThemeIcon::FormatTextDirectionRtl), i18nc("@action:intoolbar", "Use system locale"), m_actionCollection);
-    m_actionCollection->addAction(QStringLiteral("data_toggle_locale"), toggleAction);
+        new KToggleAction(QIcon::fromTheme(QIcon::ThemeIcon::FormatTextDirectionRtl), i18nc("@action:intoolbar", "Use system locale"), actionCollection());
+    actionCollection()->addAction(QStringLiteral("data_toggle_locale"), toggleAction);
     m_verticalToolbar->addAction(toggleAction);
     connect(toggleAction, &QAction::triggered, this, &DataOutputWidget::slotToggleLocale);
 
@@ -168,78 +175,81 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
     m_editableToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
     m_editableToolbar->setIconSize(QSize(iconSize, iconSize));
 
-    auto *pasteAction = m_actionCollection->addAction(QStringLiteral("data_paste"));
+    auto *pasteAction = actionCollection()->addAction(QStringLiteral("data_paste"));
     pasteAction->setText(i18nc("@action:intoolbar", "Paste"));
     pasteAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditPaste));
     pasteAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    // KActionCollection::setDefaultShortcut(pasteAction, Qt::CTRL | Qt::Key_V);
+    KActionCollection::setDefaultShortcut(pasteAction, Qt::CTRL | Qt::Key_V);
     connect(pasteAction, &QAction::triggered, this, &DataOutputWidget::slotPaste);
     m_editableOnlyRightClickActions.push_back(pasteAction);
     m_editableToolbar->addAction(pasteAction);
     addAction(pasteAction);
 
-    auto *setNullAction = m_actionCollection->addAction(QStringLiteral("data_set_null"));
+    auto *setNullAction = actionCollection()->addAction(QStringLiteral("data_set_null"));
     setNullAction->setText(i18nc("@action:intoolbar", "Set Null"));
     setNullAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentRevert));
     setNullAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    // KActionCollection::setDefaultShortcut(setNullAction, Qt::CTRL | Qt::SHIFT | Qt::Key_X);
+    KActionCollection::setDefaultShortcut(setNullAction, Qt::CTRL | Qt::Key_N);
     connect(setNullAction, &QAction::triggered, this, &DataOutputWidget::slotSetNull);
     m_editableOnlyRightClickActions.push_back(setNullAction);
     m_editableToolbar->addAction(setNullAction);
     addAction(setNullAction);
 
-    auto *insertRowAction = m_actionCollection->addAction(QStringLiteral("data_insert_row"));
+    auto *insertRowAction = actionCollection()->addAction(QStringLiteral("data_insert_row"));
     insertRowAction->setText(i18nc("@action:intoolbar", "Insert Row"));
     insertRowAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ListAdd));
     insertRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    // KActionCollection::setDefaultShortcut(insertRowAction, Qt::ALT | Qt::Key_Insert);
+    KActionCollection::setDefaultShortcut(insertRowAction, Qt::Key_Insert);
     connect(insertRowAction, &QAction::triggered, this, &DataOutputWidget::slotInsertRow);
     m_editableOnlyRightClickActions.push_back(insertRowAction);
     m_editableToolbar->addAction(insertRowAction);
     addAction(insertRowAction);
 
-    auto *removeRowAction = m_actionCollection->addAction(QStringLiteral("data_remove_rows"));
+    auto *removeRowAction = actionCollection()->addAction(QStringLiteral("data_remove_rows"));
     removeRowAction->setText(i18nc("@action:intoolbar", "Remove Selected Rows"));
     removeRowAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ListRemove));
     removeRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    // KActionCollection::setDefaultShortcut(removeRowAction, Qt::Key_Delete);
+    KActionCollection::setDefaultShortcut(removeRowAction, Qt::Key_Delete);
     connect(removeRowAction, &QAction::triggered, this, &DataOutputWidget::slotRemoveSelectedRows);
     m_editableOnlyRightClickActions.push_back(removeRowAction);
     m_editableToolbar->addAction(removeRowAction);
     addAction(removeRowAction);
 
-    auto *duplicateRowAction = m_actionCollection->addAction(QStringLiteral("data_duplicate_rows"));
+    auto *duplicateRowAction = actionCollection()->addAction(QStringLiteral("data_duplicate_rows"));
     duplicateRowAction->setText(i18nc("@action:intoolbar", "Duplicate Selected Rows"));
     duplicateRowAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditCopy));
     duplicateRowAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    // KActionCollection::setDefaultShortcut(duplicateRowAction, Qt::CTRL | Qt::Key_D);
+    KActionCollection::setDefaultShortcut(duplicateRowAction, Qt::CTRL | Qt::Key_D);
     connect(duplicateRowAction, &QAction::triggered, this, &DataOutputWidget::slotDuplicateRows);
     m_editableOnlyRightClickActions.push_back(duplicateRowAction);
     m_editableToolbar->addAction(duplicateRowAction);
     addAction(duplicateRowAction);
 
-    auto *undoAction = m_actionCollection->addAction(QStringLiteral("data_undo"));
+    auto *undoAction = actionCollection()->addAction(QStringLiteral("data_undo"));
     undoAction->setText(i18nc("@action:intoolbar", "Undo"));
     undoAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditUndo));
     undoAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    // KActionCollection::setDefaultShortcut(undoAction, Qt::CTRL | Qt::Key_Z);
+    KActionCollection::setDefaultShortcut(undoAction, Qt::CTRL | Qt::Key_Z);
     connect(undoAction, &QAction::triggered, this, &DataOutputWidget::slotUndo);
     m_editableOnlyRightClickActions.push_back(undoAction);
     m_editableToolbar->addAction(undoAction);
     addAction(undoAction);
 
-    auto *saveAction = m_actionCollection->addAction(QStringLiteral("data_save"));
+    auto *saveAction = actionCollection()->addAction(QStringLiteral("data_save"));
     saveAction->setText(i18nc("@action:intoolbar", "Save"));
     saveAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentSave));
     saveAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    // KActionCollection::setDefaultShortcut(saveAction, Qt::CTRL | Qt::Key_S);
+    KActionCollection::setDefaultShortcut(saveAction, Qt::CTRL | Qt::Key_S);
     connect(saveAction, &QAction::triggered, this, &DataOutputWidget::slotSave);
     m_editableOnlyRightClickActions.push_back(saveAction);
     m_editableToolbar->addAction(saveAction);
     addAction(saveAction);
 
-    m_makeColumnPresentableAction = m_actionCollection->addAction(QStringLiteral("data_make_column_presentable"));
+    m_makeColumnPresentableAction = actionCollection()->addAction(QStringLiteral("data_make_column_presentable"));
     m_makeColumnPresentableAction->setText(i18nc("@action:intoolbar", "Make this column presentable for related tables"));
+    m_makeColumnPresentableAction->setToolTip(i18nc(
+        "@action:intoolbar",
+        "Warning! For columns without a unique constraint we cannot guarantee a correct copy-pasting (when the column is shown instead of the foreign key)"));
     m_makeColumnPresentableAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::FormatIndentMore));
     connect(m_makeColumnPresentableAction, &QAction::triggered, this, &DataOutputWidget::slotMakeColumnPresentable);
     m_view->addAction(m_makeColumnPresentableAction);
@@ -278,6 +288,13 @@ DataOutputWidget::DataOutputWidget(QWidget *parent, KActionCollection *actionCol
 
     setLayout(layout);
 
+    // Install event filter on the table view to intercept shortcut overrides.
+    // This prevents conflicting shortcuts (Ctrl+C, Ctrl+S, etc.) from being
+    // handled by the global katepart actions when the SQL data table has focus.
+    m_view->installEventFilter(this);
+    // Also install on viewport to catch events from the viewport's focus
+    m_view->viewport()->installEventFilter(this);
+
     readConfig();
     adjustToEditableStateChange();
 }
@@ -293,6 +310,59 @@ void DataOutputWidget::changeEvent(QEvent *event)
         m_editableToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
         readConfig();
     }
+}
+
+bool DataOutputWidget::eventFilter(QObject *obj, QEvent *event)
+{
+    if (m_model == nullptr) {
+        return QWidget::eventFilter(obj, event);
+    }
+
+    // Only filter events from the table view and its viewport
+    if (obj != m_view && obj != m_view->viewport()) {
+        return QWidget::eventFilter(obj, event);
+    }
+
+    if (event->type() != QEvent::ShortcutOverride && event->type() != QEvent::KeyPress) {
+        return QWidget::eventFilter(obj, event);
+    }
+
+    auto *ke = static_cast<QKeyEvent *>(event);
+
+    // Build a QKeySequence from the key event to compare against action shortcuts.
+    // Only single-key shortcuts are supported (which is all we use).
+    const QKeySequence eventShortCut(ke->keyCombination());
+
+    const auto collection = actionCollection();
+
+    const auto actions = collection->actions();
+
+    for (QAction *action : std::as_const(actions)) {
+        if (!action->isEnabled()) {
+            continue;
+        }
+        const QList<QKeySequence> actionShortcuts = action->shortcuts();
+        for (const QKeySequence &expectedShortCut : actionShortcuts) {
+            if (expectedShortCut.isEmpty() || eventShortCut != expectedShortCut) {
+                continue;
+            }
+
+            // Match found
+            if (event->type() == QEvent::ShortcutOverride) {
+                // Accept to prevent the global shortcut from firing;
+                // we'll handle it in the KeyPress event.
+                event->accept();
+                return true;
+            }
+
+            // QEvent::KeyPress — trigger the action
+            action->trigger();
+            event->accept();
+            return true;
+        }
+    }
+
+    return QWidget::eventFilter(obj, event);
 }
 
 void DataOutputWidget::adjustToEditableStateChange()
@@ -741,7 +811,7 @@ void DataOutputWidget::slotDuplicateRows()
     }
     QSet<int> rowsToDuplicate;
     rowsToDuplicate.reserve(selectedIndexes.length());
-    for (const QModelIndex &index : selectedIndexes) {
+    for (const QModelIndex &index : std::as_const(selectedIndexes)) {
         rowsToDuplicate.insert(index.row());
     }
 
@@ -753,10 +823,15 @@ void DataOutputWidget::slotDuplicateRows()
     }
 
     QSqlIndex primary = sqlModel->primaryKey();
+    QList<int> columnIndexesToRemove;
+    columnIndexesToRemove.reserve(qsizetype(primary.count()));
+    for (int i = 0; i < primary.count(); ++i) {
+        columnIndexesToRemove.append(sqlModel->fieldIndex(primary.fieldName(i)));
+    }
+
     for (QSqlRecord record : recordsToInsert) {
-        for (int i = 0; i < primary.count(); ++i) {
-            QString col = primary.fieldName(i);
-            record.setNull(col);
+        for (int colIndex : columnIndexesToRemove) {
+            record.remove(colIndex);
         }
         sqlModel->insertRecord(0, record);
     }
@@ -793,7 +868,7 @@ void DataOutputWidget::slotRemoveSelectedRows()
     QSet<int> rowsToRemove;
 
     rowsToRemove.reserve(selectedIndexes.length());
-    for (const QModelIndex &index : selectedIndexes) {
+    for (const QModelIndex &index : std::as_const(selectedIndexes)) {
         rowsToRemove.insert(index.row());
     }
 
@@ -831,7 +906,7 @@ void DataOutputWidget::slotSetNull()
         return;
     }
 
-    for (const QModelIndex &index : selectedIndexes) {
+    for (const QModelIndex &index : std::as_const(selectedIndexes)) {
         sqlModel->setData(index, QVariant(), Qt::EditRole);
     }
 }
@@ -859,10 +934,16 @@ void DataOutputWidget::slotUndo()
         sqlModel->revertAll();
     } else {
         // Revert changes for selected rows
-        QSet<int> rowsToRevert;
-        for (const QModelIndex &index : selectedIndexes) {
-            rowsToRevert.insert(index.row());
+        QList<int> rowsToRevert;
+        for (const QModelIndex &index : std::as_const(selectedIndexes)) {
+            if (!rowsToRevert.contains(index.row())) {
+                rowsToRevert.append(index.row());
+            }
         }
+
+        // inserted rows are placed at the beginning of the table
+        // so reverting rows (=removing them) in ascending order may skip rows
+        std::sort(rowsToRevert.begin(), rowsToRevert.end(), std::greater<int>());
 
         for (const int row : rowsToRevert) {
             sqlModel->revertRow(row);
@@ -921,13 +1002,21 @@ void DataOutputWidget::exportData(QTextStream &stream,
         if (indexData.typeId() < 7) // is numeric or boolean
         {
             if (numbersQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
-                snapshot[qMakePair(row, col)] = numbersQuoteChar + indexData.toString() + numbersQuoteChar;
+                // Escape the escape character itself first, then the quote char.
+                // Order matters: if we escape quotes first, a literal backslash
+                // before a quote would produce \" which the reader would
+                // interpret as an escaped quote rather than \\".
+                const QString data = indexData.toString().replace(EscapeChar, EscapeChar + EscapeChar).replace(numbersQuoteChar, EscapeChar + numbersQuoteChar);
+                snapshot[qMakePair(row, col)] = numbersQuoteChar + data + numbersQuoteChar;
             } else {
                 snapshot[qMakePair(row, col)] = indexData.toString();
             }
         } else {
             if (stringsQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
-                snapshot[qMakePair(row, col)] = stringsQuoteChar + indexData.toString() + stringsQuoteChar;
+                // Escape the escape character itself first, then the quote char.
+                const QString data = indexData.toString().replace(EscapeChar, EscapeChar + EscapeChar).replace(stringsQuoteChar, EscapeChar + stringsQuoteChar);
+
+                snapshot[qMakePair(row, col)] = stringsQuoteChar + data + stringsQuoteChar;
             } else {
                 snapshot[qMakePair(row, col)] = indexData.toString();
             }
@@ -940,37 +1029,47 @@ void DataOutputWidget::exportData(QTextStream &stream,
     rows.erase(std::unique(rows.begin(), rows.end()), rows.end());
     columns.erase(std::unique(columns.begin(), columns.end()), columns.end());
 
+    const int minRow = rows.front();
+    const int maxRow = rows.back();
+    const int minCol = columns.front();
+    const int maxCol = columns.back();
+
     if (opt.testFlag(ExportColumnNames)) {
         if (opt.testFlag(ExportLineNumbers)) {
             stream << fieldDelimiter;
         }
+        for (int col = minCol; col <= maxCol; ++col) {
+            if (std::binary_search(columns.begin(), columns.end(), col)) {
+                const QVariant headerData = abstractModel()->headerData(col, Qt::Horizontal);
 
-        for (auto it = columns.begin(); it != columns.end(); ++it) {
-            const QVariant headerData = abstractModel()->headerData(*it, Qt::Horizontal);
-
-            if (stringsQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
-                stream << stringsQuoteChar + headerData.toString() + stringsQuoteChar;
-            } else {
-                stream << headerData.toString();
+                if (stringsQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
+                    const QString escapedHeader =
+                        headerData.toString().replace(EscapeChar, EscapeChar + EscapeChar).replace(stringsQuoteChar, EscapeChar + stringsQuoteChar);
+                    stream << stringsQuoteChar + escapedHeader + stringsQuoteChar;
+                } else {
+                    stream << headerData.toString();
+                }
             }
 
-            if (it + 1 != columns.end()) {
+            if (col < maxCol) {
                 stream << fieldDelimiter;
             }
         }
         stream << KateSQLConstants::Export::DefaultValues::LineDelimiterForCopyPaste;
     }
 
-    for (const int row : std::as_const(rows)) {
-        if (opt.testFlag(ExportLineNumbers)) {
-            stream << row + 1 << fieldDelimiter;
-        }
+    for (int row = minRow; row <= maxRow; ++row) {
+        if (std::binary_search(rows.begin(), rows.end(), row)) {
+            if (opt.testFlag(ExportLineNumbers)) {
+                stream << row + 1 << fieldDelimiter;
+            }
 
-        for (auto it = columns.begin(); it != columns.end(); ++it) {
-            stream << snapshot.value(qMakePair(row, *it));
+            for (int col = minCol; col <= maxCol; ++col) {
+                stream << snapshot.value(qMakePair(row, col));
 
-            if (it + 1 != columns.end()) {
-                stream << fieldDelimiter;
+                if (col < maxCol) {
+                    stream << fieldDelimiter;
+                }
             }
         }
         stream << KateSQLConstants::Export::DefaultValues::LineDelimiterForCopyPaste;
@@ -1005,18 +1104,12 @@ void DataOutputWidget::importData(QTextStream &stream, const QChar stringsQuoteC
         return a.column() < b.column();
     });
 
-    QModelIndex startIndex = selectedIndexes.first();
+    const QString data = stream.readAll().trimmed();
+    QStringList lines = data.split(lineDelimiter, Qt::KeepEmptyParts);
 
-    QString data = stream.readAll();
-    QStringList lines = data.split(lineDelimiter, Qt::SkipEmptyParts);
-
-    int startRow = startIndex.row();
-    int startCol = startIndex.column();
-
+    QList<QList<QVariant>> dataArray(lines.size(), QList<QVariant>());
     for (int lineIdx = 0; lineIdx < lines.size(); ++lineIdx) {
         QString line = lines[lineIdx];
-        QStringList fields;
-
         // Parse the line - handle quoted fields
         int pos = 0;
         while (pos < line.length()) {
@@ -1025,23 +1118,40 @@ void DataOutputWidget::importData(QTextStream &stream, const QChar stringsQuoteC
             // Check if field starts with quote
             if (stringsQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar && pos < line.length() && line[pos] == stringsQuoteChar) {
                 pos++; // Skip opening quote
-                // Find closing quote
-                while (pos < line.length() && line[pos] != stringsQuoteChar) {
-                    field += line[pos];
-                    pos++;
+                // Read until an unescaped closing quote
+                while (pos < line.length()) {
+                    if (line[pos] == EscapeChar && pos + 1 < line.length()) {
+                        // Escaped character: take the character after the backslash literally
+                        field += line[pos + 1];
+                        pos += 2;
+                    } else if (line[pos] == stringsQuoteChar) {
+                        // Unescaped quote -> closing quote
+                        break;
+                    } else {
+                        field += line[pos];
+                        pos++;
+                    }
                 }
                 if (pos < line.length()) {
                     pos++; // Skip closing quote
                 }
-                // Skip delimiter if present
-                if (line.mid(pos, fieldDelimiter.length()) == fieldDelimiter) {
+                // Skip delimiter if present (no allocation — QStringView comparison)
+                if (QStringView(line).sliced(pos).startsWith(fieldDelimiter)) {
                     pos += fieldDelimiter.length();
                 }
             } else {
-                // Read until delimiter or end
-                while (pos < line.length() && line.mid(pos, fieldDelimiter.length()) != fieldDelimiter) {
-                    field += line[pos];
-                    pos++;
+                // Read until delimiter or end, handling escapes
+                while (pos < line.length()) {
+                    if (line[pos] == EscapeChar && pos + 1 < line.length()) {
+                        // Escaped character: take the character after the backslash literally
+                        field += line[pos + 1];
+                        pos += 2;
+                    } else if (QStringView(line).sliced(pos).startsWith(fieldDelimiter)) {
+                        break;
+                    } else {
+                        field += line[pos];
+                        pos++;
+                    }
                 }
                 // Skip delimiter
                 if (pos < line.length()) {
@@ -1049,25 +1159,71 @@ void DataOutputWidget::importData(QTextStream &stream, const QChar stringsQuoteC
                 }
             }
 
-            fields.append(field);
+            // A truly empty field (nothing between delimiters) is stored as a
+            // null QVariant so that setData can be skipped for it during import.
+            // Quoted empty strings (e.g. "") are *not* null — they are intentional.
+            // the actual null values from sql are represented as KateSQLConstants::NullDisplayString
+            dataArray[lineIdx].append(field.isEmpty() ? QVariant() : QVariant(field));
         }
 
-        int targetRow = startRow + lineIdx;
+        // If the line ends with the field delimiter, the loop above advanced past
+        // the trailing delimiter without appending the (empty) final field.
+        if (!line.isEmpty() && line.endsWith(fieldDelimiter)) {
+            dataArray[lineIdx].append(QVariant()); // Trailing delimiter → truly empty field
+        }
+    }
 
-        // Check if we're past the end of the model
-        if (targetRow >= sqlModel->rowCount()) {
-            break;
+    const QModelIndex startIndex = selectedIndexes.first();
+    const QModelIndex endIndex = selectedIndexes.last();
+
+    const int startRow = startIndex.row();
+    const int startCol = startIndex.column();
+
+    if (dataArray.isEmpty()) {
+        return;
+    }
+    if (dataArray[0].isEmpty()) {
+        return;
+    }
+
+    const int dataArrayRows = dataArray.size();
+
+    const int endRow = std::max(endIndex.row() + 1, startRow + dataArrayRows);
+
+    for (int row = startRow; row < endRow; ++row) {
+        if (row >= sqlModel->rowCount()) {
+            continue;
         }
 
-        for (int fieldIdx = 0; fieldIdx < fields.size(); ++fieldIdx) {
-            int targetCol = startCol + fieldIdx;
+        const int dataRow = (row - startRow) % dataArrayRows;
 
-            if (targetCol >= sqlModel->columnCount()) {
-                break;
+        // An empty data row (produced by an empty line in the pasted text)
+        // means this row gap should be preserved — skip setData entirely.
+        if (dataArray[dataRow].isEmpty()) {
+            continue;
+        }
+
+        const int dataArrayCols = dataArray[dataRow].size();
+        const int endCol = std::max(endIndex.column() + 1, startCol + dataArrayCols);
+
+        for (int col = startCol; col < endCol; ++col) {
+            if (col >= sqlModel->columnCount()) {
+                continue;
+            }
+            const QModelIndex targetIndex = sqlModel->index(row, col);
+            const int dataCol = (col - startCol) % dataArrayCols;
+            const QVariant value = dataArray[dataRow][dataCol];
+
+            // A null QVariant means the field was truly empty (nothing between
+            // delimiters) — skip setData so the existing cell value is preserved.
+            // the actual null values from sql are represented as KateSQLConstants::NullDisplayString
+            if (value.isNull()) {
+                continue;
             }
 
-            QModelIndex targetIndex = sqlModel->index(targetRow, targetCol);
-            sqlModel->setData(targetIndex, fields[fieldIdx]);
+            if (!sqlModel->setData(targetIndex, value)) {
+                qWarning("Failed to set data at row %d, column %d", row, col);
+            }
         }
     }
 }

@@ -7,8 +7,8 @@
 #include "katesqlview.h"
 #include "connectionmodel.h"
 #include "connectionwizard.h"
-#include "dataoutput/dataoutputeditablemodel.h"
 #include "dataoutput/dataoutputmodelinterface.h"
+#include "dataoutput/models/dataoutputeditablemodel.h"
 #include "dataoutputwidget.h"
 #include "katesqlconstants.h"
 #include "outputwidget.h"
@@ -59,7 +59,7 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
                                                  QIcon::fromTheme(QStringLiteral("server-database")), // TODO better Icon from QIcon::ThemeIcon::...
                                                  i18nc("@title:window", "SQL Schema"));
 
-    m_outputWidget = new KateSQLOutputWidget(m_outputToolView, actionCollection());
+    m_outputWidget = new KateSQLOutputWidget(m_outputToolView);
 
     m_schemaBrowserWidget = new SchemaBrowserWidget(m_schemaBrowserToolView, m_manager);
 
@@ -71,6 +71,17 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
     setupActions();
 
     m_mainWindow->guiFactory()->addClient(this);
+
+    // Register DataOutputWidget as a separate KXMLGUIClient so its shortcuts
+    // (Ctrl+C, Ctrl+V, Ctrl+S, Ctrl+Z, etc.) are scoped to the tool view only
+    // and don't conflict with katepart editor shortcuts.
+    // addClient() calls beginXMLPlug(mainWindow) which adds the main window as
+    // an associated widget, making shortcuts global. We must clear it and re-add
+    // only the data output widget to keep shortcuts scoped.
+    auto *dataOutput = m_outputWidget->dataOutputWidget();
+    m_mainWindow->guiFactory()->addClient(dataOutput);
+    dataOutput->actionCollection()->clearAssociatedWidgets();
+    dataOutput->actionCollection()->addAssociatedWidget(dataOutput);
 
     QMenu *sqlMenu = static_cast<QMenu *>(factory()->container(MenuSQL, this));
 
@@ -99,6 +110,7 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
 
 KateSQLView::~KateSQLView()
 {
+    m_mainWindow->guiFactory()->removeClient(m_outputWidget->dataOutputWidget());
     m_mainWindow->guiFactory()->removeClient(this);
 
     delete m_outputToolView;

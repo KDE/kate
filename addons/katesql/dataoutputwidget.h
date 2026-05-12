@@ -10,6 +10,8 @@
 #include "helpers/dataoutputstylehelper.h"
 #include "katesqlconstants.h"
 
+#include <KXMLGUIClient>
+
 #include <QAbstractItemModel>
 #include <QAction>
 #include <QList>
@@ -23,10 +25,9 @@ class QVBoxLayout;
 class QSqlQuery;
 class DataOutputView;
 class QLineEdit;
-class KActionCollection;
 class KToolBar;
 
-class DataOutputWidget : public QWidget
+class DataOutputWidget : public QWidget, public KXMLGUIClient
 {
     Q_OBJECT
 
@@ -39,7 +40,7 @@ public:
 
     Q_DECLARE_FLAGS(Options, Option)
 
-    DataOutputWidget(QWidget *parent, KActionCollection *actionCollection);
+    DataOutputWidget(QWidget *parent);
     ~DataOutputWidget() override;
 
     void exportData(QTextStream &stream,
@@ -91,6 +92,7 @@ public Q_SLOTS:
 
 protected:
     void changeEvent(QEvent *event) override;
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
     QAbstractItemModel *abstractModel() const
@@ -100,8 +102,6 @@ private:
     }
     DataOutputStyleHelper m_styleHelper;
     QVBoxLayout *m_dataLayout;
-
-    KActionCollection *m_actionCollection;
 
     DataOutputModelInterface *m_model;
     DataOutputView *m_view;

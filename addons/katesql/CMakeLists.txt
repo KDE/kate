@@ -29,11 +29,11 @@ target_sources(
     connectionmodel.cpp
     sqlmanager.cpp
     dataoutput/cachedsqlquerymodel.cpp
-    dataoutput/dataoutputmodel.h
     dataoutput/dataoutputmodelbase.h
     dataoutput/dataoutputmodelinterface.h
-    dataoutput/dataoutputeditablemodel.h
-    dataoutput/dataoutputeditablerelationalmodel.h
+    dataoutput/models/dataoutputmodel.cpp
+    dataoutput/models/dataoutputeditablemodel.cpp
+    dataoutput/models/dataoutputeditablerelationalmodel.cpp
     dataoutput/columndelegates/booleandelegate.cpp
     dataoutput/columndelegates/datedelegate.cpp
     dataoutput/columndelegates/datetimedelegate.cpp

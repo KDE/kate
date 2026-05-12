@@ -62,7 +62,7 @@ DatabaseForeignKeys ForeignKeyHelper::getSQLiteForeignKeys(const QSqlDatabase &d
     const QStringList tables = db.tables();
 
     DatabaseForeignKeys result;
-    for (const QString &table : tables) {
+    for (const QString &table : std::as_const(tables)) {
         QSqlQuery fkQuery(db);
         const QString escapedTable = QString(table).replace(QLatin1Char('\''), QStringLiteral("''"));
         if (!fkQuery.exec(QStringLiteral("PRAGMA foreign_key_list('%1')").arg(escapedTable))) {

@@ -6,7 +6,7 @@ SPDX-License-Identifier: LGPL-2.0-only
 
 #pragma once
 
-#include "dataoutputmodelbase.h"
+#include "../dataoutputmodelbase.h"
 
 #include <QSqlTableModel>
 
@@ -18,10 +18,6 @@ class DataOutputEditableModel : public DataOutputModelBase<QSqlTableModel>
     Q_OBJECT
     Q_INTERFACES(DataOutputModelInterface)
 public:
-    explicit DataOutputEditableModel(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase())
-        : DataOutputModelBase<QSqlTableModel>(parent, db)
-    {
-    }
-
-    ~DataOutputEditableModel() override = default;
+    explicit DataOutputEditableModel(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase());
+    ~DataOutputEditableModel() override;
 };

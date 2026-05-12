@@ -6,8 +6,8 @@
 
 #include "sqlmanager.h"
 #include "connectionmodel.h"
-#include "dataoutput/dataoutputeditablemodel.h"
-#include "dataoutput/dataoutputeditablerelationalmodel.h"
+#include "dataoutput/models/dataoutputeditablemodel.h"
+#include "dataoutput/models/dataoutputeditablerelationalmodel.h"
 
 #include <KConfig>
 #include <KConfigGroup>

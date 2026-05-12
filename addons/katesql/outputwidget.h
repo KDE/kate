@@ -9,14 +9,13 @@
 
 #include <QTabWidget>
 
-class KActionCollection;
 class TextOutputWidget;
 class DataOutputWidget;
 
 class KateSQLOutputWidget : public QTabWidget
 {
 public:
-    KateSQLOutputWidget(QWidget *parent, KActionCollection *actionCollection);
+    KateSQLOutputWidget(QWidget *parent);
 
     ~KateSQLOutputWidget() override;
 

@@ -98,12 +98,12 @@ static bool isNumeric(const int type)
 static QVariant displayValue(const QVariant &value, bool useSystemLocale)
 {
     if (value.isNull()) {
-        return QLatin1String("NULL");
+        return KateSQLConstants::NullDisplayString;
     }
 
     const auto type = value.typeId();
     if (type == QMetaType::Type::Bool) {
-        return value.toBool() ? QLatin1String("True") : QLatin1String("False");
+        return value.toBool();
     }
     if (type == QMetaType::Type::QByteArray) {
         return value.toByteArray().left(255);
@@ -133,7 +133,25 @@ static QVariant displayValue(const QVariant &value, bool useSystemLocale)
             return QLocale().toString(value.toDouble());
         }
     }
-    return value.toString();
+    switch (type) {
+    case QMetaType::Type::Short:
+    case QMetaType::Type::Int:
+        return value.toInt();
+    case QMetaType::Type::UInt:
+        return value.toUInt();
+    case QMetaType::Type::Long:
+    case QMetaType::Type::LongLong:
+        return value.toLongLong();
+    case QMetaType::Type::ULongLong:
+        return value.toULongLong();
+    case QMetaType::Type::Float16:
+    case QMetaType::Type::Float:
+        return value.toFloat();
+    case QMetaType::Type::Double:
+        return value.toDouble();
+    default:
+        return value.toString();
+    }
 }
 
 static QLatin1String getStyleKey(const QVariant &value, int type)
@@ -191,7 +209,7 @@ QVariant DataOutputStyleHelper::styleData(const QVariant &value, int role, bool 
     case Qt::DisplayRole:
         return displayValue(value, m_useSystemLocale);
     case Qt::UserRole:
-        if (isNumeric(type) || type == QMetaType::QDate || type == QMetaType::QTime || type == QMetaType::QDateTime)
+        if (isNumeric(type) || type == QMetaType::Bool || type == QMetaType::QDate || type == QMetaType::QTime || type == QMetaType::QDateTime)
             return displayValue(value, m_useSystemLocale);
         if (getStyleKey(value, type) == KateSQLConstants::Config::TypesToStyle::Text)
             return value;

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-05-12 00:48+0000\n"
 "PO-Revision-Date: 2026-03-04 12:54+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -28,17 +28,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sergiu@cip.md"
 
-#: editrepository.cpp:81 editrepository.cpp:126
+#: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
 msgstr "Modifică depozitul de fragmente %1"
 
-#: editrepository.cpp:83
+#: editrepository.cpp:82
 #, kde-format
 msgid "Create New Snippet Repository"
 msgstr "Creează depozit de fragmente nou"
 
-#: editrepository.cpp:142
+#: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
 msgstr "<i>lăsați gol pentru fragmente de uz general</i>"
@@ -86,7 +86,7 @@ msgstr "Denumire scurtă pentru depozit"
 msgid "Prefix to show in code completion"
 msgstr "Prefix de arătat în completarea codului"
 
-#: editsnippet.cpp:75
+#: editsnippet.cpp:73
 #, kde-format
 msgid ""
 "Text to insert into the document (see the <a href=\"help:/kate/kate-"
@@ -97,7 +97,7 @@ msgstr ""
 "plugin-snippets.html#snippet-input-template\">manualul</a> pentru câmpurile "
 "speciale)."
 
-#: editsnippet.cpp:81
+#: editsnippet.cpp:79
 #, kde-format
 msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
@@ -106,17 +106,17 @@ msgstr ""
 "Cod JavaScript de evaluat (vedeți <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">manualul</a> pentru detalii)."
 
-#: editsnippet.cpp:88
+#: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
 msgstr "Șablon textual"
 
-#: editsnippet.cpp:89
+#: editsnippet.cpp:87
 #, kde-format
 msgid "Script"
 msgstr "Script"
 
-#: editsnippet.cpp:101
+#: editsnippet.cpp:99
 #, kde-format
 msgid ""
 "JavaScript functions shared between all snippets in this repository (see the "
@@ -127,7 +127,7 @@ msgstr ""
 "(vedeți <a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-"
 "input-library\">manualul</a>)."
 
-#: editsnippet.cpp:105
+#: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
@@ -135,23 +135,23 @@ msgstr ""
 "Descriere opțională de arătat în indicii. Puteți folosi formatare HTML "
 "simplă."
 
-#: editsnippet.cpp:127 editsnippet.cpp:220
+#: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Modifică fragmentul %1 în %2"
 
-#: editsnippet.cpp:140
+#: editsnippet.cpp:138
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "Creează fragment nou în depozitul %1"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:188
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Denumirile de fragmente cu spații ar putea să nu lucreze bine în completări"
 
-#: editsnippet.cpp:232
+#: editsnippet.cpp:230
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -159,12 +159,12 @@ msgstr ""
 "Fragmentul conține modificări nesalvate. Doriți să aruncați toate "
 "modificările?"
 
-#: editsnippet.cpp:233
+#: editsnippet.cpp:231
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Avertisment – Modificări nesalvate"
 
-#: editsnippet.cpp:235
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Continue editing"
 msgstr "Continuă modificarea"

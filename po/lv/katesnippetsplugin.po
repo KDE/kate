@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-05-12 00:48+0000\n"
 "PO-Revision-Date: 2025-07-01 16:47+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -28,17 +28,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "toms.trasuns@posteo.net"
 
-#: editrepository.cpp:81 editrepository.cpp:126
+#: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
 msgstr "Rediģēt fragmentu krātuvi „%1“"
 
-#: editrepository.cpp:83
+#: editrepository.cpp:82
 #, kde-format
 msgid "Create New Snippet Repository"
 msgstr "Izveidot jaunu fragmentu krātuvi"
 
-#: editrepository.cpp:142
+#: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
 msgstr "<i>atstājiet tukšu vispārīga lietojuma fragmentiem</i>"
@@ -86,7 +86,7 @@ msgstr "Īss krātuves nosaukums"
 msgid "Prefix to show in code completion"
 msgstr "Prefikss, ko parādīt, automātiski pabeidzot kodu"
 
-#: editsnippet.cpp:75
+#: editsnippet.cpp:73
 #, kde-format
 msgid ""
 "Text to insert into the document (see the <a href=\"help:/kate/kate-"
@@ -97,7 +97,7 @@ msgstr ""
 "application-plugin-snippets.html#snippet-input-template\">rokasgrāmatu</a>, "
 "lai uzzinātu par speciālajiem laukiem)."
 
-#: editsnippet.cpp:81
+#: editsnippet.cpp:79
 #, kde-format
 msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
@@ -107,17 +107,17 @@ msgstr ""
 "application-plugin-snippets.html#snippet-input-script\">rokasgrāmatu</a>, "
 "lai uzzinātu vairāk)."
 
-#: editsnippet.cpp:88
+#: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
 msgstr "Teksta veidne"
 
-#: editsnippet.cpp:89
+#: editsnippet.cpp:87
 #, kde-format
 msgid "Script"
 msgstr "Skripts"
 
-#: editsnippet.cpp:101
+#: editsnippet.cpp:99
 #, kde-format
 msgid ""
 "JavaScript functions shared between all snippets in this repository (see the "
@@ -128,7 +128,7 @@ msgstr ""
 "fragmentiem (skatiet <a href=\"help:/kate/kate-application-plugin-snippets."
 "html#snippet-input-library\">rokasgrāmatu</a>)."
 
-#: editsnippet.cpp:105
+#: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
@@ -136,35 +136,35 @@ msgstr ""
 "Izvēles apraksts, ko parādīt paskaidrēs. Varat izmantot pamata HTML "
 "formatēšanu."
 
-#: editsnippet.cpp:127 editsnippet.cpp:220
+#: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Rediģēt fragmentu „%1“, kas atrodas %2"
 
-#: editsnippet.cpp:140
+#: editsnippet.cpp:138
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "Izvaidot jaunu fragmentu krātuvē „%1“"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:188
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Fragmenta nosaukumi ar atstarpēm var slikti darboties automātiskā pabeigšanā"
 
-#: editsnippet.cpp:232
+#: editsnippet.cpp:230
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Fragments satur nesaglabātas izmaiņas. Vai vēlaties noraidīt visas izmaiņas?"
 
-#: editsnippet.cpp:233
+#: editsnippet.cpp:231
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Uzmanību — nesaglabātas izmaiņas"
 
-#: editsnippet.cpp:235
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Continue editing"
 msgstr "Turpināt rediģēt"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-05-12 00:48+0000\n"
 "PO-Revision-Date: 2025-06-12 08:07+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -30,17 +30,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "jlp@holodeck1.com,andrejm@ubuntu.si"
 
-#: editrepository.cpp:81 editrepository.cpp:126
+#: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
 msgstr "Uredi skladišče delčkov kode %1"
 
-#: editrepository.cpp:83
+#: editrepository.cpp:82
 #, kde-format
 msgid "Create New Snippet Repository"
 msgstr "Ustvari novo skladišče delčkov kode"
 
-#: editrepository.cpp:142
+#: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
 msgstr "<i>pustite prazno za splošno-namenske delčke kode</i>"
@@ -88,7 +88,7 @@ msgstr "Kratko ime skladišča"
 msgid "Prefix to show in code completion"
 msgstr "Predpona, ki bo prikazana med dopolnjevanjem kode"
 
-#: editsnippet.cpp:75
+#: editsnippet.cpp:73
 #, kde-format
 msgid ""
 "Text to insert into the document (see the <a href=\"help:/kate/kate-"
@@ -99,7 +99,7 @@ msgstr ""
 "application-plugin-snippets.html#snippet-input-template\">priročnik</a> za "
 "posebna polja)."
 
-#: editsnippet.cpp:81
+#: editsnippet.cpp:79
 #, kde-format
 msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
@@ -108,17 +108,17 @@ msgstr ""
 "Koda JavaScript za ocenjevanje (za podrobnosti glejte <a href=\"help:/kate/"
 "kate-application-plugin-snippets.html#snippet-input-script\">priročnik</a>)."
 
-#: editsnippet.cpp:88
+#: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
 msgstr "Predloga besedila"
 
-#: editsnippet.cpp:89
+#: editsnippet.cpp:87
 #, kde-format
 msgid "Script"
 msgstr "Skript"
 
-#: editsnippet.cpp:101
+#: editsnippet.cpp:99
 #, kde-format
 msgid ""
 "JavaScript functions shared between all snippets in this repository (see the "
@@ -129,7 +129,7 @@ msgstr ""
 "(glejte <a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-"
 "input-library\">priročnik</a>)."
 
-#: editsnippet.cpp:105
+#: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
@@ -137,35 +137,35 @@ msgstr ""
 "Neobvezen opis za prikaz v opisih orodij. Uporabite lahko osnovno "
 "oblikovanje HTML."
 
-#: editsnippet.cpp:127 editsnippet.cpp:220
+#: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Uredi delček kode %1 iz %2"
 
-#: editsnippet.cpp:140
+#: editsnippet.cpp:138
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "Ustvari nov delček kode v skladišču %1"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:188
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Imena delčkov kode s presledki morda ne bodo dobro delovala pri kompletiranju"
 
-#: editsnippet.cpp:232
+#: editsnippet.cpp:230
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Delček kode vsebuje neshranjene spremembe. Ali želite zavreči vse spremembe?"
 
-#: editsnippet.cpp:233
+#: editsnippet.cpp:231
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Opozorilo – neshranjene spremembe"
 
-#: editsnippet.cpp:235
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Continue editing"
 msgstr "Nadaljuj urejanje"

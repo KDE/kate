@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-05-12 00:48+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -27,17 +27,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde-china@kde.org"
 
-#: editrepository.cpp:81 editrepository.cpp:126
+#: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
 msgstr "编辑代码片段仓库 %1"
 
-#: editrepository.cpp:83
+#: editrepository.cpp:82
 #, kde-format
 msgid "Create New Snippet Repository"
 msgstr "创建新代码片段仓库"
 
-#: editrepository.cpp:142
+#: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
 msgstr "<i>一般用途的代码片段则留空</i>"
@@ -85,7 +85,7 @@ msgstr "简短的仓库名称"
 msgid "Prefix to show in code completion"
 msgstr "显示代码补全的前缀"
 
-#: editsnippet.cpp:75
+#: editsnippet.cpp:73
 #, kde-format
 msgid ""
 "Text to insert into the document (see the <a href=\"help:/kate/kate-"
@@ -95,7 +95,7 @@ msgstr ""
 "要插入文档的文本 (查看 <a href=\"help:/kate/kate-application-plugin-snippets."
 "html#snippet-input-template\">使用手册</a> 以了解特殊字段)。"
 
-#: editsnippet.cpp:81
+#: editsnippet.cpp:79
 #, kde-format
 msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
@@ -104,17 +104,17 @@ msgstr ""
 "要评估的 JavaScript 代码 (详情请查看 <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">使用手册</a> )。"
 
-#: editsnippet.cpp:88
+#: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
 msgstr "文本模板"
 
-#: editsnippet.cpp:89
+#: editsnippet.cpp:87
 #, kde-format
 msgid "Script"
 msgstr "脚本"
 
-#: editsnippet.cpp:101
+#: editsnippet.cpp:99
 #, kde-format
 msgid ""
 "JavaScript functions shared between all snippets in this repository (see the "
@@ -125,39 +125,39 @@ msgstr ""
 "kate/kate-application-plugin-snippets.html#snippet-input-library\">使用手册</"
 "a>)。"
 
-#: editsnippet.cpp:105
+#: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr "可选的描述，用于在悬停信息中显示。您可以使用基本 HTML 格式。"
 
-#: editsnippet.cpp:127 editsnippet.cpp:220
+#: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "编辑代码片断 %1 于 %2"
 
-#: editsnippet.cpp:140
+#: editsnippet.cpp:138
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "在仓库 %1 中创建新代码片段"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:188
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr "带有空格的代码片段名称可能在代码补全中无法正常工作"
 
-#: editsnippet.cpp:232
+#: editsnippet.cpp:230
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr "代码片段包含未保存的更改。您想要丢弃全部更改吗？"
 
-#: editsnippet.cpp:233
+#: editsnippet.cpp:231
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "警告 - 未保存的更改"
 
-#: editsnippet.cpp:235
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Continue editing"
 msgstr "继续编辑"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-05-12 00:48+0000\n"
 "PO-Revision-Date: 2026-05-02 19:50+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -30,17 +30,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "volkangezer@gmail.com"
 
-#: editrepository.cpp:81 editrepository.cpp:126
+#: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
 msgstr "%1 Parçacık Deposunu Düzenle"
 
-#: editrepository.cpp:83
+#: editrepository.cpp:82
 #, kde-format
 msgid "Create New Snippet Repository"
 msgstr "Yeni Parçacık Deposu Oluştur"
 
-#: editrepository.cpp:142
+#: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
 msgstr "<i>genel amaçlı parçacıklar için boş bırakın</i>"
@@ -88,7 +88,7 @@ msgstr "Depo için kısa ad"
 msgid "Prefix to show in code completion"
 msgstr "Kod tamamlamada gösterilecek önek"
 
-#: editsnippet.cpp:75
+#: editsnippet.cpp:73
 #, kde-format
 msgid ""
 "Text to insert into the document (see the <a href=\"help:/kate/kate-"
@@ -99,7 +99,7 @@ msgstr ""
 "application-plugin-snippets.html#snippet-input-template\">el kitabına</a> "
 "bakın)."
 
-#: editsnippet.cpp:81
+#: editsnippet.cpp:79
 #, kde-format
 msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
@@ -109,17 +109,17 @@ msgstr ""
 "application-plugin-snippets.html#snippet-input-script\">el kitabına</a> "
 "bakın)."
 
-#: editsnippet.cpp:88
+#: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
 msgstr "Metin şablonu"
 
-#: editsnippet.cpp:89
+#: editsnippet.cpp:87
 #, kde-format
 msgid "Script"
 msgstr "Betik"
 
-#: editsnippet.cpp:101
+#: editsnippet.cpp:99
 #, kde-format
 msgid ""
 "JavaScript functions shared between all snippets in this repository (see the "
@@ -130,7 +130,7 @@ msgstr ""
 "href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-library"
 "\">el kitabına</a> bakın)."
 
-#: editsnippet.cpp:105
+#: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
@@ -138,23 +138,23 @@ msgstr ""
 "Araç ipuçlarında gösterilecek isteğe bağlı açıklama. Basit HTML "
 "biçimlendirmesi kullanabilirsiniz."
 
-#: editsnippet.cpp:127 editsnippet.cpp:220
+#: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "%1 Parçacığını %2 İçinde Düzenle"
 
-#: editsnippet.cpp:140
+#: editsnippet.cpp:138
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "%1 Deposunda Yeni Parçacık Oluştur"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:188
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Boşluk içeren parçacık adları tamamlamalarda pek iyi sonuç vermeyebilir"
 
-#: editsnippet.cpp:232
+#: editsnippet.cpp:230
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -162,12 +162,12 @@ msgstr ""
 "Parçacık kaydedilmemiş değişiklikler içeriyor. Tüm değişiklikleri atmak "
 "istiyor musunuz?"
 
-#: editsnippet.cpp:233
+#: editsnippet.cpp:231
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Uyarı — Kaydedilmemiş Değişiklikler Var"
 
-#: editsnippet.cpp:235
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Continue editing"
 msgstr "Düzenlemeyi Sürdür"

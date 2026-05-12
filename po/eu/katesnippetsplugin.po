@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-05-12 00:48+0000\n"
 "PO-Revision-Date: 2025-07-10 08:15+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -31,17 +31,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "xalba@euskalnet.net"
 
-#: editrepository.cpp:81 editrepository.cpp:126
+#: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
 msgstr "Editatu testu-zatien gordetegia %1"
 
-#: editrepository.cpp:83
+#: editrepository.cpp:82
 #, kde-format
 msgid "Create New Snippet Repository"
 msgstr "Sortu testu-zatien gordetegi berri bat"
 
-#: editrepository.cpp:142
+#: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
 msgstr "<i>utzi hutsik helburu orokorreko testu-zatientzat</i>"
@@ -89,7 +89,7 @@ msgstr "Gordetegiarentzako izen labur bat"
 msgid "Prefix to show in code completion"
 msgstr "Kode osatzean erakutsi beharreko aurrizkia"
 
-#: editsnippet.cpp:75
+#: editsnippet.cpp:73
 #, kde-format
 msgid ""
 "Text to insert into the document (see the <a href=\"help:/kate/kate-"
@@ -100,7 +100,7 @@ msgstr ""
 "\"help:/kate/kate-application-plugin-snippets.html#snippet-input-template"
 "\">eskuliburua</a>)."
 
-#: editsnippet.cpp:81
+#: editsnippet.cpp:79
 #, kde-format
 msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
@@ -110,17 +110,17 @@ msgstr ""
 "\"help:/kate/kate-application-plugin-snippets.html#snippet-input-script"
 "\">eskuliburua</a>)."
 
-#: editsnippet.cpp:88
+#: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
 msgstr "Testu-txantiloia"
 
-#: editsnippet.cpp:89
+#: editsnippet.cpp:87
 #, kde-format
 msgid "Script"
 msgstr "Gidoia"
 
-#: editsnippet.cpp:101
+#: editsnippet.cpp:99
 #, kde-format
 msgid ""
 "JavaScript functions shared between all snippets in this repository (see the "
@@ -131,7 +131,7 @@ msgstr ""
 "(begiratu <a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-"
 "input-library\">eskuliburua</a>)."
 
-#: editsnippet.cpp:105
+#: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
@@ -139,23 +139,23 @@ msgstr ""
 "Tresna-argibideetan erakusteko hautazko deskribapena. Oinarrizko HTML "
 "formatua erabil dezakezu."
 
-#: editsnippet.cpp:127 editsnippet.cpp:220
+#: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Editatu %2(e)ko %1 testu-zatia"
 
-#: editsnippet.cpp:140
+#: editsnippet.cpp:138
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "Sortu testu-zati berria %1 gordetegian"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:188
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Baliteke zuriuneak dituzten testu-zatien izenak osatzean ondo ez ibiltzea"
 
-#: editsnippet.cpp:232
+#: editsnippet.cpp:230
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -163,12 +163,12 @@ msgstr ""
 "Testu-zatiak gorde gabeko aldaketak ditu. Aldaketa guztiak baztertu nahi "
 "dituzu?"
 
-#: editsnippet.cpp:233
+#: editsnippet.cpp:231
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Abisua - Gorde gabeko aldaketak"
 
-#: editsnippet.cpp:235
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Continue editing"
 msgstr "Jarraitu editatzen"

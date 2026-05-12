@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-05-12 00:48+0000\n"
 "PO-Revision-Date: 2025-06-11 11:12+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -28,17 +28,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde-l10n-he@kde.org"
 
-#: editrepository.cpp:81 editrepository.cpp:126
+#: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
 msgstr "עריכת מאגר קטעי טקסט %1"
 
-#: editrepository.cpp:83
+#: editrepository.cpp:82
 #, kde-format
 msgid "Create New Snippet Repository"
 msgstr "יצירת מאגר קטעי טקסט חדש"
 
-#: editrepository.cpp:142
+#: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
 msgstr "<i>להשאיר ריק בשביל קטעי קוד כלליים</i>"
@@ -86,7 +86,7 @@ msgstr "שם מקוצר למאגר"
 msgid "Prefix to show in code completion"
 msgstr "קידומת להצגה בהשלמת קוד"
 
-#: editsnippet.cpp:75
+#: editsnippet.cpp:73
 #, kde-format
 msgid ""
 "Text to insert into the document (see the <a href=\"help:/kate/kate-"
@@ -96,7 +96,7 @@ msgstr ""
 "טקסט להוספה למסמך (ב<a href=\"help:/kate/kate-application-plugin-snippets."
 "html#snippet-input-template\">ספרון ההדרכה</a> יש שדות מיוחדות)."
 
-#: editsnippet.cpp:81
+#: editsnippet.cpp:79
 #, kde-format
 msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
@@ -105,17 +105,17 @@ msgstr ""
 "קוד JavaScript להערכה (ב<a href=\"help:/kate/kate-application-plugin-"
 "snippets.html#snippet-input-script\">ספרון ההדרכה</a> יש פרטים נוספים)."
 
-#: editsnippet.cpp:88
+#: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
 msgstr "תבנית טקסט"
 
-#: editsnippet.cpp:89
+#: editsnippet.cpp:87
 #, kde-format
 msgid "Script"
 msgstr "סקריפט"
 
-#: editsnippet.cpp:101
+#: editsnippet.cpp:99
 #, kde-format
 msgid ""
 "JavaScript functions shared between all snippets in this repository (see the "
@@ -126,39 +126,39 @@ msgstr ""
 "href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-library"
 "\">ספרון ההדרכה</a>)."
 
-#: editsnippet.cpp:105
+#: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr "תיאור רשות להצגה בחלוניות צצות. אפשר להשתמש בעיצוב בסיסי ב־HTML."
 
-#: editsnippet.cpp:127 editsnippet.cpp:220
+#: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "עריכת קטע טקסט %1 ב־%2"
 
-#: editsnippet.cpp:140
+#: editsnippet.cpp:138
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "יצירת קטע טקסט חדש במאגר %1"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:188
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr "שמות קטעי טקסט עם רווחים עלולים שלא לעבוד כראוי עם השלמות"
 
-#: editsnippet.cpp:232
+#: editsnippet.cpp:230
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr "קטע הטקסט מכיל שינויים שלא נשמרו. להתעלם מהשינויים?"
 
-#: editsnippet.cpp:233
+#: editsnippet.cpp:231
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "אזהרה - שינויים שלא נשמרו"
 
-#: editsnippet.cpp:235
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Continue editing"
 msgstr "להמשיך לערוך"

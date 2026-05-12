@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-05-12 00:48+0000\n"
 "PO-Revision-Date: 2026-04-20 21:28-0400\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
@@ -28,17 +28,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 
-#: editrepository.cpp:81 editrepository.cpp:126
+#: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
 msgstr "پۇرۇچ خەزىنە %1 نى تەھرىرلە"
 
-#: editrepository.cpp:83
+#: editrepository.cpp:82
 #, kde-format
 msgid "Create New Snippet Repository"
 msgstr "يېڭى پۇرۇچ خەزىنىسى قۇر"
 
-#: editrepository.cpp:142
+#: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
 msgstr "<i>ئادەتتىكى مەقسەت ئۈچۈن ئىشلىتىلىدىغان پۇرۇچ بوش قالدۇرۇلىدۇ</i>"
@@ -86,7 +86,7 @@ msgstr "خەزىنەنىڭ قىسقا ئاتى"
 msgid "Prefix to show in code completion"
 msgstr "كود تاماملاشنىڭ ئالدى قوشۇلغۇچىسىنى كۆرسىتىدۇ"
 
-#: editsnippet.cpp:75
+#: editsnippet.cpp:73
 #, kde-format
 msgid ""
 "Text to insert into the document (see the <a href=\"help:/kate/kate-"
@@ -97,7 +97,7 @@ msgstr ""
 "application-plugin-snippets.html#snippet-input-template\">قوللانما</a> دىن "
 "كۆرۈڭ)."
 
-#: editsnippet.cpp:81
+#: editsnippet.cpp:79
 #, kde-format
 msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
@@ -107,17 +107,17 @@ msgstr ""
 "application-plugin-snippets.html#snippet-input-script\">قوللانما</a> دىن "
 "كۆرۈڭ)"
 
-#: editsnippet.cpp:88
+#: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
 msgstr "تېكست قېلىپى"
 
-#: editsnippet.cpp:89
+#: editsnippet.cpp:87
 #, kde-format
 msgid "Script"
 msgstr "قوليازما"
 
-#: editsnippet.cpp:101
+#: editsnippet.cpp:99
 #, kde-format
 msgid ""
 "JavaScript functions shared between all snippets in this repository (see the "
@@ -128,7 +128,7 @@ msgstr ""
 "فۇنكسىيە (تەپسىلاتىنى <a href=\"help:/kate/kate-application-plugin-snippets."
 "html#snippet-input-library\">قوللانما</a> دىن كۆرۈڭ)."
 
-#: editsnippet.cpp:105
+#: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
@@ -136,33 +136,33 @@ msgstr ""
 "تاللاشچان چۈشەندۈرۈش، قورال ئەسكەرتىشىنى كۆرسىتىشكە ئىشلىتىلىدۇ. ئاساسىي "
 "HTML پىچىمىنى ئىشلىتەلەيسىز."
 
-#: editsnippet.cpp:127 editsnippet.cpp:220
+#: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "%2 دىكى %1 پۇرۇچنى تەھرىرلەيدۇ"
 
-#: editsnippet.cpp:140
+#: editsnippet.cpp:138
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "%1 خەزىنەدە يېڭى پۇرۇچ قۇر"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:188
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr "بوشلۇق بار پۇرۇچ ئىسمى كود تاماملاشتا ئادەتتىكىدەك ئىشلىمەسلىكى مۇمكىن"
 
-#: editsnippet.cpp:232
+#: editsnippet.cpp:230
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr "پۇرۇچتا ساقلانمىغان ئۆزگىرىش بار. ھەممە ئۆزگىرىشنى تاشلىۋېتەمسىز؟"
 
-#: editsnippet.cpp:233
+#: editsnippet.cpp:231
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "ئاگاھلاندۇرۇش - ساقلانمىغان ئۆزگىرىش"
 
-#: editsnippet.cpp:235
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Continue editing"
 msgstr "تەھرىرلەشنى داۋاملاشتۇر"

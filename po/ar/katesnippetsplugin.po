@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-05-12 00:48+0000\n"
 "PO-Revision-Date: 2025-10-15 20:07+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -30,17 +30,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "abdilra7eem@yahoo.com,safa1996alfulaij@gmail.com"
 
-#: editrepository.cpp:81 editrepository.cpp:126
+#: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
 msgstr "حرّر مستودع القصاصات %1"
 
-#: editrepository.cpp:83
+#: editrepository.cpp:82
 #, kde-format
 msgid "Create New Snippet Repository"
 msgstr "أنشئ مستودع قصاصات جديد"
 
-#: editrepository.cpp:142
+#: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
 msgstr "<i>اتركه فارغًا للقصاصات العامّة</i>"
@@ -88,7 +88,7 @@ msgstr "اسم قصير للمستودع"
 msgid "Prefix to show in code completion"
 msgstr "سابقة لإظهارها في إكمال الكود"
 
-#: editsnippet.cpp:75
+#: editsnippet.cpp:73
 #, kde-format
 msgid ""
 "Text to insert into the document (see the <a href=\"help:/kate/kate-"
@@ -98,7 +98,7 @@ msgstr ""
 "النص المراد إدراجه في المستند (راجع <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-template\">الدليل</a> للحقول الخاصة)."
 
-#: editsnippet.cpp:81
+#: editsnippet.cpp:79
 #, kde-format
 msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
@@ -107,17 +107,17 @@ msgstr ""
 "شفرة جافا سكريبت المطلوب تقييمها (راجع <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">الدليل</a> للمزيد من التفاصيل)."
 
-#: editsnippet.cpp:88
+#: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
 msgstr "قالب النص"
 
-#: editsnippet.cpp:89
+#: editsnippet.cpp:87
 #, kde-format
 msgid "Script"
 msgstr "السكربت"
 
-#: editsnippet.cpp:101
+#: editsnippet.cpp:99
 #, kde-format
 msgid ""
 "JavaScript functions shared between all snippets in this repository (see the "
@@ -128,40 +128,40 @@ msgstr ""
 "\"help:/kate/kate-application-plugin-snippets.html#snippet-input-library"
 "\">الدليل</a>)."
 
-#: editsnippet.cpp:105
+#: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
 "وصف اختياري لعرضه في تلميحات الأدوات. يمكنك استخدام تنسيق HTML الأساسي."
 
-#: editsnippet.cpp:127 editsnippet.cpp:220
+#: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "حرّر القصاصة %1 في %2"
 
-#: editsnippet.cpp:140
+#: editsnippet.cpp:138
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "أنشئ قصاصة جديدة في المستودع %1"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:188
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr "قد لا تعمل أسماء المقتطفات التي تحتوي على مسافات بشكل جيد في الإكمال"
 
-#: editsnippet.cpp:232
+#: editsnippet.cpp:230
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr "يحتوي المقتطف على تغييرات غير محفوظة. هل تريد تجاهل جميع التغييرات؟"
 
-#: editsnippet.cpp:233
+#: editsnippet.cpp:231
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "تحذير - تعديلات غير محفوظة"
 
-#: editsnippet.cpp:235
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Continue editing"
 msgstr "تابع التحرير"

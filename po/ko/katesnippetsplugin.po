@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-05-12 00:48+0000\n"
 "PO-Revision-Date: 2025-07-21 00:50+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -27,17 +27,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "kde@peremen.name"
 
-#: editrepository.cpp:81 editrepository.cpp:126
+#: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
 msgstr "스니펫 저장소 %1 편집"
 
-#: editrepository.cpp:83
+#: editrepository.cpp:82
 #, kde-format
 msgid "Create New Snippet Repository"
 msgstr "새 스니펫 저장소 만들기"
 
-#: editrepository.cpp:142
+#: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
 msgstr "<i>일반 목적 스니펫의 경우 비워 두십시오</i>"
@@ -85,7 +85,7 @@ msgstr "저장소의 짧은 이름"
 msgid "Prefix to show in code completion"
 msgstr "코드 자동 완성에서 보일 접두사"
 
-#: editsnippet.cpp:75
+#: editsnippet.cpp:73
 #, kde-format
 msgid ""
 "Text to insert into the document (see the <a href=\"help:/kate/kate-"
@@ -95,7 +95,7 @@ msgstr ""
 "문서에 추가할 텍스트입니다(특수 필드 정보는 <a href=\"help:/kate/kate-"
 "application-plugin-snippets.html#snippet-input-template\">도움말</a> 참조)."
 
-#: editsnippet.cpp:81
+#: editsnippet.cpp:79
 #, kde-format
 msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
@@ -104,17 +104,17 @@ msgstr ""
 "평가할 자바스크립트 코드입니다(자세한 정보는<a href=\"help:/kate/kate-"
 "application-plugin-snippets.html#snippet-input-script\">도움말</a> 참조)."
 
-#: editsnippet.cpp:88
+#: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
 msgstr "텍스트 템플릿"
 
-#: editsnippet.cpp:89
+#: editsnippet.cpp:87
 #, kde-format
 msgid "Script"
 msgstr "스크립트"
 
-#: editsnippet.cpp:101
+#: editsnippet.cpp:99
 #, kde-format
 msgid ""
 "JavaScript functions shared between all snippets in this repository (see the "
@@ -125,7 +125,7 @@ msgstr ""
 "\"help:/kate/kate-application-plugin-snippets.html#snippet-input-library\">도"
 "움말</a> 참조)."
 
-#: editsnippet.cpp:105
+#: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
@@ -133,24 +133,24 @@ msgstr ""
 "풍선 도움말에 표시할 설명입니다(선택 사항). 기본 HTML 서식을 사용할 수 있습니"
 "다."
 
-#: editsnippet.cpp:127 editsnippet.cpp:220
+#: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "%2에서 스니펫 %1 편집"
 
-#: editsnippet.cpp:140
+#: editsnippet.cpp:138
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "저장소 %1에 새 스니펫 만들기"
 
-#: editsnippet.cpp:190
+#: editsnippet.cpp:188
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "스니펫 이름에 공백이 들어 있으면 자동 완성 시 올바르게 작동하지 않을 수도 있"
 "음"
 
-#: editsnippet.cpp:232
+#: editsnippet.cpp:230
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -158,12 +158,12 @@ msgstr ""
 "이 스니펫에 저장되지 않은 변경 사항이 있습니다. 변경 사항을 모두 버리시겠습니"
 "까?"
 
-#: editsnippet.cpp:233
+#: editsnippet.cpp:231
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "경고 - 저장되지 않은 변경 사항"
 
-#: editsnippet.cpp:235
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Continue editing"
 msgstr "계속 편집"

@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Freek de Kruijf <freekdekruijf@kde.nl>, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2019-2023, 2026 Freek de Kruijf <freekdekruijf@kde.nl>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-11 00:47+0000\n"
-"PO-Revision-Date: 2023-02-21 16:59+0100\n"
+"PO-Revision-Date: 2026-05-11 12:13+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 26.04.0\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -109,12 +109,10 @@ msgid "Prettier Format Current File"
 msgstr "Netter uitziend formaat, huidig bestand"
 
 #. i18n: file: 8
-#, fuzzy, kde-format
-#| msgctxt "External tool name"
-#| msgid "Qt Quick 2 Preview (qmlscene)"
+#, kde-format
 msgctxt "External tool name"
 msgid "Qt Quick 2 Preview"
-msgstr "Qt Quick 2 voorbeeld (qmlscene)"
+msgstr "Qt Quick 2 voorbeeld"
 
 #. i18n: file: 4
 #, kde-format

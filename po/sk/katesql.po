@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-05 00:47+0000\n"
+"POT-Creation-Date: 2026-05-13 00:49+0000\n"
 "PO-Revision-Date: 2023-02-02 18:29+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -151,121 +151,134 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "Me&no spojenia:"
 
-#: dataoutputwidget.cpp:109
+#: dataoutputwidget.cpp:91 katesqlview.cpp:47
+#, kde-format
+msgid "SQL"
+msgstr "SQL"
+
+#: dataoutputwidget.cpp:115
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Obnoviť"
 
-#: dataoutputwidget.cpp:119
+#: dataoutputwidget.cpp:126
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "Prispôsobiť stĺpce obsahu"
 
-#: dataoutputwidget.cpp:125
+#: dataoutputwidget.cpp:132
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "Prispôsobiť riadky obsahu"
 
-#: dataoutputwidget.cpp:131
+#: dataoutputwidget.cpp:138
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Exportovať..."
 
-#: dataoutputwidget.cpp:138
+#: dataoutputwidget.cpp:145
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "Kopírovať"
 
-#: dataoutputwidget.cpp:148 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:155 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "Vyčistiť"
 
-#: dataoutputwidget.cpp:156
+#: dataoutputwidget.cpp:163
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "Použiť jazyk systému"
 
-#: dataoutputwidget.cpp:172
+#: dataoutputwidget.cpp:179
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr "Vložiť"
 
-#: dataoutputwidget.cpp:182
+#: dataoutputwidget.cpp:189
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr "Nastaviť Null"
 
-#: dataoutputwidget.cpp:192
+#: dataoutputwidget.cpp:199
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr "Vlož&iť riadok"
 
-#: dataoutputwidget.cpp:202
+#: dataoutputwidget.cpp:209
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr "Remove Selected Rows"
 
-#: dataoutputwidget.cpp:212
+#: dataoutputwidget.cpp:219
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr "Duplicate Selected Rows"
 
-#: dataoutputwidget.cpp:222
+#: dataoutputwidget.cpp:229
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr "Späť"
 
-#: dataoutputwidget.cpp:232
+#: dataoutputwidget.cpp:239
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr "Uložiť"
 
-#: dataoutputwidget.cpp:242
+#: dataoutputwidget.cpp:249
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
 msgstr "Sprístupniť tento stĺpec pre súvisiace tabuľky"
 
-#: dataoutputwidget.cpp:253
+#: dataoutputwidget.cpp:252
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid ""
+"Warning! For columns without a unique constraint we cannot guarantee a "
+"correct copy-pasting (when the column is shown instead of the foreign key)"
+msgstr ""
+
+#: dataoutputwidget.cpp:263
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr "Kde:"
 
-#: dataoutputwidget.cpp:261
+#: dataoutputwidget.cpp:271
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr "id > 0"
 
-#: dataoutputwidget.cpp:262
+#: dataoutputwidget.cpp:272
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr "Zadajte klauzulu SQL WHERE na filtrovanie dát"
 
-#: dataoutputwidget.cpp:666
+#: dataoutputwidget.cpp:736
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Nie je možné otvoriť súbor <filename>%1</filename>"
 
-#: dataoutputwidget.cpp:686
+#: dataoutputwidget.cpp:756
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
@@ -438,11 +451,6 @@ msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "Nastavenia SQL ConfigPage"
 
-#: katesqlview.cpp:47
-#, kde-format
-msgid "SQL"
-msgstr "SQL"
-
 #: katesqlview.cpp:54
 #, kde-format
 msgctxt "@title:window"
@@ -455,37 +463,37 @@ msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL schéma"
 
-#: katesqlview.cpp:116
+#: katesqlview.cpp:128
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Pridať spojenie..."
 
-#: katesqlview.cpp:121
+#: katesqlview.cpp:133
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Odstrániť spojenie"
 
-#: katesqlview.cpp:126
+#: katesqlview.cpp:138
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Upraviť spojenie..."
 
-#: katesqlview.cpp:131
+#: katesqlview.cpp:143
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "Znovu pripojiť"
 
-#: katesqlview.cpp:137
+#: katesqlview.cpp:149
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "Pripojenie"
 
-#: katesqlview.cpp:141
+#: katesqlview.cpp:153
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
@@ -557,13 +565,13 @@ msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "BLOB"
 
-#: outputwidget.cpp:21
+#: outputwidget.cpp:20
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "Výstup SQL textu"
 
-#: outputwidget.cpp:24
+#: outputwidget.cpp:23
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"

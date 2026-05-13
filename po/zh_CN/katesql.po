@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-05 00:47+0000\n"
+"POT-Creation-Date: 2026-05-13 00:49+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -150,121 +150,134 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "连接名称："
 
-#: dataoutputwidget.cpp:109
+#: dataoutputwidget.cpp:91 katesqlview.cpp:47
+#, kde-format
+msgid "SQL"
+msgstr "SQL"
+
+#: dataoutputwidget.cpp:115
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "刷新"
 
-#: dataoutputwidget.cpp:119
+#: dataoutputwidget.cpp:126
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "列缩放到内容大小"
 
-#: dataoutputwidget.cpp:125
+#: dataoutputwidget.cpp:132
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "行缩放到内容大小"
 
-#: dataoutputwidget.cpp:131
+#: dataoutputwidget.cpp:138
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "导出..."
 
-#: dataoutputwidget.cpp:138
+#: dataoutputwidget.cpp:145
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "复制"
 
-#: dataoutputwidget.cpp:148 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:155 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "清除"
 
-#: dataoutputwidget.cpp:156
+#: dataoutputwidget.cpp:163
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "使用系统编码"
 
-#: dataoutputwidget.cpp:172
+#: dataoutputwidget.cpp:179
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr "粘贴"
 
-#: dataoutputwidget.cpp:182
+#: dataoutputwidget.cpp:189
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr "设为 Null"
 
-#: dataoutputwidget.cpp:192
+#: dataoutputwidget.cpp:199
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr "插入行"
 
-#: dataoutputwidget.cpp:202
+#: dataoutputwidget.cpp:209
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr "移除选中行"
 
-#: dataoutputwidget.cpp:212
+#: dataoutputwidget.cpp:219
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr "创建选中行的副本"
 
-#: dataoutputwidget.cpp:222
+#: dataoutputwidget.cpp:229
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr "撤销"
 
-#: dataoutputwidget.cpp:232
+#: dataoutputwidget.cpp:239
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr "保存"
 
-#: dataoutputwidget.cpp:242
+#: dataoutputwidget.cpp:249
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
 msgstr "优化此列在关联表中的显示"
 
-#: dataoutputwidget.cpp:253
+#: dataoutputwidget.cpp:252
+#, kde-format
+msgctxt "@action:intoolbar"
+msgid ""
+"Warning! For columns without a unique constraint we cannot guarantee a "
+"correct copy-pasting (when the column is shown instead of the foreign key)"
+msgstr ""
+
+#: dataoutputwidget.cpp:263
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr "位置："
 
-#: dataoutputwidget.cpp:261
+#: dataoutputwidget.cpp:271
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr "id > 0"
 
-#: dataoutputwidget.cpp:262
+#: dataoutputwidget.cpp:272
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr "输入 SQL WHERE 语句来过滤数据"
 
-#: dataoutputwidget.cpp:666
+#: dataoutputwidget.cpp:736
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "无法打开文件 <filename>%1</filename>"
 
-#: dataoutputwidget.cpp:686
+#: dataoutputwidget.cpp:756
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
@@ -435,11 +448,6 @@ msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "SQL 配置页面设置"
 
-#: katesqlview.cpp:47
-#, kde-format
-msgid "SQL"
-msgstr "SQL"
-
 #: katesqlview.cpp:54
 #, kde-format
 msgctxt "@title:window"
@@ -452,37 +460,37 @@ msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL 纲目结构"
 
-#: katesqlview.cpp:116
+#: katesqlview.cpp:128
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "添加连接..."
 
-#: katesqlview.cpp:121
+#: katesqlview.cpp:133
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "移除连接"
 
-#: katesqlview.cpp:126
+#: katesqlview.cpp:138
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "编辑连接..."
 
-#: katesqlview.cpp:131
+#: katesqlview.cpp:143
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "重新连接"
 
-#: katesqlview.cpp:137
+#: katesqlview.cpp:149
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "连接"
 
-#: katesqlview.cpp:141
+#: katesqlview.cpp:153
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
@@ -554,13 +562,13 @@ msgctxt "@item:intable"
 msgid "BLOB"
 msgstr "二进制"
 
-#: outputwidget.cpp:21
+#: outputwidget.cpp:20
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
 msgstr "SQL 文本输出"
 
-#: outputwidget.cpp:24
+#: outputwidget.cpp:23
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"

@@ -277,7 +277,8 @@ void KateGPGPluginView::connectToOpenAndSaveDialog(KTextEditor::View *view)
 void KateGPGPluginView::onDocumentOpened(KTextEditor::View *view)
 {
     KTextEditor::Document *doc = view->document();
-    if (!(doc->url().fileName().toLower().endsWith(QLatin1String(".gpg")) || doc->url().fileName().toLower().endsWith(QLatin1String(".asc")))
+    if (!(doc->url().fileName().endsWith(QLatin1String(".gpg"), Qt::CaseInsensitive)
+          || doc->url().fileName().endsWith(QLatin1String(".asc"), Qt::CaseInsensitive))
         || !m_gpgWrapper->isEncrypted(doc->text())) {
         return;
     }
@@ -331,7 +332,8 @@ void KateGPGPluginView::onDocumentOpened(KTextEditor::View *view)
 void KateGPGPluginView::onDocumentWillSave(KTextEditor::Document *doc)
 {
     // Called right before save
-    if (!doc->url().fileName().toLower().endsWith(QLatin1String(".gpg")) && !doc->url().fileName().toLower().endsWith(QLatin1String(".asc"))) {
+    if (!doc->url().fileName().endsWith(QLatin1String(".gpg"), Qt::CaseInsensitive)
+        && !doc->url().fileName().endsWith(QLatin1String(".asc"), Qt::CaseInsensitive)) {
         return;
     }
     if (m_gpgWrapper->isEncrypted(doc->text())) {
@@ -459,8 +461,8 @@ void KateGPGPluginView::encryptButtonPressed()
     // before doing anything — so cancelling leaves the document untouched.
     bool needsSaveAs = false;
     QString saveAsPath;
-    const QString docFileName = v->document()->url().fileName().toLower();
-    if (!docFileName.endsWith(QLatin1String(".gpg")) && !docFileName.endsWith(QLatin1String(".asc"))) {
+    const QString docFileName = v->document()->url().fileName();
+    if (!docFileName.endsWith(QLatin1String(".gpg"), Qt::CaseInsensitive) && !docFileName.endsWith(QLatin1String(".asc"), Qt::CaseInsensitive)) {
         const QString currentPath = v->document()->url().toLocalFile();
         const QString startDir = currentPath.isEmpty() ? QDir::homePath() : QFileInfo(currentPath).absolutePath();
         QString suggested = v->document()->url().fileName();
@@ -476,7 +478,7 @@ void KateGPGPluginView::encryptButtonPressed()
         if (saveAsPath.isEmpty()) {
             return; // user cancelled — do not encrypt
         }
-        if (!saveAsPath.toLower().endsWith(QLatin1String(".gpg")) && !saveAsPath.toLower().endsWith(QLatin1String(".asc"))) {
+        if (!saveAsPath.endsWith(QLatin1String(".gpg"), Qt::CaseInsensitive) && !saveAsPath.endsWith(QLatin1String(".asc"), Qt::CaseInsensitive)) {
             saveAsPath += QStringLiteral(".gpg");
         }
         needsSaveAs = true;

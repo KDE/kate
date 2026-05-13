@@ -107,7 +107,7 @@ uint GPGMeWrapper::getNumKeys() const
 
 bool GPGMeWrapper::isPreferredKey(const GPGKeyDetails d_, const QString &mailAddress_)
 {
-    for (auto &it : d_.mailAdresses()) {
+    for (auto &it : d_.mailAddresses()) {
         if (it.contains(mailAddress_)) {
             return true;
         }
@@ -157,6 +157,8 @@ const GPGOperationResult GPGMeWrapper::decryptString(const QString &inputString_
         for (uint i = 0; i < d_res.recipients().size(); ++i) {
             result.keyIDUsedForDecryption += QString::fromUtf8(d_res.recipients().at(i).keyID());
         }
+        // Symmetric encryption produces no public-key recipients
+        result.wasSymmetric = (d_res.numRecipients() == 0);
 
     } else {
 #if GPGMEPP_VERSION_NUMBER < 12400 // use deprecated string conversion
@@ -247,6 +249,15 @@ GPGOperationResult GPGMeWrapper::encryptString(const QString &inputString_,
 
 bool GPGMeWrapper::isEncrypted(const QString &inputString_)
 {
+    // Fast path for ASCII-armored messages: covers both public-key and symmetric
+    // encryption regardless of whether a matching private key is present.
+    if (inputString_.contains(QStringLiteral("-----BEGIN PGP MESSAGE-----"))) {
+        return true;
+    }
+
+    // Fallback for binary (non-armored) PGP data: numRecipients() is populated
+    // from packet headers even when decryption fails (e.g. missing private key),
+    // so we do not require !result.error() here.
     QByteArray bar = inputString_.toUtf8();
     GpgME::Data dataIn(bar.constData(), (size_t)bar.size(),
                        false); // false = do not copy
@@ -259,5 +270,5 @@ bool GPGMeWrapper::isEncrypted(const QString &inputString_)
 
     GpgME::DecryptionResult result = ctx->decrypt(dataIn, dataOut);
 
-    return !result.error() && result.numRecipients() > 0;
+    return result.numRecipients() > 0;
 }

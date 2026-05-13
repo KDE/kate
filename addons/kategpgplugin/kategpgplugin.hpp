@@ -16,12 +16,25 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMap>
 #include <QObject>
 #include <QPushButton>
 #include <QTableWidget>
 #include <QTextBrowser>
 #include <QVBoxLayout>
 #include <memory>
+
+/**
+ * Holds the per-document UI state that is saved and restored when switching
+ * between document tabs at runtime.
+ */
+struct DocumentUIState {
+    bool saveAsASCII = true;
+    bool symmetricEncryption = false;
+    int selectedRowIndex = 0;
+    QString selectedFingerprint;
+    QString selectedEmailAddress;
+};
 
 // forward declaration
 class GPGKeyDetails;
@@ -91,6 +104,10 @@ private:
 
     KConfigGroup m_group;
 
+    // Per-document UI state: saved when switching away, restored on switch back
+    QMap<KTextEditor::Document *, DocumentUIState> m_documentStates;
+    KTextEditor::Document *m_currentDocument = nullptr;
+
     // private functions
     void updateKeyTable();
 
@@ -103,9 +120,10 @@ private:
 
     // Functions to hook into Kate's save dialog
     // (used for auto-encryption on save)
-    void connectToOpenAndSaveDialog(KTextEditor::Document *doc);
+    void connectToOpenAndSaveDialog(KTextEditor::View *view);
     void onDocumentWillSave(KTextEditor::Document *doc);
-    void onDocumentOpened(KTextEditor::Document *doc);
+    void onDocumentOpened(KTextEditor::View *view);
+    void performDecrypt(KTextEditor::View *v);
 
     // Function to generate translatable Kate-conform error/warning messages
     QVariantMap generateMessage(const QString translatebleMessage, const QString messageType);

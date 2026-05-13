@@ -21,6 +21,7 @@ struct GPGOperationResult {
     QString resultString; // de- or encrypted string depending on operation
     bool keyFound = false;
     bool decryptionSuccess = false;
+    bool wasSymmetric = false; // true if the message was symmetrically encrypted
     QString errorMessage;
     QString keyIDUsedForDecryption;
 };

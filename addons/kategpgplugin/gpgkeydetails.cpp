@@ -51,7 +51,7 @@ const QVector<QString> &GPGKeyDetails::uids() const
     return m_uids;
 }
 
-const QVector<QString> &GPGKeyDetails::mailAdresses() const
+const QVector<QString> &GPGKeyDetails::mailAddresses() const
 {
     return m_mailAddresses;
 }

@@ -298,6 +298,8 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     : QWidget(parent)
     , KXMLGUIClient()
     , m_mainWindow(mainWindow)
+    , m_layout(new QVBoxLayout(this))
+    , m_toolbarLayout(new QHBoxLayout(this))
     , m_diagnosticsTree(new QTreeView(this))
     , m_clearButton(new QToolButton(this))
     , m_filterLineEdit(new QLineEdit(this))
@@ -315,7 +317,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     setComponentName(QStringLiteral("kate_diagnosticsview"), i18n("Diagnostics View"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    auto l = new QVBoxLayout(this);
+    auto *l = m_layout;
     l->setContentsMargins({});
     setupDiagnosticViewToolbar(l);
 
@@ -487,7 +489,7 @@ DiagnosticsView::~DiagnosticsView()
 void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
 {
     mainLayout->setSpacing(0);
-    auto l = new QHBoxLayout();
+    auto *l = m_toolbarLayout;
     l->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
                           style()->pixelMetric(QStyle::PM_LayoutTopMargin),
                           style()->pixelMetric(QStyle::PM_LayoutRightMargin),
@@ -629,6 +631,21 @@ void DiagnosticsView::showEvent(QShowEvent *e)
         m_tabButtonOverlay->setActive(false);
     }
     QWidget::showEvent(e);
+}
+
+void DiagnosticsView::resizeEvent(QResizeEvent *e)
+{
+    if (e->size().width() > 600) {
+        m_filterLineEdit->setProperty("_breeze_borders_sides", {});
+        m_toolbarLayout->insertWidget(m_toolbarLayout->indexOf(m_clearButton) - 1, m_filterLineEdit);
+    } else {
+        // move the filter to the bottom of the view if the width is too small
+        // so its more usable when the diagnostics is a side panel instead of bottom panel
+        m_layout->addWidget(m_filterLineEdit);
+        m_filterLineEdit->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
+    }
+
+    QWidget::resizeEvent(e);
 }
 
 void DiagnosticsView::handleEsc(QEvent *event)

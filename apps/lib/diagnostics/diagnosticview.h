@@ -182,6 +182,7 @@ public:
 
 protected:
     void showEvent(QShowEvent *e) override;
+    void resizeEvent(QResizeEvent *e) override;
     void handleEsc(QEvent *e);
 
 private Q_SLOTS:
@@ -224,6 +225,8 @@ private:
 
     int m_diagnosticsCount = 0;
     const QPointer<KTextEditor::MainWindow> m_mainWindow;
+    class QVBoxLayout *const m_layout;
+    class QHBoxLayout *const m_toolbarLayout;
     class QTreeView *const m_diagnosticsTree;
     class QToolButton *const m_clearButton;
     class QLineEdit *const m_filterLineEdit;

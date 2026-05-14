@@ -34,6 +34,7 @@ struct DocumentUIState {
     int selectedRowIndex = 0;
     QString selectedFingerprint;
     QString selectedEmailAddress;
+    bool isDecrypted = false;
 };
 
 // forward declaration
@@ -49,6 +50,22 @@ public:
     }
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+
+    bool hasActiveView() const
+    {
+        return m_viewCount > 0;
+    }
+    void onViewCreated()
+    {
+        ++m_viewCount;
+    }
+    void onViewDestroyed()
+    {
+        --m_viewCount;
+    }
+
+private:
+    int m_viewCount = 0;
 };
 
 class KateGPGPluginView : public QObject, public KXMLGUIClient
@@ -72,6 +89,7 @@ public Q_SLOTS:
 
 private:
     KTextEditor::MainWindow *m_mainWindow = nullptr;
+    KateGPGPlugin *m_plugin = nullptr;
     // The top level toolview widget
     std::unique_ptr<QWidget> m_toolview;
 
@@ -107,6 +125,8 @@ private:
     // Per-document UI state: saved when switching away, restored on switch back
     QMap<KTextEditor::Document *, DocumentUIState> m_documentStates;
     KTextEditor::Document *m_currentDocument = nullptr;
+    // Status bar label showing whether the current GPG tab is decrypted or encrypted
+    QLabel *m_encryptionStatusLabel = nullptr;
 
     // private functions
     void updateKeyTable();
@@ -115,7 +135,7 @@ private:
 
     void makeTableCell(const QString cellValue, uint row, uint col);
 
-    void readPluginConfig();
+    void readPluginConfig(bool restoreSelection);
     void savePluginConfig();
 
     // Functions to hook into Kate's save dialog
@@ -127,4 +147,7 @@ private:
 
     // Function to generate translatable Kate-conform error/warning messages
     QVariantMap generateMessage(const QString translatebleMessage, const QString messageType);
+
+    // Update the encryption status indicator in Kate's status bar for the given document
+    void updateEncryptionStatusLabel(KTextEditor::Document *doc);
 };

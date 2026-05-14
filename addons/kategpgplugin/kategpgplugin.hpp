@@ -143,7 +143,7 @@ private:
     void connectToOpenAndSaveDialog(KTextEditor::View *view);
     void onDocumentWillSave(KTextEditor::Document *doc);
     void onDocumentOpened(KTextEditor::View *view);
-    void performDecrypt(KTextEditor::View *v);
+    void decryptView(KTextEditor::View *v);
 
     // Function to generate translatable Kate-conform error/warning messages
     QVariantMap generateMessage(const QString translatebleMessage, const QString messageType);

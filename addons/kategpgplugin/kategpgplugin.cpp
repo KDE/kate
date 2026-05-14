@@ -485,10 +485,10 @@ void KateGPGPluginView::onDocumentWillSave(KTextEditor::Document *doc)
 
 void KateGPGPluginView::decryptButtonPressed()
 {
-    performDecrypt(m_mainWindow->activeView());
+    decryptView(m_mainWindow->activeView());
 }
 
-void KateGPGPluginView::performDecrypt(KTextEditor::View *v)
+void KateGPGPluginView::decryptView(KTextEditor::View *v)
 {
     if (!v) {
         m_mainWindow->showMessage(generateMessage(i18n("Error! No views available..."), QStringLiteral("Error")));

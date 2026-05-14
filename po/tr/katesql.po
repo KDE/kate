@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:49+0000\n"
-"PO-Revision-Date: 2026-05-05 11:26+0300\n"
+"PO-Revision-Date: 2026-05-13 13:02+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -257,6 +257,9 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Uyarı! Benzersiz kısıtlayıcısı olmayan sütunlar için düzgün bir kopyala–"
+"yapıştır eylemini garanti edemiyoruz (yabancı anahtar yerine sütun "
+"görüntülendiğinde)."
 
 #: dataoutputwidget.cpp:263
 #, kde-format

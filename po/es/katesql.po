@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:49+0000\n"
-"PO-Revision-Date: 2026-05-05 23:44+0100\n"
+"PO-Revision-Date: 2026-05-13 20:31+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.04.0\n"
+"X-Generator: Lokalize 26.04.1\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -256,6 +256,9 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Advertencia: No se puede garantizar que las columnas que no tengan una única "
+"restricción se puedan copiar/pegar correctamente (cuando se muestra la "
+"columna en lugar de la clave externa)."
 
 #: dataoutputwidget.cpp:263
 #, kde-format

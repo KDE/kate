@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:49+0000\n"
-"PO-Revision-Date: 2026-05-05 09:02+0200\n"
+"PO-Revision-Date: 2026-05-13 07:51+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -257,6 +257,8 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Avís! No podem garantir una còpia i apegades correcte de les columnes sense "
+"una restricció única (quan es mostra la columna en lloc de la clau externa)"
 
 #: dataoutputwidget.cpp:263
 #, kde-format

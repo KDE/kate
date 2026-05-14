@@ -253,6 +253,8 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Upozornenie! Pre stĺpce bez obmedzenia jedinečnosti nemôžeme zaručiť správne "
+"kopírovanie a vkladanie (keď je namiesto cudzieho kľúča zobrazený stĺpec)"
 
 #: dataoutputwidget.cpp:263
 #, kde-format

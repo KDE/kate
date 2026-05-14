@@ -112,7 +112,7 @@ msgstr "使用 Prettier 格式化当前文件"
 #, kde-format
 msgctxt "External tool name"
 msgid "Qt Quick 2 Preview"
-msgstr ""
+msgstr "Qt Quick 2 预览"
 
 #. i18n: file: 4
 #, kde-format

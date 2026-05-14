@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:49+0000\n"
-"PO-Revision-Date: 2026-05-05 06:56+0200\n"
+"PO-Revision-Date: 2026-05-13 07:01+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -257,6 +257,8 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Opozorilo! Za stolpce brez enolične omejitve ne moremo zagotoviti pravilnega "
+"kopiranja in lepljenja (ko je prikazan stolpec namesto tujega ključa)"
 
 #: dataoutputwidget.cpp:263
 #, kde-format

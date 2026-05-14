@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-13 00:49+0000\n"
-"PO-Revision-Date: 2026-05-06 11:13+0200\n"
+"PO-Revision-Date: 2026-05-13 12:12+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -252,6 +252,9 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Attention! Pro columnas sin un restriction de unicitate, nos non pote "
+"garantir  un copiar-e-collar correcte (quando le columna es monstrate in "
+"vice del clave externe)."
 
 #: dataoutputwidget.cpp:263
 #, kde-format

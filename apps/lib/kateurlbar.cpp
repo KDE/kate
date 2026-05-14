@@ -1207,13 +1207,14 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
     connect(vm, &KateViewManager::viewChanged, this, &KateUrlBar::onViewChanged);
 
     connect(vm, &KateViewManager::showUrlNavBarChanged, this, [this, vm](bool show) {
-        setHidden(!show);
-        if (show) {
-            onViewChanged(vm->activeView());
+        if (show && onViewChanged(vm->activeView())) {
+            return;
         }
+        setVisible(show);
+        Q_EMIT maybeHiddenChanged();
     });
 
-    setHidden(!vm->showUrlNavBar());
+    setVisible(vm->showUrlNavBar());
 }
 
 void KateUrlBar::open()
@@ -1261,13 +1262,13 @@ void KateUrlBar::setupLayout()
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updatePalette, Qt::QueuedConnection);
 }
 
-void KateUrlBar::onViewChanged(KTextEditor::View *v)
+bool KateUrlBar::onViewChanged(KTextEditor::View *v)
 {
     // We are not active but we have a doc? => don't do anything
     // we check for a doc because we want to update the KateUrlBar
     // when kate starts
     if (!viewSpace()->isActiveSpace() && m_currentDoc) {
-        return;
+        return false;
     }
 
     if (!v) {
@@ -1275,12 +1276,15 @@ void KateUrlBar::onViewChanged(KTextEditor::View *v)
         // no view => show nothing
         m_untitledDocLabel->setText({});
         m_stack->setCurrentWidget(m_untitledDocLabel);
-        setHidden(true);
-        return;
+        setVisible(false);
+        Q_EMIT maybeHiddenChanged();
+        return true;
     }
 
-    setHidden(!viewManager()->showUrlNavBar());
+    setVisible(viewManager()->showUrlNavBar());
+    Q_EMIT maybeHiddenChanged();
     updateForDocument(v->document());
+    return true;
 }
 
 void KateUrlBar::updateForDocument(KTextEditor::Document *doc)

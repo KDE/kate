@@ -191,6 +191,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
         // default: open a new document or switch there
         m_viewManager->openUrl(url);
     });
+    connect(m_urlBar, &KateUrlBar::maybeHiddenChanged, this, &KateViewSpace::updateButtonVisibility);
     m_layout->addWidget(m_urlBar, GridRow_UrlBar, 0, 1, GridColumn_Count);
 
     stack = new QStackedWidget(this);
@@ -312,8 +313,6 @@ void KateViewSpace::updateTabBar()
 
 void KateViewSpace::tabBarToggled()
 {
-    KateUpdateDisabler updatesDisabled(m_viewManager->mainWindow());
-
     bool show = m_viewManager->mainWindow()->showTabBar();
 
     // we might want to auto hide if just one document is open
@@ -330,6 +329,17 @@ void KateViewSpace::tabBarToggled()
     } else {
         m_layout->addWidget(m_urlBar, GridRow_ButtonsAndTabs, GridColumn_TabBarOrUrlBar);
     }
+
+    updateButtonVisibility();
+}
+
+void KateViewSpace::updateButtonVisibility()
+{
+    const bool showButtons = !(m_tabBar->isHidden() && m_urlBar->isHidden());
+    m_historyBack->setVisible(showButtons);
+    m_historyForward->setVisible(showButtons);
+    m_quickOpen->setVisible(showButtons);
+    m_split->setVisible(showButtons);
 }
 
 KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)

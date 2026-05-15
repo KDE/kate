@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-10 00:47+0000\n"
+"POT-Creation-Date: 2026-05-15 00:48+0000\n"
 "PO-Revision-Date: 2020-03-17 11:50+0000\n"
 "Last-Translator: amrithandh m <amrithanadhm@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -2567,7 +2567,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr ""
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr ""
@@ -2577,7 +2577,7 @@ msgstr ""
 msgid "Control view space splitting"
 msgstr ""
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2588,51 +2588,51 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:1125
+#: lib/kateviewspace.cpp:1135
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Tab"
 msgstr "പ്രമാണം അടയ്ക്കുക"
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1142
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1146
+#: lib/kateviewspace.cpp:1156
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close All &Tabs"
 msgstr "പ്രമാണം അടയ്ക്കുക"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1189
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "D&etach Document"
 msgstr "പ്രമാണം അടയ്ക്കുക"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1194
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1225
+#: lib/kateviewspace.cpp:1235
 #, kde-format
 msgid "Compare with Active Document"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1249
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Unpin Document"
 msgstr "പ്രമാണം അടയ്ക്കുക"
 
-#: lib/kateviewspace.cpp:1241
+#: lib/kateviewspace.cpp:1251
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Pin Document"

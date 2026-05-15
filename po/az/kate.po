@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-10 00:47+0000\n"
+"POT-Creation-Date: 2026-05-15 00:48+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -2649,7 +2649,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Sürətli açılış görünüşünə keçmək üçün buraya vurun"
@@ -2659,7 +2659,7 @@ msgstr "Sürətli açılış görünüşünə keçmək üçün buraya vurun"
 msgid "Control view space splitting"
 msgstr "Görünüşü bölən ayırıcını idarə etmək"
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2674,51 +2674,51 @@ msgstr[1] ""
 "Hal-hazırda %1 və daha çox sənədlər açılır. Bütün açılan sənədləri görmək "
 "üçün, buraya vurmaqla Sürətli aşılış görünüşünə keçin."
 
-#: lib/kateviewspace.cpp:1125
+#: lib/kateviewspace.cpp:1135
 #, fuzzy, kde-format
 #| msgid "Close Tab"
 msgid "&Close Tab"
 msgstr "Vərəqi bağlayın"
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1142
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close &Other Tabs"
 msgstr "O birilərini bağlamaq"
 
-#: lib/kateviewspace.cpp:1146
+#: lib/kateviewspace.cpp:1156
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All &Tabs"
 msgstr "&Hamısını bağlamaq"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1189
 #, kde-format
 msgid "D&etach Document"
 msgstr "Sə&nədi ayırın"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1194
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Sənədi yeni bir pəncərədə açır və onu cari pəncərədə bağlayır"
 
-#: lib/kateviewspace.cpp:1225
+#: lib/kateviewspace.cpp:1235
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Aktiv sənəd ilə müqayisə edin"
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Aktiv sənəd ilə bunu istifadə edərək müqayisə edin"
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1249
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Unpin Document"
 msgstr "Sənədi bağlamaq"
 
-#: lib/kateviewspace.cpp:1241
+#: lib/kateviewspace.cpp:1251
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

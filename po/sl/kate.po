@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-10 00:47+0000\n"
+"POT-Creation-Date: 2026-05-15 00:48+0000\n"
 "PO-Revision-Date: 2026-04-23 06:35+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -2631,7 +2631,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Kliknite sem za preklop na pogled hitrega odpiranja."
@@ -2641,7 +2641,7 @@ msgstr "Kliknite sem za preklop na pogled hitrega odpiranja."
 msgid "Control view space splitting"
 msgstr "Razdelitev prostora nadzornega pogleda"
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2662,47 +2662,47 @@ msgstr[3] ""
 "Trenutno je odprtih še %1 dokumentov. Kliknite sem, da preklopite na pogled "
 "hitrega odpiranja in vidite vse odprte dokumente."
 
-#: lib/kateviewspace.cpp:1125
+#: lib/kateviewspace.cpp:1135
 #, kde-format
 msgid "&Close Tab"
 msgstr "Zapri zavihek"
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1142
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "Zapri ostale zavihke"
 
-#: lib/kateviewspace.cpp:1146
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "Zapri vse zavihke"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1189
 #, kde-format
 msgid "D&etach Document"
 msgstr "Odpni dokument"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1194
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Odpre dokument v novem oknu in ga zapre v trenutnem oknu"
 
-#: lib/kateviewspace.cpp:1225
+#: lib/kateviewspace.cpp:1235
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Primerjaj z aktivnim dokumentom"
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Primerjaj z aktivnim dokumentom z uporabo"
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "Unpin Document"
 msgstr "Odpni dokument"
 
-#: lib/kateviewspace.cpp:1241
+#: lib/kateviewspace.cpp:1251
 #, kde-format
 msgid "Pin Document"
 msgstr "Pripni dokument"

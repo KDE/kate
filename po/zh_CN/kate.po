@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-10 00:47+0000\n"
+"POT-Creation-Date: 2026-05-15 00:48+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -2551,7 +2551,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "点击这里切换到快速打开视图。"
@@ -2561,7 +2561,7 @@ msgstr "点击这里切换到快速打开视图。"
 msgid "Control view space splitting"
 msgstr "控制视图空间拆分"
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2572,47 +2572,47 @@ msgid_plural ""
 msgstr[0] ""
 "当前还有 %1 个文档已打开。要查看所有打开文档，请点击此处切换到快速打开视图。"
 
-#: lib/kateviewspace.cpp:1125
+#: lib/kateviewspace.cpp:1135
 #, kde-format
 msgid "&Close Tab"
 msgstr "关闭标签页(&C)"
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1142
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "关闭其他标签页(&O)"
 
-#: lib/kateviewspace.cpp:1146
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "关闭所有标签页(&T)"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1189
 #, kde-format
 msgid "D&etach Document"
 msgstr "分离文档到新窗口(&E)"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1194
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "移动文档到新窗口"
 
-#: lib/kateviewspace.cpp:1225
+#: lib/kateviewspace.cpp:1235
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "与当前文档进行比较"
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "与当前文档进行比较"
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "Unpin Document"
 msgstr "取消固定文档"
 
-#: lib/kateviewspace.cpp:1241
+#: lib/kateviewspace.cpp:1251
 #, kde-format
 msgid "Pin Document"
 msgstr "固定文档"

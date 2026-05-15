@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-10 00:47+0000\n"
+"POT-Creation-Date: 2026-05-15 00:48+0000\n"
 "PO-Revision-Date: 2022-10-22 12:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -2668,7 +2668,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Klõpsa siia kiiravamise vaatele lülitumiseks."
@@ -2678,7 +2678,7 @@ msgstr "Klõpsa siia kiiravamise vaatele lülitumiseks."
 msgid "Control view space splitting"
 msgstr "Vaate poolitamise juhtimine"
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2693,53 +2693,53 @@ msgstr[1] ""
 "Avatud on veel %1 dokumenti. Kõigi avatud dokumentide nägemiseks klõpsa siia "
 "kiiravamise vaatele lülitumiseks."
 
-#: lib/kateviewspace.cpp:1125
+#: lib/kateviewspace.cpp:1135
 #, fuzzy, kde-format
 #| msgid "Close Tab"
 msgid "&Close Tab"
 msgstr "Sulge kaart"
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1142
 #, fuzzy, kde-format
 msgid "Close &Other Tabs"
 msgstr "Sulge aktiivne kaart"
 
-#: lib/kateviewspace.cpp:1146
+#: lib/kateviewspace.cpp:1156
 #, fuzzy, kde-format
 msgid "Close All &Tabs"
 msgstr "Sulge aktiivne kaart"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1189
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Järgmine dokument"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1194
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1225
+#: lib/kateviewspace.cpp:1235
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "Võrdle aktiivse dokumendiga"
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1241
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "Võrdle aktiivse dokumendiga"
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1249
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Unpin Document"
 msgstr "Avatavad dokumendid"
 
-#: lib/kateviewspace.cpp:1241
+#: lib/kateviewspace.cpp:1251
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

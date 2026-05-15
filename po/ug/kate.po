@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-10 00:47+0000\n"
+"POT-Creation-Date: 2026-05-15 00:48+0000\n"
 "PO-Revision-Date: 2026-04-20 21:21-0400\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -2605,7 +2605,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "بۇ جاي چېكىلسە تېز ئېچىش كۆرۈنۈشىگە ئالمىشىدۇ."
@@ -2615,7 +2615,7 @@ msgstr "بۇ جاي چېكىلسە تېز ئېچىش كۆرۈنۈشىگە ئال
 msgid "Control view space splitting"
 msgstr "كۆرۈنۈش بوشلۇقىنىڭ بۆلۈنۈشىنى تىزگىنلەيدۇ"
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2627,47 +2627,47 @@ msgstr[0] ""
 "نۆۋەتتە يەنە %1 پۈتۈك ئوچۇق. بارلىق ئوچۇق پۈتۈكنى كۆرۈشتە، بۇ جاي چېكىلسە "
 "تېز ئېچىش كۆرۈنۈشىگە ئالمىشىدۇ."
 
-#: lib/kateviewspace.cpp:1125
+#: lib/kateviewspace.cpp:1135
 #, kde-format
 msgid "&Close Tab"
 msgstr "بەتكۈچنى ياپ(&C)"
 
-#: lib/kateviewspace.cpp:1132
+#: lib/kateviewspace.cpp:1142
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "باشقا بەتكۈچنى ياپ(&O)"
 
-#: lib/kateviewspace.cpp:1146
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "ھەممە بەتكۈچنى ياپ(&T)"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1189
 #, kde-format
 msgid "D&etach Document"
 msgstr "پۈتۈكنى ئاجرات(&E)"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1194
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "پۈتۈكنى يېڭى كۆزنەكتە ئاچىدۇ ۋە ئۇنى نۆۋەتتىكى كۆزنەكتە تاقايدۇ"
 
-#: lib/kateviewspace.cpp:1225
+#: lib/kateviewspace.cpp:1235
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "ئاكتىپ پۈتۈك بىلەن سېلىشتۇر"
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "ئىشلىتىۋاتقان ئاكتىپ پۈتۈك بىلەن سېلىشتۇر"
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "Unpin Document"
 msgstr "پۈتۈكنى قومۇر"
 
-#: lib/kateviewspace.cpp:1241
+#: lib/kateviewspace.cpp:1251
 #, kde-format
 msgid "Pin Document"
 msgstr "پۈتۈكنى مىخلا"

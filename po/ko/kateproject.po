@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-23 00:47+0000\n"
+"POT-Creation-Date: 2026-05-15 00:48+0000\n"
 "PO-Revision-Date: 2026-04-26 21:43+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -426,7 +426,7 @@ msgid "Open .gitignore"
 msgstr ".gitignore 열기"
 
 #: gitwidget.cpp:1245 gitwidget.cpp:1294 gitwidget.cpp:1345
-#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
+#: kateprojectconfigpage.cpp:111 kateprojectconfigpage.cpp:123
 #, kde-format
 msgid "Show Diff"
 msgstr "차이점 표시"
@@ -541,15 +541,15 @@ msgstr "(스테이지됨)"
 msgid "Malformed JSON file '%1': %2"
 msgstr "잘못된 JSON 파일 '%1': %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:79
-#: kateprojectpluginview.cpp:230 kateprojectviewtree.cpp:367
+#: kateproject.cpp:424 kateprojectplugin.cpp:826 kateprojectpluginview.cpp:79
+#: kateprojectpluginview.cpp:235 kateprojectviewtree.cpp:367
 #: kateprojectviewtree.cpp:378 kateprojectviewtree.cpp:408
 #: kateprojectviewtree.cpp:415
 #, kde-format
 msgid "Project"
 msgstr "프로젝트"
 
-#: kateproject.cpp:723
+#: kateproject.cpp:725
 #, kde-format
 msgid "<untracked>"
 msgstr "<추적 안 됨>"
@@ -602,41 +602,78 @@ msgstr "CMake(&C)"
 #: kateprojectconfigpage.cpp:47
 #, kde-format
 msgctxt "Groupbox title"
+msgid "Directory Listing"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:49
+#, kde-format
+msgid ""
+"When directory listing is enabled, autoloaded repository projects show all "
+"files instead of only VCS-tracked files."
+msgstr ""
+
+#: kateprojectconfigpage.cpp:52
+#, kde-format
+msgid "Include files untracked by repository"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:54
+#, kde-format
+msgid ""
+"Show all files in the project directory including files not tracked by the "
+"version control system, such as those excluded via .gitignore."
+msgstr ""
+
+#: kateprojectconfigpage.cpp:58
+#, kde-format
+msgid "Show hidden files in non-VCS projects"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:59
+#, kde-format
+msgid ""
+"Show hidden files (dotfiles) in the project file tree for projects not "
+"loaded using version control."
+msgstr ""
+
+#: kateprojectconfigpage.cpp:68
+#, kde-format
+msgctxt "Groupbox title"
 msgid "Session Behavior"
 msgstr "세션 행동"
 
-#: kateprojectconfigpage.cpp:48
+#: kateprojectconfigpage.cpp:69
 #, kde-format
 msgid "Session settings for projects"
 msgstr "프로젝트의 세션 설정"
 
-#: kateprojectconfigpage.cpp:49
+#: kateprojectconfigpage.cpp:70
 #, kde-format
 msgid "Restore Open Projects"
 msgstr "열린 프로젝트 복원"
 
-#: kateprojectconfigpage.cpp:56
+#: kateprojectconfigpage.cpp:77
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
 msgstr "프로젝트 색인"
 
-#: kateprojectconfigpage.cpp:57
+#: kateprojectconfigpage.cpp:78
 #, kde-format
 msgid "Project ctags index settings"
 msgstr "프로젝트 ctags 색인 설정"
 
-#: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:208
+#: kateprojectconfigpage.cpp:79 kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Enable indexing"
 msgstr "색인 사용"
 
-#: kateprojectconfigpage.cpp:61
+#: kateprojectconfigpage.cpp:82
 #, kde-format
 msgid "Directory for index files"
 msgstr "색인 파일 디렉터리"
 
-#: kateprojectconfigpage.cpp:65
+#: kateprojectconfigpage.cpp:86
 #, kde-format
 msgid ""
 "The system temporary directory is used if not specified, which may overflow "
@@ -645,66 +682,66 @@ msgstr ""
 "지정하지 않은 경우에는 시스템 디렉터리를 사용하며, 저장소가 매우 클 경우 넘"
 "칠 수도 있습니다"
 
-#: kateprojectconfigpage.cpp:72
+#: kateprojectconfigpage.cpp:93
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
 msgstr "교차 프로젝트 기능"
 
-#: kateprojectconfigpage.cpp:73
+#: kateprojectconfigpage.cpp:94
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
 msgstr ""
 "프로젝트 플러그인의 일부 작업은 여러 프로젝트에서 동시에 실행할 수 있습니다"
 
-#: kateprojectconfigpage.cpp:74
+#: kateprojectconfigpage.cpp:95
 #, kde-format
 msgid "Cross-Project Completion"
 msgstr "교차 프로젝트 자동 완성"
 
-#: kateprojectconfigpage.cpp:76
+#: kateprojectconfigpage.cpp:97
 #, kde-format
 msgid "Cross-Project Goto Symbol"
 msgstr "교차 프로젝트 심볼로 이동"
 
-#: kateprojectconfigpage.cpp:84
+#: kateprojectconfigpage.cpp:105
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:87
+#: kateprojectconfigpage.cpp:108
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "git 상태 보기에서 한 번 클릭했을 때 동작"
 
-#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
+#: kateprojectconfigpage.cpp:110 kateprojectconfigpage.cpp:122
 #, kde-format
 msgid "No Action"
 msgstr "동작 없음"
 
-#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
+#: kateprojectconfigpage.cpp:112 kateprojectconfigpage.cpp:124
 #, kde-format
 msgid "Open file"
 msgstr "파일 열기"
 
-#: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:104
+#: kateprojectconfigpage.cpp:113 kateprojectconfigpage.cpp:125
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "스테이지/해제"
 
-#: kateprojectconfigpage.cpp:99
+#: kateprojectconfigpage.cpp:120
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "git 상태 보기에서 두 번 클릭했을 때 동작"
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
+#: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Projects"
 msgstr "프로젝트"
 
-#: kateprojectconfigpage.cpp:147
+#: kateprojectconfigpage.cpp:170
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
@@ -857,12 +894,12 @@ msgstr "프로젝트 닫기 확인: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "프로젝트 %1 및 열린 문서 %2개를 닫으시겠습니까?"
 
-#: kateprojectplugin.cpp:656
+#: kateprojectplugin.cpp:691
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "파일 이름을 제외한 현재 프로젝트의 전체 경로입니다."
 
-#: kateprojectplugin.cpp:673
+#: kateprojectplugin.cpp:708
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -941,27 +978,33 @@ msgstr "접근 불가능한 프로젝트 닫기"
 msgid "Reload Project"
 msgstr "프로젝트 새로 고침"
 
-#: kateprojectpluginview.cpp:227
+#: kateprojectpluginview.cpp:221
+#, fuzzy, kde-format
+#| msgid "Reload Project"
+msgid "Reload All Projects"
+msgstr "프로젝트 새로 고침"
+
+#: kateprojectpluginview.cpp:232
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Git 브랜치 체크아웃"
 
-#: kateprojectpluginview.cpp:233 kateprojectpluginview.cpp:832
+#: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:842
 #, kde-format
 msgid "Lookup: %1"
 msgstr "찾아보기: %1"
 
-#: kateprojectpluginview.cpp:234 kateprojectpluginview.cpp:833
+#: kateprojectpluginview.cpp:239 kateprojectpluginview.cpp:843
 #, kde-format
 msgid "Goto: %1"
 msgstr "이동: %1"
 
-#: kateprojectpluginview.cpp:313
+#: kateprojectpluginview.cpp:318
 #, kde-format
 msgid "Projects Index"
 msgstr "프로젝트 색인"
 
-#: kateprojectpluginview.cpp:877
+#: kateprojectpluginview.cpp:887
 #, kde-format
 msgid "Choose a directory"
 msgstr "디렉터리 선택"
@@ -1051,12 +1094,12 @@ msgstr "디렉터리가 이미 존재함"
 msgid "Failed to create dir: %1"
 msgstr "디렉터리를 만들 수 없음: %1"
 
-#: kateprojectworker.cpp:208
+#: kateprojectworker.cpp:215
 #, kde-format
 msgid "Unable to find directory: %1"
 msgstr "디렉터리를 찾을 수 없음: %1"
 
-#: kateprojectworker.cpp:735
+#: kateprojectworker.cpp:753
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1154,7 +1197,7 @@ msgid "&Projects"
 msgstr "프로젝트(&P)"
 
 #. i18n: ectx: ToolBar (projectplugin)
-#: ui.rc:27
+#: ui.rc:29
 #, kde-format
 msgid "Project Plugin"
 msgstr "프로젝트 플러그인"

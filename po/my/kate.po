@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-09 02:43+0000\n"
+"POT-Creation-Date: 2026-05-15 02:41+0000\n"
 "PO-Revision-Date: 2025-09-16 15:43+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -2461,7 +2461,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "အလျင်အမြန်ဖွင့်မြင်ကွင်းသို့ပြောင်းရန် ဤနေရာကိုနှိပ်ပါ။"
@@ -2471,7 +2471,7 @@ msgstr "အလျင်အမြန်ဖွင့်မြင်ကွင်း
 msgid "Control view space splitting"
 msgstr "ကြည့်ရှုနေရာချထားမှု စီမံရန်"
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2481,50 +2481,50 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1126
 #, fuzzy, kde-format
 #| msgid "Close Tab"
 msgid "&Close Tab"
 msgstr "တပ်ဘ်ပိတ်"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1133
 #, fuzzy, kde-format
 #| msgid "Close Others"
 msgid "Close &Other Tabs"
 msgstr "အခြားဟာများပိတ်မည်"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1147
 #, fuzzy, kde-format
 #| msgid "Close All"
 msgid "Close All &Tabs"
 msgstr "အားလုံးပိတ်"
 
-#: lib/kateviewspace.cpp:1170
+#: lib/kateviewspace.cpp:1180
 #, kde-format
 msgid "D&etach Document"
 msgstr "မှတ်တမ်းစာအုပ်&ခွာမည်"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "ဝင်းဒိုးအသစ်တွင် မှတ်တမ်းစာအုပ်ကိုဖွင့်၍ လက်ရှိဝင်းဒိုးတွင်ပိတ်မည်"
 
-#: lib/kateviewspace.cpp:1216
+#: lib/kateviewspace.cpp:1226
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "သက်ဝင်မှတ်တမ်းစာအုပ်ဖြင့်နိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1232
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "နောက်ပါကိုအသုံးပြု၍သက်ဝင်မှတ်တမ်းစာအုပ်ဖြင့်နိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1240
 #, kde-format
 msgid "Unpin Document"
 msgstr "မှတ်တမ်းစာအုပ်ကိုမတွဲတော့ပါ"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1242
 #, kde-format
 msgid "Pin Document"
 msgstr "မှတ်တမ်းစာအုပ်ကိုတွဲထားမည်"

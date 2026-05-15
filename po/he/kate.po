@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-09 02:43+0000\n"
+"POT-Creation-Date: 2026-05-15 02:41+0000\n"
 "PO-Revision-Date: 2026-04-11 22:05+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -2537,7 +2537,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "לחיצה כאן תעביר לתצוגת הפתיחה המהירה."
@@ -2547,7 +2547,7 @@ msgstr "לחיצה כאן תעביר לתצוגת הפתיחה המהירה."
 msgid "Control view space splitting"
 msgstr "שליטה על הרווח בין התצוגות"
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2568,47 +2568,47 @@ msgstr[3] ""
 "נכון לעכשיו, יש עוד %1 מסמכים פתוחים. כדי לצפות בכל המסמכים הפתוחים, ניתן "
 "לעבור לתצוגת הפתיחה המהירה על ידי לחיצה כאן."
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1126
 #, kde-format
 msgid "&Close Tab"
 msgstr "&סגירת לשונית"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1133
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "לסגור את &שאר הלשוניות"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1147
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "לסגור את &כל הלשוניות"
 
-#: lib/kateviewspace.cpp:1170
+#: lib/kateviewspace.cpp:1180
 #, kde-format
 msgid "D&etach Document"
 msgstr "&ניתוק המסמך"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "פתיחת המסמך בחלון חדש וסגירתו בחלון הנוכחי"
 
-#: lib/kateviewspace.cpp:1216
+#: lib/kateviewspace.cpp:1226
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "השוואה מול המסמך הפעיל"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1232
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "השוואה מול המסמך הפעיל בעזרת"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1240
 #, kde-format
 msgid "Unpin Document"
 msgstr "שחרור נעיצת מסמך"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1242
 #, kde-format
 msgid "Pin Document"
 msgstr "נעיצת מסמך"

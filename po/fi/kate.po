@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-09 02:43+0000\n"
+"POT-Creation-Date: 2026-05-15 02:41+0000\n"
 "PO-Revision-Date: 2026-01-10 20:49+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -2571,7 +2571,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Vaihda pika-avaukseen painamalla tästä."
@@ -2581,7 +2581,7 @@ msgstr "Vaihda pika-avaukseen painamalla tästä."
 msgid "Control view space splitting"
 msgstr "Hallitse näkymien viemän tilan jakamista"
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2596,47 +2596,47 @@ msgstr[1] ""
 "%1 tiedosto lisää on auki. Katso kaikki avoimet tiedostot siirtymällä pika-"
 "avausnäkymään painamalla tästä."
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1126
 #, kde-format
 msgid "&Close Tab"
 msgstr "Sul&je välilehti"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1133
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "Sulje &muut välilehdet"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1147
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "Sulje k&aikki välilehdet"
 
-#: lib/kateviewspace.cpp:1170
+#: lib/kateviewspace.cpp:1180
 #, kde-format
 msgid "D&etach Document"
 msgstr "&Irrota tiedosto"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Avaa tiedoston uuteen ikkunaan ja sulkee sen nykyisessä"
 
-#: lib/kateviewspace.cpp:1216
+#: lib/kateviewspace.cpp:1226
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Vertaa aktiiviseen tiedostoon"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1232
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Vertaa aktiiviseen tiedostoon ohjelmalla"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1240
 #, kde-format
 msgid "Unpin Document"
 msgstr "Irrota tiedosto"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1242
 #, kde-format
 msgid "Pin Document"
 msgstr "Kiinnitä tiedosto"

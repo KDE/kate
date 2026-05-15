@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-09 02:43+0000\n"
+"POT-Creation-Date: 2026-05-15 02:41+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -2625,7 +2625,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Klik di sini untuk mengubah ke tampilan Buka Cepat."
@@ -2635,7 +2635,7 @@ msgstr "Klik di sini untuk mengubah ke tampilan Buka Cepat."
 msgid "Control view space splitting"
 msgstr "Kendali tampilan pemisahan ruang"
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2650,55 +2650,55 @@ msgstr[1] ""
 "Saat ini, ada %1 lagi dokumen yang terbuka. Untuk melihat semua dokumen yang "
 "terbuka, ganti ke tampilan Buka Cepat dengan klik di sini."
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1126
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "&Close Tab"
 msgstr "Tutup"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1133
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close &Other Tabs"
 msgstr "Tutup Lainnya"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1147
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All &Tabs"
 msgstr "Tutup S&emua"
 
-#: lib/kateviewspace.cpp:1170
+#: lib/kateviewspace.cpp:1180
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Dokumen Selanjutnya"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1216
+#: lib/kateviewspace.cpp:1226
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "Bandingkan dengan dokumen yang aktif"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1232
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "Bandingkan dengan dokumen yang aktif"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1240
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Unpin Document"
 msgstr "Dokumen yang Terbuka"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1242
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

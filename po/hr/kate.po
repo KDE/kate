@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate 0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-09 02:43+0000\n"
+"POT-Creation-Date: 2026-05-15 02:41+0000\n"
 "PO-Revision-Date: 2010-03-15 15:31+0100\n"
 "Last-Translator: Andrej Dundovic <adundovi@gmail.com>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -2643,7 +2643,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr ""
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr ""
@@ -2653,7 +2653,7 @@ msgstr ""
 msgid "Control view space splitting"
 msgstr ""
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2665,50 +2665,50 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1126
 #, fuzzy, kde-format
 msgid "&Close Tab"
 msgstr "Zatvori trenutnu karticu"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1133
 #, fuzzy, kde-format
 msgid "Close &Other Tabs"
 msgstr "Zatvori trenutnu karticu"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1147
 #, fuzzy, kde-format
 msgid "Close All &Tabs"
 msgstr "Zatvori trenutnu karticu"
 
-#: lib/kateviewspace.cpp:1170
+#: lib/kateviewspace.cpp:1180
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "&Dokument"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1216
+#: lib/kateviewspace.cpp:1226
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document"
 msgstr "Emulator &terminala uskladi s aktivnim dokumentom"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1232
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document Using"
 msgstr "Emulator &terminala uskladi s aktivnim dokumentom"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1240
 #, fuzzy, kde-format
 msgid "Unpin Document"
 msgstr "Otvori dokumente"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1242
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-09 02:43+0000\n"
+"POT-Creation-Date: 2026-05-15 02:41+0000\n"
 "PO-Revision-Date: 2024-01-03 14:01-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -2539,7 +2539,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr ""
@@ -2549,7 +2549,7 @@ msgstr ""
 msgid "Control view space splitting"
 msgstr ""
 
-#: lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:270
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2560,53 +2560,53 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1126
 #, fuzzy, kde-format
 #| msgid "Close Tab"
 msgid "&Close Tab"
 msgstr "ਟੈਬ ਨੂੰ ਬੰਦ ਕਰੋ"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1133
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close &Other Tabs"
 msgstr "ਹੋਰ ਬੰਦ ਕਰੋ"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1147
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All &Tabs"
 msgstr "ਸਭ ਬੰਦ ਕਰੋ(&e)"
 
-#: lib/kateviewspace.cpp:1170
+#: lib/kateviewspace.cpp:1180
 #, kde-format
 msgid "D&etach Document"
 msgstr "ਡੌਕੂਮੈਂਟ ਨੂੰ ਵੱਖ ਕਰੋ(&e)"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1216
+#: lib/kateviewspace.cpp:1226
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "ਸਰਗਰਮ ਡੌਕੂਮੈਂਟ ਨਾਲ ਤੁਲਨਾ ਕਰੋ"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1232
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "ਸਰਗਰਮ ਡੌਕੂਮੈਂਟ ਨਾਲ ਤੁਲਨਾ ਕਰੋ"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1240
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Unpin Document"
 msgstr "ਡੌਕੂਮੈਂਟ ਖੋਲ੍ਹੋ"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1242
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

@@ -252,6 +252,8 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"警告！对于没有唯一约束的列，我们无法保证复制粘贴的正确性 (当显示列本身而非外"
+"键时)"
 
 #: dataoutputwidget.cpp:263
 #, kde-format

@@ -973,10 +973,9 @@ msgid "Reload Project"
 msgstr "重新加载项目"
 
 #: kateprojectpluginview.cpp:221
-#, fuzzy, kde-format
-#| msgid "Reload Project"
+#, kde-format
 msgid "Reload All Projects"
-msgstr "重新加载项目"
+msgstr ""
 
 #: kateprojectpluginview.cpp:232
 #, kde-format

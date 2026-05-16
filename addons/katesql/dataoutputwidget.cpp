@@ -15,8 +15,10 @@
 #include "dataoutputview.h"
 #include "exportwizard.h"
 #include "helpers/databaseconfigserializinghelper.h"
+#include "helpers/dataoutputimportexporthelpers.h"
 #include "helpers/dataoutputstylehelper.h"
 #include "helpers/enumhelper.h"
+
 #include "katesqlconstants.h"
 
 #include <algorithm>
@@ -73,6 +75,7 @@
 #include <qlatin1stringview.h>
 #include <qlist.h>
 #include <qmap.h>
+#include <qobject.h>
 #include <qsqldatabase.h>
 #include <qtypes.h>
 #include <qvariant.h>
@@ -680,13 +683,13 @@ void DataOutputWidget::slotExport()
     bool exportColumnNames = wizard.field(KateSQLConstants::Export::Fields::ExportColumnNames).toBool();
     bool exportLineNumbers = wizard.field(KateSQLConstants::Export::Fields::ExportLineNumbers).toBool();
 
-    Options opt = NoOptions;
+    DataOutputImportExportHelpers::Options opt = DataOutputImportExportHelpers::NoOptions;
 
     if (exportColumnNames) {
-        opt |= ExportColumnNames;
+        opt |= DataOutputImportExportHelpers::ExportColumnNames;
     }
     if (exportLineNumbers) {
-        opt |= ExportLineNumbers;
+        opt |= DataOutputImportExportHelpers::ExportLineNumbers;
     }
 
     bool quoteStrings = wizard.field(KateSQLConstants::Export::Fields::CheckQuoteStrings).toBool();
@@ -971,109 +974,23 @@ void DataOutputWidget::exportData(QTextStream &stream,
                                   const QChar stringsQuoteChar,
                                   const QChar numbersQuoteChar,
                                   const QString fieldDelimiter,
-                                  const Options opt)
+                                  const DataOutputImportExportHelpers::Options opt)
 {
     QItemSelectionModel *selectionModel = m_view->selectionModel();
 
-    if (!selectionModel->hasSelection()) {
+    if (!selectionModel->hasSelection() || !m_model) {
         return;
     }
 
     QElapsedTimer t;
     t.start();
 
-    std::vector<int> columns;
-    std::vector<int> rows;
-    QHash<QPair<int, int>, QString> snapshot;
-
-    const QModelIndexList selectedIndexes = selectionModel->selectedIndexes();
-
-    snapshot.reserve(selectedIndexes.count());
-
-    for (const QModelIndex &index : selectedIndexes) {
-        const QVariant indexData = index.data(Qt::UserRole);
-
-        const int col = index.column();
-        const int row = index.row();
-
-        columns.push_back(col);
-        rows.push_back(row);
-
-        if (indexData.typeId() < 7) // is numeric or boolean
-        {
-            if (numbersQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
-                // Escape the escape character itself first, then the quote char.
-                // Order matters: if we escape quotes first, a literal backslash
-                // before a quote would produce \" which the reader would
-                // interpret as an escaped quote rather than \\".
-                const QString data = indexData.toString().replace(EscapeChar, EscapeChar + EscapeChar).replace(numbersQuoteChar, EscapeChar + numbersQuoteChar);
-                snapshot[qMakePair(row, col)] = numbersQuoteChar + data + numbersQuoteChar;
-            } else {
-                snapshot[qMakePair(row, col)] = indexData.toString();
-            }
-        } else {
-            if (stringsQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
-                // Escape the escape character itself first, then the quote char.
-                const QString data = indexData.toString().replace(EscapeChar, EscapeChar + EscapeChar).replace(stringsQuoteChar, EscapeChar + stringsQuoteChar);
-
-                snapshot[qMakePair(row, col)] = stringsQuoteChar + data + stringsQuoteChar;
-            } else {
-                snapshot[qMakePair(row, col)] = indexData.toString();
-            }
-        }
+    QAbstractItemModel *model = qobject_cast<QAbstractItemModel *>(m_model->asQObject());
+    if (model == nullptr) {
+        return;
     }
 
-    // uniquify
-    std::sort(rows.begin(), rows.end());
-    std::sort(columns.begin(), columns.end());
-    rows.erase(std::unique(rows.begin(), rows.end()), rows.end());
-    columns.erase(std::unique(columns.begin(), columns.end()), columns.end());
-
-    const int minRow = rows.front();
-    const int maxRow = rows.back();
-    const int minCol = columns.front();
-    const int maxCol = columns.back();
-
-    if (opt.testFlag(ExportColumnNames)) {
-        if (opt.testFlag(ExportLineNumbers)) {
-            stream << fieldDelimiter;
-        }
-        for (int col = minCol; col <= maxCol; ++col) {
-            if (std::binary_search(columns.begin(), columns.end(), col)) {
-                const QVariant headerData = abstractModel()->headerData(col, Qt::Horizontal);
-
-                if (stringsQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
-                    const QString escapedHeader =
-                        headerData.toString().replace(EscapeChar, EscapeChar + EscapeChar).replace(stringsQuoteChar, EscapeChar + stringsQuoteChar);
-                    stream << stringsQuoteChar + escapedHeader + stringsQuoteChar;
-                } else {
-                    stream << headerData.toString();
-                }
-            }
-
-            if (col < maxCol) {
-                stream << fieldDelimiter;
-            }
-        }
-        stream << KateSQLConstants::Export::DefaultValues::LineDelimiterForCopyPaste;
-    }
-
-    for (int row = minRow; row <= maxRow; ++row) {
-        if (std::binary_search(rows.begin(), rows.end(), row)) {
-            if (opt.testFlag(ExportLineNumbers)) {
-                stream << row + 1 << fieldDelimiter;
-            }
-
-            for (int col = minCol; col <= maxCol; ++col) {
-                stream << snapshot.value(qMakePair(row, col));
-
-                if (col < maxCol) {
-                    stream << fieldDelimiter;
-                }
-            }
-        }
-        stream << KateSQLConstants::Export::DefaultValues::LineDelimiterForCopyPaste;
-    }
+    DataOutputImportExportHelpers::exportData(model, selectionModel->selectedIndexes(), stream, stringsQuoteChar, numbersQuoteChar, fieldDelimiter, opt);
 
     qDebug("Export in %lld ms", t.elapsed());
 }
@@ -1097,135 +1014,7 @@ void DataOutputWidget::importData(QTextStream &stream, const QChar stringsQuoteC
         return;
     }
 
-    // Sort to get the top-left position
-    std::sort(selectedIndexes.begin(), selectedIndexes.end(), [](const QModelIndex &a, const QModelIndex &b) {
-        if (a.row() != b.row())
-            return a.row() < b.row();
-        return a.column() < b.column();
-    });
-
-    const QString data = stream.readAll().trimmed();
-    QStringList lines = data.split(lineDelimiter, Qt::KeepEmptyParts);
-
-    QList<QList<QVariant>> dataArray(lines.size(), QList<QVariant>());
-    for (int lineIdx = 0; lineIdx < lines.size(); ++lineIdx) {
-        QString line = lines[lineIdx];
-        // Parse the line - handle quoted fields
-        int pos = 0;
-        while (pos < line.length()) {
-            QString field;
-
-            // Check if field starts with quote
-            if (stringsQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar && pos < line.length() && line[pos] == stringsQuoteChar) {
-                pos++; // Skip opening quote
-                // Read until an unescaped closing quote
-                while (pos < line.length()) {
-                    if (line[pos] == EscapeChar && pos + 1 < line.length()) {
-                        // Escaped character: take the character after the backslash literally
-                        field += line[pos + 1];
-                        pos += 2;
-                    } else if (line[pos] == stringsQuoteChar) {
-                        // Unescaped quote -> closing quote
-                        break;
-                    } else {
-                        field += line[pos];
-                        pos++;
-                    }
-                }
-                if (pos < line.length()) {
-                    pos++; // Skip closing quote
-                }
-                // Skip delimiter if present (no allocation — QStringView comparison)
-                if (QStringView(line).sliced(pos).startsWith(fieldDelimiter)) {
-                    pos += fieldDelimiter.length();
-                }
-            } else {
-                // Read until delimiter or end, handling escapes
-                while (pos < line.length()) {
-                    if (line[pos] == EscapeChar && pos + 1 < line.length()) {
-                        // Escaped character: take the character after the backslash literally
-                        field += line[pos + 1];
-                        pos += 2;
-                    } else if (QStringView(line).sliced(pos).startsWith(fieldDelimiter)) {
-                        break;
-                    } else {
-                        field += line[pos];
-                        pos++;
-                    }
-                }
-                // Skip delimiter
-                if (pos < line.length()) {
-                    pos += fieldDelimiter.length();
-                }
-            }
-
-            // A truly empty field (nothing between delimiters) is stored as a
-            // null QVariant so that setData can be skipped for it during import.
-            // Quoted empty strings (e.g. "") are *not* null — they are intentional.
-            // the actual null values from sql are represented as KateSQLConstants::NullDisplayString
-            dataArray[lineIdx].append(field.isEmpty() ? QVariant() : QVariant(field));
-        }
-
-        // If the line ends with the field delimiter, the loop above advanced past
-        // the trailing delimiter without appending the (empty) final field.
-        if (!line.isEmpty() && line.endsWith(fieldDelimiter)) {
-            dataArray[lineIdx].append(QVariant()); // Trailing delimiter → truly empty field
-        }
-    }
-
-    const QModelIndex startIndex = selectedIndexes.first();
-    const QModelIndex endIndex = selectedIndexes.last();
-
-    const int startRow = startIndex.row();
-    const int startCol = startIndex.column();
-
-    if (dataArray.isEmpty()) {
-        return;
-    }
-    if (dataArray[0].isEmpty()) {
-        return;
-    }
-
-    const int dataArrayRows = dataArray.size();
-
-    const int endRow = std::max(endIndex.row() + 1, startRow + dataArrayRows);
-
-    for (int row = startRow; row < endRow; ++row) {
-        if (row >= sqlModel->rowCount()) {
-            continue;
-        }
-
-        const int dataRow = (row - startRow) % dataArrayRows;
-
-        // An empty data row (produced by an empty line in the pasted text)
-        // means this row gap should be preserved — skip setData entirely.
-        if (dataArray[dataRow].isEmpty()) {
-            continue;
-        }
-
-        const int dataArrayCols = dataArray[dataRow].size();
-        const int endCol = std::max(endIndex.column() + 1, startCol + dataArrayCols);
-
-        for (int col = startCol; col < endCol; ++col) {
-            if (col >= sqlModel->columnCount()) {
-                continue;
-            }
-            const QModelIndex targetIndex = sqlModel->index(row, col);
-            const int dataCol = (col - startCol) % dataArrayCols;
-            const QVariant value = dataArray[dataRow][dataCol];
-
-            // A null QVariant means the field was truly empty (nothing between
-            // delimiters) — skip setData so the existing cell value is preserved.
-            // the actual null values from sql are represented as KateSQLConstants::NullDisplayString
-            if (value.isNull()) {
-                continue;
-            }
-
-            if (!sqlModel->setData(targetIndex, value)) {
-                qWarning("Failed to set data at row %d, column %d", row, col);
-            }
-        }
-    }
+    DataOutputImportExportHelpers::importData(sqlModel, selectionModel->selectedIndexes(), stream, stringsQuoteChar, fieldDelimiter, lineDelimiter);
 }
 
 void DataOutputWidget::slotPaste()

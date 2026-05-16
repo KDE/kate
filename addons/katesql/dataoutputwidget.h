@@ -7,6 +7,7 @@
 #pragma once
 
 #include "dataoutput/dataoutputmodelinterface.h"
+#include "helpers/dataoutputimportexporthelpers.h"
 #include "helpers/dataoutputstylehelper.h"
 #include "katesqlconstants.h"
 
@@ -32,14 +33,6 @@ class DataOutputWidget : public QWidget, public KXMLGUIClient
     Q_OBJECT
 
 public:
-    enum Option {
-        NoOptions = 0x0,
-        ExportColumnNames = 0x1,
-        ExportLineNumbers = 0x2
-    };
-
-    Q_DECLARE_FLAGS(Options, Option)
-
     DataOutputWidget(QWidget *parent);
     ~DataOutputWidget() override;
 
@@ -47,7 +40,7 @@ public:
                     const QChar stringsQuoteChar = KateSQLConstants::Export::DefaultValues::QuoteStringCharForCopyPaste,
                     const QChar numbersQuoteChar = KateSQLConstants::Export::DefaultValues::QuoteNumbersCharForCopyPaste,
                     const QString fieldDelimiter = KateSQLConstants::Export::DefaultValues::FieldDelimiterForCopyPaste,
-                    const Options opt = NoOptions);
+                    const DataOutputImportExportHelpers::Options opt = DataOutputImportExportHelpers::NoOptions);
 
     void importData(QTextStream &stream,
                     const QChar stringsQuoteChar = KateSQLConstants::Export::DefaultValues::QuoteStringCharForCopyPaste,
@@ -125,5 +118,3 @@ private:
 Q_SIGNALS:
     void displayColumnMapChanged(const QString &tableName, const QString &columnName);
 };
-
-Q_DECLARE_OPERATORS_FOR_FLAGS(DataOutputWidget::Options)

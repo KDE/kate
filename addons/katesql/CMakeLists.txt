@@ -38,6 +38,7 @@ target_sources(
     dataoutput/columndelegates/datedelegate.cpp
     dataoutput/columndelegates/datetimedelegate.cpp
     dataoutput/columndelegates/enumdelegate.cpp
+    helpers/dataoutputimportexporthelpers.cpp
     helpers/dataoutputstylehelper.cpp
     helpers/databaseconfigserializinghelper.cpp
     helpers/enumhelper.cpp
@@ -57,4 +58,8 @@ target_sources(
 
 if (ENABLE_PCH)
     target_precompile_headers(katesqlplugin REUSE_FROM katepch)
+endif()
+
+if(BUILD_TESTING)
+  add_subdirectory(autotests)
 endif()

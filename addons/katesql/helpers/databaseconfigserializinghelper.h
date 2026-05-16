@@ -11,7 +11,6 @@ SPDX-License-Identifier: LGPL-2.0-only
 #include <QMap>
 #include <QString>
 #include <QStringList>
-#include <qtmetamacros.h>
 
 #include "databaseconfigentryserializer.h"
 #include "enumhelper.h"

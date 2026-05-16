@@ -6,6 +6,7 @@
 CMakeLists.txt.user*
 /.clang-format
 /.idea
+/.zed
 
 # kate
 *~

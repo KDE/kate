@@ -12,6 +12,7 @@ class QMouseEvent;
 #include <QMap>
 #include <QSqlDriver>
 #include <QString>
+#include <QStringList>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 
@@ -41,6 +42,7 @@ public:
 
 public:
     void buildTree(const QString &connection);
+    void rebuildTreeWithFilter(const QString &filter);
     void refresh();
     void reloadDisplayColumnMap(const QString &tableName, const QString &columnName);
 
@@ -64,6 +66,7 @@ private:
     static void deleteChildren(QTreeWidgetItem *item);
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
     bool isConnectionValidAndOpen() const;
     void loadForeignKeys();
     void loadEnums();
@@ -72,6 +75,10 @@ private:
     bool isRelationalTablesEnabled() const;
 
     QString m_connectionName;
+    QString m_searchFilter;
+    QStringList m_systemTablesCache;
+    QStringList m_tablesCache;
+    QStringList m_viewsCache;
     QPoint m_dragStartPosition;
 
     bool m_tablesLoaded;

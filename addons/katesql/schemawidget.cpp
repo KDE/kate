@@ -24,6 +24,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+#include <KFuzzyMatcher>
 #include <QApplication>
 #include <QDrag>
 #include <QMenu>
@@ -34,8 +35,6 @@
 #include <QSqlIndex>
 #include <QSqlRecord>
 #include <QStringList>
-#include <qcontainerfwd.h>
-#include <qdir.h>
 
 SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
     : QTreeWidget(parent)
@@ -76,6 +75,10 @@ void SchemaWidget::deleteChildren(QTreeWidgetItem *item)
 void SchemaWidget::buildTree(const QString &connection)
 {
     m_connectionName = connection;
+    m_searchFilter.clear();
+    m_systemTablesCache.clear();
+    m_tablesCache.clear();
+    m_viewsCache.clear();
 
     clear();
 
@@ -85,6 +88,34 @@ void SchemaWidget::buildTree(const QString &connection)
     if (!m_connectionName.isEmpty()) {
         loadForeignKeys();
         buildDatabase(new QTreeWidgetItem(this));
+    }
+}
+
+void SchemaWidget::rebuildTreeWithFilter(const QString &filter)
+{
+    m_searchFilter = filter;
+
+    clear();
+
+    m_tablesLoaded = false;
+    m_viewsLoaded = false;
+
+    if (!m_connectionName.isEmpty() && isConnectionValidAndOpen()) {
+        auto *dbItem = new QTreeWidgetItem(this);
+        buildDatabase(dbItem);
+        dbItem->setExpanded(true);
+
+        // Immediately build tables and views (with filter) instead of lazy loading
+        for (int i = 0; i < dbItem->childCount(); ++i) {
+            QTreeWidgetItem *child = dbItem->child(i);
+            if (child->type() == CustomUIType::TablesFolderType) {
+                buildTables(child);
+                child->setExpanded(true);
+            } else if (child->type() == CustomUIType::ViewsFolderType) {
+                buildViews(child);
+                child->setExpanded(true);
+            }
+        }
     }
 }
 
@@ -133,18 +164,28 @@ void SchemaWidget::buildTables(QTreeWidgetItem *tablesItem)
     systemTablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
-    QStringList tables = db.tables(QSql::SystemTables);
 
-    for (const QString &table : std::as_const(tables)) {
+    if (m_systemTablesCache.isEmpty()) {
+        m_systemTablesCache = db.tables(QSql::SystemTables);
+    }
+    if (m_tablesCache.isEmpty()) {
+        m_tablesCache = db.tables(QSql::Tables);
+    }
+
+    for (const QString &table : std::as_const(m_systemTablesCache)) {
+        if (!m_searchFilter.isEmpty() && !KFuzzyMatcher::matchSimple(m_searchFilter, table)) {
+            continue;
+        }
         auto *item = new QTreeWidgetItem(systemTablesItem, CustomUIType::SystemTableType);
         item->setText(0, table);
         item->setIcon(0, QIcon(SqlTableIcon));
         item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
     }
 
-    tables = db.tables(QSql::Tables);
-
-    for (const QString &table : std::as_const(tables)) {
+    for (const QString &table : std::as_const(m_tablesCache)) {
+        if (!m_searchFilter.isEmpty() && !KFuzzyMatcher::matchSimple(m_searchFilter, table)) {
+            continue;
+        }
         auto *item = new QTreeWidgetItem(tablesItem, CustomUIType::TableType);
         item->setText(0, table);
         item->setIcon(0, QIcon(SqlTableIcon));
@@ -160,11 +201,15 @@ void SchemaWidget::buildViews(QTreeWidgetItem *viewsItem)
         return;
     }
 
-    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (m_viewsCache.isEmpty()) {
+        QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+        m_viewsCache = db.tables(QSql::Views);
+    }
 
-    const QStringList views = db.tables(QSql::Views);
-
-    for (const QString &view : views) {
+    for (const QString &view : std::as_const(m_viewsCache)) {
+        if (!m_searchFilter.isEmpty() && !KFuzzyMatcher::matchSimple(m_searchFilter, view)) {
+            continue;
+        }
         auto *item = new QTreeWidgetItem(viewsItem, CustomUIType::ViewType);
         item->setText(0, view);
         item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-view.png")));
@@ -277,6 +322,19 @@ void SchemaWidget::slotItemExpanded(QTreeWidgetItem *item)
     default:
         break;
     }
+}
+
+void SchemaWidget::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    QTreeWidgetItem *item = itemAt(event->pos());
+
+    if (item && (item->type() == CustomUIType::TableType || item->type() == CustomUIType::SystemTableType || item->type() == CustomUIType::ViewType)) {
+        browseData();
+        // Do NOT call base class — prevents the default expand/collapse toggle
+        return;
+    }
+
+    QTreeWidget::mouseDoubleClickEvent(event);
 }
 
 void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)

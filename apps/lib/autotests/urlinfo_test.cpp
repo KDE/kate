@@ -79,6 +79,23 @@ void UrlInfoTest::nonExistingRelativePath()
     QDir::setCurrent(oldCurrent);
 }
 
+void UrlInfoTest::nonExistingRelativePathWithLine()
+{
+    QTemporaryDir dir;
+    const QString oldCurrent = QDir::currentPath();
+    QDir::setCurrent(dir.path());
+
+    const QString fileName = QStringLiteral("doesnotexist.txt");
+    const int line = 1234;
+    const UrlInfo info(QStringLiteral("%1:%2").arg(fileName, QString::number(line + 1)));
+
+    QVERIFY(info.url.isLocalFile());
+    QCOMPARE(info.url.toLocalFile(), dir.filePath(fileName));
+    QCOMPARE(info.cursor.line(), line);
+
+    QDir::setCurrent(oldCurrent);
+}
+
 void UrlInfoTest::testNormalizeUrlOnWindows()
 {
 #ifdef Q_OS_WIN

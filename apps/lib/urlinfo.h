@@ -66,7 +66,7 @@ public:
          * do that only if the url is local, we did that check only there, see bug 487151
          */
         static const QRegularExpression re(QStringLiteral(":(\\d+)(?::(\\d+))?:?$"));
-        if (const auto match = re.match(path); url.isLocalFile() && match.isValid()) {
+        if (const auto match = re.match(path); match.isValid()) {
             /**
              * cut away the line/column specification from the path
              */
@@ -83,17 +83,22 @@ public:
             }
 
             /**
-             * set right cursor position
-             * don't use an invalid column when the line is valid
-             */
-            const int line = match.captured(1).toInt() - 1;
-            const int column = qMax(0, match.captured(2).toInt() - 1);
-            cursor.setPosition(line, column);
-
-            /**
              * we altered path, redo the url
+             * we only use it, if this ends up to be a local one
+             * before we did check that for the initial url, that did break as stuff like
+             * prefix.sh:123 will now be a remote url due to the 'port'
              */
-            url = QUrl::fromUserInput(path, currentDirPath, QUrl::AssumeLocalFile);
+            const auto newUrlWithoutLineColumn = QUrl::fromUserInput(path, currentDirPath, QUrl::AssumeLocalFile);
+            if (newUrlWithoutLineColumn.isLocalFile()) {
+                /**
+                 * use new url & set right cursor position
+                 * don't use an invalid column when the line is valid
+                 */
+                url = newUrlWithoutLineColumn;
+                const int line = match.captured(1).toInt() - 1;
+                const int column = qMax(0, match.captured(2).toInt() - 1);
+                cursor.setPosition(line, column);
+            }
         }
 
         /**

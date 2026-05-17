@@ -63,7 +63,6 @@ public:
         /**
          * ok, the path as is, is no existing file, now, cut away :xx:yy stuff as cursor
          * this will make test:50 to test with line 50
-         * do that only if the url is local, we did that check only there, see bug 487151
          */
         static const QRegularExpression re(QStringLiteral(":(\\d+)(?::(\\d+))?:?$"));
         if (const auto match = re.match(path); match.isValid()) {

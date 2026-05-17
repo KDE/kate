@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-15 02:41+0000\n"
+"POT-Creation-Date: 2026-05-17 02:39+0000\n"
 "PO-Revision-Date: 2025-01-22 22:56+0100\n"
 "Last-Translator: Jan Papez (honyczek) <honyczek@centrum.cz>\n"
 "Language-Team: Czech <kde-i18n-cs@kde.org>\n"
@@ -499,7 +499,7 @@ msgstr[2] "Zrušit založení řádků pro odeslání"
 msgid "Unstage Hunk"
 msgstr "Zrušit založení úseku pro odeslání"
 
-#: lib/diff/diffwidget.cpp:43
+#: lib/diff/diffwidget.cpp:44
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -510,75 +510,75 @@ msgstr ""
 "git. Pokud je už git nainstalován, ujistěte se, že je cesta k němu uvedena v "
 "proměnné PATH. Více na https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1251
+#: lib/diff/diffwidget.cpp:47 lib/diff/diffwidget.cpp:1252
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
 msgstr "Rozdíl"
 
-#: lib/diff/diffwidget.cpp:80
+#: lib/diff/diffwidget.cpp:81
 #, kde-format
 msgid "Diff %1"
 msgstr "Rozdíl %1"
 
-#: lib/diff/diffwidget.cpp:82
+#: lib/diff/diffwidget.cpp:83
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "Rozdíl %1..%2"
 
-#: lib/diff/diffwidget.cpp:111
+#: lib/diff/diffwidget.cpp:112
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Rozdíl %1 .. %2"
 
-#: lib/diff/diffwidget.cpp:141
+#: lib/diff/diffwidget.cpp:142
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "Zobrazit/Skrýt informace o commitu"
 
-#: lib/diff/diffwidget.cpp:146
+#: lib/diff/diffwidget.cpp:147
 #, kde-format
 msgid "Jump to Next File"
 msgstr "Přejít na další soubor"
 
-#: lib/diff/diffwidget.cpp:150
+#: lib/diff/diffwidget.cpp:151
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "Přejít na předchozí soubor"
 
-#: lib/diff/diffwidget.cpp:154
+#: lib/diff/diffwidget.cpp:155
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "Skočit na další úsek"
 
-#: lib/diff/diffwidget.cpp:158
+#: lib/diff/diffwidget.cpp:159
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "Skočit na předchozí úsek"
 
-#: lib/diff/diffwidget.cpp:162
+#: lib/diff/diffwidget.cpp:163
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Znovu načíst rozdíl"
 
-#: lib/diff/diffwidget.cpp:166
+#: lib/diff/diffwidget.cpp:167
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "Zobrazit rozdíl s celým kontextem, nikoliv jen změněné řádky"
 
-#: lib/diff/diffwidget.cpp:859 lib/diff/diffwidget.cpp:1063
+#: lib/diff/diffwidget.cpp:860 lib/diff/diffwidget.cpp:1064
 #, kde-format
 msgid "New file %1"
 msgstr "Nový soubor %1"
 
-#: lib/diff/diffwidget.cpp:861 lib/diff/diffwidget.cpp:1065
+#: lib/diff/diffwidget.cpp:862 lib/diff/diffwidget.cpp:1066
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Smazaný soubor %1"
 
-#: lib/diff/diffwidget.cpp:1234 lib/diff/diffwidget.cpp:1235
+#: lib/diff/diffwidget.cpp:1235 lib/diff/diffwidget.cpp:1236
 #, kde-format
 msgid "No differences found"
 msgstr "Nebyly nalezeny žádné rozdíly"

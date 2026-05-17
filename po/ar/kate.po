@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-15 02:41+0000\n"
+"POT-Creation-Date: 2026-05-17 02:39+0000\n"
 "PO-Revision-Date: 2026-03-28 18:08+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -509,7 +509,7 @@ msgstr[5] "سطر غير مُعد"
 msgid "Unstage Hunk"
 msgstr "كتلة غير مُعدة"
 
-#: lib/diff/diffwidget.cpp:43
+#: lib/diff/diffwidget.cpp:44
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -520,75 +520,75 @@ msgstr ""
 "مثبت؛ فتأكد  من مسار PATH المتغيرات في بيئتك. انظر https://git-scm.com/"
 "downloads"
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1251
+#: lib/diff/diffwidget.cpp:47 lib/diff/diffwidget.cpp:1252
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
 msgstr "الفرق"
 
-#: lib/diff/diffwidget.cpp:80
+#: lib/diff/diffwidget.cpp:81
 #, kde-format
 msgid "Diff %1"
 msgstr "الفرق %1"
 
-#: lib/diff/diffwidget.cpp:82
+#: lib/diff/diffwidget.cpp:83
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "الفرق %1..%2"
 
-#: lib/diff/diffwidget.cpp:111
+#: lib/diff/diffwidget.cpp:112
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "الفرق %1 .. %2"
 
-#: lib/diff/diffwidget.cpp:141
+#: lib/diff/diffwidget.cpp:142
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "اعرض/ اخفِ معلومات الإيداع"
 
-#: lib/diff/diffwidget.cpp:146
+#: lib/diff/diffwidget.cpp:147
 #, kde-format
 msgid "Jump to Next File"
 msgstr "اقفز إلى الملف التالي"
 
-#: lib/diff/diffwidget.cpp:150
+#: lib/diff/diffwidget.cpp:151
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "اقفز إلى الملف السابق"
 
-#: lib/diff/diffwidget.cpp:154
+#: lib/diff/diffwidget.cpp:155
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "اقفز إلى الكتلة التالية"
 
-#: lib/diff/diffwidget.cpp:158
+#: lib/diff/diffwidget.cpp:159
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "اقفز إلى الكتلة السابقة"
 
-#: lib/diff/diffwidget.cpp:162
+#: lib/diff/diffwidget.cpp:163
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "أعد التحميل الفرق"
 
-#: lib/diff/diffwidget.cpp:166
+#: lib/diff/diffwidget.cpp:167
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "أظهر الفرق بسياق كامل، ليس مجرد السطور المغيرة"
 
-#: lib/diff/diffwidget.cpp:859 lib/diff/diffwidget.cpp:1063
+#: lib/diff/diffwidget.cpp:860 lib/diff/diffwidget.cpp:1064
 #, kde-format
 msgid "New file %1"
 msgstr "ملفّ جديد %1"
 
-#: lib/diff/diffwidget.cpp:861 lib/diff/diffwidget.cpp:1065
+#: lib/diff/diffwidget.cpp:862 lib/diff/diffwidget.cpp:1066
 #, kde-format
 msgid "Deleted file %1"
 msgstr "ملف محذوف %1"
 
-#: lib/diff/diffwidget.cpp:1234 lib/diff/diffwidget.cpp:1235
+#: lib/diff/diffwidget.cpp:1235 lib/diff/diffwidget.cpp:1236
 #, kde-format
 msgid "No differences found"
 msgstr "لم يعثر على فروقات"

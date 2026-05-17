@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-15 00:48+0000\n"
+"POT-Creation-Date: 2026-05-17 00:47+0000\n"
 "PO-Revision-Date: 2026-02-23 23:03+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -996,12 +996,12 @@ msgstr "Last prosjekt på ny"
 msgid "Checkout Git Branch"
 msgstr "Sjekk ut Git-gren"
 
-#: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:842
+#: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:847
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Slå opp: %1"
 
-#: kateprojectpluginview.cpp:239 kateprojectpluginview.cpp:843
+#: kateprojectpluginview.cpp:239 kateprojectpluginview.cpp:848
 #, kde-format
 msgid "Goto: %1"
 msgstr "Gå til: %1"
@@ -1011,7 +1011,7 @@ msgstr "Gå til: %1"
 msgid "Projects Index"
 msgstr "Prosjektindeks"
 
-#: kateprojectpluginview.cpp:887
+#: kateprojectpluginview.cpp:892
 #, kde-format
 msgid "Choose a directory"
 msgstr "Velg en mappe"

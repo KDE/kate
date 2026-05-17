@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-15 00:48+0000\n"
+"POT-Creation-Date: 2026-05-17 00:47+0000\n"
 "PO-Revision-Date: 2025-03-22 22:36+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -998,12 +998,12 @@ msgstr "Reŝargi Projekton"
 msgid "Checkout Git Branch"
 msgstr "Elpreni Git-Branĉon"
 
-#: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:842
+#: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:847
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Serĉo: %1"
 
-#: kateprojectpluginview.cpp:239 kateprojectpluginview.cpp:843
+#: kateprojectpluginview.cpp:239 kateprojectpluginview.cpp:848
 #, kde-format
 msgid "Goto: %1"
 msgstr "Iri al: %1"
@@ -1013,7 +1013,7 @@ msgstr "Iri al: %1"
 msgid "Projects Index"
 msgstr "Indekso de Projektoj"
 
-#: kateprojectpluginview.cpp:887
+#: kateprojectpluginview.cpp:892
 #, kde-format
 msgid "Choose a directory"
 msgstr "Elekti dosierujon"

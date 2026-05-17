@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-15 00:48+0000\n"
+"POT-Creation-Date: 2026-05-17 00:47+0000\n"
 "PO-Revision-Date: 2025-12-01 12:43+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish\n"
@@ -1018,12 +1018,12 @@ msgstr "Athlódáil an Tionscadal"
 msgid "Checkout Git Branch"
 msgstr "Brainse Git Seiceáil Amach"
 
-#: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:842
+#: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:847
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Cuardach: %1"
 
-#: kateprojectpluginview.cpp:239 kateprojectpluginview.cpp:843
+#: kateprojectpluginview.cpp:239 kateprojectpluginview.cpp:848
 #, kde-format
 msgid "Goto: %1"
 msgstr "Téigh go: %1"
@@ -1033,7 +1033,7 @@ msgstr "Téigh go: %1"
 msgid "Projects Index"
 msgstr "Innéacs na dTionscadal"
 
-#: kateprojectpluginview.cpp:887
+#: kateprojectpluginview.cpp:892
 #, kde-format
 msgid "Choose a directory"
 msgstr "Roghnaigh eolaire"

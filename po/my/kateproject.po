@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-15 00:48+0000\n"
+"POT-Creation-Date: 2026-05-17 00:47+0000\n"
 "PO-Revision-Date: 2024-09-10 14:36+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -987,12 +987,12 @@ msgstr "ပရောဂျက် ပြန်တွန်းတင်"
 msgid "Checkout Git Branch"
 msgstr "ဂစ်-ကုဒ်အခွဲ ပြောင်းလဲမည်"
 
-#: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:842
+#: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:847
 #, kde-format
 msgid "Lookup: %1"
 msgstr "ရှာဖွေမှု - %1"
 
-#: kateprojectpluginview.cpp:239 kateprojectpluginview.cpp:843
+#: kateprojectpluginview.cpp:239 kateprojectpluginview.cpp:848
 #, kde-format
 msgid "Goto: %1"
 msgstr "သွားမည် - %1"
@@ -1002,7 +1002,7 @@ msgstr "သွားမည် - %1"
 msgid "Projects Index"
 msgstr "ပရောဂျက်အညွှန်း"
 
-#: kateprojectpluginview.cpp:887
+#: kateprojectpluginview.cpp:892
 #, kde-format
 msgid "Choose a directory"
 msgstr "ဒါရိုက်ထရီရွေးချယ်မည်"

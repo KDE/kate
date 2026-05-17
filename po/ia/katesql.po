@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-13 00:49+0000\n"
+"POT-Creation-Date: 2026-05-17 00:47+0000\n"
 "PO-Revision-Date: 2026-05-13 12:12+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -150,102 +150,102 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "Nomine de connexion:"
 
-#: dataoutputwidget.cpp:91 katesqlview.cpp:47
+#: dataoutputwidget.cpp:94 katesqlview.cpp:47
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
 
-#: dataoutputwidget.cpp:115
+#: dataoutputwidget.cpp:118
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Refresca"
 
-#: dataoutputwidget.cpp:126
+#: dataoutputwidget.cpp:129
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "Redimensiona columnas a contentos"
 
-#: dataoutputwidget.cpp:132
+#: dataoutputwidget.cpp:135
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "Redimensiona lineas a contentos"
 
-#: dataoutputwidget.cpp:138
+#: dataoutputwidget.cpp:141
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "Exporta..."
 
-#: dataoutputwidget.cpp:145
+#: dataoutputwidget.cpp:148
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "Copia"
 
-#: dataoutputwidget.cpp:155 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:158 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "Netta"
 
-#: dataoutputwidget.cpp:163
+#: dataoutputwidget.cpp:166
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "Usa locale de systema"
 
-#: dataoutputwidget.cpp:179
+#: dataoutputwidget.cpp:182
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr "Colla"
 
-#: dataoutputwidget.cpp:189
+#: dataoutputwidget.cpp:192
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr "Assigna Null"
 
-#: dataoutputwidget.cpp:199
+#: dataoutputwidget.cpp:202
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr "Inserta rango"
 
-#: dataoutputwidget.cpp:209
+#: dataoutputwidget.cpp:212
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr "Remove Rangos Selectionate"
 
-#: dataoutputwidget.cpp:219
+#: dataoutputwidget.cpp:222
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr "Duplica Rangos Selectionate"
 
-#: dataoutputwidget.cpp:229
+#: dataoutputwidget.cpp:232
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr "Annulla"
 
-#: dataoutputwidget.cpp:239
+#: dataoutputwidget.cpp:242
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr "Salveguarda"
 
-#: dataoutputwidget.cpp:249
+#: dataoutputwidget.cpp:252
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
 msgstr "Face iste columna presentabile pro tabulas relationate."
 
-#: dataoutputwidget.cpp:252
+#: dataoutputwidget.cpp:255
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid ""
@@ -256,31 +256,31 @@ msgstr ""
 "garantir  un copiar-e-collar correcte (quando le columna es monstrate in "
 "vice del clave externe)."
 
-#: dataoutputwidget.cpp:263
+#: dataoutputwidget.cpp:266
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr "Ubi:"
 
-#: dataoutputwidget.cpp:271
+#: dataoutputwidget.cpp:274
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr "id > 0"
 
-#: dataoutputwidget.cpp:272
+#: dataoutputwidget.cpp:275
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr "Inserta clausula SQL WHERE per filtrar datos"
 
-#: dataoutputwidget.cpp:736
+#: dataoutputwidget.cpp:739
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Incapace de aperir file <filename>%1</filename>"
 
-#: dataoutputwidget.cpp:756
+#: dataoutputwidget.cpp:759
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
@@ -577,63 +577,68 @@ msgctxt "@title:window"
 msgid "SQL Data Output"
 msgstr "Exito de datos de SQL"
 
-#: schemawidget.cpp:49
+#: schemabrowserwidget.cpp:26
+#, kde-format
+msgid "Filter tables and views..."
+msgstr ""
+
+#: schemawidget.cpp:48
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "Schema de base de datos"
 
-#: schemawidget.cpp:112
+#: schemawidget.cpp:143
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "Tabulas"
 
-#: schemawidget.cpp:117
+#: schemawidget.cpp:148
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "Vistas"
 
-#: schemawidget.cpp:131
+#: schemawidget.cpp:162
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "Tabulas de systema"
 
-#: schemawidget.cpp:291
+#: schemawidget.cpp:349
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "Selectiona  datos"
 
-#: schemawidget.cpp:295
+#: schemawidget.cpp:353
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "Genera"
 
-#: schemawidget.cpp:296
+#: schemawidget.cpp:354
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:297
+#: schemawidget.cpp:355
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:298
+#: schemawidget.cpp:356
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:299
+#: schemawidget.cpp:357
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:303
+#: schemawidget.cpp:361
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

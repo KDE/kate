@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-15 00:48+0000\n"
+"POT-Creation-Date: 2026-05-17 00:47+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -995,12 +995,12 @@ msgstr "परियोजना आरोपयतु"
 msgid "Checkout Git Branch"
 msgstr "गिट् शाखां अधिक्रियते"
 
-#: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:842
+#: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:847
 #, kde-format
 msgid "Lookup: %1"
 msgstr "अवलोकनम् : %1"
 
-#: kateprojectpluginview.cpp:239 kateprojectpluginview.cpp:843
+#: kateprojectpluginview.cpp:239 kateprojectpluginview.cpp:848
 #, kde-format
 msgid "Goto: %1"
 msgstr "गच्छतु: %1"
@@ -1010,7 +1010,7 @@ msgstr "गच्छतु: %1"
 msgid "Projects Index"
 msgstr "परियोजना अनुक्रमणिका"
 
-#: kateprojectpluginview.cpp:887
+#: kateprojectpluginview.cpp:892
 #, kde-format
 msgid "Choose a directory"
 msgstr "पुटं चिनोतु"

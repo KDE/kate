@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-11 00:47+0000\n"
+"POT-Creation-Date: 2026-05-17 00:47+0000\n"
 "PO-Revision-Date: 2023-09-10 17:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -34,7 +34,7 @@ msgid "Default Server Settings"
 msgstr "இயல்பிருப்பு சேவையக அமைப்புகள்"
 
 #: lspclientconfigpage.cpp:87 lspclientconfigpage.cpp:92
-#: lspclientpluginview.cpp:453 lspclientpluginview.cpp:601
+#: lspclientpluginview.cpp:454 lspclientpluginview.cpp:603
 #, kde-format
 msgid "LSP Client"
 msgstr ""
@@ -74,298 +74,298 @@ msgstr ""
 "இதன் தொடக்கதை பயனர் நிரந்தரமாக தடுத்தார்: '%1'.\n"
 "செருகுநிரலின் அமைப்புப்பக்கத்தில் இதை மாற்றியமைக்கலாம்."
 
-#: lspclientpluginview.cpp:418 lspclientpluginview.cpp:662
+#: lspclientpluginview.cpp:419 lspclientpluginview.cpp:664
 #, kde-format
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:482
+#: lspclientpluginview.cpp:484
 #, kde-format
 msgid "Go to Definition"
 msgstr ""
 
-#: lspclientpluginview.cpp:484
+#: lspclientpluginview.cpp:486
 #, kde-format
 msgid "Go to Declaration"
 msgstr ""
 
-#: lspclientpluginview.cpp:486
+#: lspclientpluginview.cpp:488
 #, kde-format
 msgid "Go to Type Definition"
 msgstr ""
 
-#: lspclientpluginview.cpp:488
+#: lspclientpluginview.cpp:490
 #, kde-format
 msgid "Find References"
 msgstr ""
 
-#: lspclientpluginview.cpp:491
+#: lspclientpluginview.cpp:493
 #, kde-format
 msgid "Find Implementations"
 msgstr ""
 
-#: lspclientpluginview.cpp:493
+#: lspclientpluginview.cpp:495
 #, kde-format
 msgid "Highlight"
 msgstr "முன்னிலைப்படுத்து"
 
-#: lspclientpluginview.cpp:495
+#: lspclientpluginview.cpp:497
 #, kde-format
 msgid "Symbol Info"
 msgstr ""
 
-#: lspclientpluginview.cpp:497
+#: lspclientpluginview.cpp:499
 #, kde-format
 msgid "Search and Go to Symbol"
 msgstr ""
 
-#: lspclientpluginview.cpp:502
+#: lspclientpluginview.cpp:504
 #, kde-format
 msgid "Format"
 msgstr "வடிவமை"
 
-#: lspclientpluginview.cpp:505
+#: lspclientpluginview.cpp:507
 #, kde-format
 msgid "Rename"
 msgstr "மறுபெயரிடு"
 
-#: lspclientpluginview.cpp:508
+#: lspclientpluginview.cpp:510
 #, kde-format
 msgid "Expand Selection"
 msgstr "தேர்வை விரிவுபடுத்து"
 
-#: lspclientpluginview.cpp:511
+#: lspclientpluginview.cpp:513
 #, kde-format
 msgid "Shrink Selection"
 msgstr "தேர்வைச் சுருக்கு"
 
-#: lspclientpluginview.cpp:514
+#: lspclientpluginview.cpp:516
 #, kde-format
 msgid "Switch Source Header"
 msgstr ""
 
-#: lspclientpluginview.cpp:517
+#: lspclientpluginview.cpp:519
 #, kde-format
 msgid "Expand Macro"
 msgstr ""
 
-#: lspclientpluginview.cpp:519
+#: lspclientpluginview.cpp:521
 #, kde-format
 msgid "Code Action"
 msgstr ""
 
-#: lspclientpluginview.cpp:534
+#: lspclientpluginview.cpp:536
 #, fuzzy, kde-format
 #| msgid "Completions:"
 msgid "Show lsp completions"
 msgstr "நிரப்பல்கள்:"
 
-#: lspclientpluginview.cpp:537
+#: lspclientpluginview.cpp:539
 #, kde-format
 msgid "Show selected completion documentation"
 msgstr ""
 
-#: lspclientpluginview.cpp:540
+#: lspclientpluginview.cpp:542
 #, kde-format
 msgid "Enable signature help with auto completion"
 msgstr ""
 
-#: lspclientpluginview.cpp:543
+#: lspclientpluginview.cpp:545
 #, kde-format
 msgid "Include declaration in references"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:546 lspconfigwidget.ui:131
+#: lspclientpluginview.cpp:548 lspconfigwidget.ui:131
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr ""
 
-#: lspclientpluginview.cpp:549
+#: lspclientpluginview.cpp:551
 #, kde-format
 msgid "Show hover information"
 msgstr "சுட்டியை மேல்வைக்கும்போது விவரங்களைக் காட்டு"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:552 lspconfigwidget.ui:75
+#: lspclientpluginview.cpp:554 lspconfigwidget.ui:75
 #, kde-format
 msgid "Format on typing"
 msgstr "தட்டச்சிடும்போதே வடிவமை"
 
-#: lspclientpluginview.cpp:555
+#: lspclientpluginview.cpp:557
 #, kde-format
 msgid "Incremental document synchronization"
 msgstr ""
 
-#: lspclientpluginview.cpp:558
+#: lspclientpluginview.cpp:560
 #, kde-format
 msgid "Highlight goto location"
 msgstr ""
 
-#: lspclientpluginview.cpp:567
+#: lspclientpluginview.cpp:569
 #, kde-format
 msgid "Show Inlay Hints"
 msgstr ""
 
-#: lspclientpluginview.cpp:571
+#: lspclientpluginview.cpp:573
 #, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr ""
 
-#: lspclientpluginview.cpp:576
+#: lspclientpluginview.cpp:578
 #, kde-format
 msgid "Show Messages"
 msgstr "தகவல்களைக் காட்டு"
 
-#: lspclientpluginview.cpp:581
+#: lspclientpluginview.cpp:583
 #, kde-format
 msgid "Server Memory Usage"
 msgstr "சேவையக நினைவுப் பயன்பாட்டு"
 
-#: lspclientpluginview.cpp:585
+#: lspclientpluginview.cpp:587
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr ""
 
-#: lspclientpluginview.cpp:587
+#: lspclientpluginview.cpp:589
 #, kde-format
 msgid "Restart LSP Server"
 msgstr "LSP சேவையகத்தை மீள்துவக்கு"
 
-#: lspclientpluginview.cpp:589
+#: lspclientpluginview.cpp:591
 #, kde-format
 msgid "Restart All LSP Servers"
 msgstr "அனைத்து LSP சேவையகங்களையும் மீள்துவக்கு"
 
-#: lspclientpluginview.cpp:593
+#: lspclientpluginview.cpp:595
 #, fuzzy, kde-format
 #| msgid "Expand All"
 msgid "Suspend All"
 msgstr "அனைத்தையும் விரிவாக்கு"
 
-#: lspclientpluginview.cpp:597
+#: lspclientpluginview.cpp:599
 #, kde-format
 msgid "Go To"
 msgstr "இங்கு செல்"
 
-#: lspclientpluginview.cpp:617
+#: lspclientpluginview.cpp:619
 #, kde-format
 msgid "More options"
 msgstr "மேலும் விருப்பங்கள்"
 
-#: lspclientpluginview.cpp:843 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:845 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "அனைத்தையும் விரிவாக்கு"
 
-#: lspclientpluginview.cpp:844 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:846 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "அனைத்தையும் சுருக்கு"
 
-#: lspclientpluginview.cpp:1049
+#: lspclientpluginview.cpp:1051
 #, kde-format
 msgid "RangeHighLight"
 msgstr ""
 
-#: lspclientpluginview.cpp:1334
+#: lspclientpluginview.cpp:1336
 #, kde-format
 msgid "Line: %1: "
 msgstr "வரி: %1: "
 
-#: lspclientpluginview.cpp:1486 lspclientpluginview.cpp:1835
-#: lspclientpluginview.cpp:1955
+#: lspclientpluginview.cpp:1488 lspclientpluginview.cpp:1837
+#: lspclientpluginview.cpp:1957
 #, kde-format
 msgid "No results"
 msgstr "முடிவுகள் இல்லை"
 
-#: lspclientpluginview.cpp:1545
+#: lspclientpluginview.cpp:1547
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1551
+#: lspclientpluginview.cpp:1553
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1557
+#: lspclientpluginview.cpp:1559
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1563
+#: lspclientpluginview.cpp:1565
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1575
+#: lspclientpluginview.cpp:1577
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1588
+#: lspclientpluginview.cpp:1590
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1612 lspclientpluginview.cpp:1623
-#: lspclientpluginview.cpp:1636
+#: lspclientpluginview.cpp:1614 lspclientpluginview.cpp:1625
+#: lspclientpluginview.cpp:1638
 #, kde-format
 msgid "No Actions"
 msgstr "செயல்கள் இல்லை"
 
-#: lspclientpluginview.cpp:1627
+#: lspclientpluginview.cpp:1629
 #, kde-format
 msgid "Loading..."
 msgstr "ஏற்றப்படுகிறது…"
 
-#: lspclientpluginview.cpp:1719
+#: lspclientpluginview.cpp:1721
 #, kde-format
 msgid "No edits"
 msgstr "திருத்தங்கள் இல்லை"
 
-#: lspclientpluginview.cpp:1794
+#: lspclientpluginview.cpp:1796
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "மறுபெயரிடு"
 
-#: lspclientpluginview.cpp:1795
+#: lspclientpluginview.cpp:1797
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "புதிய பெயர் (எச்சரிக்கை: சில இடங்களில் மாற்றப்படாமல் இருக்கலாம்)"
 
-#: lspclientpluginview.cpp:1841
+#: lspclientpluginview.cpp:1843
 #, kde-format
 msgid "Not enough results"
 msgstr "போதுமான முடிவுகள் இல்லை"
 
-#: lspclientpluginview.cpp:1910
+#: lspclientpluginview.cpp:1912
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr ""
 
-#: lspclientpluginview.cpp:2108 lspclientpluginview.cpp:2151
+#: lspclientpluginview.cpp:2110 lspclientpluginview.cpp:2153
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr ""
 
-#: lspclientpluginview.cpp:2174
+#: lspclientpluginview.cpp:2176
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr ""
 
-#: lspclientpluginview.cpp:2424
+#: lspclientpluginview.cpp:2441
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgid "Question from LSP server"
@@ -413,17 +413,17 @@ msgstr "சேவையகத்தைத் துவக்க முடிய�
 msgid "Started server %2: %1"
 msgstr "%2 சேவையகம் துவக்கப்பட்டது: %1"
 
-#: lspclientservermanager.cpp:1014
+#: lspclientservermanager.cpp:1015
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 
-#: lspclientservermanager.cpp:1017
+#: lspclientservermanager.cpp:1018
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr ""
 
-#: lspclientservermanager.cpp:1021
+#: lspclientservermanager.cpp:1022
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr ""

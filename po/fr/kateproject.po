@@ -6,7 +6,7 @@
 # Vincent Pinon <vpinon@kde.org>, 2017.
 # Simon Depiets <sdepiets@gmail.com>, 2018, 2019.
 # Thomas Vergnaud <thomas.vergnaud@gmx.fr>, 2020.
-# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024, 2025, 2026 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2021-2026 Xavier Besnard <xavier.besnard@kde.org>
 # Xavier Besnard <xavier.besnard@kde.org>, 2023.
 #
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-17 00:47+0000\n"
-"PO-Revision-Date: 2026-04-05 08:46+0200\n"
+"PO-Revision-Date: 2026-04-16 02:43+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.04.1\n"
 "X-Text-Markup: kde4\n"
 
 #: branchcheckoutdialog.cpp:29
@@ -623,7 +623,7 @@ msgstr "&CMake"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Directory Listing"
-msgstr ""
+msgstr "Liste du dossier"
 
 #: kateprojectconfigpage.cpp:49
 #, kde-format
@@ -631,11 +631,14 @@ msgid ""
 "When directory listing is enabled, autoloaded repository projects show all "
 "files instead of only VCS-tracked files."
 msgstr ""
+"Lorsque l'affichage en liste des dossiers est activé, les projets du dépôt "
+"en chargement automatique affichent tous les fichiers au lieu de seulement "
+"les fichiers suivis par le système de suivi de versions (VCS)."
 
 #: kateprojectconfigpage.cpp:52
 #, kde-format
 msgid "Include files untracked by repository"
-msgstr ""
+msgstr "Inclure les fichiers non suivis par le dépôt"
 
 #: kateprojectconfigpage.cpp:54
 #, kde-format
@@ -643,11 +646,16 @@ msgid ""
 "Show all files in the project directory including files not tracked by the "
 "version control system, such as those excluded via .gitignore."
 msgstr ""
+"Afficher la totalité des fichiers du dossier du projet y compris les "
+"fichiers non suivis par le système de contrôle de versions (VCS), tels que "
+"ceux exclus grâce à l'option « .gitignore »."
 
 #: kateprojectconfigpage.cpp:58
 #, kde-format
 msgid "Show hidden files in non-VCS projects"
 msgstr ""
+"Afficher les fichiers cachés dans les projets hors du système de gestion de "
+"versions (VCS)"
 
 #: kateprojectconfigpage.cpp:59
 #, kde-format
@@ -655,6 +663,9 @@ msgid ""
 "Show hidden files (dotfiles) in the project file tree for projects not "
 "loaded using version control."
 msgstr ""
+"Afficher les fichiers cachés (dotfiles) dans l'arborescence de fichiers du "
+"projet pour les projets non chargés à l'aide du système de contrôle de "
+"version (VCS)."
 
 #: kateprojectconfigpage.cpp:68
 #, kde-format
@@ -1003,10 +1014,9 @@ msgid "Reload Project"
 msgstr "Recharger un projet"
 
 #: kateprojectpluginview.cpp:221
-#, fuzzy, kde-format
-#| msgid "Reload Project"
+#, kde-format
 msgid "Reload All Projects"
-msgstr "Recharger un projet"
+msgstr "Recharger la totalité des projets"
 
 #: kateprojectpluginview.cpp:232
 #, kde-format

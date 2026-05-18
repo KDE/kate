@@ -1,22 +1,22 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Sergiu Bivol <sergiu@cip.md>, 2013, 2020, 2021.
+# SPDX-FileCopyrightText: 2013, 2020, 2021, 2026 Sergiu Bivol <sergiu@cip.md>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-03 00:51+0000\n"
-"PO-Revision-Date: 2021-05-15 17:03+0100\n"
+"PO-Revision-Date: 2026-05-17 18:50+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
-"Language-Team: Romanian\n"
+"Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -56,36 +56,35 @@ msgstr ""
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Branch"
-msgstr ""
+msgstr "Ramură"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Activity"
-msgstr ""
+msgstr "Ultima activitate"
 
 #: branchdeletedialog.cpp:124
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Last Commit"
-msgstr "Comite"
+msgstr "Ultima comitere"
 
 #: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 #: branchdeletedialog.cpp:142
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Sigur doriți să ștergeți ramura aleasă?"
+msgstr[1] "Sigur doriți să ștergeți ramurile alese?"
+msgstr[2] "Sigur doriți să ștergeți ramurile alese?"
 
 #: branchesdialog.cpp:97
 #, kde-format
 msgid "Select Branch..."
-msgstr ""
+msgstr "Alege ramura…"
 
 #: branchesdialog.cpp:109 gitwidget.cpp:571 kateprojectpluginview.cpp:73
 #, kde-format
@@ -95,12 +94,12 @@ msgstr "Git"
 #: branchesdialogmodel.cpp:102
 #, kde-format
 msgid "Create New Branch"
-msgstr ""
+msgstr "Creează ramură nouă"
 
 #: branchesdialogmodel.cpp:108
 #, kde-format
 msgid "Create New Branch From..."
-msgstr ""
+msgstr "Creează ramură nouă din…"
 
 #: comparebranchesview.cpp:145
 #, kde-format
@@ -123,12 +122,12 @@ msgstr ""
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr ""
+msgstr "Ramura activă: %1"
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
 msgid "Commit Changes"
-msgstr ""
+msgstr "Comite modificările"
 
 #: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:286
 #: gitwidget.cpp:1110
@@ -144,44 +143,44 @@ msgstr "Renunță"
 #: gitcommitdialog.cpp:77
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "Scrie mesajul de comitere…"
 
 #: gitcommitdialog.cpp:84
 #, kde-format
 msgid "Extended commit description..."
-msgstr ""
+msgstr "Descriere extinsă a comiterii…"
 
 #: gitcommitdialog.cpp:108
 #, kde-format
 msgid "Sign off"
-msgstr ""
+msgstr "Semnează"
 
 #: gitcommitdialog.cpp:112 gitcommitdialog.cpp:125
 #, kde-format
 msgid "Amend"
-msgstr ""
+msgstr "Amendează"
 
 #: gitcommitdialog.cpp:113 gitwidget.cpp:1063
 #, kde-format
 msgid "Amend Last Commit"
-msgstr ""
+msgstr "Amendează ultima comitere"
 
 #: gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amending Commit"
-msgstr ""
+msgstr "Se amendează comiterea"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr ""
+msgstr "%1 / 52"
 
 #: gitcommitdialog.cpp:211
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
-msgstr ""
+msgstr "<span style=\"color:%1;\">%2</span> / 52"
 
 #: gitstatusmodel.cpp:97
 #, kde-format
@@ -189,20 +188,19 @@ msgid "Staged"
 msgstr ""
 
 #: gitstatusmodel.cpp:99
-#, fuzzy, kde-format
-#| msgid "<untracked>"
+#, kde-format
 msgid "Untracked"
-msgstr "<neurmărite>"
+msgstr "Neurmărit"
 
 #: gitstatusmodel.cpp:101
 #, kde-format
 msgid "Conflict"
-msgstr ""
+msgstr "Conflict"
 
 #: gitstatusmodel.cpp:103
 #, kde-format
 msgid "Modified"
-msgstr ""
+msgstr "Modificat"
 
 #: gitwidget.cpp:294
 #, kde-format
@@ -217,23 +215,22 @@ msgstr ""
 #: gitwidget.cpp:320
 #, kde-format
 msgid "Cancel Operation"
-msgstr ""
+msgstr "Anulează operația"
 
 #: gitwidget.cpp:328
 #, kde-format
 msgid " canceled."
-msgstr ""
+msgstr " anulat."
 
 #: gitwidget.cpp:336
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Împrospătează starea git"
 
 #: gitwidget.cpp:358 kateprojectview.cpp:61
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filtru..."
+msgstr "Filtru…"
 
 #: gitwidget.cpp:448
 #, kde-format
@@ -243,7 +240,7 @@ msgstr ""
 #: gitwidget.cpp:660
 #, kde-format
 msgid " error: %1"
-msgstr ""
+msgstr " eroare: %1"
 
 #: gitwidget.cpp:666
 #, kde-format
@@ -359,10 +356,9 @@ msgid "Stash"
 msgstr ""
 
 #: gitwidget.cpp:1147
-#, fuzzy, kde-format
-#| msgid "Show File History"
+#, kde-format
 msgid "Show history"
-msgstr "Arată istoricul fișierului"
+msgstr "Arată istoricul"
 
 #: gitwidget.cpp:1159
 #, kde-format
@@ -891,34 +887,29 @@ msgstr ""
 "separator de cale nativ (bară oblică inversă în Windows)."
 
 #: kateprojectpluginview.cpp:62
-#, fuzzy, kde-format
-#| msgid "Kate Project Manager"
+#, kde-format
 msgid "Project Manager"
-msgstr "Gestionar de proiecte Kate"
+msgstr "Gestionar de proiecte"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Open projects list"
-msgstr "Proiectul actual"
+msgstr "Deschide lista cu proiecte"
 
 #: kateprojectpluginview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Reload project"
-msgstr "Proiectul actual"
+msgstr "Reîncarcă proiectul"
 
 #: kateprojectpluginview.cpp:92
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close project"
-msgstr "Proiectul actual"
+msgstr "Închide proiectul"
 
 #: kateprojectpluginview.cpp:168
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "Deschide dosar..."
+msgstr "Deschide &dosar…"
 
 #: kateprojectpluginview.cpp:174
 #, fuzzy, kde-format
@@ -929,12 +920,12 @@ msgstr "Proiecte"
 #: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "Activează proiectul precedent"
 
 #: kateprojectpluginview.cpp:185
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "Activează proiectul următor"
 
 #: kateprojectpluginview.cpp:191
 #, kde-format
@@ -942,28 +933,24 @@ msgid "Lookup"
 msgstr "Caută"
 
 #: kateprojectpluginview.cpp:196
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close Project"
-msgstr "Proiectul actual"
+msgstr "Închide proiectul"
 
 #: kateprojectpluginview.cpp:201
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close All Projects"
-msgstr "Proiectul actual"
+msgstr "Închide toate proiectele"
 
 #: kateprojectpluginview.cpp:206
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close Orphaned Projects"
-msgstr "Proiectul actual"
+msgstr "Închide proiectele orfane"
 
 #: kateprojectpluginview.cpp:211
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Reload Project"
-msgstr "Proiectul actual"
+msgstr "Reîncarcă proiectul"
 
 #: kateprojectpluginview.cpp:222
 #, kde-format
@@ -996,22 +983,19 @@ msgid "Enter name:"
 msgstr "Introduceți denumirea:"
 
 #: kateprojecttreeviewcontextmenu.cpp:113
-#, fuzzy, kde-format
-#| msgid "No Action"
+#, kde-format
 msgid "Copy Location"
-msgstr "Nicio acțiune"
+msgstr "Copiază amplasarea"
 
 #: kateprojecttreeviewcontextmenu.cpp:120
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "New File…"
-msgstr "Deschide cu"
+msgstr "Fișier nou…"
 
 #: kateprojecttreeviewcontextmenu.cpp:121
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "Adaugă dosar"
+msgstr "Dosar nou…"
 
 #: kateprojecttreeviewcontextmenu.cpp:128
 #, kde-format
@@ -1031,12 +1015,12 @@ msgstr "Deschide cu"
 #: kateprojecttreeviewcontextmenu.cpp:151
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "Deschide terminalul intern aici"
 
 #: kateprojecttreeviewcontextmenu.cpp:163
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "Deschide terminalul extern aici"
 
 #: kateprojecttreeviewcontextmenu.cpp:169
 #, kde-format
@@ -1044,27 +1028,24 @@ msgid "&Open Containing Folder"
 msgstr "Deschide d&osarul conținător"
 
 #: kateprojecttreeviewcontextmenu.cpp:178
-#, fuzzy, kde-format
-#| msgid "Show File History"
+#, kde-format
 msgid "Show Git History"
-msgstr "Arată istoricul fișierului"
+msgstr "Arată istoricul Git"
 
 #: kateprojecttreeviewcontextmenu.cpp:242
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "New File"
-msgstr "Deschide cu"
+msgstr "Fișier nou"
 
 #: kateprojecttreeviewcontextmenu.cpp:247
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "Adaugă dosar"
+msgstr "Dosar nou"
 
 #: kateprojectviewtree.cpp:351
 #, kde-format
 msgid "The file already exists"
-msgstr ""
+msgstr "Fișierul există deja"
 
 #: kateprojectviewtree.cpp:362
 #, kde-format
@@ -1074,7 +1055,7 @@ msgstr ""
 #: kateprojectviewtree.cpp:392
 #, kde-format
 msgid "The directory already exists"
-msgstr ""
+msgstr "Dosarul există deja"
 
 #: kateprojectviewtree.cpp:399
 #, kde-format

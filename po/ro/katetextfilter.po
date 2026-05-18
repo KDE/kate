@@ -1,6 +1,6 @@
 # Copyright (C) 2009 Free Software Foundation, Inc.
 # Claudiu Costin <claudiuc@kde.org>, 2003.
-# Sergiu Bivol <sergiu@cip.md>, 2009, 2020, 2024.
+# SPDX-FileCopyrightText: 2009, 2020, 2024, 2026 Sergiu Bivol <sergiu@cip.md>
 # Cristian Oneț <onet.cristian@gmail.com>, 2011.
 # Cristian Buzduga <cristianbzdg@gmail.com>, 2011.
 #
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: @PACKAGE\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2024-02-27 21:49+0000\n"
+"PO-Revision-Date: 2026-04-13 13:27+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -33,7 +33,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:142
 #, kde-format
 msgid "Failed to start process"
-msgstr ""
+msgstr "Pornirea procesului a eșuat"
 
 #: plugin_katetextfilter.cpp:156
 #, kde-format

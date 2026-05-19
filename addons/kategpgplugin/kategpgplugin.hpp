@@ -29,7 +29,6 @@
  * between document tabs at runtime.
  */
 struct DocumentUIState {
-    bool saveAsASCII = true;
     bool symmetricEncryption = false;
     int selectedRowIndex = 0;
     QString selectedFingerprint;
@@ -113,7 +112,6 @@ private:
     QLabel *m_EmailAddressSelectLabel;
     QComboBox *m_preferredEmailAddressComboBox;
     QLineEdit *m_selectedKeyIndexEdit;
-    QCheckBox *m_saveAsASCIICheckbox;
     QCheckBox *m_symmetricEncryptioCheckbox;
     QCheckBox *m_showOnlyPrivateKeysCheckbox;
     QCheckBox *m_hideExpiredKeysCheckbox;

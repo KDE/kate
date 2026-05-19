@@ -8,12 +8,14 @@
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
+#include <QColor>
 #include <QDir>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QLayout>
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QPalette>
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QStatusBar>
@@ -59,7 +61,6 @@ void KateGPGPluginView::readPluginConfig(bool restoreSelection)
         // clean defaults so each window manages its own independent per-tab
         // selection state without inheriting another window's current settings.
         uint comboIndex = m_group.readEntry("selected_mail_address_index", 0);
-        m_saveAsASCIICheckbox->setChecked(m_group.readEntry("use_ASCII_armor", true));
         m_symmetricEncryptioCheckbox->setChecked(m_group.readEntry("use_symmetric_encryption", false));
         m_selectedRowIndex = m_group.readEntry("selected_key_index", 0);
         if (m_gpgKeyTable->rowCount() > 0) {
@@ -77,7 +78,6 @@ void KateGPGPluginView::savePluginConfig()
     m_group.writeEntry("search_string", m_preferredEmailLineEdit->text());
     m_group.writeEntry("selected_key_index", m_selectedRowIndex);
     m_group.writeEntry("selected_mail_address_index", m_preferredEmailAddressComboBox->currentIndex());
-    m_group.writeEntry("use_ASCII_armor", m_saveAsASCIICheckbox->isChecked());
     m_group.writeEntry("use_symmetric_encryption", m_symmetricEncryptioCheckbox->isChecked());
     m_group.writeEntry("show_only_private_keys", m_showOnlyPrivateKeysCheckbox->isChecked());
     m_group.writeEntry("hide_expired_secret_keys", m_hideExpiredKeysCheckbox->isChecked());
@@ -136,9 +136,6 @@ KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWin
         i18n("This is your currently selected GPG key fingerprint that will be used "
              "for encryption."));
 
-    m_saveAsASCIICheckbox = new QCheckBox(i18n("Save as ASCII encoded (.asc/.gpg)"));
-    m_saveAsASCIICheckbox->setChecked(true);
-
     m_symmetricEncryptioCheckbox = new QCheckBox(i18n("Enable symmetric encryption"));
     m_symmetricEncryptioCheckbox->setChecked(false);
 
@@ -165,7 +162,6 @@ KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWin
     m_verticalLayout->addWidget(m_titleLabel);
     m_verticalLayout->addWidget(m_gpgDecryptButton);
     m_verticalLayout->addWidget(m_gpgEncryptButton);
-    m_verticalLayout->addWidget(m_saveAsASCIICheckbox);
     m_verticalLayout->addWidget(m_symmetricEncryptioCheckbox);
     m_verticalLayout->addWidget(m_preferredEmailAddressLabel);
     m_verticalLayout->addWidget(m_preferredEmailLineEdit);
@@ -205,6 +201,7 @@ KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWin
     // Create the encryption status indicator in Kate's main window status bar
     if (auto *mainWin = qobject_cast<QMainWindow *>(m_mainWindow->window())) {
         m_encryptionStatusLabel = new QLabel();
+        m_encryptionStatusLabel->setAutoFillBackground(true);
         m_encryptionStatusLabel->setVisible(false);
         mainWin->statusBar()->addPermanentWidget(m_encryptionStatusLabel);
     }
@@ -255,14 +252,16 @@ void KateGPGPluginView::updateEncryptionStatusLabel(KTextEditor::Document *doc)
     }
     if (m_documentStates.value(doc).isDecrypted) {
         m_encryptionStatusLabel->setText(i18n("  Decrypted  "));
-        m_encryptionStatusLabel->setStyleSheet(
-            QStringLiteral("background: darkorange; color: white; font-weight: bold;"
-                           " border-radius: 3px; padding: 1px 4px;"));
+        QPalette pal = m_encryptionStatusLabel->palette();
+        pal.setColor(QPalette::Window, QColor(QStringLiteral("darkorange")));
+        pal.setColor(QPalette::WindowText, Qt::white);
+        m_encryptionStatusLabel->setPalette(pal);
     } else {
         m_encryptionStatusLabel->setText(i18n("  Encrypted  "));
-        m_encryptionStatusLabel->setStyleSheet(
-            QStringLiteral("background: darkgreen; color: white; font-weight: bold;"
-                           " border-radius: 3px; padding: 1px 4px;"));
+        QPalette pal = m_encryptionStatusLabel->palette();
+        pal.setColor(QPalette::Window, QColor(QStringLiteral("darkgreen")));
+        pal.setColor(QPalette::WindowText, Qt::white);
+        m_encryptionStatusLabel->setPalette(pal);
     }
     m_encryptionStatusLabel->setVisible(true);
 }
@@ -279,7 +278,6 @@ void KateGPGPluginView::onViewChanged(KTextEditor::View *v)
     // Save UI state for the document we are leaving
     if (m_currentDocument && m_currentDocument != newDoc && m_documentStates.contains(m_currentDocument)) {
         DocumentUIState state;
-        state.saveAsASCII = m_saveAsASCIICheckbox->isChecked();
         state.symmetricEncryption = m_symmetricEncryptioCheckbox->isChecked();
         state.selectedRowIndex = m_selectedRowIndex;
         state.selectedFingerprint = m_selectedKeyIndexEdit->text();
@@ -297,7 +295,6 @@ void KateGPGPluginView::onViewChanged(KTextEditor::View *v)
     if (m_documentStates.contains(newDoc)) {
         const DocumentUIState &state = m_documentStates[newDoc];
 
-        m_saveAsASCIICheckbox->setChecked(state.saveAsASCII);
         m_symmetricEncryptioCheckbox->setChecked(state.symmetricEncryption);
         m_selectedRowIndex = state.selectedRowIndex;
 
@@ -374,7 +371,6 @@ void KateGPGPluginView::onDocumentOpened(KTextEditor::View *view)
     doc->setText(res.resultString);
 
     DocumentUIState state;
-    state.saveAsASCII = m_saveAsASCIICheckbox->isChecked();
     state.symmetricEncryption = res.wasSymmetric;
 
     // Find the table row that matches the key used for decryption
@@ -451,13 +447,11 @@ void KateGPGPluginView::onDocumentWillSave(KTextEditor::Document *doc)
     if (m_currentDocument == doc) {
         fingerprint = m_selectedKeyIndexEdit->text();
         emailAddress = m_preferredEmailAddressComboBox->currentText();
-        ascii = m_saveAsASCIICheckbox->isChecked();
         symmetric = m_symmetricEncryptioCheckbox->isChecked();
     } else if (m_documentStates.contains(doc)) {
         const DocumentUIState &state = m_documentStates[doc];
         fingerprint = state.selectedFingerprint;
         emailAddress = state.selectedEmailAddress;
-        ascii = state.saveAsASCII;
         symmetric = state.symmetricEncryption;
     }
 
@@ -591,7 +585,7 @@ void KateGPGPluginView::encryptButtonPressed()
     GPGOperationResult res = m_gpgWrapper->encryptString(v->document()->text(),
                                                          m_selectedKeyIndexEdit->text(),
                                                          m_preferredEmailAddressComboBox->itemText(m_preferredEmailAddressComboBox->currentIndex()),
-                                                         m_saveAsASCIICheckbox->isChecked(),
+                                                         true,
                                                          m_symmetricEncryptioCheckbox->isChecked());
     if (!res.keyFound) {
         m_mainWindow->showMessage(

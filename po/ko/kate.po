@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-15 00:48+0000\n"
+"POT-Creation-Date: 2026-05-19 00:48+0000\n"
 "PO-Revision-Date: 2026-04-26 22:11+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -157,7 +157,7 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "KWrite - 텍스트 편집기"
 
-#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:539
+#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
 #: lib/filehistorywidget.cpp:467 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -257,7 +257,7 @@ msgstr "도구(&T)"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:315
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:317
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -308,7 +308,7 @@ msgstr ""
 msgid "All"
 msgstr "모두"
 
-#: lib/diagnostics/diagnosticview.cpp:322
+#: lib/diagnostics/diagnosticview.cpp:324
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
@@ -317,126 +317,126 @@ msgstr ""
 "진단 한계에 도달했습니다. 더 이상의 진단을 무시합니다. 설정에서 제한을 변경"
 "할 수 있습니다."
 
-#: lib/diagnostics/diagnosticview.cpp:365
+#: lib/diagnostics/diagnosticview.cpp:367
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "진단 보기"
 
-#: lib/diagnostics/diagnosticview.cpp:370
+#: lib/diagnostics/diagnosticview.cpp:372
 #, kde-format
 msgid "Quick Fix"
 msgstr "빠른 수정"
 
-#: lib/diagnostics/diagnosticview.cpp:376
+#: lib/diagnostics/diagnosticview.cpp:378
 #, kde-format
 msgid "Next Item"
 msgstr "다음 항목"
 
-#: lib/diagnostics/diagnosticview.cpp:384
+#: lib/diagnostics/diagnosticview.cpp:386
 #, kde-format
 msgid "Previous Item"
 msgstr "이전 항목"
 
-#: lib/diagnostics/diagnosticview.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:396
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "진단 필터 지우기"
 
-#: lib/diagnostics/diagnosticview.cpp:404
+#: lib/diagnostics/diagnosticview.cpp:406
 #, kde-format
 msgid "Show Hover Info"
 msgstr "위에 있을 때 표시"
 
-#: lib/diagnostics/diagnosticview.cpp:463 lib/kateconfigdialog.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:465 lib/kateconfigdialog.cpp:394
 #, kde-format
 msgid "Diagnostics"
 msgstr "진단"
 
-#: lib/diagnostics/diagnosticview.cpp:509
+#: lib/diagnostics/diagnosticview.cpp:511
 #, kde-format
 msgid "Errors"
 msgstr "오류"
 
-#: lib/diagnostics/diagnosticview.cpp:525
+#: lib/diagnostics/diagnosticview.cpp:527
 #, kde-format
 msgid "Warnings"
 msgstr "경고"
 
-#: lib/diagnostics/diagnosticview.cpp:545
+#: lib/diagnostics/diagnosticview.cpp:547
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "진단 지우기"
 
-#: lib/diagnostics/diagnosticview.cpp:1199 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1216 lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Error"
 msgstr "오류"
 
-#: lib/diagnostics/diagnosticview.cpp:1203 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1220 lib/kateconfigdialog.cpp:167
 #: lib/kateconfigdialog.cpp:812
 #, kde-format
 msgid "Warning"
 msgstr "경고"
 
-#: lib/diagnostics/diagnosticview.cpp:1207
+#: lib/diagnostics/diagnosticview.cpp:1224
 #, kde-format
 msgid "Information"
 msgstr "정보"
 
-#: lib/diagnostics/diagnosticview.cpp:1336
+#: lib/diagnostics/diagnosticview.cpp:1353
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [억제됨: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1462
+#: lib/diagnostics/diagnosticview.cpp:1479
 #, kde-format
 msgid "Expand All"
 msgstr "모두 펴기"
 
-#: lib/diagnostics/diagnosticview.cpp:1463
+#: lib/diagnostics/diagnosticview.cpp:1480
 #, kde-format
 msgid "Collapse All"
 msgstr "모두 접기"
 
-#: lib/diagnostics/diagnosticview.cpp:1469
+#: lib/diagnostics/diagnosticview.cpp:1486
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "클립보드에 복사"
 
-#: lib/diagnostics/diagnosticview.cpp:1511
+#: lib/diagnostics/diagnosticview.cpp:1528
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "전역 억제 삭제"
 
-#: lib/diagnostics/diagnosticview.cpp:1513
+#: lib/diagnostics/diagnosticview.cpp:1530
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "전역 억제 추가"
 
-#: lib/diagnostics/diagnosticview.cpp:1517
+#: lib/diagnostics/diagnosticview.cpp:1534
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "로컬 억제 삭제"
 
-#: lib/diagnostics/diagnosticview.cpp:1519
+#: lib/diagnostics/diagnosticview.cpp:1536
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "로컬 억제 추가"
 
-#: lib/diagnostics/diagnosticview.cpp:1534
+#: lib/diagnostics/diagnosticview.cpp:1551
 #, kde-format
 msgid "Disable Suppression"
 msgstr "억제 비활성화"
 
-#: lib/diagnostics/diagnosticview.cpp:1536
+#: lib/diagnostics/diagnosticview.cpp:1553
 #, kde-format
 msgid "Enable Suppression"
 msgstr "억제 활성화"
 
-#: lib/diagnostics/diagnosticview.cpp:1603
+#: lib/diagnostics/diagnosticview.cpp:1620
 #, kde-format
 msgid "Show fixes"
 msgstr "수리 표시"

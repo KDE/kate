@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-15 00:48+0000\n"
+"POT-Creation-Date: 2026-05-19 00:48+0000\n"
 "PO-Revision-Date: 2026-01-04 15:30+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -163,7 +163,7 @@ msgstr "கேரைட்"
 msgid "KWrite - Text Editor"
 msgstr "கேரைட் -  உரைதொகுப்பாளர் உறுப்பு"
 
-#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:539
+#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
 #: lib/filehistorywidget.cpp:467 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -263,7 +263,7 @@ msgstr "&கருவிகள்"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:315
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:317
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -314,7 +314,7 @@ msgstr ""
 msgid "All"
 msgstr "அனைத்தும்"
 
-#: lib/diagnostics/diagnosticview.cpp:322
+#: lib/diagnostics/diagnosticview.cpp:324
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
@@ -323,126 +323,126 @@ msgstr ""
 "பிழைநீக்க செய்திகளின் வரம்பு அடையப்பட்டதால் இதற்கு மேல் வரும் பிழைநீக்க செய்திகள் காட்டப்படா. "
 "இவ்வரம்பை அமைப்புகளில் மாற்றலாம்."
 
-#: lib/diagnostics/diagnosticview.cpp:365
+#: lib/diagnostics/diagnosticview.cpp:367
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "பிழைநீக்க காட்சிப்பகுதி"
 
-#: lib/diagnostics/diagnosticview.cpp:370
+#: lib/diagnostics/diagnosticview.cpp:372
 #, kde-format
 msgid "Quick Fix"
 msgstr "விரைவில் திருத்தக்கூடியவை"
 
-#: lib/diagnostics/diagnosticview.cpp:376
+#: lib/diagnostics/diagnosticview.cpp:378
 #, kde-format
 msgid "Next Item"
 msgstr "அடுத்த உருப்படி"
 
-#: lib/diagnostics/diagnosticview.cpp:384
+#: lib/diagnostics/diagnosticview.cpp:386
 #, kde-format
 msgid "Previous Item"
 msgstr "முந்தைய உருப்படி"
 
-#: lib/diagnostics/diagnosticview.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:396
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "பிழைநீக்க விவர வடிகட்டியை காலியாக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:404
+#: lib/diagnostics/diagnosticview.cpp:406
 #, kde-format
 msgid "Show Hover Info"
 msgstr "சுட்டியை மேல்வைக்கும்போது விவரங்களைக் காட்டு"
 
-#: lib/diagnostics/diagnosticview.cpp:463 lib/kateconfigdialog.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:465 lib/kateconfigdialog.cpp:394
 #, kde-format
 msgid "Diagnostics"
 msgstr "பிழைநீக்க விவரங்கள்"
 
-#: lib/diagnostics/diagnosticview.cpp:509
+#: lib/diagnostics/diagnosticview.cpp:511
 #, kde-format
 msgid "Errors"
 msgstr "பிழைகள்"
 
-#: lib/diagnostics/diagnosticview.cpp:525
+#: lib/diagnostics/diagnosticview.cpp:527
 #, kde-format
 msgid "Warnings"
 msgstr "எச்சரிக்கைகள்"
 
-#: lib/diagnostics/diagnosticview.cpp:545
+#: lib/diagnostics/diagnosticview.cpp:547
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "பிழைநீக்க விவரங்களை காலியாக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1199 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1216 lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Error"
 msgstr "பிழை"
 
-#: lib/diagnostics/diagnosticview.cpp:1203 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1220 lib/kateconfigdialog.cpp:167
 #: lib/kateconfigdialog.cpp:812
 #, kde-format
 msgid "Warning"
 msgstr "எச்சரிக்கை"
 
-#: lib/diagnostics/diagnosticview.cpp:1207
+#: lib/diagnostics/diagnosticview.cpp:1224
 #, kde-format
 msgid "Information"
 msgstr "தகவல்"
 
-#: lib/diagnostics/diagnosticview.cpp:1336
+#: lib/diagnostics/diagnosticview.cpp:1353
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [மறைத்துள்ளவை: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1462
+#: lib/diagnostics/diagnosticview.cpp:1479
 #, kde-format
 msgid "Expand All"
 msgstr "அனைத்தையும் விரிவாக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1463
+#: lib/diagnostics/diagnosticview.cpp:1480
 #, kde-format
 msgid "Collapse All"
 msgstr "அனைத்தையும் சுருக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1469
+#: lib/diagnostics/diagnosticview.cpp:1486
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "பிடிப்புப்பலகைக்கு நகலெடு"
 
-#: lib/diagnostics/diagnosticview.cpp:1511
+#: lib/diagnostics/diagnosticview.cpp:1528
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "பொதுவான அடக்கல்விதியை நீக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1513
+#: lib/diagnostics/diagnosticview.cpp:1530
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "பொதுவான அடக்கல்விதியை சேர்"
 
-#: lib/diagnostics/diagnosticview.cpp:1517
+#: lib/diagnostics/diagnosticview.cpp:1534
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "வட்டார அடக்கல்விதியை நீக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1519
+#: lib/diagnostics/diagnosticview.cpp:1536
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "வட்டார அடக்கல்விதியை சேர்"
 
-#: lib/diagnostics/diagnosticview.cpp:1534
+#: lib/diagnostics/diagnosticview.cpp:1551
 #, kde-format
 msgid "Disable Suppression"
 msgstr "அடக்கலை முடக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1536
+#: lib/diagnostics/diagnosticview.cpp:1553
 #, kde-format
 msgid "Enable Suppression"
 msgstr "அடக்கலை இயக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1603
+#: lib/diagnostics/diagnosticview.cpp:1620
 #, fuzzy, kde-format
 #| msgid "Show Side&bars"
 msgid "Show fixes"

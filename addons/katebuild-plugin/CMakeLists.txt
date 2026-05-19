@@ -15,6 +15,7 @@ ecm_qt_declare_logging_category(
 target_sources(
   katebuildplugin
   PRIVATE
+    AnsiParser.cpp
     plugin_katebuild.cpp
     targets.cpp
     TargetHtmlDelegate.cpp

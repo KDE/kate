@@ -42,6 +42,7 @@
 #include <KXMLGUIClient>
 #include <QTextDocument>
 
+#include "AnsiParser.h"
 #include "StatusOverlay.h"
 #include "diagnostics/diagnosticview.h"
 #include "targets.h"
@@ -167,6 +168,7 @@ private:
     void buildSelectedTarget();
     OutputLine processOutputLine(const QString &line);
     QString toOutputHtml(const KateBuildView::OutputLine &out);
+    QString toAnsiOutputHtml(const KateBuildView::OutputLine &out);
     void addError(const OutputLine &err);
     void updateDiagnostics(Diagnostic diagnostic, QUrl uri);
     void clearDiagnostics();
@@ -243,6 +245,9 @@ private:
 
     QList<QTextCursor> m_searchFound;
     qsizetype m_currentFound = 0;
+
+    AnsiParser::FontState m_currentFont;
+    AnsiParser m_ansiParser;
 
     /**
      * current project plugin view, if any

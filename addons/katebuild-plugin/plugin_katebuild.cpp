@@ -436,8 +436,10 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
             return;
         }
         auto theme = e->theme();
-        auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
-        auto fg = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Normal));
+        // auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
+        // auto fg = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Normal));
+        auto bg = QColor(u"#000000"_s);
+        auto fg = QColor(u"#FFFFFF"_s);
         auto sel = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::TextSelection));
         auto linkBg = fg;
         auto errBg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::MarkError));
@@ -863,6 +865,13 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     // Define PWD so that shell scripts can get a path with symbolic links intact
     auto env = QProcessEnvironment::systemEnvironment();
     env.insert(QStringLiteral("PWD"), QDir(m_makeDir).absolutePath());
+    // Tell our process that we accept colors
+    env.insert(QStringLiteral("TERM"), QStringLiteral("xterm-256color"));
+    env.insert(QStringLiteral("CLICOLOR_FORCE"), QStringLiteral("1"));
+    // Tell our process that we do not accept terminal interaction, even though we are PTY
+    env.insert(QStringLiteral("CI"), QStringLiteral("1"));
+    env.insert(QStringLiteral("TERMINAL_PROMPT"), QStringLiteral("0"));
+    m_proc.setStandardInputFile(QStringLiteral("/dev/null"));
     m_proc.setProcessEnvironment(env);
     m_proc.setWorkingDirectory(m_makeDir);
     m_proc.setShellCommand(command);
@@ -1645,6 +1654,46 @@ QString KateBuildView::toOutputHtml(const KateBuildView::OutputLine &out)
     return htmlStr;
 }
 
+static QString toHtmlSpanStart(const AnsiParser::FontState &font)
+{
+    return u"<span style=\"color:%1; background-color:%2;text-decoration:%3 %4;%5\">"_s //
+        .arg(font.foreground.name(QColor::HexArgb)) //
+        .arg(font.background.name(QColor::HexArgb)) //
+        .arg(font.underline ? u"underline"_s : QString()) //
+        .arg(font.striketrough ? u"line-through"_s : QString()) //
+        .arg(font.italic ? u"font-style: italic;"_s : QString());
+}
+
+QString KateBuildView::toAnsiOutputHtml(const KateBuildView::OutputLine &out)
+{
+    QString htmlLine = toHtmlSpanStart(m_currentFont);
+    htmlLine += out.lineStr.toHtmlEscaped();
+    QRegularExpressionMatch match;
+    int index = htmlLine.indexOf(AnsiParser::htmlAnsiCodeRegEx(), 0, &match);
+    qDebug() << index << htmlLine;
+    while (index != -1) {
+        qDebug() << match.captured(0) << match.captured(1);
+        const auto font = m_ansiParser.parseColorCode(match.captured(1).split(u';', Qt::SkipEmptyParts), m_currentFont);
+        if (font) {
+            m_currentFont = font.value();
+            htmlLine.replace(match.captured(0), toHtmlSpanStart(m_currentFont));
+        }
+        index = htmlLine.indexOf(AnsiParser::htmlAnsiCodeRegEx(), index, &match);
+    }
+    htmlLine += u"</span>"_s;
+
+    QString htmlStr = u"<pre>"_s;
+    if (!out.file.isEmpty()) {
+        htmlStr += u"<a href=\"%1:%2:%3\">"_s.arg(out.file).arg(out.lineNr).arg(out.column);
+    }
+    htmlStr += htmlLine;
+    if (!out.file.isEmpty()) {
+        htmlStr += u"</a>"_s;
+    }
+    htmlStr += u"</pre>\n"_s;
+    return htmlStr;
+}
+
 void KateBuildView::slotUpdateTextBrowser()
 {
     if (m_pendingHtmlOutput.isEmpty()) {
@@ -1719,6 +1768,8 @@ void KateBuildView::slotUpdateTextBrowser()
 /******************************************************************/
 void KateBuildView::slotReadReadyStdOut()
 {
+    static const QRegularExpression clearReg(u"\\\u001B\\[\\d*K"_s);
+
     // read data from procs stdout and add
     // the text to the end of the output
     QString l = QString::fromUtf8(m_proc.readAllStandardOutput());
@@ -1730,7 +1781,7 @@ void KateBuildView::slotReadReadyStdOut()
     int end = -1;
     int start = 0;
     while ((end = m_stdOut.indexOf(u'\n', start)) >= 0) {
-        const QString line = m_stdOut.mid(start, end - start);
+        QString line = m_stdOut.mid(start, end - start);
         // Check if this is a new directory for Make
         QRegularExpressionMatch match = m_newDirDetector.matchView(line);
         if (match.hasMatch()) {
@@ -1744,9 +1795,10 @@ void KateBuildView::slotReadReadyStdOut()
             m_makeDir = newDir;
         }
 
+        line.remove(clearReg);
         // Add the new output to the output and possible error/warnings to the diagnostics output
         KateBuildView::OutputLine out = processOutputLine(line);
-        m_pendingHtmlOutput += toOutputHtml(out);
+        m_pendingHtmlOutput += toAnsiOutputHtml(out);
         m_numOutputLines++;
         m_numNonUpdatedLines++;
         if (out.category != Category::Normal) {

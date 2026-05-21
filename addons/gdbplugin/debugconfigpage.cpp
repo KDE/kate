@@ -25,6 +25,7 @@
 #include <QJsonParseError>
 #include <QMenu>
 #include <QPalette>
+#include <QTabBar>
 #include <QTabWidget>
 
 #include <ktexteditor_utils.h>
@@ -37,6 +38,7 @@ DebugConfigPage::DebugConfigPage(QWidget *parent, KatePluginGDB *plugin)
     layout->setContentsMargins({});
     auto *tabWidget = new QTabWidget(this);
     tabWidget->setDocumentMode(true);
+    tabWidget->tabBar()->setExpanding(true);
     tabWidget->setContentsMargins({});
     layout->addWidget(tabWidget);
 

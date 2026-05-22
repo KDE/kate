@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-17 00:47+0000\n"
-"PO-Revision-Date: 2026-05-12 03:21+0900\n"
+"PO-Revision-Date: 2026-05-21 22:06+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -254,6 +254,8 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"警告！我們無法保證複製貼上沒有 UNIQUE 限制的欄位會是正確的（顯示該欄位而非外"
+"部鍵的時候）"
 
 #: dataoutputwidget.cpp:266
 #, kde-format
@@ -579,7 +581,7 @@ msgstr "SQL 資料輸出"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "過濾表格與檢視…"
 
 #: schemawidget.cpp:48
 #, kde-format

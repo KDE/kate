@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-17 00:47+0000\n"
-"PO-Revision-Date: 2026-04-09 11:26+0400\n"
+"PO-Revision-Date: 2026-05-21 12:03+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -610,7 +610,7 @@ msgstr "&سي ميك"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Directory Listing"
-msgstr ""
+msgstr "سرد الدليل"
 
 #: kateprojectconfigpage.cpp:49
 #, kde-format
@@ -618,11 +618,13 @@ msgid ""
 "When directory listing is enabled, autoloaded repository projects show all "
 "files instead of only VCS-tracked files."
 msgstr ""
+"عند تفعيل عرض قائمة الدليل، تُظهر مشاريع المستودعات المحمّلة آليًا جميع الملفات "
+"بدلًا من الملفات المتتبعة بنظام التحكم بالإصدارات فقط."
 
 #: kateprojectconfigpage.cpp:52
 #, kde-format
 msgid "Include files untracked by repository"
-msgstr ""
+msgstr "تضمين ملفات غير متتبعة بواسطة المستودع"
 
 #: kateprojectconfigpage.cpp:54
 #, kde-format
@@ -630,11 +632,13 @@ msgid ""
 "Show all files in the project directory including files not tracked by the "
 "version control system, such as those excluded via .gitignore."
 msgstr ""
+"اعرض جميع الملفات في دليل المشروع بما في ذلك الملفات غير المتتبعة من قبل "
+"نظام التحكم بالنسخ، مثل تلك المستبعدة عبر .gitignore."
 
 #: kateprojectconfigpage.cpp:58
 #, kde-format
 msgid "Show hidden files in non-VCS projects"
-msgstr ""
+msgstr "عرض الملفات المخفية في مشاريع غير تابعة لأنظمة التحكم بالإصدارات"
 
 #: kateprojectconfigpage.cpp:59
 #, kde-format
@@ -642,6 +646,8 @@ msgid ""
 "Show hidden files (dotfiles) in the project file tree for projects not "
 "loaded using version control."
 msgstr ""
+"أظهر الملفات المخفية (dotfiles) في شجرة ملفات المشروع للمشاريع غير المحملة "
+"باستخدام التحكم في الإصدارات."
 
 #: kateprojectconfigpage.cpp:68
 #, kde-format
@@ -988,10 +994,9 @@ msgid "Reload Project"
 msgstr "أعد تحميل المشروع"
 
 #: kateprojectpluginview.cpp:221
-#, fuzzy, kde-format
-#| msgid "Reload Project"
+#, kde-format
 msgid "Reload All Projects"
-msgstr "أعد تحميل المشروع"
+msgstr "أعد تحميل كل المشاريع"
 
 #: kateprojectpluginview.cpp:232
 #, kde-format

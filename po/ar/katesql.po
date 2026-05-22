@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-17 00:47+0000\n"
-"PO-Revision-Date: 2026-05-07 12:34+0400\n"
+"PO-Revision-Date: 2026-05-21 12:02+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -254,6 +254,8 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"تحذير! بالنسبة للأعمدة التي لا تحتوي على قيد فريد، لا يمكننا ضمان نسخ-لصق "
+"صحيح (عندما يُعرض العمود بدلاً من المفتاح الخارجي)."
 
 #: dataoutputwidget.cpp:266
 #, kde-format
@@ -577,7 +579,7 @@ msgstr "خرج بيانات SQL"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "رشّح الجداول وطرق العرض..."
 
 #: schemawidget.cpp:48
 #, kde-format

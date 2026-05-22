@@ -7,7 +7,6 @@
 
 #include "gpgmeppwrapper.hpp"
 
-#include <KConfigGroup>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
@@ -20,7 +19,6 @@
 #include <QObject>
 #include <QPushButton>
 #include <QTableWidget>
-#include <QTextBrowser>
 #include <QVBoxLayout>
 #include <memory>
 
@@ -43,28 +41,24 @@ class KateGPGPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 public:
-    explicit KateGPGPlugin(QObject *parent, const QList<QVariant> & = QList<QVariant>())
-        : KTextEditor::Plugin(parent)
-    {
-    }
+    explicit KateGPGPlugin(QObject *parent, const QList<QVariant> & = QList<QVariant>());
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
-    bool hasActiveView() const
-    {
-        return m_viewCount > 0;
-    }
-    void onViewCreated()
-    {
-        ++m_viewCount;
-    }
-    void onViewDestroyed()
-    {
-        --m_viewCount;
-    }
+    // Shared per-document UI state — all windows access the same map so that
+    // opening the same document in a second window reflects the correct state
+    // (e.g. which key / symmetric mode was used when the file was decrypted).
+    QMap<KTextEditor::Document *, DocumentUIState> &documentStates();
+
+    // Emit this after updating isDecrypted in the shared map so every open
+    // window refreshes its encryption status indicator for the given document.
+    void notifyEncryptionStateChanged(KTextEditor::Document *doc);
+
+Q_SIGNALS:
+    void documentEncryptionStateChanged(KTextEditor::Document *doc);
 
 private:
-    int m_viewCount = 0;
+    QMap<KTextEditor::Document *, DocumentUIState> m_documentStates;
 };
 
 class KateGPGPluginView : public QObject, public KXMLGUIClient
@@ -92,8 +86,6 @@ private:
     // The top level toolview widget
     std::unique_ptr<QWidget> m_toolview;
 
-    // const QString m_kateConfig = QString::fromUtf8("katerc");
-    const QString m_pluginConfigGroupName = QStringLiteral("gpgplugin");
     GPGMeWrapper *m_gpgWrapper = nullptr;
 
     int m_selectedRowIndex = 0;
@@ -118,10 +110,7 @@ private:
     QTableWidget *m_gpgKeyTable;
     QStringList m_gpgKeyTableHeader;
 
-    KConfigGroup m_group;
-
-    // Per-document UI state: saved when switching away, restored on switch back
-    QMap<KTextEditor::Document *, DocumentUIState> m_documentStates;
+    // Per-document UI state is stored in the plugin (shared across all windows)
     KTextEditor::Document *m_currentDocument = nullptr;
     // Status bar label showing whether the current GPG tab is decrypted or encrypted
     QLabel *m_encryptionStatusLabel = nullptr;
@@ -132,9 +121,6 @@ private:
     const QTableWidgetItem convertKeyDetailsToTableItem(const GPGKeyDetails &keyDetails_);
 
     void makeTableCell(const QString cellValue, uint row, uint col);
-
-    void readPluginConfig(bool restoreSelection);
-    void savePluginConfig();
 
     // Functions to hook into Kate's save dialog
     // (used for auto-encryption on save)

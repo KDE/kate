@@ -4,7 +4,6 @@
 */
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KSharedConfig>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
@@ -27,6 +26,21 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KateGPGPluginFactory, "kategpgplugin.json", registerPlugin<KateGPGPlugin>();)
 
+KateGPGPlugin::KateGPGPlugin(QObject *parent, const QList<QVariant> &)
+    : KTextEditor::Plugin(parent)
+{
+}
+
+QMap<KTextEditor::Document *, DocumentUIState> &KateGPGPlugin::documentStates()
+{
+    return m_documentStates;
+}
+
+void KateGPGPlugin::notifyEncryptionStateChanged(KTextEditor::Document *doc)
+{
+    Q_EMIT documentEncryptionStateChanged(doc);
+}
+
 QObject *KateGPGPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
     return new KateGPGPluginView(this, mainWindow);
@@ -41,61 +55,12 @@ KateGPGPluginView::~KateGPGPluginView()
         delete m_encryptionStatusLabel;
         m_encryptionStatusLabel = nullptr;
     }
-    savePluginConfig();
-    m_plugin->onViewDestroyed();
-}
-
-void KateGPGPluginView::readPluginConfig(bool restoreSelection)
-{
-    m_group = KConfigGroup(KSharedConfig::openConfig(), m_pluginConfigGroupName);
-
-    // Global preferences are always restored – they are intentionally shared
-    // across all windows (key list filter, show/hide flags).
-    m_showOnlyPrivateKeysCheckbox->setChecked(m_group.readEntry("show_only_private_keys", true));
-    m_hideExpiredKeysCheckbox->setChecked(m_group.readEntry("hide_expired_secret_keys", true));
-    m_preferredEmailLineEdit->setText(m_group.readEntry("search_string", ""));
-
-    if (restoreSelection) {
-        // Per-document defaults (selected key, ASCII armor, symmetric mode) are
-        // only restored for the first window.  Subsequent windows start with
-        // clean defaults so each window manages its own independent per-tab
-        // selection state without inheriting another window's current settings.
-        uint comboIndex = m_group.readEntry("selected_mail_address_index", 0);
-        m_symmetricEncryptioCheckbox->setChecked(m_group.readEntry("use_symmetric_encryption", false));
-        m_selectedRowIndex = m_group.readEntry("selected_key_index", 0);
-        if (m_gpgKeyTable->rowCount() > 0) {
-            m_gpgKeyTable->selectRow(m_selectedRowIndex);
-        }
-        const uint numEntries = static_cast<uint>(m_preferredEmailAddressComboBox->count());
-        if (comboIndex < numEntries) {
-            m_preferredEmailAddressComboBox->setCurrentIndex(static_cast<int>(comboIndex));
-        }
-    }
-}
-
-void KateGPGPluginView::savePluginConfig()
-{
-    m_group.writeEntry("search_string", m_preferredEmailLineEdit->text());
-    m_group.writeEntry("selected_key_index", m_selectedRowIndex);
-    m_group.writeEntry("selected_mail_address_index", m_preferredEmailAddressComboBox->currentIndex());
-    m_group.writeEntry("use_symmetric_encryption", m_symmetricEncryptioCheckbox->isChecked());
-    m_group.writeEntry("show_only_private_keys", m_showOnlyPrivateKeysCheckbox->isChecked());
-    m_group.writeEntry("hide_expired_secret_keys", m_hideExpiredKeysCheckbox->isChecked());
-    m_group.sync();
 }
 
 KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWindow *mainwindow)
     : m_mainWindow(mainwindow)
     , m_plugin(plugin)
 {
-    // Record whether another window already exists before registering this one.
-    // The first window restores the previously saved per-document defaults
-    // (selected key, ASCII armor, symmetric mode) from the config so the user
-    // does not have to reconfigure on every session.  Every subsequent window
-    // skips those settings and starts with clean defaults, giving each window
-    // its own independent per-tab selection state.
-    const bool isFirstView = !plugin->hasActiveView();
-    plugin->onViewCreated();
     m_gpgWrapper = new GPGMeWrapper();
     m_toolview.reset(m_mainWindow->createToolView(plugin, // pointer to plugin
                                                   QStringLiteral("gpgPlugin"), // just an identifier for the toolview
@@ -140,7 +105,7 @@ KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWin
     m_symmetricEncryptioCheckbox->setChecked(false);
 
     m_showOnlyPrivateKeysCheckbox = new QCheckBox(i18n("Show only keys for which a private key is available"));
-    m_showOnlyPrivateKeysCheckbox->setChecked(false);
+    m_showOnlyPrivateKeysCheckbox->setChecked(true);
 
     m_hideExpiredKeysCheckbox = new QCheckBox(i18n("Hide Expired Keys"));
     m_hideExpiredKeysCheckbox->setChecked(true);
@@ -192,6 +157,13 @@ KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWin
     });
     // update UI state when the active tab changes
     connect(mainwindow, &KTextEditor::MainWindow::viewChanged, this, &KateGPGPluginView::onViewChanged);
+    // refresh the encryption status label in this window whenever any window
+    // changes a document's encryption state
+    connect(plugin, &KateGPGPlugin::documentEncryptionStateChanged, this, [this](KTextEditor::Document *doc) {
+        if (doc == m_currentDocument) {
+            updateEncryptionStatusLabel(doc);
+        }
+    });
     // initialise m_currentDocument from whatever is already open
     if (KTextEditor::View *activeView = mainwindow->activeView()) {
         m_currentDocument = activeView->document();
@@ -206,9 +178,6 @@ KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWin
         mainWin->statusBar()->addPermanentWidget(m_encryptionStatusLabel);
     }
     updateEncryptionStatusLabel(m_currentDocument);
-
-    // restore plugin config
-    readPluginConfig(isFirstView);
 }
 
 void KateGPGPluginView::onPreferredEmailAddressChanged()
@@ -246,11 +215,11 @@ void KateGPGPluginView::updateEncryptionStatusLabel(KTextEditor::Document *doc)
     if (!m_encryptionStatusLabel) {
         return;
     }
-    if (!doc || !m_documentStates.contains(doc)) {
+    if (!doc || !m_plugin->documentStates().contains(doc)) {
         m_encryptionStatusLabel->setVisible(false);
         return;
     }
-    if (m_documentStates.value(doc).isDecrypted) {
+    if (m_plugin->documentStates().value(doc).isDecrypted) {
         m_encryptionStatusLabel->setText(i18n("  Decrypted  "));
         QPalette pal = m_encryptionStatusLabel->palette();
         pal.setColor(QPalette::Window, QColor(QStringLiteral("darkorange")));
@@ -276,24 +245,24 @@ void KateGPGPluginView::onViewChanged(KTextEditor::View *v)
     KTextEditor::Document *newDoc = v->document();
 
     // Save UI state for the document we are leaving
-    if (m_currentDocument && m_currentDocument != newDoc && m_documentStates.contains(m_currentDocument)) {
+    if (m_currentDocument && m_currentDocument != newDoc && m_plugin->documentStates().contains(m_currentDocument)) {
         DocumentUIState state;
         state.symmetricEncryption = m_symmetricEncryptioCheckbox->isChecked();
         state.selectedRowIndex = m_selectedRowIndex;
         state.selectedFingerprint = m_selectedKeyIndexEdit->text();
         state.selectedEmailAddress = m_preferredEmailAddressComboBox->currentText();
         // Preserve the isDecrypted flag — it is not tied to any UI widget
-        if (m_documentStates.contains(m_currentDocument)) {
-            state.isDecrypted = m_documentStates[m_currentDocument].isDecrypted;
+        if (m_plugin->documentStates().contains(m_currentDocument)) {
+            state.isDecrypted = m_plugin->documentStates()[m_currentDocument].isDecrypted;
         }
-        m_documentStates[m_currentDocument] = state;
+        m_plugin->documentStates()[m_currentDocument] = state;
     }
 
     m_currentDocument = newDoc;
 
     // Restore UI state for the document we are switching to (if it has saved state)
-    if (m_documentStates.contains(newDoc)) {
-        const DocumentUIState &state = m_documentStates[newDoc];
+    if (m_plugin->documentStates().contains(newDoc)) {
+        const DocumentUIState &state = m_plugin->documentStates()[newDoc];
 
         m_symmetricEncryptioCheckbox->setChecked(state.symmetricEncryption);
         m_selectedRowIndex = state.selectedRowIndex;
@@ -325,9 +294,11 @@ void KateGPGPluginView::connectToOpenAndSaveDialog(KTextEditor::View *view)
 {
     KTextEditor::Document *doc = view->document();
     connect(doc, &KTextEditor::Document::aboutToSave, this, &KateGPGPluginView::onDocumentWillSave, Qt::UniqueConnection);
-    // Clean up stored state when the document is closed/destroyed
+    // Clean up shared plugin state and per-view current-document reference
+    // when the document is closed.  The remove() is idempotent so it is safe
+    // for multiple windows to have this connection for the same document.
     connect(doc, &QObject::destroyed, this, [this, doc]() {
-        m_documentStates.remove(doc);
+        m_plugin->documentStates().remove(doc);
         if (m_currentDocument == doc) {
             m_currentDocument = nullptr;
         }
@@ -364,10 +335,10 @@ void KateGPGPluginView::onDocumentOpened(KTextEditor::View *view)
         return;
     }
 
-    // Update only the document text — do NOT touch any UI widgets here.
-    // The per-document UI state is stored in m_documentStates so that
+    // The per-document UI state is stored in the plugin's shared map so that
     // onViewChanged can restore it cleanly once this tab becomes active,
-    // without corrupting the state of whichever tab was previously active.
+    // without corrupting the state of whichever tab was previously active,
+    // and so that a second window opening the same document sees the correct state.
     doc->setText(res.resultString);
 
     DocumentUIState state;
@@ -387,10 +358,8 @@ void KateGPGPluginView::onDocumentOpened(KTextEditor::View *view)
     }
 
     state.isDecrypted = true;
-    m_documentStates[doc] = state;
-    if (doc == m_currentDocument) {
-        updateEncryptionStatusLabel(doc);
-    }
+    m_plugin->documentStates()[doc] = state;
+    m_plugin->notifyEncryptionStateChanged(doc);
 }
 
 void KateGPGPluginView::onDocumentWillSave(KTextEditor::Document *doc)
@@ -406,24 +375,12 @@ void KateGPGPluginView::onDocumentWillSave(KTextEditor::Document *doc)
         return;
     }
 
-    // Multi-window guard: each KateGPGPluginView is per-window and owns its own
-    // m_documentStates map.  When the same KTextEditor::Document is open in more
-    // than one Kate window every window's aboutToSave connection fires.  We must
-    // ensure that only the window that actually "owns" the document at save time
-    // performs the encryption, so that:
-    //   (a) no window shows a spurious "no fingerprint" error for a document it
-    //       never tracked, and
-    //   (b) the window whose live UI state reflects the user's current intent wins.
+    // Multi-window guard: when the same document is open in multiple Kate windows
+    // every window's aboutToSave connection fires on save.  Prefer the window that
+    // currently has the document on its active tab — its live widget values are
+    // authoritative.  If no window has it active the first handler wins; the second
+    // sees an already-encrypted document and exits early via the check above.
     if (m_currentDocument != doc) {
-        // This window does not have the document on its active tab.
-        if (!m_documentStates.contains(doc)) {
-            // We have no state for this document at all — another window opened it.
-            return;
-        }
-        // We do have stored state, but prefer the window that currently shows the
-        // document: that window's live widget values are authoritative.  Yield to
-        // it so our (potentially stale) stored state does not race with its live
-        // values and win only by connection-order luck.
         const auto mainWindows = KTextEditor::Editor::instance()->application()->mainWindows();
         for (KTextEditor::MainWindow *mw : mainWindows) {
             if (mw != m_mainWindow) {
@@ -448,8 +405,8 @@ void KateGPGPluginView::onDocumentWillSave(KTextEditor::Document *doc)
         fingerprint = m_selectedKeyIndexEdit->text();
         emailAddress = m_preferredEmailAddressComboBox->currentText();
         symmetric = m_symmetricEncryptioCheckbox->isChecked();
-    } else if (m_documentStates.contains(doc)) {
-        const DocumentUIState &state = m_documentStates[doc];
+    } else if (m_plugin->documentStates().contains(doc)) {
+        const DocumentUIState &state = m_plugin->documentStates()[doc];
         fingerprint = state.selectedFingerprint;
         emailAddress = state.selectedEmailAddress;
         symmetric = state.symmetricEncryption;
@@ -471,10 +428,8 @@ void KateGPGPluginView::onDocumentWillSave(KTextEditor::Document *doc)
         return;
     }
     doc->setText(res.resultString);
-    m_documentStates[doc].isDecrypted = false;
-    if (doc == m_currentDocument) {
-        updateEncryptionStatusLabel(doc);
-    }
+    m_plugin->documentStates()[doc].isDecrypted = false;
+    m_plugin->notifyEncryptionStateChanged(doc);
 }
 
 void KateGPGPluginView::decryptButtonPressed()
@@ -524,8 +479,8 @@ void KateGPGPluginView::decryptView(KTextEditor::View *v)
             break;
         }
     }
-    m_documentStates[v->document()].isDecrypted = true;
-    updateEncryptionStatusLabel(v->document());
+    m_plugin->documentStates()[v->document()].isDecrypted = true;
+    m_plugin->notifyEncryptionStateChanged(v->document());
 }
 
 void KateGPGPluginView::encryptButtonPressed()
@@ -597,8 +552,8 @@ void KateGPGPluginView::encryptButtonPressed()
         return;
     }
     v->document()->setText(res.resultString);
-    m_documentStates[v->document()].isDecrypted = false;
-    updateEncryptionStatusLabel(v->document());
+    m_plugin->documentStates()[v->document()].isDecrypted = false;
+    m_plugin->notifyEncryptionStateChanged(v->document());
     if (needsSaveAs) {
         v->document()->saveAs(QUrl::fromLocalFile(saveAsPath));
     } else {
@@ -658,6 +613,7 @@ void KateGPGPluginView::makeTableCell(const QString cellValue, uint row, uint co
 
 void KateGPGPluginView::updateKeyTable()
 {
+    m_gpgWrapper->loadKeys(m_showOnlyPrivateKeysCheckbox->isChecked(), m_hideExpiredKeysCheckbox->isChecked(), m_preferredEmailLineEdit->text());
     m_gpgKeyTable->setSortingEnabled(false);
     m_gpgKeyTable->setRowCount(0);
     m_gpgKeyTableHeader << i18n("Key Fingerprint") << i18n("Creation Date") << i18n("Expiry Date") << i18n("Key Length") << i18n("User IDs");

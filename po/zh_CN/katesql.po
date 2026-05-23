@@ -579,7 +579,7 @@ msgstr "SQL 数据输出"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "过滤数据表和视图..."
 
 #: schemawidget.cpp:48
 #, kde-format

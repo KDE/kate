@@ -582,7 +582,7 @@ msgstr "Výstup SQL dát"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "Filtrovať tabuľky a pohľady..."
 
 #: schemawidget.cpp:48
 #, kde-format

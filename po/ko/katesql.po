@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-17 00:47+0000\n"
-"PO-Revision-Date: 2026-04-26 21:45+0200\n"
+"PO-Revision-Date: 2026-05-25 19:07+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -243,7 +243,7 @@ msgstr "저장"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "이 열을 관계된 테이블에 표시 가능한 것으로 표시"
 
 #: dataoutputwidget.cpp:255
 #, kde-format
@@ -252,6 +252,8 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"경고! 유일 제약 사항이 없는 열에 대해서는 올바르게 복사 붙여넣기를 진행하지 "
+"못할 수 있습니다(외부 키 대신 열이 표시되었을 때)"
 
 #: dataoutputwidget.cpp:266
 #, kde-format
@@ -404,19 +406,19 @@ msgstr "Kate 세션에 연결을 저장하고 복원하기"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "데이터 탐색 시 편집 가능한 테이블 활성화"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "편집 가능한 관계 테이블 활성화"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "실험적"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
@@ -515,20 +517,16 @@ msgid "Background Color"
 msgstr "배경 색상"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "텍스트 색상"
+msgstr "변경된 텍스트 색상"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "배경 색상"
+msgstr "변경된 배경 색상"
 
 #: outputstylewidget.cpp:49
 #, kde-format
@@ -581,7 +579,7 @@ msgstr "SQL 데이터 출력"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "테이블과 보기 필터..."
 
 #: schemawidget.cpp:48
 #, kde-format

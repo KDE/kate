@@ -299,7 +299,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     , KXMLGUIClient()
     , m_mainWindow(mainWindow)
     , m_layout(new QVBoxLayout(this))
-    , m_toolbarLayout(new QHBoxLayout(this))
+    , m_toolbarLayout(new QHBoxLayout)
     , m_diagnosticsTree(new QTreeView(this))
     , m_clearButton(new QToolButton(this))
     , m_filterLineEdit(new QLineEdit(this))
@@ -319,7 +319,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
 
     auto *l = m_layout;
     l->setContentsMargins({});
-    setupDiagnosticViewToolbar(l);
+    setupDiagnosticViewToolbar(l); // sets m_layout as parent of m_toolbarLayout
 
     m_diagLimitReachedWarning->setText(i18n("Diagnostics limit reached, ignoring further diagnostics. The limit can be configured in settings."));
     m_diagLimitReachedWarning->setWordWrap(true);

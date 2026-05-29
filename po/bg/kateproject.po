@@ -1159,6 +1159,3 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "&Проекти"
-
-#~ msgid "Delete File"
-#~ msgstr "Изтриване на файл"

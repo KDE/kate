@@ -147,12 +147,17 @@ KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWin
 
     m_verticalLayout->insertStretch(-1, 1);
 
-    connect(m_gpgKeyTable, SIGNAL(itemSelectionChanged()), this, SLOT(onTableViewSelection()));
-    connect(m_preferredEmailLineEdit, SIGNAL(textChanged(QString)), this, SLOT(onPreferredEmailAddressChanged(QString)));
-    connect(m_showOnlyPrivateKeysCheckbox, SIGNAL(stateChanged(int)), this, SLOT(onShowOnlyPrivateKeysChanged()));
-    connect(m_hideExpiredKeysCheckbox, SIGNAL(stateChanged(int)), this, SLOT(onHideExpiredKeysChanged()));
-    connect(m_gpgDecryptButton, SIGNAL(released()), this, SLOT(decryptButtonPressed()));
-    connect(m_gpgEncryptButton, SIGNAL(released()), this, SLOT(encryptButtonPressed()));
+    connect(m_gpgKeyTable, &QTableWidget::itemSelectionChanged, this, &KateGPGPluginView::onTableViewSelection);
+    connect(m_preferredEmailLineEdit, &QLineEdit::textChanged, this, &KateGPGPluginView::onPreferredEmailAddressChanged);
+#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
+    connect(m_showOnlyPrivateKeysCheckbox, &QCheckBox::stateChanged, this, &KateGPGPluginView::onShowOnlyPrivateKeysChanged);
+    connect(m_hideExpiredKeysCheckbox, &QCheckBox::stateChanged, this, &KateGPGPluginView::onHideExpiredKeysChanged);
+#else
+    connect(m_showOnlyPrivateKeysCheckbox, &QCheckBox::checkStateChanged, this, &KateGPGPluginView::onShowOnlyPrivateKeysChanged);
+    connect(m_hideExpiredKeysCheckbox, &QCheckBox::checkStateChanged, this, &KateGPGPluginView::onHideExpiredKeysChanged);
+#endif
+    connect(m_gpgDecryptButton, &QPushButton::released, this, &KateGPGPluginView::decryptButtonPressed);
+    connect(m_gpgEncryptButton, &QPushButton::released, this, &KateGPGPluginView::encryptButtonPressed);
     // hook into open/save dialog
     connect(mainwindow, &KTextEditor::MainWindow::viewCreated, this, [this](KTextEditor::View *view) {
         connectToOpenAndSaveDialog(view->document());

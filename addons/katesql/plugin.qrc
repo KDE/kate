@@ -1,6 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
-    <qresource prefix="/kxmlgui5/katesql">
+    <qresource prefix="/kxmlgui5/katesql/datatable">
         <file>ui.rc</file>
         <file>dataoutputwidgetui.rc</file>
     </qresource>

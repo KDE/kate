@@ -32,6 +32,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
     ui = new Ui::LspConfigWidget();
     ui->setupUi(this);
     ui->tabWidget->setDocumentMode(true);
+    ui->tabWidget->tabBar()->setExpanding(true);
 
     m_jsonSettings = new JSONSettings(this, ui->tabWidget, QStringLiteral(":/lspclient/settings.json"), m_plugin->m_defaultConfigPath);
 

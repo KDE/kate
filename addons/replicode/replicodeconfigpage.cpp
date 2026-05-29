@@ -14,6 +14,7 @@
 #include <KLocalizedString>
 #include <QGridLayout>
 #include <QLabel>
+#include <QStyle>
 
 ReplicodeConfigPage::ReplicodeConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)
@@ -21,13 +22,23 @@ ReplicodeConfigPage::ReplicodeConfigPage(QWidget *parent)
 {
     auto *gridlayout = new QGridLayout;
     setLayout(gridlayout);
-    gridlayout->addWidget(new QLabel(i18n("Path to replicode executor:")), 0, 0);
+    gridlayout->setContentsMargins(0, 0, 0, 0);
+
+    auto *hLayout = new QHBoxLayout;
+
+    hLayout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                                style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+                                style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                                0);
+
+    gridlayout->addLayout(hLayout, 0, 0);
+    hLayout->addWidget(new QLabel(i18n("Path to replicode executor:")));
 
     m_requester = new KUrlRequester;
     m_requester->setMode(KFile::File | KFile::ExistingOnly);
-    gridlayout->addWidget(m_requester, 0, 1);
+    hLayout->addWidget(m_requester);
 
-    gridlayout->addWidget(m_config, 1, 0, 1, 2);
+    gridlayout->addWidget(m_config, 1, 0, 1, 1);
 
     reset();
 

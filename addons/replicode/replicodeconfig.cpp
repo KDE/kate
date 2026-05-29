@@ -8,6 +8,8 @@
 #include "replicodesettings.h"
 #include "ui_config.h"
 
+#include <QTabBar>
+
 enum TraceLevels {
     CompositeInputs = 1 << 0,
     CompositeOutputs = 1 << 1,
@@ -24,6 +26,8 @@ ReplicodeConfig::ReplicodeConfig(QWidget *parent)
     , m_ui(new Ui_tabWidget)
     , m_settings(new ReplicodeSettings(this))
 {
+    setDocumentMode(true);
+    tabBar()->setExpanding(true);
     m_ui->setupUi(this);
     load();
 }

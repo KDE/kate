@@ -32,6 +32,7 @@ FormatConfigPage::FormatConfigPage(class FormatPlugin *plugin, QWidget *parent)
     layout->setContentsMargins({});
     auto *tabWidget = new QTabWidget(this);
     tabWidget->setDocumentMode(true);
+    tabWidget->tabBar()->setExpanding(true);
     tabWidget->setContentsMargins({});
     layout->addWidget(tabWidget);
 

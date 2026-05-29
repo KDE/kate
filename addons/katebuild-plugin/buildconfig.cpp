@@ -23,6 +23,7 @@ KateBuildConfigPage::KateBuildConfigPage(KateBuildPlugin *plugin, QWidget *paren
     ui = new Ui::BuildConfigWidget();
     ui->setupUi(this);
     ui->tabWidget->setDocumentMode(true);
+    ui->tabWidget->tabBar()->setExpanding(true);
 
     reset();
 

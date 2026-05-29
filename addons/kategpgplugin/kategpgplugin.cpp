@@ -79,7 +79,7 @@ KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWin
     m_gpgEncryptButton = new QPushButton(i18n("GPG Encrypt current document"));
 
     // Lots of initialization and setting parameters for Qt UI stuff
-    m_verticalLayout = new QVBoxLayout(m_toolview.get());
+    m_verticalLayout = new QVBoxLayout();
     m_titleLabel = new QLabel(i18n("<b>GPG Plugin Settings</b>"));
     m_titleLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
     m_preferredEmailAddress = QLatin1String("");

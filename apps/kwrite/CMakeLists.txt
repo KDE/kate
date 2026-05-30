@@ -5,6 +5,10 @@ target_link_libraries(kwrite PRIVATE kateprivate)
 # ensure right translations domain, we use one kate.po(t) for lib + apps
 target_compile_definitions(kwrite PRIVATE TRANSLATION_DOMAIN="kate")
 
+if (BUILD_TESTING)
+    target_compile_definitions(kwrite PRIVATE BUILD_TESTING)
+endif()
+
 # application icon, in all sizes needed to have e.g. nice Windows icons, too
 set(ICONS_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/icons)
 set(ICON_FILES
@@ -63,3 +67,9 @@ install(
   FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kwrite.appdata.xml
   DESTINATION ${KDE_INSTALL_METAINFODIR}
 )
+
+if(BUILD_TESTING)
+    # Smoke test, will launch and quit shortly
+    add_test(NAME kwrite-smoketest COMMAND "$<TARGET_FILE:kwrite>" --self-test)
+    set_tests_properties(kwrite-smoketest PROPERTIES TIMEOUT 30)
+endif()

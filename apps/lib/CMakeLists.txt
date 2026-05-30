@@ -108,6 +108,10 @@ if(HAVE_DAEMON)
   target_compile_definitions(kateprivate PRIVATE HAVE_DAEMON)
 endif()
 
+if(BUILD_TESTING)
+  target_compile_definitions(kateprivate PRIVATE BUILD_TESTING)
+endif()
+
 include(ECMQtDeclareLoggingCategory)
 ecm_qt_declare_logging_category(
     LIB_KATE_TIME_SOURCES

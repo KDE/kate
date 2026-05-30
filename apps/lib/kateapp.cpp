@@ -468,6 +468,24 @@ bool KateApp::init()
         }
     }
 
+#ifdef BUILD_TESTING
+    // for the self test load all plugins and open a window
+    if (m_args.isSet(QStringLiteral("self-test"))) {
+        // we don't want to mess with someone's config if they decide to run the self test locally
+        // since it enables all plugins
+        QString sessionFile = QStringLiteral("%1/self-test.session").arg(QDir::tempPath());
+        sessionManager()->activateSession(KateSession::createAnonymous(sessionFile), false, false);
+
+        auto config = KConfig(QStringLiteral(""), KConfig::SimpleConfig);
+        KateApp::self()->pluginManager()->loadAllPlugins(&config);
+
+        if (mainWindowsCount() == 0) {
+            newMainWindow();
+        }
+        return true;
+    }
+#endif
+
     // handle restore different
     if (qApp->isSessionRestored()) {
         restoreKate();

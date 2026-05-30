@@ -19,6 +19,7 @@
 #include <QCommandLineParser>
 #include <QIcon>
 #include <QStandardPaths>
+#include <QTimer>
 
 int main(int argc, char **argv)
 {
@@ -118,6 +119,13 @@ int main(int argc, char **argv)
     const QCommandLineOption tempfile(QStringList{QStringLiteral("tempfile")}, i18n("The files/URLs opened by the application will be deleted after use"));
     parser.addOption(tempfile);
 
+#ifdef BUILD_TESTING
+    {
+        QCommandLineOption selfTestOption(QStringLiteral("self-test"));
+        parser.addOption(selfTestOption);
+    }
+#endif
+
     // urls to open
     parser.addPositionalArgument(QStringLiteral("urls"), i18n("Documents to open."), i18n("[urls...]"));
 
@@ -154,6 +162,12 @@ int main(int argc, char **argv)
      * finally register this kwrite instance for dbus, don't die if no dbus is around!
      */
     const KDBusService dbusService(KDBusService::Multiple | KDBusService::NoExitOnFailure);
+#endif
+
+#ifdef BUILD_TESTING
+    if (parser.isSet(QStringLiteral("self-test"))) {
+        QTimer::singleShot(500, &app, &QCoreApplication::quit);
+    }
 #endif
 
     /**

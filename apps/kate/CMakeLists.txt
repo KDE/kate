@@ -23,6 +23,10 @@ endif()
 # ensure right translations domain, we use one kate.po(t) for lib + apps
 target_compile_definitions(kate-bin PRIVATE TRANSLATION_DOMAIN="kate")
 
+if (BUILD_TESTING)
+    target_compile_definitions(kate-bin PRIVATE BUILD_TESTING)
+endif()
+
 # we have different windows icons, less margins
 set(ICONS_FOLDER ${CMAKE_CURRENT_SOURCE_DIR}/icons/unix)
 if(WIN32)
@@ -92,3 +96,9 @@ install(
   FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.appdata.xml
   DESTINATION ${KDE_INSTALL_METAINFODIR}
 )
+
+if(BUILD_TESTING)
+    # Smoke test, will launch a temporary session with all plugins enabled and then quit shortly
+    add_test(NAME kate-smoketest COMMAND "$<TARGET_FILE:kate-bin>" --block --self-test)
+    set_tests_properties(kate-smoketest PROPERTIES TIMEOUT 30)
+endif()

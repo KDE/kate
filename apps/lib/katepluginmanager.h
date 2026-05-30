@@ -40,6 +40,12 @@ public:
 
     void unloadAllPlugins();
 
+    /**
+     * Used for self test with `--self-test`
+     * Will load everything, ignoring which plugins are enabled or not
+     */
+    void loadAllPlugins(KConfig *config);
+
     void enableAllPluginsGUI(KateMainWindow *win, KConfigBase *config = nullptr);
     void disableAllPluginsGUI(KateMainWindow *win);
 

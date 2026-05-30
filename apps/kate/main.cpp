@@ -29,6 +29,7 @@
 #include <QSessionManager>
 #include <QStandardPaths>
 #include <QStringDecoder>
+#include <QTimer>
 #include <QVariant>
 
 #include <qglobal.h>
@@ -215,6 +216,13 @@ int main(int argc, char **argv)
     const QCommandLineOption tempfileOption(QStringList{QStringLiteral("tempfile")},
                                             i18n("The files/URLs opened by the application will be deleted after use"));
     parser.addOption(tempfileOption);
+
+#ifdef BUILD_TESTING
+    {
+        QCommandLineOption selfTestOption(QStringLiteral("self-test"));
+        parser.addOption(selfTestOption);
+    }
+#endif
 
     // urls to open
     parser.addPositionalArgument(QStringLiteral("urls"), i18n("Documents to open."), i18n("[urls...]"));
@@ -601,6 +609,13 @@ int main(int argc, char **argv)
     if (singleApplicationInstance) {
         QObject::connect(singleApplicationInstance.get(), &SingleApplication::receivedMessage, &kateApp, &KateApp::remoteMessageReceived);
     }
+
+#ifdef BUILD_TESTING
+    if (parser.isSet(QStringLiteral("self-test"))) {
+        // 2 seconds for kate because it loads all plugins and some spawn processes like git
+        QTimer::singleShot(2000, &app, &QCoreApplication::quit);
+    }
+#endif
 
     /**
      * start main event loop for our application

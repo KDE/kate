@@ -177,6 +177,21 @@ void KatePluginManager::unloadAllPlugins()
     }
 }
 
+void KatePluginManager::loadAllPlugins(KConfig *config)
+{
+    unloadAllPlugins();
+    for (auto &pluginInfo : m_pluginList) {
+        loadPlugin(&pluginInfo);
+        enablePluginGUI(&pluginInfo);
+
+        // restore config
+        if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *>(pluginInfo.plugin)) {
+            KConfigGroup group(config, QStringLiteral("Plugin:%1:").arg(pluginInfo.saveName()));
+            interface->readSessionConfig(group);
+        }
+    }
+}
+
 void KatePluginManager::enableAllPluginsGUI(KateMainWindow *win, KConfigBase *config)
 {
     QElapsedTimer t;

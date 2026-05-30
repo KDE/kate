@@ -64,7 +64,7 @@ void KateGPGPluginView::savePluginConfig()
 KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWindow *mainwindow)
     : m_mainWindow(mainwindow)
 {
-    m_gpgWrapper = new GPGMeWrapper();
+    m_gpgWrapper = std::make_unique<GPGMeWrapper>();
     m_toolview.reset(m_mainWindow->createToolView(plugin, // pointer to plugin
                                                   QStringLiteral("gpgPlugin"), // just an identifier for the toolview
                                                   KTextEditor::MainWindow::Left, // we want to create a toolview on the

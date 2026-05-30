@@ -64,7 +64,7 @@ private:
 
     // const QString m_kateConfig = QString::fromUtf8("katerc");
     const QString m_pluginConfigGroupName = QStringLiteral("gpgplugin");
-    GPGMeWrapper *m_gpgWrapper = nullptr;
+    std::unique_ptr<GPGMeWrapper> m_gpgWrapper;
 
     int m_selectedRowIndex = 0;
 

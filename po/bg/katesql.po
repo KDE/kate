@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Yasen Pramatarov <yasen@lindeas.com>, 2011.
-# SPDX-FileCopyrightText: 2022, 2023, 2025 Mincho Kondarev <mkondarev@yahoo.de>
+# SPDX-FileCopyrightText: 2022-2023, 2025-2026 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-17 00:47+0000\n"
-"PO-Revision-Date: 2025-01-21 20:28+0100\n"
+"PO-Revision-Date: 2026-05-29 14:31+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.03.70\n"
+"X-Generator: Lokalize 26.04.1\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -157,9 +157,7 @@ msgid "SQL"
 msgstr "SQL"
 
 #: dataoutputwidget.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Обновяване"
@@ -204,49 +202,49 @@ msgstr "Използване на системния локал"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "Поставяне"
 
 #: dataoutputwidget.cpp:192
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "Задаване на Null"
 
 #: dataoutputwidget.cpp:202
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "Вмъкване на ред"
 
 #: dataoutputwidget.cpp:212
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "Премахване на избраните редове"
 
 #: dataoutputwidget.cpp:222
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "Дублиране на избраните редове"
 
 #: dataoutputwidget.cpp:232
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "Отмяна"
 
 #: dataoutputwidget.cpp:242
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "Запазване"
 
 #: dataoutputwidget.cpp:252
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "Направете тази колона подходяща за свързаните таблици"
 
 #: dataoutputwidget.cpp:255
 #, kde-format
@@ -255,24 +253,27 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Внимание! За колони без ограничение за уникалност не можем да гарантираме "
+"правилно копиране и поставяне (когато колоната се показва вместо външния "
+"ключ)"
 
 #: dataoutputwidget.cpp:266
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "Where:"
 
 #: dataoutputwidget.cpp:274
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:275
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "Въведете SQL-клауза WHERE, за да филтрирате данните"
 
 #: dataoutputwidget.cpp:739
 #, kde-kuit-format
@@ -281,12 +282,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "Грешка при отваряне на файла <filename>%1</filename>"
 
 #: dataoutputwidget.cpp:759
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "Грешка при свързване с базата от данни.<nl/><message>%1</message>"
+msgstr "Неуспешно запазване на промените: <message>%1</message>"
 
 #: exportwizard.cpp:27
 #, kde-format
@@ -409,19 +408,19 @@ msgstr "Запазване и възстановяване на връзките
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Активиране на редактируема таблица за „Преглед на данни“"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "Активиране на редактируеми релационни таблици"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "Експериментален"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
@@ -430,18 +429,16 @@ msgid "Output Customization"
 msgstr "Настройки на изхода"
 
 #: katesqlconfigpage.cpp:45
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Използване на системния локал"
+msgstr "Използване на стандартните системни настройки"
 
 #: katesqlconfigpage.cpp:46
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Възстановяване до стандартни настройки"
 
 #: katesqlconfigpage.cpp:81
 #, kde-format
@@ -522,20 +519,16 @@ msgid "Background Color"
 msgstr "Фонов цвят"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "Цвят на текста"
+msgstr "Променен цвят на текста"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "Фонов цвят"
+msgstr "Променен цвят на фона"
 
 #: outputstylewidget.cpp:49
 #, kde-format
@@ -588,7 +581,7 @@ msgstr "Изходни данни на SQL"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "Филтриране на таблици и изгледи..."
 
 #: schemawidget.cpp:48
 #, kde-format

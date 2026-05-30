@@ -63,3 +63,9 @@ install(
   FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kwrite.appdata.xml
   DESTINATION ${KDE_INSTALL_METAINFODIR}
 )
+
+if(BUILD_TESTING)
+    # Smoke test, will launch and quit shortly
+    add_test(NAME kwrite-smoketest COMMAND "$<TARGET_FILE:kwrite>" --self-test)
+    set_tests_properties(kwrite-smoketest PROPERTIES TIMEOUT 30)
+endif()

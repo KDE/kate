@@ -92,3 +92,9 @@ install(
   FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/org.kde.kate.appdata.xml
   DESTINATION ${KDE_INSTALL_METAINFODIR}
 )
+
+if(BUILD_TESTING)
+    # Smoke test, will launch a temporary session with all plugins enabled and then quit shortly
+    add_test(NAME kate-smoketest COMMAND "$<TARGET_FILE:kate-bin>" --block --self-test)
+    set_tests_properties(kate-smoketest PROPERTIES TIMEOUT 30)
+endif()

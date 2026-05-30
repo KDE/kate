@@ -62,6 +62,11 @@ public:
 
     KTextEditor::Plugin *plugin(const QString &name);
 
+    void setSelfTestEnabled(bool enabled)
+    {
+        m_selfTestEnabled = enabled;
+    }
+
 private:
     void setupPluginList();
 
@@ -69,4 +74,9 @@ private:
      * all known plugins
      */
     KatePluginList m_pluginList;
+
+    /**
+     * If this is true it will load all plugins regardless of config
+     */
+    bool m_selfTestEnabled = false;
 };

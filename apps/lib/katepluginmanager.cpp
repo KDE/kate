@@ -117,10 +117,15 @@ void KatePluginManager::loadConfig(KConfig *config)
     // first: unload the plugins
     unloadAllPlugins();
 
-    /**
-     * ask config object
-     */
-    if (config) {
+    // enable all plugins for the self test
+    if (m_selfTestEnabled) {
+        for (auto &pluginInfo : m_pluginList) {
+            pluginInfo.load = true;
+        }
+    } else if (config) {
+        /**
+         * ask config object
+         */
         KConfigGroup cg = KConfigGroup(config, QStringLiteral("Kate Plugins"));
 
         // disable all plugin if no config, beside the ones marked as default load

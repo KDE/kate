@@ -468,6 +468,8 @@ bool KateApp::init()
         }
     }
 
+    KateApp::self()->pluginManager()->setSelfTestEnabled(m_args.isSet(QStringLiteral("self-test")));
+
     // handle restore different
     if (qApp->isSessionRestored()) {
         restoreKate();

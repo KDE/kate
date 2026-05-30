@@ -86,7 +86,7 @@ private:
     // The top level toolview widget
     std::unique_ptr<QWidget> m_toolview;
 
-    GPGMeWrapper *m_gpgWrapper = nullptr;
+    std::unique_ptr<GPGMeWrapper> m_gpgWrapper;
 
     int m_selectedRowIndex = 0;
 

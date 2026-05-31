@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Allows you show non-printable characters",
         "Description[ar]": "تمكنك من عرض المحارف غير الطباعية",
+        "Description[bg]": "Позволява показване на непечатаеми знаци",
         "Description[ca@valencia]": "Permet mostrar els caràcters no imprimibles",
         "Description[ca]": "Permet mostrar els caràcters no imprimibles",
         "Description[de]": "Ermöglicht die Anzeige nicht druckbarer Zeichen",
@@ -27,6 +28,7 @@
         "Description[zh_TW]": "讓您可以顯示非列印字元",
         "Name": "Show Non-Printable Characters",
         "Name[ar]": "أظهر المحارف غير الطباعية",
+        "Name[bg]": "Показване на непечатаеми знаци",
         "Name[ca@valencia]": "Mostra els caràcters no imprimibles",
         "Name[ca]": "Mostra els caràcters no imprimibles",
         "Name[de]": "Nicht druckbare Zeichen anzeigen",

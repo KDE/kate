@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-19 00:48+0000\n"
-"PO-Revision-Date: 2026-04-20 21:21-0400\n"
+"PO-Revision-Date: 2026-05-30 16:53-0400\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
@@ -248,7 +248,7 @@ msgstr "كۆرۈنۈش(&V)"
 #: lib/data/kateui.rc:77 lib/kateviewspace.cpp:152
 #, kde-format
 msgid "Split View"
-msgstr "كۆرۈنۈشنى پارچىلا"
+msgstr "كۆرۈنۈشنى بۆل"
 
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:113 lib/diagnostics/ui.rc:6
@@ -400,7 +400,7 @@ msgstr "ھەممىنى ياي"
 #: lib/diagnostics/diagnosticview.cpp:1480
 #, kde-format
 msgid "Collapse All"
-msgstr "ھەممىنى قاتلا"
+msgstr "ھەممىنى يىغ"
 
 #: lib/diagnostics/diagnosticview.cpp:1486
 #, kde-format
@@ -651,42 +651,39 @@ msgid "History - %1"
 msgstr "تارىخ - %1"
 
 #: lib/jsonsettings.cpp:29
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "User Settings"
-msgstr "تەڭشەك(&S)"
+msgstr ""
 
 #: lib/jsonsettings.cpp:38
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings file:"
-msgstr "تەڭشەك(&S)"
+msgstr ""
 
 #: lib/jsonsettings.cpp:74
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Default Settings"
-msgstr "تەڭشەك(&S)"
+msgstr "كۆڭۈلدىكى تەڭشەكلەر"
 
 #: lib/jsonsettings.cpp:124
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "دەلىللەشكە ئىشلىتىدىغان JSON سانلىق مەلۇماتى يوق."
 
 #: lib/jsonsettings.cpp:133
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON سانلىق مەلۇماتى ئىناۋەتلىك."
 
 #: lib/jsonsettings.cpp:135
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON سانلىق مەلۇماتى ئىناۋەتسىز: JSON جىسىم يوق"
 
 #: lib/jsonsettings.cpp:138
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON سانلىق مەلۇماتى ئىناۋەتسىز: %1"
 
 #: lib/kateapp.cpp:147
 msgid ""
@@ -2279,7 +2276,7 @@ msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
 "want to proceed."
 msgstr ""
-"ساقلاشنى تەلەپ قىلغان سانلىق-مەلۇمات يېزىلمىدى. قانداق قىلىش كېرەكلىكىنى "
+"ساقلاشنى تەلەپ قىلغان سانلىق مەلۇمات يېزىلمىدى. قانداق قىلىش كېرەكلىكىنى "
 "تاللاڭ."
 
 #: lib/kateurlbar.cpp:915
@@ -2295,11 +2292,10 @@ msgid "Copy Filename"
 msgstr "ھۆججەت ئاتىنى كۆچۈر"
 
 #: lib/kateurlbar.cpp:926
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Item"
-msgstr "ھۆججەت ئاتىنى كۆچۈر"
+msgstr "تۈر كۆچۈر"
 
 #: lib/kateviewmanager.cpp:150
 #, kde-format

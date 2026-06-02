@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-22 00:49+0000\n"
-"PO-Revision-Date: 2026-04-20 21:27-0400\n"
+"PO-Revision-Date: 2026-05-30 17:00-0400\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
@@ -118,7 +118,7 @@ msgstr[0] "<b><i>«%2» قىسقۇچتا ماس كەلگەندىن %1 تېپىل
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
-msgstr[0] "<b><i>%2 (%3)‎‏ قۇرۇلۇشتا ماس كەلگەندىن %1 تېپىلدى (%4‎‏)</i></b>"
+msgstr[0] "<b><i>%2 (%3)‎‏ قۇرۇلۇشتا ماس كەلگەندىن %1 تېپىلدى (%4)</i></b>"
 
 #: MatchModel.cpp:609
 #, kde-format
@@ -128,7 +128,7 @@ msgid_plural ""
 "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
 msgstr[0] ""
 "<b><i>بارلىق ئوچۇق قۇرۇلۇشتا (ئورتاق ئاتا مۇندەرىجە: %2) ماس كەلگەندىن %1 "
-"تېپىلدى (%3‎‏)</i></b>"
+"تېپىلدى (%3)</i></b>"
 
 #: MatchModel.cpp:723 MatchModel.cpp:725
 #, kde-format
@@ -169,7 +169,7 @@ msgstr[0] "%2 قىسقۇچتا ماس كەلگەندىن %1 تېپىلدى(%3‎
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
-msgstr[0] "%2 (%3) قۇرۇلۇشتا ماس كەلگەندىن %1 تېپىلدى(%4‎‏‎‏)"
+msgstr[0] "%2 (%3) قۇرۇلۇشتا ماس كەلگەندىن %1 تېپىلدى(%4)"
 
 #: MatchModel.cpp:760
 #, kde-format
@@ -177,7 +177,7 @@ msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] ""
 "بارلىق ئوچۇق قۇرۇلۇشتا (ئورتاق ئاتا مۇندەرىجە: %2) ماس كەلگەندىن %1 تېپىلدى "
-"(%3‎‏)"
+"(%3)"
 
 #: Results.cpp:32
 #, kde-format
@@ -369,7 +369,7 @@ msgstr "قۇر ئالماشتۇرۇش بەلگىسى"
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
 msgid "Tab"
-msgstr "جەدۋەل بەلگىسى"
+msgstr "Tab"
 
 #: SearchPlugin.cpp:92
 #, kde-format

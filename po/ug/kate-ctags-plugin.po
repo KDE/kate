@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2026-04-20 21:22-0400\n"
+"PO-Revision-Date: 2026-05-30 16:55-0400\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
 "Language: ug\n"
@@ -216,7 +216,7 @@ msgstr "پىروگرامما"
 #: ctagskinds.cpp:73
 msgctxt "Tag Type"
 msgid "type"
-msgstr "تىپى"
+msgstr "تۈرى"
 
 #: ctagskinds.cpp:78
 msgctxt "Tag Type"

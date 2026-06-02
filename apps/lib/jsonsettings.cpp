@@ -9,6 +9,7 @@
 
 #include <QGridLayout>
 #include <QHBoxLayout>
+#include <QJsonDocument>
 #include <QLabel>
 #include <QTabWidget>
 #include <QVBoxLayout>

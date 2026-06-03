@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-19 00:48+0000\n"
+"POT-Creation-Date: 2026-06-03 01:14+0000\n"
 "PO-Revision-Date: 2026-04-23 06:35+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -670,37 +670,37 @@ msgctxt "@title:tab"
 msgid "History - %1"
 msgstr "Zgodovina - %1"
 
-#: lib/jsonsettings.cpp:29
+#: lib/jsonsettings.cpp:30
 #, kde-format
 msgid "User Settings"
 msgstr "Uporabniške nastavitve"
 
-#: lib/jsonsettings.cpp:38
+#: lib/jsonsettings.cpp:39
 #, kde-format
 msgid "Settings file:"
 msgstr "Datoteka nastavitev:"
 
-#: lib/jsonsettings.cpp:74
+#: lib/jsonsettings.cpp:75
 #, kde-format
 msgid "Default Settings"
 msgstr "Privzete nastavitve"
 
-#: lib/jsonsettings.cpp:124
+#: lib/jsonsettings.cpp:125
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "Ni podatkov JSON za preverjanje."
 
-#: lib/jsonsettings.cpp:133
+#: lib/jsonsettings.cpp:134
 #, kde-format
 msgid "JSON data is valid."
 msgstr "Podatki JSON so veljavni."
 
-#: lib/jsonsettings.cpp:135
+#: lib/jsonsettings.cpp:136
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "Podatki JSON so neveljavni: ni predmeta JSON"
 
-#: lib/jsonsettings.cpp:138
+#: lib/jsonsettings.cpp:139
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "Podatki JSON so neveljavni: %1"

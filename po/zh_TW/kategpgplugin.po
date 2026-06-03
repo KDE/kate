@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-06-03 01:14+0000\n"
 "PO-Revision-Date: 2025-11-20 22:13+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -114,7 +114,7 @@ msgstr "只顯示私鑰可用的金鑰"
 msgid "Hide Expired Keys"
 msgstr "隱藏已過期的金鑰"
 
-#: kategpgplugin.cpp:217
+#: kategpgplugin.cpp:222
 #, kde-format
 msgid ""
 "Attempted double encryption detected!\n"
@@ -123,22 +123,22 @@ msgstr ""
 "已偵測到嘗試進行雙重加密！\n"
 "目前無法加密超過一次…"
 
-#: kategpgplugin.cpp:231 kategpgplugin.cpp:274
+#: kategpgplugin.cpp:236 kategpgplugin.cpp:279
 #, kde-format
 msgid "Error! No views available..."
 msgstr "錯誤！沒有可用的檢視…"
 
-#: kategpgplugin.cpp:236
+#: kategpgplugin.cpp:241
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
 msgstr "解密文字時發生錯誤！文件是空的…"
 
-#: kategpgplugin.cpp:240
+#: kategpgplugin.cpp:245
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
 msgstr "解密文字時發生錯誤！未選取指紋…"
 
-#: kategpgplugin.cpp:245
+#: kategpgplugin.cpp:250
 #, kde-format
 msgid ""
 "Error Decrypting Text!\n"
@@ -149,22 +149,22 @@ msgstr ""
 "沒有找到相符的指紋！\n"
 "或許這不是 GPG 加密的文字…"
 
-#: kategpgplugin.cpp:253
+#: kategpgplugin.cpp:258
 #, kde-format
 msgid "Error Decrypting Text!\n"
 msgstr "解密文字時發生錯誤！\n"
 
-#: kategpgplugin.cpp:280
+#: kategpgplugin.cpp:285
 #, kde-format
 msgid "Error Encrypting Text! No document available..."
 msgstr "加密文字時發生錯誤！沒有可用的文件…"
 
-#: kategpgplugin.cpp:284
+#: kategpgplugin.cpp:289
 #, kde-format
 msgid "Error Encrypting Text! Document is empty..."
 msgstr "加密文字時發生錯誤！文件是空的…"
 
-#: kategpgplugin.cpp:288
+#: kategpgplugin.cpp:293
 #, kde-format
 msgid ""
 "Error Encrypting Text!\n"
@@ -173,43 +173,43 @@ msgstr ""
 "加密文字時發生錯誤！\n"
 "未選取指紋…"
 
-#: kategpgplugin.cpp:292
+#: kategpgplugin.cpp:297
 #, kde-format
 msgid ""
 "Attempted double encryption detected! Encrypting twice is disabled for now..."
 msgstr "已偵測到嘗試進行雙重加密！目前無法加密兩次…"
 
-#: kategpgplugin.cpp:305
+#: kategpgplugin.cpp:310
 #, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
 msgstr "加密文字時發生錯誤！沒有找到相符的指紋…\n"
 
-#: kategpgplugin.cpp:309
+#: kategpgplugin.cpp:314
 #, kde-format
 msgid "Error Encrypting Text!"
 msgstr "加密文字時發生錯誤！"
 
-#: kategpgplugin.cpp:369
+#: kategpgplugin.cpp:374
 #, kde-format
 msgid "Key Fingerprint"
 msgstr "金鑰指紋"
 
-#: kategpgplugin.cpp:369
+#: kategpgplugin.cpp:374
 #, kde-format
 msgid "Creation Date"
 msgstr "建立日期"
 
-#: kategpgplugin.cpp:369
+#: kategpgplugin.cpp:374
 #, kde-format
 msgid "Expiry Date"
 msgstr "過期日期"
 
-#: kategpgplugin.cpp:369
+#: kategpgplugin.cpp:374
 #, kde-format
 msgid "Key Length"
 msgstr "金鑰長度"
 
-#: kategpgplugin.cpp:369
+#: kategpgplugin.cpp:374
 #, kde-format
 msgid "User IDs"
 msgstr "使用者 ID"

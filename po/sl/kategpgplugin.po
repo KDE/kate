@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-06-03 01:14+0000\n"
 "PO-Revision-Date: 2025-10-31 06:40+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -116,7 +116,7 @@ msgstr "Prikaži samo ključe, za katere je na voljo zasebni ključ"
 msgid "Hide Expired Keys"
 msgstr "Skrij potekle ključe"
 
-#: kategpgplugin.cpp:217
+#: kategpgplugin.cpp:222
 #, kde-format
 msgid ""
 "Attempted double encryption detected!\n"
@@ -125,22 +125,22 @@ msgstr ""
 "Zaznan poskus dvojnega šifriranja!\n"
 "Šifriranje več kot enkrat je zaenkrat onemogočeno..."
 
-#: kategpgplugin.cpp:231 kategpgplugin.cpp:274
+#: kategpgplugin.cpp:236 kategpgplugin.cpp:279
 #, kde-format
 msgid "Error! No views available..."
 msgstr "Napaka! Ni na voljo pogledov..."
 
-#: kategpgplugin.cpp:236
+#: kategpgplugin.cpp:241
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
 msgstr "Napaka pri dešifriranju besedila! Dokument je prazen..."
 
-#: kategpgplugin.cpp:240
+#: kategpgplugin.cpp:245
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
 msgstr "Napaka pri dešifriranju besedila! Ni izbranega prstnega odtisa ..."
 
-#: kategpgplugin.cpp:245
+#: kategpgplugin.cpp:250
 #, kde-format
 msgid ""
 "Error Decrypting Text!\n"
@@ -151,22 +151,22 @@ msgstr ""
 "Ni najdenega ujemajočega se prstnega odtisa!\n"
 "Ali pa to ni GPG šifrirano besedilo..."
 
-#: kategpgplugin.cpp:253
+#: kategpgplugin.cpp:258
 #, kde-format
 msgid "Error Decrypting Text!\n"
 msgstr "Napaka pri dešifriranju besedila!\n"
 
-#: kategpgplugin.cpp:280
+#: kategpgplugin.cpp:285
 #, kde-format
 msgid "Error Encrypting Text! No document available..."
 msgstr "Napaka pri šifriranju besedila! Ni na voljo nobenega dokumenta..."
 
-#: kategpgplugin.cpp:284
+#: kategpgplugin.cpp:289
 #, kde-format
 msgid "Error Encrypting Text! Document is empty..."
 msgstr "Napaka pri šifriranju besedila! Dokument je prazen..."
 
-#: kategpgplugin.cpp:288
+#: kategpgplugin.cpp:293
 #, kde-format
 msgid ""
 "Error Encrypting Text!\n"
@@ -175,7 +175,7 @@ msgstr ""
 "Napaka pri šifriranju besedila!\n"
 "Ni izbranega prstnega odtisa..."
 
-#: kategpgplugin.cpp:292
+#: kategpgplugin.cpp:297
 #, kde-format
 msgid ""
 "Attempted double encryption detected! Encrypting twice is disabled for now..."
@@ -183,39 +183,39 @@ msgstr ""
 "Zaznan poskus dvojnega šifriranja! Dvojno šifriranje je zaenkrat "
 "onemogočeno ..."
 
-#: kategpgplugin.cpp:305
+#: kategpgplugin.cpp:310
 #, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
 msgstr ""
 "Napaka pri šifriranju besedila! Ni najdenega ujemajočega se prstnega "
 "odtisa...\n"
 
-#: kategpgplugin.cpp:309
+#: kategpgplugin.cpp:314
 #, kde-format
 msgid "Error Encrypting Text!"
 msgstr "Napaka pri šifriranju besedila!"
 
-#: kategpgplugin.cpp:369
+#: kategpgplugin.cpp:374
 #, kde-format
 msgid "Key Fingerprint"
 msgstr "Prstni odtis ključa"
 
-#: kategpgplugin.cpp:369
+#: kategpgplugin.cpp:374
 #, kde-format
 msgid "Creation Date"
 msgstr "Datum nastanka"
 
-#: kategpgplugin.cpp:369
+#: kategpgplugin.cpp:374
 #, kde-format
 msgid "Expiry Date"
 msgstr "Datum poteka veljavnosti"
 
-#: kategpgplugin.cpp:369
+#: kategpgplugin.cpp:374
 #, kde-format
 msgid "Key Length"
 msgstr "Dolžina ključa"
 
-#: kategpgplugin.cpp:369
+#: kategpgplugin.cpp:374
 #, kde-format
 msgid "User IDs"
 msgstr "ID-ji uporabnikov"

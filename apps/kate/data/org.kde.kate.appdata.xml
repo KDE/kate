@@ -55,6 +55,7 @@
   <name xml:lang="sv">Kate</name>
   <name xml:lang="ta">கேட்</name>
   <name xml:lang="tr">Kate</name>
+  <name xml:lang="ug">Kate</name>
   <name xml:lang="uk">Kate</name>
   <name xml:lang="vi">Kate</name>
   <name xml:lang="zh-CN">Kate 文本编辑器</name>
@@ -181,6 +182,7 @@
     <p xml:lang="sv">Funktioner:</p>
     <p xml:lang="ta">அம்சங்கள்:</p>
     <p xml:lang="tr">Özellikler:</p>
+    <p xml:lang="ug">ئىقتىدار:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="vi">Tính năng:</p>
     <p xml:lang="zh-CN">功能特性：</p>
@@ -287,6 +289,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sv">Stavningskontroll</li>
       <li xml:lang="ta">சொல் திருத்தம்</li>
       <li xml:lang="tr">Yazım denetimi</li>
+      <li xml:lang="ug">ئىملا تەكشۈرۈش</li>
       <li xml:lang="uk">Перевірка правопису.</li>
       <li xml:lang="vi">Kiểm tra đánh vần</li>
       <li xml:lang="zh-CN">拼写检查</li>

@@ -61,6 +61,7 @@
   <name xml:lang="sv"> Kwrite</name>
   <name xml:lang="ta">கேரைட்</name>
   <name xml:lang="tr">K Yaz</name>
+  <name xml:lang="ug">KWrite</name>
   <name xml:lang="uk">KWrite</name>
   <name xml:lang="vi">KWrite</name>
   <name xml:lang="zh-CN">KWrite 记事本</name>
@@ -117,6 +118,7 @@
   <summary xml:lang="sv">Texteditor</summary>
   <summary xml:lang="ta">உரைத்திருத்தி</summary>
   <summary xml:lang="tr">Metin Düzenleyicisi</summary>
+  <summary xml:lang="ug">تېكىست تەھرىرلىگۈچ</summary>
   <summary xml:lang="uk">Текстовий редактор</summary>
   <summary xml:lang="vi">Trình biên tập văn bản</summary>
   <summary xml:lang="zh-CN">文本编辑器</summary>
@@ -229,6 +231,7 @@
     <p xml:lang="sv">Funktioner:</p>
     <p xml:lang="ta">அம்சங்கள்:</p>
     <p xml:lang="tr">Özellikler:</p>
+    <p xml:lang="ug">ئىقتىدار:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="vi">Tính năng:</p>
     <p xml:lang="zh-CN">功能：</p>
@@ -340,6 +343,7 @@
       <li xml:lang="sv">Ordkomplettering</li>
       <li xml:lang="ta">உரைநிரப்பல்</li>
       <li xml:lang="tr">Sözcük tamamlama</li>
+      <li xml:lang="ug">سۆز تاماملاش</li>
       <li xml:lang="uk">Завершення слів.</li>
       <li xml:lang="vi">Hoàn tất từ</li>
       <li xml:lang="zh-CN">单词补全</li>
@@ -395,6 +399,7 @@
       <li xml:lang="sr-ijekavianlatin">automatsko uvlačenje</li>
       <li xml:lang="sv">Automatisk indentering</li>
       <li xml:lang="tr">Otomatik girintileme</li>
+      <li xml:lang="ug">ئۆزلۈكىدىن تارايتىش</li>
       <li xml:lang="uk">Автовідступ.</li>
       <li xml:lang="vi">Thụt lề tự động</li>
       <li xml:lang="zh-CN">自动缩进</li>

@@ -41,7 +41,10 @@
 #include <KFileItem>
 #include <KHelpClient>
 #include <KIO/ListJob>
+#include <KIO/StatJob>
 #include <KIO/UDSEntry>
+#include <KJobUiDelegate>
+#include <KJobWidgets>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KMultiTabBar>
@@ -1161,24 +1164,30 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
         }
 
         for (const QUrl &url : std::as_const(textlist)) {
-            // if url has no file component, try and recursively scan dir
-            KFileItem kitem(url);
-            kitem.setDelayedMimeTypes(true);
-            if (kitem.isDir()) {
-                if (KMessageBox::questionTwoActions(this,
-                                                    i18n("You dropped the directory %1 into Kate. "
-                                                         "Do you want to open all files contained in it?",
-                                                         url.url()),
-                                                    i18nc("@title:window", "Open Files Recursively"),
-                                                    KGuiItem(i18nc("@action:button", "Open All Files"), QStringLiteral("document-open")),
-                                                    KStandardGuiItem::cancel())
-                    == KMessageBox::PrimaryAction) {
-                    KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, KIO::ListJob::ListFlags{});
-                    connect(list_job, &KIO::ListJob::entries, this, &KateMainWindow::slotListRecursiveEntries);
+            KIO::StatJob *statJob = KIO::stat(url, KIO::StatJob::SourceSide, KIO::StatBasic);
+            KJobWidgets::setWindow(statJob, this);
+            statJob->uiDelegate()->setAutoErrorHandlingEnabled(true);
+            connect(statJob, &KIO::StatJob::result, this, [this, statJob, url] {
+                if (statJob->error()) {
+                    return;
                 }
-            } else {
-                m_viewManager->openUrl(url);
-            }
+                const auto mode = statJob->statResult().numberValue(KIO::UDSEntry::UDS_FILE_TYPE);
+                if ((mode & QT_STAT_MASK) == QT_STAT_DIR) {
+                    if (KMessageBox::questionTwoActions(this,
+                                                        i18n("You dropped the directory %1 into Kate. "
+                                                             "Do you want to open all files contained in it?",
+                                                             url.toDisplayString(QUrl::PreferLocalFile)),
+                                                        i18nc("@title:window", "Open Files Recursively"),
+                                                        KGuiItem(i18nc("@action:button", "Open All Files"), QStringLiteral("document-open")),
+                                                        KStandardGuiItem::cancel())
+                        == KMessageBox::PrimaryAction) {
+                        KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, KIO::ListJob::ListFlags{});
+                        connect(list_job, &KIO::ListJob::entries, this, &KateMainWindow::slotListRecursiveEntries);
+                    }
+                } else {
+                    m_viewManager->openUrl(url);
+                }
+            });
         }
     }
     //

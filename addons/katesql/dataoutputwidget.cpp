@@ -242,7 +242,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
     saveAction->setText(i18nc("@action:intoolbar", "Save"));
     saveAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentSave));
     saveAction->setShortcutContext(Qt::WidgetWithChildrenShortcut);
-    KActionCollection::setDefaultShortcut(saveAction, Qt::CTRL | Qt::Key_S);
+    KActionCollection::setDefaultShortcuts(saveAction, {Qt::CTRL | Qt::Key_S, Qt::CTRL | Qt::Key_Return, Qt::CTRL | Qt::Key_Enter});
     connect(saveAction, &QAction::triggered, this, &DataOutputWidget::slotSave);
     m_editableOnlyRightClickActions.push_back(saveAction);
     m_editableToolbar->addAction(saveAction);

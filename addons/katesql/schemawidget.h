@@ -8,6 +8,7 @@
 
 class SQLManager;
 class QMouseEvent;
+class QKeyEvent;
 
 #include <QMap>
 #include <QSqlDriver>
@@ -67,6 +68,7 @@ private:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseDoubleClickEvent(QMouseEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
     bool isConnectionValidAndOpen() const;
     void loadForeignKeys();
     void loadEnums();

@@ -1,5 +1,5 @@
 /*
-SPDX-FileCopyrightText: 2010 Artyom Kirnev <kirnevartem30@gmail.com>
+SPDX-FileCopyrightText: 2026 Artyom Kirnev <kirnevartem30@gmail.com>
 
 SPDX-License-Identifier: LGPL-2.0-only
 */
@@ -7,8 +7,6 @@ SPDX-License-Identifier: LGPL-2.0-only
 #pragma once
 
 #include <QChar>
-#include <QCollator>
-#include <QDir>
 #include <QLatin1String>
 #include <QLatin1StringView>
 #include <QString>
@@ -47,6 +45,10 @@ inline constexpr QLatin1String LastUsed("LastUsed");
 inline constexpr QLatin1String UseSystemDefaults("UseSystemDefaults");
 inline constexpr QLatin1String EnableEditableTable("EnableEditableTable");
 inline constexpr QLatin1String EnableEditableRelationalTable("EnableEditableRelationalTable");
+inline constexpr QLatin1String EnableAutoQuerySelection("EnableAutoQuerySelection");
+inline constexpr QLatin1String TreatBlankLineAsStatementBreak("TreatBlankLineAsStatementBreak");
+inline constexpr QLatin1String EnableRunOutsideSqlFiles("EnableRunOutsideSqlFiles");
+inline constexpr QLatin1String AlwaysShowQueryPopup("AlwaysShowQueryPopup");
 
 namespace DefaultValues
 {
@@ -54,7 +56,12 @@ inline constexpr bool SaveConnections(true);
 inline constexpr bool UseSystemDefaults(true);
 inline constexpr bool EnableEditableTable(true);
 inline constexpr bool EnableEditableRelationTable(false);
+inline constexpr bool EnableAutoQuerySelection(true);
+inline constexpr bool TreatBlankLineAsStatementBreak(true);
+inline constexpr bool EnableRunOutsideSqlFiles(false);
+inline constexpr bool AlwaysShowQueryPopup(false);
 inline constexpr int HighlightForChangedFieldColorBlend = 25;
+inline constexpr int MaxLinesAroundTheCursorToScanForHighlight = 200;
 }
 
 /**
@@ -171,6 +178,22 @@ inline constexpr QLatin1String QuoteStringCharForWizard("\"");
 inline constexpr QLatin1String QuoteNumbersCharForWizard("\"");
 inline constexpr QLatin1String FieldDelimiterForWizard(Delimiters::Tab);
 }
+}
+
+namespace QueryPopupStyle
+{
+
+inline constexpr int BorderRadius = 6;
+inline constexpr int BorderWidth = 4;
+
+inline constexpr int MaximumHeight = 600;
+
+inline constexpr int MinimumWidth = 300;
+}
+
+namespace ConfigPageStyle
+{
+inline constexpr int Indent = 24;
 }
 
 } // namespace KateSQL

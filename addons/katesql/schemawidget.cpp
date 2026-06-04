@@ -12,21 +12,20 @@
 #include "sqlmanager.h"
 
 #include <KConfigGroup>
+#include <KFuzzyMatcher>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSharedConfig>
-#include <kmessagebox.h>
-#include <ktexteditor/application.h>
-#include <ktexteditor/editor.h>
-#include <ktexteditor/mainwindow.h>
-#include <ktexteditor/view.h>
+#include <KTextEditor/Application>
+#include <KTextEditor/Editor>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
 
-#include <QJsonDocument>
-#include <QJsonObject>
-
-#include <KFuzzyMatcher>
 #include <QApplication>
 #include <QDrag>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QKeyEvent>
 #include <QMenu>
 #include <QMimeData>
 #include <QMouseEvent>
@@ -335,6 +334,19 @@ void SchemaWidget::mouseDoubleClickEvent(QMouseEvent *event)
     }
 
     QTreeWidget::mouseDoubleClickEvent(event);
+}
+
+void SchemaWidget::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
+        QTreeWidgetItem *item = currentItem();
+        if (item && (item->type() == CustomUIType::TableType || item->type() == CustomUIType::SystemTableType || item->type() == CustomUIType::ViewType)) {
+            browseData();
+            this->setFocus();
+            return;
+        }
+    }
+    QTreeWidget::keyPressEvent(event);
 }
 
 void SchemaWidget::slotCustomContextMenuRequested(const QPoint &pos)

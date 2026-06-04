@@ -21,8 +21,8 @@
 class KateSQLOutputWidget;
 class SchemaBrowserWidget;
 class SQLManager;
+class SQLQueryHighlighter;
 
-class KConfigBase;
 class KComboBox;
 
 class QSqlQuery;
@@ -30,12 +30,13 @@ class DataOutputEditableModel;
 class DataOutputModelInterface;
 class QActionGroup;
 
-#include <QMap>
-
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/SessionConfigInterface>
 #include <KXMLGUIClient>
 
-#include <ktexteditor/mainwindow.h>
-#include <ktexteditor/sessionconfiginterface.h>
+#include <QList>
+#include <QMap>
+#include <QPointer>
 
 class KateSQLView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
@@ -73,6 +74,7 @@ public:
 
 protected:
     void setupActions();
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
     inline static constexpr QLatin1String ActionQueryRun = QLatin1String("query_run");
@@ -93,4 +95,21 @@ private:
     QString m_currentResultsetConnection;
 
     KTextEditor::MainWindow *m_mainWindow;
+
+    // SQL query highlighting
+    SQLQueryHighlighter *m_queryHighlighter = nullptr;
+
+    // View-scoped event filter for Ctrl+Return shortcut
+    QPointer<KTextEditor::View> m_activeView = nullptr;
+
+    void updateRunActionEnabled();
+    void updateViewEventFilter();
+    void runMultiStatementText(const QString &text, const QString &connection);
+    void runDocumentStatements(const QString &connection);
+    void updateCachedConfig();
+
+    // Cached config values (updated via updateCachedConfig)
+    bool m_blankLineBreaksStatements = true;
+    bool m_enableRunOutsideSqlFiles = true;
+    bool m_alwaysShowQueryPopup = false;
 };

@@ -17,6 +17,7 @@ target_link_libraries(
     KF6::I18n
     KF6::TextEditor
     KF6::KIOWidgets
+    KF6::WindowSystem
     Qt::Sql
     qt6keychain
 )
@@ -26,6 +27,9 @@ target_sources(
   PRIVATE
     katesqlplugin.cpp
     katesqlview.cpp
+    queryhelpers/sqlqueryhighlighter.cpp
+    queryhelpers/sqlqueryscannerstatemachine.cpp
+    queryhelpers/queryselectorpopup.cpp
     connectionmodel.cpp
     sqlmanager.cpp
     dataoutput/cachedsqlquerymodel.cpp

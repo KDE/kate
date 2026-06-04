@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-17 00:47+0000\n"
+"POT-Creation-Date: 2026-06-04 00:48+0000\n"
 "PO-Revision-Date: 2012-12-20 09:35+0700\n"
 "Last-Translator: sutha <sutha@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros>\n"
@@ -153,7 +153,7 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "ឈ្មោះ​តភ្ជាប់​ ៖​"
 
-#: dataoutputwidget.cpp:94 katesqlview.cpp:47
+#: dataoutputwidget.cpp:94 katesqlview.cpp:52
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "SQL"
@@ -429,11 +429,35 @@ msgstr ""
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
+msgctxt "@option:check"
+msgid "Allow running queries in non-SQL files"
+msgstr ""
+
+#: katesqlconfigpage.cpp:40
+#, kde-format
+msgctxt "@option:check"
+msgid "Enable auto query selection"
+msgstr ""
+
+#: katesqlconfigpage.cpp:41
+#, kde-format
+msgctxt "@option:check"
+msgid "Treat a blank line as a statement break"
+msgstr ""
+
+#: katesqlconfigpage.cpp:42
+#, kde-format
+msgctxt "@option:check"
+msgid "Always show query selector popup"
+msgstr ""
+
+#: katesqlconfigpage.cpp:44
+#, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "ការ​ប្ដូរ​ទិន្នផល​តាម​បំណង"
 
-#: katesqlconfigpage.cpp:45
+#: katesqlconfigpage.cpp:51
 #, fuzzy, kde-format
 #| msgctxt "@action:intoolbar"
 #| msgid "Use system locale"
@@ -441,19 +465,19 @@ msgctxt "@option:check"
 msgid "Use system defaults"
 msgstr "ប្រើ​មូលដ្ឋាន​​របស់​ប្រព័ន្ធ​​"
 
-#: katesqlconfigpage.cpp:46
+#: katesqlconfigpage.cpp:52
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
 msgstr ""
 
-#: katesqlconfigpage.cpp:81
+#: katesqlconfigpage.cpp:113
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:86
+#: katesqlconfigpage.cpp:118
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "SQL Plugin Settings"
@@ -461,7 +485,7 @@ msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "ការ​កំណត់​កម្មវិធី​ជំនួយ​របស់​ SQL"
 
-#: katesqlview.cpp:54
+#: katesqlview.cpp:59
 #, fuzzy, kde-format
 #| msgctxt "@title"
 #| msgid "SQL"
@@ -469,7 +493,7 @@ msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:60
+#: katesqlview.cpp:65
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "SQL Schema Browser"
@@ -477,7 +501,7 @@ msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "គំនូរ​បំព្រួញ​កម្មវិធី​រុករក​របស់​ SQL"
 
-#: katesqlview.cpp:128
+#: katesqlview.cpp:159
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Add connection..."
@@ -485,7 +509,7 @@ msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "បន្ថែម​ការ​តភ្ជាប់​​..."
 
-#: katesqlview.cpp:133
+#: katesqlview.cpp:164
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Remove connection"
@@ -493,7 +517,7 @@ msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "យក​ការ​តភ្ជាប់​ចេញ​"
 
-#: katesqlview.cpp:138
+#: katesqlview.cpp:169
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Edit connection..."
@@ -501,19 +525,19 @@ msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "កែសម្រួល​ការ​តភ្ជាប់​..."
 
-#: katesqlview.cpp:143
+#: katesqlview.cpp:174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "តភ្ជាប់​ឡើងវិញ"
 
-#: katesqlview.cpp:149
+#: katesqlview.cpp:180
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "ការ​តភ្ជាប់​"
 
-#: katesqlview.cpp:153
+#: katesqlview.cpp:184
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Run query"
@@ -608,63 +632,63 @@ msgstr "ទិន្នផល​​ទិន្នន័យ​របស់​ SQ
 msgid "Filter tables and views..."
 msgstr ""
 
-#: schemawidget.cpp:48
+#: schemawidget.cpp:47
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "គ្រោងការណ៍​មូលដ្ឋាន​ទិន្នន័យ​"
 
-#: schemawidget.cpp:143
+#: schemawidget.cpp:142
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "តារាង​"
 
-#: schemawidget.cpp:148
+#: schemawidget.cpp:147
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "មើល​"
 
-#: schemawidget.cpp:162
+#: schemawidget.cpp:161
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "តារាង​ប្រព័ន្ធ​"
 
-#: schemawidget.cpp:349
+#: schemawidget.cpp:361
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr ""
 
-#: schemawidget.cpp:353
+#: schemawidget.cpp:365
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "បង្កើត​"
 
-#: schemawidget.cpp:354
+#: schemawidget.cpp:366
 #, kde-format
 msgid "SELECT"
 msgstr ""
 
-#: schemawidget.cpp:355
+#: schemawidget.cpp:367
 #, kde-format
 msgid "UPDATE"
 msgstr ""
 
-#: schemawidget.cpp:356
+#: schemawidget.cpp:368
 #, kde-format
 msgid "INSERT"
 msgstr ""
 
-#: schemawidget.cpp:357
+#: schemawidget.cpp:369
 #, kde-format
 msgid "DELETE"
 msgstr ""
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:373
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

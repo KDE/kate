@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-17 00:47+0000\n"
+"POT-Creation-Date: 2026-06-04 00:48+0000\n"
 "PO-Revision-Date: 2026-05-21 22:06+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -152,7 +152,7 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "連線名稱："
 
-#: dataoutputwidget.cpp:94 katesqlview.cpp:47
+#: dataoutputwidget.cpp:94 katesqlview.cpp:52
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
@@ -424,77 +424,101 @@ msgstr "實驗性"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
+msgctxt "@option:check"
+msgid "Allow running queries in non-SQL files"
+msgstr ""
+
+#: katesqlconfigpage.cpp:40
+#, kde-format
+msgctxt "@option:check"
+msgid "Enable auto query selection"
+msgstr ""
+
+#: katesqlconfigpage.cpp:41
+#, kde-format
+msgctxt "@option:check"
+msgid "Treat a blank line as a statement break"
+msgstr ""
+
+#: katesqlconfigpage.cpp:42
+#, kde-format
+msgctxt "@option:check"
+msgid "Always show query selector popup"
+msgstr ""
+
+#: katesqlconfigpage.cpp:44
+#, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "輸出調整"
 
-#: katesqlconfigpage.cpp:45
+#: katesqlconfigpage.cpp:51
 #, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
 msgstr "使用系統預設值"
 
-#: katesqlconfigpage.cpp:46
+#: katesqlconfigpage.cpp:52
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
 msgstr "重設為系統預設值"
 
-#: katesqlconfigpage.cpp:81
+#: katesqlconfigpage.cpp:113
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:86
+#: katesqlconfigpage.cpp:118
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "SQL 組態頁面設定"
 
-#: katesqlview.cpp:54
+#: katesqlview.cpp:59
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:60
+#: katesqlview.cpp:65
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL 綱要"
 
-#: katesqlview.cpp:128
+#: katesqlview.cpp:159
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "新增連線..."
 
-#: katesqlview.cpp:133
+#: katesqlview.cpp:164
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "移除連線"
 
-#: katesqlview.cpp:138
+#: katesqlview.cpp:169
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "編輯連線..."
 
-#: katesqlview.cpp:143
+#: katesqlview.cpp:174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "重新連線"
 
-#: katesqlview.cpp:149
+#: katesqlview.cpp:180
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "連線"
 
-#: katesqlview.cpp:153
+#: katesqlview.cpp:184
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
@@ -583,63 +607,63 @@ msgstr "SQL 資料輸出"
 msgid "Filter tables and views..."
 msgstr "過濾表格與檢視…"
 
-#: schemawidget.cpp:48
+#: schemawidget.cpp:47
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "資料庫綱要"
 
-#: schemawidget.cpp:143
+#: schemawidget.cpp:142
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "表格"
 
-#: schemawidget.cpp:148
+#: schemawidget.cpp:147
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "檢視"
 
-#: schemawidget.cpp:162
+#: schemawidget.cpp:161
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "系統表格"
 
-#: schemawidget.cpp:349
+#: schemawidget.cpp:361
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "選擇資料"
 
-#: schemawidget.cpp:353
+#: schemawidget.cpp:365
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "產生"
 
-#: schemawidget.cpp:354
+#: schemawidget.cpp:366
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:355
+#: schemawidget.cpp:367
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:356
+#: schemawidget.cpp:368
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:357
+#: schemawidget.cpp:369
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:373
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

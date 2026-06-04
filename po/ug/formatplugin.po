@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.9\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
 #: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-17 00:47+0000\n"
+"POT-Creation-Date: 2026-06-04 00:48+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -152,7 +152,7 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "संयोजननाम :"
 
-#: dataoutputwidget.cpp:94 katesqlview.cpp:47
+#: dataoutputwidget.cpp:94 katesqlview.cpp:52
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
@@ -426,11 +426,35 @@ msgstr ""
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
+msgctxt "@option:check"
+msgid "Allow running queries in non-SQL files"
+msgstr ""
+
+#: katesqlconfigpage.cpp:40
+#, kde-format
+msgctxt "@option:check"
+msgid "Enable auto query selection"
+msgstr ""
+
+#: katesqlconfigpage.cpp:41
+#, kde-format
+msgctxt "@option:check"
+msgid "Treat a blank line as a statement break"
+msgstr ""
+
+#: katesqlconfigpage.cpp:42
+#, kde-format
+msgctxt "@option:check"
+msgid "Always show query selector popup"
+msgstr ""
+
+#: katesqlconfigpage.cpp:44
+#, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "आउटपुट अनुकूलन"
 
-#: katesqlconfigpage.cpp:45
+#: katesqlconfigpage.cpp:51
 #, fuzzy, kde-format
 #| msgctxt "@action:intoolbar"
 #| msgid "Use system locale"
@@ -438,67 +462,67 @@ msgctxt "@option:check"
 msgid "Use system defaults"
 msgstr "सिस्टम् लोकेलस्य उपयोगं कुर्वन्तु"
 
-#: katesqlconfigpage.cpp:46
+#: katesqlconfigpage.cpp:52
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
 msgstr ""
 
-#: katesqlconfigpage.cpp:81
+#: katesqlconfigpage.cpp:113
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:86
+#: katesqlconfigpage.cpp:118
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
 msgstr "SQL ConfigPage सेटिंग्स्"
 
-#: katesqlview.cpp:54
+#: katesqlview.cpp:59
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlview.cpp:60
+#: katesqlview.cpp:65
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
 msgstr "SQL योजना"
 
-#: katesqlview.cpp:128
+#: katesqlview.cpp:159
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "संयोजनं योजयतु..."
 
-#: katesqlview.cpp:133
+#: katesqlview.cpp:164
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "संयोजनं निष्कासयन्तु"
 
-#: katesqlview.cpp:138
+#: katesqlview.cpp:169
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "सम्पादन संयोजन..."
 
-#: katesqlview.cpp:143
+#: katesqlview.cpp:174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
 msgstr "पुनः संयोजयन्तु"
 
-#: katesqlview.cpp:149
+#: katesqlview.cpp:180
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
 msgstr "संबन्धः"
 
-#: katesqlview.cpp:153
+#: katesqlview.cpp:184
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
@@ -591,63 +615,63 @@ msgstr "SQL डाटा आउटपुट"
 msgid "Filter tables and views..."
 msgstr ""
 
-#: schemawidget.cpp:48
+#: schemawidget.cpp:47
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "दत्तांशकोश योजना"
 
-#: schemawidget.cpp:143
+#: schemawidget.cpp:142
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "सारणीः"
 
-#: schemawidget.cpp:148
+#: schemawidget.cpp:147
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "दृश्यम्"
 
-#: schemawidget.cpp:162
+#: schemawidget.cpp:161
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "प्रणाली सारणी"
 
-#: schemawidget.cpp:349
+#: schemawidget.cpp:361
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "Data इति चिनोतु"
 
-#: schemawidget.cpp:353
+#: schemawidget.cpp:365
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "उद्- पद्"
 
-#: schemawidget.cpp:354
+#: schemawidget.cpp:366
 #, kde-format
 msgid "SELECT"
 msgstr "विचि"
 
-#: schemawidget.cpp:355
+#: schemawidget.cpp:367
 #, kde-format
 msgid "UPDATE"
 msgstr "अद्यतन"
 
-#: schemawidget.cpp:356
+#: schemawidget.cpp:368
 #, kde-format
 msgid "INSERT"
 msgstr "युज्"
 
-#: schemawidget.cpp:357
+#: schemawidget.cpp:369
 #, kde-format
 msgid "DELETE"
 msgstr "लुप्"
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:373
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

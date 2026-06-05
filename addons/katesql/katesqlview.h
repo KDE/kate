@@ -31,6 +31,7 @@ class DataOutputModelInterface;
 class QActionGroup;
 
 #include <KTextEditor/MainWindow>
+#include <KTextEditor/Range>
 #include <KTextEditor/SessionConfigInterface>
 #include <KXMLGUIClient>
 
@@ -104,8 +105,9 @@ private:
 
     void updateRunActionEnabled();
     void updateViewEventFilter();
-    void runMultiStatementText(const QString &text, const QString &connection, SQLManager::ExecutionMode mode);
-    void runDocumentStatements(const QString &connection);
+    void runDocumentStatements(const QString &connection,
+                               KTextEditor::Range range = KTextEditor::Range(),
+                               SQLManager::ExecutionMode mode = SQLManager::ExecutionMode::Batch);
     void updateCachedConfig();
 
     // Cached config values (updated via updateCachedConfig)

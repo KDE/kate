@@ -147,6 +147,8 @@ public:
     ///
     /// The executor receives each statement's raw text (untrimmed) and should
     /// return true to continue scanning or false to stop early.
-    static void
-    scanAndExecuteStatements(KTextEditor::Document *doc, bool blankLineBreaksStatements, const std::function<bool(const QString &statement)> &executor);
+    static void scanAndExecuteStatements(KTextEditor::Document *doc,
+                                         bool blankLineBreaksStatements,
+                                         const std::function<bool(const QString &statement)> &executor,
+                                         KTextEditor::Range range = KTextEditor::Range());
 };

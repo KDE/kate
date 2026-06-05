@@ -219,21 +219,15 @@ void QuerySelectorPopup::acceptSelection()
         return;
     }
 
-    auto *doc = m_view->document();
-
     if (m_highlighter) {
         m_highlighter->setPreviewRange(KTextEditor::Range::invalid());
     }
 
     if (row < m_queryRanges.size()) {
-        QString text = doc->text(m_queryRanges[row]).trimmed();
-        if (!text.isEmpty()) {
-            m_runSelectedQueryCallback(text, m_connection, false);
-        }
+        m_runSelectedQueryCallback(m_queryRanges[row], m_connection, false);
     } else {
-        // "Entire document" — Can be a 4gb mysqldump file
-        // should use streaming to avoid loading the entire document into a QString.
-        m_runSelectedQueryCallback({}, m_connection, true);
+        // "Entire document" — use streaming to avoid loading entire file.
+        m_runSelectedQueryCallback(KTextEditor::Range(), m_connection, true);
     }
     close();
 

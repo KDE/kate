@@ -391,10 +391,7 @@ void KateSQLView::slotRunQuery()
 
     // If user has a selection, run it directly (batch: suppress popups)
     if (view->selection()) {
-        QString text = view->selectionText().trimmed();
-        if (!text.isEmpty()) {
-            runMultiStatementText(text, connection, SQLManager::ExecutionMode::Batch);
-        }
+        runDocumentStatements(connection, view->selectionRange(), SQLManager::ExecutionMode::Batch);
         // Restore focus: showToolView in result handlers may have moved it
         view->setFocus();
         return;
@@ -419,23 +416,24 @@ void KateSQLView::slotRunQuery()
 
     if (queryRanges.size() == 1 && !alwaysShowPopup) {
         // Single query and popup not forced — run it directly (interactive)
-        QString text = view->document()->text(queryRanges.first()).trimmed();
-        if (!text.isEmpty()) {
-            runMultiStatementText(text, connection, SQLManager::ExecutionMode::Interactive);
-        }
+        runDocumentStatements(connection, queryRanges.first(), SQLManager::ExecutionMode::Interactive);
         view->setFocus();
         return;
     }
 
     // Multiple nested ranges, or popup forced — show selector popup
     // (popup handles its own focus management)
-    QuerySelectorPopup::show(view, queryRanges, connection, m_queryHighlighter, [this](const QString &text, const QString &connection, bool isEntireDocument) {
-        if (isEntireDocument) {
-            runDocumentStatements(connection);
-        } else {
-            runMultiStatementText(text, connection, SQLManager::ExecutionMode::Interactive);
-        }
-    });
+    QuerySelectorPopup::show(view,
+                             queryRanges,
+                             connection,
+                             m_queryHighlighter,
+                             [this](const KTextEditor::Range &range, const QString &connection, bool isEntireDocument) {
+                                 if (isEntireDocument) {
+                                     runDocumentStatements(connection);
+                                 } else {
+                                     runDocumentStatements(connection, range, SQLManager::ExecutionMode::Interactive);
+                                 }
+                             });
 }
 
 void KateSQLView::slotError(const QString &message)
@@ -597,18 +595,7 @@ bool KateSQLView::eventFilter(QObject *obj, QEvent *event)
     return true;
 }
 
-void KateSQLView::runMultiStatementText(const QString &text, const QString &connection, SQLManager::ExecutionMode mode)
-{
-    const QStringList parts = SQLQueryScannerStateMachine::splitStatements(text, m_blankLineBreaksStatements);
-    for (const QString &part : std::as_const(parts)) {
-        const QString trimmed = part.trimmed();
-        if (!trimmed.isEmpty()) {
-            m_manager->runQuery(trimmed, connection, mode);
-        }
-    }
-}
-
-void KateSQLView::runDocumentStatements(const QString &connection)
+void KateSQLView::runDocumentStatements(const QString &connection, KTextEditor::Range range, SQLManager::ExecutionMode mode)
 {
     auto *view = m_mainWindow->activeView();
     if (!view) {
@@ -624,13 +611,18 @@ void KateSQLView::runDocumentStatements(const QString &connection)
     // This avoids loading the entire document text into a single QString,
     // keeping peak memory proportional to the largest statement rather than
     // the entire file size.
-    SQLQueryScannerStateMachine::scanAndExecuteStatements(doc, m_blankLineBreaksStatements, [this, connection](const QString &text) -> bool {
-        const QString trimmed = text.trimmed();
-        if (!trimmed.isEmpty()) {
-            m_manager->runQuery(trimmed, connection, SQLManager::ExecutionMode::Batch);
-        }
-        return true; // continue scanning
-    });
+    // When a range is given, only scan within that range.
+    SQLQueryScannerStateMachine::scanAndExecuteStatements(
+        doc,
+        m_blankLineBreaksStatements,
+        [this, connection, mode](const QString &text) -> bool {
+            const QString trimmed = text.trimmed();
+            if (!trimmed.isEmpty()) {
+                m_manager->runQuery(trimmed, connection, mode);
+            }
+            return true; // continue scanning
+        },
+        range);
 }
 
 void KateSQLView::updateCachedConfig()

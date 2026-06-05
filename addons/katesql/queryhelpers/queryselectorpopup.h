@@ -31,10 +31,10 @@ class QuerySelectorPopup : public QFrame
 {
 public:
     /// Callback type invoked when the user selects a query to run.
-    /// Receives the query text and the connection name.
-    /// When isEntireDocument is true, text is empty and the callback should
+    /// Receives the query range and the connection name.
+    /// When isEntireDocument is true, range is invalid and the callback should
     /// use a streaming approach to execute the entire document.
-    using QueryRunCallback = std::function<void(const QString &text, const QString &connection, bool isEntireDocument)>;
+    using QueryRunCallback = std::function<void(const KTextEditor::Range &range, const QString &connection, bool isEntireDocument)>;
 
     static void show(KTextEditor::View *view,
                      const QList<KTextEditor::Range> &queryRanges,

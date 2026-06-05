@@ -561,14 +561,23 @@ QStringList SQLQueryScannerStateMachine::splitStatements(const QString &text, bo
 
 void SQLQueryScannerStateMachine::scanAndExecuteStatements(KTextEditor::Document *doc,
                                                            bool blankLineBreaksStatements,
-                                                           const std::function<bool(const QString &statement)> &executor)
+                                                           const std::function<bool(const QString &statement)> &executor,
+                                                           KTextEditor::Range range)
 {
     if (!doc || !executor) {
         return;
     }
 
-    const int totalLines = doc->lines();
-    if (totalLines == 0) {
+    const int totalDocLines = doc->lines();
+    if (totalDocLines == 0) {
+        return;
+    }
+
+    const int startLine = range.isValid() ? qBound(0, range.start().line(), totalDocLines - 1) : 0;
+    const int startCol = range.isValid() ? range.start().column() : 0;
+    const int endLine = range.isValid() ? qBound(0, range.end().line(), totalDocLines - 1) : totalDocLines - 1;
+
+    if (startLine > endLine) {
         return;
     }
 
@@ -577,10 +586,10 @@ void SQLQueryScannerStateMachine::scanAndExecuteStatements(KTextEditor::Document
     int stmtStartLine = -1;
     int stmtStartCol = -1;
 
-    auto finalizeStatement = [&](int endLine, int endCol) -> bool {
+    auto finalizeStatement = [&](int eLine, int eCol) -> bool {
         if (stmtStartLine >= 0) {
-            KTextEditor::Range range(KTextEditor::Cursor(stmtStartLine, stmtStartCol), KTextEditor::Cursor(endLine, endCol));
-            QString text = doc->text(range);
+            KTextEditor::Range stmtRange(KTextEditor::Cursor(stmtStartLine, stmtStartCol), KTextEditor::Cursor(eLine, eCol));
+            QString text = doc->text(stmtRange);
             stmtStartLine = -1;
             stmtStartCol = -1;
             return executor(std::move(text));
@@ -588,26 +597,31 @@ void SQLQueryScannerStateMachine::scanAndExecuteStatements(KTextEditor::Document
         return true;
     };
 
-    for (int lineIdx = 0; lineIdx < totalLines; ++lineIdx) {
+    for (int lineIdx = startLine; lineIdx <= endLine; ++lineIdx) {
         const QString lineText = doc->line(lineIdx);
         const QChar *d = lineText.constData();
         const int len = static_cast<int>(lineText.length());
 
         tstate.inLineComment = false;
 
+        // Column bounds: first line starts at startCol, last line ends at range end
+        const int colStart = (lineIdx == startLine) ? qMin(startCol, len) : 0;
+        const int colEnd = (lineIdx == endLine && range.isValid()) ? qMin(range.end().column(), len) : len;
+
         // Blank line acts as statement boundary (same rule as scanAllStatements)
-        if (blankLineBreaksStatements && tstate.parenDepth == 0 && !tstate.inBlockComment && !tstate.inString && stmtStartLine >= 0 && lineIdx > 0
-            && isBlankLine(lineText)) {
-            int endCol = lastNonSpaceCol(doc->line(lineIdx - 1));
-            if (endCol > 0) {
-                if (!finalizeStatement(lineIdx - 1, endCol)) {
+        // Only check for lines where we scan from column 0 (full line)
+        if (colStart == 0 && blankLineBreaksStatements && tstate.parenDepth == 0 && !tstate.inBlockComment && !tstate.inString && stmtStartLine >= 0
+            && lineIdx > startLine && isBlankLine(lineText)) {
+            int prevEndCol = lastNonSpaceCol(doc->line(lineIdx - 1));
+            if (prevEndCol > 0) {
+                if (!finalizeStatement(lineIdx - 1, prevEndCol)) {
                     return;
                 }
             }
             continue;
         }
 
-        for (int col = 0; col < len; ++col) {
+        for (int col = colStart; col < colEnd; ++col) {
             QChar c = d[col];
             QChar next = (col + 1 < len) ? d[col + 1] : QChar();
 
@@ -643,10 +657,14 @@ void SQLQueryScannerStateMachine::scanAndExecuteStatements(KTextEditor::Document
 
     // Handle last statement without trailing semicolon/blank line
     if (stmtStartLine >= 0) {
-        for (int line = totalLines - 1; line >= stmtStartLine; --line) {
-            int endCol = lastNonSpaceCol(doc->line(line));
-            if (endCol > 0) {
-                finalizeStatement(line, endCol);
+        for (int line = endLine; line >= stmtStartLine; --line) {
+            int lastCol = lastNonSpaceCol(doc->line(line));
+            // For the endLine with a valid range, cap at range.end().column()
+            if (line == endLine && range.isValid()) {
+                lastCol = qMin(lastCol, range.end().column());
+            }
+            if (lastCol > 0) {
+                finalizeStatement(line, lastCol);
                 break;
             }
         }

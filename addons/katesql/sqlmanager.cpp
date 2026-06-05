@@ -8,6 +8,7 @@
 #include "connectionmodel.h"
 #include "dataoutput/models/dataoutputeditablemodel.h"
 #include "dataoutput/models/dataoutputeditablerelationalmodel.h"
+#include "katesqlconstants.h"
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -23,10 +24,7 @@
 #include <QSqlDriver>
 #include <QSqlError>
 #include <QSqlRecord>
-#include <QtCore/qlogging.h>
 
-#include "katesqlconstants.h"
-#include <qlatin1stringview.h>
 #include <qt6keychain/keychain.h>
 
 SQLManager::SQLManager(QObject *parent)

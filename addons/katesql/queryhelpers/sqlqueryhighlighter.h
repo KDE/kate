@@ -9,6 +9,14 @@
 #include <KTextEditor/Attribute>
 #include <KTextEditor/Range>
 
+#include "katesqlconstants.h"
+
+#include <QList>
+#include <QPointer>
+#include <QTimer>
+
+#include <memory>
+
 namespace KTextEditor
 {
 class Document;
@@ -16,12 +24,6 @@ class MainWindow;
 class MovingRange;
 class View;
 }
-
-#include <QList>
-#include <QPointer>
-#include <QTimer>
-
-#include <memory>
 
 class SQLQueryHighlighter : public QObject
 {

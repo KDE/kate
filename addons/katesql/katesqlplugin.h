@@ -6,10 +6,10 @@
 
 #pragma once
 
-#include <ktexteditor/application.h>
-#include <ktexteditor/mainwindow.h>
-#include <ktexteditor/plugin.h>
-#include <ktexteditor/view.h>
+#include <KTextEditor/Application>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/Plugin>
+#include <KTextEditor/View>
 
 #include <KPluginFactory>
 

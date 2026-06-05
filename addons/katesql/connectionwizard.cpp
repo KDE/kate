@@ -13,14 +13,13 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPasswordLineEdit>
+#include <KTextEditor/CodeCompletionModel>
 #include <KUrlRequester>
 
 #include <QFormLayout>
 #include <QSpinBox>
 #include <QSqlDatabase>
 #include <QSqlError>
-#include <ktexteditor/codecompletionmodel.h>
-#include <qlatin1stringview.h>
 
 ConnectionWizard::ConnectionWizard(SQLManager *manager, Connection *conn, QWidget *parent, Qt::WindowFlags flags)
     : QWizard(parent, flags)

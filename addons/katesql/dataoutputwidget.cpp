@@ -39,6 +39,7 @@
 #include <KToolBar>
 #include <QAction>
 
+#include <KMessageBox>
 #include <QApplication>
 #include <QClipboard>
 #include <QCompleter>
@@ -55,8 +56,11 @@
 #include <QLayout>
 #include <QLineEdit>
 #include <QList>
+#include <QMap>
 #include <QMargins>
+#include <QObject>
 #include <QSize>
+#include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlField>
 #include <QSqlIndex>
@@ -69,17 +73,9 @@
 #include <QTextStream>
 #include <QTime>
 #include <QTimer>
+#include <QVarLengthArray>
+#include <QVariant>
 #include <QtTypes>
-#include <kmessagebox.h>
-#include <qdir.h>
-#include <qlatin1stringview.h>
-#include <qlist.h>
-#include <qmap.h>
-#include <qobject.h>
-#include <qsqldatabase.h>
-#include <qtypes.h>
-#include <qvariant.h>
-#include <qvarlengtharray.h>
 
 DataOutputWidget::DataOutputWidget(QWidget *parent)
     : QWidget(parent)

@@ -8,18 +8,18 @@
 
 #include <KTextEditor/Range>
 
+#include <QFrame>
+#include <QList>
+#include <QPointer>
+
+#include <functional>
+
 namespace KTextEditor
 {
 class View;
 }
 
 class SQLQueryHighlighter;
-
-#include <QFrame>
-#include <QList>
-#include <QPointer>
-
-#include <functional>
 
 class QCloseEvent;
 class QListView;

@@ -8,8 +8,8 @@
 
 #include "outputstyle.h"
 
+#include <QMetaEnum>
 #include <QTreeWidget>
-#include <qtmetamacros.h>
 
 class OutputStyleWidget : public QTreeWidget
 {

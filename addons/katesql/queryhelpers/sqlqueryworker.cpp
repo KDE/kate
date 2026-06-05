@@ -5,8 +5,8 @@
 */
 
 #include "sqlqueryworker.h"
-
 #include "katesqlconstants.h"
+
 #include <KLocalizedString>
 
 #include <QElapsedTimer>

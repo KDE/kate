@@ -14,6 +14,7 @@
 #include <KLocalizedString>
 
 #include <QApplication>
+#include <QElapsedTimer>
 #include <QEventLoop>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -313,6 +314,9 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
     QSqlDatabase db = QSqlDatabase::database(connection);
     QSqlQuery query(db);
 
+    QElapsedTimer timer;
+    timer.start();
+
     if (!query.prepare(text)) {
         QSqlError err = query.lastError();
         const int res = QMessageBox::warning(
@@ -339,7 +343,9 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
             m_model->setStatus(connection, Connection::OFFLINE);
         }
 
-        Q_EMIT error(err.text());
+        const qint64 elapsedMs = timer.elapsed();
+        QString errorMsg = err.text() + QStringLiteral("\nQuery: %1 \nExecution took %2ms").arg(text, QString::number(elapsedMs));
+        Q_EMIT error(errorMsg);
         return;
     }
 
@@ -357,6 +363,8 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
         int nRowsAffected = query.numRowsAffected();
         message = i18ncp("@info", "%1 row affected", "%1 rows affected", nRowsAffected);
     }
+
+    message += QStringLiteral(" Execution took %1ms").arg(elapsedMs);
 
     Q_EMIT success(message);
     Q_EMIT queryActivated(query, connection);

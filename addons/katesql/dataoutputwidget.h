@@ -117,4 +117,5 @@ private:
 
 Q_SIGNALS:
     void displayColumnMapChanged(const QString &tableName, const QString &columnName);
+    void statusMessage(const QString &message, bool isError);
 };

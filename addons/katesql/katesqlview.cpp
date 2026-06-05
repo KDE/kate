@@ -110,6 +110,14 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
             m_schemaBrowserWidget->schemaWidget(),
             &SchemaWidget::reloadDisplayColumnMap);
 
+    connect(m_outputWidget->dataOutputWidget(), &DataOutputWidget::statusMessage, this, [this](const QString &message, bool isError) {
+        if (isError) {
+            m_outputWidget->textOutputWidget()->showErrorMessage(message);
+        } else {
+            m_outputWidget->textOutputWidget()->showSuccessMessage(message);
+        }
+    });
+
     if (SQLQueryHighlighter::isEnabledInConfig()) {
         m_queryHighlighter = new SQLQueryHighlighter(mw, this);
         m_queryHighlighter->setup();

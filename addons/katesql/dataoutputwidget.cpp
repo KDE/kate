@@ -754,18 +754,32 @@ void DataOutputWidget::slotSave()
         return;
     }
 
+    QElapsedTimer timer;
+    timer.start();
+
     if (!tableModel->submitAll()) {
         QSqlError err = tableModel->lastError();
-        KMessageBox::error(this, xi18nc("@info", "Failed to save changes: <message>%1</message>", err.text()));
+        const qint64 elapsedMs = timer.elapsed();
+        Q_EMIT statusMessage(xi18nc("@info", "Failed to save changes: <message>%1</message> (%2ms)", err.text(), elapsedMs), true);
         return;
     }
-    // tableModel->refresh()
+
+    const qint64 elapsedMs = timer.elapsed();
+    const int rowCount = tableModel->rowCount();
+    Q_EMIT statusMessage(i18ncp("@info", "Saved changes: %1 row (%2ms)", "Saved changes: %1 rows (%2ms)", rowCount, elapsedMs), false);
 }
 
 void DataOutputWidget::slotRefresh()
 {
     if (m_model != nullptr) {
+        QElapsedTimer timer;
+        timer.start();
         m_model->refresh();
+        const qint64 elapsedMs = timer.elapsed();
+
+        auto *sqlModel = qobject_cast<QSqlTableModel *>(m_model->asQObject());
+        const int rowCount = sqlModel ? sqlModel->rowCount() : 0;
+        Q_EMIT statusMessage(i18ncp("@info", "Refreshed: %1 record (%2ms)", "Refreshed: %1 records (%2ms)", rowCount, elapsedMs), false);
     }
 }
 
@@ -967,7 +981,18 @@ void DataOutputWidget::slotSetFilter()
 
     QString filter = m_filterInput->text().trimmed();
     sqlModel->setFilter(filter);
+
+    QElapsedTimer timer;
+    timer.start();
     sqlModel->select();
+    const qint64 elapsedMs = timer.elapsed();
+
+    const int rowCount = sqlModel->rowCount();
+    if (filter.isEmpty()) {
+        Q_EMIT statusMessage(i18ncp("@info", "Filter cleared: %1 record (%2ms)", "Filter cleared: %1 records (%2ms)", rowCount, elapsedMs), false);
+    } else {
+        Q_EMIT statusMessage(i18ncp("@info", "Filter applied: %1 record (%2ms)", "Filter applied: %1 records (%2ms)", rowCount, elapsedMs), false);
+    }
 }
 
 void DataOutputWidget::exportData(QTextStream &stream,

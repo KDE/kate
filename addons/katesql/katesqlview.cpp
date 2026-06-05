@@ -389,11 +389,11 @@ void KateSQLView::slotRunQuery()
     // Uses cached value from updateCachedConfig()
     const bool alwaysShowPopup = m_alwaysShowQueryPopup;
 
-    // If user has a selection, run it directly
+    // If user has a selection, run it directly (batch: suppress popups)
     if (view->selection()) {
         QString text = view->selectionText().trimmed();
         if (!text.isEmpty()) {
-            runMultiStatementText(text, connection);
+            runMultiStatementText(text, connection, SQLManager::ExecutionMode::Batch);
         }
         // Restore focus: showToolView in result handlers may have moved it
         view->setFocus();
@@ -418,10 +418,10 @@ void KateSQLView::slotRunQuery()
     }
 
     if (queryRanges.size() == 1 && !alwaysShowPopup) {
-        // Single query and popup not forced — run it directly
+        // Single query and popup not forced — run it directly (interactive)
         QString text = view->document()->text(queryRanges.first()).trimmed();
         if (!text.isEmpty()) {
-            runMultiStatementText(text, connection);
+            runMultiStatementText(text, connection, SQLManager::ExecutionMode::Interactive);
         }
         view->setFocus();
         return;
@@ -433,7 +433,7 @@ void KateSQLView::slotRunQuery()
         if (isEntireDocument) {
             runDocumentStatements(connection);
         } else {
-            runMultiStatementText(text, connection);
+            runMultiStatementText(text, connection, SQLManager::ExecutionMode::Interactive);
         }
     });
 }
@@ -597,13 +597,13 @@ bool KateSQLView::eventFilter(QObject *obj, QEvent *event)
     return true;
 }
 
-void KateSQLView::runMultiStatementText(const QString &text, const QString &connection)
+void KateSQLView::runMultiStatementText(const QString &text, const QString &connection, SQLManager::ExecutionMode mode)
 {
     const QStringList parts = SQLQueryScannerStateMachine::splitStatements(text, m_blankLineBreaksStatements);
     for (const QString &part : std::as_const(parts)) {
         const QString trimmed = part.trimmed();
         if (!trimmed.isEmpty()) {
-            m_manager->runQuery(trimmed, connection);
+            m_manager->runQuery(trimmed, connection, mode);
         }
     }
 }
@@ -627,7 +627,7 @@ void KateSQLView::runDocumentStatements(const QString &connection)
     SQLQueryScannerStateMachine::scanAndExecuteStatements(doc, m_blankLineBreaksStatements, [this, connection](const QString &text) -> bool {
         const QString trimmed = text.trimmed();
         if (!trimmed.isEmpty()) {
-            m_manager->runQuery(trimmed, connection);
+            m_manager->runQuery(trimmed, connection, SQLManager::ExecutionMode::Batch);
         }
         return true; // continue scanning
     });

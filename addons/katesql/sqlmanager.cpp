@@ -298,7 +298,7 @@ void SQLManager::saveConnection(KConfigGroup *connectionsGroup, const Connection
     group.writeEntry(KateSQLConstants::Connection::Port, conn.port);
 }
 
-void SQLManager::runQuery(const QString &text, const QString &connection)
+void SQLManager::runQuery(const QString &text, const QString &connection, ExecutionMode mode)
 {
     //    qDebug() << "connection:" << connection;
     //    qDebug() << "text:" << text;
@@ -319,21 +319,25 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
 
     if (!query.prepare(text)) {
         QSqlError err = query.lastError();
-        const int res = QMessageBox::warning(
-            qApp->activeWindow(),
-            i18n("Prepare Statement Failure"),
-            i18n("<p>Preparing the query failed with the following error: %1</p><p>Do you want to continue without preparing the query?</p>", err.text()),
-            QMessageBox::Yes,
-            QMessageBox::No);
 
-        if (res == QMessageBox::Rejected) {
-            if (err.type() == QSqlError::ConnectionError) {
-                m_model->setStatus(connection, Connection::OFFLINE);
+        if (mode == ExecutionMode::Interactive) {
+            const int res = QMessageBox::warning(
+                qApp->activeWindow(),
+                i18n("Prepare Statement Failure"),
+                i18n("<p>Preparing the query failed with the following error: %1</p><p>Do you want to continue without preparing the query?</p>", err.text()),
+                QMessageBox::Yes,
+                QMessageBox::No);
+
+            if (res == QMessageBox::Rejected) {
+                if (err.type() == QSqlError::ConnectionError) {
+                    m_model->setStatus(connection, Connection::OFFLINE);
+                }
+
+                Q_EMIT error(err.text());
+                return;
             }
-
-            Q_EMIT error(err.text());
-            return;
         }
+        // Batch mode: silently fall through to exec without prepare
     }
 
     if (!query.exec()) {

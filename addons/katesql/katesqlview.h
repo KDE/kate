@@ -104,7 +104,7 @@ private:
 
     void updateRunActionEnabled();
     void updateViewEventFilter();
-    void runMultiStatementText(const QString &text, const QString &connection);
+    void runMultiStatementText(const QString &text, const QString &connection, SQLManager::ExecutionMode mode);
     void runDocumentStatements(const QString &connection);
     void updateCachedConfig();
 

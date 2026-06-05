@@ -575,7 +575,7 @@
 >Bu sayfa, &kate; uygulamasında kurulu eklentilerin bir listesini sağlar. Her eklenti, adı ve kısa bir açıklamasıyla temsil edilir. Temsil ettiği eklentiyi etkinleştirmek için onay kutusunu bir ögeyle işaretleyebilirsiniz. </para>
 
 <para
->Bir eklenti yapılandırma seçenekleri sağlıyorsa bunlara erişebileceğiniz bir bölüm bu sayfanın alt öğesi olarak görünecektir.</para>
+>Bir eklenti yapılandırma seçenekleri sağlıyorsa bunlara erişebileceğiniz bir bölüm bu sayfanın alt ögesi olarak görünecektir.</para>
 
 <para
 >Eklentiler hakkında daha fazla bilgi için: <xref linkend="plugins"/>.</para>

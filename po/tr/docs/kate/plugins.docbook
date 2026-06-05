@@ -7141,7 +7141,7 @@ VALUES ("<replaceable
 >(küçüktür + bölü)</term>
 <listitem
 ><para
->Bu karakterlerin girilmesi, geçerli ögenin kapatılmasını sağlayacaktır (imlecin solundaki en yakın açık öğe). Öneriyi kabul etmek için &Enter; düğmesine basın. <guimenuitem
+>Bu karakterlerin girilmesi, geçerli ögenin kapatılmasını sağlayacaktır (imlecin solundaki en yakın açık öge). Öneriyi kabul etmek için &Enter; düğmesine basın. <guimenuitem
 >Ögeyi Kapat</guimenuitem
 > menü ögesinin aksine, bu yalnızca atanmış bir DTD ile çalışır.</para
 ></listitem>

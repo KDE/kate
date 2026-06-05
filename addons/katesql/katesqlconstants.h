@@ -49,6 +49,7 @@ inline constexpr QLatin1String EnableAutoQuerySelection("EnableAutoQuerySelectio
 inline constexpr QLatin1String TreatBlankLineAsStatementBreak("TreatBlankLineAsStatementBreak");
 inline constexpr QLatin1String EnableRunOutsideSqlFiles("EnableRunOutsideSqlFiles");
 inline constexpr QLatin1String AlwaysShowQueryPopup("AlwaysShowQueryPopup");
+inline constexpr QLatin1String BatchShowOnlyErrors("BatchShowOnlyErrors");
 
 namespace DefaultValues
 {
@@ -60,8 +61,10 @@ inline constexpr bool EnableAutoQuerySelection(true);
 inline constexpr bool TreatBlankLineAsStatementBreak(true);
 inline constexpr bool EnableRunOutsideSqlFiles(false);
 inline constexpr bool AlwaysShowQueryPopup(false);
+inline constexpr bool BatchShowOnlyErrors(true);
 inline constexpr int HighlightForChangedFieldColorBlend = 25;
 inline constexpr int MaxLinesAroundTheCursorToScanForHighlight = 200;
+inline constexpr int MaxQueryPreviewLength = 10'000;
 }
 
 /**

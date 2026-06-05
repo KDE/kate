@@ -13,6 +13,7 @@ class DataOutputModelInterface;
 
 #include "connection.h"
 #include "helpers/foreignkeyhelper.h"
+#include "queryhelpers/executionmode.h"
 
 #include <QMap>
 #include <QSqlQuery>
@@ -23,12 +24,6 @@ class SQLManager : public QObject
     Q_OBJECT
 
 public:
-    /// Controls error reporting behavior when running queries.
-    enum class ExecutionMode {
-        Interactive, ///< Single query: can show QMessageBox popups for prepare failures
-        Batch ///< Multiple queries: suppress popups, errors go to text output only
-    };
-
     explicit SQLManager(QObject *parent = nullptr);
     ~SQLManager() override;
 
@@ -45,7 +40,7 @@ public Q_SLOTS:
     void reopenConnection(const QString &name);
     void loadConnections(const KConfigGroup &connectionsGroup);
     void saveConnections(KConfigGroup *connectionsGroup);
-    void runQuery(const QString &text, const QString &connection, ExecutionMode mode = ExecutionMode::Interactive);
+    void runQuery(const QString &text, const QString &connection, ::ExecutionMode mode = ::ExecutionMode::Interactive);
     void runEditableQuery(const QString &tableName, const QString &connection, const QMap<QString, QString> &displayColumns);
     void runEditableRelationalQuery(const QString &tableName,
                                     const QString &connection,

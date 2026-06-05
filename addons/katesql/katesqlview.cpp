@@ -12,7 +12,9 @@
 #include "dataoutputwidget.h"
 #include "katesqlconstants.h"
 #include "outputwidget.h"
+#include "queryhelpers/executionmode.h"
 #include "queryhelpers/queryselectorpopup.h"
+#include "queryhelpers/sqlbatchexecutor.h"
 #include "queryhelpers/sqlqueryhighlighter.h"
 #include "queryhelpers/sqlqueryscannerstatemachine.h"
 #include "schemabrowserwidget.h"
@@ -111,11 +113,29 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
             &SchemaWidget::reloadDisplayColumnMap);
 
     connect(m_outputWidget->dataOutputWidget(), &DataOutputWidget::statusMessage, this, [this](const QString &message, bool isError) {
-        if (isError) {
-            m_outputWidget->textOutputWidget()->showErrorMessage(message);
-        } else {
-            m_outputWidget->textOutputWidget()->showSuccessMessage(message);
+        writeToTextOutput(message, isError);
+    });
+
+    // Batch executor for background query execution
+    m_batchExecutor = new SQLBatchExecutor(this);
+    connect(m_batchExecutor, &SQLBatchExecutor::batchStarted, this, [this]() {
+        m_outputWidget->setCurrentWidget(m_outputWidget->textOutputWidget());
+        m_mainWindow->showToolView(m_outputToolView);
+        updateRunActionEnabled();
+    });
+    connect(m_batchExecutor, &SQLBatchExecutor::statementResult, this, [this](bool success, const QString &message, qint64 /*elapsedMs*/) {
+        if (!m_batchShowOnlyErrors || !success) {
+            writeToTextOutput(message, !success);
         }
+    });
+    connect(m_batchExecutor, &SQLBatchExecutor::batchFinished, this, [this](int completed, int failed, qint64 totalMs) {
+        const QString summary = i18nc("@info", "Batch finished: %1 succeeded, %2 failed in %3ms", completed, failed, totalMs);
+        writeToTextOutput(summary, false);
+        // Ensure the output tab is visible at the end of the batch.
+        // The user may have switched tabs during execution.
+        m_outputWidget->setCurrentWidget(m_outputWidget->textOutputWidget());
+        m_mainWindow->showToolView(m_outputToolView);
+        updateRunActionEnabled();
     });
 
     if (SQLQueryHighlighter::isEnabledInConfig()) {
@@ -194,12 +214,11 @@ void KateSQLView::setupActions()
     KActionCollection::setDefaultShortcuts(action, {Qt::CTRL | Qt::Key_Return, Qt::CTRL | Qt::Key_Enter});
     connect(action, &QAction::triggered, this, &KateSQLView::slotRunQuery);
 
-    /// TODO: stop sql query
-    //   action = collection->addAction("sql_stop");
-    //   action->setText( i18n("Stop query") );
-    //   action->setIcon( KIcon("process-stop") );
-    //   action->setShortcut( QKeySequence(Qt::ALT | Qt::Key_F5) );
-    //   connect( action , SIGNAL(triggered()) , this , SLOT(stopQuery()));
+    action = collection->addAction(ActionQueryStop);
+    action->setText(i18nc("@action:inmenu", "Stop Query"));
+    action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ProcessStop));
+    connect(action, &QAction::triggered, this, &KateSQLView::slotStopQuery);
+    action->setEnabled(false);
 }
 
 void KateSQLView::slotSQLMenuAboutToShow()
@@ -389,9 +408,9 @@ void KateSQLView::slotRunQuery()
     // Uses cached value from updateCachedConfig()
     const bool alwaysShowPopup = m_alwaysShowQueryPopup;
 
-    // If user has a selection, run it directly (batch: suppress popups)
+    // If user has a selection, run it directly
     if (view->selection()) {
-        runDocumentStatements(connection, view->selectionRange(), SQLManager::ExecutionMode::Batch);
+        runDocumentStatements(connection, view->selectionRange());
         // Restore focus: showToolView in result handlers may have moved it
         view->setFocus();
         return;
@@ -399,7 +418,7 @@ void KateSQLView::slotRunQuery()
 
     if (!m_queryHighlighter) {
         // Highlighter disabled — run entire document (streaming)
-        runDocumentStatements(connection);
+        runDocumentStatements(connection, view->document()->documentRange());
         view->setFocus();
         return;
     }
@@ -409,43 +428,71 @@ void KateSQLView::slotRunQuery()
 
     if (queryRanges.isEmpty()) {
         // No detected query — run entire document (streaming)
-        runDocumentStatements(connection);
+        runDocumentStatements(connection, view->document()->documentRange());
         view->setFocus();
         return;
     }
 
     if (queryRanges.size() == 1 && !alwaysShowPopup) {
-        // Single query and popup not forced — run it directly (interactive)
-        runDocumentStatements(connection, queryRanges.first(), SQLManager::ExecutionMode::Interactive);
+        // Single query and popup not forced — run it directly via SQLManager
+        // to get results displayed in the DataOutputWidget.
+        const QString text = view->document()->text(queryRanges.first()).trimmed();
+        if (!text.isEmpty()) {
+            m_manager->runQuery(text, connection);
+        }
         view->setFocus();
         return;
     }
 
     // Multiple nested ranges, or popup forced — show selector popup
     // (popup handles its own focus management)
-    QuerySelectorPopup::show(view,
-                             queryRanges,
-                             connection,
-                             m_queryHighlighter,
-                             [this](const KTextEditor::Range &range, const QString &connection, bool isEntireDocument) {
-                                 if (isEntireDocument) {
-                                     runDocumentStatements(connection);
-                                 } else {
-                                     runDocumentStatements(connection, range, SQLManager::ExecutionMode::Interactive);
-                                 }
-                             });
+    QuerySelectorPopup::show(
+        view,
+        queryRanges,
+        connection,
+        m_queryHighlighter,
+        [this, doc = QPointer<KTextEditor::Document>(view->document())](const KTextEditor::Range &range, const QString &connection, bool isEntireDocument) {
+            if (!doc) {
+                return;
+            }
+            if (isEntireDocument) {
+                runDocumentStatements(connection, doc->documentRange());
+            } else {
+                // Single range from popup — run directly for DataOutputWidget support
+                const QString text = doc->text(range).trimmed();
+                if (!text.isEmpty()) {
+                    m_manager->runQuery(text, connection);
+                }
+            }
+        });
+}
+
+void KateSQLView::slotStopQuery()
+{
+    if (m_batchExecutor && m_batchExecutor->isRunning()) {
+        m_batchExecutor->cancel();
+    }
+}
+
+void KateSQLView::writeToTextOutput(const QString &message, bool isError)
+{
+    if (isError) {
+        m_outputWidget->textOutputWidget()->showErrorMessage(message);
+    } else {
+        m_outputWidget->textOutputWidget()->showSuccessMessage(message);
+    }
 }
 
 void KateSQLView::slotError(const QString &message)
 {
-    m_outputWidget->textOutputWidget()->showErrorMessage(message);
+    writeToTextOutput(message, true);
     m_outputWidget->setCurrentWidget(m_outputWidget->textOutputWidget());
     m_mainWindow->showToolView(m_outputToolView);
 }
 
 void KateSQLView::slotSuccess(const QString &message)
 {
-    m_outputWidget->textOutputWidget()->showSuccessMessage(message);
+    writeToTextOutput(message, false);
     m_outputWidget->setCurrentWidget(m_outputWidget->textOutputWidget());
     m_mainWindow->showToolView(m_outputToolView);
 }
@@ -497,15 +544,21 @@ void KateSQLView::slotConnectionCreated(const QString &name)
 void KateSQLView::updateRunActionEnabled()
 {
     auto *runAction = actionCollection()->action(ActionQueryRun);
-    if (!runAction) {
-        return;
+    auto *stopAction = actionCollection()->action(ActionQueryStop);
+
+    const bool batchRunning = m_batchExecutor && m_batchExecutor->isRunning();
+
+    if (runAction) {
+        const bool hasConnection = m_connectionsComboBox->currentIndex() >= 0;
+        auto *view = m_mainWindow->activeView();
+        const bool isSql = view && SQLQueryHighlighter::isSqlDocument(view->document());
+
+        runAction->setEnabled(!batchRunning && hasConnection && (isSql || m_enableRunOutsideSqlFiles));
     }
 
-    const bool hasConnection = m_connectionsComboBox->currentIndex() >= 0;
-    auto *view = m_mainWindow->activeView();
-    const bool isSql = view && SQLQueryHighlighter::isSqlDocument(view->document());
-
-    runAction->setEnabled(hasConnection && (isSql || m_enableRunOutsideSqlFiles));
+    if (stopAction) {
+        stopAction->setEnabled(batchRunning);
+    }
 }
 
 void KateSQLView::updateViewEventFilter()
@@ -595,7 +648,7 @@ bool KateSQLView::eventFilter(QObject *obj, QEvent *event)
     return true;
 }
 
-void KateSQLView::runDocumentStatements(const QString &connection, KTextEditor::Range range, SQLManager::ExecutionMode mode)
+void KateSQLView::runDocumentStatements(const QString &connection, const KTextEditor::Range range)
 {
     auto *view = m_mainWindow->activeView();
     if (!view) {
@@ -607,22 +660,25 @@ void KateSQLView::runDocumentStatements(const QString &connection, KTextEditor::
         return;
     }
 
-    // Stream statements directly from the document line-by-line.
-    // This avoids loading the entire document text into a single QString,
-    // keeping peak memory proportional to the largest statement rather than
-    // the entire file size.
-    // When a range is given, only scan within that range.
-    SQLQueryScannerStateMachine::scanAndExecuteStatements(
-        doc,
-        m_blankLineBreaksStatements,
-        [this, connection, mode](const QString &text) -> bool {
-            const QString trimmed = text.trimmed();
-            if (!trimmed.isEmpty()) {
-                m_manager->runQuery(trimmed, connection, mode);
-            }
-            return true; // continue scanning
-        },
-        range);
+    if (m_batchExecutor->isRunning()) {
+        return;
+    }
+
+    if (!m_manager->isValidAndOpen(connection)) {
+        return;
+    }
+
+    // #1: Validate the connection before dispatching to the worker.
+    // ConnectionModel::connection() returns a default-constructed Connection
+    // when the name is not found — detect that early with a clear error.
+    const Connection conn = m_manager->connectionModel()->connection(connection);
+    if (conn.driver.isEmpty()) {
+        writeToTextOutput(i18nc("@info", "Connection '%1' not found or invalid", connection), true);
+        return;
+    }
+
+    updateRunActionEnabled();
+    m_batchExecutor->executeBatch(doc, conn, m_blankLineBreaksStatements, range);
 }
 
 void KateSQLView::updateCachedConfig()
@@ -633,6 +689,7 @@ void KateSQLView::updateCachedConfig()
     m_enableRunOutsideSqlFiles =
         config.readEntry(KateSQLConstants::Config::EnableRunOutsideSqlFiles, KateSQLConstants::Config::DefaultValues::EnableRunOutsideSqlFiles);
     m_alwaysShowQueryPopup = config.readEntry(KateSQLConstants::Config::AlwaysShowQueryPopup, KateSQLConstants::Config::DefaultValues::AlwaysShowQueryPopup);
+    m_batchShowOnlyErrors = config.readEntry(KateSQLConstants::Config::BatchShowOnlyErrors, KateSQLConstants::Config::DefaultValues::BatchShowOnlyErrors);
 }
 
 // END KateSQLView

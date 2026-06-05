@@ -20,6 +20,7 @@
 
 class KateSQLOutputWidget;
 class SchemaBrowserWidget;
+class SQLBatchExecutor;
 class SQLManager;
 class SQLQueryHighlighter;
 
@@ -62,6 +63,7 @@ public:
     void slotConnectionReconnect();
     void slotConnectionChanged(int currentIndex);
     void slotRunQuery();
+    void slotStopQuery();
     void slotError(const QString &message);
     void slotSuccess(const QString &message);
     void slotQueryActivated(QSqlQuery &query, const QString &connection);
@@ -79,6 +81,7 @@ protected:
 
 private:
     inline static constexpr QLatin1String ActionQueryRun = QLatin1String("query_run");
+    inline static constexpr QLatin1String ActionQueryStop = QLatin1String("query_stop");
     inline static constexpr QLatin1String StateHasConnectionSelected = QLatin1String("has_connection_selected");
     inline static constexpr QLatin1String MenuSQL = QLatin1String("SQL");
     QWidget *m_outputToolView;
@@ -93,6 +96,8 @@ private:
 
     SQLManager *m_manager;
 
+    SQLBatchExecutor *m_batchExecutor;
+
     QString m_currentResultsetConnection;
 
     KTextEditor::MainWindow *m_mainWindow;
@@ -105,13 +110,13 @@ private:
 
     void updateRunActionEnabled();
     void updateViewEventFilter();
-    void runDocumentStatements(const QString &connection,
-                               KTextEditor::Range range = KTextEditor::Range(),
-                               SQLManager::ExecutionMode mode = SQLManager::ExecutionMode::Batch);
+    void runDocumentStatements(const QString &connection, const KTextEditor::Range range);
+    void writeToTextOutput(const QString &message, bool isError);
     void updateCachedConfig();
 
     // Cached config values (updated via updateCachedConfig)
     bool m_blankLineBreaksStatements = true;
     bool m_enableRunOutsideSqlFiles = true;
     bool m_alwaysShowQueryPopup = false;
+    bool m_batchShowOnlyErrors = true;
 };

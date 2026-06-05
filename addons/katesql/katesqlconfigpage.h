@@ -43,6 +43,7 @@ private:
     QCheckBox *m_treatBlankLineAsBreakCheckBox;
     QCheckBox *m_enableRunOutsideSqlFilesCheckBox;
     QCheckBox *m_alwaysShowQueryPopupCheckBox;
+    QCheckBox *m_batchShowOnlyErrorsCheckBox;
     QCheckBox *m_useSystemDefaultsCheckBox;
     QPushButton *m_resetToDefaultsButton;
     OutputStyleWidget *m_outputStyleWidget;

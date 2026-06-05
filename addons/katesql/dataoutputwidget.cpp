@@ -760,7 +760,7 @@ void DataOutputWidget::slotSave()
     if (!tableModel->submitAll()) {
         QSqlError err = tableModel->lastError();
         const qint64 elapsedMs = timer.elapsed();
-        Q_EMIT statusMessage(xi18nc("@info", "Failed to save changes: <message>%1</message> (%2ms)", err.text(), elapsedMs), true);
+        KMessageBox::error(this, xi18nc("@info", "Failed to save changes: <message>%1</message> (%2ms)", err.text(), elapsedMs));
         return;
     }
 

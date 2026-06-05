@@ -298,7 +298,7 @@ void SQLManager::saveConnection(KConfigGroup *connectionsGroup, const Connection
     group.writeEntry(KateSQLConstants::Connection::Port, conn.port);
 }
 
-void SQLManager::runQuery(const QString &text, const QString &connection, ExecutionMode mode)
+void SQLManager::runQuery(const QString &text, const QString &connection, ::ExecutionMode mode)
 {
     //    qDebug() << "connection:" << connection;
     //    qDebug() << "text:" << text;
@@ -320,7 +320,7 @@ void SQLManager::runQuery(const QString &text, const QString &connection, Execut
     if (!query.prepare(text)) {
         QSqlError err = query.lastError();
 
-        if (mode == ExecutionMode::Interactive) {
+        if (mode == ::ExecutionMode::Interactive) {
             const int res = QMessageBox::warning(
                 qApp->activeWindow(),
                 i18n("Prepare Statement Failure"),
@@ -328,7 +328,7 @@ void SQLManager::runQuery(const QString &text, const QString &connection, Execut
                 QMessageBox::Yes,
                 QMessageBox::No);
 
-            if (res == QMessageBox::Rejected) {
+            if (res == QMessageBox::No) {
                 if (err.type() == QSqlError::ConnectionError) {
                     m_model->setStatus(connection, Connection::OFFLINE);
                 }
@@ -347,11 +347,17 @@ void SQLManager::runQuery(const QString &text, const QString &connection, Execut
             m_model->setStatus(connection, Connection::OFFLINE);
         }
 
-        const qint64 elapsedMs = timer.elapsed();
-        QString errorMsg = err.text() + QStringLiteral("\nQuery: %1 \nExecution took %2ms").arg(text, QString::number(elapsedMs));
+        const qint64 elapsedMsErr = timer.elapsed();
+        // Truncate query preview to avoid creating huge error messages
+        // for large statements (e.g. 276k char INSERT with BLOB data).
+        QString errorMsg = err.text()
+            + QStringLiteral("\nQuery: %1 \nExecution took %2ms")
+                  .arg(text.left(KateSQLConstants::Config::DefaultValues::MaxQueryPreviewLength), QString::number(elapsedMsErr));
         Q_EMIT error(errorMsg);
         return;
     }
+
+    const qint64 elapsedMs = timer.elapsed();
 
     QString message;
 

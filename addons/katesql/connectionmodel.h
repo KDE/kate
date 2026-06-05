@@ -31,6 +31,7 @@ public:
     void setPassword(const QString &name, const QString &password);
 
     [[nodiscard]] int indexOf(const QString &name) const;
+    [[nodiscard]] Connection connection(const QString &name) const;
 
     //     virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex());
     //     virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());

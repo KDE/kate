@@ -30,6 +30,9 @@ target_sources(
     queryhelpers/sqlqueryhighlighter.cpp
     queryhelpers/sqlqueryscannerstatemachine.cpp
     queryhelpers/queryselectorpopup.cpp
+    queryhelpers/sqlqueryworker.cpp
+    queryhelpers/sqlbatchexecutor.cpp
+    queryhelpers/executionmode.h
     connectionmodel.cpp
     sqlmanager.cpp
     dataoutput/cachedsqlquerymodel.cpp

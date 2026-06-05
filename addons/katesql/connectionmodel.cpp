@@ -99,6 +99,15 @@ int ConnectionModel::indexOf(const QString &name) const
     return -1;
 }
 
+Connection ConnectionModel::connection(const QString &name) const
+{
+    const int pos = indexOf(name);
+    if (pos == -1) {
+        return Connection();
+    }
+    return m_connections[pos];
+}
+
 Connection::Status ConnectionModel::status(const QString &name) const
 {
     const int pos = indexOf(name);

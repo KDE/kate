@@ -40,6 +40,10 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     m_enableAutoQuerySelectionCheckBox = new QCheckBox(i18nc("@option:check", "Enable auto query selection"), this);
     m_treatBlankLineAsBreakCheckBox = new QCheckBox(i18nc("@option:check", "Treat a blank line as a statement break"), this);
     m_alwaysShowQueryPopupCheckBox = new QCheckBox(i18nc("@option:check", "Always show query selector popup"), this);
+    m_batchShowOnlyErrorsCheckBox = new QCheckBox(i18nc("@option:check", "Show only errors when running multiple queries"), this);
+    m_batchShowOnlyErrorsCheckBox->setToolTip(i18nc("@info:tooltip",
+                                                    "When enabled, only failed statements are shown in the output during batch execution. "
+                                                    "Disabling this may affect performance when running large files."));
 
     auto *stylesGroupBox = new QGroupBox(i18nc("@title:group", "Output Customization"), this);
     auto *stylesLayout = new QVBoxLayout(stylesGroupBox);
@@ -74,6 +78,7 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     queryPopupRow->setContentsMargins(indent, 0, 0, 0);
     queryPopupRow->addWidget(m_alwaysShowQueryPopupCheckBox);
     layout->addLayout(queryPopupRow);
+    layout->addWidget(m_batchShowOnlyErrorsCheckBox);
     layout->addWidget(stylesGroupBox, 1);
 
     setLayout(layout);
@@ -89,6 +94,7 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     connect(m_treatBlankLineAsBreakCheckBox, &QCheckBox::stateChanged, this, &KateSQLConfigPage::changed);
     connect(m_enableRunOutsideSqlFilesCheckBox, &QCheckBox::stateChanged, this, &KateSQLConfigPage::changed);
     connect(m_alwaysShowQueryPopupCheckBox, &QCheckBox::stateChanged, this, &KateSQLConfigPage::changed);
+    connect(m_batchShowOnlyErrorsCheckBox, &QCheckBox::stateChanged, this, &KateSQLConfigPage::changed);
 #else
     connect(m_box, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::changed);
     connect(m_enableEditableTableCheckBox, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::changed);
@@ -98,6 +104,7 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     connect(m_treatBlankLineAsBreakCheckBox, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::changed);
     connect(m_enableRunOutsideSqlFilesCheckBox, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::changed);
     connect(m_alwaysShowQueryPopupCheckBox, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::changed);
+    connect(m_batchShowOnlyErrorsCheckBox, &QCheckBox::checkStateChanged, this, &KateSQLConfigPage::changed);
 #endif
     connect(m_enableAutoQuerySelectionCheckBox, &QCheckBox::toggled, m_treatBlankLineAsBreakCheckBox, &QCheckBox::setEnabled);
     connect(m_enableAutoQuerySelectionCheckBox, &QCheckBox::toggled, m_alwaysShowQueryPopupCheckBox, &QCheckBox::setEnabled);
@@ -134,6 +141,7 @@ void KateSQLConfigPage::apply()
     config.writeEntry(KateSQLConstants::Config::TreatBlankLineAsStatementBreak, m_treatBlankLineAsBreakCheckBox->isChecked());
     config.writeEntry(KateSQLConstants::Config::EnableRunOutsideSqlFiles, m_enableRunOutsideSqlFilesCheckBox->isChecked());
     config.writeEntry(KateSQLConstants::Config::AlwaysShowQueryPopup, m_alwaysShowQueryPopupCheckBox->isChecked());
+    config.writeEntry(KateSQLConstants::Config::BatchShowOnlyErrors, m_batchShowOnlyErrorsCheckBox->isChecked());
 
     m_outputStyleWidget->writeConfig();
 
@@ -167,6 +175,9 @@ void KateSQLConfigPage::reset()
         config.readEntry(KateSQLConstants::Config::AlwaysShowQueryPopup, KateSQLConstants::Config::DefaultValues::AlwaysShowQueryPopup));
     m_alwaysShowQueryPopupCheckBox->setEnabled(m_enableAutoQuerySelectionCheckBox->isChecked());
 
+    m_batchShowOnlyErrorsCheckBox->setChecked(
+        config.readEntry(KateSQLConstants::Config::BatchShowOnlyErrors, KateSQLConstants::Config::DefaultValues::BatchShowOnlyErrors));
+
     m_useSystemDefaultsCheckBox->blockSignals(true);
     m_outputStyleWidget->readConfig();
     m_useSystemDefaultsCheckBox->setChecked(m_outputStyleWidget->useSystemDefaults());
@@ -189,6 +200,8 @@ void KateSQLConfigPage::defaults()
     m_alwaysShowQueryPopupCheckBox->setChecked(KateSQLConstants::Config::DefaultValues::AlwaysShowQueryPopup);
     m_alwaysShowQueryPopupCheckBox->setEnabled(KateSQLConstants::Config::DefaultValues::EnableAutoQuerySelection);
 
+    m_batchShowOnlyErrorsCheckBox->setChecked(KateSQLConstants::Config::DefaultValues::BatchShowOnlyErrors);
+
     m_useSystemDefaultsCheckBox->blockSignals(true);
     m_useSystemDefaultsCheckBox->setChecked(KateSQLConstants::Config::DefaultValues::UseSystemDefaults);
     m_outputStyleWidget->resetToSystemDefaults();
@@ -202,6 +215,7 @@ void KateSQLConfigPage::defaults()
     config.revertToDefault(KateSQLConstants::Config::TreatBlankLineAsStatementBreak);
     config.revertToDefault(KateSQLConstants::Config::EnableRunOutsideSqlFiles);
     config.revertToDefault(KateSQLConstants::Config::AlwaysShowQueryPopup);
+    config.revertToDefault(KateSQLConstants::Config::BatchShowOnlyErrors);
     config.revertToDefault(KateSQLConstants::Config::UseSystemDefaults);
     config.revertToDefault(KateSQLConstants::Config::OutputCustomizationGroup);
 }

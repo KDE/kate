@@ -21,6 +21,19 @@
 
 class SQLQueryScannerStateMachine
 {
+public:
+    using FirstKeyword = SQLQueryKeywordMatcher::FirstKeyword;
+
+    /// Scanner state for SQL token tracking (strings, comments, parens).
+    /// Public so that ChunkedScanState and external code can use it.
+    struct QueryState {
+        bool inString = false;
+        QChar stringChar;
+        bool inBlockComment = false;
+        bool inLineComment = false;
+        int parenDepth = 0;
+    };
+
 protected:
     enum CurrentCharacterAction {
         Continue, // character consumed, move on
@@ -29,14 +42,6 @@ protected:
         StatementEnd, // semicolon found at parenDepth 0
         ParenOpen, // '(' found
         ParenClose, // ')' found
-    };
-
-    struct QueryState {
-        bool inString = false;
-        QChar stringChar;
-        bool inBlockComment = false;
-        bool inLineComment = false;
-        int parenDepth = 0;
     };
 
     struct ParenthesisInfo {
@@ -76,13 +81,35 @@ protected:
     static KTextEditor::Range trimmedContentRange(KTextEditor::Document *doc, const KTextEditor::Cursor &open, const KTextEditor::Cursor &close);
 
 public:
-    using FirstKeyword = SQLQueryKeywordMatcher::FirstKeyword;
-
     struct ScanResult {
         QVector<ParenPair> selectParens;
         KTextEditor::Range enclosingStatementRange;
         FirstKeyword stmtFirstKeyword = FirstKeyword::None;
         bool foundEnclosing = false;
+    };
+
+    /// Opaque state for chunked statement scanning.
+    /// Create via createChunkedScanState(), drive with scanStatementsChunk().
+    struct ChunkedScanState {
+        // Scanner token state
+        QueryState tstate;
+
+        // Current statement start (-1 = no statement in progress)
+        int stmtStartLine = -1;
+        int stmtStartCol = -1;
+
+        // Scan position
+        int currentLine = 0;
+        int endLine = 0;
+
+        // Configuration (set once at creation)
+        int firstLineStartCol = 0; ///< Column to start scanning on the first line
+        bool blankLineBreaksStatements = true;
+        bool rangeEndColValid = false;
+        int rangeEndCol = 0;
+        int firstLine = 0; ///< The first line of the scan range (for blank-line boundary check)
+
+        bool done = false;
     };
 
     /// Scan SQL tokens in the given line/column bounds.
@@ -139,16 +166,25 @@ public:
     /// Build trimmed content ranges from a list of paren pairs.
     static QList<KTextEditor::Range> buildTrimmedRanges(KTextEditor::Document *doc, const QVector<ParenPair> &selectParens);
 
+    /// Create initial state for chunked scanning over the given range.
+    static ChunkedScanState createChunkedScanState(KTextEditor::Document *doc, bool blankLineBreaksStatements, KTextEditor::Range range = KTextEditor::Range());
+
+    /// Scan up to maxLines from the current position.
+    /// Found statement ranges are appended to `outRanges`.
+    /// Sets state.done = true when the scan is complete.
+    static void scanStatementsChunk(KTextEditor::Document *doc, ChunkedScanState &state, int maxLines, QVector<KTextEditor::Range> &outRanges);
+
     /// Scan statements directly from a KTextEditor document, line by line,
     /// and invoke the executor callback for each detected statement.
     ///
     /// This avoids loading the entire document text into a single QString,
     /// making it suitable for very large files (e.g. multi-GB mysqldumps).
     ///
-    /// The executor receives each statement's raw text (untrimmed) and should
-    /// return true to continue scanning or false to stop early.
+    /// The executor receives the statement's range and should return true to
+    /// continue scanning or false to stop early.
+    /// Text can be extracted from the document via doc->text(range) when needed.
     static void scanAndExecuteStatements(KTextEditor::Document *doc,
                                          bool blankLineBreaksStatements,
-                                         const std::function<bool(const QString &statement)> &executor,
+                                         const std::function<bool(const KTextEditor::Range &range)> &executor,
                                          KTextEditor::Range range = KTextEditor::Range());
 };

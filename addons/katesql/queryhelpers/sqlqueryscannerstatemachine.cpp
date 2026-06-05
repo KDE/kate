@@ -497,8 +497,11 @@ QList<KTextEditor::Range> SQLQueryScannerStateMachine::scanAllStatements(const Q
                 continue;
             }
 
-            // CurrentTokenState::Continue — handle non-space tracking
-            if (!c.isSpace() && stmtStartLine < 0) {
+            // CurrentTokenState::Continue — handle non-space tracking.
+            // Skip characters inside block comments and line comments so
+            // they don't poison statement boundaries (e.g. MySQL conditional
+            // comments like /*!40101 SET ... */).
+            if (!c.isSpace() && !tstate.inBlockComment && !tstate.inLineComment && stmtStartLine < 0) {
                 stmtStartLine = lineIdx;
                 stmtStartCol = col;
             }
@@ -559,64 +562,75 @@ QStringList SQLQueryScannerStateMachine::splitStatements(const QString &text, bo
     return parts;
 }
 
-void SQLQueryScannerStateMachine::scanAndExecuteStatements(KTextEditor::Document *doc,
-                                                           bool blankLineBreaksStatements,
-                                                           const std::function<bool(const QString &statement)> &executor,
-                                                           KTextEditor::Range range)
+SQLQueryScannerStateMachine::ChunkedScanState
+SQLQueryScannerStateMachine::createChunkedScanState(KTextEditor::Document *doc, bool blankLineBreaksStatements, KTextEditor::Range range)
 {
-    if (!doc || !executor) {
-        return;
+    ChunkedScanState state;
+    state.blankLineBreaksStatements = blankLineBreaksStatements;
+
+    if (!doc) {
+        state.done = true;
+        return state;
     }
 
     const int totalDocLines = doc->lines();
     if (totalDocLines == 0) {
-        return;
+        state.done = true;
+        return state;
     }
 
     const int startLine = range.isValid() ? qBound(0, range.start().line(), totalDocLines - 1) : 0;
-    const int startCol = range.isValid() ? range.start().column() : 0;
-    const int endLine = range.isValid() ? qBound(0, range.end().line(), totalDocLines - 1) : totalDocLines - 1;
+    state.firstLineStartCol = range.isValid() ? range.start().column() : 0;
+    state.endLine = range.isValid() ? qBound(0, range.end().line(), totalDocLines - 1) : totalDocLines - 1;
 
-    if (startLine > endLine) {
+    if (startLine > state.endLine) {
+        state.done = true;
+        return state;
+    }
+
+    state.currentLine = startLine;
+    state.firstLine = startLine;
+    state.rangeEndColValid = range.isValid();
+    state.rangeEndCol = range.isValid() ? range.end().column() : 0;
+
+    return state;
+}
+
+void SQLQueryScannerStateMachine::scanStatementsChunk(KTextEditor::Document *doc, ChunkedScanState &state, int maxLines, QVector<KTextEditor::Range> &outRanges)
+{
+    if (!doc || state.done) {
         return;
     }
 
-    QueryState tstate;
-
-    int stmtStartLine = -1;
-    int stmtStartCol = -1;
-
-    auto finalizeStatement = [&](int eLine, int eCol) -> bool {
-        if (stmtStartLine >= 0) {
-            KTextEditor::Range stmtRange(KTextEditor::Cursor(stmtStartLine, stmtStartCol), KTextEditor::Cursor(eLine, eCol));
-            QString text = doc->text(stmtRange);
-            stmtStartLine = -1;
-            stmtStartCol = -1;
-            return executor(std::move(text));
+    auto finalizeStatement = [&](int eLine, int eCol) {
+        if (state.stmtStartLine >= 0) {
+            outRanges.append(KTextEditor::Range(KTextEditor::Cursor(state.stmtStartLine, state.stmtStartCol), KTextEditor::Cursor(eLine, eCol)));
+            state.stmtStartLine = -1;
+            state.stmtStartCol = -1;
         }
-        return true;
     };
 
-    for (int lineIdx = startLine; lineIdx <= endLine; ++lineIdx) {
+    const int lineLimit = state.currentLine + maxLines;
+
+    for (; state.currentLine <= state.endLine && state.currentLine < lineLimit; ++state.currentLine) {
+        const int lineIdx = state.currentLine;
         const QString lineText = doc->line(lineIdx);
         const QChar *d = lineText.constData();
         const int len = static_cast<int>(lineText.length());
 
-        tstate.inLineComment = false;
+        state.tstate.inLineComment = false;
 
-        // Column bounds: first line starts at startCol, last line ends at range end
-        const int colStart = (lineIdx == startLine) ? qMin(startCol, len) : 0;
-        const int colEnd = (lineIdx == endLine && range.isValid()) ? qMin(range.end().column(), len) : len;
+        // Column bounds: first line starts at firstLineStartCol, last line ends at range end
+        const int colStart = (lineIdx == state.firstLine) ? qMin(state.firstLineStartCol, len) : 0;
+        const int colEnd = (lineIdx == state.endLine && state.rangeEndColValid) ? qMin(state.rangeEndCol, len) : len;
 
         // Blank line acts as statement boundary (same rule as scanAllStatements)
         // Only check for lines where we scan from column 0 (full line)
-        if (colStart == 0 && blankLineBreaksStatements && tstate.parenDepth == 0 && !tstate.inBlockComment && !tstate.inString && stmtStartLine >= 0
-            && lineIdx > startLine && isBlankLine(lineText)) {
+        if (colStart == 0 && state.blankLineBreaksStatements && state.tstate.parenDepth == 0 && !state.tstate.inBlockComment && !state.tstate.inString
+            && state.stmtStartLine >= 0 && lineIdx > state.firstLine && isBlankLine(lineText)) {
             int prevEndCol = lastNonSpaceCol(doc->line(lineIdx - 1));
             if (prevEndCol > 0) {
-                if (!finalizeStatement(lineIdx - 1, prevEndCol)) {
-                    return;
-                }
+                finalizeStatement(lineIdx - 1, prevEndCol);
             }
             continue;
         }
@@ -625,7 +639,7 @@ void SQLQueryScannerStateMachine::scanAndExecuteStatements(KTextEditor::Document
             QChar c = d[col];
             QChar next = (col + 1 < len) ? d[col + 1] : QChar();
 
-            CurrentCharacterAction action = processTokenChar(c, next, tstate);
+            CurrentCharacterAction action = processTokenChar(c, next, state.tstate);
 
             if (action == CurrentCharacterAction::SkipNext) {
                 ++col;
@@ -641,32 +655,60 @@ void SQLQueryScannerStateMachine::scanAndExecuteStatements(KTextEditor::Document
             }
 
             if (action == CurrentCharacterAction::StatementEnd) {
-                if (!finalizeStatement(lineIdx, col)) {
-                    return;
-                }
+                finalizeStatement(lineIdx, col);
                 continue;
             }
 
-            // CurrentTokenState::Continue — handle non-space tracking
-            if (!c.isSpace() && stmtStartLine < 0) {
-                stmtStartLine = lineIdx;
-                stmtStartCol = col;
+            // Continue — handle non-space tracking.
+            // Skip characters inside block comments and line comments so
+            // they don't poison statement boundaries.
+            if (!c.isSpace() && !state.tstate.inBlockComment && !state.tstate.inLineComment && state.stmtStartLine < 0) {
+                state.stmtStartLine = lineIdx;
+                state.stmtStartCol = col;
             }
         }
     }
 
-    // Handle last statement without trailing semicolon/blank line
-    if (stmtStartLine >= 0) {
-        for (int line = endLine; line >= stmtStartLine; --line) {
-            int lastCol = lastNonSpaceCol(doc->line(line));
-            // For the endLine with a valid range, cap at range.end().column()
-            if (line == endLine && range.isValid()) {
-                lastCol = qMin(lastCol, range.end().column());
-            }
-            if (lastCol > 0) {
-                finalizeStatement(line, lastCol);
-                break;
+    // If we've processed all lines, finalize any trailing statement
+    if (state.currentLine > state.endLine) {
+        state.done = true;
+        if (state.stmtStartLine >= 0) {
+            for (int line = state.endLine; line >= state.stmtStartLine; --line) {
+                int lastCol = lastNonSpaceCol(doc->line(line));
+                if (line == state.endLine && state.rangeEndColValid) {
+                    lastCol = qMin(lastCol, state.rangeEndCol);
+                }
+                if (lastCol > 0) {
+                    finalizeStatement(line, lastCol);
+                    break;
+                }
             }
         }
+    }
+}
+
+void SQLQueryScannerStateMachine::scanAndExecuteStatements(KTextEditor::Document *doc,
+                                                           bool blankLineBreaksStatements,
+                                                           const std::function<bool(const KTextEditor::Range &range)> &executor,
+                                                           KTextEditor::Range range)
+{
+    if (!doc || !executor) {
+        return;
+    }
+
+    ChunkedScanState state = createChunkedScanState(doc, blankLineBreaksStatements, range);
+    if (state.done) {
+        return;
+    }
+
+    QVector<KTextEditor::Range> ranges;
+    while (!state.done) {
+        scanStatementsChunk(doc, state, 16384, ranges);
+        for (const auto &r : ranges) {
+            if (!executor(r)) {
+                return;
+            }
+        }
+        ranges.clear();
     }
 }

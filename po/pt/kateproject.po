@@ -1,11 +1,12 @@
+# SPDX-FileCopyrightText: 2026 César A. P. Cláudio <cesarapclaudio@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-17 00:47+0000\n"
-"PO-Revision-Date: 2023-04-17 16:12+0100\n"
-"Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
-"Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
+"PO-Revision-Date: 2026-06-05 23:23+0100\n"
+"Last-Translator: César A. P. Cláudio <cesarapclaudio@gmail.com>\n"
+"Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,52 +16,52 @@ msgstr ""
 "X-POFile-IgnoreConsistency: Name\n"
 "X-POFile-SpellExtra: CTags HEAD gitignore Enter es Fossil JSON\n"
 "X-POFile-IgnoreConsistency: Commit\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr "Seleccione a ramificação a extrair. Carregue em 'Esc' para cancelar."
+msgstr "Selecione o ramo para obter. Prima 'Esc' para cancelar."
 
 #: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr "Foi seleccionada a ramificação %1"
+msgstr "Ramo %1 obtido"
 
 #: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr "Não foi possível seleccionar a ramificação: %1, erro: %2"
+msgstr "Falha ao obter o ramo %1, Erro: %2"
 
 #: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr "Indique o nome da nova ramificação. Carregue em 'Esc' para cancelar."
+msgstr "Introduza o novo nome do ramo. Prima 'Esc' para cancelar."
 
 #: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr ""
-"Seleccione a ramificação de onde extrair. Carregue em 'Esc' para cancelar."
+msgstr "Selecione o ramo de onde obter. Prima 'Esc' para cancelar."
 
 #: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr "Foi seleccionada a nova ramificação: %1"
+msgstr "Obtido para o novo ramo: %1"
 
 #: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr "Não foi possível criar uma nova ramificação. Erro \"%1\""
+msgstr "Falha ao criar o novo ramo. Erro \"%1\""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Branch"
-msgstr "Ramificação"
+msgstr "Ramo"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Activity"
-msgstr ""
+msgstr "Última Atividade"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -70,19 +71,19 @@ msgstr "Último Envio"
 #: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Delete"
-msgstr "Apagar"
+msgstr "Eliminar"
 
 #: branchdeletedialog.cpp:142
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] "Tem a certeza que deseja remover a ramificação seleccionada?"
+msgstr[0] "Tem a certeza de que pretende eliminar o ramo selecionado?"
 msgstr[1] "Tem a certeza que deseja remover as ramificações seleccionadas?"
 
 #: branchesdialog.cpp:96
 #, kde-format
 msgid "Select Branch..."
-msgstr "Seleccionar a Ramificação..."
+msgstr "Selecionar Ramo..."
 
 #: branchesdialog.cpp:108 gitwidget.cpp:550 kateprojectpluginview.cpp:74
 #, kde-format

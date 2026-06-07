@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-04 00:48+0000\n"
-"PO-Revision-Date: 2026-05-18 10:09+0200\n"
+"PO-Revision-Date: 2026-06-05 15:50+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -433,25 +433,25 @@ msgstr "Expérimental"
 #, kde-format
 msgctxt "@option:check"
 msgid "Allow running queries in non-SQL files"
-msgstr ""
+msgstr "Autoriser l'exécution de requêtes dans des fichiers non SQL"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable auto query selection"
-msgstr ""
+msgstr "Activer la sélection automatique des requêtes"
 
 #: katesqlconfigpage.cpp:41
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "Considérez une ligne vide comme une séparation d'instructions"
 
 #: katesqlconfigpage.cpp:42
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show query selector popup"
-msgstr ""
+msgstr "Toujours afficher le menu contextuel du sélecteur de requêtes"
 
 #: katesqlconfigpage.cpp:44
 #, kde-format

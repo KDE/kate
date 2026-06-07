@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-04 00:48+0000\n"
-"PO-Revision-Date: 2026-05-25 19:07+0200\n"
+"PO-Revision-Date: 2026-06-06 12:13+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -424,25 +424,25 @@ msgstr "실험적"
 #, kde-format
 msgctxt "@option:check"
 msgid "Allow running queries in non-SQL files"
-msgstr ""
+msgstr "SQL이 아닌 파일에서 쿼리 실행 허용"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable auto query selection"
-msgstr ""
+msgstr "자동 질의 선택 활성화"
 
 #: katesqlconfigpage.cpp:41
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "빈 줄을 구문 구분으로 취급"
 
 #: katesqlconfigpage.cpp:42
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show query selector popup"
-msgstr ""
+msgstr "항상 질의 선택기 팝업 표시"
 
 #: katesqlconfigpage.cpp:44
 #, kde-format
@@ -520,7 +520,7 @@ msgstr "연결"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr "쿼리 실행"
+msgstr "질의 실행"
 
 #: outputstylewidget.cpp:38
 #, kde-format
@@ -685,7 +685,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
-msgstr "쿼리가 성공적으로 수행되었습니다"
+msgstr "질의가 성공적으로 수행되었습니다"
 
 #: sqlmanager.cpp:354 sqlmanager.cpp:392 sqlmanager.cpp:453
 #, kde-format

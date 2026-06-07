@@ -804,11 +804,11 @@
 ><guisubmenu
 >Einrückung</guisubmenu
 ></menuchoice
-> aus den vorhandenen Varianten eine auswählen. Der Modul für das automatische Einrücken stellt auch eine Funktion <menuchoice
+> aus den vorhandenen Varianten eine auswählen. Die Module für das automatische Einrücken stellen auch eine Funktion <menuchoice
 ><guimenu
 >Extras</guimenu
 > <guimenuitem
->Ausrichten</guimenuitem
+>Einrücken</guimenuitem
 ></menuchoice
 > bereit, die die Einrückung der markierten oder der aktuellen Zeile neu berechnet. Damit können Sie durch Markieren des gesamten Textes und Nutzung dieser Funktion das Dokument neu ordnen lassen.</para>
 
@@ -966,6 +966,99 @@
 > oder dauerhaft auf der Seite <link linkend="appearance-borders"
 >Erscheinungsbild</link
 > im Einrichtungsdialog von &kappname; ein- oder ausschalten.</para>
+
+</sect1>
+
+<sect1 id="kate-part-multiple-cursors">
+<title
+>Mehrere Cursor</title>
+
+<para
+>Unterstützung für mehrere Cursor kam mit Version 5.93 von katepart.</para>
+
+<sect2 id="kate-part-create-multiple-cursors">
+<title
+>Mehrere Cursor erzeugen</title>
+
+<itemizedlist>
+<listitem
+><para
+>Um sie mit der Maus zu erzeugen, benutzen Sie &Alt; + &LMB;. Der Modifizierer ist einstellbar, siehe <link linkend="multicursor-modifier-configure"
+>Mehrfachcursor-Modifizierer einrichten</link
+></para
+></listitem>
+
+<listitem
+><para
+>Um sie mit der Tastatur zu erzeugen, drücken Sie <keycombo action="simul"
+>&Ctrl;&Alt;&Up;</keycombo
+>, um einen Cursor oberhalb des primären Cursor zu erzeugen und <keycombo action="simul"
+>&Ctrl;&Alt;&Down;</keycombo
+> unterhalb. Diese Tastenkürzel sind ebenfalls einstellbar.</para
+></listitem>
+
+<listitem
+><para
+>Um Cursor aus einer Auswahl heraus zu erzeugen, markieren Sie zuerst den Text und drücken dann <keycombo action="simul"
+>&Shift;&Alt;<keycap
+>I</keycap
+></keycombo
+>. Dies erzeugt einen Cursor am Ende jeder markierten Zeile.</para
+></listitem>
+
+<listitem
+><para
+>Benutzen Sie <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+>, um das nächste Vorkommen des Wortes, das sich an der Cursor-Position befindet, zu finden, zu markieren und einen Cursor zu erzeugen. Um das aktuelle Wort am Cursor zu überspringen, drücken Sie <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+>, wodurch das aktuell ausgewählte Wort als übersprungen markiert wird. Wenn Sie <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> erneut drücken, wird die Auswahl des aktuellen Worts entfernt und zum nächsten Wort gesprungen.</para>
+</listitem>
+
+<listitem
+><para
+>Benutzen Sie <keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>J</keycap
+></keycombo
+>, um alle Vorkommen des Wortes, das sich an der Cursor-Position befindet, zu finden, zu markieren und einen Cursor an deren Ende erzeugen. . Sie können mit <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> durch die ausgewählten Wörter durchwechseln und mit <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> wie im vorherigen Absatz beschrieben jedes beliebige Wort deselektieren.</para
+></listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2
+><title
+>Mit mehreren Cursorn arbeiten</title>
+<para
+>Nachdem Sie einige Cursor erzeugt haben, können Sie an ihnen die meisten Bearbeitungsaktionen ausführen wie mit einem einzigen Cursor. Beispielsweise wird durch das Tippen eines Buchstaben dieser an jedem Cursor eingefügt. Gleichermaßen können Sie Textumformungen durchführen, &eg; Großschreibung für alle Positionen oder Markierungen.</para>
+
+<para
+>Wenn Sie einen Cursor entfernen wollen, können Sie mit &Alt; + &LMB; auf den zu entfernenden Cursor klicken. Um nur die Cursor in leeren Zeilen zu entfernen, gibt es eine Aktion. Um sie aufzurufen, öffnen Sie die Befehlszeile mit <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>I</keycap
+></keycombo
+>, suchen Sie nach <guimenuitem
+>Cursor in leeren Zeilen entfernen</guimenuitem
+> und drücken Sie &Enter;. Sie können für die Aktion auch ein Tastenkürzel einrichten.</para>
+
+</sect2>
 
 </sect1>
 

@@ -104,16 +104,16 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2021-03-06</date>
+>2022-04-22</date>
 <releaseinfo
->Anwendungen 21.04</releaseinfo>
+>Anwendungen 22.08</releaseinfo>
 
 <abstract>
 <para
 >&kate; ist ein Texteditor für Programmierer von &kde;.</para>
 
 <para
->Dieses Handbuch beschreibt &kate; Version 18.12</para>
+>Dieses Handbuch beschreibt &kate; Version 22.08</para>
 </abstract>
 
 <keywordset>
@@ -154,12 +154,12 @@
 >Einleitung</title>
 
 <para
->Herzlich willkommen zu &kate;, dem Texteditor für Programmierer von &kde; Unter den zahlreichen Funktionen von &kate; finden sich Quelltexthervorhebung für Programmiersprachen von C und C++ über &HTML; bis hin zu Bash-Skripten, die Möglichkeit, Projekte zu erstellen und zu verwalten, eine Schnittstelle zu <acronym
+>Herzlich willkommen zu &kate;, dem Texteditor für Programmierer von &kde;. Unter den zahlreichen Funktionen von &kate; finden sich Quelltexthervorhebung für Programmiersprachen von C und C++ über &HTML; bis hin zu Bash-Skripten, die Möglichkeit, Projekte zu erstellen und zu verwalten, eine Mehrfach-Dokumenten-Schnittstelle (<acronym
 >MDI</acronym
-> und ein eingebauter Terminalemulator. </para>
+>) und ein eingebauter Terminalemulator. </para>
 
 <para
->&kate; ist jedoch mehr als nur ein Texteditor für Programmierer. Die Möglichkeit, viele Dateien gleichzeitig zu öffnen, macht &kate; zu einem idealen Texteditor für die unzähligen Konfigurationsdateien von &UNIX;. </para>
+>&kate; ist jedoch mehr als nur ein Texteditor für Programmierer. Die Möglichkeit, viele Dateien gleichzeitig zu öffnen, macht &kate; zu einem idealen Texteditor für die unzähligen Konfigurationsdateien von &UNIX;. Dieses Dokument wurde in &kate; verfasst. </para>
 
 <para>
 <mediaobject>
@@ -178,10 +178,10 @@
 
 <chapter id="kate-part">
 <title
->Arbeiten mit dem Editor von &kate;</title>
+>Arbeiten mit dem Editor &kate;</title>
 <para
->Informationen über die Grundlagen des Arbeitens mit der Editorkomponente, die &kate; zugrunde liegt, finden Sie im   <ulink url="help:/katepart/kate-part.html"
-> Kapitel Arbeiten mit dem Editor des &katepart;-Handbuchs</ulink
+>Informationen über die Grundlagen des Arbeitens mit der Editorkomponente, die &kate; zugrunde liegt, finden Sie im <ulink url="help:/katepart/kate-part.html"
+>Kapitel Arbeiten mit dem Editor des &katepart;-Handbuchs</ulink
 >.</para>
 </chapter>
 
@@ -191,9 +191,9 @@
 <title
 >Weiterentwickelte Editierwerkzeuge</title>
 <para
->Informationen über das Arbeiten mit den erweiterten Funktionen in &kate;  finden Sie im   <ulink url="help:/katepart/advanced-editing-tools.html"
+>Informationen über das Arbeiten mit den erweiterten Funktionen in &kate; finden Sie im <ulink url="help:/katepart/advanced-editing-tools.html"
 >Kapitel Weiterentwickelte Editierwerkzeuge des &katepart;-Handbuchs</ulink
->. </para>
+>.</para>
 </chapter>
 
 &development-chapter;
@@ -203,7 +203,7 @@
 >Der VI-Eingabemodus</title>
 <para
 >Weitere Informationen über den VI-Eingabemodus von &kate; finden Sie im Kapitel <ulink url="help:/katepart/vi-input-mode-chapter.html"
-> VI-Eingabemodus des Handbuchs zu &katepart;</ulink
+>VI-Eingabemodus des Handbuchs zu &katepart;</ulink
 >.</para>
 </chapter>
 
@@ -217,7 +217,7 @@
 >Danksagungen und Lizenz</title>
 
 <para
->&kate;. Copyright für das Programm 2000, 2001, 2002  - 2005 Die &kate;-Entwickler. </para>
+>&kate;. Copyright für das Programm 2000, 2001, 2002–2005 Die &kate;-Entwickler. </para>
 
 <variablelist>
 <title
@@ -271,7 +271,7 @@
 >&Waldo.Bastian; &Waldo.Bastian.mail;</term>
 <listitem
 ><para
->Puffersystem</para
+>Das tolle Puffersystem</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -337,7 +337,7 @@
 ></term>
 <listitem
 ><para
->Funktion Rückgängig, Integration von KSpell in &kwrite;</para
+>Rückgängig-Verlauf, Integration von KSpell in &kwrite;</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -370,7 +370,7 @@
 
 <variablelist>
 <title
->Viele Andere haben mit geholfen:</title>
+>Viele andere haben mit geholfen:</title>
 <varlistentry>
 <term
 >Matteo Merli <email
@@ -486,8 +486,8 @@
 >Reguläre Ausdrücke</title>
 
 <para
->Weitere Informationen über die Anwendung von regulären Ausdrucken in &kate; finden Sie im Anhang <ulink url="help:/katepart/regular-expressions.html"
->Reguläre Ausdrücke im Handbuch zu &katepart;</ulink
+>Weitere Informationen über die Anwendung von regulären Ausdrucken in &kate; finden Sie im <ulink url="help:/katepart/regular-expressions.html"
+>Anhang Reguläre Ausdrücke im Handbuch zu &katepart;</ulink
 >.</para>
 
 </appendix>

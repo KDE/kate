@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2025-04-06 22:26+0200\n"
+"PO-Revision-Date: 2026-06-06 12:13+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -378,7 +378,7 @@ msgstr "연결"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr "쿼리 실행"
+msgstr "질의 실행"
 
 #: outputstylewidget.cpp:28
 #, kde-format
@@ -526,7 +526,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
-msgstr "쿼리가 성공적으로 수행되었습니다"
+msgstr "질의가 성공적으로 수행되었습니다"
 
 #: sqlmanager.cpp:348
 #, kde-format

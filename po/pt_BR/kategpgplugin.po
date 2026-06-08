@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
-# SPDX-FileCopyrightText: 2025 Marcus Gama <marcus.gama@gmail.com>
+# SPDX-FileCopyrightText: 2025-2026 Marcus Gama <marcus.gama@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-07 00:48+0000\n"
-"PO-Revision-Date: 2025-10-31 07:16-0300\n"
+"PO-Revision-Date: 2026-06-07 04:34-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.08.2\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: gpgmeppwrapper.cpp:83
 #, kde-format
@@ -118,13 +118,12 @@ msgstr "Ocultar chaves expiradas"
 #: kategpgplugin.cpp:223
 #, kde-format
 msgid "  Decrypted  "
-msgstr ""
+msgstr "  Descriptografado  "
 
 #: kategpgplugin.cpp:229
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "  Encrypted  "
-msgstr "A criptografia falhou:"
+msgstr "  Criptografado  "
 
 #: kategpgplugin.cpp:320 kategpgplugin.cpp:451
 #, kde-format
@@ -197,15 +196,14 @@ msgstr ""
 "desabilitada por enquanto…"
 
 #: kategpgplugin.cpp:528
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "Save Encrypted File As"
-msgstr "A criptografia falhou:"
+msgstr "Salvar arquivo criptografado como"
 
 #: kategpgplugin.cpp:530
 #, kde-format
 msgid "GPG Files (*.gpg *.asc)"
-msgstr ""
+msgstr "Arquivos GPG (*.gpg *.asc)"
 
 #: kategpgplugin.cpp:619
 #, kde-format

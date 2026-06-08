@@ -1,15 +1,15 @@
 # Translation of kategpgplugin.po to Catalan (Valencian)
-# Copyright (C) 2025 This_file_is_part_of_KDE
+# Copyright (C) 2025-2026 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# SPDX-FileCopyrightText: 2025 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2025, 2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-07 00:48+0000\n"
-"PO-Revision-Date: 2025-10-31 10:15+0100\n"
+"PO-Revision-Date: 2026-06-07 09:44+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -120,13 +120,12 @@ msgstr "Oculta les claus vençudes"
 #: kategpgplugin.cpp:223
 #, kde-format
 msgid "  Decrypted  "
-msgstr ""
+msgstr "  Desencriptat  "
 
 #: kategpgplugin.cpp:229
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "  Encrypted  "
-msgstr "No s'ha pogut fer l'encriptació: "
+msgstr "  Encriptat  "
 
 #: kategpgplugin.cpp:320 kategpgplugin.cpp:451
 #, kde-format
@@ -205,15 +204,14 @@ msgstr ""
 "desactivat per ara…"
 
 #: kategpgplugin.cpp:528
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "Save Encrypted File As"
-msgstr "No s'ha pogut fer l'encriptació: "
+msgstr "Guarda el fitxer encriptat com a"
 
 #: kategpgplugin.cpp:530
 #, kde-format
 msgid "GPG Files (*.gpg *.asc)"
-msgstr ""
+msgstr "Fitxers GPG (*.gpg *.asc)"
 
 #: kategpgplugin.cpp:619
 #, kde-format
@@ -239,13 +237,3 @@ msgstr "Llargària de la clau"
 #, kde-format
 msgid "User IDs"
 msgstr "Els ID d'usuari"
-
-#~ msgid "Save as ASCII encoded (.asc/.gpg)"
-#~ msgstr "Anomena i guarda codificat ASCII (.asc/.gpg)"
-
-#~ msgid ""
-#~ "Attempted double encryption detected!\n"
-#~ "Encrypting more than once is disabled for now..."
-#~ msgstr ""
-#~ "S'ha detectat un intent d'encriptació doble!\n"
-#~ "L'encriptació més d'una vegada està desactivat de moment…"

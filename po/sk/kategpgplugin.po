@@ -117,13 +117,12 @@ msgstr "Skryť expirované kľúče"
 #: kategpgplugin.cpp:223
 #, kde-format
 msgid "  Decrypted  "
-msgstr ""
+msgstr "  Dešifrované  "
 
 #: kategpgplugin.cpp:229
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "  Encrypted  "
-msgstr "Šifrovanie zlyhalo: "
+msgstr "  Zašifrované  "
 
 #: kategpgplugin.cpp:320 kategpgplugin.cpp:451
 #, kde-format
@@ -193,15 +192,14 @@ msgstr ""
 "Zistený pokus o dvojité šifrovanie! Dvojité šifrovanie je zatiaľ zakázané..."
 
 #: kategpgplugin.cpp:528
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "Save Encrypted File As"
-msgstr "Šifrovanie zlyhalo: "
+msgstr "Uložiť zašifrovaný súbor ako"
 
 #: kategpgplugin.cpp:530
 #, kde-format
 msgid "GPG Files (*.gpg *.asc)"
-msgstr ""
+msgstr "Súbory GPG (*.gpg *.asc)"
 
 #: kategpgplugin.cpp:619
 #, kde-format

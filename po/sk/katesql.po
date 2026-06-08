@@ -427,25 +427,25 @@ msgstr "Experimentálne"
 #, kde-format
 msgctxt "@option:check"
 msgid "Allow running queries in non-SQL files"
-msgstr ""
+msgstr "Povoliť spúšťanie dopytov v iných než SQL súboroch"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable auto query selection"
-msgstr ""
+msgstr "Povoliť automatický výber dopytu"
 
 #: katesqlconfigpage.cpp:41
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "Považovať prázdny riadok za oddeľovač príkazov"
 
 #: katesqlconfigpage.cpp:42
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show query selector popup"
-msgstr ""
+msgstr "Vždy zobraziť vyskakovacie okno výberu dopytu"
 
 #: katesqlconfigpage.cpp:44
 #, kde-format

@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-07 00:48+0000\n"
-"PO-Revision-Date: 2025-10-31 13:15+0200\n"
+"PO-Revision-Date: 2026-06-07 12:42+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -118,13 +118,12 @@ msgstr "Приховати прострочені ключі"
 #: kategpgplugin.cpp:223
 #, kde-format
 msgid "  Decrypted  "
-msgstr ""
+msgstr "  Розшифровано  розшифровано"
 
 #: kategpgplugin.cpp:229
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "  Encrypted  "
-msgstr "Помилка шифрування: "
+msgstr "  Зашифровано  "
 
 #: kategpgplugin.cpp:320 kategpgplugin.cpp:451
 #, kde-format
@@ -196,15 +195,14 @@ msgstr ""
 "вимкнено…"
 
 #: kategpgplugin.cpp:528
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "Save Encrypted File As"
-msgstr "Помилка шифрування: "
+msgstr "Зберегти зашифрований файл як"
 
 #: kategpgplugin.cpp:530
 #, kde-format
 msgid "GPG Files (*.gpg *.asc)"
-msgstr ""
+msgstr "файли GPG (*.gpg *.asc)"
 
 #: kategpgplugin.cpp:619
 #, kde-format

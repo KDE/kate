@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2025, 2026 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2025-2026 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-07 00:48+0000\n"
-"PO-Revision-Date: 2026-03-20 08:13+0200\n"
+"PO-Revision-Date: 2026-06-08 09:13+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.04.1\n"
 
 #: gpgmeppwrapper.cpp:83
 #, kde-format
@@ -114,13 +114,12 @@ msgstr "הסתרת מפתחות שתוקפם פג"
 #: kategpgplugin.cpp:223
 #, kde-format
 msgid "  Decrypted  "
-msgstr ""
+msgstr "   מפוענח  "
 
 #: kategpgplugin.cpp:229
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "  Encrypted  "
-msgstr "ההצפנה נכשלה: "
+msgstr "  מוצפן  "
 
 #: kategpgplugin.cpp:320 kategpgplugin.cpp:451
 #, kde-format
@@ -189,15 +188,14 @@ msgid ""
 msgstr "התגלה ניסיון להצפין פעמיים! הצפנה כפולה מושבתת לעת עתה…"
 
 #: kategpgplugin.cpp:528
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "Save Encrypted File As"
-msgstr "ההצפנה נכשלה: "
+msgstr "שמירת הקובץ המוצפן בשם"
 
 #: kategpgplugin.cpp:530
 #, kde-format
 msgid "GPG Files (*.gpg *.asc)"
-msgstr ""
+msgstr "קובצי GPG‏ (‎*.gpg‏ ‎*.asc)"
 
 #: kategpgplugin.cpp:619
 #, kde-format

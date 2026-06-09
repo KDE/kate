@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-07 00:48+0000\n"
-"PO-Revision-Date: 2025-11-05 20:47+0400\n"
+"PO-Revision-Date: 2026-06-08 21:14+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -114,13 +114,12 @@ msgstr "أخفِ المفاتيح المنتهية الصلاحية"
 #: kategpgplugin.cpp:223
 #, kde-format
 msgid "  Decrypted  "
-msgstr ""
+msgstr " مفكوك التعمية "
 
 #: kategpgplugin.cpp:229
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "  Encrypted  "
-msgstr "فشل التعمية: "
+msgstr " مُعمى "
 
 #: kategpgplugin.cpp:320 kategpgplugin.cpp:451
 #, kde-format
@@ -189,15 +188,14 @@ msgid ""
 msgstr "اكتشف محاولة تعمية مزدوجة! تعمية مرتين معطلة حالياً..."
 
 #: kategpgplugin.cpp:528
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "Save Encrypted File As"
-msgstr "فشل التعمية: "
+msgstr "احفظ الملف المعمى كـ"
 
 #: kategpgplugin.cpp:530
 #, kde-format
 msgid "GPG Files (*.gpg *.asc)"
-msgstr ""
+msgstr "ملفات GPG (*.gpg *.asc)"
 
 #: kategpgplugin.cpp:619
 #, kde-format

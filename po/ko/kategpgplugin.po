@@ -1,81 +1,81 @@
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2026 Shinjo Park <kde@peremen.name>
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: kdeorg\n"
+"Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-07 00:48+0000\n"
-"PO-Revision-Date: 2025-11-08 11:46\n"
-"Last-Translator: \n"
-"Language-Team: Chinese Simplified\n"
-"Language: zh_CN\n"
+"PO-Revision-Date: 2026-06-09 01:17+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: kdeorg\n"
-"X-Crowdin-Project-ID: 269464\n"
-"X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/kategpgplugin.pot\n"
-"X-Crowdin-File-ID: 58672\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: gpgmeppwrapper.cpp:83
 #, kde-format
 msgid "Error! No keys found..."
-msgstr "错误！找不到密钥..."
+msgstr "오류! 키를 찾을 수 없음..."
 
 #: gpgmeppwrapper.cpp:133 gpgmeppwrapper.cpp:135
 #, kde-format
 msgid "Error finding key: "
-msgstr "查找密钥时出错："
+msgstr "키를 찾는 중 오류 발생: "
 
 #: gpgmeppwrapper.cpp:223 gpgmeppwrapper.cpp:225
 #, kde-format
 msgid "Error in symmetric encryption: "
-msgstr "对称加密错误："
+msgstr "대칭 키 암호화에서 오류 발생: "
 
 #: gpgmeppwrapper.cpp:241 gpgmeppwrapper.cpp:243
 #, kde-format
 msgid "Encryption Failed: "
-msgstr "加密失败："
+msgstr "암호화 실패: "
 
 #: kategpgplugin.cpp:70
 #, kde-format
 msgid "GPG Plugin"
-msgstr "GPG 插件"
+msgstr "GPG 플러그인"
 
 #: kategpgplugin.cpp:75
 #, kde-format
 msgid "GPG Decrypt current document"
-msgstr "GPG 解密当前文档"
+msgstr "GPG 현재 문서 복호화"
 
 #: kategpgplugin.cpp:76
 #, kde-format
 msgid "GPG Encrypt current document"
-msgstr "GPG 加密当前文档"
+msgstr "GPG 현재 문서 암호화"
 
 #: kategpgplugin.cpp:80
 #, kde-format
 msgid "<b>GPG Plugin Settings</b>"
-msgstr "<b>GPG 插件设置</b>"
+msgstr "<b>GPG 플러그인 설정</b>"
 
 #: kategpgplugin.cpp:83
 #, kde-format
 msgid "Key ID"
-msgstr "密钥 ID"
+msgstr "키 ID"
 
 #: kategpgplugin.cpp:84
 #, kde-format
 msgid "A search string used to filter keys by available email addresses"
-msgstr "用于通过可用电子邮件地址筛选密钥的搜索字符串"
+msgstr "이메일 주소로 키를 필터할 때 사용할 검색 문자열"
 
 #: kategpgplugin.cpp:87
 #, kde-format
 msgid "Selected GPG Key finerprint for encryption"
-msgstr "选择用于加密的 GPG 密钥指纹"
+msgstr "암호화에 사용하기로 선택한 GPG 키의 지문"
 
 #: kategpgplugin.cpp:88
 #, kde-format
 msgid "<b>To: Email address used for encryption</b>"
-msgstr "<b>收件人：用于加密的电子邮件地址</b>"
+msgstr "<b>암호화에 사용할 받는 사람 이메일 주소</b>"
 
 #: kategpgplugin.cpp:97
 #, kde-format
@@ -84,45 +84,46 @@ msgid ""
 "Only mail addresses associated with your currently selected\n"
 "key fingerprint are available."
 msgstr ""
-"请选择要加密的电子邮件地址。\n"
-"只有与您当前所选密钥指纹相关联的电子邮件地址可用。"
+"암호화할 대상 이메일 주소를 선택하십시오.\n"
+"현재 선택한 키 지문과 연관된 이메일 주소만\n"
+"선택할 수 있습니다."
 
 #: kategpgplugin.cpp:101
 #, kde-format
 msgid ""
 "This is your currently selected GPG key fingerprint that will be used for "
 "encryption."
-msgstr "这是您当前选择的用于加密的 GPG 密钥指纹。"
+msgstr "현재 암호화에 사용하기로 선택한 GPG 키의 지문입니다."
 
 #: kategpgplugin.cpp:104
 #, kde-format
 msgid "Enable symmetric encryption"
-msgstr "启用对称加密"
+msgstr "대칭 키 암호화 활성화"
 
 #: kategpgplugin.cpp:107
 #, kde-format
 msgid "Show only keys for which a private key is available"
-msgstr "仅显示有可用私钥的密钥"
+msgstr "비밀 키가 있는 키만 표시"
 
 #: kategpgplugin.cpp:110
 #, kde-format
 msgid "Hide Expired Keys"
-msgstr "隐藏过期密钥"
+msgstr "만료된 키 숨기기"
 
 #: kategpgplugin.cpp:223
 #, kde-format
 msgid "  Decrypted  "
-msgstr ""
+msgstr "  복호화됨  "
 
 #: kategpgplugin.cpp:229
 #, kde-format
 msgid "  Encrypted  "
-msgstr ""
+msgstr "   암호화됨  "
 
 #: kategpgplugin.cpp:320 kategpgplugin.cpp:451
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
-msgstr "解密文本时出错！没有选择指纹..."
+msgstr "텍스트 복호화 오류! 선택한 지문 없음..."
 
 #: kategpgplugin.cpp:326 kategpgplugin.cpp:456
 #, kde-format
@@ -131,13 +132,14 @@ msgid ""
 "No matching fingerprint found!\n"
 "Or this is not a GPG encrypted text..."
 msgstr ""
-"解密文本时出错！没有找到匹配的指纹！\n"
-"或者这不是 GPG 加密文本..."
+"텍스트 복호화 오류!\n"
+"일치하는 지문을 찾을 수 없습니다!\n"
+"또는 GPG 암호화된 문자열이 아닐 수도 있습니다..."
 
 #: kategpgplugin.cpp:334 kategpgplugin.cpp:464
 #, kde-format
 msgid "Error Decrypting Text!\n"
-msgstr "解密文本时出错！\n"
+msgstr "텍스트 복호화 오류!\n"
 
 #: kategpgplugin.cpp:416 kategpgplugin.cpp:503
 #, kde-format
@@ -145,76 +147,77 @@ msgid ""
 "Error Encrypting Text!\n"
 "No fingerprint selected..."
 msgstr ""
-"加密文本时出错！\n"
-"没有选择指纹..."
+"텍스트 암호화 오류!\n"
+"선택한 지문 없음..."
 
 #: kategpgplugin.cpp:423 kategpgplugin.cpp:547
 #, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
-msgstr "加密文本时出错！找不到匹配指纹...\n"
+msgstr "텍스트 암호화 오류! 일치하는 지문을 찾을 수 없음...\n"
 
 #: kategpgplugin.cpp:427 kategpgplugin.cpp:551
 #, kde-format
 msgid "Error Encrypting Text!"
-msgstr "加密文本时出错！"
+msgstr "텍스트 암호화 오류!"
 
 #: kategpgplugin.cpp:443 kategpgplugin.cpp:490
 #, kde-format
 msgid "Error! No views available..."
-msgstr "错误！没有可用的视图..."
+msgstr "오류! 사용 가능한 보기가 없음..."
 
 #: kategpgplugin.cpp:447
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
-msgstr "解密文本时出错！文档为空..."
+msgstr "텍스트 복호화 오류! 문서가 비어 있음..."
 
 #: kategpgplugin.cpp:495
 #, kde-format
 msgid "Error Encrypting Text! No document available..."
-msgstr "加密文本时出错！没有可用的文档..."
+msgstr "텍스트 암호화 오류! 사용 가능한 문서가 없음..."
 
 #: kategpgplugin.cpp:499
 #, kde-format
 msgid "Error Encrypting Text! Document is empty..."
-msgstr "加密文本时出错！文档为空..."
+msgstr "텍스트 암호화 오류! 문서가 비어 있음..."
 
 #: kategpgplugin.cpp:507
 #, kde-format
 msgid ""
 "Attempted double encryption detected! Encrypting twice is disabled for now..."
-msgstr "尝试双重加密！当前已禁用两次加密..."
+msgstr ""
+"이중 암호화 시도가 감지되었습니다! 두 번 암호화가 비활성화되었습니다..."
 
 #: kategpgplugin.cpp:528
 #, kde-format
 msgid "Save Encrypted File As"
-msgstr ""
+msgstr "암호화된 파일 다른 이름으로 저장"
 
 #: kategpgplugin.cpp:530
 #, kde-format
 msgid "GPG Files (*.gpg *.asc)"
-msgstr ""
+msgstr "GPG 파일 (*.gpg *.asc)"
 
 #: kategpgplugin.cpp:619
 #, kde-format
 msgid "Key Fingerprint"
-msgstr "密钥指纹"
+msgstr "키 지문"
 
 #: kategpgplugin.cpp:619
 #, kde-format
 msgid "Creation Date"
-msgstr "创建日期"
+msgstr "만든 날짜"
 
 #: kategpgplugin.cpp:619
 #, kde-format
 msgid "Expiry Date"
-msgstr "过期日期"
+msgstr "만료 날짜"
 
 #: kategpgplugin.cpp:619
 #, kde-format
 msgid "Key Length"
-msgstr "密钥长度"
+msgstr "키 길이"
 
 #: kategpgplugin.cpp:619
 #, kde-format
 msgid "User IDs"
-msgstr "用户 ID"
+msgstr "사용자 ID"

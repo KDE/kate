@@ -112,12 +112,12 @@ msgstr "隐藏过期密钥"
 #: kategpgplugin.cpp:223
 #, kde-format
 msgid "  Decrypted  "
-msgstr ""
+msgstr "  已解密  "
 
 #: kategpgplugin.cpp:229
 #, kde-format
 msgid "  Encrypted  "
-msgstr ""
+msgstr "  已加密  "
 
 #: kategpgplugin.cpp:320 kategpgplugin.cpp:451
 #, kde-format
@@ -187,12 +187,12 @@ msgstr "尝试双重加密！当前已禁用两次加密..."
 #: kategpgplugin.cpp:528
 #, kde-format
 msgid "Save Encrypted File As"
-msgstr ""
+msgstr "加密文件另存为"
 
 #: kategpgplugin.cpp:530
 #, kde-format
 msgid "GPG Files (*.gpg *.asc)"
-msgstr ""
+msgstr "GPG 文件 (*.gpg *.asc)"
 
 #: kategpgplugin.cpp:619
 #, kde-format

@@ -228,13 +228,3 @@ msgstr "Nøkkellengde"
 #, kde-format
 msgid "User IDs"
 msgstr "Bruker-IDer"
-
-#~ msgid "Save as ASCII encoded (.asc/.gpg)"
-#~ msgstr "Lagre som ASCII-kode (.asc/.gpg)"
-
-#~ msgid ""
-#~ "Attempted double encryption detected!\n"
-#~ "Encrypting more than once is disabled for now..."
-#~ msgstr ""
-#~ "Det er oppdaget forsøk på dobbel kryptering!\n"
-#~ "Kryptering mer enn en gang er slått av inntil videre…"

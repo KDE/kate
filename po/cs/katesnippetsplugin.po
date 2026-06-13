@@ -1,31 +1,32 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # SPDX-FileCopyrightText: 2012, 2014, 2015, 2016, 2017, 2021, 2024 Vit Pelcak <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-12 00:48+0000\n"
-"PO-Revision-Date: 2024-06-05 09:14+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-06-12 23:22+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Vít Pelčák"
+msgstr "Vít Pelčák,Libor Filípek"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "vit@pelcak.org"
+msgstr "vit@pelcak.org,libor.filipek@gmail.com"
 
 #: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
@@ -40,7 +41,7 @@ msgstr "Vytvořit nový repozitář ústřižků"
 #: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
-msgstr ""
+msgstr "<i>nechte prázdné pro univerzální ústřižky</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
@@ -77,13 +78,13 @@ msgstr "T&ypy souborů:"
 #: editrepository.ui:96
 #, kde-format
 msgid "A short name for the repository"
-msgstr ""
+msgstr "Krátký název repozitáře"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNamespaceEdit)
 #: editrepository.ui:103
 #, kde-format
 msgid "Prefix to show in code completion"
-msgstr ""
+msgstr "Předpona, která se má zobrazit při doplňování kódu"
 
 #: editsnippet.cpp:73
 #, kde-format
@@ -92,6 +93,9 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"Text, který se má vložit do dokumentu (informace o speciálních polích "
+"najdete v <a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-"
+"input-template\">příručce</a>)."
 
 #: editsnippet.cpp:79
 #, kde-format
@@ -99,11 +103,13 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"Javaskriptový kód k vyhodnocení (podrobnosti najdete v <a href=\"help:/kate/"
+"kate-application-plugin-snippets.html#snippet-input-script\">příručce</a>)."
 
 #: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "Textová šablona"
 
 #: editsnippet.cpp:87
 #, kde-format
@@ -117,12 +123,17 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"Funkce JavaScriptu sdílené všemi úryvky v tomto repozitáři (viz <a href="
+"\"help:/kate/kate-application-plugin-snippets.html#snippet-input-library"
+"\">příručka</a>)."
 
 #: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"Volitelný popis, který se zobrazí v popiscích. Můžete použít základní "
+"formátování HTML."
 
 #: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
@@ -138,12 +149,13 @@ msgstr "Vytvořit nový ústřižek v repozitáři %1"
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
+"Názvy ústřižků obsahující mezery nemusí při doplňování fungovat správně"
 
 #: editsnippet.cpp:230
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
-msgstr ""
+msgstr "Ústřižek obsahuje neuložené změny. Chcete všechny změny zrušit?"
 
 #: editsnippet.cpp:231
 #, kde-format
@@ -159,13 +171,13 @@ msgstr "Pokračovat v úpravách"
 #: editsnippet.ui:44
 #, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr ""
+msgstr "Název, který se má zobrazit v doplňovacím seznamu (povinné)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
 #, kde-format
 msgid "Snippet Mode:"
-msgstr ""
+msgstr "Režim ústřižků:"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
@@ -183,7 +195,7 @@ msgstr "Ú&střižek"
 #: editsnippet.ui:117
 #, kde-format
 msgid "S&cript Library"
-msgstr ""
+msgstr "Knihovna s&kriptů"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
@@ -230,6 +242,8 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Aby bylo možné tento typ ústřižku použít, je třeba Kate zkompilovat s "
+"knihovnou KTExtEditor verze 6.15.0 nebo vyšší."
 
 #: snippetrepository.cpp:45
 #, kde-format
@@ -243,6 +257,9 @@ msgid ""
 "directory; as such, a copy of the original file has been created within your "
 "personal data directory."
 msgstr ""
+"Upravili jste soubor v repozitáři ústřižků, který se nenachází ve vašem "
+"osobním adresáři; proto byla ve vašem osobním adresáři s daty vytvořena "
+"kopie původního souboru."
 
 #: snippetrepository.cpp:238
 #, kde-format
@@ -272,6 +289,8 @@ msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
 msgstr ""
+"Repozitář je deaktivován, ústřižky v něm obsažené se při doplňování kódu "
+"nezobrazí."
 
 #: snippetrepository.cpp:363
 #, kde-format

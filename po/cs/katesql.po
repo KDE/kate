@@ -3,21 +3,22 @@
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2017.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012.
 # Vit Pelcak <vit@pelcak.org>, 2021, 2023.
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-04 00:48+0000\n"
-"PO-Revision-Date: 2023-01-17 16:08+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-06-12 23:32+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -95,7 +96,7 @@ msgstr "Název databáze:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
-msgstr "Možnosti spojení"
+msgstr "Možnosti spojení:"
 
 #: connectionwizard.cpp:153
 #, kde-format
@@ -158,9 +159,7 @@ msgid "SQL"
 msgstr "SQL"
 
 #: dataoutputwidget.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Obnovit"
@@ -205,37 +204,37 @@ msgstr "Použít jazyk systému"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "Vložit"
 
 #: dataoutputwidget.cpp:192
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "Nastavit prázdné"
 
 #: dataoutputwidget.cpp:202
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "Vložit řádek"
 
 #: dataoutputwidget.cpp:212
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "Odstranit vybrané řádky"
 
 #: dataoutputwidget.cpp:222
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "Duplikovat vybrané řádky"
 
 #: dataoutputwidget.cpp:232
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "Zpět"
 
 #: dataoutputwidget.cpp:242
 #, kde-format
@@ -247,7 +246,7 @@ msgstr "Uložit"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "Upravte tento sloupec tak, aby byl vhodný pro související tabulky"
 
 #: dataoutputwidget.cpp:255
 #, kde-format
@@ -256,24 +255,26 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Upozornění! U sloupců bez omezení jedinečnosti nelze zaručit správné "
+"zkopírování a vložení (pokud se místo cizího klíče zobrazí tento sloupec)."
 
 #: dataoutputwidget.cpp:266
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "Where:"
 
 #: dataoutputwidget.cpp:274
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:275
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "Zadejte klauzuli SQL WHERE pro filtrování dat"
 
 #: dataoutputwidget.cpp:739
 #, kde-kuit-format
@@ -282,12 +283,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "Nelze otevřít soubor <filename>%1</filename>"
 
 #: dataoutputwidget.cpp:759
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "Nelze se připojit k databázi.<nl/><message>%1</message>"
+msgstr "Nepodařilo se uložit změny: <message>%1</message>"
 
 #: exportwizard.cpp:27
 #, kde-format
@@ -410,43 +409,43 @@ msgstr "Uložit a obnovit připojení v sezení Kate"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Povolit úpravu tabulky při procházení dat"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "Povolit úpravy relačních tabulek"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "Experimentální"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@option:check"
 msgid "Allow running queries in non-SQL files"
-msgstr ""
+msgstr "Povolit spouštění dotazů v souborech, které nejsou ve formátu SQL"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable auto query selection"
-msgstr ""
+msgstr "Zapnout automatický výběr dotazu"
 
 #: katesqlconfigpage.cpp:41
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "Považovat prázdný řádek za konec příkazu"
 
 #: katesqlconfigpage.cpp:42
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show query selector popup"
-msgstr ""
+msgstr "Vždy zobrazit vyskakovací okno pro výběr dotazu"
 
 #: katesqlconfigpage.cpp:44
 #, kde-format
@@ -455,18 +454,16 @@ msgid "Output Customization"
 msgstr "Přizpůsobení výstupu"
 
 #: katesqlconfigpage.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Použít jazyk systému"
+msgstr "Použít výchozí systémový"
 
 #: katesqlconfigpage.cpp:52
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Obnovit výchozí systémové hodnoty"
 
 #: katesqlconfigpage.cpp:113
 #, kde-format
@@ -547,20 +544,16 @@ msgid "Background Color"
 msgstr "Barva pozadí"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "Barva textu"
+msgstr "Změněná barva textu"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "Barva pozadí"
+msgstr "Změněná barva pozadí"
 
 #: outputstylewidget.cpp:49
 #, kde-format
@@ -613,13 +606,13 @@ msgstr "Datový výstup SQL"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "Filtrovat tabulky a zobrazení..."
 
 #: schemawidget.cpp:47
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
-msgstr "Schéma databáze:"
+msgstr "Schéma databáze"
 
 #: schemawidget.cpp:142
 #, kde-format
@@ -680,7 +673,7 @@ msgstr "Obnovit"
 #: sqlmanager.cpp:320
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Chyba při přípravě výpisu"
 
 #: sqlmanager.cpp:321
 #, kde-format
@@ -688,6 +681,8 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>Při přípravě dotazu došlo k chybě: %1</p><p>Chcete pokračovat bez "
+"přípravy dotazu?</p>"
 
 #: sqlmanager.cpp:351
 #, kde-format

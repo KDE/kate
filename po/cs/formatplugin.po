@@ -1,21 +1,22 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # SPDX-FileCopyrightText: 2024 Vit Pelcak <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2024-04-30 15:44+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-06-12 12:05+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
 #: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
@@ -27,17 +28,17 @@ msgstr "Formát"
 #: FormatApply.h:22
 #, kde-format
 msgid "Failed to write a temp file"
-msgstr ""
+msgstr "Zápis do dočasného souboru se nezdařil"
 
 #: FormatApply.h:33
 #, kde-format
 msgid "Failed to run git diff: git not installed"
-msgstr ""
+msgstr "Spuštění příkazu git diff se nezdařilo: git není nainstalován"
 
 #: FormatApply.h:38
 #, kde-format
 msgid "Failed to run git diff: %1"
-msgstr ""
+msgstr "Nepodařilo se spustit příkaz git diff: %1"
 
 #: FormatConfig.h:18 FormatPlugin.cpp:118
 #, kde-format
@@ -47,38 +48,40 @@ msgstr "Formátování"
 #: FormatConfig.h:23
 #, kde-format
 msgid "Formatting Settings"
-msgstr ""
+msgstr "Nastavení formátování"
 
 #: FormatPlugin.cpp:88
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
-msgstr ""
+msgstr "Nepodařilo se načíst soubor settings.json. Chyba: %1"
 
 #: FormatPlugin.cpp:124
 #, kde-format
 msgid "Format Document"
-msgstr ""
+msgstr "Formát dokumentu"
 
 #: FormatPlugin.cpp:134
 #, kde-format
 msgid "Format on Save"
-msgstr ""
+msgstr "Formát při uložení"
 
 #: FormatPlugin.cpp:137
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
-msgstr ""
+msgstr "Zakázat formátování při ukládání, aniž by se nastavení uložilo"
 
 #: Formatters.cpp:129
 #, kde-format
 msgid "%1: Unexpected empty command!"
-msgstr ""
+msgstr "%1: Neočekávaný prázdný příkaz!"
 
 #: Formatters.cpp:136
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr ""
+"%1 není nainstalován, nainstalujte jej, abyste mohli tento dokument "
+"naformátovat!"
 
 #: Formatters.cpp:265
 #, kde-format
@@ -93,12 +96,12 @@ msgstr "Neznámý formatterForPython: %1"
 #: Formatters.cpp:308
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr ""
+msgstr "Neznámý formátovač pro YAML: %1, přechází se na yamlfmt"
 
 #: Formatters.cpp:338
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
-msgstr ""
+msgstr "Spuštění formátovače se nezdařilo. Nepodporovaný jazyk %1"
 
 #~ msgid "User Settings"
 #~ msgstr "Nastavení uživatele"

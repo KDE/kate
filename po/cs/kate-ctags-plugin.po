@@ -2,21 +2,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vít Pelčák <vit@pelcak.org>, 2011, 2013, 2014, 2019.
 # Vit Pelcak <vit@pelcak.org>, 2021, 2023.
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2023-02-22 10:54+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-06-12 12:28+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Poedit 3.9\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9
@@ -251,7 +252,7 @@ msgstr "set"
 #: gotosymbolmodel.cpp:67
 #, kde-format
 msgid "CTags executable not found."
-msgstr ""
+msgstr "Spustitelný soubor CTags nebyl nalezen."
 
 #: gotosymbolmodel.cpp:80
 #, kde-format
@@ -261,18 +262,20 @@ msgstr "Spustitelný soubor QTags nelze spustit."
 #: gotosymbolmodel.cpp:148
 #, kde-format
 msgid "CTags was unable to parse this file."
-msgstr ""
+msgstr "CTags nedokázal tento soubor analyzovat."
 
 #: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
 msgstr ""
+"Soubor značek nebyl nalezen. Vytvořte jej prosím ručně nebo pomocí modulu "
+"CTags"
 
 #: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
-msgstr ""
+msgstr "Soubor '%1' nebyl nalezen."
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:36
@@ -327,7 +330,7 @@ msgstr "Soubor databáze CTags"
 #: kate_ctags.ui:215
 #, kde-format
 msgid "Revert to the default command"
-msgstr ""
+msgstr "Vrátit se k výchozímu příkazu"
 
 #. i18n: ectx: property (text), widget (QToolButton, resetCMD)
 #: kate_ctags.ui:218
@@ -348,7 +351,7 @@ msgstr "Odstranit adresář."
 #: kate_ctags_plugin.cpp:81
 #, kde-format
 msgid "(Re-)generate the common CTags database."
-msgstr ""
+msgstr "(Znovu) vygenerovat společnou databázi CTags."
 
 #: kate_ctags_plugin.cpp:99 kate_ctags_view.cpp:54 kate_ctags_view.cpp:61
 #: kate_ctags_view.cpp:104 kate_ctags_view.cpp:142 kate_ctags_view.cpp:550
@@ -426,7 +429,7 @@ msgstr "Vyhledat: %1"
 #: kate_ctags_view.cpp:123 kate_ctags_view.cpp:126
 #, kde-format
 msgid "(Re-)generate the session specific CTags database."
-msgstr ""
+msgstr "(Znovu) vygenerovat databázi CTags pro danou relaci."
 
 #: kate_ctags_view.cpp:131
 #, kde-format
@@ -446,12 +449,12 @@ msgstr "Přejít na globální symbol"
 #: kate_ctags_view.cpp:325 kate_ctags_view.cpp:358
 #, kde-format
 msgid "No hits found"
-msgstr ""
+msgstr "Nebyly nalezeny žádné výsledky"
 
 #: kate_ctags_view.cpp:550
 #, kde-format
 msgid "No folders or files to index"
-msgstr ""
+msgstr "Žádné složky ani soubory k indexování"
 
 #: kate_ctags_view.cpp:576
 #, kde-format

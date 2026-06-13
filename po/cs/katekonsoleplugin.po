@@ -2,21 +2,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # SPDX-FileCopyrightText: 2012, 2013, 2014, 2018, 2020, 2021, 2023, 2024 Vit Pelcak <vit@pelcak.org>
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2013.
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-15 00:46+0000\n"
-"PO-Revision-Date: 2024-04-30 15:43+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-06-12 12:20+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:795
 #, kde-format
@@ -150,7 +151,7 @@ msgstr "Režim synchronizace terminálu"
 #: kateconsole.cpp:706
 #, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr ""
+msgstr "&Nesynchronizovat kartu terminálu s aktuálním dokumentem"
 
 #: kateconsole.cpp:709
 #, kde-format
@@ -167,6 +168,8 @@ msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr ""
+"&Automaticky vytvořit kartu terminálu pro adresář aktuálního dokumentu a "
+"přepnout na ni"
 
 #: kateconsole.cpp:719 kateconsole.cpp:740
 #, kde-format
@@ -194,6 +197,9 @@ msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
+"Při příštím spuštění příkazu '%1' se ujistěte, že se zobrazí varovné okno s "
+"příkazem, který má být odeslán do terminálu, aby si jej uživatel mohl "
+"zkontrolovat."
 
 #: kateconsole.cpp:747
 #, kde-format
@@ -218,6 +224,9 @@ msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
+"To může způsobit potíže s terminálovými aplikacemi, které využívají klávesu "
+"Esc, například s programem vim. Zadejte tyto aplikace do pole níže (seznam "
+"oddělený čárkami)"
 
 #: kateconsole.cpp:800
 #, kde-format

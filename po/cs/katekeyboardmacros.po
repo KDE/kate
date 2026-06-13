@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-16 00:46+0000\n"
-"PO-Revision-Date: 2026-01-27 18:56+0100\n"
-"Last-Translator: Jan Papez (honyczek) <honyczek@centrum.cz>\n"
+"PO-Revision-Date: 2026-06-12 12:30+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-cs@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Poedit 3.9\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -53,7 +53,7 @@ msgstr "Nelze uložit makro během nahrávání. Nejprve ukončete nahrávání"
 #: keyboardmacrosplugin.cpp:241
 #, kde-format
 msgid "Recording…"
-msgstr "Nahrávání..."
+msgstr "Nahrávání…"
 
 #: keyboardmacrosplugin.cpp:277
 #, kde-format
@@ -241,7 +241,7 @@ msgstr "Načíst makro '%1' jako aktuální."
 #: keyboardmacrospluginview.cpp:193
 #, kde-format
 msgid "Play %1"
-msgstr "Přehrát %1 "
+msgstr "Přehrát %1"
 
 #: keyboardmacrospluginview.cpp:194
 #, kde-format

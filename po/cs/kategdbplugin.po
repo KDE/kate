@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-21 00:49+0000\n"
-"PO-Revision-Date: 2023-05-31 11:35+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-06-12 12:30+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.04.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Poedit 3.9\n"
 
 #: backend.cpp:48 dapbackend.cpp:175
 #, kde-format
@@ -228,7 +228,7 @@ msgstr ""
 #: dapbackend.cpp:313
 #, kde-format
 msgid "Active thread: %1."
-msgstr "Aktivní vlákno: %1"
+msgstr "Aktivní vlákno: %1."
 
 #: dapbackend.cpp:318
 #, kde-format
@@ -288,7 +288,7 @@ msgstr "ladění procesu [%1] %2"
 #: dapbackend.cpp:478
 #, kde-format
 msgid "debugging process %1"
-msgstr "ladění procesu [%1] "
+msgstr "ladění procesu [%1]"
 
 #: dapbackend.cpp:481
 #, kde-format
@@ -440,12 +440,12 @@ msgstr "žádný"
 #: dapbackend.cpp:1239
 #, kde-format
 msgid "Current frame: "
-msgstr "Současný rámec:"
+msgstr "Současný rámec: "
 
 #: dapbackend.cpp:1246
 #, kde-format
 msgid "Session state: "
-msgstr "Stav sezení:"
+msgstr "Stav sezení: "
 
 #: dapbackend.cpp:1249
 #, kde-format

@@ -1,21 +1,22 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Vit Pelcak <vit@pelcak.org>, 2017, 2021.
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2021-08-19 11:19+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-06-12 12:16+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.08.0\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: ktexteditorpreviewview.cpp:29
 #, kde-format
@@ -51,17 +52,19 @@ msgstr "Automaticky aktualizovat náhled"
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
 msgstr ""
+"Zapnout automatické aktualizace náhledu podle aktuálního obsahu dokumentu"
 
 #: previewwidget.cpp:55
 #, kde-format
 msgid "Manually Update Preview"
-msgstr ""
+msgstr "Ručně aktualizovat náhled"
 
 #: previewwidget.cpp:57
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
 msgstr ""
+"Zakázat automatické aktualizace náhledu podle aktuálního obsahu dokumentu"
 
 #: previewwidget.cpp:62
 #, kde-format

@@ -3,21 +3,22 @@
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2017.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012.
 # Vit Pelcak <vit@pelcak.org>, 2021, 2023.
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2023-01-17 16:08+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-06-12 23:32+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -95,7 +96,7 @@ msgstr "Název databáze:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
-msgstr "Možnosti spojení"
+msgstr "Možnosti spojení:"
 
 #: connectionwizard.cpp:150
 #, kde-format
@@ -452,7 +453,7 @@ msgstr "Datový výstup SQL"
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
-msgstr "Schéma databáze:"
+msgstr "Schéma databáze"
 
 #: schemawidget.cpp:89
 #, kde-format
@@ -513,7 +514,7 @@ msgstr "Obnovit"
 #: sqlmanager.cpp:314
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Chyba při přípravě výpisu"
 
 #: sqlmanager.cpp:315
 #, kde-format
@@ -521,6 +522,8 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>Při přípravě dotazu došlo k chybě: %1</p><p>Chcete pokračovat bez "
+"přípravy dotazu?</p>"
 
 #: sqlmanager.cpp:345
 #, kde-format

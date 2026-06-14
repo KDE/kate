@@ -1,31 +1,32 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # SPDX-FileCopyrightText: 2024 Vit Pelcak <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-03 00:46+0000\n"
-"PO-Revision-Date: 2024-05-29 11:43+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-06-13 23:06+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: AsmView.cpp:303
 #, kde-format
 msgid "Scroll to source"
-msgstr ""
+msgstr "Přejít na zdroj"
 
 #: AsmView.cpp:313
 #, kde-format
 msgid "Jump to label"
-msgstr ""
+msgstr "Přejít na štítek"
 
 #: AsmView.cpp:334
 #, kde-format
@@ -40,46 +41,46 @@ msgstr "Vybrat vše"
 #: ce_plugin.cpp:35
 #, kde-format
 msgid "Compiler Explorer"
-msgstr ""
+msgstr "Prohlížeč kompilátoru"
 
 #: ce_plugin.cpp:38
 #, kde-format
 msgid "&Open Current File in Compiler Explorer"
-msgstr ""
+msgstr "&Otevřít aktuální soubor v Prohlížeči kompilátoru"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgid "No file open"
-msgstr ""
+msgstr "Není otevřen žádný soubor"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgctxt "error category title"
 msgid "CompilerExplorer"
-msgstr ""
+msgstr "CompilerExplorer"
 
 #: ce_widget.cpp:145
 #, kde-format
 msgid "Do you really want to close %1?"
-msgstr ""
+msgstr "Opravdu chcete zavřít %1?"
 
 #: ce_widget.cpp:196
 #, kde-format
 msgctxt "@info:tooltip Languages like C, C++, Rust"
 msgid "Languages"
-msgstr ""
+msgstr "Jazyky"
 
 #: ce_widget.cpp:197
 #, kde-format
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
-msgstr ""
+msgstr "Kompilátory"
 
 #: ce_widget.cpp:198
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
-msgstr ""
+msgstr "Možnosti kompilátoru…"
 
 #: ce_widget.cpp:215
 #, kde-format
@@ -94,60 +95,62 @@ msgstr "Možnosti"
 #: ce_widget.cpp:329
 #, kde-format
 msgid "Demangle Identifiers"
-msgstr ""
+msgstr "Odebrat identifikátory"
 
 #: ce_widget.cpp:330
 #, kde-format
 msgid "Filter Library Functions"
-msgstr ""
+msgstr "Filtrovat funkce knihovny"
 
 #: ce_widget.cpp:331
 #, kde-format
 msgid "Filter Unused Labels"
-msgstr ""
+msgstr "Filtrovat nepoužité značky"
 
 #: ce_widget.cpp:332
 #, kde-format
 msgid "Filter Comments"
-msgstr ""
+msgstr "Filtrovat komentáře"
 
 #: ce_widget.cpp:333
 #, kde-format
 msgid "Intel Syntax"
-msgstr ""
+msgstr "Intel Syntax"
 
 #: ce_widget.cpp:337
 #, kde-format
 msgid "Change URL…"
-msgstr ""
+msgstr "Změnit URL..."
 
 #: ce_widget.cpp:343
 #, kde-format
 msgid "Enter URL"
-msgstr ""
+msgstr "Zadejte URL"
 
 #: ce_widget.cpp:344
 #, kde-format
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
+"Zadejte URL adresu instance CompilerExplorer, např. \"http://"
+"localhost:10240\""
 
 #: ce_widget.cpp:404
 #, kde-format
 msgid "Compiler returned: %1"
-msgstr ""
+msgstr "Kompilátor vrátil: %1"
 
 #: ce_widget.cpp:554
 #, kde-format
 msgid "Reveal linked code"
-msgstr ""
+msgstr "Zobrazit propojený kód"
 
 #: ce_widget.cpp:576
 #, kde-format
 msgid "CompilerExplorer"
-msgstr ""
+msgstr "CompilerExplorer"
 
 #: ce_widget.cpp:592
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
-msgstr ""
+msgstr "Bylo nalezeno '%1' příznaků kompilátoru. Výstup nemusí být užitečný."

@@ -2,21 +2,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vít Pelčák <vit@pelcak.org>, 2015, 2017.
 # Vit Pelcak <vit@pelcak.org>, 2021.
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2021-08-19 15:00+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-06-13 22:46+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.08.0\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
@@ -28,43 +29,43 @@ msgstr "Spustit"
 #: config.ui:24
 #, kde-format
 msgid "Run time (milliseconds):"
-msgstr ""
+msgstr "Čas spuštění (milisekundy)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_35)
 #: config.ui:41
 #, kde-format
 msgid "Probe level:"
-msgstr ""
+msgstr "Úroveň průzkumu:"
 
 #. i18n: ectx: property (text), widget (QLabel, userOpsLabel)
 #: config.ui:58
 #, kde-format
 msgid "User operations layout module:"
-msgstr ""
+msgstr "Modul rozvržení uživatelských operací:"
 
 #. i18n: ectx: property (text), widget (QLabel, userClassLabel)
 #: config.ui:71
 #, kde-format
 msgid "User classes file:"
-msgstr ""
+msgstr "Soubor tříd uživatelů:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: config.ui:84
 #, kde-format
 msgid "Base period:"
-msgstr ""
+msgstr "Základní perioda:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: config.ui:101
 #, kde-format
 msgid "Reduction core count:"
-msgstr ""
+msgstr "Snížení počtu jader:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: config.ui:118
 #, kde-format
 msgid "Time core count:"
-msgstr ""
+msgstr "Počet jader v čase:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, system)
 #: config.ui:136
@@ -76,85 +77,85 @@ msgstr "Systém"
 #: config.ui:142
 #, kde-format
 msgid "Model inertia success rate threshold:"
-msgstr ""
+msgstr "Prahová hodnota úspěšnosti modelu setrvačnosti:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: config.ui:159
 #, kde-format
 msgid "Model inertia count threshold:"
-msgstr ""
+msgstr "Prahová hodnota počtu setrvačných pohybů modelu:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: config.ui:176
 #, kde-format
 msgid "Targeted pattern extractor delta success rate threshold:"
-msgstr ""
+msgstr "Prahová hodnota úspěšnosti extraktoru cílených vzorců delta:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: config.ui:193
 #, kde-format
 msgid "Minimum simulation time horizon:"
-msgstr ""
+msgstr "Minimální časový horizont simulace:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: config.ui:210
 #, kde-format
 msgid "Maximum simulation time horizon:"
-msgstr ""
+msgstr "Maximální časový horizont simulace:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: config.ui:227
 #, kde-format
 msgid "Simulation time horizon:"
-msgstr ""
+msgstr "Časový horizont simulace:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: config.ui:247
 #, kde-format
 msgid "Targeted pattern extractor time horizon:"
-msgstr ""
+msgstr "Časový horizont pro extrakci cílených vzorců:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: config.ui:264
 #, kde-format
 msgid "Perf sampling period:"
-msgstr ""
+msgstr "Doba vzorkování:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: config.ui:281
 #, kde-format
 msgid "Float tolerance:"
-msgstr ""
+msgstr "Tolerance vznášení:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: config.ui:298
 #, kde-format
 msgid "Timer tolerance:"
-msgstr ""
+msgstr "Tolerance časovače:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_16)
 #: config.ui:318
 #, kde-format
 msgid "Primary time horizon:"
-msgstr ""
+msgstr "Hlavní časový horizont:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_17)
 #: config.ui:335
 #, kde-format
 msgid "Secondary time horizon:"
-msgstr ""
+msgstr "Sekundární časový horizont:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
 #: config.ui:352
 #, kde-format
 msgid "Notification marker resilience:"
-msgstr ""
+msgstr "Odolnost oznamovacího indikátoru:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_19)
 #: config.ui:369
 #, kde-format
 msgid "Goal prediction success resilience:"
-msgstr ""
+msgstr "Odolnost úspěšnosti předpovědí cílů:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, debugtab)
 #: config.ui:387
@@ -172,49 +173,49 @@ msgstr "Ladění:"
 #: config.ui:413
 #, kde-format
 msgid "Debug windows:"
-msgstr ""
+msgstr "Ladící okna:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_24)
 #: config.ui:426
 #, kde-format
 msgid "Traces:"
-msgstr ""
+msgstr "Výpisy:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceCompInputs)
 #: config.ui:433
 #, kde-format
 msgid "Composite inputs"
-msgstr ""
+msgstr "Kompozitní vstupy"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceCompOutputs)
 #: config.ui:440
 #, kde-format
 msgid "Composite outputs"
-msgstr ""
+msgstr "Kompozitní výstupy"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelIn)
 #: config.ui:447
 #, kde-format
 msgid "Model inputs"
-msgstr ""
+msgstr "Modelové vstupy"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelOut)
 #: config.ui:454
 #, kde-format
 msgid "Model outputs"
-msgstr ""
+msgstr "Modelové výstupy"
 
 #. i18n: ectx: property (text), widget (QCheckBox, tracePredMon)
 #: config.ui:461
 #, kde-format
 msgid "Prediction monitoring"
-msgstr ""
+msgstr "Sledování předpovědí"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceGoalMon)
 #: config.ui:468
 #, kde-format
 msgid "Goal monitoring"
-msgstr ""
+msgstr "Sledování cílů"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelRev)
 #: config.ui:475
@@ -226,7 +227,7 @@ msgstr "Revize modelu"
 #: config.ui:482
 #, kde-format
 msgid "Model/composite injections"
-msgstr ""
+msgstr "Modelové/kompozitní výplně"
 
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: config.ui:489
@@ -250,42 +251,42 @@ msgstr "Ignorovat pojmenované objekty:"
 #: config.ui:533
 #, kde-format
 msgid "Dump objects to file:"
-msgstr ""
+msgstr "Vypsat objekty do souboru:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_28)
 #: config.ui:543
 #, kde-format
 msgid "Test objects:"
-msgstr ""
+msgstr "Testované objekty:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_30)
 #: config.ui:560
 #, kde-format
 msgid "Decompile models:"
-msgstr ""
+msgstr "Dekompilace modelů:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_31)
 #: config.ui:577
 #, kde-format
 msgid "Ignore named models:"
-msgstr ""
+msgstr "Ignorovat pojmenované modely:"
 
 #. i18n: ectx: property (text), widget (QLabel, dumpFileLabel)
 #: config.ui:594
 #, kde-format
 msgid "Dump models to file:"
-msgstr ""
+msgstr "Vypsat modely do souboru:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_33)
 #: config.ui:604
 #, kde-format
 msgid "Test models:"
-msgstr ""
+msgstr "Testované modely:"
 
 #: replicodeconfigpage.cpp:24
 #, kde-format
 msgid "Path to replicode executor:"
-msgstr ""
+msgstr "Cesta ke spouštěči replicode:"
 
 #: replicodeconfigpage.cpp:39 replicodeview.cpp:51
 #, kde-format
@@ -295,22 +296,22 @@ msgstr "Replicode"
 #: replicodeconfigpage.cpp:44
 #, kde-format
 msgid "Replicode configuration"
-msgstr ""
+msgstr "Nastavení Replicode"
 
 #: replicodeview.cpp:38
 #, kde-format
 msgid "Run replicode"
-msgstr ""
+msgstr "Spustit replicode"
 
 #: replicodeview.cpp:42
 #, kde-format
 msgid "Stop replicode"
-msgstr ""
+msgstr "Zastavit replicode"
 
 #: replicodeview.cpp:61
 #, kde-format
 msgid "Replicode Config"
-msgstr ""
+msgstr "Nastavení Replicode"
 
 #: replicodeview.cpp:64
 #, kde-format
@@ -328,12 +329,12 @@ msgstr "Zastavit (%1)"
 #, kde-format
 msgctxt "@title:window"
 msgid "Active Document Not Found"
-msgstr ""
+msgstr "Aktivní dokument nenalezen"
 
 #: replicodeview.cpp:100
 #, kde-format
 msgid "Could not find an active document to run."
-msgstr ""
+msgstr "Nenašel se žádný aktivní dokument, který by bylo možné spustit."
 
 #: replicodeview.cpp:105
 #, kde-format
@@ -344,7 +345,7 @@ msgstr "Prázdný dokument"
 #: replicodeview.cpp:105
 #, kde-format
 msgid "Cannot execute an empty document."
-msgstr ""
+msgstr "Nelze spustit prázdný dokument."
 
 #: replicodeview.cpp:112
 #, kde-format
@@ -355,13 +356,13 @@ msgstr "Soubor nenalezen"
 #: replicodeview.cpp:112
 #, kde-format
 msgid "Unable to open source file for reading."
-msgstr ""
+msgstr "Nelze otevřít zdrojový soubor pro čtení."
 
 #: replicodeview.cpp:127
 #, kde-format
 msgctxt "@title:window"
 msgid "Replicode Executable Not Found"
-msgstr ""
+msgstr "Spouštěč Replicode nenalezen"
 
 #: replicodeview.cpp:128
 #, kde-format
@@ -369,12 +370,14 @@ msgid ""
 "Unable to find replicode executor.\n"
 "Please go to settings and set the path to the Replicode executable."
 msgstr ""
+"Nelze najít spouštěč Replicode.\n"
+"Přejděte do nastavení a zadejte cestu ke spustitelnému souboru Replicode."
 
 #: replicodeview.cpp:135
 #, kde-format
 msgctxt "@title:window"
 msgid "User Operator Library Not Found"
-msgstr ""
+msgstr "Knihovna uživatelského operátora nebyla nalezena"
 
 #: replicodeview.cpp:136
 #, kde-format
@@ -382,13 +385,15 @@ msgid ""
 "Unable to find user operator library.\n"
 "Please go to settings and set the path to the library."
 msgstr ""
+"Nelze najít knihovnu uživatelských operátorů.\n"
+"Přejděte do nastavení a zadejte cestu ke knihovně."
 
 #: replicodeview.cpp:201
 #, kde-format
 msgid "Replicode execution failed: %1"
-msgstr ""
+msgstr "Spuštění Replicode se nezdařilo: %1"
 
 #: replicodeview.cpp:211
 #, kde-format
 msgid "Replicode execution finished."
-msgstr ""
+msgstr "Spuštění Replicode bylo dokončeno."

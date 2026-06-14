@@ -496,21 +496,24 @@ void KateApp::restoreKate()
     // we want no auto saving during application startup, we handle that explicitly
     KateSessionManager::AutoSaveBlocker blocker(sessionManager());
 
-    KConfig *sessionConfig = KConfigGui::sessionConfig();
+    // ensure we work on a local copy
+    // KConfigGui::sessionConfig() might be deleted, see bug 520168
+    KConfig sessionConfigCopy(QString(), KConfig::SimpleConfig);
+    sessionConfigCopy.copyFrom(*KConfigGui::sessionConfig());
 
     // activate again correct session!!!
-    QString lastSession(sessionConfig->group(QStringLiteral("General")).readEntry("Last Session", QString()));
+    QString lastSession(sessionConfigCopy.group(QStringLiteral("General")).readEntry("Last Session", QString()));
     sessionManager()->activateSession(lastSession, false, false);
 
     // plugins
-    KateApp::self()->pluginManager()->loadConfig(sessionConfig);
+    KateApp::self()->pluginManager()->loadConfig(&sessionConfigCopy);
 
     // restore the files we need
-    m_docManager.restoreDocumentList(sessionConfig);
+    m_docManager.restoreDocumentList(&sessionConfigCopy);
 
     // restore all windows ;)
     for (int n = 1; KMainWindow::canBeRestored(n); n++) {
-        newMainWindow(sessionConfig, QString::number(n));
+        newMainWindow(&sessionConfigCopy, QString::number(n));
     }
 
     // oh, no mainwindow, create one, should not happen, but make sure ;)

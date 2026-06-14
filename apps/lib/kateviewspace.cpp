@@ -1288,7 +1288,7 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     }
 }
 
-void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &viewConfGrp)
+void KateViewSpace::saveConfig(KConfig *config, int myIndex, const QString &viewConfGrp)
 {
     const QString groupname = QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg(myIndex);
     // Ensure that we store the group name. It is used to save config for views inside
@@ -1360,7 +1360,7 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
     }
 }
 
-void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *config, const QString &groupname)
+void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfig *config, const QString &groupname)
 {
     KConfigGroup group(config, groupname);
 

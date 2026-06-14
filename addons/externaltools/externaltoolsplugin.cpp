@@ -97,7 +97,7 @@ void KateExternalToolsPlugin::migrateConfig()
 
             KConfig newConfig(newConfPath);
             KConfigGroup newGroup = newConfig.group(QStringLiteral("General"));
-            oldGroup.copyTo(&newGroup, KConfigBase::Persistent);
+            oldGroup.copyTo(&newGroup, KConfig::Persistent);
         }
 
         QFile::remove(oldFile);

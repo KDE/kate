@@ -12,7 +12,6 @@
 #include "katemainwindow.h"
 
 #include <KConfig>
-#include <KConfigBase>
 #include <KConfigGroup>
 #include <KPluginFactory>
 #include <KTextEditor/Plugin>
@@ -177,7 +176,7 @@ void KatePluginManager::unloadAllPlugins()
     }
 }
 
-void KatePluginManager::enableAllPluginsGUI(KateMainWindow *win, const KConfigBase *config)
+void KatePluginManager::enableAllPluginsGUI(KateMainWindow *win, const KConfig *config)
 {
     QElapsedTimer t;
     t.start();
@@ -227,7 +226,7 @@ void KatePluginManager::unloadPlugin(KatePluginInfo *item)
     Q_EMIT KateApp::self()->wrapper()->pluginDeleted(item->saveName(), plugin);
 }
 
-void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, const KConfigBase *config)
+void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, const KConfig *config)
 {
     // plugin around at all?
     if (!item->plugin) {

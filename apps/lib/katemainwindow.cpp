@@ -9,7 +9,6 @@
 
 // BEGIN Includes
 #include "katemainwindow.h"
-#include <KColorSchemeMenu>
 
 #include "diagnostics/diagnosticview.h"
 #include "filehistorywidget.h"
@@ -36,6 +35,7 @@
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KColorSchemeManager>
+#include <KColorSchemeMenu>
 #include <KConfigGroup>
 #include <KEditToolBar>
 #include <KFileItem>
@@ -146,7 +146,7 @@ QSize KateContainerStackedLayout::minimumSize() const
     return QStackedLayout::minimumSize();
 }
 
-KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool userTriggered)
+KateMainWindow::KateMainWindow(const KConfig *sconfig, const QString &sgroup, bool userTriggered)
     : KateMDI::MainWindow(nullptr)
     , m_wrapper(new KTextEditor::MainWindow(this))
     , m_mainWindowCommands(this)
@@ -726,7 +726,7 @@ void KateMainWindow::setupActions()
     });
 }
 
-void KateMainWindow::setupDiagnosticsView(KConfig *sconfig)
+void KateMainWindow::setupDiagnosticsView(const KConfig *sconfig)
 {
     if (KateApp::isKWrite()) {
         return;

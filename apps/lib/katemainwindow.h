@@ -53,7 +53,7 @@ public:
      * @param sgroup session config group to use
      * @param userTriggered is the user creating this window or is it part of session restore / startup
      */
-    KateMainWindow(KConfig *sconfig, const QString &sgroup, bool userTriggered);
+    KateMainWindow(const KConfig *sconfig, const QString &sgroup, bool userTriggered);
 
     /**
      * Destruct the nice window
@@ -146,7 +146,7 @@ private:
     void setupActions();
     bool queryClose() override;
 
-    void setupDiagnosticsView(KConfig *);
+    void setupDiagnosticsView(const KConfig *);
 
     /**
      * read some global options from katerc

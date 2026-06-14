@@ -1745,7 +1745,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
     showWelcomeViewOrNewDocumentIfNeeded();
 }
 
-QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfigBase *configBase, const QString &viewConfGrp)
+QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfig *configBase, const QString &viewConfGrp)
 {
     /**
      * avoid to export invisible view spaces
@@ -1797,7 +1797,7 @@ QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfigBase *config
     return grp;
 }
 
-void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QString &group, KateSplitter *parent, const QString &viewConfGrp)
+void KateViewManager::restoreSplitter(const KConfig *configBase, const QString &group, KateSplitter *parent, const QString &viewConfGrp)
 {
     KConfigGroup config(configBase, group);
 

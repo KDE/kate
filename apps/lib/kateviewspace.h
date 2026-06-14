@@ -17,7 +17,7 @@
 
 #include <QWidget>
 
-class KConfigBase;
+class KConfig;
 class KateViewManager;
 class QStackedWidget;
 class QToolButton;
@@ -73,8 +73,8 @@ public:
     // might be nullptr, if there is no view
     KTextEditor::View *currentView();
 
-    void saveConfig(KConfigBase *config, int myIndex, const QString &viewConfGrp);
-    void restoreConfig(KateViewManager *viewMan, const KConfigBase *config, const QString &group);
+    void saveConfig(KConfig *config, int myIndex, const QString &viewConfGrp);
+    void restoreConfig(KateViewManager *viewMan, const KConfig *config, const QString &group);
 
     /**
      * Returns the document list of this tab bar.

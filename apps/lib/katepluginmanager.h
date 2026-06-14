@@ -12,7 +12,7 @@
 
 class KConfig;
 class KateMainWindow;
-class KConfigBase;
+class KConfig;
 namespace KTextEditor
 {
 class Plugin;
@@ -40,7 +40,7 @@ public:
 
     void unloadAllPlugins();
 
-    void enableAllPluginsGUI(KateMainWindow *win, const KConfigBase *config = nullptr);
+    void enableAllPluginsGUI(KateMainWindow *win, const KConfig *config = nullptr);
     void disableAllPluginsGUI(KateMainWindow *win);
 
     void loadConfig(KConfig *);
@@ -49,7 +49,7 @@ public:
     bool loadPlugin(KatePluginInfo *item);
     void unloadPlugin(KatePluginInfo *item);
 
-    static void enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, const KConfigBase *config = nullptr);
+    static void enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, const KConfig *config = nullptr);
     static void enablePluginGUI(KatePluginInfo *item);
 
     static void disablePluginGUI(KatePluginInfo *item, KateMainWindow *win);

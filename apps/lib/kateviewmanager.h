@@ -28,7 +28,7 @@ class Cursor;
 class KateDocumentInfo;
 class DocOrWidget;
 class KConfigGroup;
-class KConfigBase;
+class KConfig;
 class KateMainWindow;
 class KateViewSpace;
 class QScrollBar;
@@ -133,12 +133,12 @@ private:
      * If child splitters are found, it calls it self with those as the argument.
      * If a viewspace child is found, it is asked to save its filelist.
      */
-    QString saveSplitterConfig(KateSplitter *s, KConfigBase *config, const QString &viewConfGrp);
+    QString saveSplitterConfig(KateSplitter *s, KConfig *config, const QString &viewConfGrp);
 
     /** Restore a single splitter.
      * This is all the work is done for @see saveSplitterConfig()
      */
-    void restoreSplitter(const KConfigBase *config, const QString &group, KateSplitter *parent, const QString &viewConfGrp);
+    void restoreSplitter(const KConfig *config, const QString &group, KateSplitter *parent, const QString &viewConfGrp);
 
     void removeViewSpace(KateViewSpace *viewspace);
 

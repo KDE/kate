@@ -1419,11 +1419,7 @@ void KateMainWindow::saveProperties(KConfigGroup &config, bool includeViewConfig
 void KateMainWindow::readProperties(const KConfigGroup &config)
 {
     startRestore(config);
-
-    // perhaps enable plugin guiss have to be ported
-    KConfigBase *configBase = const_cast<KConfig *>(config.config());
-    KateApp::self()->pluginManager()->enableAllPluginsGUI(this, configBase);
-
+    KateApp::self()->pluginManager()->enableAllPluginsGUI(this, config.config());
     finishRestore();
 
     loadOpenRecent(config.config());

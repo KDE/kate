@@ -177,7 +177,7 @@ void KatePluginManager::unloadAllPlugins()
     }
 }
 
-void KatePluginManager::enableAllPluginsGUI(KateMainWindow *win, KConfigBase *config)
+void KatePluginManager::enableAllPluginsGUI(KateMainWindow *win, const KConfigBase *config)
 {
     QElapsedTimer t;
     t.start();
@@ -227,7 +227,7 @@ void KatePluginManager::unloadPlugin(KatePluginInfo *item)
     Q_EMIT KateApp::self()->wrapper()->pluginDeleted(item->saveName(), plugin);
 }
 
-void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, KConfigBase *config)
+void KatePluginManager::enablePluginGUI(KatePluginInfo *item, KateMainWindow *win, const KConfigBase *config)
 {
     // plugin around at all?
     if (!item->plugin) {

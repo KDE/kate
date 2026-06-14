@@ -239,7 +239,7 @@ const QList<KateExternalTool *> &KateExternalToolsPlugin::tools() const
 QList<KateExternalTool> KateExternalToolsPlugin::defaultTools() const
 {
     if (m_defaultTools.isEmpty()) {
-        const_cast<KateExternalToolsPlugin *>(this)->m_defaultTools = readDefaultTools();
+        m_defaultTools = readDefaultTools();
     }
     return m_defaultTools;
 }

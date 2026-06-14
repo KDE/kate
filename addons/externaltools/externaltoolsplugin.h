@@ -142,7 +142,7 @@ private:
     KateToolRunner *runnerForTool(const KateExternalTool &tool, KTextEditor::View *view, bool executingSaveTrigger);
 
     KSharedConfigPtr m_config;
-    QList<KateExternalTool> m_defaultTools;
+    mutable QList<KateExternalTool> m_defaultTools;
     QList<KateExternalToolsPluginView *> m_views;
     QList<KateExternalTool *> m_tools;
     QStringList m_commands;

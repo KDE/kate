@@ -476,7 +476,7 @@ static QIcon ColoredBracketsIcon(const QWidget *_this)
 QIcon RainbowParenConfigPage::icon() const
 {
     if (m_icon.isNull()) {
-        const_cast<RainbowParenConfigPage *>(this)->m_icon = ColoredBracketsIcon(this);
+        m_icon = ColoredBracketsIcon(this);
     }
     return m_icon;
 }

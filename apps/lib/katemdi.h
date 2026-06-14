@@ -12,6 +12,7 @@
 
 #include <KParts/MainWindow>
 
+#include <KConfigGroup>
 #include <KMultiTabBar>
 #include <KXMLGUIClient>
 
@@ -26,7 +27,6 @@ class QAction;
 class QLabel;
 class QPixmap;
 class QStackedWidget;
-class KConfigBase;
 class QHBoxLayout;
 class QRubberBand;
 class QEvent;
@@ -617,10 +617,9 @@ public:
 public:
     /**
      * start the restore
-     * @param config config object to use
-     * @param group config group to use
+     * @param cg config group object to use
      */
-    void startRestore(KConfigBase *config, const QString &group);
+    void startRestore(const KConfigGroup &cg);
 
     /**
      * finish the restore
@@ -675,15 +674,10 @@ private:
     bool m_sidebarsVisible = true;
 
     /**
-     * config object for session restore, only valid between
+     * config group for session restore, only valid between
      * start and finish restore calls
      */
-    KConfigBase *m_restoreConfig = nullptr;
-
-    /**
-     * restore group
-     */
-    QString m_restoreGroup;
+    KConfigGroup m_restoreConfigGroup;
 
     /**
      * out guiclient

@@ -1718,9 +1718,9 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
     }
 
     // try the restore config to figure out real pos
-    if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
-        KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-        pos = static_cast<KMultiTabBar::KMultiTabBarPosition>(cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos)));
+    if (m_restoreConfigGroup.isValid() && m_restoreConfigGroup.exists()) {
+        pos = static_cast<KMultiTabBar::KMultiTabBarPosition>(
+            m_restoreConfigGroup.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos)));
     }
 
     ToolView *v = m_sidebars[pos]->addToolView(icon, text, identifier, nullptr);
@@ -1830,9 +1830,9 @@ bool MainWindow::moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPositi
     }
 
     // try the restore config to figure out real pos
-    if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
-        KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-        pos = static_cast<KMultiTabBar::KMultiTabBarPosition>(cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos)));
+    if (m_restoreConfigGroup.isValid() && m_restoreConfigGroup.exists()) {
+        pos = static_cast<KMultiTabBar::KMultiTabBarPosition>(
+            m_restoreConfigGroup.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos)));
     }
 
     if (isDND) {
@@ -1868,7 +1868,7 @@ bool MainWindow::showToolView(ToolView *widget)
     }
 
     // skip this if happens during restoring, or we will just see flicker
-    if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
+    if (m_restoreConfigGroup.isValid() && m_restoreConfigGroup.exists()) {
         return true;
     }
 
@@ -1882,7 +1882,7 @@ bool MainWindow::hideToolView(ToolView *widget)
     }
 
     // skip this if happens during restoring, or we will just see flicker
-    if (m_restoreConfig && m_restoreConfig->hasGroup(m_restoreGroup)) {
+    if (m_restoreConfigGroup.isValid() && m_restoreConfigGroup.exists()) {
         return true;
     }
 
@@ -1908,58 +1908,49 @@ KTextEditor::MainWindow::ToolViewPosition MainWindow::toolViewPosition(QWidget *
     return KTextEditor::MainWindow::ToolViewPosition::Bottom;
 }
 
-void MainWindow::startRestore(KConfigBase *config, const QString &group)
+void MainWindow::startRestore(const KConfigGroup &cg)
 {
     // first save this stuff
-    m_restoreConfig = config;
-    m_restoreGroup = group;
+    m_restoreConfigGroup = cg;
 
-    if (!m_restoreConfig || !m_restoreConfig->hasGroup(m_restoreGroup)) {
-        m_restoreConfig = nullptr;
-        m_restoreGroup.clear();
+    if (!m_restoreConfigGroup.isValid() || !m_restoreConfigGroup.exists()) {
+        m_restoreConfigGroup = {};
         return;
     }
 
     // apply size once, to get sizes ready ;)
-    KConfigGroup cg(m_restoreConfig, m_restoreGroup);
     winId(); // Ensure windowHandle() is created before restoring size/position in the constructor
-    KWindowConfig::restoreWindowSize(windowHandle(), cg);
-    KWindowConfig::restoreWindowPosition(windowHandle(), cg);
+    KWindowConfig::restoreWindowSize(windowHandle(), m_restoreConfigGroup);
+    KWindowConfig::restoreWindowPosition(windowHandle(), m_restoreConfigGroup);
     resize(windowHandle()->size()); // workaround for QTBUG-40584
 
     // KWrite uses no sidebars, avoid all work beside windows sizes restoring above
     if (KateApp::isKWrite()) {
-        m_restoreConfig = nullptr;
-        m_restoreGroup.clear();
+        m_restoreConfigGroup = {};
         return;
     }
 
     // restore the sidebars
     for (auto &sidebar : std::as_const(m_sidebars)) {
-        sidebar->startRestoreSession(cg);
+        sidebar->startRestoreSession(m_restoreConfigGroup);
     }
 
-    setToolViewStyle(static_cast<KMultiTabBar::KMultiTabBarStyle>(cg.readEntry("Kate-MDI-Sidebar-Style", static_cast<int>(toolViewStyle()))));
+    setToolViewStyle(static_cast<KMultiTabBar::KMultiTabBarStyle>(m_restoreConfigGroup.readEntry("Kate-MDI-Sidebar-Style", static_cast<int>(toolViewStyle()))));
     // after reading m_sidebarsVisible, update the GUI toggle action
-    m_sidebarsVisible = cg.readEntry("Kate-MDI-Sidebar-Visible", true);
+    m_sidebarsVisible = m_restoreConfigGroup.readEntry("Kate-MDI-Sidebar-Visible", true);
     m_guiClient->updateSidebarsVisibleAction();
 }
 
 void MainWindow::finishRestore()
 {
-    if (!m_restoreConfig) {
-        return;
-    }
-
-    if (m_restoreConfig->hasGroup(m_restoreGroup)) {
+    if (m_restoreConfigGroup.isValid() && m_restoreConfigGroup.exists()) {
         // apply all settings, like toolbar pos and more ;)
-        KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-        applyMainWindowSettings(cg);
+        applyMainWindowSettings(m_restoreConfigGroup);
 
         // reshuffle toolviews only if needed
         for (const auto &[id, tv] : m_toolviews) {
-            KMultiTabBar::KMultiTabBarPosition newPos = static_cast<KMultiTabBar::KMultiTabBarPosition>(
-                cg.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(id), int(tv->sidebar()->position())));
+            const auto newPos = static_cast<KMultiTabBar::KMultiTabBarPosition>(
+                m_restoreConfigGroup.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(id), int(tv->sidebar()->position())));
 
             if (tv->sidebar()->position() != newPos) {
                 moveToolView(tv, newPos);
@@ -1968,12 +1959,12 @@ void MainWindow::finishRestore()
 
         // Restore the sidebars before we restore h/vSplitter..
         for (auto &sidebar : m_sidebars) {
-            sidebar->restoreSession(cg);
+            sidebar->restoreSession(m_restoreConfigGroup);
         }
 
         // get main splitter sizes ;)
-        m_hSplitter->setSizes(cg.readEntry("Kate-MDI-H-Splitter", QList<int>{200, 100, 200}));
-        m_vSplitter->setSizes(cg.readEntry("Kate-MDI-V-Splitter", QList<int>{150, 100, 200}));
+        m_hSplitter->setSizes(m_restoreConfigGroup.readEntry("Kate-MDI-H-Splitter", QList<int>{200, 100, 200}));
+        m_vSplitter->setSizes(m_restoreConfigGroup.readEntry("Kate-MDI-V-Splitter", QList<int>{150, 100, 200}));
 
         // Expand again to trigger splitter sync tabs/tools, but for any reason works this sometimes only after enough delay
         QTimer::singleShot(400, this, [this]() {
@@ -1994,8 +1985,7 @@ void MainWindow::finishRestore()
     }
 
     // clear this stuff, we are done ;)
-    m_restoreConfig = nullptr;
-    m_restoreGroup.clear();
+    m_restoreConfigGroup = {};
 }
 
 void MainWindow::saveSession(KConfigGroup &config)

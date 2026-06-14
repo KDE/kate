@@ -164,7 +164,7 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
     resize(windowHandle()->size()); // workaround for QTBUG-40584
 
     // start session restore if needed
-    startRestore(sconfig, sgroup);
+    startRestore(KConfigGroup(sconfig, sgroup));
 
     // setup most important actions first, needed by setupMainWindow
     setupImportantActions();
@@ -1418,12 +1418,10 @@ void KateMainWindow::saveProperties(KConfigGroup &config, bool includeViewConfig
 
 void KateMainWindow::readProperties(const KConfigGroup &config)
 {
-    // KDE5: TODO startRestore should take a const KConfigBase*, or even just a const KConfigGroup&,
-    // but this propagates down to interfaces/kate/plugin.h so all plugins have to be ported
-    KConfigBase *configBase = const_cast<KConfig *>(config.config());
-    startRestore(configBase, config.name());
+    startRestore(config);
 
-    // perhaps enable plugin guis
+    // perhaps enable plugin guiss have to be ported
+    KConfigBase *configBase = const_cast<KConfig *>(config.config());
     KateApp::self()->pluginManager()->enableAllPluginsGUI(this, configBase);
 
     finishRestore();

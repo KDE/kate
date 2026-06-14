@@ -257,7 +257,7 @@ void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::Inlin
         dialogOptions |= QColorDialog::NoButtons;
         title = i18n("View Color [Read only]");
     }
-    const QColor newColor = QColorDialog::getColor(oldColor, const_cast<KTextEditor::View *>(note.view()), title, dialogOptions);
+    const QColor newColor = QColorDialog::getColor(oldColor, note.view()->window(), title, dialogOptions);
     if (!newColor.isValid()) {
         return;
     }

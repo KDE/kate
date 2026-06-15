@@ -6,6 +6,7 @@
         "Description[bg]": "Добавя възможност за преглед и избор на цвят в текста (напр.. #FFFFFF, бял)",
         "Description[ca@valencia]": "Afig una vista prèvia/selector de colors inclòs per als colors del text (p. ex., #FFFFFF, blanc)",
         "Description[ca]": "Afegeix una vista prèvia/selector de colors inclòs per als colors del text (p. ex., #FFFFFF, blanc)",
+        "Description[cs]": "Přidat k barvám v textu vestavěný náhled/výběr barvy (např. #FFFFFF, bílá)",
         "Description[de]": "Fügt eine Farbvorschau/Farbauswahl für Farben wie #FFFFFF, white am Zeilenende ein",
         "Description[el]": "Προσθέτει ένα εμβόλιμο εργαλείο προεπισκόπησης/επιλογής χρώματος στα χρώματα του κειμένου (π.χ. #FFFFFF, λευκό)",
         "Description[en_GB]": "Adds an inline Colour preview/picker to colours in the text (e.g. #FFFFFF, white)",

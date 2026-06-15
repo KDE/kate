@@ -5,6 +5,7 @@
         "Description[bg]": "Изпълняване на SQL-подобни заявки, използвайки RBQL",
         "Description[ca@valencia]": "Executa consultes similars a SQL fent servir RBQL",
         "Description[ca]": "Executa consultes similars a l'SQL fent servir RBQL",
+        "Description[cs]": "Spouštějte dotazy podobné SQL pomocí RBQL",
         "Description[de]": "SQL-ähnliche Abfragen unter Verwendung von RBQL ausführen",
         "Description[el]": "Εκτέλεση ερωτημάτων τύπου SQL χρησιμοποιώντας RBQL",
         "Description[en_GB]": "Run SQL-like queries using RBQL",

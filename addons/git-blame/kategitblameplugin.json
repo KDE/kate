@@ -6,6 +6,7 @@
         "Description[bg]": "Добавя вграден преглед на git-blame в края на реда",
         "Description[ca@valencia]": "Afig una vista prèvia inclosa de «git-blame» al final de la línia",
         "Description[ca]": "Afegeix una vista prèvia inclosa de «git-blame» al final de la línia",
+        "Description[cs]": "Přidat na konec řádku náhled funkce git-blame přímo v textu",
         "Description[de]": "Zeigt eine Vorschau von „git-blame“ am Zeilenende an",
         "Description[el]": "Προσθέτει μια εμβόλιμη προεπισκόπηση git-blame στο τέλος της γραμμής",
         "Description[en_GB]": "Adds an inline git-blame preview at the end of the line",

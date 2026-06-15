@@ -2,7 +2,7 @@
 <RCC version="1.0">
     <qresource prefix="/kxmlgui5/katesql">
         <file>ui.rc</file>
-        <file>dataoutputwidgetui.rc</file>
+        <file alias="datatable/dataoutputwidgetui.rc">dataoutputwidgetui.rc</file>
     </qresource>
     <qresource prefix="/katesql">
         <file>pics/16-actions-sql-field-pk.png</file>

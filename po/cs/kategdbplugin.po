@@ -2,13 +2,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2017.
 # Vit Pelcak <vit@pelcak.org>, 2021, 2023.
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2026-06-12 12:30+0200\n"
+"PO-Revision-Date: 2026-06-15 16:46+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -23,51 +24,47 @@ msgstr ""
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
-msgstr ""
+msgstr "Probíhá ladicí relace. Prosím, spusťte ji znovu nebo ji zastavte."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoints"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Body přerušení"
+msgstr "Body přerušení pro řádek"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "Breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "Body přerušení"
+msgstr "Body přerušení pro funkci"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "Breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "Body přerušení"
+msgstr "Body přerušení pro výjimky"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "ověřeno"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr "nevyřízené"
+msgstr "čekající"
 
 #: breakpointview.cpp:965
 #, kde-format
 msgid "Add Function Breakpoint…"
-msgstr ""
+msgstr "Přidat bod přerušení pro funkci…"
 
 #: breakpointview.cpp:969
 #, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr ""
+msgstr "Vymazat všechny body přerušení pro funkci"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
-msgstr "Bod přerušení"
+msgstr "Odstranit bod přerušení"
 
 #: breakpointview.cpp:1493
 #, kde-format
@@ -80,21 +77,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "řádek %1 již má bod přerušení"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "nastaven bod přerušení"
+msgstr "Není nastaven žádný bod přerušení"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "Bod přerušení"
+msgstr "Přidat bod přerušení pro funkci"
 
 #: breakpointview.cpp:1625
 #, kde-format
 msgid "Function name:"
-msgstr ""
+msgstr "Název funkce:"
 
 #: configview.cpp:92
 #, kde-format
@@ -114,7 +109,7 @@ msgstr "Smazat cíl"
 #: configview.cpp:104
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Obnovit cíle v launch.json"
 
 #: configview.cpp:109
 #, kde-format
@@ -141,12 +136,12 @@ msgstr "Argumenty:"
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
-msgstr ""
+msgstr "Zachovat zaměření"
 
 #: configview.cpp:146
 #, kde-format
 msgid "Keep the focus on the command line"
-msgstr ""
+msgstr "Zachovat zaměření na příkazový řádek"
 
 #: configview.cpp:148
 #, kde-format
@@ -156,19 +151,19 @@ msgstr "Přesměrovat IO"
 #: configview.cpp:149
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
-msgstr ""
+msgstr "Přesměrovat vstup a výstup laděných programů do samostatné karty"
 
 #: configview.cpp:397
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Není nastaven žádný spustitelný cíl"
 
 #: configview.cpp:407
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr ""
+msgstr "Neplatné ID procesu"
 
 #: configview.cpp:529 configview.cpp:542
 #, kde-format
@@ -178,17 +173,17 @@ msgstr "Cíl %1"
 #: configview.cpp:765
 #, kde-format
 msgid "Select Executable"
-msgstr ""
+msgstr "Vybrat spustitelný soubor"
 
 #: configview.cpp:778
 #, kde-format
 msgid "Select Working Directory"
-msgstr ""
+msgstr "Vybrat pracovní adresář"
 
 #: dapbackend.cpp:187
 #, kde-format
 msgid "DAP backend '%1' failed"
-msgstr ""
+msgstr "Došlo k selhání podpůrné vrstvy DAP '%1'"
 
 #: dapbackend.cpp:238
 #, kde-format
@@ -198,7 +193,7 @@ msgstr "program skončil"
 #: dapbackend.cpp:243
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Ukončení se nezdařilo. Probíhá vynucené vypnutí..."
 
 #: dapbackend.cpp:254
 #, kde-format
@@ -223,7 +218,7 @@ msgstr "zastaveno (%1)."
 #: dapbackend.cpp:311
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "Aktivní vlákno: %1 (všechna vlákna zastavena)"
 
 #: dapbackend.cpp:313
 #, kde-format
@@ -233,17 +228,17 @@ msgstr "Aktivní vlákno: %1."
 #: dapbackend.cpp:318
 #, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr ""
+msgstr "Dosaženo bodu přerušení:"
 
 #: dapbackend.cpp:344
 #, kde-format
 msgid "(continued) thread %1"
-msgstr ""
+msgstr "(pokračující) vlákno %1"
 
 #: dapbackend.cpp:346
 #, kde-format
 msgid "all threads continued"
-msgstr ""
+msgstr "všechna vlákna pokračují"
 
 #: dapbackend.cpp:353
 #, kde-format
@@ -313,7 +308,7 @@ msgstr "(%1) bod přerušení"
 #: dapbackend.cpp:629
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "<nevyhodnoceno>"
 
 #: dapbackend.cpp:651
 #, kde-format
@@ -333,47 +328,47 @@ msgstr "nepodporováno"
 #: dapbackend.cpp:656
 #, kde-format
 msgid "conditional breakpoints"
-msgstr ""
+msgstr "podmíněný bod přerušení"
 
 #: dapbackend.cpp:657
 #, kde-format
 msgid "function breakpoints"
-msgstr ""
+msgstr "bod přerušení pro funkci"
 
 #: dapbackend.cpp:658
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "dosažen podmíněný bod přerušení"
 
 #: dapbackend.cpp:659
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "záznamové body"
 
 #: dapbackend.cpp:659
 #, kde-format
 msgid "modules request"
-msgstr ""
+msgstr "požadavky modulů"
 
 #: dapbackend.cpp:660
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "přejít na cílový požadavek"
 
 #: dapbackend.cpp:661
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "ukončit požadavek"
 
 #: dapbackend.cpp:662
 #, kde-format
 msgid "terminate debuggee"
-msgstr ""
+msgstr "ukončit ladění"
 
 #: dapbackend.cpp:665
 #, kde-format
 msgid "exception breakpoint filters"
-msgstr ""
+msgstr "filtry bodů přerušení pro výjimky"
 
 #: dapbackend.cpp:812
 #, kde-format
@@ -410,7 +405,7 @@ msgstr "neplatné id vlákna: %1"
 #: dapbackend.cpp:1071
 #, kde-format
 msgid "thread id not specified: %1"
-msgstr ""
+msgstr "id vlákna nebylo určeno: %1"
 
 #: dapbackend.cpp:1082
 #, kde-format
@@ -420,12 +415,12 @@ msgstr "Dostupné příkazy:"
 #: dapbackend.cpp:1161
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "podmíněné body přerušení nejsou podporovány serverem"
 
 #: dapbackend.cpp:1169
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "dosažení podmíněného bodu přerušení není podporováno serverem"
 
 #: dapbackend.cpp:1231
 #, kde-format
@@ -496,13 +491,13 @@ msgstr "Ladicí program"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "Nepodařilo se analyzovat .vscode/launch.json v %1. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " v %1:%2"
 
 #: localsview.cpp:39
 #, kde-format
@@ -517,7 +512,7 @@ msgstr "indexované položky"
 #: localsview.cpp:51
 #, kde-format
 msgid "named items"
-msgstr ""
+msgstr "pojmenované položky"
 
 #: localsview.cpp:67 localsview.cpp:68
 #, kde-format
@@ -542,7 +537,7 @@ msgstr "Hodnota"
 #: localsview.cpp:300
 #, kde-format
 msgid "Copy Symbol"
-msgstr ""
+msgstr "Kopírovat symbol"
 
 #: localsview.cpp:315
 #, kde-format
@@ -567,7 +562,7 @@ msgstr "Ladit"
 #: plugin_kategdb.cpp:119 plugin_kategdb.cpp:122
 #, kde-format
 msgid "Locals and Stack"
-msgstr ""
+msgstr "Místní a zásobník"
 
 #: plugin_kategdb.cpp:128
 #, kde-format
@@ -578,7 +573,7 @@ msgstr "Body přerušení"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>Nelze otevřít soubor:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:229
 #, kde-format
@@ -593,7 +588,7 @@ msgstr "Začít ladění"
 #: plugin_kategdb.cpp:244
 #, kde-format
 msgid "Kill / Stop Debugging"
-msgstr ""
+msgstr "Zastavit ladění"
 
 #: plugin_kategdb.cpp:251
 #, kde-format
@@ -603,17 +598,17 @@ msgstr "Pokračovat"
 #: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Toggle Breakpoint / Break"
-msgstr ""
+msgstr "Přepnout bod přerušení"
 
 #: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Clear All Breakpoints"
-msgstr ""
+msgstr "Vymazat všechny body přerušení"
 
 #: plugin_kategdb.cpp:269
 #, kde-format
 msgid "Step In"
-msgstr ""
+msgstr "Krok dovnitř"
 
 #: plugin_kategdb.cpp:276
 #, kde-format
@@ -633,7 +628,7 @@ msgstr "Spustit ke kurzoru"
 #: plugin_kategdb.cpp:297
 #, kde-format
 msgid "Restart Debugging"
-msgstr ""
+msgstr "Restartovat ladění"
 
 #: plugin_kategdb.cpp:304
 #, kde-format
@@ -643,17 +638,17 @@ msgstr "Vyprázdnit výstup"
 #: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "Hot Reload"
 
 #: plugin_kategdb.cpp:319
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "Hot Restart"
 
 #: plugin_kategdb.cpp:328
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "Zapnout funkci Hot Reload při uložení"
 
 #: plugin_kategdb.cpp:337 plugin_kategdb.cpp:356
 #, kde-format
@@ -674,18 +669,17 @@ msgstr "Chyba: %1"
 #: plugin_kategdb.cpp:438
 #, kde-format
 msgid "Insert breakpoint"
-msgstr ""
+msgstr "Vložit bod přerušení"
 
 #: plugin_kategdb.cpp:444
-#, fuzzy, kde-format
-#| msgid "(%1) breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "(%1) bod přerušení"
+msgstr "Přepnout bod přerušení"
 
 #: plugin_kategdb.cpp:559
 #, kde-format
 msgid "Execution point"
-msgstr ""
+msgstr "Bod spuštění"
 
 #: plugin_kategdb.cpp:668
 #, kde-format
@@ -714,13 +708,13 @@ msgstr "Číslo"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Funkce"
 
 #: stackframe_model.cpp:99
 #, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr ""
+msgstr "Umístění"
 
 #: stackview.cpp:96 stackview.cpp:128
 #, kde-format
@@ -730,7 +724,7 @@ msgstr "Vlákno %1"
 #: stackview.cpp:167
 #, kde-format
 msgid "Copy Stack Trace"
-msgstr ""
+msgstr "Zkopírovat trasování zásobníku"
 
 #: stackview.cpp:186
 #, kde-format

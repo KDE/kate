@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-17 00:47+0000\n"
-"PO-Revision-Date: 2026-04-13 13:32+0100\n"
+"PO-Revision-Date: 2026-05-17 18:50+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -940,40 +940,34 @@ msgstr ""
 "separator de cale nativ (bară oblică inversă în Windows)."
 
 #: kateprojectpluginview.cpp:63
-#, fuzzy, kde-format
-#| msgid "Kate Project Manager"
+#, kde-format
 msgid "Project Manager"
-msgstr "Gestionar de proiecte Kate"
+msgstr "Gestionar de proiecte"
 
 #: kateprojectpluginview.cpp:84
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Current Project"
 msgstr "Proiectul actual"
 
 #: kateprojectpluginview.cpp:86
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Open projects list"
-msgstr "Proiectul actual"
+msgstr "Deschide lista cu proiecte"
 
 #: kateprojectpluginview.cpp:94
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Reload project"
-msgstr "Proiectul actual"
+msgstr "Reîncarcă proiectul"
 
 #: kateprojectpluginview.cpp:97
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close project"
-msgstr "Proiectul actual"
+msgstr "Închide proiectul"
 
 #: kateprojectpluginview.cpp:173
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "Deschide dosar..."
+msgstr "Deschide &dosar…"
 
 #: kateprojectpluginview.cpp:179
 #, fuzzy, kde-format
@@ -984,12 +978,12 @@ msgstr "Proiecte"
 #: kateprojectpluginview.cpp:184
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "Activează proiectul precedent"
 
 #: kateprojectpluginview.cpp:190
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "Activează proiectul următor"
 
 #: kateprojectpluginview.cpp:196
 #, kde-format
@@ -997,34 +991,29 @@ msgid "Lookup"
 msgstr "Caută"
 
 #: kateprojectpluginview.cpp:201
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close Project"
-msgstr "Proiectul actual"
+msgstr "Închide proiectul"
 
 #: kateprojectpluginview.cpp:206
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close All Projects"
-msgstr "Proiectul actual"
+msgstr "Închide toate proiectele"
 
 #: kateprojectpluginview.cpp:211
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Close Orphaned Projects"
-msgstr "Proiectul actual"
+msgstr "Închide proiectele orfane"
 
 #: kateprojectpluginview.cpp:216
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Reload Project"
-msgstr "Proiectul actual"
+msgstr "Reîncarcă proiectul"
 
 #: kateprojectpluginview.cpp:221
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Reload All Projects"
-msgstr "Proiectul actual"
+msgstr "Reîncarcă toate proiectele"
 
 #: kateprojectpluginview.cpp:232
 #, kde-format
@@ -1057,22 +1046,19 @@ msgid "Enter name:"
 msgstr "Introduceți denumirea:"
 
 #: kateprojecttreeviewcontextmenu.cpp:113
-#, fuzzy, kde-format
-#| msgid "No Action"
+#, kde-format
 msgid "Copy Location"
-msgstr "Nicio acțiune"
+msgstr "Copiază amplasarea"
 
 #: kateprojecttreeviewcontextmenu.cpp:120
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "New File…"
-msgstr "Deschide cu"
+msgstr "Fișier nou…"
 
 #: kateprojecttreeviewcontextmenu.cpp:121
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "Adaugă dosar"
+msgstr "Dosar nou…"
 
 #: kateprojecttreeviewcontextmenu.cpp:128
 #, kde-format
@@ -1092,12 +1078,12 @@ msgstr "Deschide cu"
 #: kateprojecttreeviewcontextmenu.cpp:151
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "Deschide terminalul intern aici"
 
 #: kateprojecttreeviewcontextmenu.cpp:163
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "Deschide terminalul extern aici"
 
 #: kateprojecttreeviewcontextmenu.cpp:169
 #, kde-format
@@ -1105,27 +1091,24 @@ msgid "&Open Containing Folder"
 msgstr "Deschide d&osarul conținător"
 
 #: kateprojecttreeviewcontextmenu.cpp:178
-#, fuzzy, kde-format
-#| msgid "Show File History"
+#, kde-format
 msgid "Show Git History"
-msgstr "Arată istoricul fișierului"
+msgstr "Arată istoricul Git"
 
 #: kateprojecttreeviewcontextmenu.cpp:242
-#, fuzzy, kde-format
-#| msgid "Open With"
+#, kde-format
 msgid "New File"
-msgstr "Deschide cu"
+msgstr "Fișier nou"
 
 #: kateprojecttreeviewcontextmenu.cpp:247
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "Adaugă dosar"
+msgstr "Dosar nou"
 
 #: kateprojectviewtree.cpp:367
 #, kde-format
 msgid "The file already exists"
-msgstr ""
+msgstr "Fișierul există deja"
 
 #: kateprojectviewtree.cpp:378
 #, kde-format
@@ -1135,7 +1118,7 @@ msgstr ""
 #: kateprojectviewtree.cpp:408
 #, kde-format
 msgid "The directory already exists"
-msgstr ""
+msgstr "Dosarul există deja"
 
 #: kateprojectviewtree.cpp:415
 #, kde-format
@@ -1240,10 +1223,9 @@ msgstr "&Proiecte"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
-msgstr "Finalizare proiect"
+msgstr "Extensie de proiect"
 
 #~ msgid "Add"
 #~ msgstr "Adaugă"

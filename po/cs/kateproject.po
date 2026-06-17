@@ -2,13 +2,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012.
 # SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2023, 2024 Vit Pelcak <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2026 Libor Filípek <libor.filipek@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-17 00:47+0000\n"
-"PO-Revision-Date: 2026-06-12 12:31+0200\n"
+"PO-Revision-Date: 2026-06-16 18:57+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -61,7 +62,7 @@ msgstr "Větev"
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Activity"
-msgstr ""
+msgstr "Poslední aktivita"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -531,10 +532,9 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "Změněno"
+msgstr "(Změněno)"
 
 #: kateproject.cpp:235
 #, fuzzy, kde-format
@@ -545,7 +545,7 @@ msgstr "Staged"
 #: kateproject.cpp:357
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "Neplatný soubor JSON '%1': %2"
 
 #: kateproject.cpp:424 kateprojectplugin.cpp:826 kateprojectpluginview.cpp:79
 #: kateprojectpluginview.cpp:235 kateprojectviewtree.cpp:367
@@ -754,25 +754,25 @@ msgstr "Vlastnosti projektu"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr ""
+msgstr "Terminál"
 
 #: kateprojectinfoview.cpp:93
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr ""
+msgstr "Terminál (Projekt)"
 
 #: kateprojectinfoview.cpp:102
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
-msgstr ""
+msgstr "Terminál (Základ)"
 
 #: kateprojectinfoview.cpp:111
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
-msgstr ""
+msgstr "Terminál (Sestavení)"
 
 #: kateprojectinfoview.cpp:118
 #, kde-format
@@ -976,10 +976,9 @@ msgid "Reload Project"
 msgstr "Znovu načíst projekt"
 
 #: kateprojectpluginview.cpp:221
-#, fuzzy, kde-format
-#| msgid "Reload Project"
+#, kde-format
 msgid "Reload All Projects"
-msgstr "Znovu načíst projekt"
+msgstr "Znovu načíst všechny projekty"
 
 #: kateprojectpluginview.cpp:232
 #, kde-format
@@ -1074,7 +1073,7 @@ msgstr "Nová složka"
 #: kateprojectviewtree.cpp:367
 #, kde-format
 msgid "The file already exists"
-msgstr ""
+msgstr "Tento soubor již existuje"
 
 #: kateprojectviewtree.cpp:378
 #, kde-format
@@ -1188,7 +1187,6 @@ msgstr "&Projekty"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:29
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
-msgstr "Doplňování projektu"
+msgstr "Modul projektu"

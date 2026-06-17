@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-28 00:47+0000\n"
-"PO-Revision-Date: 2026-06-15 16:47+0200\n"
+"PO-Revision-Date: 2026-06-16 18:54+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -23,12 +23,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Vít Pelčák"
+msgstr "Vít Pelčák,Libor Filípek"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "vit@pelcak.org"
+msgstr "vit@pelcak.org,libor.filipek@gmail.com"
 
 #. i18n: ectx: attribute (title), widget (QWidget, buildOutput)
 #: build.ui:36
@@ -84,7 +84,7 @@ msgstr "Přidat do diagnostiky chyby a varování"
 #: buildconfigwidget.ui:57
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "Při spuštění vybraného cíle se automaticky přepne na výstupní panel"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:77
@@ -93,12 +93,15 @@ msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
 msgstr ""
+"Pokud výstupní řádky začínají znaky [ # / ## ] nebo [ ## % ], zobrazí se "
+"poslední z nich jako zpráva."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
 #, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
 msgstr ""
+"Zobrazit průběh sestavování jako zprávu, pokud je výstupní panel skrytý"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106
@@ -136,6 +139,7 @@ msgstr "Zkompilovat současný soubor"
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr ""
+"Zkusit aktuální soubor zkompilovat pomocí souboru compile_commands.json"
 
 #: plugin_katebuild.cpp:299
 #, kde-format
@@ -145,7 +149,7 @@ msgstr "Zastavit"
 #: plugin_katebuild.cpp:304
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Načíst cíle ze složky sestavení CMake"
 
 #: plugin_katebuild.cpp:308
 #, kde-format
@@ -171,6 +175,8 @@ msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
+"<b>Soubor nebyl nalezen:</b> %1<br><b>Prohledávané cesty:</b><br>"
+"%2<br>Zkuste přidat prohledávanou cestu do \"Pracovního adresáře\""
 
 #: plugin_katebuild.cpp:507
 #, kde-format
@@ -200,11 +206,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"Nastavený pracovní adresář <b>%1</b> pro sadu cílů <b>%2</b> neexistuje."
+"<br><br>Chcete adresář vytvořit?"
 
 #: plugin_katebuild.cpp:852
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "Nepodařilo se vytvořit adresář <b>%1</b>"
 
 #: plugin_katebuild.cpp:872
 #, kde-format
@@ -214,17 +222,17 @@ msgstr "Nepovedlo se spustit \"%1\". exitStatus = %2"
 #: plugin_katebuild.cpp:888
 #, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr ""
+msgstr "Sestavování <b>%1: %2</b> bylo zrušeno"
 
 #: plugin_katebuild.cpp:994
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Nebyl nalezen soubor compile_commands.json pro \"%1\". "
 
 #: plugin_katebuild.cpp:1007
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "V \"%2\" nebyl nalezen příkaz pro kompilaci souboru \"%1\". "
 
 #: plugin_katebuild.cpp:1026
 #, kde-format
@@ -232,6 +240,8 @@ msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Nelze provést nahrazení \"%f\". Žádný soubor není otevřený nebo aktuální "
+"soubor nemá název!"
 
 #: plugin_katebuild.cpp:1030
 #, kde-format
@@ -239,6 +249,8 @@ msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Nelze provést nahrazení \"%d\". Žádný soubor není otevřený nebo aktuální "
+"soubor nemá název!"
 
 #: plugin_katebuild.cpp:1034
 #, kde-format
@@ -246,11 +258,13 @@ msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Nelze provést nahrazení \"%n\". Žádný soubor není otevřený nebo aktuální "
+"soubor nemá název!"
 
 #: plugin_katebuild.cpp:1045
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr ""
+msgstr "Nelze provést nahrazení projektu (%B). Žádný projekt není otevřený!"
 
 #: plugin_katebuild.cpp:1058
 #, kde-format
@@ -263,28 +277,31 @@ msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
 msgstr ""
+"Nelze spustit: %1: %2 Není nastaven pracovní adresář.\n"
+"Pro sestavení nebyl zadán žádný místní soubor ani adresář."
 
 #: plugin_katebuild.cpp:1217
 #, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr ""
+msgstr "Sestavení cíle <b>%1: %2</b> ..."
 
 #: plugin_katebuild.cpp:1254
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
-msgstr ""
+msgstr "Nelze načíst cíle, soubor %1 neobsahuje správný záznam CMAKE_COMMAND!"
 
 #: plugin_katebuild.cpp:1267
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Nepodařilo se zapsat soubory dotazů CMake File API pro adresář sestavení %1!"
 
 #: plugin_katebuild.cpp:1273
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Nepodařilo se spustit CMake (%2) pro adresář sestavení %1!"
 
 #: plugin_katebuild.cpp:1282
 #, kde-format
@@ -292,11 +309,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Generování souborů odpovědí API pro CMake pro adresář sestavení %1 selhalo "
+"(při použití %2)!"
 
 #: plugin_katebuild.cpp:1407
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "Modul pro sestavení se pokouší spustit program"
 
 #: plugin_katebuild.cpp:1410
 #, kde-format
@@ -306,17 +325,21 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"Modul Kate pro sestavení musí spustit externí příkaz, aby načítal cíle ze "
+"stromu sestavení.<br><br>Úplný příkazový řádek zní:<br><br><b>%1</"
+"b><br><br>Chcete pokračovat a povolit spuštění tohoto příkazu?<br><br>Tuto "
+"volbu lze změnit na stránce nastavení modulu."
 
 #: plugin_katebuild.cpp:1442
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
-msgstr ""
+msgstr "<title>Sestavení dokončeno:</title>%1"
 
 #: plugin_katebuild.cpp:1505
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr ""
+msgstr "Sestavení <b>%1: %2</b> dokončeno. %3 chyb, %4 varování, %5 poznámek"
 
 #: plugin_katebuild.cpp:1517
 #, kde-format
@@ -345,7 +368,7 @@ msgstr[2] "Nalezeno %1 poznámek."
 #: plugin_katebuild.cpp:1528
 #, kde-format
 msgid "Build canceled."
-msgstr ""
+msgstr "Sestavení bylo zrušeno."
 
 #: plugin_katebuild.cpp:1532
 #, kde-format
@@ -361,6 +384,7 @@ msgstr "Sestavení dokončeno bez problémů."
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
+"Sestavení <b>%1: %2 bylo zrušeno </b>. %3 chyb, %4 varování, %5 poznámek"
 
 #: plugin_katebuild.cpp:1823
 #, kde-format
@@ -378,7 +402,7 @@ msgstr "varování"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "poznámka"
 
 #: plugin_katebuild.cpp:1832
 #, kde-format
@@ -401,7 +425,7 @@ msgstr "<B>T:</B> %1"
 #, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
-msgstr ""
+msgstr "<B>Adr.:</B> %1"
 
 #: TargetHtmlDelegate.cpp:95
 #, kde-format
@@ -419,6 +443,9 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Použití:\n"
+"\"%B\" pro základní adresář projektu\n"
+"\"%b\" pro název základního adresáře projektu"
 
 #: TargetHtmlDelegate.cpp:106
 #, kde-format
@@ -430,6 +457,12 @@ msgid ""
 "\"%B\" for current project's base directory\n"
 "\"%w\" for the working directory of the target"
 msgstr ""
+"Použití:\n"
+"\"%f\" pro aktuální soubor\n"
+"\"%d\" pro adresář aktuálního souboru\n"
+"\"%n\" pro název aktuálního souboru bez přípony\n"
+"\"%B\" pro kořenový adresář aktuálního projektu\n"
+"\"%w\" pro pracovní adresář cíle"
 
 #: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, kde-format
@@ -449,12 +482,12 @@ msgstr "Sezení"
 #: TargetModel.cpp:678
 #, kde-format
 msgid "Command/Target-set Name"
-msgstr ""
+msgstr "Název příkazu/sady cílů"
 
 #: TargetModel.cpp:681
 #, kde-format
 msgid "Build Command / Working Directory"
-msgstr ""
+msgstr "Příkaz k sestavení / Pracovní adresář"
 
 #: TargetModel.cpp:684
 #, kde-format
@@ -465,6 +498,7 @@ msgstr "Spustit příkaz"
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
+"Filtrujte cíle, k výběru použijte šipky, k provedení stiskněte klávesu Enter"
 
 #: targets.cpp:32
 #, kde-format
@@ -474,12 +508,12 @@ msgstr "Vytvořit novou sadu cílů"
 #: targets.cpp:36
 #, kde-format
 msgid "Clone command or target set"
-msgstr ""
+msgstr "Klonovat příkaz nebo sadu cílů"
 
 #: targets.cpp:40
 #, kde-format
 msgid "Delete current target or current set of targets"
-msgstr ""
+msgstr "Odstranit aktuální cíl nebo aktuální sadu cílů"
 
 #: targets.cpp:45
 #, kde-format

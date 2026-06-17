@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-04 00:49+0000\n"
-"PO-Revision-Date: 2023-02-22 10:55+0100\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
+"PO-Revision-Date: 2026-06-16 16:06+0200\n"
+"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Full File"
-msgstr ""
+msgstr "Kompletní soubor formátu Clang"
 
 #. i18n: file: 4
 #, kde-format
@@ -34,13 +34,13 @@ msgstr "Nástroje"
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Selected Text"
-msgstr ""
+msgstr "Vybraný text formátu Clang"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Compile and Run cpp"
-msgstr ""
+msgstr "Zkompilovat a spustit cpp"
 
 #. i18n: file: 7
 #, kde-format
@@ -59,7 +59,7 @@ msgstr "Git"
 #, kde-format
 msgctxt "External tool name"
 msgid "git-cola"
-msgstr ""
+msgstr "git-cola"
 
 #. i18n: file: 7
 #, kde-format
@@ -71,7 +71,7 @@ msgstr "gitk"
 #, kde-format
 msgctxt "External tool name"
 msgid "Go Fmt Full File"
-msgstr ""
+msgstr "Kompletní soubor Go Fmt"
 
 #. i18n: file: 4
 #, kde-format
@@ -83,13 +83,13 @@ msgstr "Přejít"
 #, kde-format
 msgctxt "External tool name"
 msgid "GoImports Full File"
-msgstr ""
+msgstr "Kompletní soubor GoImports"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Google Selected Text"
-msgstr ""
+msgstr "Vyhledat v Googlu vybraný text"
 
 #. i18n: file: 7
 #, kde-format
@@ -101,19 +101,19 @@ msgstr "Vložit UUID"
 #, kde-format
 msgctxt "External tool name"
 msgid "JSON Format Full File"
-msgstr ""
+msgstr "Kompletní soubor formátu JSON"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Prettier Format Current File"
-msgstr ""
+msgstr "Současný soubor formátu Prettier"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Qt Quick 2 Preview (qmlscene)"
-msgstr ""
+msgstr "Qt Quick 2 Preview (qmlscene)"
 
 #. i18n: file: 4
 #, kde-format
@@ -131,7 +131,7 @@ msgstr "Spustit shellový skript"
 #, kde-format
 msgctxt "External tool name"
 msgid "Rust Fmt Full File"
-msgstr ""
+msgstr "Kompletní soubor Rust Fmt"
 
 #. i18n: file: 10
 #, kde-format
@@ -149,7 +149,7 @@ msgstr "Prohledat Qt API"
 #, kde-format
 msgctxt "External tool name"
 msgid "XML Format Full File"
-msgstr ""
+msgstr "Kompletní soubor XML formátu"
 
 #. i18n: ectx: property (whatsThis), widget (QTreeView, lbTools)
 #: configwidget.ui:17
@@ -204,12 +204,12 @@ msgstr "Spuštěno %1: %2 %3"
 #: externaltoolsplugin.cpp:297
 #, kde-format
 msgid "Running %1: %2 %3 with input %4"
-msgstr ""
+msgstr "Spuštění %1: %2 %3 se vstupem %4"
 
 #: externaltoolsplugin.cpp:400
 #, kde-format
 msgid "Data written to stderr:\n"
-msgstr ""
+msgstr "Data zapsána do stderr:\n"
 
 #: externaltoolsplugin.cpp:411
 #, kde-format
@@ -224,7 +224,7 @@ msgstr "%1 Ukončeno s výstupní hodnotou %2"
 #: kateexternaltoolscommand.cpp:38
 #, kde-format
 msgid "Starts the external tool '%1'"
-msgstr ""
+msgstr "Spustit externí nástroj '%1'"
 
 #: kateexternaltoolsconfigwidget.cpp:131
 #, kde-format
@@ -244,12 +244,12 @@ msgstr "Externí nástroj"
 #: kateexternaltoolsconfigwidget.cpp:189
 #, kde-format
 msgid "You must specify at least a name and an executable"
-msgstr ""
+msgstr "Musíte zadat alespoň název a spustitelný soubor"
 
 #: kateexternaltoolsconfigwidget.cpp:195
 #, kde-format
 msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
-msgstr ""
+msgstr "Je-li funkce Spouštěč povolena, je nutné zadat alespoň jeden MIME typ."
 
 #: kateexternaltoolsconfigwidget.cpp:204
 #, kde-format
@@ -269,7 +269,7 @@ msgstr "Přidat nástroj..."
 #: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
 msgid "Add Tool from Defaults"
-msgstr ""
+msgstr "Přidat nástroj z výchozího nastavení"
 
 #: kateexternaltoolsconfigwidget.cpp:244
 #, kde-format
@@ -318,13 +318,13 @@ msgstr "Náz&ev:"
 #: tooldialog.ui:32
 #, kde-format
 msgid "The name will be displayed in the 'Tools->External Tools' menu."
-msgstr ""
+msgstr "Název se zobrazí v nabídce 'Nástroje -> Externí nástroje'."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtName)
 #: tooldialog.ui:35
 #, kde-format
 msgid "Short name of the tool"
-msgstr ""
+msgstr "Zkrácený název nástroje"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExecutable)
 #: tooldialog.ui:47
@@ -336,7 +336,7 @@ msgstr "Program:"
 #: tooldialog.ui:57
 #, kde-format
 msgid "Application or interpreter"
-msgstr ""
+msgstr "Aplikace nebo interpret"
 
 #. i18n: ectx: property (text), widget (QLabel, lblArgs)
 #: tooldialog.ui:64
@@ -360,7 +360,7 @@ msgstr "V&stup:"
 #: tooldialog.ui:91
 #, kde-format
 msgid "Optional standard input"
-msgstr ""
+msgstr "Volitelný standardní vstup"
 
 #. i18n: ectx: property (text), widget (QLabel, lblWorkingDir)
 #: tooldialog.ui:98
@@ -372,7 +372,7 @@ msgstr "Pracovní adresář:"
 #: tooldialog.ui:108
 #, kde-format
 msgid "Uses current document path if empty"
-msgstr ""
+msgstr "Použít aktuální cestu k dokumentu, pokud je prázdné"
 
 #. i18n: ectx: property (text), widget (QLabel, lblMimeType)
 #: tooldialog.ui:115
@@ -387,18 +387,20 @@ msgid ""
 "A semicolon-separated list of mime types for which this tool should be "
 "available. If empty, the tool is always available."
 msgstr ""
+"Seznam MIME typů oddělených středníky, pro které by měl být tento nástroj k "
+"dispozici. Je-li pole prázdné, je nástroj vždy k dispozici."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtMimeType)
 #: tooldialog.ui:130
 #, kde-format
 msgid "Show tool only for given mime types"
-msgstr ""
+msgstr "Zobrazit nástroj pouze pro zadané MIME typy"
 
 #. i18n: ectx: property (whatsThis), widget (QToolButton, btnMimeType)
 #: tooldialog.ui:137
 #, kde-format
 msgid "Opens a dialog that helps in creating a list of mimetypes."
-msgstr ""
+msgstr "Otevřít dialogové okno, které pomáhá při vytváření seznamu MIME typů."
 
 #. i18n: ectx: property (text), widget (QLabel, lblSave)
 #: tooldialog.ui:149
@@ -414,6 +416,9 @@ msgid ""
 "command. This is helpful if you want to pass URLs to an application like, "
 "for example, an FTP client."
 msgstr ""
+"Před spuštěním příkazu můžete volitelně uložit aktuální nebo všechny "
+"upravené dokumenty. To se hodí, pokud chcete předat URL adresy nějaké "
+"aplikaci, jako je například FTP klient."
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
@@ -456,7 +461,7 @@ msgstr "Po uložení"
 #: tooldialog.ui:207
 #, kde-format
 msgid "Reload current document after execution"
-msgstr ""
+msgstr "Po spuštění znovu načíst aktuální dokument"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: tooldialog.ui:214
@@ -474,7 +479,7 @@ msgstr "Ignorovat"
 #: tooldialog.ui:230
 #, kde-format
 msgid "Insert at Cursor Position"
-msgstr ""
+msgstr "Vložit na pozici kurzoru"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:235
@@ -492,13 +497,13 @@ msgstr "Nahradit současný dokument"
 #: tooldialog.ui:245
 #, kde-format
 msgid "Append to Current Document"
-msgstr ""
+msgstr "Připojit k aktuálnímu dokumentu"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:250
 #, kde-format
 msgid "Insert in New Document"
-msgstr ""
+msgstr "Vložit do nového dokumentu"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:255
@@ -510,13 +515,13 @@ msgstr "Zkopírovat do schránky"
 #: tooldialog.ui:260
 #, kde-format
 msgid "Display in Pane"
-msgstr ""
+msgstr "Zobrazit v panelu"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: tooldialog.ui:268
 #, kde-format
 msgid "Editor command:"
-msgstr ""
+msgstr "Příkaz editoru:"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edtCommand)
 #: tooldialog.ui:278
@@ -526,12 +531,15 @@ msgid ""
 "line with the_name_you_specified_here. Please do not use spaces or tabs in "
 "the name."
 msgstr ""
+"Pokud zde zadáte název, můžete příkaz spustit ze zobrazení příkazového řádku "
+"pomocí příkazu the_name_you_specified_here. V názvu prosím nepoužívejte "
+"mezery ani tabulátory."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtCommand)
 #: tooldialog.ui:281
 #, kde-format
 msgid "Optional view command line name"
-msgstr ""
+msgstr "Volitelný název příkazu v příkazovém řádku"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabOutput)
 #: toolview.ui:27
@@ -543,7 +551,7 @@ msgstr "Výstup"
 #: toolview.ui:36
 #, kde-format
 msgid "Displays output from the external tool"
-msgstr ""
+msgstr "Zobrazuje výstup z externího nástroje"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:5

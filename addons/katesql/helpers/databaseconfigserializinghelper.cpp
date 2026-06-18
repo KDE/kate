@@ -24,10 +24,10 @@ DatabaseForeignKeys DatabaseConfigSerializerHelper::readForeignKeys(const KConfi
         }
 
         const auto &p = *parts;
-        const auto tableWithFk = p[toInt(ForeignKeyPart::TableWithForeignKey)];
-        const auto columnWithFk = p[toInt(ForeignKeyPart::ColumnWithForeignKey)];
-        const auto referencedTable = p[toInt(ForeignKeyPart::ReferencedTable)];
-        const auto referencedColumn = p[toInt(ForeignKeyPart::ReferencedColumn)];
+        const auto tableWithFk = p[int(ForeignKeyPart::TableWithForeignKey)];
+        const auto columnWithFk = p[int(ForeignKeyPart::ColumnWithForeignKey)];
+        const auto referencedTable = p[int(ForeignKeyPart::ReferencedTable)];
+        const auto referencedColumn = p[int(ForeignKeyPart::ReferencedColumn)];
         result[tableWithFk][columnWithFk] = qMakePair(referencedTable, referencedColumn);
     }
 
@@ -79,8 +79,8 @@ QMap<QString, QString> DatabaseConfigSerializerHelper::readTableToDisplayColumnM
         auto parts = DisplayColumnEntrySerializer::deserialize(entry);
         if (parts) {
             const auto &p = *parts;
-            const auto table = p[toInt(DisplayColumnPart::Table)];
-            const auto displayColumn = p[toInt(DisplayColumnPart::DisplayColumn)];
+            const auto table = p[int(DisplayColumnPart::Table)];
+            const auto displayColumn = p[int(DisplayColumnPart::DisplayColumn)];
             result[table] = displayColumn;
         }
     }
@@ -124,10 +124,10 @@ DatabaseEnums DatabaseConfigSerializerHelper::readEnums(const KConfigGroup &conf
             continue;
         }
 
-        const auto &p = *parts;
-        const auto table = p[toInt(EnumPart::Table)];
-        const auto column = p[toInt(EnumPart::Column)];
-        const auto value = p[toInt(EnumPart::Value)];
+        const auto &p = parts.value();
+        const QString table = p[int(EnumPart::Table)];
+        const QString column = p[int(EnumPart::Column)];
+        const QString value = p[int(EnumPart::Value)];
         result[table][column].append(value);
     }
 

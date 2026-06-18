@@ -42,12 +42,6 @@ SPDX-License-Identifier: LGPL-2.0-only
  *   QString name = (*parts)[toIndex(MyPart::Name)];
  * @endcode
  */
-template<typename Enum>
-    requires std::is_enum_v<Enum>
-constexpr int toInt(Enum e)
-{
-    return static_cast<int>(e);
-}
 
 template<typename PartEnum>
     requires std::is_enum_v<PartEnum>

@@ -51,12 +51,6 @@ public:
 
 private:
     /**
-     * Retrieves enum column values for SQLite databases.
-     * Returns empty because SQLite does not have native enum types.
-     */
-    static DatabaseEnums getSQLiteEnums(const QSqlDatabase &db);
-
-    /**
      * Retrieves enum column values for PostgreSQL databases.
      * Uses pg_enum joined with pg_type, pg_attribute, and pg_class.
      * Returns schema-qualified table names to match QSqlDatabase::tables() output.
@@ -68,46 +62,4 @@ private:
      * Uses INFORMATION_SCHEMA.COLUMNS with COLUMN_TYPE parsing.
      */
     static DatabaseEnums getMySqlServerEnums(const QSqlDatabase &db);
-
-    /**
-     * Retrieves enum column values for Microsoft SQL Server databases.
-     * Returns empty because SQL Server does not have native enum types.
-     */
-    static DatabaseEnums getMSSqlServerEnums(const QSqlDatabase &db);
-
-    /**
-     * Retrieves enum column values for Oracle databases.
-     * Returns empty because Oracle does not have native enum types.
-     */
-    static DatabaseEnums getOracleEnums(const QSqlDatabase &db);
-
-    /**
-     * Retrieves enum column values for Sybase databases.
-     * Returns empty because Sybase does not have native enum types.
-     */
-    static DatabaseEnums getSybaseEnums(const QSqlDatabase &db);
-
-    /**
-     * Retrieves enum column values for DB2 databases.
-     * Returns empty because DB2 does not have native enum types.
-     */
-    static DatabaseEnums getDB2Enums(const QSqlDatabase &db);
-
-    /**
-     * Retrieves enum column values for Interbase/Firebird databases.
-     * Returns empty because Firebird does not have native enum types.
-     */
-    static DatabaseEnums getInterbaseEnums(const QSqlDatabase &db);
-
-    /**
-     * Retrieves enum column values for Mimer SQL databases.
-     * Returns empty because Mimer SQL does not have native enum types.
-     */
-    static DatabaseEnums getMimerSQLEnums(const QSqlDatabase &db);
-
-    /**
-     * Generic fallback for unknown database types.
-     * Returns an empty map.
-     */
-    static DatabaseEnums getUnknownEnums(const QSqlDatabase &db);
 };

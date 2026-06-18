@@ -22,35 +22,13 @@ DatabaseEnums EnumHelper::getEnums(const QSqlDatabase &db)
     const auto dbmsType = db.driver()->dbmsType();
 
     switch (dbmsType) {
-    case QSqlDriver::DbmsType::SQLite:
-        return getSQLiteEnums(db);
     case QSqlDriver::DbmsType::PostgreSQL:
         return getPostgreSQLEnums(db);
     case QSqlDriver::DbmsType::MySqlServer:
         return getMySqlServerEnums(db);
-    case QSqlDriver::DbmsType::MSSqlServer:
-        return getMSSqlServerEnums(db);
-    case QSqlDriver::DbmsType::Oracle:
-        return getOracleEnums(db);
-    case QSqlDriver::DbmsType::Sybase:
-        return getSybaseEnums(db);
-    case QSqlDriver::DbmsType::DB2:
-        return getDB2Enums(db);
-    case QSqlDriver::DbmsType::Interbase:
-        return getInterbaseEnums(db);
-    case QSqlDriver::DbmsType::MimerSQL:
-        return getMimerSQLEnums(db);
-    case QSqlDriver::DbmsType::UnknownDbms:
     default:
-        return getUnknownEnums(db);
+        return {};
     }
-}
-
-DatabaseEnums EnumHelper::getSQLiteEnums(const QSqlDatabase &db)
-{
-    // SQLite does not have native enum types.
-    Q_UNUSED(db)
-    return {};
 }
 
 DatabaseEnums EnumHelper::getPostgreSQLEnums(const QSqlDatabase &db)
@@ -157,52 +135,4 @@ DatabaseEnums EnumHelper::getMySqlServerEnums(const QSqlDatabase &db)
     }
 
     return result;
-}
-
-DatabaseEnums EnumHelper::getMSSqlServerEnums(const QSqlDatabase &db)
-{
-    // SQL Server does not have native enum types.
-    Q_UNUSED(db)
-    return {};
-}
-
-DatabaseEnums EnumHelper::getOracleEnums(const QSqlDatabase &db)
-{
-    // Oracle does not have native enum types.
-    Q_UNUSED(db)
-    return {};
-}
-
-DatabaseEnums EnumHelper::getSybaseEnums(const QSqlDatabase &db)
-{
-    // Sybase does not have native enum types.
-    Q_UNUSED(db)
-    return {};
-}
-
-DatabaseEnums EnumHelper::getDB2Enums(const QSqlDatabase &db)
-{
-    // DB2 does not have native enum types.
-    Q_UNUSED(db)
-    return {};
-}
-
-DatabaseEnums EnumHelper::getInterbaseEnums(const QSqlDatabase &db)
-{
-    // Firebird/Interbase does not have native enum types.
-    Q_UNUSED(db)
-    return {};
-}
-
-DatabaseEnums EnumHelper::getMimerSQLEnums(const QSqlDatabase &db)
-{
-    // Mimer SQL does not have native enum types.
-    Q_UNUSED(db)
-    return {};
-}
-
-DatabaseEnums EnumHelper::getUnknownEnums(const QSqlDatabase &db)
-{
-    Q_UNUSED(db)
-    return {};
 }

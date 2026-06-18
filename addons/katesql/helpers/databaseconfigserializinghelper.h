@@ -13,7 +13,6 @@ SPDX-License-Identifier: LGPL-2.0-only
 #include <QStringList>
 
 #include "databaseconfigentryserializer.h"
-#include "enumhelper.h"
 #include "foreignkeyhelper.h"
 
 /**
@@ -96,41 +95,6 @@ public:
      * @return true if mappings exist in config, false otherwise.
      */
     static bool hasTableToDisplayColumnMap(const KConfigGroup &config, const QString &databaseName);
-
-    /**
-     * Reads enum column values for a specific database from config.
-     *
-     * @param config The config group to read from.
-     * @param databaseName The name of the database to read enums for.
-     * @return The deserialized enums, or empty map if not found or on error.
-     */
-    static DatabaseEnums readEnums(const KConfigGroup &config, const QString &databaseName);
-
-    /**
-     * Writes enum column values for a specific database to config.
-     *
-     * @param config The config group to write to.
-     * @param databaseName The name of the database to write enums for.
-     * @param enums The enum values to serialize and store.
-     */
-    static void writeEnums(KConfigGroup &config, const QString &databaseName, const DatabaseEnums &enums);
-
-    /**
-     * Checks if enum column values are stored in config for a specific database.
-     *
-     * @param config The config group to check.
-     * @param databaseName The name of the database to check.
-     * @return true if enums exist in config, false otherwise.
-     */
-    static bool hasEnums(const KConfigGroup &config, const QString &databaseName);
-
-    /**
-     * Removes cached enum column values for a specific database from config.
-     *
-     * @param config The config group to modify.
-     * @param databaseName The name of the database to remove enums for.
-     */
-    static void removeEnums(KConfigGroup &config, const QString &databaseName);
 
 private:
     /**

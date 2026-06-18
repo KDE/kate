@@ -6,7 +6,6 @@
 
 #include "schemawidget.h"
 #include "helpers/databaseconfigserializinghelper.h"
-#include "helpers/enumhelper.h"
 #include "helpers/foreignkeyhelper.h"
 #include "katesqlconstants.h"
 #include "sqlmanager.h"
@@ -124,8 +123,6 @@ void SchemaWidget::refresh()
     if (!m_connectionName.isEmpty() && isConnectionValidAndOpen()) {
         KConfigGroup fkConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseForeignKeysGroup);
         DatabaseConfigSerializerHelper::removeForeignKeys(fkConfig, m_connectionName);
-        KConfigGroup enumConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseEnumsGroup);
-        DatabaseConfigSerializerHelper::removeEnums(enumConfig, m_connectionName);
     }
     buildTree(m_connectionName);
 }
@@ -555,7 +552,6 @@ void SchemaWidget::loadForeignKeys()
 {
     if (!isConnectionValidAndOpen()) {
         m_columnToForeignKeysMap.clear();
-        m_columnToEnumsMap.clear();
         m_tableToDisplayColumnMap.clear();
         return;
     }
@@ -580,38 +576,8 @@ void SchemaWidget::loadForeignKeys()
         }
     }
 
-    // Load enum column values
-    loadEnums();
-
     // Fill display column map after updating foreign keys
     fillTableToColumnMap();
-}
-
-void SchemaWidget::loadEnums()
-{
-    if (!isConnectionValidAndOpen()) {
-        m_columnToEnumsMap.clear();
-        return;
-    }
-
-    m_columnToEnumsMap.clear();
-
-    KConfigGroup enumConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseEnumsGroup);
-
-    // Try to read from cache first to avoid hitting the database on every buildTree()
-    if (DatabaseConfigSerializerHelper::hasEnums(enumConfig, m_connectionName)) {
-        m_columnToEnumsMap = DatabaseConfigSerializerHelper::readEnums(enumConfig, m_connectionName);
-    }
-
-    // If cache was empty or missing, query the live database
-    if (m_columnToEnumsMap.isEmpty()) {
-        QSqlDatabase db = QSqlDatabase::database(m_connectionName);
-        m_columnToEnumsMap = EnumHelper::getEnums(db);
-
-        if (!m_columnToEnumsMap.isEmpty()) {
-            DatabaseConfigSerializerHelper::writeEnums(enumConfig, m_connectionName, m_columnToEnumsMap);
-        }
-    }
 }
 
 void SchemaWidget::fillTableToColumnMap()

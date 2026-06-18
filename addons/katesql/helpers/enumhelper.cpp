@@ -13,9 +13,13 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-DatabaseEnums EnumHelper::getEnums(const QSqlDatabase &db)
+TableEnums EnumHelper::getEnums(const QSqlDatabase &db, const QString &tableName)
 {
     if (!db.isValid() || !db.isOpen()) {
+        return {};
+    }
+
+    if (tableName.isEmpty()) {
         return {};
     }
 
@@ -23,22 +27,22 @@ DatabaseEnums EnumHelper::getEnums(const QSqlDatabase &db)
 
     switch (dbmsType) {
     case QSqlDriver::DbmsType::PostgreSQL:
-        return getPostgreSQLEnums(db);
+        return getPostgreSQLEnums(db, tableName);
     case QSqlDriver::DbmsType::MySqlServer:
-        return getMySqlServerEnums(db);
+        return getMySqlServerEnums(db, tableName);
     default:
         return {};
     }
 }
 
-DatabaseEnums EnumHelper::getPostgreSQLEnums(const QSqlDatabase &db)
+TableEnums EnumHelper::getPostgreSQLEnums(const QSqlDatabase &db, const QString &tableName)
 {
-    DatabaseEnums result;
+    TableEnums result;
 
     // Query PostgreSQL enum types by joining pg_enum with pg_type, pg_attribute,
     // and pg_class. Returns schema-qualified table names to match
     // QSqlDatabase::tables() output format for PostgreSQL.
-    static const QLatin1String query(
+    const QString query = QStringLiteral(
         "SELECT "
         "    ns.nspname || '.' || c.relname AS table_name, "
         "    a.attname AS column_name, "
@@ -54,12 +58,21 @@ DatabaseEnums EnumHelper::getPostgreSQLEnums(const QSqlDatabase &db)
         "    AND a.attnum > 0 "
         "    AND NOT a.attisdropped "
         "    AND ns.nspname NOT IN ('information_schema', 'pg_catalog', 'pg_toast') "
+        "    AND (c.relname = :tableName OR (ns.nspname || '.' || c.relname) = :tableName) "
         "ORDER BY "
         "    ns.nspname, c.relname, a.attname, e.enumsortorder");
 
     QSqlQuery q(db);
-    if (!q.exec(query)) {
-        qWarning() << "EnumHelper::getPostgreSQLEnums: query failed:" << q.lastError().text();
+
+    if (!q.prepare(query)) {
+        qWarning("%s prepare failed: %ls", __func__, qUtf16Printable(q.lastError().text()));
+        return result;
+    }
+
+    q.bindValue(QStringLiteral(":tableName"), tableName);
+
+    if (!q.exec()) {
+        qWarning("%s query failed: %ls", __func__, qUtf16Printable(q.lastError().text()));
         return result;
     }
 
@@ -68,21 +81,21 @@ DatabaseEnums EnumHelper::getPostgreSQLEnums(const QSqlDatabase &db)
         const QString column = q.value(1).toString();
         const QString value = q.value(2).toString();
         if (!table.isEmpty() && !column.isEmpty() && !value.isEmpty()) {
-            result[table][column].append(value);
+            result[column].append(value);
         }
     }
 
     return result;
 }
 
-DatabaseEnums EnumHelper::getMySqlServerEnums(const QSqlDatabase &db)
+TableEnums EnumHelper::getMySqlServerEnums(const QSqlDatabase &db, const QString &tableName)
 {
-    DatabaseEnums result;
+    TableEnums result;
 
     // Query MySQL ENUM columns from INFORMATION_SCHEMA.COLUMNS.
     // COLUMN_TYPE for enum columns looks like: enum('val1','val2','val3')
     // We parse the values from this string.
-    static const QLatin1String query(
+    const QString query = QStringLiteral(
         "SELECT "
         "    TABLE_NAME, "
         "    COLUMN_NAME, "
@@ -91,11 +104,20 @@ DatabaseEnums EnumHelper::getMySqlServerEnums(const QSqlDatabase &db)
         "    INFORMATION_SCHEMA.COLUMNS "
         "WHERE "
         "    TABLE_SCHEMA = DATABASE() "
-        "    AND DATA_TYPE = 'enum'");
+        "    AND DATA_TYPE = 'enum' "
+        "    AND TABLE_NAME = :tableName");
 
     QSqlQuery q(db);
+
+    if (!q.prepare(query)) {
+        qWarning("%s prepare failed: %ls", __func__, qUtf16Printable(q.lastError().text()));
+        return result;
+    }
+
+    q.bindValue(QStringLiteral(":tableName"), tableName);
+
     if (!q.exec(query)) {
-        qWarning() << "EnumHelper::getMySqlServerEnums: query failed:" << q.lastError().text();
+        qWarning("%s query exec failed: %ls", __func__, qUtf16Printable(q.lastError().text()));
         return result;
     }
 
@@ -130,7 +152,7 @@ DatabaseEnums EnumHelper::getMySqlServerEnums(const QSqlDatabase &db)
         }
 
         if (!values.isEmpty()) {
-            result[table][column] = values;
+            result[column] = values;
         }
     }
 

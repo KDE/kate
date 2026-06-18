@@ -421,16 +421,8 @@ void DataOutputWidget::setupColumnDelegates()
 
     const auto rec = sqlTableModel->record();
 
-    // Load enum column values from config cache for the current table
-    TableEnums columnEnums;
-    const QString tableName = sqlTableModel->tableName();
-    if (!tableName.isEmpty()) {
-        KConfigGroup enumConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseEnumsGroup);
-        if (DatabaseConfigSerializerHelper::hasEnums(enumConfig, m_connectionName)) {
-            const DatabaseEnums dbEnums = DatabaseConfigSerializerHelper::readEnums(enumConfig, m_connectionName);
-            columnEnums = dbEnums.value(tableName);
-        }
-    }
+    // Load enum column values for the current table
+    TableEnums columnEnums = EnumHelper::getEnums(QSqlDatabase::database(m_connectionName), sqlTableModel->tableName());
 
     const auto relationalModel = qobject_cast<DataOutputEditableRelationalModel *>(m_model->asQObject());
 

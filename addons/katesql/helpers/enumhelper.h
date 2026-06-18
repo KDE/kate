@@ -22,11 +22,6 @@ using ColumnEnums = QStringList;
 using TableEnums = QMap<QString, ColumnEnums>;
 
 /**
- * Type alias for all enum columns in a database: maps table name to its column enums.
- */
-using DatabaseEnums = QMap<QString, TableEnums>;
-
-/**
  * Helper class to retrieve enum column values from a QSqlDatabase connection.
  *
  * Provides optimized queries for each supported database type, fetching all
@@ -47,7 +42,7 @@ public:
      *         Returns an empty map if the database is invalid, not open,
      *         or the query fails.
      */
-    static DatabaseEnums getEnums(const QSqlDatabase &db);
+    static TableEnums getEnums(const QSqlDatabase &db, const QString &tableName);
 
 private:
     /**
@@ -55,11 +50,11 @@ private:
      * Uses pg_enum joined with pg_type, pg_attribute, and pg_class.
      * Returns schema-qualified table names to match QSqlDatabase::tables() output.
      */
-    static DatabaseEnums getPostgreSQLEnums(const QSqlDatabase &db);
+    static TableEnums getPostgreSQLEnums(const QSqlDatabase &db, const QString &tableName);
 
     /**
      * Retrieves enum column values for MySQL/MariaDB databases.
      * Uses INFORMATION_SCHEMA.COLUMNS with COLUMN_TYPE parsing.
      */
-    static DatabaseEnums getMySqlServerEnums(const QSqlDatabase &db);
+    static TableEnums getMySqlServerEnums(const QSqlDatabase &db, const QString &tableName);
 };

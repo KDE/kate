@@ -17,7 +17,6 @@ class QKeyEvent;
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 
-#include "helpers/enumhelper.h"
 #include "helpers/foreignkeyhelper.h"
 
 class SchemaWidget : public QTreeWidget
@@ -71,7 +70,6 @@ private:
     void keyPressEvent(QKeyEvent *event) override;
     bool isConnectionValidAndOpen() const;
     void loadForeignKeys();
-    void loadEnums();
     void fillTableToColumnMap();
     bool canUseRelationalModel(const QString &tableName) const;
     bool isRelationalTablesEnabled() const;
@@ -89,6 +87,5 @@ private:
     SQLManager *m_manager;
 
     DatabaseForeignKeys m_columnToForeignKeysMap;
-    DatabaseEnums m_columnToEnumsMap;
     QMap<QString, QString> m_tableToDisplayColumnMap;
 };

@@ -3205,13 +3205,3 @@ msgstr "Управление на сесиите..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Показване на приветствената страница за нови прозорци"
-
-#~ msgid ""
-#~ "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#~ "to save your changes or discard them?</p>"
-#~ msgstr ""
-#~ "<p>Документът „%1“ е променен, но не е записан.</p><p>Искате ли да бъде "
-#~ "записан или да се отхвърлят промените?</p>"
-
-#~ msgid "Save As"
-#~ msgstr "Запис като"

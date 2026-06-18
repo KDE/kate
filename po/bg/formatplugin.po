@@ -104,18 +104,3 @@ msgstr "Неизвестен formatterForYaml: %1, връщане към yamlfmt
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""
 "Неуспешно стартиране на инструмента за форматиране. Неподдържан език %1"
-
-#~ msgid "User Settings"
-#~ msgstr "Потребителски настройки"
-
-#~ msgid "Default Settings"
-#~ msgstr "Настройки по подразбиране"
-
-#~ msgid "Please install node and prettier"
-#~ msgstr "Моля, инсталирайте node и prettier"
-
-#~ msgid "PrettierFormat: Failed to create temporary file"
-#~ msgstr "PrettierFormat: Неуспешно създаване на временен файл"
-
-#~ msgid "PrettierFormat: Failed to start 'node': %1"
-#~ msgstr "PrettierFormat: Неуспешно стартиране  на 'node': %1"

@@ -634,18 +634,3 @@ msgstr "&LSP клиент"
 #, kde-format
 msgid "More Options"
 msgstr "Повече опции"
-
-#~ msgid "No JSON data to validate."
-#~ msgstr "Няма JSON данни за проверка."
-
-#~ msgid "JSON data is valid."
-#~ msgstr "JSON данните са валидни."
-
-#~ msgid "JSON data is invalid: no JSON object"
-#~ msgstr "JSON данните са невалидни: няма JSON обект"
-
-#~ msgid "JSON data is invalid: %1"
-#~ msgstr "JSON данните са невалидни: %1"
-
-#~ msgid "Settings File:"
-#~ msgstr "Файл с настройки:"

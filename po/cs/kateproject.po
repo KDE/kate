@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-17 00:47+0000\n"
-"PO-Revision-Date: 2026-06-16 18:57+0200\n"
+"PO-Revision-Date: 2026-06-17 21:29+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -17,42 +17,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 26.04.2\n"
+"X-Generator: Poedit 3.9\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr ""
+"Vyberte větev, na kterou chcete přepnout. Stisknutím klávesy 'Esc' akci "
+"zrušíte."
 
 #: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr ""
+msgstr "Přepnuto na větev %1"
 
 #: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr ""
+msgstr "Nepodařilo se přepnutí do větve %1, chyba: %2"
 
 #: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr ""
+msgstr "Zadejte název nové větve. Stisknutím klávesy 'Esc' akci zrušíte."
 
 #: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
+"Vyberte větev, ze které chcete přepnout. Stisknutím klávesy 'Esc' akci "
+"zrušíte."
 
 #: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr ""
+msgstr "Přepnuto do nové větve: %1"
 
 #: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr ""
+msgstr "Vytvoření nové větve se nezdařilo. Chyba \"%1\""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -85,7 +89,7 @@ msgstr[2] "Opravdu si přejete odstranit vybrané větve?"
 #: branchesdialog.cpp:96
 #, kde-format
 msgid "Select Branch..."
-msgstr ""
+msgstr "Vybrat větev..."
 
 #: branchesdialog.cpp:108 gitwidget.cpp:550 kateprojectpluginview.cpp:74
 #, kde-format
@@ -111,13 +115,13 @@ msgstr "Zpět"
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr ""
+msgstr "HEAD v commitu %1"
 
 #: currentgitbranchbutton.cpp:124
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD je na této značce %1"
 
 #: currentgitbranchbutton.cpp:126
 #, kde-format
@@ -128,7 +132,7 @@ msgstr "Aktivní větev: %1"
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
 msgid "Commit Changes"
-msgstr ""
+msgstr "Odeslat commit"
 
 #: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:265
 #: gitwidget.cpp:1089
@@ -144,12 +148,12 @@ msgstr "Zrušit"
 #: gitcommitdialog.cpp:77
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "Napsat komentář ke commitu..."
 
 #: gitcommitdialog.cpp:84
 #, kde-format
 msgid "Extended commit description..."
-msgstr ""
+msgstr "Rozšířený popis commitu..."
 
 #: gitcommitdialog.cpp:108
 #, kde-format
@@ -159,7 +163,7 @@ msgstr "Podepsat"
 #: gitcommitdialog.cpp:112 gitcommitdialog.cpp:125
 #, kde-format
 msgid "Amend"
-msgstr ""
+msgstr "Doplnit"
 
 #: gitcommitdialog.cpp:113 gitwidget.cpp:1042
 #, kde-format
@@ -169,7 +173,7 @@ msgstr "Doplnit poslední commit"
 #: gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amending Commit"
-msgstr ""
+msgstr "Doplňování commitu"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
@@ -237,6 +241,8 @@ msgstr "Filtrovat…"
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
+"Nepodařilo se najít adresář .git pro '%1', některé funkce nemusí fungovat "
+"správně"
 
 #: gitwidget.cpp:639
 #, kde-format
@@ -246,72 +252,72 @@ msgstr " chyba: %1"
 #: gitwidget.cpp:645
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr ""
+msgstr "\"%1\" bylo úspěšně provedeno: %2"
 
 #: gitwidget.cpp:665
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "Nepodařilo se zařadit soubor do fronty. Chyba:"
 
 #: gitwidget.cpp:678
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "Nepodařilo se zrušit zařazení souboru do fronty. Chyba:"
 
 #: gitwidget.cpp:689
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr ""
+msgstr "Zahození změn se nezdařilo. Chyba:"
 
 #: gitwidget.cpp:700
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr ""
+msgstr "Odstranění se nezdařilo. Chyba:"
 
 #: gitwidget.cpp:716
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr ""
+msgstr "Nepodařilo se otevřít soubor v HEAD: %1"
 
 #: gitwidget.cpp:750
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr ""
+msgstr "Nepodařilo se získat rozdíl souboru: %1"
 
 #: gitwidget.cpp:819
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr ""
+msgstr "Nepodařilo se odeslat commit: %1"
 
 #: gitwidget.cpp:823
 #, kde-format
 msgid "Changes committed successfully."
-msgstr ""
+msgstr "Commit se změnami úspěšně odeslán."
 
 #: gitwidget.cpp:833
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
+msgstr "Není co odeslat. Nejprve prosím změny zařaďte do fronty."
 
 #: gitwidget.cpp:847
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr ""
+msgstr "Komentář ke commitu nesmí být prázdný."
 
 #: gitwidget.cpp:978
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr ""
+msgstr "Žádný rozdíl pro %1...%2"
 
 #: gitwidget.cpp:984
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr ""
+msgstr "Nepodařilo se porovnat %1...%2"
 
 #: gitwidget.cpp:999
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr ""
+msgstr "Nepodařilo se získat numstat během porovnávání %1...%2"
 
 #: gitwidget.cpp:1034
 #, kde-format
@@ -321,7 +327,7 @@ msgstr "Obnovit"
 #: gitwidget.cpp:1051
 #, kde-format
 msgid "Checkout Branch"
-msgstr ""
+msgstr "Přepnout větev"
 
 #: gitwidget.cpp:1063
 #, kde-format
@@ -351,7 +357,7 @@ msgstr "Otevřít Commit..."
 #: gitwidget.cpp:1122 gitwidget.cpp:1170
 #, kde-format
 msgid "Stash"
-msgstr "Uschovat"
+msgstr "Úschovna"
 
 #: gitwidget.cpp:1126
 #, kde-format
@@ -361,59 +367,57 @@ msgstr "Zobrazit historii"
 #: gitwidget.cpp:1138
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Rozdíl - uschovat"
 
 #: gitwidget.cpp:1174
 #, kde-format
 msgid "Pop Last Stash"
-msgstr ""
+msgstr "Použít poslední úschovnu"
 
 #: gitwidget.cpp:1178
 #, kde-format
 msgid "Pop Stash"
-msgstr ""
+msgstr "Použít úschovnu"
 
 #: gitwidget.cpp:1182
 #, kde-format
 msgid "Apply Last Stash"
-msgstr ""
+msgstr "Aplikovat poslední úschovnu"
 
 #: gitwidget.cpp:1184
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr ""
+msgstr "Úschovna (nechat uložené)"
 
 #: gitwidget.cpp:1188
 #, kde-format
 msgid "Stash (Include Untracked)"
-msgstr ""
+msgstr "Úschovna (zahrnout do nesledovaných)"
 
 #: gitwidget.cpp:1192
 #, kde-format
 msgid "Apply Stash"
-msgstr ""
+msgstr "Aplikovat úschovnu"
 
 #: gitwidget.cpp:1193
 #, kde-format
 msgid "Drop Stash"
-msgstr ""
+msgstr "Zahodit úschovnu"
 
 #: gitwidget.cpp:1197
-#, fuzzy, kde-format
-#| msgid "Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "Uschovat"
+msgstr "Zobrazit úschovnu"
 
 #: gitwidget.cpp:1201
-#, fuzzy, kde-format
-#| msgid "Show Diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "Zobrazit změny"
+msgstr "Zobrazit rozdíl v úschovně"
 
 #: gitwidget.cpp:1239
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "Uschovat vše"
 
 #: gitwidget.cpp:1241
 #, kde-format
@@ -428,13 +432,13 @@ msgstr "Zahodit vše"
 #: gitwidget.cpp:1244
 #, kde-format
 msgid "Open .gitignore"
-msgstr ""
+msgstr "Otevřít .gitignore"
 
 #: gitwidget.cpp:1245 gitwidget.cpp:1294 gitwidget.cpp:1345
 #: kateprojectconfigpage.cpp:111 kateprojectconfigpage.cpp:123
 #, kde-format
 msgid "Show Diff"
-msgstr "Zobrazit změny"
+msgstr "Zobrazit rozdíl"
 
 #: gitwidget.cpp:1262
 #, kde-format
@@ -454,12 +458,12 @@ msgstr "Otevřít soubor"
 #: gitwidget.cpp:1286
 #, kde-format
 msgid "Unstage File"
-msgstr ""
+msgstr "Zrušit úschovu souboru"
 
 #: gitwidget.cpp:1286
 #, kde-format
 msgid "Stage File"
-msgstr ""
+msgstr "Uschovat soubor"
 
 #: gitwidget.cpp:1287
 #, kde-format
@@ -474,12 +478,12 @@ msgstr "Zahodit"
 #: gitwidget.cpp:1295
 #, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr ""
+msgstr "Zobrazit v externím nástroji pro porovnávání změn v Git"
 
 #: gitwidget.cpp:1296
 #, kde-format
 msgid "Open at HEAD"
-msgstr ""
+msgstr "Otevřít v HEAD"
 
 #: gitwidget.cpp:1300
 #, kde-format
@@ -489,7 +493,7 @@ msgstr "Zobrazit historii"
 #: gitwidget.cpp:1316
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr ""
+msgstr "Opravdu chcete zrušit změny v tomto souboru?"
 
 #: gitwidget.cpp:1327
 #, kde-format
@@ -499,22 +503,22 @@ msgstr "Opravdu si přejete odstranit tento soubor?"
 #: gitwidget.cpp:1344
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "Zrušit veškerou úschovu"
 
 #: gitwidget.cpp:1411
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "Zrušit úschovu vybraných souborů"
 
 #: gitwidget.cpp:1411
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "Uschovat vybrané soubory"
 
 #: gitwidget.cpp:1412
 #, kde-format
 msgid "Discard Selected Files"
-msgstr ""
+msgstr "Zahodit vybrané soubory"
 
 #: gitwidget.cpp:1416
 #, kde-format
@@ -524,12 +528,12 @@ msgstr "Odstranit vybrané soubory"
 #: gitwidget.cpp:1429
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
-msgstr ""
+msgstr "Opravdu chcete změny zahodit?"
 
 #: gitwidget.cpp:1434
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
-msgstr ""
+msgstr "Opravdu chcete tyto nesledované změny odstranit?"
 
 #: kateproject.cpp:233
 #, kde-format
@@ -537,10 +541,9 @@ msgid "(Modified)"
 msgstr "(Změněno)"
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "Staged"
+msgstr "(Uschováno)"
 
 #: kateproject.cpp:357
 #, kde-format
@@ -569,7 +572,7 @@ msgstr "Doplňování projektu"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "Automaticky načítat repozitáře && stromy pro sestavení"
+msgstr "Automatické načítání repozitářů a stromů sestavení"
 
 #: kateprojectconfigpage.cpp:26
 #, kde-format
@@ -598,7 +601,7 @@ msgstr "&Mercurial"
 #: kateprojectconfigpage.cpp:36
 #, kde-format
 msgid "&Fossil"
-msgstr ""
+msgstr "&Fossil"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
@@ -609,7 +612,7 @@ msgstr "&CMake"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Directory Listing"
-msgstr ""
+msgstr "Výpis adresářů"
 
 #: kateprojectconfigpage.cpp:49
 #, kde-format
@@ -617,11 +620,13 @@ msgid ""
 "When directory listing is enabled, autoloaded repository projects show all "
 "files instead of only VCS-tracked files."
 msgstr ""
+"Je-li povolen výpis adresáře, projekty z repozitáře načítané automaticky "
+"zobrazují všechny soubory, nikoli pouze soubory sledované VCS."
 
 #: kateprojectconfigpage.cpp:52
 #, kde-format
 msgid "Include files untracked by repository"
-msgstr ""
+msgstr "Zahrnout soubory, které nejsou sledovány repozitářem"
 
 #: kateprojectconfigpage.cpp:54
 #, kde-format
@@ -629,11 +634,14 @@ msgid ""
 "Show all files in the project directory including files not tracked by the "
 "version control system, such as those excluded via .gitignore."
 msgstr ""
+"Zobrazit všechny soubory v adresáři projektu, včetně souborů, které systém "
+"správy verzí nesleduje, například těch, které jsou vyloučeny pomocí souboru ."
+"gitignore."
 
 #: kateprojectconfigpage.cpp:58
 #, kde-format
 msgid "Show hidden files in non-VCS projects"
-msgstr ""
+msgstr "Zobrazit skryté soubory v projektech bez VCS"
 
 #: kateprojectconfigpage.cpp:59
 #, kde-format
@@ -641,6 +649,8 @@ msgid ""
 "Show hidden files (dotfiles) in the project file tree for projects not "
 "loaded using version control."
 msgstr ""
+"Zobrazit skryté soubory (dotfiles) ve stromové struktuře projektu u "
+"projektů, které nejsou načteny prostřednictvím systému správy verzí."
 
 #: kateprojectconfigpage.cpp:68
 #, kde-format
@@ -667,7 +677,7 @@ msgstr "Index projektu"
 #: kateprojectconfigpage.cpp:78
 #, kde-format
 msgid "Project ctags index settings"
-msgstr ""
+msgstr "Nastavení ctags indexu projektu"
 
 #: kateprojectconfigpage.cpp:79 kateprojectinfoviewindex.cpp:208
 #, kde-format
@@ -685,6 +695,8 @@ msgid ""
 "The system temporary directory is used if not specified, which may overflow "
 "for very large repositories"
 msgstr ""
+"Pokud není zadán, použije se dočasný adresář systému, který se však u velmi "
+"rozsáhlých repozitářů může zaplnit"
 
 #: kateprojectconfigpage.cpp:93
 #, kde-format
@@ -696,17 +708,17 @@ msgstr "Funkčnost napříč projekty"
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
-msgstr ""
+msgstr "Modul Projekty dokáže provádět některé operace napříč více projekty"
 
 #: kateprojectconfigpage.cpp:95
 #, kde-format
 msgid "Cross-Project Completion"
-msgstr ""
+msgstr "Doplňování napříč projekty"
 
 #: kateprojectconfigpage.cpp:97
 #, kde-format
 msgid "Cross-Project Goto Symbol"
-msgstr ""
+msgstr "Přesun na symbol napříč projekty"
 
 #: kateprojectconfigpage.cpp:105
 #, kde-format
@@ -717,7 +729,7 @@ msgstr "Git"
 #: kateprojectconfigpage.cpp:108
 #, kde-format
 msgid "Single click action in the git status view"
-msgstr ""
+msgstr "Akce jedním kliknutím v zobrazení git status"
 
 #: kateprojectconfigpage.cpp:110 kateprojectconfigpage.cpp:122
 #, kde-format
@@ -732,12 +744,12 @@ msgstr "Otevřít soubor"
 #: kateprojectconfigpage.cpp:113 kateprojectconfigpage.cpp:125
 #, kde-format
 msgid "Stage / Unstage"
-msgstr ""
+msgstr "Uschovat / Zrušit úschovu"
 
 #: kateprojectconfigpage.cpp:120
 #, kde-format
 msgid "Double click action in the git status view"
-msgstr ""
+msgstr "Akce dvojím kliknutím v zobrazení git status"
 
 #: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:73
 #, kde-format
@@ -806,6 +818,9 @@ msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"'%1' není ve vašem systému nainstalován, %2.<br/><br/>%3. Nástroj bude "
+"spuštěn na všech souborech projektu, které odpovídají tomuto seznamu přípon "
+"souborů:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:109
 #, kde-format
@@ -813,6 +828,9 @@ msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"Použije se program %1 nainstalovaný v: %2.<br/><br/>%3. Nástroj bude spuštěn "
+"na všech souborech projektu, které odpovídají tomuto seznamu přípon souborů:"
+"<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:151
 #: kateprojectinfoviewcodeanalysis.cpp:211
@@ -886,17 +904,17 @@ msgstr "Název souboru již existuje"
 #: kateprojectplugin.cpp:270
 #, kde-format
 msgid "Confirm project closing: %1"
-msgstr ""
+msgstr "Potvrdit uzavření projektu: %1"
 
 #: kateprojectplugin.cpp:271
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
-msgstr ""
+msgstr "Chcete uzavřít projekt %1 a související %2 otevřené dokumenty?"
 
 #: kateprojectplugin.cpp:691
 #, kde-format
 msgid "Full path to current project excluding the file name."
-msgstr ""
+msgstr "Úplná cesta k aktuálnímu projektu bez názvu souboru."
 
 #: kateprojectplugin.cpp:708
 #, kde-format
@@ -904,6 +922,8 @@ msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
+"Úplná cesta k aktuálnímu projektu bez názvu souboru, s nativním oddělovačem "
+"cest (zpětné lomítko ve Windows)."
 
 #: kateprojectpluginview.cpp:63
 #, kde-format
@@ -983,7 +1003,7 @@ msgstr "Znovu načíst všechny projekty"
 #: kateprojectpluginview.cpp:232
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
+msgstr "Přepnout větev Gitu"
 
 #: kateprojectpluginview.cpp:238 kateprojectpluginview.cpp:847
 #, kde-format
@@ -1043,12 +1063,12 @@ msgstr "Otevřít pomocí"
 #: kateprojecttreeviewcontextmenu.cpp:151
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "Otevřít interní terminál zde"
 
 #: kateprojecttreeviewcontextmenu.cpp:163
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "Otevřít externí terminál zde"
 
 #: kateprojecttreeviewcontextmenu.cpp:169
 #, kde-format
@@ -1083,7 +1103,7 @@ msgstr "Nelze vytvořit soubor: %1, Chyba: %2"
 #: kateprojectviewtree.cpp:408
 #, kde-format
 msgid "The directory already exists"
-msgstr ""
+msgstr "Adresář již existuje"
 
 #: kateprojectviewtree.cpp:415
 #, kde-format
@@ -1093,7 +1113,7 @@ msgstr "Nelze vytvořit adresář: %1"
 #: kateprojectworker.cpp:215
 #, kde-format
 msgid "Unable to find directory: %1"
-msgstr ""
+msgstr "Nelze najít adresář: %1"
 
 #: kateprojectworker.cpp:753
 #, kde-format
@@ -1103,81 +1123,88 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"Nelze načíst projekt založený na %1, protože %1 není nainstalováno nebo "
+"nebylo nalezeno v proměnné prostředí PATH. Nainstalujte prosím %1 nebo "
+"případně deaktivujte možnost ‚Automatické načítání repozitářů a stromů "
+"sestavení‘ v nastavení projektu."
 
 #: project_commands.cpp:35
 #, kde-format
 msgid "Execute a command in the active project's terminal."
-msgstr ""
+msgstr "Spustit příkaz v terminálu aktuálního projektu."
 
 #: project_commands.cpp:47
 #, kde-format
 msgid "No cmd provided"
-msgstr ""
+msgstr "Nebyl zadán žádný příkaz"
 
 #: project_commands.cpp:60
 #, kde-format
 msgid "Project Command"
-msgstr ""
+msgstr "Příkaz projektu"
 
 #: stashdialog.cpp:36
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
+"Uschovat komentář (volitelné). Stiskněte Enter pro potvrzení, Esc pro "
+"opuštění."
 
 #: stashdialog.cpp:44
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
+"Zadejte text pro filtrování, stiskněte Enter pro uschování, Esc pro opuštění."
 
 #: stashdialog.cpp:147
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr ""
+msgstr "Nepodařilo se uschovat změny %1"
 
 #: stashdialog.cpp:149
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr ""
+msgstr "Změny byly úspěšně uschovány."
 
 #: stashdialog.cpp:168
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr ""
+msgstr "Nepodařilo se načíst seznam úschovny. Chyba: "
 
 #: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr ""
+msgstr "Nepodařilo se aplikovat úschovnu. Chyba: "
 
 #: stashdialog.cpp:186
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr ""
+msgstr "Nepodařilo se zahodit úschovnu. Chyba: "
 
 #: stashdialog.cpp:188
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr ""
+msgstr "Nepodařilo se použít úschovnu. Chyba: "
 
 #: stashdialog.cpp:192
 #, kde-format
 msgid "Stash applied successfully."
-msgstr ""
+msgstr "Úschovna úspěšně aplikována."
 
 #: stashdialog.cpp:194
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr ""
+msgstr "Úschovna úspěšně zahozena."
 
 #: stashdialog.cpp:196
 #, kde-format
 msgid "Stash popped successfully."
-msgstr ""
+msgstr "Úschovna úspěšně zahozena."
 
 #: stashdialog.cpp:225
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr ""
+msgstr "Nepodařilo se zobrazit úschovnu. Chyba: "
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

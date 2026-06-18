@@ -1231,6 +1231,3 @@ msgstr "&Проекти"
 #| msgid "Project Completion"
 msgid "Project Plugin"
 msgstr "Завършване на проект"
-
-#~ msgid "Delete File"
-#~ msgstr "Изтриване на файл"

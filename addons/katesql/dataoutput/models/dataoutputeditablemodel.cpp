@@ -12,3 +12,5 @@ DataOutputEditableModel::DataOutputEditableModel(QObject *parent, QSqlDatabase d
 }
 
 DataOutputEditableModel::~DataOutputEditableModel() = default;
+
+#include "moc_dataoutputeditablemodel.cpp"

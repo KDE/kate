@@ -121,3 +121,5 @@ QVariant TMPL_QAbstractListModel::data(const QModelIndex &index, int role) const
 
     return {};
 }
+
+#include "moc_TMPL_QAbstractListModel.cpp"

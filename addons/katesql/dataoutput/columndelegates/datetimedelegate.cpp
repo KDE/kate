@@ -41,3 +41,5 @@ void DateTimeDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionV
 {
     editor->setGeometry(option.rect);
 }
+
+#include "moc_datetimedelegate.cpp"

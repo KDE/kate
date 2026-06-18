@@ -83,3 +83,4 @@ void TMPL_PLUGIN_CLASS_NAME_TMPLView::displayMessage(const QString &msg, KTextEd
 }
 
 #include "TMPL_PLUGIN_CLASS_NAME_TMPL.moc"
+#include "moc_TMPL_PLUGIN_CLASS_NAME_TMPL.cpp"

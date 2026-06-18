@@ -12,3 +12,5 @@ TMPL_Q_MAIN_WINDOW_TMPL::~TMPL_Q_MAIN_WINDOW_TMPL()
 {
     delete ui;
 }
+
+#include "moc_TMPL_Q_MAIN_WINDOW_TMPL.cpp"

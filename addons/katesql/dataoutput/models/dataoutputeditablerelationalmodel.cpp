@@ -49,3 +49,5 @@ QVariant DataOutputEditableRelationalModel::headerData(int section, Qt::Orientat
     }
     return QSqlRelationalTableModel::headerData(section, orientation, role);
 }
+
+#include "moc_dataoutputeditablerelationalmodel.cpp"

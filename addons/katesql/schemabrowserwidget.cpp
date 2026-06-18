@@ -110,3 +110,5 @@ void SchemaBrowserWidget::searchFieldClose()
         m_schemaWidget->rebuildTreeWithFilter(QString());
     }
 }
+
+#include "moc_schemabrowserwidget.cpp"

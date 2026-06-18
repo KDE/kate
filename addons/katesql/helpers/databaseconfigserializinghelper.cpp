@@ -166,3 +166,5 @@ void DatabaseConfigSerializerHelper::removeEnums(KConfigGroup &config, const QSt
     config.deleteEntry(databaseName);
     config.sync();
 }
+
+#include "moc_databaseconfigserializinghelper.cpp"

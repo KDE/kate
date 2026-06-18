@@ -93,3 +93,5 @@ QSize BooleanDelegate::sizeHint(const QStyleOptionViewItem &option, const QModel
     const int margin = 4;
     return QSize(indicatorWidth + margin, qMax(indicatorHeight + margin, QStyledItemDelegate::sizeHint(option, index).height()));
 }
+
+#include "moc_booleandelegate.cpp"

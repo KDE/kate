@@ -419,3 +419,5 @@ void KateShowNonPrintablePlugin::setEnabled(bool enabled)
 }
 
 #include "kateshownonprintableplugin.moc"
+
+#include "moc_kateshownonprintableplugin.cpp"

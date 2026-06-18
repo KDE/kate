@@ -189,3 +189,5 @@ std::optional<QString> ImportCategory::getCategoryPath(const QString &defaultTem
     }
     return std::nullopt;
 }
+
+#include "moc_importcategory.cpp"

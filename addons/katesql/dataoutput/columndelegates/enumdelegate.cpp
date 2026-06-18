@@ -44,3 +44,5 @@ void EnumDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewI
 {
     editor->setGeometry(option.rect);
 }
+
+#include "moc_enumdelegate.cpp"

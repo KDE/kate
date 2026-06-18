@@ -37,3 +37,5 @@ void DataOutputView::commitCurrentEditorData()
         QTableView::commitData(editor);
     }
 }
+
+#include "moc_dataoutputview.cpp"

@@ -19,3 +19,5 @@ void DataOutputModel::refresh()
     Q_EMIT DataOutputModelBase::dataChanged(DataOutputModelBase::index(0, 0),
                                             DataOutputModelBase::index(DataOutputModelBase::rowCount() - 1, DataOutputModelBase::columnCount() - 1));
 }
+
+#include "moc_dataoutputmodel.cpp"

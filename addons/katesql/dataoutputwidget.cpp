@@ -91,7 +91,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
     , m_editableOnlyRightClickActions(QList<QAction *>(qsizetype(
           7))) // change once we have more than insertRowAction + duplicateRowAction + removeRowAction + setNullAction + undoAction + pasteAction + saveAction
 {
-    KXMLGUIClient::setComponentName(QStringLiteral("katesql/datatable"), i18n("SQL"));
+    KXMLGUIClient::setComponentName(QStringLiteral("dataoutputwidgetui"), i18n("SQL"));
     setXMLFile(QStringLiteral("dataoutputwidgetui.rc"));
     m_view->setModel(nullptr);
 

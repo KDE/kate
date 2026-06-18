@@ -1,7 +1,10 @@
+<?xml version="1.0"?>
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/kxmlgui5/katesql">
         <file>ui.rc</file>
+    </qresource>
+    <qresource prefix="/kxmlgui5/dataoutputwidgetui">
         <file>dataoutputwidgetui.rc</file>
     </qresource>
     <qresource prefix="/katesql">

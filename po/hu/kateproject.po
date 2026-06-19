@@ -4,13 +4,13 @@
 # Balázs Úr <urbalazs@gmail.com>, 2012, 2013.
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2014, 2015.
 # Kiszel Kristóf <kiszel.kristof@gmail.com>, 2017.
-# Kristof Kiszel <ulysses@fsf.hu>, 2021, 2022.
+# SPDX-FileCopyrightText: 2021-2022, 2026 Kristof Kiszel <ulysses@fsf.hu>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-05-17 00:47+0000\n"
-"PO-Revision-Date: 2022-02-01 10:20+0100\n"
+"PO-Revision-Date: 2026-06-18 21:48+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.07.70\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -142,7 +142,7 @@ msgstr "Véglegesítés"
 #: gitcommitdialog.cpp:75
 #, kde-format
 msgid "Cancel"
-msgstr "Mégsem"
+msgstr "Mégse"
 
 #: gitcommitdialog.cpp:77
 #, kde-format

@@ -72,47 +72,4 @@ private:
      * Uses a single query against INFORMATION_SCHEMA.KEY_COLUMN_USAGE.
      */
     static DatabaseForeignKeys getMySqlServerForeignKeys(const QSqlDatabase &db);
-
-    /**
-     * Retrieves foreign keys for Microsoft SQL Server databases.
-     * Uses sys.foreign_keys and sys.foreign_key_columns catalog views.
-     */
-    static DatabaseForeignKeys getMSSqlServerForeignKeys(const QSqlDatabase &db);
-
-    /**
-     * Retrieves foreign keys for Oracle databases.
-     * Uses ALL_CONSTRAINTS and ALL_CONS_COLUMNS with proper owner and position joins.
-     */
-    static DatabaseForeignKeys getOracleForeignKeys(const QSqlDatabase &db);
-
-    /**
-     * Retrieves foreign keys for Sybase/Adaptive Server databases.
-     * Returns empty because sysreferences does not expose multi-column
-     * foreign keys in a reliably queryable way, making partial results misleading.
-     */
-    static DatabaseForeignKeys getSybaseForeignKeys(const QSqlDatabase &db);
-
-    /**
-     * Retrieves foreign keys for DB2 databases.
-     * Uses SYSCAT.REFERENCES joined with SYSCAT.KEYCOLUSE for column detail.
-     */
-    static DatabaseForeignKeys getDB2ForeignKeys(const QSqlDatabase &db);
-
-    /**
-     * Retrieves foreign keys for Interbase/Firebird databases.
-     * Uses RDB$RELATION_CONSTRAINTS and RDB$REF_CONSTRAINTS system tables.
-     */
-    static DatabaseForeignKeys getInterbaseForeignKeys(const QSqlDatabase &db);
-
-    /**
-     * Retrieves foreign keys for Mimer SQL databases.
-     * Uses INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS with schema and ordinal qualifiers.
-     */
-    static DatabaseForeignKeys getMimerSQLForeignKeys(const QSqlDatabase &db);
-
-    /**
-     * Generic fallback for unknown database types.
-     * Returns an empty result as there is no portable way to retrieve foreign keys.
-     */
-    static DatabaseForeignKeys getUnknownForeignKeys(const QSqlDatabase &db);
 };

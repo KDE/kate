@@ -601,7 +601,11 @@ void KateMainWindow::setupActions()
 
     connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotWindowActivated);
     connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotUpdateActionsNeedingUrl);
-    connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotUpdateBottomViewBar);
+
+    // update bottom view bar on view change
+    // delay that to avoid we mess up where the mouse click events end up on showing stuff on view change
+    // otherwise we do jump around in a weird way, see bug 488164
+    connect(m_viewManager, &KateViewManager::viewChanged, this, &KateMainWindow::slotUpdateBottomViewBar, Qt::QueuedConnection);
 
     // re-route signals to our wrapper
     connect(m_viewManager, &KateViewManager::viewChanged, m_wrapper, &KTextEditor::MainWindow::viewChanged);

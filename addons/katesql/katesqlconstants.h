@@ -35,9 +35,6 @@ namespace Config
 /// KConfig group names.
 inline constexpr QLatin1String PluginGroup("KateSQLPlugin");
 inline constexpr QLatin1String OutputCustomizationGroup("OutputCustomization");
-inline constexpr QLatin1String DatabaseForeignKeysGroup("DatabaseForeignKeys");
-inline constexpr QLatin1String DatabaseDisplayColumnsGroup("DatabaseDisplayColumns");
-inline constexpr QLatin1String DatabaseEnumsGroup("DatabaseEnums");
 
 /// Plugin-level KConfig entry keys.
 inline constexpr QLatin1String SaveConnections("SaveConnections");

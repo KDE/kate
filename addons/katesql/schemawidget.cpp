@@ -5,7 +5,6 @@
 */
 
 #include "schemawidget.h"
-#include "helpers/databaseconfigserializinghelper.h"
 #include "helpers/foreignkeyhelper.h"
 #include "katesqlconstants.h"
 #include "sqlmanager.h"
@@ -120,10 +119,9 @@ void SchemaWidget::rebuildTreeWithFilter(const QString &filter)
 void SchemaWidget::refresh()
 {
     // Force a live re-query of foreign keys and enums, and update the cache
-    if (!m_connectionName.isEmpty() && isConnectionValidAndOpen()) {
-        KConfigGroup fkConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseForeignKeysGroup);
-        DatabaseConfigSerializerHelper::removeForeignKeys(fkConfig, m_connectionName);
-    }
+    m_columnToForeignKeysMap.clear();
+    m_tableToDisplayColumnMap.clear();
+
     buildTree(m_connectionName);
 }
 
@@ -542,10 +540,6 @@ void SchemaWidget::reloadDisplayColumnMap(const QString &tableName, const QStrin
     }
 
     m_tableToDisplayColumnMap[tableName] = columnName;
-
-    // Persist the full map to config
-    KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseDisplayColumnsGroup);
-    DatabaseConfigSerializerHelper::writeTableToDisplayColumnMap(config, m_connectionName, m_tableToDisplayColumnMap);
 }
 
 void SchemaWidget::loadForeignKeys()
@@ -558,22 +552,8 @@ void SchemaWidget::loadForeignKeys()
 
     m_columnToForeignKeysMap.clear();
     if (isRelationalTablesEnabled()) {
-        KConfigGroup fkConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseForeignKeysGroup);
-
-        // Try to read from cache first to avoid hitting the database on every buildTree()
-        if (DatabaseConfigSerializerHelper::hasForeignKeys(fkConfig, m_connectionName)) {
-            m_columnToForeignKeysMap = DatabaseConfigSerializerHelper::readForeignKeys(fkConfig, m_connectionName);
-        }
-
-        // If cache was empty or missing, query the live database
-        if (m_columnToForeignKeysMap.isEmpty()) {
-            QSqlDatabase db = QSqlDatabase::database(m_connectionName);
-            m_columnToForeignKeysMap = ForeignKeyHelper::getForeignKeys(db);
-
-            if (!m_columnToForeignKeysMap.isEmpty()) {
-                DatabaseConfigSerializerHelper::writeForeignKeys(fkConfig, m_connectionName, m_columnToForeignKeysMap);
-            }
-        }
+        QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+        m_columnToForeignKeysMap = ForeignKeyHelper::getForeignKeys(db);
     }
 
     // Fill display column map after updating foreign keys
@@ -597,11 +577,13 @@ void SchemaWidget::fillTableToColumnMap()
         }
     }
 
-    // Load persisted mappings as fallback for tables not yet in memory
-    KConfigGroup dcConfig(KSharedConfig::openConfig(), KateSQLConstants::Config::DatabaseDisplayColumnsGroup);
-    const QMap<QString, QString> persisted = DatabaseConfigSerializerHelper::readTableToDisplayColumnMap(dcConfig, m_connectionName);
-
-    bool schemaChanged = false;
+    const QString keywords[5] = {
+        QStringLiteral("name"),
+        QStringLiteral("title"),
+        QStringLiteral("label"),
+        QStringLiteral("display"),
+        QStringLiteral("description"),
+    };
 
     for (const QString &refTable : std::as_const(referencedTables)) {
         // Already resolved in-memory (from a prior run or user selection)
@@ -609,24 +591,10 @@ void SchemaWidget::fillTableToColumnMap()
             continue;
         }
 
-        // Previously persisted to config
-        if (persisted.contains(refTable)) {
-            m_tableToDisplayColumnMap[refTable] = persisted[refTable];
-            continue;
-        }
-
         // Auto-detect a display column
-        schemaChanged = true;
         QString displayColumn;
 
         QSqlRecord tableRecord = db.record(refTable);
-        static const QStringList keywords = {
-            QStringLiteral("name"),
-            QStringLiteral("title"),
-            QStringLiteral("label"),
-            QStringLiteral("display"),
-            QStringLiteral("description"),
-        };
 
         for (int i = 0; i < tableRecord.count(); ++i) {
             const QString fieldName = tableRecord.fieldName(i).toLower();
@@ -652,10 +620,6 @@ void SchemaWidget::fillTableToColumnMap()
 
         m_tableToDisplayColumnMap[refTable] = displayColumn;
     }
-
-    if (schemaChanged) {
-        DatabaseConfigSerializerHelper::writeTableToDisplayColumnMap(dcConfig, m_connectionName, m_tableToDisplayColumnMap);
-    }
 }
 
 bool SchemaWidget::canUseRelationalModel(const QString &tableName) const
@@ -664,24 +628,9 @@ bool SchemaWidget::canUseRelationalModel(const QString &tableName) const
         return false;
     }
 
-    // // convert to json recursively for debugging
-    // QJsonObject debugObj;
-    // for (auto tableIt = m_columnToForeignKeysMap.cbegin(); tableIt != m_columnToForeignKeysMap.cend(); ++tableIt) {
-    //     QJsonObject tableObj;
-    //     for (auto colIt = tableIt->cbegin(); colIt != tableIt->cend(); ++colIt) {
-    //         QJsonObject refObj;
-    //         tableObj[colIt->first] = colIt->second;
-    //     }
-    //     debugObj[tableIt.key()] = tableObj;
-    // }
-    // const auto json = QJsonDocument(debugObj);
-    // KMessageBox::information(nullptr, QString::fromStdString(json.toJson().toStdString()));
-
-    // KMessageBox::information(nullptr, tableName, i18n("Table Name"));
-
+    const ColumnForeignKeys tableFks = m_columnToForeignKeysMap.value(tableName);
     // Check if table has foreign keys
-    if (!m_columnToForeignKeysMap.contains(tableName) || m_columnToForeignKeysMap.value(tableName).isEmpty()) {
-        // KMessageBox::information(nullptr, i18n("Table has no foreign keys"));
+    if (tableFks.isEmpty()) {
         return false;
     }
 
@@ -694,7 +643,6 @@ bool SchemaWidget::canUseRelationalModel(const QString &tableName) const
     }
 
     // Check if primary key contains a relation to another table
-    const ColumnForeignKeys tableFks = m_columnToForeignKeysMap.value(tableName);
     for (int i = 0; i < pk.count(); ++i) {
         const QString pkField = pk.fieldName(i);
         if (tableFks.contains(pkField)) {

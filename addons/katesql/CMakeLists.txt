@@ -44,7 +44,6 @@ target_sources(
     dataoutput/columndelegates/enumdelegate.cpp
     helpers/dataoutputimportexporthelpers.cpp
     helpers/dataoutputstylehelper.cpp
-    helpers/databaseconfigserializinghelper.cpp
     helpers/enumhelper.cpp
     helpers/foreignkeyhelper.cpp
     dataoutputview.cpp

@@ -14,7 +14,6 @@
 #include "dataoutput/models/dataoutputmodel.h"
 #include "dataoutputview.h"
 #include "exportwizard.h"
-#include "helpers/databaseconfigserializinghelper.h"
 #include "helpers/dataoutputimportexporthelpers.h"
 #include "helpers/dataoutputstylehelper.h"
 #include "helpers/enumhelper.h"

@@ -3,364 +3,366 @@
 # This file is distributed under the same license as the kate package.
 # Automatically generated, 2022.
 #
+# SPDX-FileCopyrightText: 2026 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2022-02-26 00:52+0000\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-06-21 08:48+0200\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
 #, kde-format
 msgid "Run"
-msgstr ""
+msgstr "Изпълняване"
 
 #. i18n: ectx: property (text), widget (QLabel, label_34)
 #: config.ui:24
 #, kde-format
 msgid "Run time (milliseconds):"
-msgstr ""
+msgstr "Време на изпълнение (милисекунди):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_35)
 #: config.ui:41
 #, kde-format
 msgid "Probe level:"
-msgstr ""
+msgstr "Ниво на изследване:"
 
 #. i18n: ectx: property (text), widget (QLabel, userOpsLabel)
 #: config.ui:58
 #, kde-format
 msgid "User operations layout module:"
-msgstr ""
+msgstr "Модул за потребителски операции:"
 
 #. i18n: ectx: property (text), widget (QLabel, userClassLabel)
 #: config.ui:71
 #, kde-format
 msgid "User classes file:"
-msgstr ""
+msgstr "Файл с потребителски класове:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: config.ui:84
 #, kde-format
 msgid "Base period:"
-msgstr ""
+msgstr "Базов период:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: config.ui:101
 #, kde-format
 msgid "Reduction core count:"
-msgstr ""
+msgstr "Брой ядра за редукция:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: config.ui:118
 #, kde-format
 msgid "Time core count:"
-msgstr ""
+msgstr "Брой ядра на процесора:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, system)
 #: config.ui:136
 #, kde-format
 msgid "System"
-msgstr ""
+msgstr "Система"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: config.ui:142
 #, kde-format
 msgid "Model inertia success rate threshold:"
-msgstr ""
+msgstr "Праг за успех на инерцията на модела:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: config.ui:159
 #, kde-format
 msgid "Model inertia count threshold:"
-msgstr ""
+msgstr "Праг за брой инерции на модела:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: config.ui:176
 #, kde-format
 msgid "Targeted pattern extractor delta success rate threshold:"
-msgstr ""
+msgstr "Праг на делта успеваемост на екстрактора на целеви шаблони:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: config.ui:193
 #, kde-format
 msgid "Minimum simulation time horizon:"
-msgstr ""
+msgstr "Минимален хоризонт на симулация:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: config.ui:210
 #, kde-format
 msgid "Maximum simulation time horizon:"
-msgstr ""
+msgstr "Максимален хоризонт на симулация:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: config.ui:227
 #, kde-format
 msgid "Simulation time horizon:"
-msgstr ""
+msgstr "Времеви хоризонт на симулация:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: config.ui:247
 #, kde-format
 msgid "Targeted pattern extractor time horizon:"
-msgstr ""
+msgstr "Времеви хоризонт на екстрактора на целеви шаблони:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: config.ui:264
 #, kde-format
 msgid "Perf sampling period:"
-msgstr ""
+msgstr "Период на вземане на проби за производителност:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: config.ui:281
 #, kde-format
 msgid "Float tolerance:"
-msgstr ""
+msgstr "Толеранс при плаваща запетая:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: config.ui:298
 #, kde-format
 msgid "Timer tolerance:"
-msgstr ""
+msgstr "Толеранс на таймера:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_16)
 #: config.ui:318
 #, kde-format
 msgid "Primary time horizon:"
-msgstr ""
+msgstr "Основен времеви хоризонт:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_17)
 #: config.ui:335
 #, kde-format
 msgid "Secondary time horizon:"
-msgstr ""
+msgstr "Втори времеви хоризонт:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
 #: config.ui:352
 #, kde-format
 msgid "Notification marker resilience:"
-msgstr ""
+msgstr "Маркиращ индикатор за устойчивост:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_19)
 #: config.ui:369
 #, kde-format
 msgid "Goal prediction success resilience:"
-msgstr ""
+msgstr "Успеваемост на прогнозиране на устойчивост:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, debugtab)
 #: config.ui:387
 #, kde-format
 msgid "Debug"
-msgstr ""
+msgstr "Отстраняване на грешки"
 
 #. i18n: ectx: property (text), widget (QLabel, label_22)
 #: config.ui:396
 #, kde-format
 msgid "Debug:"
-msgstr ""
+msgstr "Отстраняване на грешки:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_23)
 #: config.ui:413
 #, kde-format
 msgid "Debug windows:"
-msgstr ""
+msgstr "Прозорец за дебъгване:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_24)
 #: config.ui:426
 #, kde-format
 msgid "Traces:"
-msgstr ""
+msgstr "Трасировки:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceCompInputs)
 #: config.ui:433
 #, kde-format
 msgid "Composite inputs"
-msgstr ""
+msgstr "Композитни входни данни"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceCompOutputs)
 #: config.ui:440
 #, kde-format
 msgid "Composite outputs"
-msgstr ""
+msgstr "Комплектни изходни данни"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelIn)
 #: config.ui:447
 #, kde-format
 msgid "Model inputs"
-msgstr ""
+msgstr "Входни данни на модела"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelOut)
 #: config.ui:454
 #, kde-format
 msgid "Model outputs"
-msgstr ""
+msgstr "Изходни данни на модела"
 
 #. i18n: ectx: property (text), widget (QCheckBox, tracePredMon)
 #: config.ui:461
 #, kde-format
 msgid "Prediction monitoring"
-msgstr ""
+msgstr "Наблюдение на прогнозирането"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceGoalMon)
 #: config.ui:468
 #, kde-format
 msgid "Goal monitoring"
-msgstr ""
+msgstr "Наблюдение на целите"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelRev)
 #: config.ui:475
 #, kde-format
 msgid "Model revision"
-msgstr ""
+msgstr "Ревизия на модела"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModComInj)
 #: config.ui:482
 #, kde-format
 msgid "Model/composite injections"
-msgstr ""
+msgstr "Инжектиране на модели/композити"
 
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: config.ui:489
 #, kde-format
 msgid "Decompile objects:"
-msgstr ""
+msgstr "Декомпилиране на обекти:"
 
 #. i18n: ectx: property (text), widget (QLabel, decompileFileLabel)
 #: config.ui:506
 #, kde-format
 msgid "Decompile to file:"
-msgstr ""
+msgstr "Декомпилиране към файл:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_26)
 #: config.ui:516
 #, kde-format
 msgid "Ignore named objects:"
-msgstr ""
+msgstr "Игнориране на именувани обекти:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_27)
 #: config.ui:533
 #, kde-format
 msgid "Dump objects to file:"
-msgstr ""
+msgstr "Дъмп на обекти във файл:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_28)
 #: config.ui:543
 #, kde-format
 msgid "Test objects:"
-msgstr ""
+msgstr "Тестови обекти:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_30)
 #: config.ui:560
 #, kde-format
 msgid "Decompile models:"
-msgstr ""
+msgstr "Декомпилиране на модели:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_31)
 #: config.ui:577
 #, kde-format
 msgid "Ignore named models:"
-msgstr ""
+msgstr "Игнорирайте именоносени модели:"
 
 #. i18n: ectx: property (text), widget (QLabel, dumpFileLabel)
 #: config.ui:594
 #, kde-format
 msgid "Dump models to file:"
-msgstr ""
+msgstr "Записване на моделите във файл:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_33)
 #: config.ui:604
 #, kde-format
 msgid "Test models:"
-msgstr ""
+msgstr "Тестови модели:"
 
 #: replicodeconfigpage.cpp:24
 #, kde-format
 msgid "Path to replicode executor:"
-msgstr ""
+msgstr "Път до изпълнителя на replicode:"
 
 #: replicodeconfigpage.cpp:39 replicodeview.cpp:51
 #, kde-format
 msgid "Replicode"
-msgstr ""
+msgstr "Replicode"
 
 #: replicodeconfigpage.cpp:44
 #, kde-format
 msgid "Replicode configuration"
-msgstr ""
+msgstr "Конфигурация на Replicode"
 
 #: replicodeview.cpp:38
 #, kde-format
 msgid "Run replicode"
-msgstr ""
+msgstr "Изпълни репликод"
 
 #: replicodeview.cpp:42
 #, kde-format
 msgid "Stop replicode"
-msgstr ""
+msgstr "Спиране на Replicode"
 
 #: replicodeview.cpp:61
 #, kde-format
 msgid "Replicode Config"
-msgstr ""
+msgstr "Конфигурация на Replicode"
 
 #: replicodeview.cpp:64
 #, kde-format
 msgctxt "shortcut for action"
 msgid "Run (%1)"
-msgstr ""
+msgstr "Изпълняване на (%1)"
 
 #: replicodeview.cpp:65
 #, kde-format
 msgctxt "shortcut for action"
 msgid "Stop (%1)"
-msgstr ""
+msgstr "Спиране (%1)"
 
 #: replicodeview.cpp:100
 #, kde-format
 msgctxt "@title:window"
 msgid "Active Document Not Found"
-msgstr ""
+msgstr "Няма активен документ"
 
 #: replicodeview.cpp:100
 #, kde-format
 msgid "Could not find an active document to run."
-msgstr ""
+msgstr "Не можа да се намери активен документ за изпълнение."
 
 #: replicodeview.cpp:105
 #, kde-format
 msgctxt "@title:window"
 msgid "Empty Document"
-msgstr ""
+msgstr "Празен документ"
 
 #: replicodeview.cpp:105
 #, kde-format
 msgid "Cannot execute an empty document."
-msgstr ""
+msgstr "Не може да се изпълни празен документ."
 
 #: replicodeview.cpp:112
 #, kde-format
 msgctxt "@title:window"
 msgid "File Not Found"
-msgstr ""
+msgstr "Файлът не е намерен"
 
 #: replicodeview.cpp:112
 #, kde-format
 msgid "Unable to open source file for reading."
-msgstr ""
+msgstr "Не е възможно да се отвори файл със сорс кода за четене."
 
 #: replicodeview.cpp:127
 #, kde-format
 msgctxt "@title:window"
 msgid "Replicode Executable Not Found"
-msgstr ""
+msgstr "Не е намерен изпълним файл на Replicode"
 
 #: replicodeview.cpp:128
 #, kde-format
@@ -368,12 +370,14 @@ msgid ""
 "Unable to find replicode executor.\n"
 "Please go to settings and set the path to the Replicode executable."
 msgstr ""
+"Невъзможно е да бъде намерен изпълнител на Replicode.\n"
+"Моля, отидете в настройките и задайте пътя до изпълнимия файл на Replicode."
 
 #: replicodeview.cpp:135
 #, kde-format
 msgctxt "@title:window"
 msgid "User Operator Library Not Found"
-msgstr ""
+msgstr "Не е намерена потребителската библиотека с оператори"
 
 #: replicodeview.cpp:136
 #, kde-format
@@ -381,13 +385,15 @@ msgid ""
 "Unable to find user operator library.\n"
 "Please go to settings and set the path to the library."
 msgstr ""
+"Не е възможно да се намери потребителската библиотека с оператори..\n"
+"Моля, отидете в настройките и задайте пътя към библиотеката."
 
 #: replicodeview.cpp:201
 #, kde-format
 msgid "Replicode execution failed: %1"
-msgstr ""
+msgstr "Изпълнението на Replicode се провали: %1"
 
 #: replicodeview.cpp:211
 #, kde-format
 msgid "Replicode execution finished."
-msgstr ""
+msgstr "Изпълнението на Replicode приключи."

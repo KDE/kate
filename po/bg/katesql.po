@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-04 00:48+0000\n"
-"PO-Revision-Date: 2026-05-29 14:31+0200\n"
+"PO-Revision-Date: 2026-06-21 09:27+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.04.1\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -426,25 +426,25 @@ msgstr "Експериментален"
 #, kde-format
 msgctxt "@option:check"
 msgid "Allow running queries in non-SQL files"
-msgstr ""
+msgstr "Разрешаване на изпълнение на заявки в файлове, различни от SQL"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable auto query selection"
-msgstr ""
+msgstr "Активиране на автоматичния избор на заявки"
 
 #: katesqlconfigpage.cpp:41
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "Празните редове разделят инструкциите."
 
 #: katesqlconfigpage.cpp:42
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show query selector popup"
-msgstr ""
+msgstr "Винаги да се показва изскачащият прозорец за избор на заявка"
 
 #: katesqlconfigpage.cpp:44
 #, kde-format

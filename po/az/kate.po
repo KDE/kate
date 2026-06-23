@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-16 00:48+0000\n"
+"POT-Creation-Date: 2026-06-23 00:49+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -1824,94 +1824,94 @@ msgstr "&Qoşmaların sorğu kitabı"
 msgid "This shows help files for various available plugins."
 msgstr "Müxtəlif mövcud qoşmalar üçün köməkçi faylları göstərir."
 
-#: lib/katemainwindow.cpp:616
+#: lib/katemainwindow.cpp:620
 #, kde-format
 msgid "Sess&ions"
 msgstr "Ses&iyalar"
 
-#: lib/katemainwindow.cpp:622
+#: lib/katemainwindow.cpp:626
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Ye&ni Sesiya"
 
-#: lib/katemainwindow.cpp:627
+#: lib/katemainwindow.cpp:631
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "Əvvəlki sessiyala&r"
 
-#: lib/katemainwindow.cpp:632
+#: lib/katemainwindow.cpp:636
 #, kde-format
 msgid "&All Sessions"
 msgstr "Bütün sessiy&alar"
 
-#: lib/katemainwindow.cpp:639
+#: lib/katemainwindow.cpp:643
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "Sesiyaları idarə et&mək..."
 
-#: lib/katemainwindow.cpp:648
+#: lib/katemainwindow.cpp:652
 #, kde-format
 msgid "&Save Session"
 msgstr "&Sesiyanı saxlamaq"
 
-#: lib/katemainwindow.cpp:654
+#: lib/katemainwindow.cpp:658
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Sesiyanı belə s&axlamaq..."
 
-#: lib/katemainwindow.cpp:662
+#: lib/katemainwindow.cpp:666
 #, fuzzy, kde-format
 #| msgid "D&etach Document"
 msgid "Pin/Unpin Active Document"
 msgstr "Sə&nədi ayırın"
 
-#: lib/katemainwindow.cpp:671
+#: lib/katemainwindow.cpp:675
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Open Next Pinned Document"
 msgstr "Sənədi bağlamaq"
 
-#: lib/katemainwindow.cpp:678 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Əvvəlki yerə keçin"
 
-#: lib/katemainwindow.cpp:687 lib/kateviewspace.cpp:82
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:82
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Sonrakı yerə keçin"
 
-#: lib/katemainwindow.cpp:695
+#: lib/katemainwindow.cpp:699
 #, kde-format
 msgid "Show File Git History"
 msgstr "Faylın Git tarixçəsini göstərmək"
 
-#: lib/katemainwindow.cpp:706
+#: lib/katemainwindow.cpp:710
 #, fuzzy, kde-format
 #| msgid "&New Window"
 msgid "&Windows"
 msgstr "&Yeni pəncərə"
 
-#: lib/katemainwindow.cpp:745
+#: lib/katemainwindow.cpp:749
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Bu bütün aşıq sənədləri bağlayacaq. Davam etmək istədiyinizə əminsiniz?"
 
-#: lib/katemainwindow.cpp:746
+#: lib/katemainwindow.cpp:750
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close all documents?"
 msgstr "BÜtün sənədləri bağlamaq"
 
-#: lib/katemainwindow.cpp:747
+#: lib/katemainwindow.cpp:751
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All"
 msgstr "&Hamısını bağlamaq"
 
-#: lib/katemainwindow.cpp:761
+#: lib/katemainwindow.cpp:765
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1920,30 +1920,30 @@ msgstr ""
 "Bu cari sənədin yanındakı bütün sənədləri bağlayacaq. Davam etmək "
 "istədiyinizə əminsiniz?"
 
-#: lib/katemainwindow.cpp:762
+#: lib/katemainwindow.cpp:766
 #, fuzzy, kde-format
 #| msgid "Close all documents beside current one"
 msgid "Close all documents beside current one?"
 msgstr "Cari sənədin yanındakı bütün sənədləri bağlamaq"
 
-#: lib/katemainwindow.cpp:763
+#: lib/katemainwindow.cpp:767
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close Others"
 msgstr "O birilərini bağlamaq"
 
-#: lib/katemainwindow.cpp:838
+#: lib/katemainwindow.cpp:842
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Kate bağlamağa cəhd etdiyiniz zaman yeni fayl açıldı, bağlanma ləğv edildi."
 
-#: lib/katemainwindow.cpp:838
+#: lib/katemainwindow.cpp:842
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Bağlana ləğv edidli"
 
-#: lib/katemainwindow.cpp:993
+#: lib/katemainwindow.cpp:997
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1951,12 +1951,12 @@ msgstr ""
 "Bu menyu panelini tamamilə bağlayacaqdır. Siz bunu %1 yazaraq yenidən görə "
 "bilərsiniz."
 
-#: lib/katemainwindow.cpp:996
+#: lib/katemainwindow.cpp:1000
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Menyu panelini gizlətmək"
 
-#: lib/katemainwindow.cpp:1177
+#: lib/katemainwindow.cpp:1181
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1965,19 +1965,19 @@ msgstr ""
 "Siz %1 qovluğunu Kate daxilinə atdınız. Tərkibindəki bütün faylları açmaq "
 "istəyirsiniz?"
 
-#: lib/katemainwindow.cpp:1180
+#: lib/katemainwindow.cpp:1184
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Fayllar rekursiv olaraq açılsın"
 
-#: lib/katemainwindow.cpp:1181
+#: lib/katemainwindow.cpp:1185
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Bütün faylları açın"
 
-#: lib/katemainwindow.cpp:1389
+#: lib/katemainwindow.cpp:1393
 #, kde-format
 msgid " [read only]"
 msgstr " [yalnız oxumaq]"

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-16 00:48+0000\n"
+"POT-Creation-Date: 2026-06-23 00:49+0000\n"
 "PO-Revision-Date: 2026-05-12 03:21+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1770,145 +1770,145 @@ msgstr "外掛程式手冊(&P)"
 msgid "This shows help files for various available plugins."
 msgstr "這會顯示各種可用的外掛程式的協助檔案。"
 
-#: lib/katemainwindow.cpp:616
+#: lib/katemainwindow.cpp:620
 #, kde-format
 msgid "Sess&ions"
 msgstr "工作階段(&I)"
 
-#: lib/katemainwindow.cpp:622
+#: lib/katemainwindow.cpp:626
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "新增工作階段(&N)"
 
-#: lib/katemainwindow.cpp:627
+#: lib/katemainwindow.cpp:631
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "最近的工作階段(&R)"
 
-#: lib/katemainwindow.cpp:632
+#: lib/katemainwindow.cpp:636
 #, kde-format
 msgid "&All Sessions"
 msgstr "所有工作階段(&A)"
 
-#: lib/katemainwindow.cpp:639
+#: lib/katemainwindow.cpp:643
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "管理工作階段(&M)..."
 
-#: lib/katemainwindow.cpp:648
+#: lib/katemainwindow.cpp:652
 #, kde-format
 msgid "&Save Session"
 msgstr "儲存工作階段(&S)"
 
-#: lib/katemainwindow.cpp:654
+#: lib/katemainwindow.cpp:658
 #, kde-format
 msgid "Save Session &As..."
 msgstr "另存工作階段(&A)..."
 
-#: lib/katemainwindow.cpp:662
+#: lib/katemainwindow.cpp:666
 #, kde-format
 msgid "Pin/Unpin Active Document"
 msgstr "釘選/取消釘選作用中文件"
 
-#: lib/katemainwindow.cpp:671
+#: lib/katemainwindow.cpp:675
 #, kde-format
 msgid "Open Next Pinned Document"
 msgstr "開啟下一個已釘選的文件"
 
-#: lib/katemainwindow.cpp:678 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "前往上一個位置"
 
-#: lib/katemainwindow.cpp:687 lib/kateviewspace.cpp:82
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:82
 #, kde-format
 msgid "Go to Next Location"
 msgstr "前往下一個位置"
 
-#: lib/katemainwindow.cpp:695
+#: lib/katemainwindow.cpp:699
 #, kde-format
 msgid "Show File Git History"
 msgstr "顯示檔案 Git 歷史紀錄"
 
-#: lib/katemainwindow.cpp:706
+#: lib/katemainwindow.cpp:710
 #, kde-format
 msgid "&Windows"
 msgstr "視窗(&W)"
 
-#: lib/katemainwindow.cpp:745
+#: lib/katemainwindow.cpp:749
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "這樣會關閉所有開啟的文件。您確定要繼續嗎？"
 
-#: lib/katemainwindow.cpp:746
+#: lib/katemainwindow.cpp:750
 #, kde-format
 msgid "Close all documents?"
 msgstr "關閉所有文件？"
 
-#: lib/katemainwindow.cpp:747
+#: lib/katemainwindow.cpp:751
 #, kde-format
 msgid "Close All"
 msgstr "關閉全部"
 
-#: lib/katemainwindow.cpp:761
+#: lib/katemainwindow.cpp:765
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr "這樣會關閉除了目前這個以外所有開啟的文件。您確定要繼續嗎？"
 
-#: lib/katemainwindow.cpp:762
+#: lib/katemainwindow.cpp:766
 #, kde-format
 msgid "Close all documents beside current one?"
 msgstr "關閉除了目前文件以外所有文件？"
 
-#: lib/katemainwindow.cpp:763
+#: lib/katemainwindow.cpp:767
 #, kde-format
 msgid "Close Others"
 msgstr "關閉其他文件"
 
-#: lib/katemainwindow.cpp:838
+#: lib/katemainwindow.cpp:842
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "當嘗試關閉 Kate 時新檔案被開啟，中止關閉程序。"
 
-#: lib/katemainwindow.cpp:838
+#: lib/katemainwindow.cpp:842
 #, kde-format
 msgid "Closing Aborted"
 msgstr "關閉已中止"
 
-#: lib/katemainwindow.cpp:993
+#: lib/katemainwindow.cpp:997
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "這會完全隱藏選單列。您可以按下 %1 重新顯示選單列。"
 
-#: lib/katemainwindow.cpp:996
+#: lib/katemainwindow.cpp:1000
 #, kde-format
 msgid "Hide menu bar"
 msgstr "隱藏選單列"
 
-#: lib/katemainwindow.cpp:1177
+#: lib/katemainwindow.cpp:1181
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr "您已將目錄 %1 拖曳至 Kate 內。您要開啟目錄中的所有檔案嗎？"
 
-#: lib/katemainwindow.cpp:1180
+#: lib/katemainwindow.cpp:1184
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "遞迴開啟檔案"
 
-#: lib/katemainwindow.cpp:1181
+#: lib/katemainwindow.cpp:1185
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "開啟所有檔案"
 
-#: lib/katemainwindow.cpp:1389
+#: lib/katemainwindow.cpp:1393
 #, kde-format
 msgid " [read only]"
 msgstr " [唯讀]"

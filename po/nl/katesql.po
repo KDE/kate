@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-04 00:48+0000\n"
+"POT-Creation-Date: 2026-06-23 00:49+0000\n"
 "PO-Revision-Date: 2026-06-05 01:09+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -276,13 +276,13 @@ msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr "SQL WHERE clause invoegen in filtergegevens"
 
-#: dataoutputwidget.cpp:739
+#: dataoutputwidget.cpp:731
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "Bestand <filename>%1</filename> kon niet worden geopend"
 
-#: dataoutputwidget.cpp:759
+#: dataoutputwidget.cpp:751
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
@@ -608,63 +608,63 @@ msgstr "SQL-gegevensuitvoer"
 msgid "Filter tables and views..."
 msgstr "Tabellen en weergaven filteren..."
 
-#: schemawidget.cpp:47
+#: schemawidget.cpp:46
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "Database-schema"
 
-#: schemawidget.cpp:142
+#: schemawidget.cpp:139
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "Tabellen"
 
-#: schemawidget.cpp:147
+#: schemawidget.cpp:144
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "Weergaven"
 
-#: schemawidget.cpp:161
+#: schemawidget.cpp:158
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "Systeemtabellen"
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:358
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "Gegevens selecteren"
 
-#: schemawidget.cpp:365
+#: schemawidget.cpp:362
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "Genereren"
 
-#: schemawidget.cpp:366
+#: schemawidget.cpp:363
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:367
+#: schemawidget.cpp:364
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:368
+#: schemawidget.cpp:365
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:369
+#: schemawidget.cpp:366
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:373
+#: schemawidget.cpp:370
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

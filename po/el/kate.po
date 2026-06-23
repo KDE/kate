@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-16 00:48+0000\n"
+"POT-Creation-Date: 2026-06-23 00:49+0000\n"
 "PO-Revision-Date: 2026-04-15 23:40+0300\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1836,90 +1836,90 @@ msgstr "Εγχειρίδιο &προσθέτων"
 msgid "This shows help files for various available plugins."
 msgstr "Αυτό εμφανίζει αρχεία βοήθειας για διάφορα διαθέσιμα πρόσθετα."
 
-#: lib/katemainwindow.cpp:616
+#: lib/katemainwindow.cpp:620
 #, kde-format
 msgid "Sess&ions"
 msgstr "Συνε&δρίες"
 
-#: lib/katemainwindow.cpp:622
+#: lib/katemainwindow.cpp:626
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "&Νέα συνεδρία"
 
-#: lib/katemainwindow.cpp:627
+#: lib/katemainwindow.cpp:631
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "Π&ρόσφατες συνεδρίες"
 
-#: lib/katemainwindow.cpp:632
+#: lib/katemainwindow.cpp:636
 #, kde-format
 msgid "&All Sessions"
 msgstr "Ό&λες οι συνεδρίες"
 
-#: lib/katemainwindow.cpp:639
+#: lib/katemainwindow.cpp:643
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&Διαχείριση συνεδριών..."
 
-#: lib/katemainwindow.cpp:648
+#: lib/katemainwindow.cpp:652
 #, kde-format
 msgid "&Save Session"
 msgstr "&Αποθήκευση συνεδρίας"
 
-#: lib/katemainwindow.cpp:654
+#: lib/katemainwindow.cpp:658
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Αποθήκευση συνεδρίας &ως..."
 
-#: lib/katemainwindow.cpp:662
+#: lib/katemainwindow.cpp:666
 #, kde-format
 msgid "Pin/Unpin Active Document"
 msgstr "Καρφίτσωμα/Ξεκαρφίτσωμα ενεργού εγγράφου"
 
-#: lib/katemainwindow.cpp:671
+#: lib/katemainwindow.cpp:675
 #, kde-format
 msgid "Open Next Pinned Document"
 msgstr "Άνοιγμα επόμενου καρφιτσωμένου έγγραφου"
 
-#: lib/katemainwindow.cpp:678 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Μετάβαση σε προηγούμενη τοποθεσία"
 
-#: lib/katemainwindow.cpp:687 lib/kateviewspace.cpp:82
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:82
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Μετάβαση σε επόμενη τοποθεσία"
 
-#: lib/katemainwindow.cpp:695
+#: lib/katemainwindow.cpp:699
 #, kde-format
 msgid "Show File Git History"
 msgstr "Εμφάνιση ιστορικού του αρχείου στο git"
 
-#: lib/katemainwindow.cpp:706
+#: lib/katemainwindow.cpp:710
 #, kde-format
 msgid "&Windows"
 msgstr "&Παράθυρα"
 
-#: lib/katemainwindow.cpp:745
+#: lib/katemainwindow.cpp:749
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Αυτό θα κλείσει όλα τα ανοιχτά έγγραφα. Είστε βέβαιοι ότι θέλετε να "
 "συνεχίσετε;"
 
-#: lib/katemainwindow.cpp:746
+#: lib/katemainwindow.cpp:750
 #, kde-format
 msgid "Close all documents?"
 msgstr "Να κλείσουν όλα τα έγγραφα;"
 
-#: lib/katemainwindow.cpp:747
+#: lib/katemainwindow.cpp:751
 #, kde-format
 msgid "Close All"
 msgstr "Κλείσιμο όλων"
 
-#: lib/katemainwindow.cpp:761
+#: lib/katemainwindow.cpp:765
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1928,27 +1928,27 @@ msgstr ""
 "Αυτό θα κλείσει όλα τα ανοιχτά έγγραφα εκτός από το τρέχον. Είστε βέβαιοι "
 "ότι θέλετε να συνεχίσετε;"
 
-#: lib/katemainwindow.cpp:762
+#: lib/katemainwindow.cpp:766
 #, kde-format
 msgid "Close all documents beside current one?"
 msgstr "Να κλείσουν όλα τα έγγραφα εκτός από το τρέχον;"
 
-#: lib/katemainwindow.cpp:763
+#: lib/katemainwindow.cpp:767
 #, kde-format
 msgid "Close Others"
 msgstr "Κλείσιμο των άλλων"
 
-#: lib/katemainwindow.cpp:838
+#: lib/katemainwindow.cpp:842
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Νέο αρχείο άνοιξε όσο έκλεινε το Kate, το κλείσιμο ακυρώθηκε."
 
-#: lib/katemainwindow.cpp:838
+#: lib/katemainwindow.cpp:842
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Το κλείσιμο ακυρώθηκε"
 
-#: lib/katemainwindow.cpp:993
+#: lib/katemainwindow.cpp:997
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1956,12 +1956,12 @@ msgstr ""
 "Πλήρης απόκρυψης της γραμμής μενού. Μπορείτε να την εμφανίσετε ξανά "
 "πληκτρολογώντας %1."
 
-#: lib/katemainwindow.cpp:996
+#: lib/katemainwindow.cpp:1000
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Απόκρυψη της γραμμή μενού"
 
-#: lib/katemainwindow.cpp:1177
+#: lib/katemainwindow.cpp:1181
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1970,19 +1970,19 @@ msgstr ""
 "Εναποθέσατε τον κατάλογο %1 στο Kate. Θέλετε να ανοίξουν όλα τα αρχεία που "
 "περιέχονται σε αυτόν;"
 
-#: lib/katemainwindow.cpp:1180
+#: lib/katemainwindow.cpp:1184
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Να ανοίξουν τα αρχεία αναδρομικά"
 
-#: lib/katemainwindow.cpp:1181
+#: lib/katemainwindow.cpp:1185
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Να ανοίξουν όλα τα αρχεία"
 
-#: lib/katemainwindow.cpp:1389
+#: lib/katemainwindow.cpp:1393
 #, kde-format
 msgid " [read only]"
 msgstr " [ανάγνωση μόνο]"

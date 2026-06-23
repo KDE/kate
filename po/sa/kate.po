@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-16 00:48+0000\n"
+"POT-Creation-Date: 2026-06-23 00:49+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1797,92 +1797,92 @@ msgstr "&प्लगिन्स् हस्तपुस्तिका"
 msgid "This shows help files for various available plugins."
 msgstr "एतेन विभिन्नानां उपलब्धानां प्लगिन्स् कृते सहायतासञ्चिकाः दृश्यन्ते ।."
 
-#: lib/katemainwindow.cpp:616
+#: lib/katemainwindow.cpp:620
 #, kde-format
 msgid "Sess&ions"
 msgstr "&सत्रम्"
 
-#: lib/katemainwindow.cpp:622
+#: lib/katemainwindow.cpp:626
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "&नव सत्रम्"
 
-#: lib/katemainwindow.cpp:627
+#: lib/katemainwindow.cpp:631
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "&हाले सत्र"
 
-#: lib/katemainwindow.cpp:632
+#: lib/katemainwindow.cpp:636
 #, kde-format
 msgid "&All Sessions"
 msgstr "&सर्व सत्रम्"
 
-#: lib/katemainwindow.cpp:639
+#: lib/katemainwindow.cpp:643
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&सत्रं प्रबन्धयतु..."
 
-#: lib/katemainwindow.cpp:648
+#: lib/katemainwindow.cpp:652
 #, kde-format
 msgid "&Save Session"
 msgstr "&सत्रं रक्षतु"
 
-#: lib/katemainwindow.cpp:654
+#: lib/katemainwindow.cpp:658
 #, kde-format
 msgid "Save Session &As..."
 msgstr "&यथा सत्रं रक्षन्तु..."
 
-#: lib/katemainwindow.cpp:662
+#: lib/katemainwindow.cpp:666
 #, fuzzy, kde-format
 #| msgid "Detach Active Document"
 msgid "Pin/Unpin Active Document"
 msgstr "सक्रिय दस्तावेजं विच्छेदं कुर्वन्तु"
 
-#: lib/katemainwindow.cpp:671
+#: lib/katemainwindow.cpp:675
 #, fuzzy, kde-format
 #| msgid "&Reopen Latest Closed Document(s)"
 msgid "Open Next Pinned Document"
 msgstr "सर्वाणि उद्घाटितानि दस्तावेजानि &पुनः आरोपय कुर्वन्तु।."
 
-#: lib/katemainwindow.cpp:678 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "पूर्वस्थानं गच्छन्तु"
 
-#: lib/katemainwindow.cpp:687 lib/kateviewspace.cpp:82
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:82
 #, kde-format
 msgid "Go to Next Location"
 msgstr "अग्रिमस्थानं गच्छन्तु"
 
-#: lib/katemainwindow.cpp:695
+#: lib/katemainwindow.cpp:699
 #, kde-format
 msgid "Show File Git History"
 msgstr "सञ्चिका गिट् इतिहासं दर्शयतु"
 
-#: lib/katemainwindow.cpp:706
+#: lib/katemainwindow.cpp:710
 #, fuzzy, kde-format
 #| msgid "New &Window"
 msgid "&Windows"
 msgstr "नवीन &गवाक्ष"
 
-#: lib/katemainwindow.cpp:745
+#: lib/katemainwindow.cpp:749
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "एतेन सर्वे मुक्तदस्तावेजाः बन्दाः भविष्यन्ति । किं भवन्तः निश्चयेन निरन्तरं कर्तुम् इच्छन्ति ?"
 
-#: lib/katemainwindow.cpp:746
+#: lib/katemainwindow.cpp:750
 #, kde-format
 msgid "Close all documents?"
 msgstr "सर्वाणि दस्तावेजानि बन्दं कुर्वन्तु?"
 
-#: lib/katemainwindow.cpp:747
+#: lib/katemainwindow.cpp:751
 #, kde-format
 msgid "Close All"
 msgstr "सर्वाणि पिधाय"
 
-#: lib/katemainwindow.cpp:761
+#: lib/katemainwindow.cpp:765
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1891,27 +1891,27 @@ msgstr ""
 "एतेन वर्तमानस्य पार्श्वे सर्वाणि मुक्तदस्तावेजानि पिधास्यन्ति । किं भवन्तः निश्चयेन निरन्तरं "
 "कर्तुम् इच्छन्ति ?"
 
-#: lib/katemainwindow.cpp:762
+#: lib/katemainwindow.cpp:766
 #, kde-format
 msgid "Close all documents beside current one?"
 msgstr "वर्तमानस्य पार्श्वे सर्वाणि दस्तावेजानि पिधायताम्?"
 
-#: lib/katemainwindow.cpp:763
+#: lib/katemainwindow.cpp:767
 #, kde-format
 msgid "Close Others"
 msgstr "अन्ये पिधाय"
 
-#: lib/katemainwindow.cpp:838
+#: lib/katemainwindow.cpp:842
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "केट् बन्दं कर्तुं प्रयतमाने नूतना सञ्चिका उद्घाटिता, बन्दीकरणं निरस्तम्।."
 
-#: lib/katemainwindow.cpp:838
+#: lib/katemainwindow.cpp:842
 #, kde-format
 msgid "Closing Aborted"
 msgstr "समापन Aborted"
 
-#: lib/katemainwindow.cpp:993
+#: lib/katemainwindow.cpp:997
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1919,12 +1919,12 @@ msgstr ""
 "एतेन विकल्पसूचि-पट्टिका पूर्णतया गोपिता भविष्यति । %1 इति टङ्कयित्वा पुनः दर्शयितुं "
 "शक्नुवन्ति ।."
 
-#: lib/katemainwindow.cpp:996
+#: lib/katemainwindow.cpp:1000
 #, kde-format
 msgid "Hide menu bar"
 msgstr "विकल्पसूचि-पट्टिकां गोपयन्तु"
 
-#: lib/katemainwindow.cpp:1177
+#: lib/katemainwindow.cpp:1181
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1933,19 +1933,19 @@ msgstr ""
 "भवान् %1 निर्देशिकां केट् मध्ये पातितवान् । तस्मिन् निहिताः सर्वाणि सञ्चिकाः उद्घाटयितुम् "
 "इच्छति वा ?"
 
-#: lib/katemainwindow.cpp:1180
+#: lib/katemainwindow.cpp:1184
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "सञ्चिकाः पुनरावर्तनीयरूपेण उद्घाटयन्तु"
 
-#: lib/katemainwindow.cpp:1181
+#: lib/katemainwindow.cpp:1185
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "सर्वाणि सञ्चिकाः उद्घाटयन्तु"
 
-#: lib/katemainwindow.cpp:1389
+#: lib/katemainwindow.cpp:1393
 #, kde-format
 msgid " [read only]"
 msgstr " [पठितमात्रम्] ।"

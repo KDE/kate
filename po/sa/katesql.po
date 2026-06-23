@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-04 00:48+0000\n"
+"POT-Creation-Date: 2026-06-23 00:49+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -275,13 +275,13 @@ msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr ""
 
-#: dataoutputwidget.cpp:739
+#: dataoutputwidget.cpp:731
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "<filename>%1</filename> सञ्चिकां उद्घाटयितुं असमर्थः"
 
-#: dataoutputwidget.cpp:759
+#: dataoutputwidget.cpp:751
 #, fuzzy, kde-kuit-format
 #| msgctxt "@info"
 #| msgid "Unable to connect to database.<nl/><message>%1</message>"
@@ -615,63 +615,63 @@ msgstr "SQL डाटा आउटपुट"
 msgid "Filter tables and views..."
 msgstr ""
 
-#: schemawidget.cpp:47
+#: schemawidget.cpp:46
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "दत्तांशकोश योजना"
 
-#: schemawidget.cpp:142
+#: schemawidget.cpp:139
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "सारणीः"
 
-#: schemawidget.cpp:147
+#: schemawidget.cpp:144
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "दृश्यम्"
 
-#: schemawidget.cpp:161
+#: schemawidget.cpp:158
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "प्रणाली सारणी"
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:358
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "Data इति चिनोतु"
 
-#: schemawidget.cpp:365
+#: schemawidget.cpp:362
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "उद्- पद्"
 
-#: schemawidget.cpp:366
+#: schemawidget.cpp:363
 #, kde-format
 msgid "SELECT"
 msgstr "विचि"
 
-#: schemawidget.cpp:367
+#: schemawidget.cpp:364
 #, kde-format
 msgid "UPDATE"
 msgstr "अद्यतन"
 
-#: schemawidget.cpp:368
+#: schemawidget.cpp:365
 #, kde-format
 msgid "INSERT"
 msgstr "युज्"
 
-#: schemawidget.cpp:369
+#: schemawidget.cpp:366
 #, kde-format
 msgid "DELETE"
 msgstr "लुप्"
 
-#: schemawidget.cpp:373
+#: schemawidget.cpp:370
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

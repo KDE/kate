@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-23 00:49+0000\n"
+"POT-Creation-Date: 2026-06-24 01:27+0000\n"
 "PO-Revision-Date: 2026-06-07 16:47+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -152,102 +152,102 @@ msgctxt "@label:textbox"
 msgid "Connection name:"
 msgstr "連線名稱："
 
-#: dataoutputwidget.cpp:94 katesqlview.cpp:52
+#: dataoutputwidget.cpp:93 katesqlview.cpp:52
 #, kde-format
 msgid "SQL"
 msgstr "SQL"
 
-#: dataoutputwidget.cpp:118
+#: dataoutputwidget.cpp:117
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "重新整理"
 
-#: dataoutputwidget.cpp:129
+#: dataoutputwidget.cpp:128
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
 msgstr "重新調整欄大小以符合內容"
 
-#: dataoutputwidget.cpp:135
+#: dataoutputwidget.cpp:134
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
 msgstr "重新調整列大小以符合內容"
 
-#: dataoutputwidget.cpp:141
+#: dataoutputwidget.cpp:140
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
 msgstr "匯出..."
 
-#: dataoutputwidget.cpp:148
+#: dataoutputwidget.cpp:147
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
 msgstr "複製"
 
-#: dataoutputwidget.cpp:158 textoutputwidget.cpp:47
+#: dataoutputwidget.cpp:157 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
 msgstr "清除"
 
-#: dataoutputwidget.cpp:166
+#: dataoutputwidget.cpp:165
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "使用系統區域設定"
 
-#: dataoutputwidget.cpp:182
+#: dataoutputwidget.cpp:181
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
 msgstr "貼上"
 
-#: dataoutputwidget.cpp:192
+#: dataoutputwidget.cpp:191
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
 msgstr "設為 NULL"
 
-#: dataoutputwidget.cpp:202
+#: dataoutputwidget.cpp:201
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
 msgstr "插入列"
 
-#: dataoutputwidget.cpp:212
+#: dataoutputwidget.cpp:211
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
 msgstr "移除選取的列"
 
-#: dataoutputwidget.cpp:222
+#: dataoutputwidget.cpp:221
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
 msgstr "重製選取的列"
 
-#: dataoutputwidget.cpp:232
+#: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
 msgstr "復原"
 
-#: dataoutputwidget.cpp:242
+#: dataoutputwidget.cpp:241
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
 msgstr "儲存"
 
-#: dataoutputwidget.cpp:252
+#: dataoutputwidget.cpp:251
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
 msgstr "讓此欄在相關表格可呈現"
 
-#: dataoutputwidget.cpp:255
+#: dataoutputwidget.cpp:254
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid ""
@@ -257,31 +257,31 @@ msgstr ""
 "警告！我們無法保證複製貼上沒有 UNIQUE 限制的欄位會是正確的（顯示該欄位而非外"
 "部鍵的時候）"
 
-#: dataoutputwidget.cpp:266
+#: dataoutputwidget.cpp:265
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
 msgstr "Where:"
 
-#: dataoutputwidget.cpp:274
+#: dataoutputwidget.cpp:273
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
 msgstr "id > 0"
 
-#: dataoutputwidget.cpp:275
+#: dataoutputwidget.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
 msgstr "輸入 SQL 的 WHERE 子句來過濾資料"
 
-#: dataoutputwidget.cpp:731
+#: dataoutputwidget.cpp:730
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
 msgstr "無法開啟檔案  <filename>%1</filename>"
 
-#: dataoutputwidget.cpp:751
+#: dataoutputwidget.cpp:750
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
@@ -607,63 +607,63 @@ msgstr "SQL 資料輸出"
 msgid "Filter tables and views..."
 msgstr "過濾表格與檢視…"
 
-#: schemawidget.cpp:46
+#: schemawidget.cpp:45
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
 msgstr "資料庫綱要"
 
-#: schemawidget.cpp:139
+#: schemawidget.cpp:137
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "表格"
 
-#: schemawidget.cpp:144
+#: schemawidget.cpp:142
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "檢視"
 
-#: schemawidget.cpp:158
+#: schemawidget.cpp:156
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "系統表格"
 
-#: schemawidget.cpp:358
+#: schemawidget.cpp:356
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "選擇資料"
 
-#: schemawidget.cpp:362
+#: schemawidget.cpp:360
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "產生"
 
-#: schemawidget.cpp:363
+#: schemawidget.cpp:361
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:364
+#: schemawidget.cpp:362
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:365
+#: schemawidget.cpp:363
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:366
+#: schemawidget.cpp:364
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:370
+#: schemawidget.cpp:368
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

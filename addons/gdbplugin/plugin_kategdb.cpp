@@ -129,7 +129,6 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     m_tabWidget = new QTabWidget(m_toolView.get());
     m_tabWidget->setDocumentMode(true);
-    m_tabWidget->tabBar()->setExpanding(true);
 
     // buttons widget, buttons are initialized at action connections
     m_buttonWidget = new QWidget(m_tabWidget);

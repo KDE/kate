@@ -23,7 +23,6 @@ KateProjectInfoView::KateProjectInfoView(KateProjectPluginView *pluginView, Kate
     , m_pluginView(pluginView)
 {
     setDocumentMode(true);
-    tabBar()->setExpanding(true);
 }
 
 void KateProjectInfoView::showEvent(QShowEvent *)

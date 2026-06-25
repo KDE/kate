@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2024-12-20 21:51+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -283,17 +283,17 @@ msgstr "सञ्चिकां प्रति मॉडल् डम्प �
 msgid "Test models:"
 msgstr "परीक्षणप्रतिमानाः :"
 
-#: replicodeconfigpage.cpp:24
+#: replicodeconfigpage.cpp:35
 #, kde-format
 msgid "Path to replicode executor:"
 msgstr "प्रतिलिकोड् निष्पादकस्य मार्गः :"
 
-#: replicodeconfigpage.cpp:39 replicodeview.cpp:51
+#: replicodeconfigpage.cpp:50 replicodeview.cpp:51
 #, kde-format
 msgid "Replicode"
 msgstr "प्रतिकृतिः"
 
-#: replicodeconfigpage.cpp:44
+#: replicodeconfigpage.cpp:55
 #, kde-format
 msgid "Replicode configuration"
 msgstr "प्रतिलिपिकोड् विन्यासः"

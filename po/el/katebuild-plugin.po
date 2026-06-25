@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2024-09-19 15:20+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -50,24 +50,24 @@ msgstr "Κατασκευή ξανά"
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: buildconfig.cpp:47
+#: buildconfig.cpp:48
 #, kde-format
 msgid "Build & Run"
 msgstr "Κατασκευή και εκτέλεση"
 
-#: buildconfig.cpp:53
+#: buildconfig.cpp:54
 #, fuzzy, kde-format
 #| msgid "Build and Run Selected Target"
 msgid "Build & Run Settings"
 msgstr "Κατασκευή και εκτέλεση επιλεγμένου προορισμού"
 
-#: buildconfig.cpp:106
+#: buildconfig.cpp:107
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Delete selected entries"
 msgstr "Κατασκευή επιλεγμένου προορισμού"
 
-#: buildconfig.cpp:111
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete all entries"
 msgstr "Διαγραφή όλων των καταχωρήσεων"

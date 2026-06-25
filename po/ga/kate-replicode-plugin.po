@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2026-02-13 11:17+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
@@ -278,17 +278,17 @@ msgstr "Dumpáil samhlacha chuig comhad:"
 msgid "Test models:"
 msgstr "Samhlacha tástála:"
 
-#: replicodeconfigpage.cpp:24
+#: replicodeconfigpage.cpp:35
 #, kde-format
 msgid "Path to replicode executor:"
 msgstr "Cosán chuig forghníomhaitheoir replicode:"
 
-#: replicodeconfigpage.cpp:39 replicodeview.cpp:51
+#: replicodeconfigpage.cpp:50 replicodeview.cpp:51
 #, kde-format
 msgid "Replicode"
 msgstr "Replicode"
 
-#: replicodeconfigpage.cpp:44
+#: replicodeconfigpage.cpp:55
 #, kde-format
 msgid "Replicode configuration"
 msgstr "Cumraíocht replicode"

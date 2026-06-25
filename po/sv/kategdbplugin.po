@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2026-01-22 17:20+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -483,7 +483,7 @@ msgstr "saknar trådidentifierare"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Aktuell aktiveringspost [%3]: %1:%2 (%4)"
 
-#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
+#: debugconfigpage.cpp:57 debugconfigpage.cpp:62
 #, kde-format
 msgid "Debugger"
 msgstr "Avlusare"

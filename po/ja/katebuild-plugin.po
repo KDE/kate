@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2011-04-22 02:40-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -46,25 +46,25 @@ msgstr "ビルドプラグイン"
 msgid "Cancel"
 msgstr ""
 
-#: buildconfig.cpp:47
+#: buildconfig.cpp:48
 #, fuzzy, kde-format
 #| msgid "Build Plugin"
 msgid "Build & Run"
 msgstr "ビルドプラグイン"
 
-#: buildconfig.cpp:53
+#: buildconfig.cpp:54
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build & Run Settings"
 msgstr "ビルドに失敗しました。"
 
-#: buildconfig.cpp:106
+#: buildconfig.cpp:107
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Delete selected entries"
 msgstr "ビルドに失敗しました。"
 
-#: buildconfig.cpp:111
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete all entries"
 msgstr ""

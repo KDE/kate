@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2025-10-12 19:47+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -46,22 +46,22 @@ msgstr "Erneut erstellen"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: buildconfig.cpp:47
+#: buildconfig.cpp:48
 #, kde-format
 msgid "Build & Run"
 msgstr "Erstellen & Ausführen"
 
-#: buildconfig.cpp:53
+#: buildconfig.cpp:54
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Einstellungen für „Erstellen & Ausführen“"
 
-#: buildconfig.cpp:106
+#: buildconfig.cpp:107
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Ausgewählte Einträge löschen"
 
-#: buildconfig.cpp:111
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete all entries"
 msgstr "Alle Einträge löschen"

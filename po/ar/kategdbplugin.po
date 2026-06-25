@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2025-12-25 09:39+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -482,7 +482,7 @@ msgstr "معرف الخيط المفقود"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "الإطار الحالي [%3]: %1: %2 (%4)"
 
-#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
+#: debugconfigpage.cpp:57 debugconfigpage.cpp:62
 #, kde-format
 msgid "Debugger"
 msgstr "المنقّح"

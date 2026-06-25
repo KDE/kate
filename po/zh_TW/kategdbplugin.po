@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2026-01-02 08:04+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -488,7 +488,7 @@ msgstr "缺乏執行緒 ID"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "目前的框 [%3]：%1:%2 (%4)"
 
-#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
+#: debugconfigpage.cpp:57 debugconfigpage.cpp:62
 #, kde-format
 msgid "Debugger"
 msgstr "除錯器"

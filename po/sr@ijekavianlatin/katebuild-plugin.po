@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -47,24 +47,24 @@ msgstr "Izgradi ponovo"
 msgid "Cancel"
 msgstr "Odustani"
 
-#: buildconfig.cpp:47
+#: buildconfig.cpp:48
 #, fuzzy, kde-format
 #| msgid "Build again"
 msgid "Build & Run"
 msgstr "Izgradi ponovo"
 
-#: buildconfig.cpp:53
+#: buildconfig.cpp:54
 #, kde-format
 msgid "Build & Run Settings"
 msgstr ""
 
-#: buildconfig.cpp:106
+#: buildconfig.cpp:107
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Delete selected entries"
 msgstr "Izgradi izabrani cilj"
 
-#: buildconfig.cpp:111
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete all entries"
 msgstr ""

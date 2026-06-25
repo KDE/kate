@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-17 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2023-01-08 12:06+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@nuug.no>\n"
@@ -24,28 +24,28 @@ msgstr ""
 msgid "Filter…"
 msgstr "Filtrer …"
 
-#: lspclientconfigpage.cpp:43
+#: lspclientconfigpage.cpp:44
 #, kde-format
 msgid "User Server Settings"
 msgstr "Bruk tenarinnstillingar"
 
-#: lspclientconfigpage.cpp:44
+#: lspclientconfigpage.cpp:45
 #, kde-format
 msgid "Default Server Settings"
 msgstr "Standard tenarinnstillingar"
 
-#: lspclientconfigpage.cpp:87 lspclientconfigpage.cpp:92
+#: lspclientconfigpage.cpp:88 lspclientconfigpage.cpp:93
 #: lspclientpluginview.cpp:454 lspclientpluginview.cpp:603
 #, kde-format
 msgid "LSP Client"
 msgstr "LSP-klient"
 
-#: lspclientconfigpage.cpp:194
+#: lspclientconfigpage.cpp:195
 #, kde-format
 msgid "Delete selected entries"
 msgstr ""
 
-#: lspclientconfigpage.cpp:200
+#: lspclientconfigpage.cpp:201
 #, kde-format
 msgid "Delete all entries"
 msgstr ""

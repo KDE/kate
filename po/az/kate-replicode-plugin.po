@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2021-03-24 16:48+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -282,17 +282,17 @@ msgstr "Modelləri fayla atın:"
 msgid "Test models:"
 msgstr "Modelləri slnaqdan keçirin:"
 
-#: replicodeconfigpage.cpp:24
+#: replicodeconfigpage.cpp:35
 #, kde-format
 msgid "Path to replicode executor:"
 msgstr "Təkrar kodlama icraçısının yolu:"
 
-#: replicodeconfigpage.cpp:39 replicodeview.cpp:51
+#: replicodeconfigpage.cpp:50 replicodeview.cpp:51
 #, kde-format
 msgid "Replicode"
 msgstr "Təkrar kodlama"
 
-#: replicodeconfigpage.cpp:44
+#: replicodeconfigpage.cpp:55
 #, kde-format
 msgid "Replicode configuration"
 msgstr "Təkrar kodlama tənzimləmələri"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2020-03-05 08:04+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -47,25 +47,25 @@ msgstr "Bangun lagi"
 msgid "Cancel"
 msgstr "Batal"
 
-#: buildconfig.cpp:47
+#: buildconfig.cpp:48
 #, fuzzy, kde-format
 #| msgid "Build again"
 msgid "Build & Run"
 msgstr "Bangun lagi"
 
-#: buildconfig.cpp:53
+#: buildconfig.cpp:54
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build & Run Settings"
 msgstr "Bangun sasaran terpilih"
 
-#: buildconfig.cpp:106
+#: buildconfig.cpp:107
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Delete selected entries"
 msgstr "Bangun sasaran terpilih"
 
-#: buildconfig.cpp:111
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete all entries"
 msgstr ""

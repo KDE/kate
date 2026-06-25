@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2025-09-19 18:13+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -49,22 +49,22 @@ msgstr "Koosta uudelleen"
 msgid "Cancel"
 msgstr "Peru"
 
-#: buildconfig.cpp:47
+#: buildconfig.cpp:48
 #, kde-format
 msgid "Build & Run"
 msgstr "Koosta ja suorita"
 
-#: buildconfig.cpp:53
+#: buildconfig.cpp:54
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Koosta ja suorita -asetukset"
 
-#: buildconfig.cpp:106
+#: buildconfig.cpp:107
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Poista valitut kohdat"
 
-#: buildconfig.cpp:111
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete all entries"
 msgstr "Poista kaikki kohdat"

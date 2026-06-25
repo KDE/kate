@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2023-02-20 11:23+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -46,25 +46,25 @@ msgstr "Xây lại"
 msgid "Cancel"
 msgstr "Huỷ"
 
-#: buildconfig.cpp:47
+#: buildconfig.cpp:48
 #, fuzzy, kde-format
 #| msgid "Build again"
 msgid "Build & Run"
 msgstr "Xây lại"
 
-#: buildconfig.cpp:53
+#: buildconfig.cpp:54
 #, fuzzy, kde-format
 #| msgid "Build and Run Selected Target"
 msgid "Build & Run Settings"
 msgstr "Xây và chạy mục tiêu được chọn"
 
-#: buildconfig.cpp:106
+#: buildconfig.cpp:107
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Delete selected entries"
 msgstr "Xây mục tiêu được chọn"
 
-#: buildconfig.cpp:111
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete all entries"
 msgstr ""

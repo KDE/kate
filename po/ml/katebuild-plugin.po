@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2018-12-17 02:45+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -46,22 +46,22 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: buildconfig.cpp:47
+#: buildconfig.cpp:48
 #, kde-format
 msgid "Build & Run"
 msgstr ""
 
-#: buildconfig.cpp:53
+#: buildconfig.cpp:54
 #, kde-format
 msgid "Build & Run Settings"
 msgstr ""
 
-#: buildconfig.cpp:106
+#: buildconfig.cpp:107
 #, kde-format
 msgid "Delete selected entries"
 msgstr ""
 
-#: buildconfig.cpp:111
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete all entries"
 msgstr ""

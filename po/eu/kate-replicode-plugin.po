@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-replicode-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2018-08-14 01:49+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@euskalnet.net>\n"
 "Language-Team: Basque <kde-i18n-doc@kde.org>\n"
@@ -284,17 +284,17 @@ msgstr "Irauli ereduak fitxategira:"
 msgid "Test models:"
 msgstr "Proba ereduak:"
 
-#: replicodeconfigpage.cpp:24
+#: replicodeconfigpage.cpp:35
 #, kde-format
 msgid "Path to replicode executor:"
 msgstr "«Replicode»ren exekutatzailerako bide-izena:"
 
-#: replicodeconfigpage.cpp:39 replicodeview.cpp:51
+#: replicodeconfigpage.cpp:50 replicodeview.cpp:51
 #, kde-format
 msgid "Replicode"
 msgstr "«Replicode»"
 
-#: replicodeconfigpage.cpp:44
+#: replicodeconfigpage.cpp:55
 #, kde-format
 msgid "Replicode configuration"
 msgstr "«Replicode»ren  konfigurazioa"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-28 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2026-05-02 19:50+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -51,22 +51,22 @@ msgstr "Yeniden Yap"
 msgid "Cancel"
 msgstr "İptal"
 
-#: buildconfig.cpp:47
+#: buildconfig.cpp:48
 #, kde-format
 msgid "Build & Run"
 msgstr "Yap ve Çalıştır"
 
-#: buildconfig.cpp:53
+#: buildconfig.cpp:54
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Ayarları Yap ve Çalıştır"
 
-#: buildconfig.cpp:106
+#: buildconfig.cpp:107
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Seçili Girdileri Sil"
 
-#: buildconfig.cpp:111
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete all entries"
 msgstr "Tüm Girdileri Sil"

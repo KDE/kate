@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2025-08-05 12:57+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -283,17 +283,17 @@ msgstr "تفريغ النماذج للملف:"
 msgid "Test models:"
 msgstr "نماذج الاختبار:"
 
-#: replicodeconfigpage.cpp:24
+#: replicodeconfigpage.cpp:35
 #, kde-format
 msgid "Path to replicode executor:"
 msgstr "مسار تنفيذيّ ريبلكود:"
 
-#: replicodeconfigpage.cpp:39 replicodeview.cpp:51
+#: replicodeconfigpage.cpp:50 replicodeview.cpp:51
 #, kde-format
 msgid "Replicode"
 msgstr "ريبلكود"
 
-#: replicodeconfigpage.cpp:44
+#: replicodeconfigpage.cpp:55
 #, kde-format
 msgid "Replicode configuration"
 msgstr "ضبط ريبلكود"

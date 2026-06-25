@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2025-12-23 03:37+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -483,7 +483,7 @@ msgstr "ნაკლული ნაკადის ID"
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "მიმდინარე კადრი [%3]: %1:%2 (%4)"
 
-#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
+#: debugconfigpage.cpp:57 debugconfigpage.cpp:62
 #, kde-format
 msgid "Debugger"
 msgstr "გამმართველი"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-17 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2025-12-30 06:24-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -26,28 +26,28 @@ msgstr ""
 msgid "Filter…"
 msgstr "Filtrar…"
 
-#: lspclientconfigpage.cpp:43
+#: lspclientconfigpage.cpp:44
 #, kde-format
 msgid "User Server Settings"
 msgstr "Configurações do servidor do usuário"
 
-#: lspclientconfigpage.cpp:44
+#: lspclientconfigpage.cpp:45
 #, kde-format
 msgid "Default Server Settings"
 msgstr "Configuração padrão do servidor"
 
-#: lspclientconfigpage.cpp:87 lspclientconfigpage.cpp:92
+#: lspclientconfigpage.cpp:88 lspclientconfigpage.cpp:93
 #: lspclientpluginview.cpp:454 lspclientpluginview.cpp:603
 #, kde-format
 msgid "LSP Client"
 msgstr "Cliente LSP"
 
-#: lspclientconfigpage.cpp:194
+#: lspclientconfigpage.cpp:195
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Excluir as entradas selecionadas"
 
-#: lspclientconfigpage.cpp:200
+#: lspclientconfigpage.cpp:201
 #, kde-format
 msgid "Delete all entries"
 msgstr "Excluir todas as entradas"

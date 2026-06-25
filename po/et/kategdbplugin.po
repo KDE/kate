@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2020-10-23 11:56+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -498,7 +498,7 @@ msgstr ""
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr ""
 
-#: debugconfigpage.cpp:55 debugconfigpage.cpp:60
+#: debugconfigpage.cpp:57 debugconfigpage.cpp:62
 #, fuzzy, kde-format
 #| msgid "Debug"
 msgid "Debugger"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-05-17 00:47+0000\n"
+"POT-Creation-Date: 2026-06-25 00:47+0000\n"
 "PO-Revision-Date: 2026-02-04 00:36+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -22,28 +22,28 @@ msgstr ""
 msgid "Filter…"
 msgstr "필터…"
 
-#: lspclientconfigpage.cpp:43
+#: lspclientconfigpage.cpp:44
 #, kde-format
 msgid "User Server Settings"
 msgstr "사용자 서버 설정"
 
-#: lspclientconfigpage.cpp:44
+#: lspclientconfigpage.cpp:45
 #, kde-format
 msgid "Default Server Settings"
 msgstr "기본 서버 설정"
 
-#: lspclientconfigpage.cpp:87 lspclientconfigpage.cpp:92
+#: lspclientconfigpage.cpp:88 lspclientconfigpage.cpp:93
 #: lspclientpluginview.cpp:454 lspclientpluginview.cpp:603
 #, kde-format
 msgid "LSP Client"
 msgstr "LSP 클라이언트"
 
-#: lspclientconfigpage.cpp:194
+#: lspclientconfigpage.cpp:195
 #, kde-format
 msgid "Delete selected entries"
 msgstr "선택한 항목 삭제"
 
-#: lspclientconfigpage.cpp:200
+#: lspclientconfigpage.cpp:201
 #, kde-format
 msgid "Delete all entries"
 msgstr "모든 항목 삭제"

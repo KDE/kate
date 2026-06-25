@@ -863,6 +863,11 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     // Define PWD so that shell scripts can get a path with symbolic links intact
     auto env = QProcessEnvironment::systemEnvironment();
     env.insert(QStringLiteral("PWD"), QDir(m_makeDir).absolutePath());
+    // With certain combinations of make and gcc, we get colors, but we don't
+    // understand term colors, so explicitly ask GCC to not print it
+    env.insert(QStringLiteral("GCC_COLORS"), QString());
+    // also ask with semi-standardized version for no colors
+    env.insert(QStringLiteral("NO_COLOR"), QStringLiteral("1")); //
     m_proc.setProcessEnvironment(env);
     m_proc.setWorkingDirectory(m_makeDir);
     m_proc.setShellCommand(command);

@@ -365,7 +365,7 @@ msgstr "Mostra l'historial"
 #: gitwidget.cpp:1159
 #, kde-format
 msgid "Diff - stash"
-msgstr "Diff - modificació temporal"
+msgstr "Diff – modificació temporal"
 
 #: gitwidget.cpp:1192
 #, kde-format
@@ -753,7 +753,7 @@ msgstr "Inicia l'anàlisi…"
 #, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "Anàlisi del codi - %1"
+msgstr "Anàlisi del codi – %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:99
 #, kde-format

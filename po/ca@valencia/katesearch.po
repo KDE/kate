@@ -217,8 +217,8 @@ msgstr "Filtre…"
 #, kde-format
 msgid "Search in current tab; press and hold Ctrl to search in a new tab."
 msgstr ""
-"Busca a la pestanya actual; premeu i manteniu premuda «Ctrl» per a buscar en "
-"una pestanya nova."
+"Busca en la pestanya actual; premeu i manteniu premuda «Ctrl» per a buscar "
+"en una pestanya nova."
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:40 SearchPlugin.cpp:293

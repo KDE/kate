@@ -161,7 +161,7 @@ msgstr "KWrite"
 #: kwrite/main.cpp:48
 #, kde-format
 msgid "KWrite - Text Editor"
-msgstr "KWrite - Editor de text"
+msgstr "KWrite – Editor de text"
 
 #: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:369
 #: lib/kateviewmanager.cpp:371
@@ -647,7 +647,7 @@ msgstr "Mostra la comissió completa"
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Historial de fitxer - %1"
+msgstr "Historial de fitxer – %1"
 
 #: lib/kateapp.cpp:147
 msgid ""

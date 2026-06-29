@@ -12,9 +12,6 @@
 #include "dataoutputwidget.h"
 #include "katesqlconstants.h"
 #include "outputwidget.h"
-#include "queryhelpers/queryselectorpopup.h"
-#include "queryhelpers/sqlqueryhighlighter.h"
-#include "queryhelpers/sqlqueryscannerstatemachine.h"
 #include "schemabrowserwidget.h"
 #include "schemawidget.h"
 #include "sqlmanager.h"
@@ -41,8 +38,6 @@
 #include <QString>
 #include <QStyleHints>
 #include <QWidgetAction>
-
-#include <utility>
 
 KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw)
     : QObject(mw)
@@ -110,11 +105,6 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
             m_schemaBrowserWidget->schemaWidget(),
             &SchemaWidget::reloadDisplayColumnMap);
 
-    if (SQLQueryHighlighter::isEnabledInConfig()) {
-        m_queryHighlighter = new SQLQueryHighlighter(mw, this);
-        m_queryHighlighter->setup();
-    }
-
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, [this]() {
         updateRunActionEnabled();
         updateViewEventFilter();
@@ -130,10 +120,6 @@ KateSQLView::KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *m
 
 KateSQLView::~KateSQLView()
 {
-    if (m_queryHighlighter) {
-        m_queryHighlighter->tearDown();
-    }
-
     if (m_activeView) {
         m_activeView->removeEventFilter(this);
         if (auto *proxy = m_activeView->focusProxy()) {
@@ -246,19 +232,6 @@ void KateSQLView::slotGlobalSettingsChanged()
     m_outputWidget->dataOutputWidget()->readConfig();
 
     updateCachedConfig();
-
-    if (SQLQueryHighlighter::isEnabledInConfig()) {
-        if (!m_queryHighlighter) {
-            m_queryHighlighter = new SQLQueryHighlighter(m_mainWindow, this);
-            m_queryHighlighter->setup();
-        } else {
-            m_queryHighlighter->updateConfigCache();
-        }
-    } else if (m_queryHighlighter) {
-        m_queryHighlighter->tearDown();
-        delete m_queryHighlighter;
-        m_queryHighlighter = nullptr;
-    }
 }
 
 void KateSQLView::readSessionConfig(KConfigGroup const &group)
@@ -378,56 +351,13 @@ void KateSQLView::slotRunQuery()
         return;
     }
 
-    // Uses cached value from updateCachedConfig()
-    const bool alwaysShowPopup = m_alwaysShowQueryPopup;
+    QString text = view->selection() ? view->selectionText() : view->document()->text();
+    text = text.trimmed();
 
-    // If user has a selection, run it directly
-    if (view->selection()) {
-        QString text = view->selectionText().trimmed();
-        if (!text.isEmpty()) {
-            runMultiStatementText(text, connection);
-        }
-        // Restore focus: showToolView in result handlers may have moved it
+    if (!text.isEmpty()) {
+        runMultiStatementText(text, connection);
         view->setFocus();
-        return;
     }
-
-    if (!m_queryHighlighter) {
-        // Highlighter disabled — run entire document (streaming)
-        runDocumentStatements(connection);
-        view->setFocus();
-        return;
-    }
-
-    // Get the nested query ranges from the highlighter
-    const QList<KTextEditor::Range> queryRanges = m_queryHighlighter->currentQueryRanges();
-
-    if (queryRanges.isEmpty()) {
-        // No detected query — run entire document (streaming)
-        runDocumentStatements(connection);
-        view->setFocus();
-        return;
-    }
-
-    if (queryRanges.size() == 1 && !alwaysShowPopup) {
-        // Single query and popup not forced — run it directly
-        QString text = view->document()->text(queryRanges.first()).trimmed();
-        if (!text.isEmpty()) {
-            runMultiStatementText(text, connection);
-        }
-        view->setFocus();
-        return;
-    }
-
-    // Multiple nested ranges, or popup forced — show selector popup
-    // (popup handles its own focus management)
-    QuerySelectorPopup::show(view, queryRanges, connection, m_queryHighlighter, [this](const QString &text, const QString &connection, bool isEntireDocument) {
-        if (isEntireDocument) {
-            runDocumentStatements(connection);
-        } else {
-            runMultiStatementText(text, connection);
-        }
-    });
 }
 
 void KateSQLView::slotError(const QString &message)
@@ -496,10 +426,7 @@ void KateSQLView::updateRunActionEnabled()
     }
 
     const bool hasConnection = m_connectionsComboBox->currentIndex() >= 0;
-    auto *view = m_mainWindow->activeView();
-    const bool isSql = view && SQLQueryHighlighter::isSqlDocument(view->document());
-
-    runAction->setEnabled(hasConnection && (isSql || m_enableRunOutsideSqlFiles));
+    runAction->setEnabled(hasConnection);
 }
 
 void KateSQLView::updateViewEventFilter()
@@ -549,8 +476,7 @@ bool KateSQLView::eventFilter(QObject *obj, QEvent *event)
         return QObject::eventFilter(obj, event);
     }
 
-    const bool isSql = SQLQueryHighlighter::isSqlDocument(view->document());
-    if (!isSql && !m_enableRunOutsideSqlFiles) {
+    if (!m_enableRunOutsideSqlFiles) {
         return QObject::eventFilter(obj, event);
     }
 
@@ -591,38 +517,19 @@ bool KateSQLView::eventFilter(QObject *obj, QEvent *event)
 
 void KateSQLView::runMultiStatementText(const QString &text, const QString &connection)
 {
-    const QStringList parts = SQLQueryScannerStateMachine::splitStatements(text, m_blankLineBreaksStatements);
-    for (const QString &part : std::as_const(parts)) {
-        const QString trimmed = part.trimmed();
-        if (!trimmed.isEmpty()) {
-            m_manager->runQuery(trimmed, connection);
+    QStringList queries;
+    if (m_blankLineBreaksStatements) {
+        queries = text.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
+    } else {
+        queries = {text};
+    }
+
+    for (const auto &query : std::as_const(queries)) {
+        const auto trimmedQuery = query.trimmed();
+        if (!trimmedQuery.isEmpty()) {
+            m_manager->runQuery(query, connection);
         }
     }
-}
-
-void KateSQLView::runDocumentStatements(const QString &connection)
-{
-    auto *view = m_mainWindow->activeView();
-    if (!view) {
-        return;
-    }
-
-    auto *doc = view->document();
-    if (!doc) {
-        return;
-    }
-
-    // Stream statements directly from the document line-by-line.
-    // This avoids loading the entire document text into a single QString,
-    // keeping peak memory proportional to the largest statement rather than
-    // the entire file size.
-    SQLQueryScannerStateMachine::scanAndExecuteStatements(doc, m_blankLineBreaksStatements, [this, connection](const QString &text) -> bool {
-        const QString trimmed = text.trimmed();
-        if (!trimmed.isEmpty()) {
-            m_manager->runQuery(trimmed, connection);
-        }
-        return true; // continue scanning
-    });
 }
 
 void KateSQLView::updateCachedConfig()
@@ -630,9 +537,6 @@ void KateSQLView::updateCachedConfig()
     KConfigGroup config(KSharedConfig::openConfig(), KateSQLConstants::Config::PluginGroup);
     m_blankLineBreaksStatements =
         config.readEntry(KateSQLConstants::Config::TreatBlankLineAsStatementBreak, KateSQLConstants::Config::DefaultValues::TreatBlankLineAsStatementBreak);
-    m_enableRunOutsideSqlFiles =
-        config.readEntry(KateSQLConstants::Config::EnableRunOutsideSqlFiles, KateSQLConstants::Config::DefaultValues::EnableRunOutsideSqlFiles);
-    m_alwaysShowQueryPopup = config.readEntry(KateSQLConstants::Config::AlwaysShowQueryPopup, KateSQLConstants::Config::DefaultValues::AlwaysShowQueryPopup);
 }
 
 // END KateSQLView

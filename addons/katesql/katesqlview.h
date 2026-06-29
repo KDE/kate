@@ -105,11 +105,9 @@ private:
     void updateRunActionEnabled();
     void updateViewEventFilter();
     void runMultiStatementText(const QString &text, const QString &connection);
-    void runDocumentStatements(const QString &connection);
     void updateCachedConfig();
 
     // Cached config values (updated via updateCachedConfig)
     bool m_blankLineBreaksStatements = true;
     bool m_enableRunOutsideSqlFiles = true;
-    bool m_alwaysShowQueryPopup = false;
 };

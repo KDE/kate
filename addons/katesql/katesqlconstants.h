@@ -42,10 +42,7 @@ inline constexpr QLatin1String LastUsed("LastUsed");
 inline constexpr QLatin1String UseSystemDefaults("UseSystemDefaults");
 inline constexpr QLatin1String EnableEditableTable("EnableEditableTable");
 inline constexpr QLatin1String EnableEditableRelationalTable("EnableEditableRelationalTable");
-inline constexpr QLatin1String EnableAutoQuerySelection("EnableAutoQuerySelection");
 inline constexpr QLatin1String TreatBlankLineAsStatementBreak("TreatBlankLineAsStatementBreak");
-inline constexpr QLatin1String EnableRunOutsideSqlFiles("EnableRunOutsideSqlFiles");
-inline constexpr QLatin1String AlwaysShowQueryPopup("AlwaysShowQueryPopup");
 
 namespace DefaultValues
 {
@@ -53,10 +50,7 @@ inline constexpr bool SaveConnections(true);
 inline constexpr bool UseSystemDefaults(true);
 inline constexpr bool EnableEditableTable(true);
 inline constexpr bool EnableEditableRelationTable(false);
-inline constexpr bool EnableAutoQuerySelection(true);
 inline constexpr bool TreatBlankLineAsStatementBreak(true);
-inline constexpr bool EnableRunOutsideSqlFiles(false);
-inline constexpr bool AlwaysShowQueryPopup(false);
 inline constexpr int HighlightForChangedFieldColorBlend = 25;
 inline constexpr int MaxLinesAroundTheCursorToScanForHighlight = 200;
 }
@@ -186,11 +180,6 @@ inline constexpr int BorderWidth = 4;
 inline constexpr int MaximumHeight = 600;
 
 inline constexpr int MinimumWidth = 300;
-}
-
-namespace ConfigPageStyle
-{
-inline constexpr int Indent = 24;
 }
 
 } // namespace KateSQL

@@ -27,9 +27,6 @@ target_sources(
   PRIVATE
     katesqlplugin.cpp
     katesqlview.cpp
-    queryhelpers/sqlqueryhighlighter.cpp
-    queryhelpers/sqlqueryscannerstatemachine.cpp
-    queryhelpers/queryselectorpopup.cpp
     connectionmodel.cpp
     sqlmanager.cpp
     dataoutput/cachedsqlquerymodel.cpp

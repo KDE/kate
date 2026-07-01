@@ -14,7 +14,6 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
-#include <ktexteditor_version.h>
 
 #include <QGuiApplication>
 #include <QPalette>

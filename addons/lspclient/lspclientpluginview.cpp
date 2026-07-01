@@ -38,7 +38,6 @@
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/movingrange.h>
-#include <ktexteditor_version.h>
 
 #include <QAction>
 #include <QApplication>

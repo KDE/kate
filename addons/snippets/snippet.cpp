@@ -12,7 +12,6 @@
 #include "katesnippetglobal.h"
 #include "ktexteditor/document.h"
 #include "ktexteditor/mainwindow.h"
-#include "ktexteditor_version.h"
 
 #include <KLocalizedString>
 

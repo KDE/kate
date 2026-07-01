@@ -25,8 +25,6 @@
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/view.h>
 
-#include <kconfigwidgets_version.h>
-
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KLocalizedString>

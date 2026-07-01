@@ -3,64 +3,66 @@
 # This file is distributed under the same license as the kate package.
 # Automatically generated, 2022.
 #
+# SPDX-FileCopyrightText: 2026 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-27 00:47+0000\n"
-"PO-Revision-Date: 2022-05-04 00:49+0000\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-06-30 09:37+0200\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: gitblameparser.cpp:181
 #, kde-format
 msgid "Not Committed Yet"
-msgstr ""
+msgstr "Все още не е комитнато"
 
 #: kategitblameplugin.cpp:91
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
-msgstr ""
+msgstr " %1: %2 "
 
 #: kategitblameplugin.cpp:92
 #, kde-format
 msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
-msgstr ""
+msgstr " %1: %2: %3 "
 
 #: kategitblameplugin.cpp:180
 #, kde-format
 msgid "Git Blame"
-msgstr ""
+msgstr "Git Blame"
 
 #: kategitblameplugin.cpp:183
 #, kde-format
 msgid "Show Git Blame Details"
-msgstr ""
+msgstr "Показване на подробности за Git blame"
 
 #: kategitblameplugin.cpp:186
 #, kde-format
 msgid "Toggle Git Blame Details"
-msgstr ""
+msgstr "Показване/скриване на подробности за Git blame"
 
 #: kategitblameplugin.cpp:333
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: kategitblameplugin.cpp:396
 #, kde-format
 msgid "Git blame, show commit failed."
-msgstr ""
+msgstr "Git blame, Неуспешно показване на комита"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6
 #, kde-format
 msgid "&Tools"
-msgstr ""
+msgstr "&Инструменти"

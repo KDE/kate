@@ -1,6 +1,5 @@
 # Translation of rainbowparens to Norwegian Nynorsk
 #
-# SPDX-FileCopyrightText: 2026 Karl Ove Hufthammer <karl@huftis.org>
 #
 msgid ""
 msgstr ""

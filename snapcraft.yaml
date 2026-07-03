@@ -136,6 +136,7 @@ parts:
       - libsecret-1-0
       - patchelf
       - libffi8
+      - libx11-6
     stage-snaps:
       - gtk-theme-breeze
       - icon-theme-breeze

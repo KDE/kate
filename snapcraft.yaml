@@ -94,6 +94,7 @@ parts:
       - qt6-base-dev
       - libpulse0
       - python3
+      - libpipewire-0.3-dev
     stage-packages:
       - kf6-kdeclarative
       - kf6-ktexteditor
@@ -137,6 +138,9 @@ parts:
       - patchelf
       - libffi8
       - libx11-6
+      - libpipewire-0.3-0t64
+      - libpipewire-0.3-common
+      - libpipewire-0.3-modules
     stage-snaps:
       - gtk-theme-breeze
       - icon-theme-breeze

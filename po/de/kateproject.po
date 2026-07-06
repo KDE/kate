@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-04 00:47+0000\n"
-"PO-Revision-Date: 2026-04-21 22:58+0200\n"
-"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
+"PO-Revision-Date: 2026-06-22 13:30+0200\n"
+"Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.04.0\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1001,10 +1001,9 @@ msgid "Reload Project"
 msgstr "Projekt neu laden"
 
 #: kateprojectpluginview.cpp:219
-#, fuzzy, kde-format
-#| msgid "Reload Project"
+#, kde-format
 msgid "Reload All Projects"
-msgstr "Projekt neu laden"
+msgstr "Alle Projekte neu laden"
 
 #: kateprojectpluginview.cpp:230
 #, kde-format

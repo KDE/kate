@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-16 00:46+0000\n"
-"PO-Revision-Date: 2025-08-03 14:45+0400\n"
+"PO-Revision-Date: 2026-07-06 18:30+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -21,17 +21,17 @@ msgstr ""
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
 msgid "Could not open file '%1'."
-msgstr "تعذّر فتح الملفّ '%1'."
+msgstr "تعذّر فتح الملفّ ’%1‘."
 
 #: keyboardmacrosplugin.cpp:72
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr "ملف JSON مشوه '%1': %2"
+msgstr "ملف JSON مشوه ’%1‘: %2"
 
 #: keyboardmacrosplugin.cpp:80
 #, kde-format
 msgid "Could not load '%1': malformed macro; wiping it."
-msgstr "تعذر تحميل '%1': ماكرو مشوه؛ جاري مسحه."
+msgstr "تعذر تحميل ’%1‘: ماكرو مشوه؛ جاري مسحه."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
@@ -73,17 +73,17 @@ msgstr "يسجّل %1"
 #: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Saved '%1'"
-msgstr "حفظ '%1'"
+msgstr "’%1‘ محفوظ"
 
 #: keyboardmacrosplugin.cpp:347
 #, kde-format
 msgid "Loaded '%1'"
-msgstr "حمّل '%1'"
+msgstr "’%1‘ مُحمل"
 
 #: keyboardmacrosplugin.cpp:365
 #, kde-format
 msgid "Wiped '%1'"
-msgstr "مسح '%1'"
+msgstr "’%1‘ محذوف"
 
 #: keyboardmacrosplugincommands.cpp:27
 #, kde-format
@@ -94,7 +94,7 @@ msgstr "استخدم: %1 <name>."
 #: keyboardmacrosplugincommands.cpp:62
 #, kde-format
 msgid "No keyboard macro named '%1' found."
-msgstr "لم يعثر على ماكرو لوحة المفاتيح المسمى '%1'."
+msgstr "لم يعثر على ماكرو لوحة المفاتيح المسمى ’%1‘."
 
 #: keyboardmacrosplugincommands.cpp:50
 #, kde-format
@@ -233,7 +233,7 @@ msgstr "حمّل %1"
 #: keyboardmacrospluginview.cpp:181
 #, kde-format
 msgid "Load the '%1' macro as the current one."
-msgstr "حمّل الماكرو '%1' باعتباره الماكرو الحالي."
+msgstr "حمّل الماكرو ’%1‘ باعتباره الماكرو الحالي."
 
 #: keyboardmacrospluginview.cpp:193
 #, kde-format
@@ -243,7 +243,7 @@ msgstr "شغّل %1"
 #: keyboardmacrospluginview.cpp:194
 #, kde-format
 msgid "Play the '%1' macro without loading it."
-msgstr "شغل الماكرو '%1' دون تحميله."
+msgstr "شغل الماكرو ’%1‘ دون تحميله."
 
 #: keyboardmacrospluginview.cpp:208
 #, kde-format
@@ -253,7 +253,7 @@ msgstr "امسح %1"
 #: keyboardmacrospluginview.cpp:209
 #, kde-format
 msgid "Wipe the '%1' macro."
-msgstr "امسح الماكرو '%1'."
+msgstr "امسح الماكرو ’%1‘."
 
 #: keyboardmacrospluginview.cpp:289
 #, kde-format
@@ -263,7 +263,7 @@ msgstr "هل تحفظ الماكرو الحالي كـ؟"
 #: keyboardmacrospluginview.cpp:323
 #, kde-format
 msgid "Wipe the '%1' macro?"
-msgstr "هل امحُ الماكرو '%1'؟"
+msgstr "هل امحُ الماكرو ’%1‘؟"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

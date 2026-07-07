@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2010, 2025 Stefan Asserhäll <stefan.asserhall@gmail.com>
+# SPDX-FileCopyrightText: 2010, 2025-2026 Stefan Asserhäll <stefan.asserhall@gmail.com>
 # Stefan Asserhall <stefan.asserhall@gmail.com>, 2011, 2012, 2014, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-24 01:27+0000\n"
-"PO-Revision-Date: 2025-01-17 08:10+0100\n"
+"PO-Revision-Date: 2026-07-06 20:00+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -157,9 +157,7 @@ msgid "SQL"
 msgstr "SQL"
 
 #: dataoutputwidget.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Uppdatera"
@@ -204,49 +202,49 @@ msgstr "Använd systemets landsinställningar"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "Klistra in"
 
 #: dataoutputwidget.cpp:191
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "Ange Null"
 
 #: dataoutputwidget.cpp:201
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "Infoga rad"
 
 #: dataoutputwidget.cpp:211
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "Ta bort markerade rader"
 
 #: dataoutputwidget.cpp:221
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "Duplicera markerade rader"
 
 #: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "Ångra"
 
 #: dataoutputwidget.cpp:241
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "Spara"
 
 #: dataoutputwidget.cpp:251
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "Gör kolumnen presentabel för relaterade tabeller"
 
 #: dataoutputwidget.cpp:254
 #, kde-format
@@ -255,24 +253,27 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Varning! För kolumner utan en unik begränsning kan vi inte garantera korrekt "
+"kopiering och inklistring (när kolumnen visas istället för den främmande "
+"nyckeln)"
 
 #: dataoutputwidget.cpp:265
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "Var:"
 
 #: dataoutputwidget.cpp:273
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "Ange SQL WHERE-klausulen för att filtrera data"
 
 #: dataoutputwidget.cpp:730
 #, kde-kuit-format
@@ -281,12 +282,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "Kan inte öppna fil <filename>%1</filename>"
 
 #: dataoutputwidget.cpp:750
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "Kan inte ansluta till databas.<nl/><message>%1</message>"
+msgstr "Misslyckades spara ändringar: <message>%1</message>"
 
 #: exportwizard.cpp:27
 #, kde-format
@@ -409,43 +408,43 @@ msgstr "Spara och återställ anslutningar i Kate-session"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Aktivera redigerbar tabell för att bläddra i data"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "Aktivera redigerbara relationstabeller"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "Experimentell"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@option:check"
 msgid "Allow running queries in non-SQL files"
-msgstr ""
+msgstr "Tillåt att ställa frågor i andra än SQL-filer"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable auto query selection"
-msgstr ""
+msgstr "Aktivera automatiskt val av sökfråga"
 
 #: katesqlconfigpage.cpp:41
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "Behandla en tom rad som ny sats"
 
 #: katesqlconfigpage.cpp:42
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show query selector popup"
-msgstr ""
+msgstr "Visa alltid meddelandefönstret för frågeväljare"
 
 #: katesqlconfigpage.cpp:44
 #, kde-format
@@ -454,18 +453,16 @@ msgid "Output Customization"
 msgstr "Anpassning av utdata"
 
 #: katesqlconfigpage.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Använd systemets landsinställningar"
+msgstr "Använd systemvärden"
 
 #: katesqlconfigpage.cpp:52
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Återställ till systemvärden"
 
 #: katesqlconfigpage.cpp:113
 #, kde-format
@@ -546,20 +543,16 @@ msgid "Background Color"
 msgstr "Bakgrundsfärg"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "Textfärg"
+msgstr "Ändrad textfärg"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "Bakgrundsfärg"
+msgstr "Ändrad bakgrundsfärg"
 
 #: outputstylewidget.cpp:49
 #, kde-format
@@ -612,7 +605,7 @@ msgstr "SQL-datautmatning"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "Filtrera tabeller och vyer..."
 
 #: schemawidget.cpp:45
 #, kde-format

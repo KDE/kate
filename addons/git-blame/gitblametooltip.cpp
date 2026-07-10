@@ -69,20 +69,28 @@ public:
 
         bool inDiff = false;
 
+        QString preTagOpen = QStringLiteral("<pre style='margin: 3; white-space: pre-wrap;'>");
+        QString preTagClose = QStringLiteral("</pre>");
+
         KSyntaxHighlighting::State state;
-        out << "<pre>";
+        out << preTagOpen;
         while (!in.atEnd()) {
             currentLine = in.readLine();
 
             // Link to open the tree view, insert as is
-            if (currentLine.startsWith(QLatin1String("<a href"))) {
-                out << currentLine;
+            if (currentLine.contains(QLatin1String("<a href"))) {
+                out << currentLine << "\n";
+                continue;
+            }
+
+            if (currentLine.startsWith(QLatin1String("    "))) {
+                out << currentLine.mid(4) << "\n";
                 continue;
             }
 
             // allow empty lines in code blocks, no ruler here
             if (!inDiff && currentLine.isEmpty()) {
-                out << "<hr>";
+                out << preTagClose << "<hr>" << preTagOpen;
                 continue;
             }
 
@@ -94,7 +102,7 @@ public:
             state = highlightLine(currentLine, state);
             out << "\n";
         }
-        out << "</pre>";
+        out << preTagClose;
     }
 
     QString html() const
@@ -144,7 +152,6 @@ public:
         : QTextBrowser(nullptr)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
-        setWordWrapMode(QTextOption::NoWrap);
         const auto margin = style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing, nullptr, this);
         document()->setDocumentMargin(margin);
         setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
@@ -170,7 +177,9 @@ public:
             pal.setColor(QPalette::Text, normal);
             setPalette(pal);
 
-            setFont(Utils::editorFont());
+            auto newFont = Utils::editorFont();
+            newFont.setPointSize(font().pointSize());
+            setFont(newFont);
         };
         updateColors(KTextEditor::Editor::instance());
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);

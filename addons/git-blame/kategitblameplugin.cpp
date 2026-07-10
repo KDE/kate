@@ -430,13 +430,14 @@ void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exi
         return;
     }
 
-    // Find 'Date:'
-    int dateIdx = stdOut.indexOf(QStringLiteral("Date:"));
-    if (dateIdx != -1) {
-        int newLine = stdOut.indexOf(u'\n', dateIdx);
-        if (newLine != -1) {
-            QString btn = QLatin1String("\n<a href=\"%1\">Click To Show Commit In Tree View</a>\n").arg(commitHashArg);
-            stdOut.insert(newLine + 1, btn);
+    // Replace commit hash with html link
+    const QString prefix = QLatin1String("commit ");
+    int start = stdOut.indexOf(prefix);
+    if (start != -1) {
+        start += prefix.length();
+        int end = stdOut.indexOf(u'\n', start);
+        if (end != -1) {
+            stdOut.replace(start, end - start, QLatin1String("<a href=\"%1\">%1</a>").arg(commitHashArg));
         }
     }
 

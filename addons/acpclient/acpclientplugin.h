@@ -53,9 +53,6 @@ public:
     int configPages() const override;
     KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
-    // Configuration page
-    ACPClientConfigPage *m_configPage = nullptr;
-
     void writeConfig() const;
 
     // Get current config path

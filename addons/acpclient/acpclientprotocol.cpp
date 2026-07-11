@@ -19,24 +19,24 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
     request[JSONRPC_METHOD] = METHOD_INITIALIZE;
 
     QJsonObject paramsObj;
-    paramsObj["clientName"] = params.clientName;
-    paramsObj["clientVersion"] = params.clientVersion;
+    paramsObj[u"clientName"] = params.clientName;
+    paramsObj[u"clientVersion"] = params.clientVersion;
 
     QJsonObject capabilitiesObj;
-    capabilitiesObj["supportsSessions"] = params.capabilities.supportsSessions;
-    capabilitiesObj["supportsTools"] = params.capabilities.supportsTools;
-    capabilitiesObj["supportsProgress"] = params.capabilities.supportsProgress;
-    capabilitiesObj["supportsAuthentication"] = params.capabilities.supportsAuthentication;
-    capabilitiesObj["supportedProtocolVersions"] = QJsonArray::fromStringList(params.capabilities.supportedProtocolVersions);
+    capabilitiesObj[u"supportsSessions"] = params.capabilities.supportsSessions;
+    capabilitiesObj[u"supportsTools"] = params.capabilities.supportsTools;
+    capabilitiesObj[u"supportsProgress"] = params.capabilities.supportsProgress;
+    capabilitiesObj[u"supportsAuthentication"] = params.capabilities.supportsAuthentication;
+    capabilitiesObj[u"supportedProtocolVersions"] = QJsonArray::fromStringList(params.capabilities.supportedProtocolVersions);
 
     if (!params.capabilities.customCapabilities.isEmpty()) {
-        capabilitiesObj["customCapabilities"] = params.capabilities.customCapabilities;
+        capabilitiesObj[u"customCapabilities"] = params.capabilities.customCapabilities;
     }
 
-    paramsObj["capabilities"] = capabilitiesObj;
+    paramsObj[u"capabilities"] = capabilitiesObj;
 
     if (!params.metadata.isEmpty()) {
-        paramsObj["metadata"] = params.metadata;
+        paramsObj[u"metadata"] = params.metadata;
     }
 
     request[JSONRPC_PARAMS] = paramsObj;
@@ -52,8 +52,8 @@ QJsonDocument ACPProtocol::createAuthLoginRequest(const AuthLoginParams &params,
     request[JSONRPC_METHOD] = METHOD_AUTH_LOGIN;
 
     QJsonObject paramsObj;
-    paramsObj["providerId"] = params.providerId;
-    paramsObj["providerData"] = params.providerData;
+    paramsObj[u"providerId"] = params.providerId;
+    paramsObj[u"providerData"] = params.providerData;
 
     request[JSONRPC_PARAMS] = paramsObj;
 
@@ -69,7 +69,7 @@ QJsonDocument ACPProtocol::createSessionNewRequest(const SessionNewParams &param
 
     QJsonObject paramsObj;
     if (!params.metadata.isEmpty()) {
-        paramsObj["metadata"] = params.metadata;
+        paramsObj[u"metadata"] = params.metadata;
     }
 
     request[JSONRPC_PARAMS] = paramsObj;
@@ -85,7 +85,7 @@ QJsonDocument ACPProtocol::createSessionResumeRequest(const SessionResumeParams 
     request[JSONRPC_METHOD] = METHOD_SESSION_RESUME;
 
     QJsonObject paramsObj;
-    paramsObj["sessionId"] = params.sessionId;
+    paramsObj[u"sessionId"] = params.sessionId;
 
     request[JSONRPC_PARAMS] = paramsObj;
 
@@ -110,7 +110,7 @@ QJsonDocument ACPProtocol::createSessionDeleteRequest(const QString &sessionId, 
     request[JSONRPC_METHOD] = METHOD_SESSION_DELETE;
 
     QJsonObject paramsObj;
-    paramsObj["sessionId"] = sessionId;
+    paramsObj[u"sessionId"] = sessionId;
 
     request[JSONRPC_PARAMS] = paramsObj;
 
@@ -125,11 +125,11 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
     request[JSONRPC_METHOD] = METHOD_SESSION_PROMPT;
 
     QJsonObject paramsObj;
-    paramsObj["sessionId"] = params.sessionId;
-    paramsObj["message"] = params.message;
+    paramsObj[u"sessionId"] = params.sessionId;
+    paramsObj[u"message"] = params.message;
 
     if (!params.metadata.isEmpty()) {
-        paramsObj["metadata"] = params.metadata;
+        paramsObj[u"metadata"] = params.metadata;
     }
 
     request[JSONRPC_PARAMS] = paramsObj;
@@ -145,7 +145,7 @@ QJsonDocument ACPProtocol::createSessionCancelRequest(const QString &sessionId, 
     request[JSONRPC_METHOD] = METHOD_SESSION_CANCEL;
 
     QJsonObject paramsObj;
-    paramsObj["sessionId"] = sessionId;
+    paramsObj[u"sessionId"] = sessionId;
 
     request[JSONRPC_PARAMS] = paramsObj;
 
@@ -170,8 +170,8 @@ QJsonDocument ACPProtocol::createToolsCallRequest(const QString &toolId, const Q
     request[JSONRPC_METHOD] = METHOD_TOOLS_CALL;
 
     QJsonObject paramsObj;
-    paramsObj["toolIdentifier"] = toolId;
-    paramsObj["arguments"] = arguments;
+    paramsObj[u"toolIdentifier"] = toolId;
+    paramsObj[u"arguments"] = arguments;
 
     request[JSONRPC_PARAMS] = paramsObj;
 
@@ -185,17 +185,17 @@ QJsonDocument ACPProtocol::createSessionUpdateNotification(const SessionUpdateNo
     notif[JSONRPC_METHOD] = NOTIFICATION_SESSION_UPDATE;
 
     QJsonObject paramsObj;
-    paramsObj["sessionId"] = notification.sessionId;
-    paramsObj["status"] = notification.status;
+    paramsObj[u"sessionId"] = notification.sessionId;
+    paramsObj[u"status"] = notification.status;
 
     if (!notification.message.isEmpty()) {
-        paramsObj["message"] = notification.message;
+        paramsObj[u"message"] = notification.message;
     }
     if (!notification.metadata.isEmpty()) {
-        paramsObj["metadata"] = notification.metadata;
+        paramsObj[u"metadata"] = notification.metadata;
     }
     if (!notification.stopReason.isEmpty()) {
-        paramsObj["stopReason"] = notification.stopReason;
+        paramsObj[u"stopReason"] = notification.stopReason;
     }
 
     notif[JSONRPC_PARAMS] = paramsObj;
@@ -210,8 +210,8 @@ QJsonDocument ACPProtocol::createProgressNotification(const ProgressNotification
     notif[JSONRPC_METHOD] = NOTIFICATION_PROGRESS;
 
     QJsonObject paramsObj;
-    paramsObj["token"] = notification.token;
-    paramsObj["value"] = notification.value;
+    paramsObj[u"token"] = notification.token;
+    paramsObj[u"value"] = notification.value;
 
     notif[JSONRPC_PARAMS] = paramsObj;
 
@@ -225,7 +225,7 @@ QJsonDocument ACPProtocol::createCancelRequestNotification(const CancelRequestNo
     notif[JSONRPC_METHOD] = NOTIFICATION_CANCELLATION;
 
     QJsonObject paramsObj;
-    paramsObj["id"] = notification.id;
+    paramsObj[u"id"] = notification.id;
 
     notif[JSONRPC_PARAMS] = paramsObj;
 
@@ -267,14 +267,14 @@ bool ACPProtocol::parseMessage(const QJsonDocument &doc, ACPMessage &message)
         message.isResponse = true;
     } else if (obj.contains(JSONRPC_ERROR)) {
         QJsonObject errorObj = obj[JSONRPC_ERROR].toObject();
-        if (errorObj.contains("code")) {
-            message.error.code = static_cast<ErrorCode>(errorObj["code"].toInt());
+        if (errorObj.contains(u"code")) {
+            message.error.code = static_cast<ErrorCode>(errorObj[u"code"].toInt());
         }
-        if (errorObj.contains("message")) {
-            message.error.message = errorObj["message"].toString();
+        if (errorObj.contains(u"message")) {
+            message.error.message = errorObj[u"message"].toString();
         }
-        if (errorObj.contains("data")) {
-            message.error.data = errorObj["data"].toObject();
+        if (errorObj.contains(u"data")) {
+            message.error.data = errorObj[u"data"].toObject();
         }
         message.isResponse = true;
     }
@@ -302,35 +302,35 @@ bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeRe
 
     QJsonObject resultObj = obj[JSONRPC_RESULT].toObject();
 
-    if (resultObj.contains("agentName")) {
-        result.agentName = resultObj["agentName"].toString();
+    if (resultObj.contains(u"agentName")) {
+        result.agentName = resultObj[u"agentName"].toString();
     }
-    if (resultObj.contains("agentVersion")) {
-        result.agentVersion = resultObj["agentVersion"].toString();
+    if (resultObj.contains(u"agentVersion")) {
+        result.agentVersion = resultObj[u"agentVersion"].toString();
     }
-    if (resultObj.contains("protocolVersion")) {
-        result.protocolVersion = resultObj["protocolVersion"].toString();
+    if (resultObj.contains(u"protocolVersion")) {
+        result.protocolVersion = resultObj[u"protocolVersion"].toString();
     }
-    if (resultObj.contains("metadata")) {
-        result.metadata = resultObj["metadata"].toObject();
+    if (resultObj.contains(u"metadata")) {
+        result.metadata = resultObj[u"metadata"].toObject();
     }
 
-    if (resultObj.contains("capabilities")) {
-        QJsonObject caps = resultObj["capabilities"].toObject();
-        result.capabilities.supportsSessions = caps["supportsSessions"].toBool();
-        result.capabilities.supportsTools = caps["supportsTools"].toBool();
-        result.capabilities.supportsProgress = caps["supportsProgress"].toBool();
-        result.capabilities.supportsAuthentication = caps["supportsAuthentication"].toBool();
+    if (resultObj.contains(u"capabilities")) {
+        QJsonObject caps = resultObj[u"capabilities"].toObject();
+        result.capabilities.supportsSessions = caps[u"supportsSessions"].toBool();
+        result.capabilities.supportsTools = caps[u"supportsTools"].toBool();
+        result.capabilities.supportsProgress = caps[u"supportsProgress"].toBool();
+        result.capabilities.supportsAuthentication = caps[u"supportsAuthentication"].toBool();
 
-        if (caps.contains("supportedProtocolVersions")) {
-            QJsonArray versions = caps["supportedProtocolVersions"].toArray();
+        if (caps.contains(u"supportedProtocolVersions")) {
+            QJsonArray versions = caps[u"supportedProtocolVersions"].toArray();
             for (const QJsonValue &v : versions) {
                 result.capabilities.supportedProtocolVersions.append(v.toString());
             }
         }
 
-        if (caps.contains("customCapabilities")) {
-            result.capabilities.customCapabilities = caps["customCapabilities"].toObject();
+        if (caps.contains(u"customCapabilities")) {
+            result.capabilities.customCapabilities = caps[u"customCapabilities"].toObject();
         }
     }
 
@@ -356,20 +356,20 @@ bool ACPProtocol::parseSessionUpdate(const QJsonDocument &doc, SessionUpdateNoti
 
     QJsonObject params = obj[JSONRPC_PARAMS].toObject();
 
-    if (params.contains("sessionId")) {
-        update.sessionId = params["sessionId"].toString();
+    if (params.contains(u"sessionId")) {
+        update.sessionId = params[u"sessionId"].toString();
     }
-    if (params.contains("status")) {
-        update.status = params["status"].toString();
+    if (params.contains(u"status")) {
+        update.status = params[u"status"].toString();
     }
-    if (params.contains("message")) {
-        update.message = params["message"].toString();
+    if (params.contains(u"message")) {
+        update.message = params[u"message"].toString();
     }
-    if (params.contains("metadata")) {
-        update.metadata = params["metadata"].toObject();
+    if (params.contains(u"metadata")) {
+        update.metadata = params[u"metadata"].toObject();
     }
-    if (params.contains("stopReason")) {
-        update.stopReason = params["stopReason"].toString();
+    if (params.contains(u"stopReason")) {
+        update.stopReason = params[u"stopReason"].toString();
     }
 
     return true;
@@ -394,11 +394,11 @@ bool ACPProtocol::parseProgressNotification(const QJsonDocument &doc, ProgressNo
 
     QJsonObject params = obj[JSONRPC_PARAMS].toObject();
 
-    if (params.contains("token")) {
-        progress.token = params["token"].toString();
+    if (params.contains(u"token")) {
+        progress.token = params[u"token"].toString();
     }
-    if (params.contains("value")) {
-        progress.value = params["value"].toObject();
+    if (params.contains(u"value")) {
+        progress.value = params[u"value"].toObject();
     }
 
     return true;
@@ -419,18 +419,18 @@ bool ACPProtocol::parseErrorResponse(const QJsonDocument &doc, ACPError &error)
 
     QJsonObject errorObj = obj[JSONRPC_ERROR].toObject();
 
-    if (errorObj.contains("code")) {
-        error.code = static_cast<ErrorCode>(errorObj["code"].toInt());
+    if (errorObj.contains(u"code")) {
+        error.code = static_cast<ErrorCode>(errorObj[u"code"].toInt());
     } else {
         error.code = ErrorCode::UnknownError;
     }
 
-    if (errorObj.contains("message")) {
-        error.message = errorObj["message"].toString();
+    if (errorObj.contains(u"message")) {
+        error.message = errorObj[u"message"].toString();
     }
 
-    if (errorObj.contains("data")) {
-        error.data = errorObj["data"].toObject();
+    if (errorObj.contains(u"data")) {
+        error.data = errorObj[u"data"].toObject();
     }
 
     return true;

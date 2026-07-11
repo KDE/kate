@@ -40,7 +40,7 @@ ACPClientServer *ACPClientServerManager::createServer(const ACPClientServer::Ser
     connect(serverPtr, &ACPClientServer::disconnected, this, &ACPClientServerManager::onServerDisconnected);
     connect(serverPtr, &ACPClientServer::errorOccurred, this, &ACPClientServerManager::onServerError);
     connect(serverPtr, &ACPClientServer::messageReceived, this, &ACPClientServerManager::onServerMessageReceived);
-    connect(serverPtr, &ACPClientServer::stateChanged, this, [this, serverPtr](ACPClientServer::ServerState state) {
+    connect(serverPtr, &ACPClientServer::stateChanged, this, [this, serverPtr, info](ACPClientServer::ServerState state) {
         if (state == ACPClientServer::ServerState::Initialized) {
             if (!m_activeServer && info.autoStart) {
                 setActiveServer(serverPtr->info().name);
@@ -149,10 +149,10 @@ QString ACPClientServerManager::createSession()
     auto callback = [this, requestId](const QJsonDocument &response) {
         if (response.isObject()) {
             QJsonObject obj = response.object();
-            if (obj.contains("result") && obj["result"].isObject()) {
-                QJsonObject result = obj["result"].toObject();
-                if (result.contains("sessionId")) {
-                    QString sessionId = result["sessionId"].toString();
+            if (obj.contains(u"result") && obj[u"result"].isObject()) {
+                QJsonObject result = obj[u"result"].toObject();
+                if (result.contains(u"sessionId")) {
+                    QString sessionId = result[u"sessionId"].toString();
                     Q_EMIT sessionCreated(sessionId);
                 }
             }
@@ -200,7 +200,7 @@ void ACPClientServerManager::listSessions()
     auto callback = [this](const QJsonDocument &response) {
         if (response.isObject()) {
             QJsonObject obj = response.object();
-            if (obj.contains("result") && obj["result"].isArray()) {
+            if (obj.contains(u"result") && obj["result"].isArray()) {
                 Q_EMIT sessionListReceived(obj["result"].toArray());
             }
         }

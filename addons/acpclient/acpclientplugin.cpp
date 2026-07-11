@@ -99,8 +99,7 @@ QObject *ACPClientPlugin::createView(KTextEditor::MainWindow *mainWindow)
     });
 
     connect(this, &ACPClientPlugin::showMessage, mainWindow, [mainWindow](KTextEditor::Message::MessageType level, const QString &msg) {
-        KTextEditor::Message *message = new KTextEditor::Message(msg, mainWindow);
-        message->setMessageType(level);
+        KTextEditor::Message *message = new KTextEditor::Message(msg, level);
         message->setPosition(KTextEditor::Message::BottomInView);
         message->setWordWrap(true);
         message->setAutoHide(5000);

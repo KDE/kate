@@ -172,7 +172,7 @@ void ACPClientPluginView::onNewSession()
         return;
     }
 
-    Q_EMIT m_plugin->showMessage(KTextEditor::Message::Info, i18n("New ACP session created: %1", sessionId));
+    Q_EMIT m_plugin->showMessage(KTextEditor::Message::Information, i18n("New ACP session created: %1", sessionId));
 }
 
 void ACPClientPluginView::onSendPrompt()
@@ -208,7 +208,7 @@ void ACPClientPluginView::onSendPrompt()
     QString sessionId = m_serverManager->createSession();
     if (!sessionId.isEmpty()) {
         m_serverManager->sendPrompt(sessionId, prompt);
-        Q_EMIT m_plugin->showMessage(KTextEditor::Message::Info, i18n("Prompt sent to ACP agent"));
+        Q_EMIT m_plugin->showMessage(KTextEditor::Message::Information, i18n("Prompt sent to ACP agent"));
     }
 }
 
@@ -249,17 +249,17 @@ void ACPClientPluginView::onMessageReceived(const QJsonDocument &message)
     // Parse and display messages as needed
     if (message.isObject()) {
         QJsonObject obj = message.object();
-        if (obj.contains("method")) {
-            QString method = obj["method"].toString();
+        if (obj.contains(u"method")) {
+            QString method = obj[u"method"].toString();
 
             if (method == ACP::NOTIFICATION_SESSION_UPDATE) {
                 // Handle session update
-                if (obj.contains("params")) {
-                    QJsonObject params = obj["params"].toObject();
-                    if (params.contains("message")) {
-                        QString msg = params["message"].toString();
+                if (obj.contains(u"params")) {
+                    QJsonObject params = obj[u"params"].toObject();
+                    if (params.contains(u"message")) {
+                        QString msg = params[u"message"].toString();
                         if (!msg.isEmpty()) {
-                            Q_EMIT m_plugin->showMessage(KTextEditor::Message::Info, i18n("ACP: %1", msg));
+                            Q_EMIT m_plugin->showMessage(KTextEditor::Message::Information, i18n("ACP: %1", msg));
                         }
                     }
                 }

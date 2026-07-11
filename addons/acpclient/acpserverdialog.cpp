@@ -81,19 +81,19 @@ void ACPServerDialog::loadPresets()
                 ACPClientServer::ServerInfo info;
                 QJsonObject obj = doc.object();
 
-                info.name = obj["name"].toString();
-                info.command = obj["command"].toString();
-                info.autoStart = obj["auto_start"].toBool(false);
+                info.name = obj[u"name"].toString();
+                info.command = obj[u"command"].toString();
+                info.autoStart = obj[u"auto_start"].toBool(false);
 
-                if (obj.contains("arguments") && obj["arguments"].isArray()) {
-                    QJsonArray args = obj["arguments"].toArray();
+                if (obj.contains(u"arguments") && obj[u"arguments"].isArray()) {
+                    QJsonArray args = obj[u"arguments"].toArray();
                     for (const QJsonValue &arg : args) {
                         info.arguments.append(arg.toString());
                     }
                 }
 
-                if (obj.contains("metadata") && obj["metadata"].isObject()) {
-                    info.metadata = obj["metadata"].toObject();
+                if (obj.contains(u"metadata") && obj[u"metadata"].isObject()) {
+                    info.metadata = obj[u"metadata"].toObject();
                 }
 
                 m_presets.append(info);

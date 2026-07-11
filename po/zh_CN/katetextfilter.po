@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/katetextfilter.pot\n"
-"X-Crowdin-File-ID: 44771\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/katetextfilter.pot\n"
+"X-Crowdin-File-ID: 50536\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format

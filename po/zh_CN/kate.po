@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/kate.pot\n"
-"X-Crowdin-File-ID: 44809\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/kate.pot\n"
+"X-Crowdin-File-ID: 51168\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2849,13 +2849,13 @@ msgstr "为会话指定新名称：%1"
 #: lib/ui/sessionconfigwidget.ui:17
 #, kde-format
 msgid "Application Startup Behavior"
-msgstr "应用开机行为"
+msgstr "应用程序启动行为"
 
 #. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
 #: lib/ui/sessionconfigwidget.ui:23
 #, kde-format
 msgid "&Start new session"
-msgstr "启动新会话(&S)"
+msgstr "启动全新会话(&S)"
 
 #. i18n: ectx: property (text), widget (QRadioButton, loadLastUserSessionRadioButton)
 #: lib/ui/sessionconfigwidget.ui:30
@@ -2873,7 +2873,7 @@ msgstr "手动选择会话(&M)"
 #: lib/ui/sessionconfigwidget.ui:47
 #, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr "应用打开/关闭行为"
+msgstr "应用程序打开/关闭行为"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55
@@ -2885,13 +2885,13 @@ msgstr "自动保存并恢复："
 #: lib/ui/sessionconfigwidget.ui:67
 #, kde-format
 msgid "Newly-created unsaved files"
-msgstr "新创建但未保存的文件"
+msgstr "新建后未保存的文件"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
 #: lib/ui/sessionconfigwidget.ui:77
 #, kde-format
 msgid "Files with unsaved changes"
-msgstr "有未保存的变更的文件"
+msgstr "有更改未保存的文件"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:88
@@ -2903,7 +2903,7 @@ msgstr "如果禁用此项，新窗口将显示一个无标题文档。"
 #: lib/ui/sessionconfigwidget.ui:91
 #, kde-format
 msgid "Show welcome view for new windows"
-msgstr "新窗口显示欢迎界面"
+msgstr "新窗口显示欢迎画面"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2912,26 +2912,26 @@ msgid ""
 "If enabled, the application will shutdown when the last file being edited is "
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
-"如果启用此项，当您所编辑的最后一个文件关闭时，应用程序将完全退出。如果不启用"
-"此选项，关闭最后一个文件时将打开一个空白标签页，以便开始编辑新文件。"
+"启用后，关闭最后一个文件时程序将退出；  未启用时，关闭最后一个文件会打开空白"
+"标签页，便于新建文件。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:101
 #, kde-format
 msgid "Close the application entirely when the last file is closed"
-msgstr "关闭最后一个文件时彻底退出此应用程序"
+msgstr "关闭最后一个文件时退出应用程序"
 
 #. i18n: ectx: property (text), widget (QCheckBox, winClosesDocuments)
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr "关闭文档及其所属的窗口"
+msgstr "关闭文档及其所在窗口"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
 #, kde-format
 msgid "Session Elements"
-msgstr "会话元素"
+msgstr "会话内容"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lib/ui/sessionconfigwidget.ui:124
@@ -2941,8 +2941,8 @@ msgid ""
 "bookmarks, cursor position etc. When the session is loaded all elements are "
 "restored."
 msgstr ""
-"会话包含了打开文档列表，最近打开文件列表，书签，光标位置等。当会话加载时所有"
-"元素将恢复。"
+"会话内容包含：当前打开文档列表、最近打开文件列表、书签、光标位置等。会话加载"
+"时将恢复所有上述内容。"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lib/ui/sessionconfigwidget.ui:136
@@ -2956,7 +2956,7 @@ msgstr "最近打开文件列表的最大文件数："
 msgid ""
 "Check this if you want all your views and frames restored each time you open "
 "the application."
-msgstr "勾选此项后，每次打开此应用程序时将恢复所有视图和框架。"
+msgstr "勾选此项后，每次打开应用程序时将恢复所有视图和框架的状态。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:167
@@ -2972,20 +2972,20 @@ msgid ""
 "be saved past editor sessions. The configuration will be restored if the "
 "document has not changed when reopened."
 msgstr ""
-"如果您想要在编辑器的不同会话中保存像书签这样的文档配置，请选中此项。如果重新"
-"打开文档的时候文档没有更改，则会恢复配置文件。"
+"勾选此项后，文档配置 (如书签) 将在编辑器会话结束后继续保留；重新打开文档时，"
+"如果文档未被修改，配置将自动恢复。"
 
 #. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
 #: lib/ui/sessionconfigwidget.ui:180
 #, kde-format
 msgid "Keep &meta-information past sessions"
-msgstr "在会话中保留元信息(&M)"
+msgstr "会话结束后保留元信息(&M)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: lib/ui/sessionconfigwidget.ui:191
 #, kde-format
 msgid "Delete unused meta-information after:"
-msgstr "删除未使用的元信息，经过："
+msgstr "未使用元信息被清理前的保留天数："
 
 #: lib/welcomeview/welcomeview.cpp:57
 #, kde-format

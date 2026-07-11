@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/katekeyboardmacros.pot\n"
-"X-Crowdin-File-ID: 44713\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/katekeyboardmacros.pot\n"
+"X-Crowdin-File-ID: 50252\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -52,7 +52,7 @@ msgstr "录制过程中无法保存宏。请先完成录制再保存"
 #: keyboardmacrosplugin.cpp:241
 #, kde-format
 msgid "Recording…"
-msgstr "录制中..."
+msgstr ""
 
 #: keyboardmacrosplugin.cpp:277
 #, kde-format
@@ -227,7 +227,7 @@ msgstr "结束宏录制(&R)"
 #: keyboardmacrospluginview.cpp:180
 #, kde-format
 msgid "Load %1"
-msgstr "加载 %1"
+msgstr ""
 
 #: keyboardmacrospluginview.cpp:181
 #, kde-format
@@ -237,7 +237,7 @@ msgstr "加载“%1”作为当前宏。"
 #: keyboardmacrospluginview.cpp:193
 #, kde-format
 msgid "Play %1"
-msgstr "播放 %1"
+msgstr ""
 
 #: keyboardmacrospluginview.cpp:194
 #, kde-format
@@ -247,7 +247,7 @@ msgstr "运行“%1”而不加载它。"
 #: keyboardmacrospluginview.cpp:208
 #, kde-format
 msgid "Wipe %1"
-msgstr "擦除 '%1"
+msgstr ""
 
 #: keyboardmacrospluginview.cpp:209
 #, kde-format

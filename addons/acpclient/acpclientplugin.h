@@ -34,6 +34,8 @@ class ACPClientPlugin : public KTextEditor::Plugin, public ACPClientPluginOption
 {
     Q_OBJECT
 
+    friend class ACPClientConfigPage;
+
 public:
     /**
      * Path for local setting files, auto-created on load.
@@ -68,7 +70,7 @@ public:
     std::set<QString> m_currentActiveCommandLineDialogs;
 
     // Debug mode?
-    const bool m_debugMode;
+    bool m_debugMode;
 
     QUrl m_configPath;
 

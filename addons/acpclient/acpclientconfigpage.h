@@ -45,6 +45,8 @@ private Q_SLOTS:
     void removeServer();
     void editServer();
     void serverSelected();
+    void loadDefaultServers();
+    void saveServersConfig();
 
 private:
     void loadConfig();

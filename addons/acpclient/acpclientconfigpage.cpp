@@ -8,6 +8,7 @@
 #include "acpclient_debug.h"
 #include "acpclientplugin.h"
 #include "acpclientserver.h"
+#include "acpclientservermanager.h"
 #include "acpserverdialog.h"
 
 #include <KConfigGroup>

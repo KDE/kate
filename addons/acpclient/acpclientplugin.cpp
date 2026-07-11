@@ -98,12 +98,12 @@ QObject *ACPClientPlugin::createView(KTextEditor::MainWindow *mainWindow)
         m_serverManager->callTool(toolId, arguments);
     });
 
-    connect(this, &ACPClientPlugin::showMessage, mainWindow, [mainWindow](KTextEditor::Message::MessageType level, const QString &msg) {
+    connect(this, &ACPClientPlugin::showMessage, mainWindow, [](KTextEditor::Message::MessageType level, const QString &msg) {
         KTextEditor::Message *message = new KTextEditor::Message(msg, level);
         message->setPosition(KTextEditor::Message::BottomInView);
         message->setWordWrap(true);
         message->setAutoHide(5000);
-        message->show();
+        // message->show(); FIXME
     });
 
     return view;
@@ -119,11 +119,7 @@ KTextEditor::ConfigPage *ACPClientPlugin::configPage(int number, QWidget *parent
     if (number != 0) {
         return nullptr;
     }
-
-    if (!m_configPage) {
-        m_configPage = new ACPClientConfigPage(this, parent);
-    }
-    return m_configPage;
+    return new ACPClientConfigPage(this, parent);
 }
 
 void ACPClientPlugin::writeConfig() const
@@ -140,7 +136,7 @@ void ACPClientPlugin::writeConfig() const
 
     // Write server command line permissions
     for (const auto &[cmdline, allowed] : m_serverCommandLineToAllowedState) {
-        QString key = allowed ? CONFIG_ALLOWED_COMMANDS : CONFIG_BLOCKED_COMMANDS;
+        const auto key = allowed ? CONFIG_ALLOWED_COMMANDS : CONFIG_BLOCKED_COMMANDS;
         // Store as a string list
         QStringList cmdlines = config.readEntry(key, QStringList());
         if (allowed) {
@@ -182,7 +178,7 @@ void ACPClientPlugin::readConfig()
 
 bool ACPClientPlugin::isCommandLineAllowed(const QStringList &cmdline)
 {
-    QString fullCommandLine = cmdline.join(QChar(' '));
+    QString fullCommandLine = cmdline.join(QLatin1Char(' '));
 
     auto it = m_serverCommandLineToAllowedState.find(fullCommandLine);
     if (it != m_serverCommandLineToAllowedState.end()) {

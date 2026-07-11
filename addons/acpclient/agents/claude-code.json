@@ -1,73 +1,87 @@
 {
-  "name": "Claude Code",
-  "version": "1.0",
-  "command": "claude",
-  "arguments": ["acp"],
-  "connection_type": "stdio",
-  "host": "",
-  "port": 0,
-  "auto_start": false,
-  "description": "Anthropic's Claude Code with ACP support",
-  "tags": ["anthropic", "claude", "ai", "coding-assistant"],
-  "metadata": {
-    "agent_name": "Claude Code",
-    "agent_version": "1.0.0",
-    "provider": "Anthropic",
-    "provider_url": "https://anthropic.com",
-    "documentation_url": "https://docs.anthropic.com/claude",
-    "installation": {
-      "command": "curl -fsSL https://claude.ai/install.sh | bash",
-      "platforms": ["linux", "macos"],
-      "windows_command": "powershell -ExecutionPolicy Bypass -c \"iwr https://claude.ai/install.ps1 -useb | iex\""
-    },
-    "capabilities": {
-      "supports_sessions": true,
-      "supports_tools": true,
-      "supports_progress": true,
-      "supports_authentication": true,
-      "supported_protocol_versions": ["2.0", "1.0"],
-      "features": [
-        "code-generation",
-        "code-explanation",
-        "code-refactoring",
-        "documentation-generation",
-        "test-generation",
-        "multi-file-operations",
-        " repository-analysis"
-      ]
-    },
-    "authentication": {
-      "type": "api_key",
-      "environment_variable": "ANTHROPIC_API_KEY",
-      "config_file": "~/.anthropic/cli_config.json"
-    },
-    "configuration_options": {
-      "model": {
-        "type": "string",
-        "default": "claude-3-5-sonnet",
-        "description": "Model to use for completions",
-        "possible_values": ["claude-3-5-sonnet", "claude-3-haiku", "claude-3-opus"]
-      },
-      "temperature": {
-        "type": "number",
-        "default": 0.7,
-        "min": 0.0,
-        "max": 1.0,
-        "description": "Creativity temperature"
-      },
-      "max_tokens": {
-        "type": "integer",
-        "default": 4096,
-        "min": 256,
-        "max": 32768,
-        "description": "Maximum tokens per response"
-      }
-    }
-  },
-  "recommended_settings": {
+    "name": "Claude Code",
+    "version": "1.0",
+    "command": "claude",
+    "arguments": [
+        "acp"
+    ],
     "auto_start": false,
-    "show_notifications": true,
-    "show_tool_calls": true,
-    "show_progress": true
-  }
+    "description": "Anthropic's Claude Code with ACP support",
+    "tags": [
+        "anthropic",
+        "claude",
+        "ai",
+        "coding-assistant"
+    ],
+    "metadata": {
+        "agent_name": "Claude Code",
+        "agent_version": "1.0.0",
+        "provider": "Anthropic",
+        "provider_url": "https://anthropic.com",
+        "documentation_url": "https://docs.anthropic.com/claude",
+        "installation": {
+            "command": "curl -fsSL https://claude.ai/install.sh | bash",
+            "platforms": [
+                "linux",
+                "macos"
+            ],
+            "windows_command": "powershell -ExecutionPolicy Bypass -c \"iwr https://claude.ai/install.ps1 -useb | iex\""
+        },
+        "capabilities": {
+            "supports_sessions": true,
+            "supports_tools": true,
+            "supports_progress": true,
+            "supports_authentication": true,
+            "supported_protocol_versions": [
+                "2.0",
+                "1.0"
+            ],
+            "features": [
+                "code-generation",
+                "code-explanation",
+                "code-refactoring",
+                "documentation-generation",
+                "test-generation",
+                "multi-file-operations",
+                " repository-analysis"
+            ]
+        },
+        "authentication": {
+            "type": "api_key",
+            "environment_variable": "ANTHROPIC_API_KEY",
+            "config_file": "~/.anthropic/cli_config.json"
+        },
+        "configuration_options": {
+            "model": {
+                "type": "string",
+                "default": "claude-3-5-sonnet",
+                "description": "Model to use for completions",
+                "possible_values": [
+                    "claude-3-5-sonnet",
+                    "claude-3-haiku",
+                    "claude-3-opus"
+                ]
+            },
+            "temperature": {
+                "type": "number",
+                "default": 0.7,
+                "min": 0.0,
+                "max": 1.0,
+                "description": "Creativity temperature"
+            },
+            "max_tokens": {
+                "type": "integer",
+                "default": 4096,
+                "min": 256,
+                "max": 32768,
+                "description": "Maximum tokens per response"
+            }
+        }
+    },
+    "recommended_settings": {
+        "auto_start": false,
+        "show_notifications": true,
+        "show_tool_calls": true,
+        "show_progress": true
+    }
 }

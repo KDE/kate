@@ -15,9 +15,6 @@
 #include <map>
 #include <memory>
 
-class QWebSocket;
-class QTcpSocket;
-
 class ACPClientPlugin;
 class ACPClientServerManager;
 
@@ -26,12 +23,6 @@ class ACPClientServer : public QObject
     Q_OBJECT
 
 public:
-    enum class ConnectionType {
-        StdIO, // Standard input/output
-        WebSocket, // WebSocket connection
-        TcpSocket // TCP socket connection
-    };
-
     enum class ServerState {
         Disconnected,
         Connecting,
@@ -46,9 +37,6 @@ public:
         QString version;
         QString command;
         QStringList arguments;
-        ConnectionType connectionType;
-        QString host;
-        int port = 0;
         bool autoStart = false;
         QJsonObject metadata;
     };
@@ -96,22 +84,13 @@ private Q_SLOTS:
     void onProcessReadyRead();
     void onProcessError(QProcess::ProcessError error);
     void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
-    void onWebSocketConnected();
-    void onWebSocketDisconnected();
-    void onWebSocketError(QAbstractSocket::SocketError error);
-    void onWebSocketMessageReceived(const QByteArray &message);
-    void onTcpSocketConnected();
-    void onTcpSocketDisconnected();
-    void onTcpSocketError(QAbstractSocket::SocketError error);
-    void onTcpSocketReadyRead();
 
 private:
     void setupProcessConnection();
-    void setupWebSocketConnection();
-    void setupTcpSocketConnection();
     void readFromProcess();
     void parseIncomingData(const QByteArray &data);
     void handleMessage(const QJsonDocument &doc);
+    void setState(ServerState state);
 
     ServerInfo m_info;
     ServerState m_state = ServerState::Disconnected;
@@ -121,8 +100,6 @@ private:
 
     // Connection objects
     std::unique_ptr<QProcess> m_process;
-    std::unique_ptr<QWebSocket> m_webSocket;
-    std::unique_ptr<QTcpSocket> m_tcpSocket;
 
     // Buffer for incomplete messages
     QByteArray m_messageBuffer;

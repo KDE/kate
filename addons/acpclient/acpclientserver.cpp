@@ -11,8 +11,6 @@
 #include <QIODevice>
 #include <QJsonParseError>
 #include <QProcess>
-#include <QTcpSocket>
-#include <QWebSocket>
 
 ACPClientServer::ACPClientServer(const ServerInfo &info, ACPClientServerManager *manager, QObject *parent)
     : QObject(parent)
@@ -37,18 +35,7 @@ void ACPClientServer::start()
     }
 
     setState(ServerState::Connecting);
-
-    switch (m_info.connectionType) {
-    case ConnectionType::StdIO:
-        setupProcessConnection();
-        break;
-    case ConnectionType::WebSocket:
-        setupWebSocketConnection();
-        break;
-    case ConnectionType::TcpSocket:
-        setupTcpSocketConnection();
-        break;
-    }
+    setupProcessConnection();
 }
 
 void ACPClientServer::stop()
@@ -62,14 +49,6 @@ void ACPClientServer::stop()
         }
     }
 
-    if (m_webSocket && m_webSocket->isValid()) {
-        m_webSocket->close();
-    }
-
-    if (m_tcpSocket && m_tcpSocket->state() == QAbstractSocket::ConnectedState) {
-        m_tcpSocket->disconnectFromHost();
-    }
-
     setState(ServerState::Disconnected);
 }
 
@@ -78,24 +57,9 @@ void ACPClientServer::sendMessage(const QJsonDocument &message)
     QByteArray data = message.toJson(QJsonDocument::Compact);
     qCDebug(ACPCLIENT) << "Sending message:" << data;
 
-    switch (m_info.connectionType) {
-    case ConnectionType::StdIO:
-        if (m_process && m_process->isWritable()) {
-            m_process->write(data + "\n");
-            m_process->flush();
-        }
-        break;
-    case ConnectionType::WebSocket:
-        if (m_webSocket && m_webSocket->isValid()) {
-            m_webSocket->sendBinaryMessage(data);
-        }
-        break;
-    case ConnectionType::TcpSocket:
-        if (m_tcpSocket && m_tcpSocket->state() == QAbstractSocket::ConnectedState) {
-            m_tcpSocket->write(data + "\n");
-            m_tcpSocket->flush();
-        }
-        break;
+    if (m_process && m_process->isWritable()) {
+        m_process->write(data + "\n");
+        m_process->flush();
     }
 }
 
@@ -121,44 +85,6 @@ void ACPClientServer::setupProcessConnection()
         setState(ServerState::Connected);
         // Start initialization
         initializeServer();
-    }
-}
-
-void ACPClientServer::setupWebSocketConnection()
-{
-    qCDebug(ACPCLIENT) << "Setting up WebSocket connection to:" << m_info.host << ":" << m_info.port;
-
-    m_webSocket = std::make_unique<QWebSocket>(QString(), QWebSocket::VersionLatest, this);
-
-    connect(m_webSocket.get(), &QWebSocket::connected, this, &ACPClientServer::onWebSocketConnected);
-    connect(m_webSocket.get(), &QWebSocket::disconnected, this, &ACPClientServer::onWebSocketDisconnected);
-    connect(m_webSocket.get(), &QWebSocket::error, this, &ACPClientServer::onWebSocketError);
-    connect(m_webSocket.get(), &QWebSocket::binaryMessageReceived, this, &ACPClientServer::onWebSocketMessageReceived);
-
-    QUrl url;
-    url.setScheme("ws");
-    url.setHost(m_info.host);
-    url.setPort(m_info.port);
-
-    m_webSocket->open(url);
-}
-
-void ACPClientServer::setupTcpSocketConnection()
-{
-    qCDebug(ACPCLIENT) << "Setting up TCP connection to:" << m_info.host << ":" << m_info.port;
-
-    m_tcpSocket = std::make_unique<QTcpSocket>(this);
-
-    connect(m_tcpSocket.get(), &QTcpSocket::connected, this, &ACPClientServer::onTcpSocketConnected);
-    connect(m_tcpSocket.get(), &QTcpSocket::disconnected, this, &ACPClientServer::onTcpSocketDisconnected);
-    connect(m_tcpSocket.get(), &QTcpSocket::errorOccurred, this, &ACPClientServer::onTcpSocketError);
-    connect(m_tcpSocket.get(), &QTcpSocket::readyRead, this, &ACPClientServer::onTcpSocketReadyRead);
-
-    m_tcpSocket->connectToHost(m_info.host, m_info.port);
-    if (!m_tcpSocket->waitForConnected(5000)) {
-        qCWarning(ACPCLIENT) << "Failed to connect to TCP socket:" << m_info.host << ":" << m_info.port;
-        setState(ServerState::Error);
-        Q_EMIT errorOccurred(tr("Failed to connect to ACP agent TCP socket"));
     }
 }
 
@@ -226,65 +152,6 @@ void ACPClientServer::onProcessFinished(int exitCode, QProcess::ExitStatus exitS
     qCDebug(ACPCLIENT) << "Process finished with exit code:" << exitCode;
     setState(ServerState::Disconnected);
     Q_EMIT disconnected();
-}
-
-void ACPClientServer::onWebSocketConnected()
-{
-    qCDebug(ACPCLIENT) << "WebSocket connected";
-    setState(ServerState::Connected);
-    initializeServer();
-}
-
-void ACPClientServer::onWebSocketDisconnected()
-{
-    qCDebug(ACPCLIENT) << "WebSocket disconnected";
-    setState(ServerState::Disconnected);
-    Q_EMIT disconnected();
-}
-
-void ACPClientServer::onWebSocketError(QAbstractSocket::SocketError error)
-{
-    qCWarning(ACPCLIENT) << "WebSocket error:" << error;
-    setState(ServerState::Error);
-    Q_EMIT errorOccurred(m_webSocket->errorString());
-}
-
-void ACPClientServer::onWebSocketMessageReceived(const QByteArray &message)
-{
-    qCDebug(ACPCLIENT) << "WebSocket message received:" << message;
-    parseIncomingData(message);
-}
-
-void ACPClientServer::onTcpSocketConnected()
-{
-    qCDebug(ACPCLIENT) << "TCP socket connected";
-    setState(ServerState::Connected);
-    initializeServer();
-}
-
-void ACPClientServer::onTcpSocketDisconnected()
-{
-    qCDebug(ACPCLIENT) << "TCP socket disconnected";
-    setState(ServerState::Disconnected);
-    Q_EMIT disconnected();
-}
-
-void ACPClientServer::onTcpSocketError(QAbstractSocket::SocketError error)
-{
-    qCWarning(ACPCLIENT) << "TCP socket error:" << error;
-    setState(ServerState::Error);
-    Q_EMIT errorOccurred(m_tcpSocket->errorString());
-}
-
-void ACPClientServer::onTcpSocketReadyRead()
-{
-    if (m_tcpSocket) {
-        QByteArray data = m_tcpSocket->readAll();
-        if (!data.isEmpty()) {
-            qCDebug(ACPCLIENT) << "TCP data received:" << data;
-            parseIncomingData(data);
-        }
-    }
 }
 
 void ACPClientServer::parseIncomingData(const QByteArray &data)

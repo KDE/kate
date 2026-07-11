@@ -1,57 +1,56 @@
 {
-  "version": "1.0",
-  "acp_protocol_version": "2.0",
-  "servers": [
-    {
-      "name": "Mistral Vibe (vibe-acp)",
-      "version": "1.0",
-      "command": "vibe-acp",
-      "arguments": [],
-      "connection_type": "stdio",
-      "host": "",
-      "port": 0,
-      "auto_start": true,
-      "description": "Mistral AI's Vibe CLI with ACP support",
-      "metadata": {
-        "agent_name": "Vibe",
-        "agent_version": "1.0.0",
-        "provider": "Mistral AI",
-        "documentation_url": "https://github.com/mistralai/vibe",
-        "capabilities": {
-          "supports_sessions": true,
-          "supports_tools": true,
-          "supports_progress": true,
-          "supported_protocol_versions": ["2.0", "1.0"]
+    "version": "1.0",
+    "acp_protocol_version": "2.0",
+    "servers": [
+        {
+            "name": "Mistral Vibe (vibe-acp)",
+            "version": "1.0",
+            "command": "vibe-acp",
+            "arguments": [],
+            "auto_start": true,
+            "description": "Mistral AI's Vibe CLI with ACP support",
+            "metadata": {
+                "agent_name": "Vibe",
+                "agent_version": "1.0.0",
+                "provider": "Mistral AI",
+                "documentation_url": "https://github.com/mistralai/vibe",
+                "capabilities": {
+                    "supports_sessions": true,
+                    "supports_tools": true,
+                    "supports_progress": true,
+                    "supported_protocol_versions": [
+                        "2.0",
+                        "1.0"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Generic ACP Agent",
+            "version": "1.0",
+            "command": "acp-agent",
+            "arguments": [],
+            "auto_start": false,
+            "description": "Generic ACP-compliant agent",
+            "metadata": {
+                "capabilities": {
+                    "supports_sessions": true,
+                    "supports_tools": true,
+                    "supports_progress": true,
+                    "supported_protocol_versions": [
+                        "2.0"
+                    ]
+                }
+            }
         }
-      }
-    },
-    {
-      "name": "Generic ACP Agent",
-      "version": "1.0",
-      "command": "acp-agent",
-      "arguments": [],
-      "connection_type": "stdio",
-      "host": "",
-      "port": 0,
-      "auto_start": false,
-      "description": "Generic ACP-compliant agent",
-      "metadata": {
-        "capabilities": {
-          "supports_sessions": true,
-          "supports_tools": true,
-          "supports_progress": true,
-          "supported_protocol_versions": ["2.0"]
-        }
-      }
+    ],
+    "options": {
+        "auto_start_session": false,
+        "show_notifications": true,
+        "show_tool_calls": true,
+        "show_progress": true,
+        "debug_mode": false,
+        "allowed_commands": [],
+        "blocked_commands": []
     }
-  ],
-  "options": {
-    "auto_start_session": false,
-    "show_notifications": true,
-    "show_tool_calls": true,
-    "show_progress": true,
-    "debug_mode": false,
-    "allowed_commands": [],
-    "blocked_commands": []
-  }
 }

@@ -1,74 +1,86 @@
 {
-  "name": "Mistral Vibe (vibe-acp)",
-  "version": "1.0",
-  "command": "vibe-acp",
-  "arguments": [],
-  "connection_type": "stdio",
-  "host": "",
-  "port": 0,
-  "auto_start": true,
-  "description": "Mistral AI's Vibe CLI with ACP support for agentic workflows",
-  "tags": ["mistral", "vibe", "ai", "coding-assistant"],
-  "metadata": {
-    "agent_name": "Vibe",
-    "agent_version": "1.0.0",
-    "provider": "Mistral AI",
-    "provider_url": "https://mistral.ai",
-    "documentation_url": "https://github.com/mistralai/vibe",
-    "installation": {
-      "command": "npm install -g @mistralai/vibe",
-      "package_manager": "npm",
-      "package_name": "@mistralai/vibe",
-      "platforms": ["linux", "macos", "windows"]
-    },
-    "capabilities": {
-      "supports_sessions": true,
-      "supports_tools": true,
-      "supports_progress": true,
-      "supports_authentication": false,
-      "supported_protocol_versions": ["2.0", "1.0"],
-      "features": [
-        "code-generation",
-        "code-explanation",
-        "code-refactoring",
-        "documentation-generation",
-        "test-generation",
-        "multi-file-operations"
-      ]
-    },
-    "configuration_options": {
-      "model": {
-        "type": "string",
-        "default": "mistral-large-latest",
-        "description": "Model to use for completions",
-        "possible_values": ["mistral-large-latest", "codestral-latest"]
-      },
-      "temperature": {
-        "type": "number",
-        "default": 0.7,
-        "min": 0.0,
-        "max": 1.0,
-        "description": "Creativity temperature"
-      },
-      "max_tokens": {
-        "type": "integer",
-        "default": 4096,
-        "min": 256,
-        "max": 32768,
-        "description": "Maximum tokens per response"
-      }
-    },
-    "example_usage": {
-      "create_session": "vibe-acp",
-      "send_prompt": "Explain this code and suggest improvements",
-      "list_tools": "Available tools depend on the connected model"
-    }
-  },
-  "recommended_settings": {
+    "name": "Mistral Vibe (vibe-acp)",
+    "version": "1.0",
+    "command": "vibe-acp",
+    "arguments": [],
     "auto_start": true,
-    "show_notifications": true,
-    "show_tool_calls": true,
-    "show_progress": true,
-    "debug_mode": false
-  }
+    "description": "Mistral AI's Vibe CLI with ACP support for agentic workflows",
+    "tags": [
+        "mistral",
+        "vibe",
+        "ai",
+        "coding-assistant"
+    ],
+    "metadata": {
+        "agent_name": "Vibe",
+        "agent_version": "1.0.0",
+        "provider": "Mistral AI",
+        "provider_url": "https://mistral.ai",
+        "documentation_url": "https://github.com/mistralai/vibe",
+        "installation": {
+            "command": "npm install -g @mistralai/vibe",
+            "package_manager": "npm",
+            "package_name": "@mistralai/vibe",
+            "platforms": [
+                "linux",
+                "macos",
+                "windows"
+            ]
+        },
+        "capabilities": {
+            "supports_sessions": true,
+            "supports_tools": true,
+            "supports_progress": true,
+            "supports_authentication": false,
+            "supported_protocol_versions": [
+                "2.0",
+                "1.0"
+            ],
+            "features": [
+                "code-generation",
+                "code-explanation",
+                "code-refactoring",
+                "documentation-generation",
+                "test-generation",
+                "multi-file-operations"
+            ]
+        },
+        "configuration_options": {
+            "model": {
+                "type": "string",
+                "default": "mistral-large-latest",
+                "description": "Model to use for completions",
+                "possible_values": [
+                    "mistral-large-latest",
+                    "codestral-latest"
+                ]
+            },
+            "temperature": {
+                "type": "number",
+                "default": 0.7,
+                "min": 0.0,
+                "max": 1.0,
+                "description": "Creativity temperature"
+            },
+            "max_tokens": {
+                "type": "integer",
+                "default": 4096,
+                "min": 256,
+                "max": 32768,
+                "description": "Maximum tokens per response"
+            }
+        },
+        "example_usage": {
+            "create_session": "vibe-acp",
+            "send_prompt": "Explain this code and suggest improvements",
+            "list_tools": "Available tools depend on the connected model"
+        }
+    },
+    "recommended_settings": {
+        "auto_start": true,
+        "show_notifications": true,
+        "show_tool_calls": true,
+        "show_progress": true,
+        "debug_mode": false
+    }
 }

@@ -26,7 +26,6 @@ public:
     void setServerInfo(const ACPClientServer::ServerInfo &info);
 
 private Q_SLOTS:
-    void updatePortVisibility(int index);
     void applyPreset();
     void accept() override;
 

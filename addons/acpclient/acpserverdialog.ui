@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>400</height>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -53,96 +53,41 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Connection Type:</string>
+        <string>Command:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QComboBox" name="connectionTypeComboBox">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <stretch>0</stretch>
-         <additive>0</additive>
-        </sizepolicy>
+      <widget class="QLineEdit" name="commandLineEdit">
+       <property name="placeholderText">
+        <string>/path/to/acp-agent</string>
        </property>
-       <item>
-        <property name="text">
-         <string>Standard I/O (stdio)</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>WebSocket</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>TCP Socket</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Command/Host:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="commandLineEdit">
-       <property name="placeholderText">
-        <string>/path/to/acp-agent or hostname</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Arguments:</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="2" column="1">
       <widget class="QLineEdit" name="argumentsLineEdit">
        <property name="placeholderText">
-        <string>--option value (for stdio)</string>
+        <string>--option value (optional)</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>Port:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QSpinBox" name="portSpinBox">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>65535</number>
-       </property>
-       <property name="value">
-        <number>8080</number>
-       </property>
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="label_6">
        <property name="text">
         <string>Auto-start:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
+     <item row="3" column="1">
       <widget class="QCheckBox" name="autoStartCheckBox">
        <property name="text">
         <string>Start server automatically when Kate starts</string>
@@ -152,7 +97,7 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="0" colspan="2">
+     <item row="4" column="0" colspan="2">
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
         <string>Pre-configured ACP Agents</string>
@@ -181,11 +126,6 @@
           <item>
            <property name="text">
             <string>Cursor</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>GitHub Models</string>
            </property>
           </item>
          </widget>
@@ -249,10 +189,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>connectionTypeComboBox</sender>
-   <signal>currentIndexChanged(int)</signal>
+   <sender>applyPresetButton</sender>
+   <signal>clicked()</signal>
    <receiver>ACPServerDialog</receiver>
-   <slot>updatePortVisibility(int)</slot>
+   <slot>applyPreset()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>248</x>

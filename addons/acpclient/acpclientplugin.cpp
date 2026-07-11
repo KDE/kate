@@ -224,4 +224,4 @@ void ACPClientPlugin::askForCommandLinePermission(const QString &fullCommandLine
     }
 }
 
-#include "moc_acpclientplugin.cpp"
+#include "acpclientplugin.moc"

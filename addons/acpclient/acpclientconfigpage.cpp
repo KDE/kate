@@ -12,7 +12,6 @@
 
 #include <KConfigGroup>
 #include <KLocalizedString>
-#include <KPluginFactory>
 #include <KSharedConfig>
 
 #include <QDir>
@@ -101,7 +100,6 @@ void ACPClientConfigPage::defaults()
     vibeServer.name = QStringLiteral("Mistral Vibe (vibe-acp)");
     vibeServer.version = QStringLiteral("1.0");
     vibeServer.command = QStringLiteral("vibe-acp");
-    vibeServer.connectionType = ACPClientServer::ConnectionType::StdIO;
     vibeServer.autoStart = true;
     m_servers.append(vibeServer);
 
@@ -203,17 +201,6 @@ void ACPClientConfigPage::loadDefaultServers()
                             }
                         }
 
-                        QString connectionType = serverObj["connection_type"].toString();
-                        if (connectionType == "websocket") {
-                            info.connectionType = ACPClientServer::ConnectionType::WebSocket;
-                        } else if (connectionType == "tcp") {
-                            info.connectionType = ACPClientServer::ConnectionType::TcpSocket;
-                        } else {
-                            info.connectionType = ACPClientServer::ConnectionType::StdIO;
-                        }
-
-                        info.host = serverObj["host"].toString();
-                        info.port = serverObj["port"].toInt();
                         info.autoStart = serverObj["auto_start"].toBool();
 
                         if (serverObj.contains("metadata") && serverObj["metadata"].isObject()) {
@@ -234,7 +221,6 @@ void ACPClientConfigPage::loadDefaultServers()
         vibeServer.name = QStringLiteral("Mistral Vibe (vibe-acp)");
         vibeServer.version = QStringLiteral("1.0");
         vibeServer.command = QStringLiteral("vibe-acp");
-        vibeServer.connectionType = ACPClientServer::ConnectionType::StdIO;
         vibeServer.autoStart = true;
         m_servers.append(vibeServer);
     }
@@ -260,22 +246,6 @@ void ACPClientConfigPage::saveServersConfig()
         serverObj["version"] = info.version;
         serverObj["command"] = info.command;
         serverObj["arguments"] = QJsonArray::fromStringList(info.arguments);
-
-        QString connectionType;
-        switch (info.connectionType) {
-        case ACPClientServer::ConnectionType::StdIO:
-            connectionType = QStringLiteral("stdio");
-            break;
-        case ACPClientServer::ConnectionType::WebSocket:
-            connectionType = QStringLiteral("websocket");
-            break;
-        case ACPClientServer::ConnectionType::TcpSocket:
-            connectionType = QStringLiteral("tcp");
-            break;
-        }
-        serverObj["connection_type"] = connectionType;
-        serverObj["host"] = info.host;
-        serverObj["port"] = info.port;
         serverObj["auto_start"] = info.autoStart;
         serverObj["metadata"] = info.metadata;
 
@@ -307,7 +277,6 @@ void ACPClientConfigPage::addServer()
     ACPClientServer::ServerInfo info;
     info.name = i18n("New Server");
     info.command = QStringLiteral("acp-agent");
-    info.connectionType = ACPClientServer::ConnectionType::StdIO;
     info.autoStart = false;
 
     ACPServerDialog dialog(this, info);
@@ -363,19 +332,7 @@ void ACPClientConfigPage::serverSelected()
         m_ui->serverNameLabel->setText(info.name);
         m_ui->serverCommandLabel->setText(info.command);
 
-        QString typeStr;
-        switch (info.connectionType) {
-        case ACPClientServer::ConnectionType::StdIO:
-            typeStr = i18n("Standard I/O");
-            break;
-        case ACPClientServer::ConnectionType::WebSocket:
-            typeStr = i18n("WebSocket");
-            break;
-        case ACPClientServer::ConnectionType::TcpSocket:
-            typeStr = i18n("TCP Socket");
-            break;
-        }
-        m_ui->serverTypeLabel->setText(typeStr);
+        m_ui->serverTypeLabel->setText(i18n("Standard I/O"));
         m_ui->serverAutoStartLabel->setText(info.autoStart ? i18n("Yes") : i18n("No"));
     } else {
         m_ui->serverNameLabel->setText(i18n("(none selected)"));
@@ -395,20 +352,6 @@ void ACPClientConfigPage::updateServerList()
         QStringList parts;
         parts.append(info.name);
         parts.append(info.command);
-
-        QString typeStr;
-        switch (info.connectionType) {
-        case ACPClientServer::ConnectionType::StdIO:
-            typeStr = i18n("stdio");
-            break;
-        case ACPClientServer::ConnectionType::WebSocket:
-            typeStr = i18n("websocket");
-            break;
-        case ACPClientServer::ConnectionType::TcpSocket:
-            typeStr = i18n("tcp");
-            break;
-        }
-        parts.append(typeStr);
 
         if (info.autoStart) {
             parts.append(i18n("(auto)"));

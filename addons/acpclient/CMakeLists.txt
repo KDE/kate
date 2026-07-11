@@ -6,8 +6,6 @@ target_link_libraries(
   PRIVATE
     KF6::I18n
     KF6::TextEditor
-    Qt6::Network
-    Qt6::WebSockets
 )
 
 target_sources(

@@ -27,7 +27,6 @@ ACPClientPluginView::ACPClientPluginView(ACPClientPlugin *plugin,
                                          KTextEditor::MainWindow *mainWindow,
                                          const std::shared_ptr<ACPClientServerManager> &serverManager)
     : QObject(mainWindow)
-    , KXMLGUIClient(mainWindow)
     , m_plugin(plugin)
     , m_mainWindow(mainWindow)
     , m_serverManager(serverManager)

@@ -87,7 +87,7 @@ private:
     void handleProgressNotification(const QJsonDocument &doc);
 
     ACPClientPlugin *m_plugin;
-    QList<std::unique_ptr<ACPClientServer>> m_servers;
+    std::vector<std::unique_ptr<ACPClientServer>> m_servers;
     ACPClientServer *m_activeServer = nullptr;
     QString m_activeServerName;
 

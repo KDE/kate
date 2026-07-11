@@ -45,7 +45,7 @@ ACPClientServer::ServerInfo ACPServerDialog::serverInfo() const
 
     info.name = m_ui->nameLineEdit->text();
     info.command = m_ui->commandLineEdit->text();
-    info.arguments = m_ui->argumentsLineEdit->text().split(QChar(' '), Qt::SkipEmptyParts);
+    info.arguments = m_ui->argumentsLineEdit->text().split(QLatin1Char(' '), Qt::SkipEmptyParts);
     info.autoStart = m_ui->autoStartCheckBox->isChecked();
 
     return info;
@@ -55,7 +55,7 @@ void ACPServerDialog::setServerInfo(const ACPClientServer::ServerInfo &info)
 {
     m_ui->nameLineEdit->setText(info.name);
     m_ui->commandLineEdit->setText(info.command);
-    m_ui->argumentsLineEdit->setText(info.arguments.join(QChar(' ')));
+    m_ui->argumentsLineEdit->setText(info.arguments.join(QLatin1Char(' ')));
     m_ui->autoStartCheckBox->setChecked(info.autoStart);
 
     // Select custom preset

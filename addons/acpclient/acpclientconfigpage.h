@@ -9,6 +9,8 @@
 #include <KTextEditor/ConfigPage>
 #include <QWidget>
 
+#include "acpclientserver.h"
+
 #include <memory>
 
 class ACPClientPlugin;

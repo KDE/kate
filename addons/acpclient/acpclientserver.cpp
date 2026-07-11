@@ -59,7 +59,6 @@ void ACPClientServer::sendMessage(const QJsonDocument &message)
 
     if (m_process && m_process->isWritable()) {
         m_process->write(data + "\n");
-        m_process->flush();
     }
 }
 

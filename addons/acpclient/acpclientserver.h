@@ -48,6 +48,8 @@ public:
     void start();
     void stop();
 
+    void initializeServer();
+
     // Send a message to the server
     void sendMessage(const QJsonDocument &message);
 

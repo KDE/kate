@@ -48,7 +48,7 @@ ACPClientServer *ACPClientServerManager::createServer(const ACPClientServer::Ser
         }
     });
 
-    m_servers.append(std::move(server));
+    m_servers.push_back(std::move(server));
 
     Q_EMIT serverAdded(serverPtr);
 

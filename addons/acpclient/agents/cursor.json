@@ -1,0 +1,64 @@
+{
+  "name": "Cursor",
+  "version": "1.0",
+  "command": "cursor",
+  "arguments": ["--acp"],
+  "connection_type": "stdio",
+  "host": "",
+  "port": 0,
+  "auto_start": false,
+  "description": "Cursor IDE's ACP-compatible interface",
+  "tags": ["cursor", "ai", "coding-assistant"],
+  "metadata": {
+    "agent_name": "Cursor",
+    "agent_version": "1.0.0",
+    "provider": "Cursor",
+    "provider_url": "https://cursor.com",
+    "documentation_url": "https://docs.cursor.com",
+    "installation": {
+      "command": "curl -fsSL https://cursor.sh/install | bash",
+      "platforms": ["linux", "macos"],
+      "note": "Cursor is a standalone IDE, ACP support may require specific version"
+    },
+    "capabilities": {
+      "supports_sessions": true,
+      "supports_tools": true,
+      "supports_progress": true,
+      "supports_authentication": true,
+      "supported_protocol_versions": ["2.0"],
+      "features": [
+        "code-generation",
+        "code-explanation",
+        "code-refactoring",
+        "code-completion",
+        "chat-interface",
+        "multi-file-operations"
+      ]
+    },
+    "authentication": {
+      "type": "built-in",
+      "note": "Cursor manages authentication internally"
+    },
+    "configuration_options": {
+      "model": {
+        "type": "string",
+        "default": "cursor-small",
+        "description": "Model to use for completions",
+        "possible_values": ["cursor-small", "cursor-medium", "cursor-large"]
+      },
+      "context_window": {
+        "type": "integer",
+        "default": 128000,
+        "min": 4096,
+        "max": 1048576,
+        "description": "Context window size in tokens"
+      }
+    }
+  },
+  "recommended_settings": {
+    "auto_start": false,
+    "show_notifications": true,
+    "show_tool_calls": true,
+    "show_progress": true
+  }
+}

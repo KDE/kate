@@ -1,0 +1,26 @@
+{
+    "KPlugin": {
+        "Description": "Agent Client Protocol (ACP) Client for Kate",
+        "Description[en_GB]": "Agent Client Protocol (ACP) Client for Kate",
+        "Description[de]": "Agent Client Protocol (ACP) Client für Kate",
+        "Description[fr]": "Client Agent Client Protocol (ACP) pour Kate",
+        "Description[es]": "Cliente de Agent Client Protocol (ACP) para Kate",
+        "Name": "ACP Client",
+        "Name[en_GB]": "ACP Client",
+        "Name[de]": "ACP Client",
+        "Name[fr]": "Client ACP",
+        "Name[es]": "Cliente ACP",
+        "Category": "Code Editing",
+        "Icon": "utilities-terminal",
+        "Version": "1.0.0",
+        "Website": "https://agentclientprotocol.com",
+        "License": "MIT",
+        "Authors": [
+            {
+                "Name": "Kate Team",
+                "Email": "kate@kde.org"
+            }
+        ]
+    },
+    "LoadInKDevelop": "6.2"
+}

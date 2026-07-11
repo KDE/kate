@@ -37,3 +37,6 @@ ecm_optional_add_subdirectory(openlink)
 ecm_optional_add_subdirectory(rbql)
 ecm_optional_add_subdirectory(bookmarks)
 ecm_optional_add_subdirectory(kategpgplugin) # Adds transparent editing of GPG encrypted files.
+
+# Mistral generated, this needs first review...
+# ecm_optional_add_subdirectory(acpclient) # Agent Client Protocol (ACP) client plugin.

@@ -200,8 +200,8 @@ void ACPClientServerManager::listSessions()
     auto callback = [this](const QJsonDocument &response) {
         if (response.isObject()) {
             QJsonObject obj = response.object();
-            if (obj.contains(u"result") && obj["result"].isArray()) {
-                Q_EMIT sessionListReceived(obj["result"].toArray());
+            if (obj.contains(u"result") && obj[u"result"].isArray()) {
+                Q_EMIT sessionListReceived(obj[u"result"].toArray());
             }
         }
     };
@@ -334,7 +334,3 @@ ACPClientServerManager *ACPClientServerManager::new_(ACPClientPlugin *plugin, QO
     }
     return s_instance;
 }
-
-#include "moc_acpclientservermanager.cpp"
-
-#include "moc_acpclientservermanager.cpp"

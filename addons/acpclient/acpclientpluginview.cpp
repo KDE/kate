@@ -268,5 +268,3 @@ void ACPClientPluginView::onMessageReceived(const QJsonDocument &message)
         }
     }
 }
-
-#include "moc_acpclientpluginview.cpp"

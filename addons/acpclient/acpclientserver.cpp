@@ -220,5 +220,3 @@ void ACPClientServer::setState(ServerState state)
         Q_EMIT stateChanged(state);
     }
 }
-
-#include "moc_acpclientserver.cpp"

@@ -363,5 +363,3 @@ void ACPClientConfigPage::updateServerList()
     // Update buttons
     serverSelected();
 }
-
-#include "moc_acpclientconfigpage.cpp"

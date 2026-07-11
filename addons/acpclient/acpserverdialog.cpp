@@ -139,5 +139,3 @@ void ACPServerDialog::accept()
 
     QDialog::accept();
 }
-
-#include "moc_acpserverdialog.cpp"

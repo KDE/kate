@@ -323,7 +323,7 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
 
     const QFileInfo fi{url.toLocalFile()};
     m_absoluteFilePath = fi.absoluteFilePath();
-    if (!setupGitProcess(m_showProc, fi.absolutePath(), {QStringLiteral("show"), hash, QStringLiteral("--numstat")})) {
+    if (!setupGitProcess(m_showProc, fi.absolutePath(), {QStringLiteral("show"), hash, QStringLiteral("--numstat"), QStringLiteral("--abbrev-commit")})) {
         return;
     }
     startHostProcess(m_showProc, QIODevice::ReadOnly);
@@ -434,10 +434,9 @@ void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exi
     const QString prefix = QLatin1String("commit ");
     int start = stdOut.indexOf(prefix);
     if (start != -1) {
-        start += prefix.length();
         int end = stdOut.indexOf(u'\n', start);
         if (end != -1) {
-            stdOut.replace(start, end - start, QLatin1String("<a href=\"%1\">%1</a>").arg(commitHashArg));
+            stdOut.insert(end, QLatin1String(" (<a href=\"%1\">Open commit</a>)").arg(commitHashArg));
         }
     }
 

@@ -430,7 +430,7 @@ void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exi
         return;
     }
 
-    // Replace commit hash with html link
+    // Add html link after commit hash
     const QString prefix = QLatin1String("commit ");
     int start = stdOut.indexOf(prefix);
     if (start != -1) {

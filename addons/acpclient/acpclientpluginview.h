@@ -16,6 +16,7 @@
 
 class ACPClientPlugin;
 class ACPClientServerManager;
+class ACPClientChatDock;
 class QAction;
 class QToolBar;
 class QMenu;
@@ -42,6 +43,9 @@ public:
 
     // Show tool palette
     void showToolPalette();
+
+    // Show chat dock
+    void showChatDock();
 
 Q_SIGNALS:
     void sessionRequested(const QString &prompt);
@@ -74,4 +78,5 @@ private:
 
     // UI elements
     QWidget *m_toolWidget;
+    ACPClientChatDock *m_chatDock = nullptr;
 };

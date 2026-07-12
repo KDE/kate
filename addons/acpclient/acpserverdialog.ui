@@ -39,7 +39,7 @@
                         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
                     </property>
                     <item row="0" column="0">
-                        <widget class="QLabel" name="label">
+                        <widget class="QLabel" name="serverNameLabel">
                             <property name="text">
                                 <string>Server Name:</string>
                             </property>
@@ -53,7 +53,7 @@
                         </widget>
                     </item>
                     <item row="1" column="0">
-                        <widget class="QLabel" name="label_3">
+                        <widget class="QLabel" name="commandLabel">
                             <property name="text">
                                 <string>Command:</string>
                             </property>
@@ -67,7 +67,7 @@
                         </widget>
                     </item>
                     <item row="2" column="0">
-                        <widget class="QLabel" name="label_4">
+                        <widget class="QLabel" name="argumentsLabel">
                             <property name="text">
                                 <string>Arguments:</string>
                             </property>
@@ -81,7 +81,7 @@
                         </widget>
                     </item>
                     <item row="3" column="0">
-                        <widget class="QLabel" name="label_6">
+                        <widget class="QLabel" name="autoStartLabel">
                             <property name="text">
                                 <string>Auto-start:</string>
                             </property>

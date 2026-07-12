@@ -63,6 +63,12 @@ public:
         return m_configPath.isEmpty() ? m_defaultConfigPath : m_configPath;
     }
 
+    // Get the server manager
+    ACPClientServerManager *serverManager() const
+    {
+        return m_serverManager ? m_serverManager.get() : nullptr;
+    }
+
     // Hash of allowed and blacklisted server command lines
     std::map<QString, bool> m_serverCommandLineToAllowedState;
 

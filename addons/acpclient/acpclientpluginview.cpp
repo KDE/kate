@@ -6,6 +6,7 @@
 
 #include "acpclientpluginview.h"
 #include "acpclient_debug.h"
+#include "acpclientchatdock.h"
 #include "acpclientplugin.h"
 #include "acpclientservermanager.h"
 
@@ -20,6 +21,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMainWindow>
 #include <QMenu>
 #include <QMessageBox>
 
@@ -88,6 +90,12 @@ void ACPClientPluginView::setupActions()
     m_showToolsAction->setIcon(QIcon::fromTheme(QStringLiteral("utilities-terminal")));
     connect(m_showToolsAction, &QAction::triggered, this, &ACPClientPluginView::onShowTools);
     actionCollection()->addAction(QStringLiteral("acp_show_tools"), m_showToolsAction);
+
+    // Show chat dock action
+    QAction *showChatAction = new QAction(i18n("Show ACP Chat"), this);
+    showChatAction->setIcon(QIcon::fromTheme(QStringLiteral("internet-services")));
+    connect(showChatAction, &QAction::triggered, this, &ACPClientPluginView::showChatDock);
+    actionCollection()->addAction(QStringLiteral("acp_show_chat"), showChatAction);
 }
 
 void ACPClientPluginView::setupUI()
@@ -152,6 +160,24 @@ void ACPClientPluginView::showToolPalette()
 {
     // TODO: Implement tool palette
     m_serverManager->listTools();
+}
+
+void ACPClientPluginView::showChatDock()
+{
+    qCDebug(ACPCLIENT) << "Show chat dock requested";
+
+    if (!m_chatDock) {
+        // KTextEditor::MainWindow inherits from QMainWindow
+        QMainWindow *mainWindow = static_cast<QMainWindow *>(m_mainWindow->window());
+        m_chatDock = new ACPClientChatDock(m_plugin, m_mainWindow, mainWindow);
+        m_chatDock->setObjectName(QStringLiteral("ACPChatDock"));
+
+        // Add to main window
+        mainWindow->addDockWidget(Qt::RightDockWidgetArea, m_chatDock);
+    }
+
+    m_chatDock->show();
+    m_chatDock->raise();
 }
 
 void ACPClientPluginView::onNewSession()

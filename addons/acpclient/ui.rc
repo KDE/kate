@@ -9,6 +9,8 @@
       <Separator/>
       <Action name="acp_list_sessions" />
       <Action name="acp_show_tools" />
+      <Action name="acp_show_chat" />
+      <Separator/>
       <Action name="acp_manage_servers" />
     </Menu>
   </MenuBar>
@@ -19,6 +21,7 @@
     <Action name="acp_send_prompt" />
     <Action name="acp_list_sessions" />
     <Action name="acp_show_tools" />
+    <Action name="acp_show_chat" />
   </ToolBar>
 
 </kpartgui>

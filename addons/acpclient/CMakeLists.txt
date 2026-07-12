@@ -18,6 +18,8 @@ target_sources(
     acpclientserver.cpp
     acpclientservermanager.cpp
     acpclientprotocol.cpp
+    acpclientchatwidget.cpp
+    acpclientchatdock.cpp
     acpclient_debug.h
 
     plugin.qrc
@@ -35,6 +37,7 @@ target_sources(acpclientplugin PRIVATE ${DEBUG_SOURCES})
 ki18n_wrap_ui(acpclientplugin
     acpconfigwidget.ui
     acpserverdialog.ui
+    acpclientchat.ui
 )
 
 qt_add_resources(acpclientplugin plugin.qrc

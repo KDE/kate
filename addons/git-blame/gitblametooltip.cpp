@@ -69,8 +69,10 @@ public:
 
         bool inDiff = false;
 
-        QString preTagOpen = QStringLiteral("<pre style='margin: 3; white-space: pre-wrap;'>");
-        QString preTagClose = QStringLiteral("</pre>");
+        int hrCount = 0;
+        const QString preTagOpen = QStringLiteral("<pre style='margin: 3; white-space: pre-wrap;'>");
+        const QString preTagOpenNoWrap = QStringLiteral("<pre style='margin: 3; white-space: pre;'>");
+        const QString preTagClose = QStringLiteral("</pre>");
 
         KSyntaxHighlighting::State state;
         out << preTagOpen;
@@ -90,7 +92,9 @@ public:
 
             // allow empty lines in code blocks, no ruler here
             if (!inDiff && currentLine.isEmpty()) {
-                out << preTagClose << "<hr>" << preTagOpen;
+                // Don't wrap file paths: we assume file paths section starts after second hr
+                out << preTagClose << "<hr>" << (hrCount < 1 ? preTagOpen : preTagOpenNoWrap);
+                hrCount++;
                 continue;
             }
 

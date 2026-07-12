@@ -436,7 +436,7 @@ void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exi
     if (start != -1) {
         int end = stdOut.indexOf(u'\n', start);
         if (end != -1) {
-            stdOut.insert(end, QLatin1String(" (<a href=\"%1\">Open commit</a>)").arg(commitHashArg));
+            stdOut.insert(end, QLatin1String(" (<a href=\"%1\">Open Commit</a>)").arg(commitHashArg));
         }
     }
 

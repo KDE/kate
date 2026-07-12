@@ -184,28 +184,28 @@ void ACPClientConfigPage::loadDefaultServers()
 
         if (parseError.error == QJsonParseError::NoError && doc.isObject()) {
             QJsonObject obj = doc.object();
-            if (obj.contains("servers") && obj["servers"].isArray()) {
-                QJsonArray servers = obj["servers"].toArray();
+            if (obj.contains(u"servers") && obj[u"servers"].isArray()) {
+                QJsonArray servers = obj[u"servers"].toArray();
                 for (const QJsonValue &v : servers) {
                     if (v.isObject()) {
                         QJsonObject serverObj = v.toObject();
                         ACPClientServer::ServerInfo info;
 
-                        info.name = serverObj["name"].toString();
-                        info.version = serverObj["version"].toString();
-                        info.command = serverObj["command"].toString();
+                        info.name = serverObj[u"name"].toString();
+                        info.version = serverObj[u"version"].toString();
+                        info.command = serverObj[u"command"].toString();
 
-                        if (serverObj.contains("arguments") && serverObj["arguments"].isArray()) {
-                            QJsonArray args = serverObj["arguments"].toArray();
+                        if (serverObj.contains(u"arguments") && serverObj[u"arguments"].isArray()) {
+                            QJsonArray args = serverObj[u"arguments"].toArray();
                             for (const QJsonValue &arg : args) {
                                 info.arguments.append(arg.toString());
                             }
                         }
 
-                        info.autoStart = serverObj["auto_start"].toBool();
+                        info.autoStart = serverObj[u"auto_start"].toBool();
 
-                        if (serverObj.contains("metadata") && serverObj["metadata"].isObject()) {
-                            info.metadata = serverObj["metadata"].toObject();
+                        if (serverObj.contains(u"metadata") && serverObj[u"metadata"].isObject()) {
+                            info.metadata = serverObj[u"metadata"].toObject();
                         }
 
                         m_servers.append(info);
@@ -236,32 +236,32 @@ void ACPClientConfigPage::saveServersConfig()
     QDir().mkpath(m_plugin->m_settingsPath);
 
     QJsonObject settingsObj;
-    settingsObj["version"] = QStringLiteral("1.0");
-    settingsObj["acp_protocol_version"] = QStringLiteral("2.0");
+    settingsObj[u"version"] = QStringLiteral("1.0");
+    settingsObj[u"acp_protocol_version"] = QStringLiteral("2.0");
 
     // Save servers
     QJsonArray serversArray;
     for (const ACPClientServer::ServerInfo &info : m_servers) {
         QJsonObject serverObj;
-        serverObj["name"] = info.name;
-        serverObj["version"] = info.version;
-        serverObj["command"] = info.command;
-        serverObj["arguments"] = QJsonArray::fromStringList(info.arguments);
-        serverObj["auto_start"] = info.autoStart;
-        serverObj["metadata"] = info.metadata;
+        serverObj[u"name"] = info.name;
+        serverObj[u"version"] = info.version;
+        serverObj[u"command"] = info.command;
+        serverObj[u"arguments"] = QJsonArray::fromStringList(info.arguments);
+        serverObj[u"auto_start"] = info.autoStart;
+        serverObj[u"metadata"] = info.metadata;
 
         serversArray.append(serverObj);
     }
-    settingsObj["servers"] = serversArray;
+    settingsObj[u"servers"] = serversArray;
 
     // Save options
     QJsonObject optionsObj;
-    optionsObj["auto_start_session"] = m_ui->autoStartCheckBox->isChecked();
-    optionsObj["show_notifications"] = m_ui->showNotificationsCheckBox->isChecked();
-    optionsObj["show_tool_calls"] = m_ui->showToolCallsCheckBox->isChecked();
-    optionsObj["show_progress"] = m_ui->showProgressCheckBox->isChecked();
-    optionsObj["debug_mode"] = m_ui->debugModeCheckBox->isChecked();
-    settingsObj["options"] = optionsObj;
+    optionsObj[u"auto_start_session"] = m_ui->autoStartCheckBox->isChecked();
+    optionsObj[u"show_notifications"] = m_ui->showNotificationsCheckBox->isChecked();
+    optionsObj[u"show_tool_calls"] = m_ui->showToolCallsCheckBox->isChecked();
+    optionsObj[u"show_progress"] = m_ui->showProgressCheckBox->isChecked();
+    optionsObj[u"debug_mode"] = m_ui->debugModeCheckBox->isChecked();
+    settingsObj[u"options"] = optionsObj;
 
     // Write to file
     QFile outFile(settingsPath);

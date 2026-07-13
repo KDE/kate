@@ -13,6 +13,7 @@
 
 #include "acpclientserver.h"
 
+#include <map>
 #include <memory>
 
 class ACPClientPlugin;
@@ -93,6 +94,9 @@ private:
     std::vector<std::unique_ptr<ACPClientServer>> m_servers;
     ACPClientServer *m_activeServer = nullptr;
     QString m_activeServerName;
+
+    // Track pending session creation requests
+    std::map<QString, QString> m_pendingSessionRequests;
 
 public:
     static ACPClientServerManager *new_(ACPClientPlugin *plugin, QObject *parent = nullptr);

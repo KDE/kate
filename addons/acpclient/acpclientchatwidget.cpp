@@ -77,23 +77,14 @@ void ACPClientChatWidget::startNewSession()
     }
 
     ACPClientServer *server = m_serverManager->activeServer();
-    if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
+    if (!server) {
         appendMessage(QStringLiteral("System"), i18n("No active ACP server. Please connect to an agent first."));
         return;
     }
 
     m_server = server;
 
-    // Create a new session
-    QString sessionId = m_serverManager->createSession();
-    if (sessionId.isEmpty()) {
-        appendMessage(QStringLiteral("System"), i18n("Failed to create new session"));
-        return;
-    }
-
-    setSessionId(sessionId);
-
-    // Connect to server messages
+    // Connect to server messages first
     connect(server, &ACPClientServer::messageReceived, this, &ACPClientChatWidget::onServerMessageReceived);
     connect(server, &ACPClientServer::disconnected, this, [this]() {
         appendMessage(QStringLiteral("System"), i18n("Server disconnected"));
@@ -101,8 +92,20 @@ void ACPClientChatWidget::startNewSession()
         updateSessionState();
     });
 
-    appendMessage(QStringLiteral("System"), i18n("New ACP session started: %1", sessionId));
-    updateSessionState();
+    // Connect to sessionCreated signal to get the actual session ID
+    connect(m_serverManager, &ACPClientServerManager::sessionCreated, this, [this](const QString &sessionId) {
+        if (!m_sessionId.isEmpty()) {
+            // Already have a session, ignore
+            return;
+        }
+        setSessionId(sessionId);
+        appendMessage(QStringLiteral("System"), i18n("New ACP session started: %1", sessionId));
+        updateSessionState();
+    });
+
+    // Create a new session
+    m_serverManager->createSession();
+    appendMessage(QStringLiteral("System"), i18n("Creating new ACP session..."));
 }
 
 void ACPClientChatWidget::setSessionId(const QString &sessionId)
@@ -186,7 +189,7 @@ void ACPClientChatWidget::sendMessage()
     m_ui->messageInput->clear();
 
     // Send to ACP server
-    if (!m_sessionId.isEmpty() && m_server && m_server->state() == ACPClientServer::ServerState::Initialized) {
+    if (!m_sessionId.isEmpty() && m_serverManager) {
         m_serverManager->sendPrompt(m_sessionId, message);
         Q_EMIT messageSent(m_sessionId, message);
     } else {

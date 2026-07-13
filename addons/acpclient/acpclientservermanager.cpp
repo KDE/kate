@@ -215,26 +215,14 @@ QString ACPClientServerManager::createSession()
     QString requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionNewRequest(params, requestId);
 
-    // Track the request for response
-    auto callback = [this, requestId](const QJsonDocument &response) {
-        if (response.isObject()) {
-            QJsonObject obj = response.object();
-            if (obj.contains(u"result") && obj[u"result"].isObject()) {
-                QJsonObject result = obj[u"result"].toObject();
-                if (result.contains(u"sessionId")) {
-                    QString sessionId = result[u"sessionId"].toString();
-                    Q_EMIT sessionCreated(sessionId);
-                }
-            }
-        }
-    };
+    // Track the request for response - store the requestId and emit signal when response arrives
+    // We use a map to track pending session creations
+    m_pendingSessionRequests[requestId] = requestId;
 
-    // Store the callback - we'll need to track this differently
-    // For now, just send the message
     server->sendMessage(request);
 
-    // Generate a temporary session ID for tracking
-    return requestId;
+    // Return empty for now - the actual session ID will come via signal
+    return QString();
 }
 
 void ACPClientServerManager::sendPrompt(const QString &sessionId, const QString &message)
@@ -360,6 +348,26 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
     ACPClientServer *server = qobject_cast<ACPClientServer *>(sender());
     if (server) {
         qCDebug(ACPCLIENT) << "Message received from" << server->info().name << ":" << message.toJson();
+    }
+
+    ACP::ACPMessage parsedMessage;
+    if (ACP::ACPProtocol::parseMessage(message, parsedMessage)) {
+        // Check for session/new response by matching the request ID
+        if (parsedMessage.isResponse && !parsedMessage.id.isEmpty()) {
+            // Check if this is a response to a session/new request
+            if (m_pendingSessionRequests.find(parsedMessage.id) != m_pendingSessionRequests.end()) {
+                QJsonObject result = parsedMessage.result;
+                if (result.contains(u"sessionId")) {
+                    QString sessionId = result[u"sessionId"].toString();
+                    qCDebug(ACPCLIENT) << "Session created with ID:" << sessionId;
+                    m_pendingSessionRequests.erase(parsedMessage.id);
+                    Q_EMIT sessionCreated(sessionId);
+                    return;
+                }
+                // Remove from pending even if there was an error
+                m_pendingSessionRequests.erase(parsedMessage.id);
+            }
+        }
     }
 
     // Check for session update notifications

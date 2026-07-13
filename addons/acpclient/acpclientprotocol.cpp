@@ -138,7 +138,13 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
 
     QJsonObject paramsObj;
     paramsObj[u"sessionId"] = params.sessionId;
-    paramsObj[u"message"] = params.message;
+    // vibe-acp expects prompt to be a list of content blocks
+    QJsonArray promptArray;
+    QJsonObject textBlock;
+    textBlock[u"type"] = QStringLiteral("text");
+    textBlock[u"text"] = params.message;
+    promptArray.append(textBlock);
+    paramsObj[u"prompt"] = promptArray;
 
     if (!params.metadata.isEmpty()) {
         paramsObj[u"metadata"] = params.metadata;

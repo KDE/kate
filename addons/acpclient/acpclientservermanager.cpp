@@ -9,6 +9,7 @@
 #include "acpclientplugin.h"
 #include "acpclientprotocol.h"
 
+#include <QDir>
 #include <QJsonArray>
 #include <QJsonObject>
 
@@ -207,6 +208,10 @@ QString ACPClientServerManager::createSession()
     }
 
     ACP::SessionNewParams params;
+    // Set cwd to current working directory
+    params.cwd = QDir::currentPath();
+    // Set mcpServers to empty array (vibe-acp expects a list)
+    params.mcpServers = QJsonArray();
     QString requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionNewRequest(params, requestId);
 

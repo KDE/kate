@@ -102,6 +102,8 @@ struct SessionParams {
 // Session new parameters
 struct SessionNewParams {
     QJsonObject metadata;
+    QString cwd;
+    QJsonValue mcpServers; // Can be object, array, or null
 };
 
 // Session resume parameters

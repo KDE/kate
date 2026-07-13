@@ -72,6 +72,17 @@ QJsonDocument ACPProtocol::createSessionNewRequest(const SessionNewParams &param
     if (!params.metadata.isEmpty()) {
         paramsObj[u"metadata"] = params.metadata;
     }
+    if (!params.cwd.isEmpty()) {
+        paramsObj[u"cwd"] = params.cwd;
+    }
+    // mcpServers should be an array (empty by default)
+    if (params.mcpServers.isUndefined() || params.mcpServers.isNull()) {
+        paramsObj[u"mcpServers"] = QJsonArray();
+    } else if (params.mcpServers.isArray()) {
+        paramsObj[u"mcpServers"] = params.mcpServers.toArray();
+    } else if (params.mcpServers.isObject()) {
+        paramsObj[u"mcpServers"] = params.mcpServers.toObject();
+    }
 
     request[JSONRPC_PARAMS] = paramsObj;
 

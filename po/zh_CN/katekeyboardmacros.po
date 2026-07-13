@@ -52,7 +52,7 @@ msgstr "录制过程中无法保存宏。请先完成录制再保存"
 #: keyboardmacrosplugin.cpp:241
 #, kde-format
 msgid "Recording…"
-msgstr ""
+msgstr "正在录制…"
 
 #: keyboardmacrosplugin.cpp:277
 #, kde-format
@@ -115,8 +115,8 @@ msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
 "macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>"
 msgstr ""
-"<qt><p>用法： <code>kmload &lt;name&gt;</code></p><p>加载已保存的键盘宏 "
-"<code>&lt;name&gt;</code> 为当前宏</p>%1</qt>"
+"<qt><p>用法：<code>kmload &lt;name&gt;</code></p><p>加载已保存的键盘宏 "
+"<code>&lt;name&gt;</code> 为当前宏。</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:89
 #, kde-format
@@ -124,8 +124,8 @@ msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
 "macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>"
 msgstr ""
-"<qt><p>用法： <code>kmplay &lt;name&gt;</code></p><p> 直接执行已保存的键盘宏 "
-"<code>&lt;name&gt;</code> 而不加载 </p>%1</qt>"
+"<qt><p>用法：<code>kmplay &lt;name&gt;</code></p><p>运行已保存的键盘宏 "
+"<code>&lt;name&gt;</code> 但不加载它。</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:93
 #, kde-format
@@ -133,8 +133,8 @@ msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
 "macro <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
-"<qt><p>用法： <code>kmwipe &lt;name&gt;</code></p><p> 擦除保存的键盘宏 "
-"<code>&lt;name&gt;</code></p>%1</qt>"
+"<qt><p>用法：<code>kmwipe &lt;name&gt;</code></p><p>删除已保存的键盘宏 "
+"<code>&lt;name&gt;</code>。</p>%1</qt>"
 
 #: keyboardmacrospluginview.cpp:33
 #, kde-format
@@ -207,7 +207,7 @@ msgstr "运行已命名的宏(&P)"
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
 msgid "Play a named macro without loading it."
-msgstr "运行一个已命名的宏而不加载它。"
+msgstr "运行一个已命名的宏但不加载它。"
 
 #: keyboardmacrospluginview.cpp:106
 #, kde-format
@@ -227,7 +227,7 @@ msgstr "结束宏录制(&R)"
 #: keyboardmacrospluginview.cpp:180
 #, kde-format
 msgid "Load %1"
-msgstr ""
+msgstr "加载 %1"
 
 #: keyboardmacrospluginview.cpp:181
 #, kde-format
@@ -237,7 +237,7 @@ msgstr "加载“%1”作为当前宏。"
 #: keyboardmacrospluginview.cpp:193
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "运行 %1"
 
 #: keyboardmacrospluginview.cpp:194
 #, kde-format
@@ -247,7 +247,7 @@ msgstr "运行“%1”而不加载它。"
 #: keyboardmacrospluginview.cpp:208
 #, kde-format
 msgid "Wipe %1"
-msgstr ""
+msgstr "删除 %1"
 
 #: keyboardmacrospluginview.cpp:209
 #, kde-format

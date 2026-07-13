@@ -37,14 +37,11 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
 
     paramsObj[u"capabilities"] = capabilitiesObj;
 
-    // Always include metadata fields at top level for vibe-acp compatibility
-    paramsObj[u"client_name"] = params.clientName;
-    paramsObj[u"client_version"] = params.clientVersion;
-
-    // Also include metadata object if it has custom fields
-    if (!params.metadata.isEmpty()) {
-        paramsObj[u"metadata"] = params.metadata;
-    }
+    // Include metadata object with client info for vibe-acp
+    QJsonObject metadata = params.metadata;
+    metadata.insert(u"client_name", params.clientName);
+    metadata.insert(u"client_version", params.clientVersion);
+    paramsObj[u"metadata"] = metadata;
 
     request[JSONRPC_PARAMS] = paramsObj;
 
@@ -75,9 +72,24 @@ QJsonDocument ACPProtocol::createSessionNewRequest(const SessionNewParams &param
     request[JSONRPC_METHOD] = METHOD_SESSION_NEW;
 
     QJsonObject paramsObj;
-    if (!params.metadata.isEmpty()) {
-        paramsObj[u"metadata"] = params.metadata;
+
+    // Add client metadata
+    QJsonObject metadata;
+    QString version = KAboutData::applicationData().version();
+    if (version.isEmpty()) {
+        version = QStringLiteral("26.11.70");
     }
+    metadata.insert(u"client_name", QStringLiteral("Kate"));
+    metadata.insert(u"client_version", version);
+
+    // Merge with any provided metadata
+    if (!params.metadata.isEmpty()) {
+        for (auto it = params.metadata.constBegin(); it != params.metadata.constEnd(); ++it) {
+            metadata.insert(it.key(), it.value());
+        }
+    }
+    paramsObj[u"metadata"] = metadata;
+
     if (!params.cwd.isEmpty()) {
         paramsObj[u"cwd"] = params.cwd;
     }
@@ -152,14 +164,19 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
     promptArray.append(textBlock);
     paramsObj[u"prompt"] = promptArray;
 
-    // Add metadata fields at top level for vibe-acp compatibility
-    // vibe-acp expects these specific fields at the params level
+    // Add metadata fields - both at top level and in metadata object
     QString version = KAboutData::applicationData().version();
     if (version.isEmpty()) {
         version = QStringLiteral("26.11.70");
     }
     paramsObj[u"client_name"] = QStringLiteral("Kate");
     paramsObj[u"client_version"] = version;
+
+    // Also add as metadata object for compatibility
+    QJsonObject metadata;
+    metadata.insert(u"client_name", QStringLiteral("Kate"));
+    metadata.insert(u"client_version", version);
+    paramsObj[u"metadata"] = metadata;
 
     request[JSONRPC_PARAMS] = paramsObj;
 

@@ -103,6 +103,12 @@ void ACPClientChatWidget::startNewSession()
         updateSessionState();
     });
 
+    // Connect to messageReceived to show all messages in chat
+    connect(m_serverManager, &ACPClientServerManager::messageReceived, this, [this](const QJsonDocument &doc) {
+        // Forward to our handler
+        onServerMessageReceived(doc);
+    });
+
     // Create a new session
     m_serverManager->createSession();
     appendMessage(QStringLiteral("System"), i18n("Creating new ACP session..."));
@@ -212,6 +218,26 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
 
     QJsonObject obj = message.object();
 
+    // Display raw JSON for all responses and notifications in chat for debugging
+    QString rawJson = QString::fromUtf8(message.toJson(QJsonDocument::Compact));
+
+    // Handle error responses
+    if (obj.contains(u"error")) {
+        QJsonObject errorObj = obj[u"error"].toObject();
+        QString errorMsg = errorObj[u"message"].toString();
+        QString errorCode = QString::number(errorObj[u"code"].toInt());
+        appendMessage(QStringLiteral("System"), i18n("Error [%1]: %2", errorCode, errorMsg));
+        return;
+    }
+
+    // Handle successful responses
+    if (obj.contains(u"id") && !obj.contains(u"method")) {
+        if (obj.contains(u"result")) {
+            appendMessage(QStringLiteral("System"), i18n("Response: %1", rawJson));
+        }
+        return;
+    }
+
     // Handle session update notifications
     if (obj.contains(u"method") && obj[u"method"].toString() == ACP::NOTIFICATION_SESSION_UPDATE) {
         if (obj.contains(u"params") && obj[u"params"].isObject()) {
@@ -220,7 +246,7 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
             QString status = params[u"status"].toString();
             QString msg = params[u"message"].toString();
 
-            if (!msg.isEmpty() && sessionId == m_sessionId) {
+            if (sessionId == m_sessionId) {
                 if (status == QStringLiteral("idle")) {
                     QString stopReason = params[u"stopReason"].toString();
                     if (!stopReason.isEmpty()) {

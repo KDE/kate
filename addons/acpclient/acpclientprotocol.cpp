@@ -37,13 +37,14 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
 
     paramsObj[u"capabilities"] = capabilitiesObj;
 
-    // Always include metadata for vibe-acp compatibility
-    QJsonObject metadata = params.metadata;
-    if (metadata.isEmpty()) {
-        metadata.insert(u"client_name", params.clientName);
-        metadata.insert(u"client_version", params.clientVersion);
+    // Always include metadata fields at top level for vibe-acp compatibility
+    paramsObj[u"client_name"] = params.clientName;
+    paramsObj[u"client_version"] = params.clientVersion;
+
+    // Also include metadata object if it has custom fields
+    if (!params.metadata.isEmpty()) {
+        paramsObj[u"metadata"] = params.metadata;
     }
-    paramsObj[u"metadata"] = metadata;
 
     request[JSONRPC_PARAMS] = paramsObj;
 
@@ -151,18 +152,14 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
     promptArray.append(textBlock);
     paramsObj[u"prompt"] = promptArray;
 
-    // Add default metadata for vibe-acp if not provided
-    QJsonObject metadata = params.metadata;
-    if (metadata.isEmpty()) {
-        // Use runtime version from KAboutData
-        QString version = KAboutData::applicationData().version();
-        if (version.isEmpty()) {
-            version = QStringLiteral("26.11.70");
-        }
-        metadata.insert(u"client_name", QStringLiteral("Kate"));
-        metadata.insert(u"client_version", version);
+    // Add metadata fields at top level for vibe-acp compatibility
+    // vibe-acp expects these specific fields at the params level
+    QString version = KAboutData::applicationData().version();
+    if (version.isEmpty()) {
+        version = QStringLiteral("26.11.70");
     }
-    paramsObj[u"metadata"] = metadata;
+    paramsObj[u"client_name"] = QStringLiteral("Kate");
+    paramsObj[u"client_version"] = version;
 
     request[JSONRPC_PARAMS] = paramsObj;
 

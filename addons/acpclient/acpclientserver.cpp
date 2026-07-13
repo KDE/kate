@@ -69,9 +69,12 @@ void ACPClientServer::setupProcessConnection()
     m_process = std::make_unique<QProcess>(this);
     m_process->setProgram(m_info.command);
     m_process->setArguments(m_info.arguments);
-    m_process->setProcessChannelMode(QProcess::MergedChannels);
+    m_process->setProcessChannelMode(QProcess::SeparateChannels);
 
-    connect(m_process.get(), &QProcess::readyRead, this, &ACPClientServer::onProcessReadyRead);
+    // Only read from stdout for JSON-RPC messages
+    connect(m_process.get(), &QProcess::readyReadStandardOutput, this, &ACPClientServer::onProcessReadyRead);
+    // Read stderr for error messages
+    connect(m_process.get(), &QProcess::readyReadStandardError, this, &ACPClientServer::onProcessErrorOutput);
     connect(m_process.get(), &QProcess::errorOccurred, this, &ACPClientServer::onProcessError);
     connect(m_process.get(), &QProcess::finished, this, &ACPClientServer::onProcessFinished);
 
@@ -98,6 +101,7 @@ void ACPClientServer::initializeServer()
     ACP::InitializeParams params;
     params.clientName = QStringLiteral("Kate");
     params.clientVersion = QStringLiteral("26.11.70"); // Will be updated
+    params.protocolVersion = ACP::ACPProtocol::getProtocolVersion();
     params.capabilities = ACP::ClientCapabilities();
 
     QString requestId = ACP::ACPProtocol::generateRequestId();
@@ -136,6 +140,17 @@ void ACPClientServer::readFromProcess()
     if (!data.isEmpty()) {
         qCDebug(ACPCLIENT) << "Received data:" << data;
         parseIncomingData(data);
+    }
+}
+
+void ACPClientServer::onProcessErrorOutput()
+{
+    if (m_process) {
+        QByteArray errorData = m_process->readAllStandardError();
+        if (!errorData.isEmpty()) {
+            qCWarning(ACPCLIENT) << "ACP server stderr:" << errorData;
+            Q_EMIT errorOccurred(QString::fromUtf8(errorData));
+        }
     }
 }
 

@@ -41,7 +41,8 @@ const QString NOTIFICATION_PROGRESS = QStringLiteral("$/progress");
 const QString NOTIFICATION_CANCELLATION = QStringLiteral("$/cancel_request");
 
 // JSON-RPC fields
-const QString JSONRPC_VERSION = QStringLiteral("2.0");
+const QString JSONRPC_VERSION_KEY = QStringLiteral("jsonrpc");
+const QString JSONRPC_VERSION_VALUE = QStringLiteral("2.0");
 const QString JSONRPC_ID = QStringLiteral("id");
 const QString JSONRPC_METHOD = QStringLiteral("method");
 const QString JSONRPC_PARAMS = QStringLiteral("params");
@@ -72,6 +73,7 @@ struct ClientCapabilities {
 struct InitializeParams {
     QString clientName;
     QString clientVersion;
+    QString protocolVersion;
     ClientCapabilities capabilities;
     QJsonObject metadata;
 };

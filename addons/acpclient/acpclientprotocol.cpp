@@ -14,7 +14,7 @@ namespace ACP
 QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &params, const QString &requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION] = JSONRPC_VERSION;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = requestId;
     request[JSONRPC_METHOD] = METHOD_INITIALIZE;
 
@@ -47,7 +47,7 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
 QJsonDocument ACPProtocol::createAuthLoginRequest(const AuthLoginParams &params, const QString &requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION] = JSONRPC_VERSION;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = requestId;
     request[JSONRPC_METHOD] = METHOD_AUTH_LOGIN;
 
@@ -63,7 +63,7 @@ QJsonDocument ACPProtocol::createAuthLoginRequest(const AuthLoginParams &params,
 QJsonDocument ACPProtocol::createSessionNewRequest(const SessionNewParams &params, const QString &requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION] = JSONRPC_VERSION;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = requestId;
     request[JSONRPC_METHOD] = METHOD_SESSION_NEW;
 
@@ -80,7 +80,7 @@ QJsonDocument ACPProtocol::createSessionNewRequest(const SessionNewParams &param
 QJsonDocument ACPProtocol::createSessionResumeRequest(const SessionResumeParams &params, const QString &requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION] = JSONRPC_VERSION;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = requestId;
     request[JSONRPC_METHOD] = METHOD_SESSION_RESUME;
 
@@ -95,7 +95,7 @@ QJsonDocument ACPProtocol::createSessionResumeRequest(const SessionResumeParams 
 QJsonDocument ACPProtocol::createSessionListRequest(const QString &requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION] = JSONRPC_VERSION;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = requestId;
     request[JSONRPC_METHOD] = METHOD_SESSION_LIST;
 
@@ -105,7 +105,7 @@ QJsonDocument ACPProtocol::createSessionListRequest(const QString &requestId)
 QJsonDocument ACPProtocol::createSessionDeleteRequest(const QString &sessionId, const QString &requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION] = JSONRPC_VERSION;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = requestId;
     request[JSONRPC_METHOD] = METHOD_SESSION_DELETE;
 
@@ -120,7 +120,7 @@ QJsonDocument ACPProtocol::createSessionDeleteRequest(const QString &sessionId, 
 QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams &params, const QString &requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION] = JSONRPC_VERSION;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = requestId;
     request[JSONRPC_METHOD] = METHOD_SESSION_PROMPT;
 
@@ -140,7 +140,7 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
 QJsonDocument ACPProtocol::createSessionCancelRequest(const QString &sessionId, const QString &requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION] = JSONRPC_VERSION;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = requestId;
     request[JSONRPC_METHOD] = METHOD_SESSION_CANCEL;
 
@@ -155,7 +155,7 @@ QJsonDocument ACPProtocol::createSessionCancelRequest(const QString &sessionId, 
 QJsonDocument ACPProtocol::createToolsListRequest(const QString &requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION] = JSONRPC_VERSION;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = requestId;
     request[JSONRPC_METHOD] = METHOD_TOOLS_LIST;
 
@@ -165,7 +165,7 @@ QJsonDocument ACPProtocol::createToolsListRequest(const QString &requestId)
 QJsonDocument ACPProtocol::createToolsCallRequest(const QString &toolId, const QJsonObject &arguments, const QString &requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION] = JSONRPC_VERSION;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = requestId;
     request[JSONRPC_METHOD] = METHOD_TOOLS_CALL;
 
@@ -181,7 +181,7 @@ QJsonDocument ACPProtocol::createToolsCallRequest(const QString &toolId, const Q
 QJsonDocument ACPProtocol::createSessionUpdateNotification(const SessionUpdateNotification &notification)
 {
     QJsonObject notif;
-    notif[JSONRPC_VERSION] = JSONRPC_VERSION;
+    notif[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     notif[JSONRPC_METHOD] = NOTIFICATION_SESSION_UPDATE;
 
     QJsonObject paramsObj;
@@ -206,7 +206,7 @@ QJsonDocument ACPProtocol::createSessionUpdateNotification(const SessionUpdateNo
 QJsonDocument ACPProtocol::createProgressNotification(const ProgressNotification &notification)
 {
     QJsonObject notif;
-    notif[JSONRPC_VERSION] = JSONRPC_VERSION;
+    notif[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     notif[JSONRPC_METHOD] = NOTIFICATION_PROGRESS;
 
     QJsonObject paramsObj;
@@ -221,7 +221,7 @@ QJsonDocument ACPProtocol::createProgressNotification(const ProgressNotification
 QJsonDocument ACPProtocol::createCancelRequestNotification(const CancelRequestNotification &notification)
 {
     QJsonObject notif;
-    notif[JSONRPC_VERSION] = JSONRPC_VERSION;
+    notif[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     notif[JSONRPC_METHOD] = NOTIFICATION_CANCELLATION;
 
     QJsonObject paramsObj;
@@ -241,9 +241,9 @@ bool ACPProtocol::parseMessage(const QJsonDocument &doc, ACPMessage &message)
     QJsonObject obj = doc.object();
 
     // Check if it's a JSON-RPC message
-    if (obj.contains(JSONRPC_VERSION)) {
-        QString version = obj[JSONRPC_VERSION].toString();
-        if (version != JSONRPC_VERSION) {
+    if (obj.contains(JSONRPC_VERSION_KEY)) {
+        QString version = obj[JSONRPC_VERSION_KEY].toString();
+        if (version != JSONRPC_VERSION_VALUE) {
             return false;
         }
     }

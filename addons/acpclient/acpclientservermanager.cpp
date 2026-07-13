@@ -17,6 +17,71 @@ ACPClientServerManager::ACPClientServerManager(ACPClientPlugin *plugin, QObject 
     , m_plugin(plugin)
 {
     qCDebug(ACPCLIENT) << "ACPClientServerManager created";
+
+    // Load default servers on creation
+    loadDefaultServers();
+
+    // Start auto-start servers
+    startAutoStartServers();
+}
+
+void ACPClientServerManager::loadDefaultServers()
+{
+    qCDebug(ACPCLIENT) << "Loading default ACP servers";
+
+    // Load from shipped settings.json
+    QString settingsPath = QStringLiteral(":/kateacpclient/settings.json");
+    QFile settingsFile(settingsPath);
+
+    if (settingsFile.exists() && settingsFile.open(QIODevice::ReadOnly)) {
+        QJsonParseError parseError;
+        QJsonDocument doc = QJsonDocument::fromJson(settingsFile.readAll(), &parseError);
+
+        if (parseError.error == QJsonParseError::NoError && doc.isObject()) {
+            QJsonObject obj = doc.object();
+            if (obj.contains(u"servers") && obj[u"servers"].isArray()) {
+                QJsonArray servers = obj[u"servers"].toArray();
+                for (const QJsonValue &v : servers) {
+                    if (v.isObject()) {
+                        QJsonObject serverObj = v.toObject();
+                        ACPClientServer::ServerInfo info;
+
+                        info.name = serverObj[u"name"].toString();
+                        info.version = serverObj[u"version"].toString();
+                        info.command = serverObj[u"command"].toString();
+
+                        if (serverObj.contains(u"arguments") && serverObj[u"arguments"].isArray()) {
+                            QJsonArray args = serverObj[u"arguments"].toArray();
+                            for (const QJsonValue &arg : args) {
+                                info.arguments.append(arg.toString());
+                            }
+                        }
+
+                        info.autoStart = serverObj[u"auto_start"].toBool();
+
+                        if (serverObj.contains(u"metadata") && serverObj[u"metadata"].isObject()) {
+                            info.metadata = serverObj[u"metadata"].toObject();
+                        }
+
+                        // Create the server but don't auto-start here (handled by createServer)
+                        createServer(info);
+                    }
+                }
+            }
+        }
+        settingsFile.close();
+    }
+
+    // If no servers were loaded, add vibe-acp as default
+    if (m_servers.empty()) {
+        qCDebug(ACPCLIENT) << "No servers in config, adding default vibe-acp";
+        ACPClientServer::ServerInfo vibeServer;
+        vibeServer.name = QStringLiteral("Mistral Vibe (vibe-acp)");
+        vibeServer.version = QStringLiteral("1.0");
+        vibeServer.command = QStringLiteral("vibe-acp");
+        vibeServer.autoStart = true;
+        createServer(vibeServer);
+    }
 }
 
 ACPClientServerManager::~ACPClientServerManager()

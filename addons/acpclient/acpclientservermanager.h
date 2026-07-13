@@ -28,6 +28,9 @@ public:
     // Create a new server connection
     ACPClientServer *createServer(const ACPClientServer::ServerInfo &info);
 
+    // Load servers from default configuration
+    void loadDefaultServers();
+
     // Get all connected servers
     QList<ACPClientServer *> servers() const;
 

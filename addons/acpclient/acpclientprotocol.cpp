@@ -285,7 +285,8 @@ bool ACPProtocol::parseMessage(const QJsonDocument &doc, ACPMessage &message)
         message.isNotification = true;
     }
 
-    return !message.method.isEmpty();
+    // Return true if it's a valid message (has method) or a response (has result/error)
+    return !message.method.isEmpty() || message.isResponse;
 }
 
 bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeResult &result)
@@ -303,20 +304,40 @@ bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeRe
 
     QJsonObject resultObj = obj[JSONRPC_RESULT].toObject();
 
-    if (resultObj.contains(u"agentName")) {
-        result.agentName = resultObj[u"agentName"].toString();
+    // Try to get agent info from agentInfo object or fallback to individual fields
+    if (resultObj.contains(u"agentInfo") && resultObj[u"agentInfo"].isObject()) {
+        QJsonObject agentInfo = resultObj[u"agentInfo"].toObject();
+        result.agentName = agentInfo[u"name"].toString();
+        if (result.agentName.isEmpty()) {
+            result.agentName = agentInfo[u"title"].toString();
+        }
+        result.agentVersion = agentInfo[u"version"].toString();
+    } else {
+        // Fallback to individual fields
+        if (resultObj.contains(u"agentName")) {
+            result.agentName = resultObj[u"agentName"].toString();
+        }
+        if (resultObj.contains(u"agentVersion")) {
+            result.agentVersion = resultObj[u"agentVersion"].toString();
+        }
     }
-    if (resultObj.contains(u"agentVersion")) {
-        result.agentVersion = resultObj[u"agentVersion"].toString();
-    }
+
+    // Protocol version can be a string or number
     if (resultObj.contains(u"protocolVersion")) {
-        result.protocolVersion = resultObj[u"protocolVersion"].toString();
+        QJsonValue versionValue = resultObj[u"protocolVersion"];
+        if (versionValue.isString()) {
+            result.protocolVersion = versionValue.toString();
+        } else if (versionValue.isDouble()) {
+            result.protocolVersion = QString::number(versionValue.toInt());
+        }
     }
+
     if (resultObj.contains(u"metadata")) {
         result.metadata = resultObj[u"metadata"].toObject();
     }
 
-    if (resultObj.contains(u"capabilities")) {
+    // Try to get capabilities from capabilities or agentCapabilities
+    if (resultObj.contains(u"capabilities") && resultObj[u"capabilities"].isObject()) {
         QJsonObject caps = resultObj[u"capabilities"].toObject();
         result.capabilities.supportsSessions = caps[u"supportsSessions"].toBool();
         result.capabilities.supportsTools = caps[u"supportsTools"].toBool();
@@ -333,6 +354,14 @@ bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeRe
         if (caps.contains(u"customCapabilities")) {
             result.capabilities.customCapabilities = caps[u"customCapabilities"].toObject();
         }
+    } else if (resultObj.contains(u"agentCapabilities") && resultObj[u"agentCapabilities"].isObject()) {
+        // Fallback to agentCapabilities
+        QJsonObject agentCaps = resultObj[u"agentCapabilities"].toObject();
+        // Map agentCapabilities to our capabilities structure
+        result.capabilities.supportsSessions = agentCaps.contains(u"loadSession");
+        result.capabilities.supportsTools = true; // agentCapabilities implies tool support
+        result.capabilities.supportsProgress = true;
+        result.capabilities.supportsAuthentication = resultObj.contains(u"authMethods");
     }
 
     return true;

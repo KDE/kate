@@ -33,7 +33,6 @@ static constexpr char CONFIG_SHOW_NOTIFICATIONS[] = "ShowNotifications";
 static constexpr char CONFIG_SHOW_TOOL_CALLS[] = "ShowToolCalls";
 static constexpr char CONFIG_SHOW_PROGRESS[] = "ShowProgress";
 static constexpr char CONFIG_DEBUG_MODE[] = "DebugMode";
-static constexpr char CONFIG_SERVER_CONFIG[] = "ServerConfiguration";
 static constexpr char CONFIG_ALLOWED_COMMANDS[] = "AllowedServerCommandLines";
 static constexpr char CONFIG_BLOCKED_COMMANDS[] = "BlockedServerCommandLines";
 

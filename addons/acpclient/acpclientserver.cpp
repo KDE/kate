@@ -8,6 +8,7 @@
 #include "acpclient_debug.h"
 #include "acpclientservermanager.h"
 
+#include <KAboutData>
 #include <QIODevice>
 #include <QJsonParseError>
 #include <QProcess>
@@ -100,9 +101,11 @@ void ACPClientServer::initializeServer()
 
     ACP::InitializeParams params;
     params.clientName = QStringLiteral("Kate");
-    params.clientVersion = QStringLiteral("26.11.70"); // Will be updated
+    params.clientVersion = KAboutData::applicationData().version();
     params.protocolVersion = ACP::ACPProtocol::getProtocolVersion();
     params.capabilities = ACP::ClientCapabilities();
+    params.metadata.insert(u"client_name", QStringLiteral("Kate"));
+    params.metadata.insert(u"client_version", KAboutData::applicationData().version());
 
     QString requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createInitializeRequest(params, requestId);
@@ -161,7 +164,7 @@ void ACPClientServer::onProcessError(QProcess::ProcessError error)
     Q_EMIT errorOccurred(m_process->errorString());
 }
 
-void ACPClientServer::onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void ACPClientServer::onProcessFinished(int exitCode, QProcess::ExitStatus)
 {
     qCDebug(ACPCLIENT) << "Process finished with exit code:" << exitCode;
     setState(ServerState::Disconnected);

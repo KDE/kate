@@ -96,8 +96,8 @@ private:
     void setState(ServerState state);
 
     ServerInfo m_info;
-    ServerState m_state = ServerState::Disconnected;
     ACPClientServerManager *m_manager;
+    ServerState m_state = ServerState::Disconnected;
     ACP::AgentCapabilities m_capabilities;
     QString m_protocolVersion;
 

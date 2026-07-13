@@ -6,6 +6,7 @@
 
 #include "acpclientprotocol.h"
 
+#include <KAboutData>
 #include <QUuid>
 
 namespace ACP
@@ -36,9 +37,13 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
 
     paramsObj[u"capabilities"] = capabilitiesObj;
 
-    if (!params.metadata.isEmpty()) {
-        paramsObj[u"metadata"] = params.metadata;
+    // Always include metadata for vibe-acp compatibility
+    QJsonObject metadata = params.metadata;
+    if (metadata.isEmpty()) {
+        metadata.insert(u"client_name", params.clientName);
+        metadata.insert(u"client_version", params.clientVersion);
     }
+    paramsObj[u"metadata"] = metadata;
 
     request[JSONRPC_PARAMS] = paramsObj;
 
@@ -146,9 +151,18 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
     promptArray.append(textBlock);
     paramsObj[u"prompt"] = promptArray;
 
-    if (!params.metadata.isEmpty()) {
-        paramsObj[u"metadata"] = params.metadata;
+    // Add default metadata for vibe-acp if not provided
+    QJsonObject metadata = params.metadata;
+    if (metadata.isEmpty()) {
+        // Use runtime version from KAboutData
+        QString version = KAboutData::applicationData().version();
+        if (version.isEmpty()) {
+            version = QStringLiteral("26.11.70");
+        }
+        metadata.insert(u"client_name", QStringLiteral("Kate"));
+        metadata.insert(u"client_version", version);
     }
+    paramsObj[u"metadata"] = metadata;
 
     request[JSONRPC_PARAMS] = paramsObj;
 

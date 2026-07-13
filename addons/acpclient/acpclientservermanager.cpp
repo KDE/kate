@@ -254,16 +254,6 @@ void ACPClientServerManager::listSessions()
     QString requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionListRequest(requestId);
 
-    // Track the request
-    auto callback = [this](const QJsonDocument &response) {
-        if (response.isObject()) {
-            QJsonObject obj = response.object();
-            if (obj.contains(u"result") && obj[u"result"].isArray()) {
-                Q_EMIT sessionListReceived(obj[u"result"].toArray());
-            }
-        }
-    };
-
     // For now, we need to implement request tracking in the server
     server->sendMessage(request);
 }

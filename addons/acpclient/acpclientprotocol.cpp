@@ -21,6 +21,7 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
     QJsonObject paramsObj;
     paramsObj[u"clientName"] = params.clientName;
     paramsObj[u"clientVersion"] = params.clientVersion;
+    paramsObj[u"protocolVersion"] = params.protocolVersion;
 
     QJsonObject capabilitiesObj;
     capabilitiesObj[u"supportsSessions"] = params.capabilities.supportsSessions;

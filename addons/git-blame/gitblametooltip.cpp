@@ -151,6 +151,7 @@ public:
         setProperty("_breeze_force_frame", true);
         setAttribute(Qt::WA_TranslucentBackground);
         setOpenLinks(false);
+        setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
         connect(&m_hideTimer, &QTimer::timeout, this, &GitBlameTooltipPrivate::hideTooltip);
 
         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);

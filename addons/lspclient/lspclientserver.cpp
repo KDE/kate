@@ -11,6 +11,8 @@
 
 #include "ktexteditor_utils.h"
 
+#include <KSandbox>
+
 #include <QCoreApplication>
 #include <QFileInfo>
 #include <QJsonArray>
@@ -1853,15 +1855,22 @@ private:
         // NOTE a typical server does not use root all that much,
         // other than for some corner case (in) requests
         auto root = mapPath(m_root, true);
-        QJsonObject params{{QLatin1String("processId"), QCoreApplication::applicationPid()},
-                           {QLatin1String("rootPath"), root.isValid() ? root.toLocalFile() : QJsonValue()},
+        QJsonObject params{{QLatin1String("rootPath"), root.isValid() ? root.toLocalFile() : QJsonValue()},
                            {QLatin1String("rootUri"), root.isValid() ? QJsonValue(QString::fromUtf8(root.toEncoded())) : QJsonValue()},
                            {QLatin1String("capabilities"), capabilities},
                            {QLatin1String("initializationOptions"), m_init}};
+
+        // only add processId if we are not sandboxed, with pid namespaces that
+        // will otherwise lead to issues, like existing LSP servers in Flatpak, see bug 522883
+        if (!KSandbox::isInside()) {
+            params[QLatin1String("processId")] = QCoreApplication::applicationPid();
+        }
+
         // only add new style workspaces init if so specified
         if (folders) {
             params[QLatin1String("workspaceFolders")] = to_json(*folders);
         }
+
         write(init_request(QStringLiteral("initialize"), params), utils::mem_fun(&self_type::onInitializeReply, this));
     }
 

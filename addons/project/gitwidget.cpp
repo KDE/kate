@@ -336,6 +336,7 @@ void GitWidget::init()
     m_filterLineEdit = new QLineEdit(this);
     m_filterLineEdit->setPlaceholderText(i18n("Filter…"));
     m_filterLineEdit->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
+    m_filterLineEdit->setClearButtonEnabled(true);
     layout->addWidget(m_filterLineEdit);
 
     m_model = new GitStatusModel(this);

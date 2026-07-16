@@ -107,7 +107,9 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
     QWidget::connect(job, &KJob::result, parent, [parent, doc, oldFileUrl](KJob *finishedJob) {
         auto *copyJob = static_cast<KIO::CopyJob *>(finishedJob);
         if (!copyJob->error()) {
-            doc->openUrl(copyJob->destUrl());
+            // use Utils::absoluteUrl to have same normalization as via the KateDocManager
+            // will kill ../../ chains and fix issues with bad filetree nesting, bug 519737
+            doc->openUrl(Utils::absoluteUrl(copyJob->destUrl()));
             Q_EMIT doc->documentSavedOrUploaded(doc, true);
         } else {
             KMessageBox::error(parent,

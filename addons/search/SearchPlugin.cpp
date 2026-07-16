@@ -365,7 +365,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     KAcceleratorManager::setNoAccel(m_ui.resultWidget);
 
     // Gnome does not seem to have all icons we want, so we use fall-back icons for those that are missing.
-    QIcon dispOptIcon = QIcon::fromTheme(QStringLiteral("games-config-options"), QIcon::fromTheme(QStringLiteral("preferences-system")));
+    QIcon dispOptIcon = QIcon::fromTheme(QStringLiteral("configure"), QIcon::fromTheme(QStringLiteral("preferences-system")));
     QIcon matchCaseIcon = QIcon::fromTheme(QStringLiteral("format-text-superscript"), QIcon::fromTheme(QStringLiteral("format-text-bold")));
     QIcon useRegExpIcon = QIcon::fromTheme(QStringLiteral("code-context"), QIcon::fromTheme(QStringLiteral("edit-find-replace")));
     QIcon expandResultsIcon = QIcon::fromTheme(QStringLiteral("view-list-tree"), QIcon::fromTheme(QStringLiteral("format-indent-more")));

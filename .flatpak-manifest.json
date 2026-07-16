@@ -37,10 +37,16 @@
             "buildsystem": "cmake-ninja",
             "sources": [
                 {
-                    "type": "git",
-                    "url":"https://invent.kde.org/network/kio-extras.git"
+                    "type": "archive",
+                    "url":"https://download.kde.org/stable/release-service/26.04.3/src/kio-extras-26.04.3.tar.xz",
+                    "sha256": "8448075fdedd1e5ae43b865337f5ac3ca39037726dd0deaa061797fa84d31d63",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/kio-extras-$version.tar.xz"
+                    }
                 }
-            ]  
+            ]
         },
         {
             "name": "libssh",

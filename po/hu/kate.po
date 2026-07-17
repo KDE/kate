@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-05 00:47+0000\n"
+"POT-Creation-Date: 2026-07-17 02:43+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1487,27 +1487,27 @@ msgstr "Fájl átnevezése"
 msgid "New file name"
 msgstr "Új fájlnév"
 
-#: lib/katefileactions.cpp:114
+#: lib/katefileactions.cpp:116
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "A(z) „%1” fájl nem helyezhető át ide: „%2”."
 
-#: lib/katefileactions.cpp:135
+#: lib/katefileactions.cpp:137
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "Biztosan törölni szeretné a(z) „%1” fájlt?"
 
-#: lib/katefileactions.cpp:136
+#: lib/katefileactions.cpp:138
 #, kde-format
 msgid "Delete file"
 msgstr "Fájl törlése"
 
-#: lib/katefileactions.cpp:159
+#: lib/katefileactions.cpp:161
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "A(z) „%1” fájl nem törölhető."
 
-#: lib/katefileactions.cpp:218
+#: lib/katefileactions.cpp:220
 #, fuzzy, kde-format
 #| msgid "Application"
 msgid "&Other Application..."

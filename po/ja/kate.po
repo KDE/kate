@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-05 00:47+0000\n"
+"POT-Creation-Date: 2026-07-17 02:43+0000\n"
 "PO-Revision-Date: 2024-02-23 02:55+0900\n"
 "Last-Translator: Ryuichi Yamada <ryuichi_ya220@outlook.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -1471,27 +1471,27 @@ msgstr "ファイル名を変更"
 msgid "New file name"
 msgstr "新しいファイル名"
 
-#: lib/katefileactions.cpp:114
+#: lib/katefileactions.cpp:116
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "ファイル \"%1\" を \"%2\" に移動できませんでした。"
 
-#: lib/katefileactions.cpp:135
+#: lib/katefileactions.cpp:137
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "本当にファイル \"%1\" を削除しますか？"
 
-#: lib/katefileactions.cpp:136
+#: lib/katefileactions.cpp:138
 #, kde-format
 msgid "Delete file"
 msgstr "ファイルを削除"
 
-#: lib/katefileactions.cpp:159
+#: lib/katefileactions.cpp:161
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "ファイル \"%1\" を削除できませんでした。"
 
-#: lib/katefileactions.cpp:218
+#: lib/katefileactions.cpp:220
 #, kde-format
 msgid "&Other Application..."
 msgstr "その他のアプリケーション(&O)..."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-05 00:47+0000\n"
+"POT-Creation-Date: 2026-07-17 02:43+0000\n"
 "PO-Revision-Date: 2026-04-26 22:11+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1468,27 +1468,27 @@ msgstr "파일 이름 바꾸기"
 msgid "New file name"
 msgstr "새 파일 이름"
 
-#: lib/katefileactions.cpp:114
+#: lib/katefileactions.cpp:116
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "파일 \"%1\"을(를) \"%2\"(으)로 이동할 수 없습니다."
 
-#: lib/katefileactions.cpp:135
+#: lib/katefileactions.cpp:137
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "파일 \"%1\"을(를) 삭제하시겠습니까?"
 
-#: lib/katefileactions.cpp:136
+#: lib/katefileactions.cpp:138
 #, kde-format
 msgid "Delete file"
 msgstr "파일 삭제"
 
-#: lib/katefileactions.cpp:159
+#: lib/katefileactions.cpp:161
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "파일 \"%1\"을(를) 삭제할 수 없습니다."
 
-#: lib/katefileactions.cpp:218
+#: lib/katefileactions.cpp:220
 #, kde-format
 msgid "&Other Application..."
 msgstr "다른 앱(&O)..."

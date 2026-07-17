@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-05 00:47+0000\n"
+"POT-Creation-Date: 2026-07-17 02:43+0000\n"
 "PO-Revision-Date: 2026-06-30 21:43+0200\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1514,27 +1514,27 @@ msgstr "Datei umbenennen"
 msgid "New file name"
 msgstr "Neuer Dateiname"
 
-#: lib/katefileactions.cpp:114
+#: lib/katefileactions.cpp:116
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "Die Datei „%1“ kann nicht nach „%2“ verschoben werden"
 
-#: lib/katefileactions.cpp:135
+#: lib/katefileactions.cpp:137
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "Möchten Sie die Datei „%1“ wirklich löschen?"
 
-#: lib/katefileactions.cpp:136
+#: lib/katefileactions.cpp:138
 #, kde-format
 msgid "Delete file"
 msgstr "Datei löschen"
 
-#: lib/katefileactions.cpp:159
+#: lib/katefileactions.cpp:161
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "Die Datei „%1“ kann nicht gelöscht werden."
 
-#: lib/katefileactions.cpp:218
+#: lib/katefileactions.cpp:220
 #, kde-format
 msgid "&Other Application..."
 msgstr "&Andere Anwendung …"

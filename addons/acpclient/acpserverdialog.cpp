@@ -66,41 +66,45 @@ void ACPServerDialog::loadPresets()
 {
     qCDebug(ACPCLIENT) << "Loading ACP server presets";
 
-    // Load from resources
-    QStringList presetFiles = {QStringLiteral(":/kateacpclient/agents/vibe-acp.json"),
-                               QStringLiteral(":/kateacpclient/agents/claude-code.json"),
-                               QStringLiteral(":/kateacpclient/agents/cursor.json")};
+    // Load from settings.json resource
+    QFile settingsFile(QStringLiteral(":/kateacpclient/settings.json"));
+    if (settingsFile.exists() && settingsFile.open(QIODevice::ReadOnly)) {
+        QJsonParseError parseError;
+        QJsonDocument doc = QJsonDocument::fromJson(settingsFile.readAll(), &parseError);
 
-    for (const QString &presetFile : presetFiles) {
-        QFile file(presetFile);
-        if (file.exists() && file.open(QIODevice::ReadOnly)) {
-            QJsonParseError parseError;
-            QJsonDocument doc = QJsonDocument::fromJson(file.readAll(), &parseError);
+        if (parseError.error == QJsonParseError::NoError && doc.isObject()) {
+            QJsonObject root = doc.object();
 
-            if (parseError.error == QJsonParseError::NoError && doc.isObject()) {
-                ACPClientServer::ServerInfo info;
-                QJsonObject obj = doc.object();
+            if (root.contains(u"servers") && root[u"servers"].isArray()) {
+                QJsonArray servers = root[u"servers"].toArray();
 
-                info.name = obj[u"name"].toString();
-                info.command = obj[u"command"].toString();
-                info.autoStart = obj[u"auto_start"].toBool(false);
+                for (const QJsonValue &serverValue : servers) {
+                    if (serverValue.isObject()) {
+                        QJsonObject serverObj = serverValue.toObject();
+                        ACPClientServer::ServerInfo info;
 
-                if (obj.contains(u"arguments") && obj[u"arguments"].isArray()) {
-                    QJsonArray args = obj[u"arguments"].toArray();
-                    for (const QJsonValue &arg : args) {
-                        info.arguments.append(arg.toString());
+                        info.name = serverObj[u"name"].toString();
+                        info.command = serverObj[u"command"].toString();
+                        info.autoStart = serverObj[u"auto_start"].toBool(false);
+
+                        if (serverObj.contains(u"arguments") && serverObj[u"arguments"].isArray()) {
+                            QJsonArray args = serverObj[u"arguments"].toArray();
+                            for (const QJsonValue &arg : args) {
+                                info.arguments.append(arg.toString());
+                            }
+                        }
+
+                        if (serverObj.contains(u"metadata") && serverObj[u"metadata"].isObject()) {
+                            info.metadata = serverObj[u"metadata"].toObject();
+                        }
+
+                        m_presets.append(info);
+                        m_ui->presetComboBox->addItem(info.name);
                     }
                 }
-
-                if (obj.contains(u"metadata") && obj[u"metadata"].isObject()) {
-                    info.metadata = obj[u"metadata"].toObject();
-                }
-
-                m_presets.append(info);
-                m_ui->presetComboBox->addItem(info.name);
             }
-            file.close();
         }
+        settingsFile.close();
     }
 }
 

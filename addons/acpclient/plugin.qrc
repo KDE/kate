@@ -4,8 +4,5 @@
     </qresource>
     <qresource prefix="/kateacpclient">
         <file>settings.json</file>
-        <file>agents/vibe-acp.json</file>
-        <file>agents/claude-code.json</file>
-        <file>agents/cursor.json</file>
     </qresource>
 </RCC>

@@ -65,6 +65,14 @@ private:
     QString formatMessage(const QString &sender, const QString &message, bool isUser) const;
     void updateSessionState();
 
+    // Message handlers
+    void handleAgentMessageChunk(const QJsonObject &update);
+    void handlePlanUpdate(const QJsonObject &update);
+    void handleToolCallUpdate(const QJsonObject &update);
+    void handleToolCallStatusUpdate(const QJsonObject &update);
+    void handleUsageUpdate(const QJsonObject &update);
+    QString formatAgentTextMessage(const QString &text, const QString &messageId);
+
     ACPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     ACPClientServerManager *m_serverManager = nullptr;

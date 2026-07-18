@@ -40,6 +40,13 @@ const QString NOTIFICATION_SESSION_UPDATE = QStringLiteral("session/update");
 const QString NOTIFICATION_PROGRESS = QStringLiteral("$/progress");
 const QString NOTIFICATION_CANCELLATION = QStringLiteral("$/cancel_request");
 
+// Session update types
+const QString SESSION_UPDATE_PLAN = QStringLiteral("plan");
+const QString SESSION_UPDATE_AGENT_MESSAGE_CHUNK = QStringLiteral("agent_message_chunk");
+const QString SESSION_UPDATE_TOOL_CALL = QStringLiteral("tool_call");
+const QString SESSION_UPDATE_TOOL_CALL_UPDATE = QStringLiteral("tool_call_update");
+const QString SESSION_UPDATE_USAGE_UPDATE = QStringLiteral("usage_update");
+
 // JSON-RPC fields
 const QString JSONRPC_VERSION_KEY = QStringLiteral("jsonrpc");
 const QString JSONRPC_VERSION_VALUE = QStringLiteral("2.0");

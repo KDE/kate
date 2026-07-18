@@ -16,6 +16,7 @@
 #include <QDateTime>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QRegularExpression>
 #include <QTextBlockFormat>
 #include <QTextCharFormat>
 #include <QTextCursor>
@@ -216,9 +217,6 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
 
     QJsonObject obj = message.object();
 
-    // Display raw JSON for all responses and notifications in chat for debugging
-    QString rawJson = QString::fromUtf8(message.toJson(QJsonDocument::Compact));
-
     // Handle error responses
     if (obj.contains(u"error")) {
         QJsonObject errorObj = obj[u"error"].toObject();
@@ -231,7 +229,11 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
     // Handle successful responses
     if (obj.contains(u"id") && !obj.contains(u"method")) {
         if (obj.contains(u"result")) {
-            appendMessage(QStringLiteral("System"), i18n("Response: %1", rawJson));
+            QJsonObject result = obj[u"result"].toObject();
+            if (result.contains(u"stopReason")) {
+                QString stopReason = result[u"stopReason"].toString();
+                appendMessage(i18n("ACP Agent"), i18n("Turn completed: %1", stopReason));
+            }
         }
         return;
     }
@@ -241,10 +243,35 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
         if (obj.contains(u"params") && obj[u"params"].isObject()) {
             QJsonObject params = obj[u"params"].toObject();
             QString sessionId = params[u"sessionId"].toString();
-            QString status = params[u"status"].toString();
-            QString msg = params[u"message"].toString();
 
-            if (sessionId == m_sessionId) {
+            // Only process messages for our current session
+            if (sessionId != m_sessionId) {
+                return;
+            }
+
+            // Check for sessionUpdate type
+            if (params.contains(u"update") && params[u"update"].isObject()) {
+                QJsonObject update = params[u"update"].toObject();
+                QString updateType = update[u"sessionUpdate"].toString();
+
+                // Handle different update types
+                if (updateType == ACP::SESSION_UPDATE_AGENT_MESSAGE_CHUNK) {
+                    handleAgentMessageChunk(update);
+                } else if (updateType == ACP::SESSION_UPDATE_PLAN) {
+                    handlePlanUpdate(update);
+                } else if (updateType == ACP::SESSION_UPDATE_TOOL_CALL) {
+                    handleToolCallUpdate(update);
+                } else if (updateType == ACP::SESSION_UPDATE_TOOL_CALL_UPDATE) {
+                    handleToolCallStatusUpdate(update);
+                } else if (updateType == ACP::SESSION_UPDATE_USAGE_UPDATE) {
+                    handleUsageUpdate(update);
+                }
+            }
+            // Fallback for legacy status-based messages
+            else if (params.contains(u"status")) {
+                QString status = params[u"status"].toString();
+                QString msg = params[u"message"].toString();
+
                 if (status == QStringLiteral("idle")) {
                     QString stopReason = params[u"stopReason"].toString();
                     if (!stopReason.isEmpty()) {
@@ -273,6 +300,256 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
             }
         }
     }
+}
+
+void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
+{
+    if (update.contains(u"content") && update[u"content"].isObject()) {
+        QJsonObject content = update[u"content"].toObject();
+        QString messageId = update[u"messageId"].toString();
+
+        if (content.contains(u"type") && content[u"type"].toString() == QStringLiteral("text")) {
+            QString text = content[u"text"].toString();
+
+            // Check if this is a new message or continuation
+            static QString lastMessageId;
+            if (messageId != lastMessageId && !messageId.isEmpty()) {
+                // New message - add with header
+                lastMessageId = messageId;
+                QString html = formatAgentTextMessage(text, messageId);
+                m_ui->chatDisplay->insertHtml(html);
+            } else {
+                // Continuation of previous message - append text
+                QString formattedText = text;
+                formattedText.replace(QLatin1Char('\n'), QStringLiteral("<br/>"));
+                m_ui->chatDisplay->insertHtml(formattedText);
+            }
+
+            // Ensure cursor is visible and scroll to bottom
+            m_ui->chatDisplay->ensureCursorVisible();
+            QTextCursor cursor = m_ui->chatDisplay->textCursor();
+            cursor.movePosition(QTextCursor::End);
+            m_ui->chatDisplay->setTextCursor(cursor);
+        }
+    }
+}
+
+void ACPClientChatWidget::handlePlanUpdate(const QJsonObject &update)
+{
+    if (update.contains(u"entries") && update[u"entries"].isArray()) {
+        QJsonArray entries = update[u"entries"].toArray();
+
+        QString html = QStringLiteral("<div style='margin: 8px 0; padding: 8px; background-color: #fff; border-left: 3px solid #3498db;'>");
+        html += QStringLiteral("<strong style='color: #2980b9;'>%1:</strong>").arg(i18n("Plan"));
+        html += QStringLiteral("<ul style='margin: 4px 0; padding-left: 20px;'>");
+
+        for (const QJsonValue &entryValue : entries) {
+            if (entryValue.isObject()) {
+                QJsonObject entry = entryValue.toObject();
+                QString content = entry[u"content"].toString();
+                QString priority = entry[u"priority"].toString();
+                QString status = entry[u"status"].toString();
+
+                // Map priority to color
+                QString priorityColor;
+                if (priority == QStringLiteral("high")) {
+                    priorityColor = QStringLiteral("#e74c3c");
+                } else if (priority == QStringLiteral("medium")) {
+                    priorityColor = QStringLiteral("#f39c12");
+                } else {
+                    priorityColor = QStringLiteral("#95a5a6");
+                }
+
+                // Map status to icon
+                QString statusIcon;
+                if (status == QStringLiteral("completed")) {
+                    statusIcon = QStringLiteral("[DONE]");
+                } else if (status == QStringLiteral("in_progress")) {
+                    statusIcon = QStringLiteral("[RUNNING]");
+                } else if (status == QStringLiteral("pending")) {
+                    statusIcon = QStringLiteral("[PENDING]");
+                } else if (status == QStringLiteral("error")) {
+                    statusIcon = QStringLiteral("[ERROR]");
+                } else {
+                    statusIcon = QString();
+                }
+
+                html += QStringLiteral("<li style='margin: 2px 0; color: %1;'>").arg(priorityColor);
+                if (!statusIcon.isEmpty()) {
+                    html += QStringLiteral("<span style='font-weight: bold;'>%1</span> ").arg(statusIcon);
+                }
+                html += QStringLiteral("<span style='color: %1; font-weight: bold;'>%2:</span> %3</li>")
+                            .arg(priorityColor, priority.toHtmlEscaped(), content.toHtmlEscaped());
+            }
+        }
+
+        html += QStringLiteral("</ul></div>");
+
+        m_ui->chatDisplay->insertHtml(html);
+        m_ui->chatDisplay->ensureCursorVisible();
+        QTextCursor cursor = m_ui->chatDisplay->textCursor();
+        cursor.movePosition(QTextCursor::End);
+        m_ui->chatDisplay->setTextCursor(cursor);
+    }
+}
+
+void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
+{
+    QString toolCallId = update[u"toolCallId"].toString();
+    QString title = update[u"title"].toString();
+    QString kind = update[u"kind"].toString();
+    QString status = update[u"status"].toString();
+
+    QString statusText;
+    QString statusColor;
+    if (status == QStringLiteral("pending")) {
+        statusText = i18n("Pending");
+        statusColor = QStringLiteral("#f39c12");
+    } else if (status == QStringLiteral("in_progress")) {
+        statusText = i18n("In Progress");
+        statusColor = QStringLiteral("#3498db");
+    } else if (status == QStringLiteral("completed")) {
+        statusText = i18n("Completed");
+        statusColor = QStringLiteral("#27ae60");
+    } else if (status == QStringLiteral("error")) {
+        statusText = i18n("Error");
+        statusColor = QStringLiteral("#e74c3c");
+    } else {
+        statusText = status;
+        statusColor = QStringLiteral("#7f8c8d");
+    }
+
+    QString html = QStringLiteral("<div style='margin: 6px 0; padding: 6px; background-color: #f8f9fa; border-left: 3px solid %1;'>").arg(statusColor);
+    html += QStringLiteral("<strong>%1:</strong> ").arg(i18n("Tool Call"));
+    if (!title.isEmpty()) {
+        html += QStringLiteral("<span style='color: #2c3e50;'>%1</span> ").arg(title.toHtmlEscaped());
+    }
+    if (!kind.isEmpty()) {
+        html += QStringLiteral("<span style='color: #7f8c8d; font-size: small;'>(%1)</span> ").arg(kind.toHtmlEscaped());
+    }
+    html += QStringLiteral("<span style='color: %1; font-weight: bold;'>%2</span>").arg(statusColor, statusText.toHtmlEscaped());
+    if (!toolCallId.isEmpty()) {
+        html += QStringLiteral(" <span style='color: #95a5a6; font-size: small;'>[ID: %1]</span>").arg(toolCallId.toHtmlEscaped());
+    }
+    html += QStringLiteral("</div>");
+
+    m_ui->chatDisplay->insertHtml(html);
+    m_ui->chatDisplay->ensureCursorVisible();
+    QTextCursor cursor = m_ui->chatDisplay->textCursor();
+    cursor.movePosition(QTextCursor::End);
+    m_ui->chatDisplay->setTextCursor(cursor);
+}
+
+void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
+{
+    QString toolCallId = update[u"toolCallId"].toString();
+    QString status = update[u"status"].toString();
+
+    QString statusText;
+    QString statusColor;
+    if (status == QStringLiteral("pending")) {
+        statusText = i18n("Pending");
+        statusColor = QStringLiteral("#f39c12");
+    } else if (status == QStringLiteral("in_progress")) {
+        statusText = i18n("In Progress");
+        statusColor = QStringLiteral("#3498db");
+    } else if (status == QStringLiteral("completed")) {
+        statusText = i18n("Completed");
+        statusColor = QStringLiteral("#27ae60");
+    } else if (status == QStringLiteral("error")) {
+        statusText = i18n("Error");
+        statusColor = QStringLiteral("#e74c3c");
+    } else {
+        statusText = status;
+        statusColor = QStringLiteral("#7f8c8d");
+    }
+
+    QString html = QStringLiteral("<div style='margin: 4px 0; padding: 4px 8px; background-color: #ecf0f1; border-left: 3px solid %1; font-size: small;'>")
+                       .arg(statusColor);
+    html += QStringLiteral("<strong>%1:</strong> ").arg(i18n("Tool Update"));
+    html += QStringLiteral("%1 ").arg(statusText.toHtmlEscaped());
+    if (!toolCallId.isEmpty()) {
+        html += QStringLiteral("<span style='color: #7f8c8d;'>[ID: %1]</span>").arg(toolCallId.toHtmlEscaped());
+    }
+
+    // Check for content
+    if (update.contains(u"content") && update[u"content"].isArray()) {
+        QJsonArray contentArray = update[u"content"].toArray();
+        for (const QJsonValue &contentValue : contentArray) {
+            if (contentValue.isObject()) {
+                QJsonObject content = contentValue.toObject();
+                if (content.contains(u"content") && content[u"content"].isObject()) {
+                    QJsonObject innerContent = content[u"content"].toObject();
+                    if (innerContent.contains(u"type") && innerContent[u"type"].toString() == QStringLiteral("text")) {
+                        QString text = innerContent[u"text"].toString();
+                        QString formattedText = text;
+                        formattedText.replace(QLatin1Char('\n'), QStringLiteral("<br/>"));
+                        html += QStringLiteral(
+                                    "<br/><pre style='margin: 4px 0; padding: 4px; background-color: #fff; border-radius: 2px; overflow-x: auto; white-space: "
+                                    "pre-wrap;'>%1</pre>")
+                                    .arg(formattedText.toHtmlEscaped());
+                    }
+                }
+            }
+        }
+    }
+
+    html += QStringLiteral("</div>");
+
+    m_ui->chatDisplay->insertHtml(html);
+    m_ui->chatDisplay->ensureCursorVisible();
+    QTextCursor cursor = m_ui->chatDisplay->textCursor();
+    cursor.movePosition(QTextCursor::End);
+    m_ui->chatDisplay->setTextCursor(cursor);
+}
+
+void ACPClientChatWidget::handleUsageUpdate(const QJsonObject &update)
+{
+    qint64 used = update[u"used"].toInt();
+    qint64 size = update[u"size"].toInt();
+
+    QString html = QStringLiteral("<div style='margin: 6px 0; padding: 6px; background-color: #f8f9fa; border-left: 3px solid #9b59b6;'>");
+    html += QStringLiteral("<strong>%1:</strong> ").arg(i18n("Usage"));
+    html += QStringLiteral("%1 / %2 tokens used").arg(QString::number(used), QString::number(size));
+
+    // Handle cost if present
+    if (update.contains(u"cost") && update[u"cost"].isObject()) {
+        QJsonObject cost = update[u"cost"].toObject();
+        if (cost.contains(u"amount") && cost.contains(u"currency")) {
+            double amount = cost[u"amount"].toDouble();
+            QString currency = cost[u"currency"].toString();
+            html += QStringLiteral(" | <span style='color: #27ae60;'>%1 %2</span>").arg(QString::number(amount, 'f', 4), currency);
+        }
+    }
+
+    html += QStringLiteral("</div>");
+
+    m_ui->chatDisplay->insertHtml(html);
+    m_ui->chatDisplay->ensureCursorVisible();
+    QTextCursor cursor = m_ui->chatDisplay->textCursor();
+    cursor.movePosition(QTextCursor::End);
+    m_ui->chatDisplay->setTextCursor(cursor);
+}
+
+QString ACPClientChatWidget::formatAgentTextMessage(const QString &text, const QString &messageId)
+{
+    QString timestamp = QDateTime::currentDateTime().toString(QStringLiteral("hh:mm:ss"));
+    QString html = QStringLiteral("<p class='agent'><span class='timestamp'>[%1]</span> <strong>%2:</strong> ").arg(timestamp, i18n("Agent"));
+
+    if (!messageId.isEmpty()) {
+        html += QStringLiteral("<span style='color: #7f8c8d; font-size: small;'>[%1] </span>").arg(messageId);
+    }
+
+    // Format the text: preserve newlines and format code blocks
+    QString formattedText = text;
+    formattedText.replace(QLatin1Char('\n'), QStringLiteral("<br/>"));
+    formattedText.replace(QRegularExpression(QLatin1String("```(\\w*)\n([\\s\\S]*?)\n```")),
+                          QStringLiteral("<pre style='background-color: #f5f5f5; padding: 4px; border-radius: 2px; overflow-x: auto;'><code>\2</code></pre>"));
+    formattedText.replace(QRegularExpression(QLatin1String("`([^`]+)`")),
+                          QStringLiteral("<code style='background-color: #f5f5f5; padding: 2px; border-radius: 2px;'>\1</code>"));
+
+    html += QStringLiteral("%1</p>").arg(formattedText);
+    return html;
 }
 
 void ACPClientChatWidget::updateSessionState()

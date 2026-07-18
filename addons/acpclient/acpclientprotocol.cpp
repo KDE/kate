@@ -81,29 +81,6 @@ QJsonDocument ACPProtocol::createSessionNewRequest(const SessionNewParams &param
 
     QJsonObject paramsObj;
 
-    // Add client metadata
-    QJsonObject metadata;
-    QString version = KAboutData::applicationData().version();
-    if (version.isEmpty()) {
-        version = QStringLiteral("26.11.70");
-    }
-    metadata.insert(u"client_name", QStringLiteral("Kate"));
-    metadata.insert(u"client_version", version);
-
-    // Merge with any provided metadata, but don't overwrite client_name or client_version with empty values
-    if (!params.metadata.isEmpty()) {
-        for (auto it = params.metadata.constBegin(); it != params.metadata.constEnd(); ++it) {
-            QString key = it.key();
-            QJsonValue value = it.value();
-            // Skip empty string values for client_name and client_version
-            if (value.isString() && value.toString().isEmpty() && (key == u"client_name" || key == u"client_version")) {
-                continue;
-            }
-            metadata.insert(key, value);
-        }
-    }
-    paramsObj[u"metadata"] = metadata;
-
     if (!params.cwd.isEmpty()) {
         paramsObj[u"cwd"] = params.cwd;
     }

@@ -91,7 +91,6 @@ private Q_SLOTS:
 private:
     void setupProcessConnection();
     void readFromProcess();
-    void parseIncomingData(const QByteArray &data);
     void handleMessage(const QJsonDocument &doc);
     void setState(ServerState state);
 
@@ -104,9 +103,6 @@ private:
     // Connection objects
     std::unique_ptr<QProcess> m_process;
 
-    // Buffer for incomplete messages
-    QByteArray m_messageBuffer;
-
     // Request tracking
-    std::map<QString, std::function<void(const QJsonDocument &)>> m_pendingRequests;
+    std::map<qint64, std::function<void(const QJsonDocument &)>> m_pendingRequests;
 };

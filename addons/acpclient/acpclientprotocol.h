@@ -173,7 +173,7 @@ struct ACPError {
 
 // Message types for internal processing
 struct ACPMessage {
-    QString id;
+    qint64 id = 0;
     QString method;
     QJsonObject params;
     QJsonObject result;
@@ -186,16 +186,16 @@ struct ACPMessage {
 class ACPProtocol
 {
 public:
-    static QJsonDocument createInitializeRequest(const InitializeParams &params, const QString &requestId);
-    static QJsonDocument createAuthLoginRequest(const AuthLoginParams &params, const QString &requestId);
-    static QJsonDocument createSessionNewRequest(const SessionNewParams &params, const QString &requestId);
-    static QJsonDocument createSessionResumeRequest(const SessionResumeParams &params, const QString &requestId);
-    static QJsonDocument createSessionListRequest(const QString &requestId);
-    static QJsonDocument createSessionDeleteRequest(const QString &sessionId, const QString &requestId);
-    static QJsonDocument createSessionPromptRequest(const SessionPromptParams &params, const QString &requestId);
-    static QJsonDocument createSessionCancelRequest(const QString &sessionId, const QString &requestId);
-    static QJsonDocument createToolsListRequest(const QString &requestId);
-    static QJsonDocument createToolsCallRequest(const QString &toolId, const QJsonObject &arguments, const QString &requestId);
+    static QJsonDocument createInitializeRequest(const InitializeParams &params, qint64 requestId);
+    static QJsonDocument createAuthLoginRequest(const AuthLoginParams &params, qint64 requestId);
+    static QJsonDocument createSessionNewRequest(const SessionNewParams &params, qint64 requestId);
+    static QJsonDocument createSessionResumeRequest(const SessionResumeParams &params, qint64 requestId);
+    static QJsonDocument createSessionListRequest(qint64 requestId);
+    static QJsonDocument createSessionDeleteRequest(const QString &sessionId, qint64 requestId);
+    static QJsonDocument createSessionPromptRequest(const SessionPromptParams &params, qint64 requestId);
+    static QJsonDocument createSessionCancelRequest(const QString &sessionId, qint64 requestId);
+    static QJsonDocument createToolsListRequest(qint64 requestId);
+    static QJsonDocument createToolsCallRequest(const QString &toolId, const QJsonObject &arguments, qint64 requestId);
 
     static QJsonDocument createSessionUpdateNotification(const SessionUpdateNotification &notification);
     static QJsonDocument createProgressNotification(const ProgressNotification &notification);
@@ -207,7 +207,7 @@ public:
     static bool parseProgressNotification(const QJsonDocument &doc, ProgressNotification &progress);
     static bool parseErrorResponse(const QJsonDocument &doc, ACPError &error);
 
-    static QString generateRequestId();
+    static qint64 generateRequestId();
     static QString getProtocolVersion();
 };
 

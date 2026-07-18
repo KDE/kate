@@ -76,7 +76,7 @@ Q_SIGNALS:
     void sessionListReceived(const QJsonArray &sessions);
     void sessionDeleted(const QString &sessionId);
     void toolsReceived(const QJsonArray &tools);
-    void toolCallCompleted(const QString &callId, const QJsonObject &result);
+    void toolCallCompleted(qint64 callId, const QJsonObject &result);
     void messageReceived(const QJsonDocument &message);
     void errorOccurred(const QString &error);
 
@@ -96,7 +96,7 @@ private:
     QString m_activeServerName;
 
     // Track pending session creation requests
-    std::map<QString, QString> m_pendingSessionRequests;
+    std::map<qint64, qint64> m_pendingSessionRequests;
 
 public:
     static ACPClientServerManager *new_(ACPClientPlugin *plugin, QObject *parent = nullptr);

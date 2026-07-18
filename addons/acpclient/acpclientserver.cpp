@@ -99,15 +99,20 @@ void ACPClientServer::initializeServer()
 
     setState(ServerState::Initializing);
 
+    QString version = KAboutData::applicationData().version();
+    if (version.isEmpty()) {
+        version = QStringLiteral("26.11.70");
+    }
+
     ACP::InitializeParams params;
     params.clientName = QStringLiteral("Kate");
-    params.clientVersion = KAboutData::applicationData().version();
+    params.clientVersion = version;
     params.protocolVersion = ACP::ACPProtocol::getProtocolVersion();
     params.capabilities = ACP::ClientCapabilities();
     params.metadata.insert(u"client_name", QStringLiteral("Kate"));
-    params.metadata.insert(u"client_version", KAboutData::applicationData().version());
+    params.metadata.insert(u"client_version", version);
 
-    QString requestId = ACP::ACPProtocol::generateRequestId();
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createInitializeRequest(params, requestId);
 
     // Track the request
@@ -139,10 +144,16 @@ void ACPClientServer::readFromProcess()
     if (!m_process)
         return;
 
-    QByteArray data = m_process->readAll();
-    if (!data.isEmpty()) {
-        qCDebug(ACPCLIENT) << "Received data:" << data;
-        parseIncomingData(data);
+    // read the process output line wise
+    while (m_process->canReadLine()) {
+        const QByteArray line = m_process->readLine();
+        QJsonParseError parseError;
+        const QJsonDocument doc = QJsonDocument::fromJson(line, &parseError);
+        if (parseError.error == QJsonParseError::NoError) {
+            handleMessage(doc);
+        } else {
+            qCWarning(ACPCLIENT) << "JSON parse error:" << parseError.errorString();
+        }
     }
 }
 
@@ -171,50 +182,14 @@ void ACPClientServer::onProcessFinished(int exitCode, QProcess::ExitStatus)
     Q_EMIT disconnected();
 }
 
-void ACPClientServer::parseIncomingData(const QByteArray &data)
-{
-    // Append to buffer
-    m_messageBuffer.append(data);
-
-    // Try to parse JSON documents (delimited by newlines)
-    int pos = 0;
-    while (pos < m_messageBuffer.size()) {
-        int endPos = m_messageBuffer.indexOf('\n', pos);
-        if (endPos == -1) {
-            break; // Incomplete message
-        }
-
-        QByteArray messageData = m_messageBuffer.mid(pos, endPos - pos);
-        pos = endPos + 1;
-
-        if (messageData.isEmpty()) {
-            continue; // Skip empty lines
-        }
-
-        QJsonParseError parseError;
-        QJsonDocument doc = QJsonDocument::fromJson(messageData, &parseError);
-
-        if (parseError.error == QJsonParseError::NoError) {
-            handleMessage(doc);
-        } else {
-            qCWarning(ACPCLIENT) << "JSON parse error:" << parseError.errorString();
-        }
-    }
-
-    // Remove processed data from buffer
-    if (pos > 0) {
-        m_messageBuffer = m_messageBuffer.mid(pos);
-    }
-}
-
 void ACPClientServer::handleMessage(const QJsonDocument &doc)
 {
-    qCDebug(ACPCLIENT) << "Handling message:" << doc.toJson();
+    qCDebug(ACPCLIENT) << "Handling message:\n" << doc.toJson(QJsonDocument::Indented) << "\n\n";
 
     ACP::ACPMessage message;
     if (ACP::ACPProtocol::parseMessage(doc, message)) {
         // Check if it's a response to a pending request
-        if (message.isResponse && !message.id.isEmpty()) {
+        if (message.isResponse && message.id != 0) {
             auto it = m_pendingRequests.find(message.id);
             if (it != m_pendingRequests.end()) {
                 it->second(doc);

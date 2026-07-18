@@ -212,7 +212,7 @@ QString ACPClientServerManager::createSession()
     params.cwd = QDir::currentPath();
     // Set mcpServers to empty array (vibe-acp expects a list)
     params.mcpServers = QJsonArray();
-    QString requestId = ACP::ACPProtocol::generateRequestId();
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionNewRequest(params, requestId);
 
     // Track the request for response - store the requestId and emit signal when response arrives
@@ -237,7 +237,7 @@ void ACPClientServerManager::sendPrompt(const QString &sessionId, const QString 
     params.sessionId = sessionId;
     params.message = message;
 
-    QString requestId = ACP::ACPProtocol::generateRequestId();
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionPromptRequest(params, requestId);
 
     server->sendMessage(request);
@@ -251,7 +251,7 @@ void ACPClientServerManager::listSessions()
         return;
     }
 
-    QString requestId = ACP::ACPProtocol::generateRequestId();
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionListRequest(requestId);
 
     // For now, we need to implement request tracking in the server
@@ -266,7 +266,7 @@ void ACPClientServerManager::deleteSession(const QString &sessionId)
         return;
     }
 
-    QString requestId = ACP::ACPProtocol::generateRequestId();
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionDeleteRequest(sessionId, requestId);
 
     server->sendMessage(request);
@@ -281,7 +281,7 @@ void ACPClientServerManager::listTools()
         return;
     }
 
-    QString requestId = ACP::ACPProtocol::generateRequestId();
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createToolsListRequest(requestId);
 
     server->sendMessage(request);
@@ -295,7 +295,7 @@ void ACPClientServerManager::callTool(const QString &toolId, const QJsonObject &
         return;
     }
 
-    QString requestId = ACP::ACPProtocol::generateRequestId();
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createToolsCallRequest(toolId, arguments, requestId);
 
     server->sendMessage(request);
@@ -343,7 +343,7 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
     ACP::ACPMessage parsedMessage;
     if (ACP::ACPProtocol::parseMessage(message, parsedMessage)) {
         // Check for session/new response by matching the request ID
-        if (parsedMessage.isResponse && !parsedMessage.id.isEmpty()) {
+        if (parsedMessage.isResponse && parsedMessage.id != 0) {
             // Check if this is a response to a session/new request
             if (m_pendingSessionRequests.find(parsedMessage.id) != m_pendingSessionRequests.end()) {
                 QJsonObject result = parsedMessage.result;

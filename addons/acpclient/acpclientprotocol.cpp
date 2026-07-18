@@ -7,6 +7,7 @@
 #include "acpclientprotocol.h"
 
 #include <KAboutData>
+#include <KLocalizedString>
 
 namespace ACP
 {
@@ -19,40 +20,19 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
     request[JSONRPC_METHOD] = METHOD_INITIALIZE;
 
     QJsonObject paramsObj;
-    paramsObj[u"clientName"] = params.clientName;
-    paramsObj[u"clientVersion"] = params.clientVersion;
     paramsObj[u"protocolVersion"] = params.protocolVersion;
 
-    QJsonObject capabilitiesObj;
-    capabilitiesObj[u"supportsSessions"] = params.capabilities.supportsSessions;
-    capabilitiesObj[u"supportsTools"] = params.capabilities.supportsTools;
-    capabilitiesObj[u"supportsProgress"] = params.capabilities.supportsProgress;
-    capabilitiesObj[u"supportsAuthentication"] = params.capabilities.supportsAuthentication;
-    capabilitiesObj[u"supportedProtocolVersions"] = QJsonArray::fromStringList(params.capabilities.supportedProtocolVersions);
+    QJsonObject clientCapabilities;
+    clientCapabilities[u"terminal"] = true;
+    paramsObj[u"clientCapabilities"] = clientCapabilities;
 
-    if (!params.capabilities.customCapabilities.isEmpty()) {
-        capabilitiesObj[u"customCapabilities"] = params.capabilities.customCapabilities;
-    }
-
-    paramsObj[u"capabilities"] = capabilitiesObj;
-
-    // Include metadata object with client info for vibe-acp
-    QJsonObject metadata = params.metadata;
-    // Ensure client_name and client_version are never empty
-    if (params.clientName.isEmpty()) {
-        metadata.insert(u"client_name", QStringLiteral("Kate"));
-    } else {
-        metadata.insert(u"client_name", params.clientName);
-    }
-    if (params.clientVersion.isEmpty()) {
-        metadata.insert(u"client_version", QStringLiteral("26.11.70"));
-    } else {
-        metadata.insert(u"client_version", params.clientVersion);
-    }
-    paramsObj[u"metadata"] = metadata;
+    QJsonObject clientInfo;
+    clientInfo[u"name"] = QStringLiteral("kate");
+    clientInfo[u"title"] = i18n("Kate ACP Client");
+    clientInfo[u"version"] = KAboutData::applicationData().version();
+    paramsObj[u"clientInfo"] = clientInfo;
 
     request[JSONRPC_PARAMS] = paramsObj;
-
     return QJsonDocument(request);
 }
 

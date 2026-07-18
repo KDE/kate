@@ -335,11 +335,6 @@ void ACPClientServerManager::onServerError(const QString &error)
 
 void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &message)
 {
-    ACPClientServer *server = qobject_cast<ACPClientServer *>(sender());
-    if (server) {
-        qCDebug(ACPCLIENT) << "Message received from" << server->info().name << ":" << message.toJson();
-    }
-
     ACP::ACPMessage parsedMessage;
     if (ACP::ACPProtocol::parseMessage(message, parsedMessage)) {
         // Check for session/new response by matching the request ID

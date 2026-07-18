@@ -269,8 +269,6 @@ void ACPClientPluginView::onServerDisconnected()
 
 void ACPClientPluginView::onMessageReceived(const QJsonDocument &message)
 {
-    qCDebug(ACPCLIENT) << "Message received in view:" << message.toJson();
-
     // Parse and display messages as needed
     if (message.isObject()) {
         QJsonObject obj = message.object();

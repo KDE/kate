@@ -210,8 +210,6 @@ void ACPClientChatWidget::onInputReturnPressed()
 
 void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
 {
-    qCDebug(ACPCLIENT) << "Received server message:" << message.toJson();
-
     if (!message.isObject()) {
         return;
     }

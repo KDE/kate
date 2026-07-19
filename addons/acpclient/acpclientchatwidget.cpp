@@ -14,9 +14,12 @@
 
 #include <KLocalizedString>
 
+#include <QClipboard>
+#include <QContextMenuEvent>
 #include <QDateTime>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QMenu>
 #include <QMessageBox>
 #include <QScrollArea>
 #include <QTimer>
@@ -46,6 +49,7 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     connect(m_ui->messageInput, &QLineEdit::returnPressed, this, &ACPClientChatWidget::onInputReturnPressed);
     connect(m_ui->newSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::startNewSession);
     connect(m_ui->endSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::sessionEnded);
+    connect(m_ui->copyButton, &QPushButton::clicked, this, &ACPClientChatWidget::copyChatText);
 
     // Get the scroll area and message container from UI
     m_chatScrollArea = m_ui->chatScrollArea;
@@ -58,6 +62,9 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
         m_chatMessagesLayout->setSpacing(2);
         m_chatMessagesLayout->setContentsMargins(4, 4, 4, 4);
     }
+
+    // Install event filter on chat display container for context menu
+    m_chatDisplayContainer->installEventFilter(this);
 
     // Update UI state
     updateSessionState();
@@ -187,6 +194,34 @@ void ACPClientChatWidget::clearMessages()
             child->widget()->deleteLater();
         }
         delete child;
+    }
+}
+
+QString ACPClientChatWidget::getAllChatText() const
+{
+    QString allText;
+    for (ACPChatMessageWidget *widget : m_messageWidgets) {
+        if (!allText.isEmpty()) {
+            allText += QLatin1String("\n\n");
+        }
+        // Format: [timestamp] sender: content
+        allText +=
+            QStringLiteral("[%1] %2: %3")
+                .arg(widget->findChild<QLabel *>(QStringLiteral("timestampLabel")) ? widget->findChild<QLabel *>(QStringLiteral("timestampLabel"))->text()
+                                                                                   : QString(),
+                     widget->findChild<QLabel *>(QStringLiteral("senderLabel")) ? widget->findChild<QLabel *>(QStringLiteral("senderLabel"))->text()
+                                                                                : QString(),
+                     widget->content());
+    }
+    return allText;
+}
+
+void ACPClientChatWidget::copyChatText()
+{
+    QString text = getAllChatText();
+    if (!text.isEmpty()) {
+        QClipboard *clipboard = QApplication::clipboard();
+        clipboard->setText(text);
     }
 }
 
@@ -666,6 +701,23 @@ void ACPClientChatWidget::updateSessionState()
         m_ui->sessionLabel->setText(i18n("ACP Chat: Session %1", m_sessionId));
         m_ui->endSessionButton->setEnabled(true);
     }
+}
+
+bool ACPClientChatWidget::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == m_chatDisplayContainer && event->type() == QEvent::ContextMenu) {
+        QContextMenuEvent *contextEvent = static_cast<QContextMenuEvent *>(event);
+
+        QMenu *menu = new QMenu(m_chatDisplayContainer);
+        QAction *copyAction = menu->addAction(i18n("Copy All"));
+        copyAction->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
+        connect(copyAction, &QAction::triggered, this, &ACPClientChatWidget::copyChatText);
+
+        menu->exec(contextEvent->globalPos());
+        delete menu;
+        return true;
+    }
+    return QWidget::eventFilter(watched, event);
 }
 
 #include "moc_acpclientchatwidget.cpp"

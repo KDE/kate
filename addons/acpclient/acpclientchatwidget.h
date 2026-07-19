@@ -14,6 +14,8 @@
 
 #include <KTextEditor/MainWindow>
 
+class QMenu;
+
 class ACPClientPlugin;
 class ACPClientServer;
 class ACPClientServerManager;
@@ -63,11 +65,13 @@ private Q_SLOTS:
     void onInputReturnPressed();
     void onServerMessageReceived(const QJsonDocument &message);
     void onPermissionRequested(qint64 requestId, const QJsonObject &toolCall, const QJsonArray &options);
+    void copyChatText();
 
 private:
     void updateSessionState();
     void addMessageWidget(ACPChatMessageWidget *widget);
     void clearMessages();
+    QString getAllChatText() const;
 
     // Message handlers
     void handleAgentMessageChunk(const QJsonObject &update);
@@ -91,4 +95,7 @@ private:
     QScrollArea *m_chatScrollArea = nullptr;
     QWidget *m_chatDisplayContainer = nullptr;
     QList<ACPChatMessageWidget *> m_messageWidgets;
+
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;
 };

@@ -29,7 +29,8 @@ public:
         Plan, // Plan updates
         ToolCall, // Tool call notification
         ToolCallUpdate, // Tool call progress update
-        Usage // Usage updates
+        Usage, // Usage updates
+        PermissionRequest // Permission request with buttons
     };
 
     explicit ACPChatMessageWidget(MessageType type, QWidget *parent = nullptr);
@@ -53,9 +54,15 @@ public:
     // For usage updates
     void setUsageInfo(qint64 used, qint64 size, double cost = 0.0, const QString &currency = QString());
 
+    // For permission requests
+    void setPermissionRequest(qint64 requestId, const QString &title, const QString &command, const QString &allowOptionId, const QString &rejectOptionId);
+
     MessageType type() const;
     QString messageId() const;
     QString content() const;
+
+Q_SIGNALS:
+    void permissionResponse(qint64 requestId, const QString &optionId);
 
 private:
     void setupUI();
@@ -90,6 +97,13 @@ private:
     qint64 m_sizeTokens;
     double m_cost;
     QString m_currency;
+
+    // Permission request data
+    qint64 m_requestId;
+    QString m_permissionTitle;
+    QString m_permissionCommand;
+    QString m_permissionAllowOptionId;
+    QString m_permissionRejectOptionId;
 
     // UI elements
     QWidget *m_headerWidget;

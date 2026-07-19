@@ -9,9 +9,12 @@
 #include <KLocalizedString>
 
 #include <QHBoxLayout>
+#include <QJsonDocument>
 #include <QLabel>
 #include <QPalette>
+#include <QPushButton>
 #include <QVBoxLayout>
+#include <QVariant>
 
 ACPChatMessageWidget::ACPChatMessageWidget(MessageType type, QWidget *parent)
     : QWidget(parent)
@@ -126,6 +129,20 @@ void ACPChatMessageWidget::setUsageInfo(qint64 used, qint64 size, double cost, c
     m_sizeTokens = size;
     m_cost = cost;
     m_currency = currency;
+    updateContentDisplay();
+}
+
+void ACPChatMessageWidget::setPermissionRequest(qint64 requestId,
+                                                const QString &title,
+                                                const QString &command,
+                                                const QString &allowOptionId,
+                                                const QString &rejectOptionId)
+{
+    m_requestId = requestId;
+    m_permissionTitle = title;
+    m_permissionCommand = command;
+    m_permissionAllowOptionId = allowOptionId;
+    m_permissionRejectOptionId = rejectOptionId;
     updateContentDisplay();
 }
 
@@ -325,6 +342,56 @@ void ACPChatMessageWidget::updateContentDisplay()
         contentLayout->addWidget(usageWidget);
         break;
     }
+    case MessageType::PermissionRequest: {
+        QWidget *permissionWidget = new QWidget(m_contentWidget);
+        QVBoxLayout *permissionLayout = new QVBoxLayout(permissionWidget);
+        permissionLayout->setContentsMargins(4, 2, 4, 2);
+        permissionLayout->setSpacing(4);
+
+        // Title
+        if (!m_permissionTitle.isEmpty()) {
+            QLabel *titleLabel = new QLabel(m_permissionTitle, permissionWidget);
+            titleLabel->setStyleSheet(QStringLiteral("font-weight: bold; color: #2c3e50;"));
+            titleLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+            titleLabel->setWordWrap(true);
+            permissionLayout->addWidget(titleLabel);
+        }
+
+        // Command to execute (the full command)
+        QLabel *commandLabel = new QLabel(m_permissionCommand, permissionWidget);
+        commandLabel->setStyleSheet(QStringLiteral("color: #7f8c8d; font-family: monospace; background-color: #f0f0f0; padding: 4px; border-radius: 4px;"));
+        commandLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+        commandLabel->setWordWrap(true);
+        permissionLayout->addWidget(commandLabel);
+
+        // Buttons
+        QWidget *buttonWidget = new QWidget(permissionWidget);
+        QHBoxLayout *buttonLayout = new QHBoxLayout(buttonWidget);
+        buttonLayout->setContentsMargins(0, 4, 0, 0);
+        buttonLayout->setSpacing(8);
+
+        QPushButton *allowButton = new QPushButton(i18n("Allow"), buttonWidget);
+        allowButton->setStyleSheet(QStringLiteral("background-color: #27ae60; color: white; border: none; padding: 4px 12px; border-radius: 4px;"));
+        allowButton->setProperty("requestId", QVariant::fromValue(m_requestId));
+        allowButton->setProperty("optionId", QVariant::fromValue(m_permissionAllowOptionId));
+        connect(allowButton, &QPushButton::clicked, this, [this, allowButton]() {
+            Q_EMIT permissionResponse(allowButton->property("requestId").toLongLong(), allowButton->property("optionId").toString());
+        });
+        buttonLayout->addWidget(allowButton);
+
+        QPushButton *rejectButton = new QPushButton(i18n("Reject"), buttonWidget);
+        rejectButton->setStyleSheet(QStringLiteral("background-color: #e74c3c; color: white; border: none; padding: 4px 12px; border-radius: 4px;"));
+        rejectButton->setProperty("requestId", QVariant::fromValue(m_requestId));
+        rejectButton->setProperty("optionId", QVariant::fromValue(m_permissionRejectOptionId));
+        connect(rejectButton, &QPushButton::clicked, this, [this, rejectButton]() {
+            Q_EMIT permissionResponse(rejectButton->property("requestId").toLongLong(), rejectButton->property("optionId").toString());
+        });
+        buttonLayout->addWidget(rejectButton);
+
+        permissionLayout->addWidget(buttonWidget);
+        contentLayout->addWidget(permissionWidget);
+        break;
+    }
     }
 
     m_typeLabel->setText(getTypeLabel());
@@ -395,6 +462,13 @@ QString ACPChatMessageWidget::getTypeStyle() const
                    "#senderLabel { color: #9b59b6; }"
                    "#typeLabel { color: #9b59b6; }"
                    "ACPChatMessageWidget { border-left: 3px solid #9b59b6; }");
+    case MessageType::PermissionRequest:
+        return baseStyle
+            + QStringLiteral(
+                   "#timestampLabel { color: #7f8c8d; font-size: small; }"
+                   "#senderLabel { color: #e67e22; }"
+                   "#typeLabel { color: #e67e22; }"
+                   "ACPChatMessageWidget { border-left: 3px solid #e67e22; background-color: #fff8f0; }");
     }
 
     return baseStyle;
@@ -417,6 +491,8 @@ QString ACPChatMessageWidget::getTypeLabel() const
         return i18n("Tool Update");
     case MessageType::Usage:
         return i18n("Usage");
+    case MessageType::PermissionRequest:
+        return i18n("Permission Request");
     }
     return QString();
 }

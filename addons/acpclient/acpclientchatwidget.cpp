@@ -18,9 +18,9 @@
 #include <QContextMenuEvent>
 #include <QDateTime>
 #include <QJsonArray>
+#include <QJsonDocument>
 #include <QJsonObject>
 #include <QMenu>
-#include <QMessageBox>
 #include <QScrollArea>
 #include <QTimer>
 
@@ -289,47 +289,7 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
         return;
     }
 
-    // Ask the user - build a message to display
-    QString message = i18n("The ACP agent requests permission to execute a tool call.");
-    if (!title.isEmpty()) {
-        message += QStringLiteral("\n\n<strong>%1</strong>").arg(title);
-    }
-    if (!toolCallId.isEmpty()) {
-        message += QStringLiteral("\n\n[ID: %1]").arg(toolCallId);
-    }
-    if (!kind.isEmpty()) {
-        message += QStringLiteral("\n\nKind: %1").arg(kind);
-    }
-
-    // Display the permission request in the chat
-    appendMessage(i18n("ACP Agent"), message);
-
-    // Build option names for the dialog
-    QStringList optionNames;
-    QMap<QString, QString> optionIdToName; // Maps optionId to display name
-
-    for (const QJsonValue &opt : options) {
-        if (opt.isObject()) {
-            QJsonObject option = opt.toObject();
-            QString name = option[u"name"].toString();
-            QString optionId = option[u"optionId"].toString();
-            optionNames.append(name);
-            optionIdToName[optionId] = name;
-        }
-    }
-
-    // If no options, default to allow once
-    if (optionNames.isEmpty()) {
-        optionNames.append(i18n("Allow once"));
-        optionIdToName[ACP::PERMISSION_KIND_ALLOW_ONCE] = i18n("Allow once");
-    }
-
-    // Show dialog to user
-    // We use the main window if available
-    QWidget *parentWidget = m_mainWindow ? m_mainWindow->window() : this;
-
-    // Map option names to standard buttons
-    // We'll just use Yes for allow, No for reject
+    // Map options to find allow/reject option IDs
     bool hasAllow = false;
     bool hasReject = false;
     QString allowOptionId;
@@ -353,40 +313,41 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
 
     if (!hasAllow) {
         allowOptionId = ACP::PERMISSION_KIND_ALLOW_ONCE;
-        hasAllow = true;
     }
     if (!hasReject) {
         rejectOptionId = ACP::PERMISSION_KIND_REJECT_ONCE;
-        hasReject = true;
     }
 
-    // Simplify: just show Yes/No dialog
-    if (hasAllow && hasReject) {
-        QMessageBox msgBox(parentWidget);
-        msgBox.setIcon(QMessageBox::Question);
-        msgBox.setWindowTitle(i18n("Tool Call Permission"));
-        msgBox.setText(i18n("The ACP agent requests permission to execute a tool call."));
-        if (!title.isEmpty()) {
-            msgBox.setInformativeText(title);
-        }
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msgBox.setDefaultButton(QMessageBox::Yes);
-        msgBox.setModal(true);
-
-        int result = msgBox.exec();
-
-        if (result == QMessageBox::Yes) {
-            Q_EMIT permissionResponse(requestId, allowOptionId);
+    // Build the full command from toolCall if available
+    QString fullCommand;
+    if (toolCall.contains(u"arguments") && toolCall[u"arguments"].isObject()) {
+        QJsonObject arguments = toolCall[u"arguments"].toObject();
+        // Try to extract command from arguments
+        if (arguments.contains(u"command")) {
+            fullCommand = arguments[u"command"].toString();
         } else {
-            Q_EMIT permissionResponse(requestId, rejectOptionId);
+            // Build a string representation of the arguments
+            fullCommand = QString::fromUtf8(QJsonDocument(arguments).toJson());
         }
-    } else if (hasAllow) {
-        // Only allow option available
-        Q_EMIT permissionResponse(requestId, allowOptionId);
-    } else {
-        // Only reject option available
-        Q_EMIT permissionResponse(requestId, rejectOptionId);
     }
+
+    // If no command found in arguments, use the title
+    if (fullCommand.isEmpty() && !title.isEmpty()) {
+        fullCommand = title;
+    }
+
+    // Create a permission request widget inline in the chat
+    ACPChatMessageWidget *permissionWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::PermissionRequest, m_chatDisplayContainer);
+    permissionWidget->setTimestamp(QDateTime::currentDateTime());
+    permissionWidget->setSender(i18n("ACP Agent"));
+    permissionWidget->setPermissionRequest(requestId, title, fullCommand, allowOptionId, rejectOptionId);
+
+    // Connect the widget's signal to our handler
+    connect(permissionWidget, &ACPChatMessageWidget::permissionResponse, this, [this](qint64 reqId, const QString &optionId) {
+        Q_EMIT permissionResponse(reqId, optionId);
+    });
+
+    addMessageWidget(permissionWidget);
 }
 
 void ACPClientChatWidget::clearChat()

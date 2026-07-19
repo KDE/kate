@@ -12,7 +12,7 @@
 namespace ACP
 {
 
-QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &, qint64 requestId)
+QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &params, qint64 requestId)
 {
     QJsonObject request;
     request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
@@ -20,16 +20,45 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &, qin
     request[JSONRPC_METHOD] = METHOD_INITIALIZE;
 
     QJsonObject paramsObj;
-    paramsObj[u"protocolVersion"] = ACP::ACPProtocol::getProtocolVersion();
+    // Protocol version should be integer 1 for v1
+    paramsObj[u"protocolVersion"] = PROTOCOL_VERSION_INT;
 
-    QJsonObject clientCapabilities;
-    paramsObj[u"clientCapabilities"] = clientCapabilities;
+    // Client capabilities
+    QJsonObject clientCapabilitiesObj;
+
+    // File system capabilities
+    QJsonObject fsCapabilities;
+    fsCapabilities[u"readTextFile"] = params.clientCapabilities.fs.readTextFile;
+    fsCapabilities[u"writeTextFile"] = params.clientCapabilities.fs.writeTextFile;
+    if (!fsCapabilities.isEmpty()) {
+        clientCapabilitiesObj[u"fs"] = fsCapabilities;
+    }
+
+    // Terminal capabilities
+    if (params.clientCapabilities.terminal) {
+        clientCapabilitiesObj[u"terminal"] = true;
+    }
+
+    // Session config options
+    if (params.clientCapabilities.sessionConfigOptionsBoolean.supported) {
+        QJsonObject sessionConfigObj;
+        sessionConfigObj[u"boolean"] = true;
+        QJsonObject sessionObj;
+        sessionObj[u"configOptions"] = sessionConfigObj;
+        clientCapabilitiesObj[u"session"] = sessionObj;
+    }
+
+    if (!clientCapabilitiesObj.isEmpty()) {
+        paramsObj[u"clientCapabilities"] = clientCapabilitiesObj;
+    }
 
     QJsonObject clientInfo;
     clientInfo[u"name"] = QStringLiteral("kate");
     clientInfo[u"title"] = i18n("Kate ACP Client");
     clientInfo[u"version"] = KAboutData::applicationData().version();
-    paramsObj[u"clientInfo"] = clientInfo;
+    if (!clientInfo.isEmpty()) {
+        paramsObj[u"clientInfo"] = clientInfo;
+    }
 
     request[JSONRPC_PARAMS] = paramsObj;
     return QJsonDocument(request);
@@ -63,13 +92,53 @@ QJsonDocument ACPProtocol::createSessionNewRequest(const SessionNewParams &param
     if (!params.cwd.isEmpty()) {
         paramsObj[u"cwd"] = params.cwd;
     }
-    // mcpServers should be an array (empty by default)
-    if (params.mcpServers.isUndefined() || params.mcpServers.isNull()) {
+
+    // mcpServers - always send as array per protocol spec
+    if (params.mcpServers.isEmpty()) {
         paramsObj[u"mcpServers"] = QJsonArray();
-    } else if (params.mcpServers.isArray()) {
-        paramsObj[u"mcpServers"] = params.mcpServers.toArray();
-    } else if (params.mcpServers.isObject()) {
-        paramsObj[u"mcpServers"] = params.mcpServers.toObject();
+    } else {
+        paramsObj[u"mcpServers"] = params.mcpServers;
+    }
+
+    // additionalDirectories - optional
+    if (!params.additionalDirectories.isEmpty()) {
+        paramsObj[u"additionalDirectories"] = params.additionalDirectories;
+    }
+
+    // metadata - optional
+    if (!params.metadata.isEmpty()) {
+        paramsObj[u"metadata"] = params.metadata;
+    }
+
+    request[JSONRPC_PARAMS] = paramsObj;
+
+    return QJsonDocument(request);
+}
+
+QJsonDocument ACPProtocol::createSessionLoadRequest(const SessionLoadParams &params, qint64 requestId)
+{
+    QJsonObject request;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
+    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
+    request[JSONRPC_METHOD] = METHOD_SESSION_LOAD;
+
+    QJsonObject paramsObj;
+    paramsObj[u"sessionId"] = params.sessionId;
+
+    if (!params.cwd.isEmpty()) {
+        paramsObj[u"cwd"] = params.cwd;
+    }
+
+    // mcpServers - always send as array
+    if (params.mcpServers.isEmpty()) {
+        paramsObj[u"mcpServers"] = QJsonArray();
+    } else {
+        paramsObj[u"mcpServers"] = params.mcpServers;
+    }
+
+    // additionalDirectories - optional
+    if (!params.additionalDirectories.isEmpty()) {
+        paramsObj[u"additionalDirectories"] = params.additionalDirectories;
     }
 
     request[JSONRPC_PARAMS] = paramsObj;
@@ -83,6 +152,37 @@ QJsonDocument ACPProtocol::createSessionResumeRequest(const SessionResumeParams 
     request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
     request[JSONRPC_METHOD] = METHOD_SESSION_RESUME;
+
+    QJsonObject paramsObj;
+    paramsObj[u"sessionId"] = params.sessionId;
+
+    if (!params.cwd.isEmpty()) {
+        paramsObj[u"cwd"] = params.cwd;
+    }
+
+    // mcpServers - always send as array
+    if (params.mcpServers.isEmpty()) {
+        paramsObj[u"mcpServers"] = QJsonArray();
+    } else {
+        paramsObj[u"mcpServers"] = params.mcpServers;
+    }
+
+    // additionalDirectories - optional
+    if (!params.additionalDirectories.isEmpty()) {
+        paramsObj[u"additionalDirectories"] = params.additionalDirectories;
+    }
+
+    request[JSONRPC_PARAMS] = paramsObj;
+
+    return QJsonDocument(request);
+}
+
+QJsonDocument ACPProtocol::createSessionCloseRequest(const SessionCloseParams &params, qint64 requestId)
+{
+    QJsonObject request;
+    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
+    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
+    request[JSONRPC_METHOD] = METHOD_SESSION_CLOSE;
 
     QJsonObject paramsObj;
     paramsObj[u"sessionId"] = params.sessionId;
@@ -102,7 +202,7 @@ QJsonDocument ACPProtocol::createSessionListRequest(qint64 requestId)
     return QJsonDocument(request);
 }
 
-QJsonDocument ACPProtocol::createSessionDeleteRequest(const QString &sessionId, qint64 requestId)
+QJsonDocument ACPProtocol::createSessionDeleteRequest(const SessionDeleteParams &params, qint64 requestId)
 {
     QJsonObject request;
     request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
@@ -110,7 +210,7 @@ QJsonDocument ACPProtocol::createSessionDeleteRequest(const QString &sessionId, 
     request[JSONRPC_METHOD] = METHOD_SESSION_DELETE;
 
     QJsonObject paramsObj;
-    paramsObj[u"sessionId"] = sessionId;
+    paramsObj[u"sessionId"] = params.sessionId;
 
     request[JSONRPC_PARAMS] = paramsObj;
 
@@ -126,13 +226,50 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
 
     QJsonObject paramsObj;
     paramsObj[u"sessionId"] = params.sessionId;
-    // vibe-acp expects prompt to be a list of content blocks
+
+    // Build prompt as array of ContentBlocks
     QJsonArray promptArray;
-    QJsonObject textBlock;
-    textBlock[u"type"] = QStringLiteral("text");
-    textBlock[u"text"] = params.message;
-    promptArray.append(textBlock);
+    for (const ContentBlock &block : params.prompt) {
+        QJsonObject contentBlock;
+        contentBlock[u"type"] = block.type;
+
+        if (block.type == CONTENT_TYPE_TEXT) {
+            contentBlock[u"text"] = block.text;
+        } else if (block.type == CONTENT_TYPE_RESOURCE || block.type == CONTENT_TYPE_RESOURCE_LINK) {
+            contentBlock[u"resource"] = block.resource;
+        } else if (block.type == CONTENT_TYPE_IMAGE) {
+            // Image content block
+            if (!block.mimeType.isEmpty()) {
+                contentBlock[u"mimeType"] = block.mimeType;
+            }
+            if (!block.text.isEmpty()) {
+                contentBlock[u"data"] = block.text; // base64 data
+            }
+            if (!block.resource.isEmpty()) {
+                contentBlock[u"resource"] = block.resource;
+            }
+        } else if (block.type == CONTENT_TYPE_AUDIO) {
+            // Audio content block
+            if (!block.mimeType.isEmpty()) {
+                contentBlock[u"mimeType"] = block.mimeType;
+            }
+            if (!block.text.isEmpty()) {
+                contentBlock[u"data"] = block.text; // base64 data
+            }
+            if (!block.resource.isEmpty()) {
+                contentBlock[u"resource"] = block.resource;
+            }
+        }
+
+        promptArray.append(contentBlock);
+    }
+
     paramsObj[u"prompt"] = promptArray;
+
+    // Add metadata if present
+    if (!params.metadata.isEmpty()) {
+        paramsObj[u"metadata"] = params.metadata;
+    }
 
     request[JSONRPC_PARAMS] = paramsObj;
 
@@ -375,9 +512,70 @@ bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeRe
         result.metadata = resultObj[u"metadata"].toObject();
     }
 
-    // Try to get capabilities from capabilities or agentCapabilities
-    if (resultObj.contains(u"capabilities") && resultObj[u"capabilities"].isObject()) {
+    // Try to get capabilities from agentCapabilities (v1 spec)
+    if (resultObj.contains(u"agentCapabilities") && resultObj[u"agentCapabilities"].isObject()) {
+        QJsonObject agentCaps = resultObj[u"agentCapabilities"].toObject();
+
+        // Parse all capabilities according to v1 spec
+        result.capabilities.loadSession = agentCaps[u"loadSession"].toBool();
+        result.capabilities.supportsSessions = true; // All agents must support sessions
+        result.capabilities.supportsTools = true;
+        result.capabilities.supportsProgress = true;
+        result.capabilities.supportsAuthentication = resultObj.contains(u"authMethods") && !resultObj[u"authMethods"].toArray().isEmpty();
+
+        // Prompt capabilities
+        if (agentCaps.contains(u"promptCapabilities") && agentCaps[u"promptCapabilities"].isObject()) {
+            QJsonObject promptCaps = agentCaps[u"promptCapabilities"].toObject();
+            result.capabilities.promptCapabilities.image = promptCaps[u"image"].toBool();
+            result.capabilities.promptCapabilities.audio = promptCaps[u"audio"].toBool();
+            result.capabilities.promptCapabilities.embeddedContext = promptCaps[u"embeddedContext"].toBool();
+        }
+
+        // MCP capabilities
+        if (agentCaps.contains(u"mcpCapabilities") && agentCaps[u"mcpCapabilities"].isObject()) {
+            QJsonObject mcpCaps = agentCaps[u"mcpCapabilities"].toObject();
+            result.capabilities.mcpCapabilities.http = mcpCaps[u"http"].toBool();
+            result.capabilities.mcpCapabilities.sse = mcpCaps[u"sse"].toBool();
+        }
+
+        // Auth capabilities
+        if (agentCaps.contains(u"auth") && agentCaps[u"auth"].isObject()) {
+            QJsonObject authCaps = agentCaps[u"auth"].toObject();
+            result.capabilities.auth.logout = authCaps[u"logout"].toBool();
+        }
+
+        // Session capabilities
+        if (agentCaps.contains(u"sessionCapabilities") && agentCaps[u"sessionCapabilities"].isObject()) {
+            QJsonObject sessionCaps = agentCaps[u"sessionCapabilities"].toObject();
+            result.capabilities.sessionCapabilities.resume = sessionCaps[u"resume"].toBool();
+            result.capabilities.sessionCapabilities.close = sessionCaps[u"close"].toBool();
+            result.capabilities.sessionCapabilities.deleteSession = sessionCaps.contains(u"delete");
+            result.capabilities.sessionCapabilities.additionalDirectories = sessionCaps[u"additionalDirectories"].toBool();
+        }
+
+        // Protocol version
+        if (resultObj.contains(u"protocolVersion")) {
+            QJsonValue versionValue = resultObj[u"protocolVersion"];
+            if (versionValue.isDouble()) {
+                result.protocolVersion = QString::number(versionValue.toInt());
+            } else if (versionValue.isString()) {
+                result.protocolVersion = versionValue.toString();
+            }
+        }
+
+        // Metadata
+        if (resultObj.contains(u"metadata")) {
+            result.metadata = resultObj[u"metadata"].toObject();
+        }
+
+        // Custom capabilities
+        if (agentCaps.contains(u"_meta")) {
+            result.capabilities.customCapabilities = agentCaps[u"_meta"].toObject();
+        }
+    } else if (resultObj.contains(u"capabilities") && resultObj[u"capabilities"].isObject()) {
+        // Fallback for older implementations
         QJsonObject caps = resultObj[u"capabilities"].toObject();
+        result.capabilities.loadSession = caps[u"supportsSessions"].toBool();
         result.capabilities.supportsSessions = caps[u"supportsSessions"].toBool();
         result.capabilities.supportsTools = caps[u"supportsTools"].toBool();
         result.capabilities.supportsProgress = caps[u"supportsProgress"].toBool();
@@ -393,14 +591,10 @@ bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeRe
         if (caps.contains(u"customCapabilities")) {
             result.capabilities.customCapabilities = caps[u"customCapabilities"].toObject();
         }
-    } else if (resultObj.contains(u"agentCapabilities") && resultObj[u"agentCapabilities"].isObject()) {
-        // Fallback to agentCapabilities
-        QJsonObject agentCaps = resultObj[u"agentCapabilities"].toObject();
-        // Map agentCapabilities to our capabilities structure
-        result.capabilities.supportsSessions = agentCaps.contains(u"loadSession");
-        result.capabilities.supportsTools = true; // agentCapabilities implies tool support
-        result.capabilities.supportsProgress = true;
-        result.capabilities.supportsAuthentication = resultObj.contains(u"authMethods");
+    } else {
+        // Default capabilities for backward compatibility
+        result.capabilities.supportsSessions = true;
+        result.capabilities.supportsTools = true;
     }
 
     return true;

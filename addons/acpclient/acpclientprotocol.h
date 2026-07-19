@@ -18,14 +18,17 @@
 namespace ACP
 {
 
-// ACP Protocol Version
-const QString PROTOCOL_VERSION = QStringLiteral("2.0");
+// ACP Protocol Version - should be integer 1 for v1
+const int PROTOCOL_VERSION_INT = 1;
+const QString PROTOCOL_VERSION = QStringLiteral("1");
 
 // Message types
 const QString METHOD_INITIALIZE = QStringLiteral("initialize");
 const QString METHOD_AUTH_LOGIN = QStringLiteral("auth/login");
 const QString METHOD_SESSION_NEW = QStringLiteral("session/new");
+const QString METHOD_SESSION_LOAD = QStringLiteral("session/load");
 const QString METHOD_SESSION_RESUME = QStringLiteral("session/resume");
+const QString METHOD_SESSION_CLOSE = QStringLiteral("session/close");
 const QString METHOD_SESSION_LIST = QStringLiteral("session/list");
 const QString METHOD_SESSION_DELETE = QStringLiteral("session/delete");
 const QString METHOD_SESSION_PROMPT = QStringLiteral("session/prompt");
@@ -41,12 +44,16 @@ const QString NOTIFICATION_SESSION_UPDATE = QStringLiteral("session/update");
 const QString NOTIFICATION_PROGRESS = QStringLiteral("$/progress");
 const QString NOTIFICATION_CANCELLATION = QStringLiteral("$/cancel_request");
 
-// Session update types
+// Session update types (from protocol v1)
 const QString SESSION_UPDATE_PLAN = QStringLiteral("plan");
 const QString SESSION_UPDATE_AGENT_MESSAGE_CHUNK = QStringLiteral("agent_message_chunk");
+const QString SESSION_UPDATE_USER_MESSAGE_CHUNK = QStringLiteral("user_message_chunk");
+const QString SESSION_UPDATE_THOUGHT_MESSAGE_CHUNK = QStringLiteral("thought_message_chunk");
 const QString SESSION_UPDATE_TOOL_CALL = QStringLiteral("tool_call");
 const QString SESSION_UPDATE_TOOL_CALL_UPDATE = QStringLiteral("tool_call_update");
 const QString SESSION_UPDATE_USAGE_UPDATE = QStringLiteral("usage_update");
+const QString SESSION_UPDATE_MODE = QStringLiteral("mode");
+const QString SESSION_UPDATE_AVAILABLE_COMMANDS = QStringLiteral("available_commands");
 
 // Permission option kinds
 const QString PERMISSION_KIND_ALLOW_ONCE = QStringLiteral("allow_once");
@@ -67,18 +74,50 @@ const QString JSONRPC_PARAMS = QStringLiteral("params");
 const QString JSONRPC_RESULT = QStringLiteral("result");
 const QString JSONRPC_ERROR = QStringLiteral("error");
 
+// Client capabilities
+struct ClientCapabilities {
+    struct FileSystem {
+        bool readTextFile = false;
+        bool writeTextFile = false;
+    } fs;
+    bool terminal = false;
+    struct BooleanConfigOption {
+        bool supported = false;
+    } sessionConfigOptionsBoolean;
+};
+
 // Agent capabilities
 struct AgentCapabilities {
+    bool loadSession = false;
     bool supportsSessions = false;
     bool supportsTools = false;
     bool supportsProgress = false;
     bool supportsAuthentication = false;
+    struct PromptCapabilities {
+        bool image = false;
+        bool audio = false;
+        bool embeddedContext = false;
+    } promptCapabilities;
+    struct MCPCapabilities {
+        bool http = false;
+        bool sse = false;
+    } mcpCapabilities;
+    struct AuthCapabilities {
+        bool logout = false;
+    } auth;
+    struct SessionCapabilities {
+        bool resume = false;
+        bool close = false;
+        bool deleteSession = false;
+        bool additionalDirectories = false;
+    } sessionCapabilities;
     QStringList supportedProtocolVersions;
     QJsonObject customCapabilities;
 };
 
 // Initialize request parameters
 struct InitializeParams {
+    ClientCapabilities clientCapabilities;
 };
 
 // Initialize response
@@ -106,18 +145,58 @@ struct SessionParams {
 struct SessionNewParams {
     QJsonObject metadata;
     QString cwd;
-    QJsonValue mcpServers; // Can be object, array, or null
+    QJsonArray mcpServers;
+    QJsonArray additionalDirectories;
 };
 
 // Session resume parameters
 struct SessionResumeParams {
     QString sessionId;
+    QString cwd;
+    QJsonArray mcpServers;
+    QJsonArray additionalDirectories;
+};
+
+// Session load parameters
+struct SessionLoadParams {
+    QString sessionId;
+    QString cwd;
+    QJsonArray mcpServers;
+    QJsonArray additionalDirectories;
+};
+
+// Session close parameters
+struct SessionCloseParams {
+    QString sessionId;
+};
+
+// Session delete parameters
+struct SessionDeleteParams {
+    QString sessionId;
+};
+
+// Content types
+const QString CONTENT_TYPE_TEXT = QStringLiteral("text");
+const QString CONTENT_TYPE_RESOURCE = QStringLiteral("resource");
+const QString CONTENT_TYPE_IMAGE = QStringLiteral("image");
+const QString CONTENT_TYPE_AUDIO = QStringLiteral("audio");
+const QString CONTENT_TYPE_RESOURCE_LINK = QStringLiteral("resourceLink");
+
+// Resource types
+const QString RESOURCE_TYPE_URI = QStringLiteral("uri");
+
+// Content block structure
+struct ContentBlock {
+    QString type;
+    QString text; // for text type
+    QJsonObject resource; // for resource type
+    QString mimeType; // optional
 };
 
 // Session prompt parameters
 struct SessionPromptParams {
     QString sessionId;
-    QString message;
+    QList<ContentBlock> prompt;
     QJsonObject metadata;
 };
 
@@ -192,9 +271,11 @@ public:
     static QJsonDocument createInitializeRequest(const InitializeParams &params, qint64 requestId);
     static QJsonDocument createAuthLoginRequest(const AuthLoginParams &params, qint64 requestId);
     static QJsonDocument createSessionNewRequest(const SessionNewParams &params, qint64 requestId);
+    static QJsonDocument createSessionLoadRequest(const SessionLoadParams &params, qint64 requestId);
     static QJsonDocument createSessionResumeRequest(const SessionResumeParams &params, qint64 requestId);
+    static QJsonDocument createSessionCloseRequest(const SessionCloseParams &params, qint64 requestId);
     static QJsonDocument createSessionListRequest(qint64 requestId);
-    static QJsonDocument createSessionDeleteRequest(const QString &sessionId, qint64 requestId);
+    static QJsonDocument createSessionDeleteRequest(const SessionDeleteParams &params, qint64 requestId);
     static QJsonDocument createSessionPromptRequest(const SessionPromptParams &params, qint64 requestId);
     static QJsonDocument createSessionCancelRequest(const QString &sessionId, qint64 requestId);
     static QJsonDocument createToolsListRequest(qint64 requestId);

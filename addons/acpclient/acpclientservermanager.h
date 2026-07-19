@@ -53,6 +53,15 @@ public:
     // Create a new session on the active server
     QString createSession();
 
+    // Load an existing session
+    QString loadSession(const QString &sessionId);
+
+    // Resume an existing session
+    QString resumeSession(const QString &sessionId);
+
+    // Close a session
+    void closeSession(const QString &sessionId);
+
     // Send a prompt to a session
     void sendPrompt(const QString &sessionId, const QString &message);
 
@@ -73,6 +82,9 @@ Q_SIGNALS:
     void serverRemoved(ACPClientServer *server);
     void activeServerChanged(ACPClientServer *server);
     void sessionCreated(const QString &sessionId);
+    void sessionLoaded(const QString &sessionId);
+    void sessionResumed(const QString &sessionId);
+    void sessionClosed(const QString &sessionId);
     void sessionListReceived(const QJsonArray &sessions);
     void sessionDeleted(const QString &sessionId);
     void toolsReceived(const QJsonArray &tools);
@@ -82,6 +94,9 @@ Q_SIGNALS:
 
     // Permission request signal
     void permissionRequested(qint64 requestId, const QJsonObject &toolCall, const QJsonArray &options);
+
+    // Session update notification signal
+    void sessionUpdateReceived(const QString &sessionId, const QJsonObject &update);
 
 private Q_SLOTS:
     void onServerInitialized(const ACP::InitializeResult &result);

@@ -225,6 +225,72 @@ QString ACPClientServerManager::createSession()
     return QString();
 }
 
+QString ACPClientServerManager::loadSession(const QString &sessionId)
+{
+    ACPClientServer *server = activeServer();
+    if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
+        Q_EMIT errorOccurred(tr("No active ACP server available"));
+        return QString();
+    }
+
+    ACP::SessionLoadParams params;
+    params.sessionId = sessionId;
+    params.cwd = QDir::currentPath();
+    params.mcpServers = QJsonArray();
+
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
+    QJsonDocument request = ACP::ACPProtocol::createSessionLoadRequest(params, requestId);
+
+    // Track the request
+    m_pendingSessionRequests[requestId] = requestId;
+
+    server->sendMessage(request);
+
+    return QString();
+}
+
+QString ACPClientServerManager::resumeSession(const QString &sessionId)
+{
+    ACPClientServer *server = activeServer();
+    if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
+        Q_EMIT errorOccurred(tr("No active ACP server available"));
+        return QString();
+    }
+
+    ACP::SessionResumeParams params;
+    params.sessionId = sessionId;
+    params.cwd = QDir::currentPath();
+    params.mcpServers = QJsonArray();
+
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
+    QJsonDocument request = ACP::ACPProtocol::createSessionResumeRequest(params, requestId);
+
+    // Track the request
+    m_pendingSessionRequests[requestId] = requestId;
+
+    server->sendMessage(request);
+
+    return QString();
+}
+
+void ACPClientServerManager::closeSession(const QString &sessionId)
+{
+    ACPClientServer *server = activeServer();
+    if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
+        Q_EMIT errorOccurred(tr("No active ACP server available"));
+        return;
+    }
+
+    ACP::SessionCloseParams params;
+    params.sessionId = sessionId;
+
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
+    QJsonDocument request = ACP::ACPProtocol::createSessionCloseRequest(params, requestId);
+
+    server->sendMessage(request);
+    Q_EMIT sessionClosed(sessionId);
+}
+
 void ACPClientServerManager::sendPrompt(const QString &sessionId, const QString &message)
 {
     ACPClientServer *server = activeServer();
@@ -235,7 +301,12 @@ void ACPClientServerManager::sendPrompt(const QString &sessionId, const QString 
 
     ACP::SessionPromptParams params;
     params.sessionId = sessionId;
-    params.message = message;
+
+    // Create a text content block
+    ACP::ContentBlock textBlock;
+    textBlock.type = ACP::CONTENT_TYPE_TEXT;
+    textBlock.text = message;
+    params.prompt.append(textBlock);
 
     qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionPromptRequest(params, requestId);
@@ -266,8 +337,10 @@ void ACPClientServerManager::deleteSession(const QString &sessionId)
         return;
     }
 
+    ACP::SessionDeleteParams params;
+    params.sessionId = sessionId;
     qint64 requestId = ACP::ACPProtocol::generateRequestId();
-    QJsonDocument request = ACP::ACPProtocol::createSessionDeleteRequest(sessionId, requestId);
+    QJsonDocument request = ACP::ACPProtocol::createSessionDeleteRequest(params, requestId);
 
     server->sendMessage(request);
     Q_EMIT sessionDeleted(sessionId);
@@ -346,14 +419,14 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
 
     ACP::ACPMessage parsedMessage;
     if (ACP::ACPProtocol::parseMessage(message, parsedMessage)) {
-        // Check for session/new response by matching the request ID
+        // Check for session responses by matching the request ID
         if (parsedMessage.isResponse && parsedMessage.id != 0) {
-            // Check if this is a response to a session/new request
+            // Check if this is a response to a session request
             if (m_pendingSessionRequests.find(parsedMessage.id) != m_pendingSessionRequests.end()) {
                 QJsonObject result = parsedMessage.result;
                 if (result.contains(u"sessionId")) {
                     QString sessionId = result[u"sessionId"].toString();
-                    qCDebug(ACPCLIENT) << "Session created with ID:" << sessionId;
+                    qCDebug(ACPCLIENT) << "Session response received for ID:" << sessionId;
                     m_pendingSessionRequests.erase(parsedMessage.id);
                     Q_EMIT sessionCreated(sessionId);
                     return;
@@ -361,6 +434,27 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
                 // Remove from pending even if there was an error
                 m_pendingSessionRequests.erase(parsedMessage.id);
             }
+        }
+
+        // Check for session/load response
+        if (parsedMessage.method == ACP::METHOD_SESSION_LOAD && parsedMessage.isResponse && parsedMessage.id != 0) {
+            m_pendingSessionRequests.erase(parsedMessage.id);
+            // session/load response has null result on success
+            Q_EMIT sessionLoaded(parsedMessage.id != 0 ? QString() : QString()); // Session ID should be from the request
+            return;
+        }
+
+        // Check for session/resume response
+        if (parsedMessage.method == ACP::METHOD_SESSION_RESUME && parsedMessage.isResponse && parsedMessage.id != 0) {
+            m_pendingSessionRequests.erase(parsedMessage.id);
+            Q_EMIT sessionResumed(parsedMessage.id != 0 ? QString() : QString());
+            return;
+        }
+
+        // Check for session/close response
+        if (parsedMessage.method == ACP::METHOD_SESSION_CLOSE && parsedMessage.isResponse) {
+            Q_EMIT sessionClosed(parsedMessage.id != 0 ? QString() : QString());
+            return;
         }
     }
 
@@ -410,7 +504,27 @@ void ACPClientServerManager::handlePermissionRequest(const QJsonDocument &doc)
 void ACPClientServerManager::handleSessionUpdate(const QJsonDocument &doc)
 {
     qCDebug(ACPCLIENT) << "Handling session update:" << doc.toJson();
-    // For now, just emit the message
+
+    QJsonObject obj = doc.object();
+    if (!obj.contains(u"params") || !obj[u"params"].isObject()) {
+        Q_EMIT messageReceived(doc);
+        return;
+    }
+
+    QJsonObject params = obj[u"params"].toObject();
+    QString sessionId = params[u"sessionId"].toString();
+
+    if (!params.contains(u"update") || !params[u"update"].isObject()) {
+        Q_EMIT messageReceived(doc);
+        return;
+    }
+
+    QJsonObject update = params[u"update"].toObject();
+
+    // Emit the session update signal
+    Q_EMIT sessionUpdateReceived(sessionId, update);
+
+    // Also emit the message for backward compatibility
     Q_EMIT messageReceived(doc);
 }
 

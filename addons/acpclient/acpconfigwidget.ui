@@ -91,6 +91,36 @@
                             </property>
                         </widget>
                     </item>
+                    <item row="3" column="0" colspan="2">
+                        <layout class="QHBoxLayout" name="toolCallPermissionLayout">
+                            <item>
+                                <widget class="QLabel" name="toolCallPermissionLabel">
+                                    <property name="text">
+                                        <string>Tool call permission:</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item>
+                                <widget class="QComboBox" name="toolCallPermissionComboBox">
+                                    <item>
+                                        <property name="text">
+                                            <string>Ask each time</string>
+                                        </property>
+                                    </item>
+                                    <item>
+                                        <property name="text">
+                                            <string>Allow all</string>
+                                        </property>
+                                    </item>
+                                    <item>
+                                        <property name="text">
+                                            <string>Deny all</string>
+                                        </property>
+                                    </item>
+                                </widget>
+                            </item>
+                        </layout>
+                    </item>
                 </layout>
             </item>
             <item>

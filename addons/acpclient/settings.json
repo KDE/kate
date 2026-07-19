@@ -50,6 +50,7 @@
         "show_tool_calls": true,
         "show_progress": true,
         "debug_mode": false,
+        "tool_call_permission": "ask_each_time",
         "allowed_commands": [],
         "blocked_commands": []
     }

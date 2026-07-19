@@ -16,6 +16,7 @@
 #include <QDateTime>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QMessageBox>
 #include <QRegularExpression>
 #include <QTextBlockFormat>
 #include <QTextCharFormat>
@@ -50,10 +51,11 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     // Set up chat display styling
     QTextDocument *doc = m_ui->chatDisplay->document();
     doc->setDefaultStyleSheet(
-        QStringLiteral("body { background-color: #f0f0f0; }"
-                       "p.user { color: #2c3e50; margin-left: 10px; }"
-                       "p.agent { color: #27ae60; margin-left: 10px; }"
-                       "span.timestamp { color: #7f8c8d; font-size: small; }"));
+        QStringLiteral("body { background-color: #f0f0f0; margin: 4px; }"
+                       "p.user { color: #2c3e50; margin: 4px 0; margin-left: 10px; }"
+                       "p.agent { color: #27ae60; margin: 4px 0; margin-left: 10px; }"
+                       "span.timestamp { color: #7f8c8d; font-size: small; }"
+                       "div { margin: 2px 0; }"));
 
     // Enable rich text for styling
     m_ui->chatDisplay->setAcceptRichText(true);
@@ -110,6 +112,17 @@ void ACPClientChatWidget::startNewSession()
         onServerMessageReceived(doc);
     });
 
+    // Connect to permissionRequested signal
+    connect(m_serverManager, &ACPClientServerManager::permissionRequested, this, &ACPClientChatWidget::onPermissionRequested);
+
+    // Connect permissionResponse signal to send response back to server
+    connect(this, &ACPClientChatWidget::permissionResponse, this, [server](qint64 requestId, const QString &optionId) {
+        if (server && server->state() == ACPClientServer::ServerState::Initialized) {
+            QJsonDocument response = ACP::ACPProtocol::createPermissionResponse(requestId, optionId);
+            server->sendMessage(response);
+        }
+    });
+
     // Create a new session
     m_serverManager->createSession();
     appendMessage(QStringLiteral("System"), i18n("Creating new ACP session..."));
@@ -128,26 +141,199 @@ QString ACPClientChatWidget::sessionId() const
     return m_sessionId;
 }
 
+void ACPClientChatWidget::appendHtml(const QString &html)
+{
+    // Move cursor to end before inserting
+    QTextCursor cursor = m_ui->chatDisplay->textCursor();
+    cursor.movePosition(QTextCursor::End);
+    m_ui->chatDisplay->setTextCursor(cursor);
+    m_ui->chatDisplay->insertHtml(html);
+    m_ui->chatDisplay->ensureCursorVisible();
+}
+
 void ACPClientChatWidget::appendMessage(const QString &sender, const QString &message, bool isUser)
 {
     QString timestamp = QDateTime::currentDateTime().toString(QStringLiteral("hh:mm:ss"));
     QString htmlMessage;
 
     if (isUser) {
-        htmlMessage =
-            QStringLiteral("<p class='user'><span class='timestamp'>[%1]</span> <strong>You:</strong> %2</p>").arg(timestamp, message.toHtmlEscaped());
+        htmlMessage = QStringLiteral("<p class='user'><span class='timestamp'>[%1]</span> <strong>You:</strong> %2</p><br clear='all'/>")
+                          .arg(timestamp, message.toHtmlEscaped());
     } else {
-        htmlMessage = QStringLiteral("<p class='agent'><span class='timestamp'>[%1]</span> <strong>%2:</strong> %3</p>")
+        htmlMessage = QStringLiteral("<p class='agent'><span class='timestamp'>[%1]</span> <strong>%2:</strong> %3</p><br clear='all'/>")
                           .arg(timestamp, sender.toHtmlEscaped(), message.toHtmlEscaped());
     }
 
-    m_ui->chatDisplay->insertHtml(htmlMessage);
-    m_ui->chatDisplay->ensureCursorVisible();
+    appendHtml(htmlMessage);
 
     // Auto-scroll to bottom
     QTextCursor cursor = m_ui->chatDisplay->textCursor();
     cursor.movePosition(QTextCursor::End);
     m_ui->chatDisplay->setTextCursor(cursor);
+}
+
+void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObject &toolCall, const QJsonArray &options)
+{
+    qCDebug(ACPCLIENT) << "Permission requested for requestId:" << requestId;
+
+    // Get tool call ID for display
+    QString toolCallId = toolCall[u"toolCallId"].toString();
+    QString title = toolCall[u"title"].toString();
+    QString kind = toolCall[u"kind"].toString();
+
+    // Get the plugin to check the permission mode
+    if (!m_plugin) {
+        qCWarning(ACPCLIENT) << "No plugin available to check permission mode";
+        // Default to deny if we can't check
+        Q_EMIT permissionResponse(requestId, ACP::PERMISSION_KIND_REJECT_ONCE);
+        return;
+    }
+
+    ACPClientPluginOptions::ToolCallPermission permissionMode = m_plugin->toolCallPermission();
+
+    // If not asking each time, auto-respond
+    if (permissionMode != ACPClientPluginOptions::AskEachTime) {
+        QString optionId;
+        if (permissionMode == ACPClientPluginOptions::AllowAll) {
+            // Find an allow option, prefer allow_always then allow_once
+            for (const QJsonValue &opt : options) {
+                if (opt.isObject()) {
+                    QJsonObject option = opt.toObject();
+                    QString kind = option[u"kind"].toString();
+                    if (kind == ACP::PERMISSION_KIND_ALLOW_ALWAYS) {
+                        optionId = option[u"optionId"].toString();
+                        break;
+                    } else if (kind == ACP::PERMISSION_KIND_ALLOW_ONCE && optionId.isEmpty()) {
+                        optionId = option[u"optionId"].toString();
+                    }
+                }
+            }
+            if (optionId.isEmpty()) {
+                // Fallback to allow_once
+                optionId = ACP::PERMISSION_KIND_ALLOW_ONCE;
+            }
+        } else { // DenyAll
+            // Find a reject option, prefer reject_always then reject_once
+            for (const QJsonValue &opt : options) {
+                if (opt.isObject()) {
+                    QJsonObject option = opt.toObject();
+                    QString kind = option[u"kind"].toString();
+                    if (kind == ACP::PERMISSION_KIND_REJECT_ALWAYS) {
+                        optionId = option[u"optionId"].toString();
+                        break;
+                    } else if (kind == ACP::PERMISSION_KIND_REJECT_ONCE && optionId.isEmpty()) {
+                        optionId = option[u"optionId"].toString();
+                    }
+                }
+            }
+            if (optionId.isEmpty()) {
+                // Fallback to reject_once
+                optionId = ACP::PERMISSION_KIND_REJECT_ONCE;
+            }
+        }
+        qCDebug(ACPCLIENT) << "Auto-responding to permission request with:" << optionId;
+        Q_EMIT permissionResponse(requestId, optionId);
+        return;
+    }
+
+    // Ask the user - build a message to display
+    QString message = i18n("The ACP agent requests permission to execute a tool call.");
+    if (!title.isEmpty()) {
+        message += QStringLiteral("\n\n<strong>%1</strong>").arg(title);
+    }
+    if (!toolCallId.isEmpty()) {
+        message += QStringLiteral("\n\n[ID: %1]").arg(toolCallId);
+    }
+    if (!kind.isEmpty()) {
+        message += QStringLiteral("\n\nKind: %1").arg(kind);
+    }
+
+    // Display the permission request in the chat
+    appendMessage(i18n("ACP Agent"), message);
+
+    // Build option names for the dialog
+    QStringList optionNames;
+    QMap<QString, QString> optionIdToName; // Maps optionId to display name
+
+    for (const QJsonValue &opt : options) {
+        if (opt.isObject()) {
+            QJsonObject option = opt.toObject();
+            QString name = option[u"name"].toString();
+            QString optionId = option[u"optionId"].toString();
+            optionNames.append(name);
+            optionIdToName[optionId] = name;
+        }
+    }
+
+    // If no options, default to allow once
+    if (optionNames.isEmpty()) {
+        optionNames.append(i18n("Allow once"));
+        optionIdToName[ACP::PERMISSION_KIND_ALLOW_ONCE] = i18n("Allow once");
+    }
+
+    // Show dialog to user
+    // We use the main window if available
+    QWidget *parentWidget = m_mainWindow ? m_mainWindow->window() : this;
+
+    // Map option names to standard buttons
+    // We'll just use Yes for allow, No for reject
+    bool hasAllow = false;
+    bool hasReject = false;
+    QString allowOptionId;
+    QString rejectOptionId;
+
+    for (const QJsonValue &opt : options) {
+        if (opt.isObject()) {
+            QJsonObject option = opt.toObject();
+            QString kind = option[u"kind"].toString();
+            QString optionId = option[u"optionId"].toString();
+
+            if (kind == ACP::PERMISSION_KIND_ALLOW_ONCE || kind == ACP::PERMISSION_KIND_ALLOW_ALWAYS) {
+                hasAllow = true;
+                allowOptionId = optionId;
+            } else if (kind == ACP::PERMISSION_KIND_REJECT_ONCE || kind == ACP::PERMISSION_KIND_REJECT_ALWAYS) {
+                hasReject = true;
+                rejectOptionId = optionId;
+            }
+        }
+    }
+
+    if (!hasAllow) {
+        allowOptionId = ACP::PERMISSION_KIND_ALLOW_ONCE;
+        hasAllow = true;
+    }
+    if (!hasReject) {
+        rejectOptionId = ACP::PERMISSION_KIND_REJECT_ONCE;
+        hasReject = true;
+    }
+
+    // Simplify: just show Yes/No dialog
+    if (hasAllow && hasReject) {
+        QMessageBox msgBox(parentWidget);
+        msgBox.setIcon(QMessageBox::Question);
+        msgBox.setWindowTitle(i18n("Tool Call Permission"));
+        msgBox.setText(i18n("The ACP agent requests permission to execute a tool call."));
+        if (!title.isEmpty()) {
+            msgBox.setInformativeText(title);
+        }
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        msgBox.setModal(true);
+
+        int result = msgBox.exec();
+
+        if (result == QMessageBox::Yes) {
+            Q_EMIT permissionResponse(requestId, allowOptionId);
+        } else {
+            Q_EMIT permissionResponse(requestId, rejectOptionId);
+        }
+    } else if (hasAllow) {
+        // Only allow option available
+        Q_EMIT permissionResponse(requestId, allowOptionId);
+    } else {
+        // Only reject option available
+        Q_EMIT permissionResponse(requestId, rejectOptionId);
+    }
 }
 
 void ACPClientChatWidget::clearChat()
@@ -173,6 +359,14 @@ void ACPClientChatWidget::setServer(ACPClientServer *server)
                 appendMessage(QStringLiteral("System"), i18n("Server disconnected"));
                 setSessionId(QString());
                 updateSessionState();
+            });
+
+            // Connect permissionResponse to send back to this server
+            connect(this, &ACPClientChatWidget::permissionResponse, this, [server](qint64 requestId, const QString &optionId) {
+                if (server->state() == ACPClientServer::ServerState::Initialized) {
+                    QJsonDocument response = ACP::ACPProtocol::createPermissionResponse(requestId, optionId);
+                    server->sendMessage(response);
+                }
             });
         }
     }
@@ -317,19 +511,13 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
                 // New message - add with header
                 lastMessageId = messageId;
                 QString html = formatAgentTextMessage(text, messageId);
-                m_ui->chatDisplay->insertHtml(html);
+                appendHtml(html);
             } else {
                 // Continuation of previous message - append text
                 QString formattedText = text;
                 formattedText.replace(QLatin1Char('\n'), QStringLiteral("<br/>"));
-                m_ui->chatDisplay->insertHtml(formattedText);
+                appendHtml(formattedText);
             }
-
-            // Ensure cursor is visible and scroll to bottom
-            m_ui->chatDisplay->ensureCursorVisible();
-            QTextCursor cursor = m_ui->chatDisplay->textCursor();
-            cursor.movePosition(QTextCursor::End);
-            m_ui->chatDisplay->setTextCursor(cursor);
         }
     }
 }
@@ -383,13 +571,9 @@ void ACPClientChatWidget::handlePlanUpdate(const QJsonObject &update)
             }
         }
 
-        html += QStringLiteral("</ul></div>");
+        html += QStringLiteral("</ul></div><br clear='all'/>");
 
-        m_ui->chatDisplay->insertHtml(html);
-        m_ui->chatDisplay->ensureCursorVisible();
-        QTextCursor cursor = m_ui->chatDisplay->textCursor();
-        cursor.movePosition(QTextCursor::End);
-        m_ui->chatDisplay->setTextCursor(cursor);
+        appendHtml(html);
     }
 }
 
@@ -431,13 +615,9 @@ void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
     if (!toolCallId.isEmpty()) {
         html += QStringLiteral(" <span style='color: #95a5a6; font-size: small;'>[ID: %1]</span>").arg(toolCallId.toHtmlEscaped());
     }
-    html += QStringLiteral("</div>");
+    html += QStringLiteral("</div><br clear='all'/>");
 
-    m_ui->chatDisplay->insertHtml(html);
-    m_ui->chatDisplay->ensureCursorVisible();
-    QTextCursor cursor = m_ui->chatDisplay->textCursor();
-    cursor.movePosition(QTextCursor::End);
-    m_ui->chatDisplay->setTextCursor(cursor);
+    appendHtml(html);
 }
 
 void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
@@ -496,11 +676,7 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
 
     html += QStringLiteral("</div>");
 
-    m_ui->chatDisplay->insertHtml(html);
-    m_ui->chatDisplay->ensureCursorVisible();
-    QTextCursor cursor = m_ui->chatDisplay->textCursor();
-    cursor.movePosition(QTextCursor::End);
-    m_ui->chatDisplay->setTextCursor(cursor);
+    appendHtml(html);
 }
 
 void ACPClientChatWidget::handleUsageUpdate(const QJsonObject &update)
@@ -522,13 +698,9 @@ void ACPClientChatWidget::handleUsageUpdate(const QJsonObject &update)
         }
     }
 
-    html += QStringLiteral("</div>");
+    html += QStringLiteral("</div><br clear='all'/>");
 
-    m_ui->chatDisplay->insertHtml(html);
-    m_ui->chatDisplay->ensureCursorVisible();
-    QTextCursor cursor = m_ui->chatDisplay->textCursor();
-    cursor.movePosition(QTextCursor::End);
-    m_ui->chatDisplay->setTextCursor(cursor);
+    appendHtml(html);
 }
 
 QString ACPClientChatWidget::formatAgentTextMessage(const QString &text, const QString &messageId)
@@ -548,7 +720,7 @@ QString ACPClientChatWidget::formatAgentTextMessage(const QString &text, const Q
     formattedText.replace(QRegularExpression(QLatin1String("`([^`]+)`")),
                           QStringLiteral("<code style='background-color: #f5f5f5; padding: 2px; border-radius: 2px;'>\1</code>"));
 
-    html += QStringLiteral("%1</p>").arg(formattedText);
+    html += QStringLiteral("%1</p><br clear='all'/>").arg(formattedText);
     return html;
 }
 

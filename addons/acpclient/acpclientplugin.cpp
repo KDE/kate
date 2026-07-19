@@ -33,6 +33,7 @@ static constexpr char CONFIG_SHOW_NOTIFICATIONS[] = "ShowNotifications";
 static constexpr char CONFIG_SHOW_TOOL_CALLS[] = "ShowToolCalls";
 static constexpr char CONFIG_SHOW_PROGRESS[] = "ShowProgress";
 static constexpr char CONFIG_DEBUG_MODE[] = "DebugMode";
+static constexpr char CONFIG_TOOL_CALL_PERMISSION[] = "ToolCallPermission";
 static constexpr char CONFIG_ALLOWED_COMMANDS[] = "AllowedServerCommandLines";
 static constexpr char CONFIG_BLOCKED_COMMANDS[] = "BlockedServerCommandLines";
 
@@ -132,6 +133,7 @@ void ACPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_SHOW_TOOL_CALLS, m_showToolCalls);
     config.writeEntry(CONFIG_SHOW_PROGRESS, m_showProgress);
     config.writeEntry(CONFIG_DEBUG_MODE, m_debugMode);
+    config.writeEntry(CONFIG_TOOL_CALL_PERMISSION, static_cast<int>(m_toolCallPermission));
 
     // Write server command line permissions
     for (const auto &[cmdline, allowed] : m_serverCommandLineToAllowedState) {
@@ -162,6 +164,7 @@ void ACPClientPlugin::readConfig()
     m_showToolCalls = config.readEntry(CONFIG_SHOW_TOOL_CALLS, true);
     m_showProgress = config.readEntry(CONFIG_SHOW_PROGRESS, true);
     m_debugMode = config.readEntry(CONFIG_DEBUG_MODE, debug);
+    m_toolCallPermission = static_cast<ToolCallPermission>(config.readEntry(CONFIG_TOOL_CALL_PERMISSION, static_cast<int>(AskEachTime)));
 
     // Read allowed and blocked command lines
     QStringList allowedCmdlines = config.readEntry(CONFIG_ALLOWED_COMMANDS, QStringList());

@@ -28,6 +28,14 @@ struct ACPClientPluginOptions {
     bool m_showToolCalls = true;
     bool m_showProgress = true;
     bool m_debugMode = false;
+
+    // Tool call permission settings
+    enum ToolCallPermission {
+        AllowAll, // Automatically allow all tool calls
+        DenyAll, // Automatically deny all tool calls
+        AskEachTime // Ask user for permission each time
+    };
+    ToolCallPermission m_toolCallPermission = AskEachTime;
 };
 
 class ACPClientPlugin : public KTextEditor::Plugin, public ACPClientPluginOptions
@@ -67,6 +75,12 @@ public:
     ACPClientServerManager *serverManager() const
     {
         return m_serverManager ? m_serverManager.get() : nullptr;
+    }
+
+    // Get tool call permission mode
+    ToolCallPermission toolCallPermission() const
+    {
+        return m_toolCallPermission;
     }
 
     // Hash of allowed and blacklisted server command lines

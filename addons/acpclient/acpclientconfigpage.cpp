@@ -92,6 +92,7 @@ void ACPClientConfigPage::defaults()
     m_ui->showToolCallsCheckBox->setChecked(true);
     m_ui->showProgressCheckBox->setChecked(true);
     m_ui->debugModeCheckBox->setChecked(false);
+    m_ui->toolCallPermissionComboBox->setCurrentIndex(0); // Ask each time
 
     // Reset servers to default
     m_servers.clear();
@@ -124,6 +125,22 @@ void ACPClientConfigPage::loadConfig()
     m_ui->showProgressCheckBox->setChecked(m_plugin->m_showProgress);
     m_ui->debugModeCheckBox->setChecked(m_plugin->m_debugMode);
 
+    // Load tool call permission setting
+    int permissionIndex = 0; // Default to AskEachTime
+    switch (m_plugin->m_toolCallPermission) {
+    case ACPClientPluginOptions::AllowAll:
+        permissionIndex = 1;
+        break;
+    case ACPClientPluginOptions::DenyAll:
+        permissionIndex = 2;
+        break;
+    case ACPClientPluginOptions::AskEachTime:
+    default:
+        permissionIndex = 0;
+        break;
+    }
+    m_ui->toolCallPermissionComboBox->setCurrentIndex(permissionIndex);
+
     // Load servers from server manager if available
     if (m_plugin->m_serverManager) {
         for (ACPClientServer *server : m_plugin->m_serverManager->servers()) {
@@ -149,6 +166,21 @@ void ACPClientConfigPage::saveConfig()
     m_plugin->m_showToolCalls = m_ui->showToolCallsCheckBox->isChecked();
     m_plugin->m_showProgress = m_ui->showProgressCheckBox->isChecked();
     m_plugin->m_debugMode = m_ui->debugModeCheckBox->isChecked();
+
+    // Save tool call permission setting
+    int permissionIndex = m_ui->toolCallPermissionComboBox->currentIndex();
+    switch (permissionIndex) {
+    case 1: // Allow all
+        m_plugin->m_toolCallPermission = ACPClientPluginOptions::AllowAll;
+        break;
+    case 2: // Deny all
+        m_plugin->m_toolCallPermission = ACPClientPluginOptions::DenyAll;
+        break;
+    case 0: // Ask each time
+    default:
+        m_plugin->m_toolCallPermission = ACPClientPluginOptions::AskEachTime;
+        break;
+    }
 
     // Save to plugin config
     m_plugin->writeConfig();
@@ -261,6 +293,23 @@ void ACPClientConfigPage::saveServersConfig()
     optionsObj[u"show_tool_calls"] = m_ui->showToolCallsCheckBox->isChecked();
     optionsObj[u"show_progress"] = m_ui->showProgressCheckBox->isChecked();
     optionsObj[u"debug_mode"] = m_ui->debugModeCheckBox->isChecked();
+
+    // Save tool call permission
+    QString permissionStr;
+    switch (m_plugin->m_toolCallPermission) {
+    case ACPClientPluginOptions::AllowAll:
+        permissionStr = QStringLiteral("allow_all");
+        break;
+    case ACPClientPluginOptions::DenyAll:
+        permissionStr = QStringLiteral("deny_all");
+        break;
+    case ACPClientPluginOptions::AskEachTime:
+    default:
+        permissionStr = QStringLiteral("ask_each_time");
+        break;
+    }
+    optionsObj[u"tool_call_permission"] = permissionStr;
+
     settingsObj[u"options"] = optionsObj;
 
     // Write to file

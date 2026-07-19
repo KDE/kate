@@ -335,6 +335,15 @@ void ACPClientServerManager::onServerError(const QString &error)
 
 void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &message)
 {
+    QJsonObject obj = message.object();
+
+    // Check for session/request_permission method
+    if (obj.contains(u"method") && obj[u"method"].toString() == ACP::METHOD_SESSION_REQUEST_PERMISSION) {
+        qCDebug(ACPCLIENT) << "Received permission request:" << message.toJson();
+        handlePermissionRequest(message);
+        return;
+    }
+
     ACP::ACPMessage parsedMessage;
     if (ACP::ACPProtocol::parseMessage(message, parsedMessage)) {
         // Check for session/new response by matching the request ID
@@ -371,6 +380,31 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
 
     // Forward the message to interested parties
     Q_EMIT messageReceived(message);
+}
+
+void ACPClientServerManager::handlePermissionRequest(const QJsonDocument &doc)
+{
+    QJsonObject obj = doc.object();
+
+    if (!obj.contains(u"params") || !obj[u"params"].isObject() || !obj.contains(u"id")) {
+        qCWarning(ACPCLIENT) << "Invalid permission request format";
+        return;
+    }
+
+    qint64 requestId = obj[u"id"].toInteger();
+    QJsonObject params = obj[u"params"].toObject();
+
+    if (!params.contains(u"toolCall") || !params[u"toolCall"].isObject() || !params.contains(u"options") || !params[u"options"].isArray()) {
+        qCWarning(ACPCLIENT) << "Invalid permission request parameters";
+        return;
+    }
+
+    QJsonObject toolCall = params[u"toolCall"].toObject();
+    QJsonArray options = params[u"options"].toArray();
+
+    qCDebug(ACPCLIENT) << "Permission requested for tool call:" << toolCall[u"toolCallId"].toString() << "with" << options.size() << "options";
+
+    Q_EMIT permissionRequested(requestId, toolCall, options);
 }
 
 void ACPClientServerManager::handleSessionUpdate(const QJsonDocument &doc)

@@ -30,6 +30,7 @@ const QString METHOD_SESSION_LIST = QStringLiteral("session/list");
 const QString METHOD_SESSION_DELETE = QStringLiteral("session/delete");
 const QString METHOD_SESSION_PROMPT = QStringLiteral("session/prompt");
 const QString METHOD_SESSION_CANCEL = QStringLiteral("session/cancel");
+const QString METHOD_SESSION_REQUEST_PERMISSION = QStringLiteral("session/request_permission");
 const QString METHOD_TOOLS_LIST = QStringLiteral("tools/list");
 const QString METHOD_TOOLS_CALL = QStringLiteral("tools/call");
 const QString METHOD_PROGRESS = QStringLiteral("progress");
@@ -46,6 +47,16 @@ const QString SESSION_UPDATE_AGENT_MESSAGE_CHUNK = QStringLiteral("agent_message
 const QString SESSION_UPDATE_TOOL_CALL = QStringLiteral("tool_call");
 const QString SESSION_UPDATE_TOOL_CALL_UPDATE = QStringLiteral("tool_call_update");
 const QString SESSION_UPDATE_USAGE_UPDATE = QStringLiteral("usage_update");
+
+// Permission option kinds
+const QString PERMISSION_KIND_ALLOW_ONCE = QStringLiteral("allow_once");
+const QString PERMISSION_KIND_ALLOW_ALWAYS = QStringLiteral("allow_always");
+const QString PERMISSION_KIND_REJECT_ONCE = QStringLiteral("reject_once");
+const QString PERMISSION_KIND_REJECT_ALWAYS = QStringLiteral("reject_always");
+
+// Permission outcome kinds
+const QString PERMISSION_OUTCOME_SELECTED = QStringLiteral("selected");
+const QString PERMISSION_OUTCOME_CANCELLED = QStringLiteral("cancelled");
 
 // JSON-RPC fields
 const QString JSONRPC_VERSION_KEY = QStringLiteral("jsonrpc");
@@ -192,6 +203,10 @@ public:
     static QJsonDocument createSessionUpdateNotification(const SessionUpdateNotification &notification);
     static QJsonDocument createProgressNotification(const ProgressNotification &notification);
     static QJsonDocument createCancelRequestNotification(const CancelRequestNotification &notification);
+
+    // Permission request methods
+    static QJsonDocument createPermissionResponse(qint64 requestId, const QString &optionId);
+    static QJsonDocument createPermissionResponseCancelled(qint64 requestId);
 
     static bool parseMessage(const QJsonDocument &doc, ACPMessage &message);
     static bool parseInitializeResponse(const QJsonDocument &doc, InitializeResult &result);

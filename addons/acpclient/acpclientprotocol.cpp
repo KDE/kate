@@ -234,6 +234,39 @@ QJsonDocument ACPProtocol::createCancelRequestNotification(const CancelRequestNo
     return QJsonDocument(notif);
 }
 
+QJsonDocument ACPProtocol::createPermissionResponse(qint64 requestId, const QString &optionId)
+{
+    QJsonObject response;
+    response[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
+    response[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
+
+    QJsonObject resultObj;
+    QJsonObject outcomeObj;
+    outcomeObj[u"outcome"] = PERMISSION_OUTCOME_SELECTED;
+    outcomeObj[u"optionId"] = optionId;
+    resultObj[u"outcome"] = outcomeObj;
+
+    response[JSONRPC_RESULT] = resultObj;
+
+    return QJsonDocument(response);
+}
+
+QJsonDocument ACPProtocol::createPermissionResponseCancelled(qint64 requestId)
+{
+    QJsonObject response;
+    response[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
+    response[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
+
+    QJsonObject resultObj;
+    QJsonObject outcomeObj;
+    outcomeObj[u"outcome"] = PERMISSION_OUTCOME_CANCELLED;
+    resultObj[u"outcome"] = outcomeObj;
+
+    response[JSONRPC_RESULT] = resultObj;
+
+    return QJsonDocument(response);
+}
+
 bool ACPProtocol::parseMessage(const QJsonDocument &doc, ACPMessage &message)
 {
     if (!doc.isObject()) {

@@ -53,10 +53,14 @@ Q_SIGNALS:
     void sessionRequested();
     void sessionEnded();
 
+    // Permission response signal
+    void permissionResponse(qint64 requestId, const QString &optionId);
+
 private Q_SLOTS:
     void sendMessage();
     void onInputReturnPressed();
     void onServerMessageReceived(const QJsonDocument &message);
+    void onPermissionRequested(qint64 requestId, const QJsonObject &toolCall, const QJsonArray &options);
 
 private:
     void setupUI();
@@ -64,6 +68,7 @@ private:
     void saveHistory();
     QString formatMessage(const QString &sender, const QString &message, bool isUser) const;
     void updateSessionState();
+    void appendHtml(const QString &html);
 
     // Message handlers
     void handleAgentMessageChunk(const QJsonObject &update);

@@ -80,6 +80,9 @@ Q_SIGNALS:
     void messageReceived(const QJsonDocument &message);
     void errorOccurred(const QString &error);
 
+    // Permission request signal
+    void permissionRequested(qint64 requestId, const QJsonObject &toolCall, const QJsonArray &options);
+
 private Q_SLOTS:
     void onServerInitialized(const ACP::InitializeResult &result);
     void onServerDisconnected();
@@ -89,6 +92,7 @@ private Q_SLOTS:
 private:
     void handleSessionUpdate(const QJsonDocument &doc);
     void handleProgressNotification(const QJsonDocument &doc);
+    void handlePermissionRequest(const QJsonDocument &doc);
 
     ACPClientPlugin *m_plugin;
     std::vector<std::unique_ptr<ACPClientServer>> m_servers;

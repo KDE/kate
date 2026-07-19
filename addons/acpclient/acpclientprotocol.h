@@ -66,23 +66,8 @@ struct AgentCapabilities {
     QJsonObject customCapabilities;
 };
 
-// Client capabilities
-struct ClientCapabilities {
-    bool supportsSessions = true;
-    bool supportsTools = true;
-    bool supportsProgress = true;
-    bool supportsAuthentication = true;
-    QStringList supportedProtocolVersions = {PROTOCOL_VERSION};
-    QJsonObject customCapabilities;
-};
-
 // Initialize request parameters
 struct InitializeParams {
-    QString clientName;
-    QString clientVersion;
-    QString protocolVersion;
-    ClientCapabilities capabilities;
-    QJsonObject metadata;
 };
 
 // Initialize response

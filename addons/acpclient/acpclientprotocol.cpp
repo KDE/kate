@@ -12,7 +12,7 @@
 namespace ACP
 {
 
-QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &params, qint64 requestId)
+QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &, qint64 requestId)
 {
     QJsonObject request;
     request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
@@ -20,10 +20,9 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
     request[JSONRPC_METHOD] = METHOD_INITIALIZE;
 
     QJsonObject paramsObj;
-    paramsObj[u"protocolVersion"] = params.protocolVersion;
+    paramsObj[u"protocolVersion"] = ACP::ACPProtocol::getProtocolVersion();
 
     QJsonObject clientCapabilities;
-    clientCapabilities[u"terminal"] = true;
     paramsObj[u"clientCapabilities"] = clientCapabilities;
 
     QJsonObject clientInfo;

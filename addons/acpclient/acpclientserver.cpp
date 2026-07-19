@@ -105,13 +105,6 @@ void ACPClientServer::initializeServer()
     }
 
     ACP::InitializeParams params;
-    params.clientName = QStringLiteral("Kate");
-    params.clientVersion = version;
-    params.protocolVersion = ACP::ACPProtocol::getProtocolVersion();
-    params.capabilities = ACP::ClientCapabilities();
-    params.metadata.insert(u"client_name", QStringLiteral("Kate"));
-    params.metadata.insert(u"client_version", version);
-
     qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createInitializeRequest(params, requestId);
 

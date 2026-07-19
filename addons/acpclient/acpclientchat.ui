@@ -150,6 +150,16 @@
      </item>
     </layout>
    </item>
+   <item>
+    <widget class="QLabel" name="statusLabel">
+     <property name="text">
+      <string/>
+     </property>
+     <property name="styleSheet">
+      <string>QLabel { padding: 4px; border-top: 1px solid #ccc; font-size: small; color: #666; }</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

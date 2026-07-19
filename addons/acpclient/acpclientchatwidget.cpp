@@ -44,6 +44,9 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
         }
     }
 
+    // Get status label
+    m_statusLabel = m_ui->statusLabel;
+
     // Connect signals
     connect(m_ui->sendButton, &QPushButton::clicked, this, &ACPClientChatWidget::sendMessage);
     connect(m_ui->messageInput, &QLineEdit::returnPressed, this, &ACPClientChatWidget::onInputReturnPressed);
@@ -225,6 +228,13 @@ void ACPClientChatWidget::copyChatText()
     }
 }
 
+void ACPClientChatWidget::updateStatus(const QString &text)
+{
+    if (m_statusLabel) {
+        m_statusLabel->setText(text);
+    }
+}
+
 void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObject &toolCall, const QJsonArray &options)
 {
     qCDebug(ACPCLIENT) << "Permission requested for requestId:" << requestId;
@@ -354,6 +364,7 @@ void ACPClientChatWidget::clearChat()
 {
     clearMessages();
     m_messageHistory.clear();
+    updateStatus(QString());
 }
 
 void ACPClientChatWidget::setServer(ACPClientServer *server)
@@ -645,12 +656,15 @@ void ACPClientChatWidget::handleUsageUpdate(const QJsonObject &update)
         }
     }
 
-    ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Usage, m_chatDisplayContainer);
-    msgWidget->setTimestamp(QDateTime::currentDateTime());
-    msgWidget->setSender(i18n("System"));
-    msgWidget->setUsageInfo(used, size, cost, currency);
-
-    addMessageWidget(msgWidget);
+    // Update status bar with usage info
+    QString statusText;
+    if (used > 0 && size > 0) {
+        statusText = i18n("Tokens: %1 / %2", used, size);
+        if (cost > 0.0 && !currency.isEmpty()) {
+            statusText += QStringLiteral(" | Cost: %1 %2").arg(cost, 0, 'f', 4).arg(currency);
+        }
+    }
+    updateStatus(statusText);
 }
 
 void ACPClientChatWidget::updateSessionState()

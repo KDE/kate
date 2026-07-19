@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QScrollArea>
@@ -67,6 +68,9 @@ private Q_SLOTS:
     void onPermissionRequested(qint64 requestId, const QJsonObject &toolCall, const QJsonArray &options);
     void copyChatText();
 
+public Q_SLOTS:
+    void updateStatus(const QString &text);
+
 private:
     void updateSessionState();
     void addMessageWidget(ACPChatMessageWidget *widget);
@@ -95,6 +99,9 @@ private:
     QScrollArea *m_chatScrollArea = nullptr;
     QWidget *m_chatDisplayContainer = nullptr;
     QList<ACPChatMessageWidget *> m_messageWidgets;
+
+    // Status bar
+    QLabel *m_statusLabel = nullptr;
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event) override;

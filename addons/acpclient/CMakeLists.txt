@@ -19,6 +19,7 @@ target_sources(
     acpclientservermanager.cpp
     acpclientprotocol.cpp
     acpclientchatwidget.cpp
+    acpchatmessagewidget.cpp
     acpclient_debug.h
 
     plugin.qrc

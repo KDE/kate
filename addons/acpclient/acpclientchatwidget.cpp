@@ -5,6 +5,7 @@
 */
 
 #include "acpclientchatwidget.h"
+#include "acpchatmessagewidget.h"
 #include "acpclient_debug.h"
 #include "acpclientplugin.h"
 #include "acpclientprotocol.h"
@@ -17,10 +18,8 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QMessageBox>
-#include <QRegularExpression>
-#include <QTextBlockFormat>
-#include <QTextCharFormat>
-#include <QTextCursor>
+#include <QScrollArea>
+#include <QTimer>
 
 #include "ui_acpclientchat.h"
 
@@ -48,17 +47,17 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     connect(m_ui->newSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::startNewSession);
     connect(m_ui->endSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::sessionEnded);
 
-    // Set up chat display styling
-    QTextDocument *doc = m_ui->chatDisplay->document();
-    doc->setDefaultStyleSheet(
-        QStringLiteral("body { background-color: #f0f0f0; margin: 4px; }"
-                       "p.user { color: #2c3e50; margin: 4px 0; margin-left: 10px; }"
-                       "p.agent { color: #27ae60; margin: 4px 0; margin-left: 10px; }"
-                       "span.timestamp { color: #7f8c8d; font-size: small; }"
-                       "div { margin: 2px 0; }"));
+    // Get the scroll area and message container from UI
+    m_chatScrollArea = m_ui->chatScrollArea;
+    m_chatDisplayContainer = m_ui->chatDisplay;
+    m_chatMessagesLayout = qobject_cast<QVBoxLayout *>(m_chatDisplayContainer->layout());
 
-    // Enable rich text for styling
-    m_ui->chatDisplay->setAcceptRichText(true);
+    if (!m_chatMessagesLayout) {
+        // Fallback if layout not found
+        m_chatMessagesLayout = new QVBoxLayout(m_chatDisplayContainer);
+        m_chatMessagesLayout->setSpacing(2);
+        m_chatMessagesLayout->setContentsMargins(4, 4, 4, 4);
+    }
 
     // Update UI state
     updateSessionState();
@@ -67,6 +66,10 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
 ACPClientChatWidget::~ACPClientChatWidget()
 {
     qCDebug(ACPCLIENT) << "ACPClientChatWidget destroyed";
+
+    // Clean up all message widgets
+    clearMessages();
+
     delete m_ui;
 }
 
@@ -141,35 +144,50 @@ QString ACPClientChatWidget::sessionId() const
     return m_sessionId;
 }
 
-void ACPClientChatWidget::appendHtml(const QString &html)
-{
-    // Move cursor to end before inserting
-    QTextCursor cursor = m_ui->chatDisplay->textCursor();
-    cursor.movePosition(QTextCursor::End);
-    m_ui->chatDisplay->setTextCursor(cursor);
-    m_ui->chatDisplay->insertHtml(html);
-    m_ui->chatDisplay->ensureCursorVisible();
-}
-
 void ACPClientChatWidget::appendMessage(const QString &sender, const QString &message, bool isUser)
 {
-    QString timestamp = QDateTime::currentDateTime().toString(QStringLiteral("hh:mm:ss"));
-    QString htmlMessage;
+    ACPChatMessageWidget *msgWidget =
+        new ACPChatMessageWidget(isUser ? ACPChatMessageWidget::MessageType::User : ACPChatMessageWidget::MessageType::Agent, m_chatDisplayContainer);
 
-    if (isUser) {
-        htmlMessage = QStringLiteral("<p class='user'><span class='timestamp'>[%1]</span> <strong>You:</strong> %2</p><br clear='all'/>")
-                          .arg(timestamp, message.toHtmlEscaped());
-    } else {
-        htmlMessage = QStringLiteral("<p class='agent'><span class='timestamp'>[%1]</span> <strong>%2:</strong> %3</p><br clear='all'/>")
-                          .arg(timestamp, sender.toHtmlEscaped(), message.toHtmlEscaped());
+    msgWidget->setTimestamp(QDateTime::currentDateTime());
+    msgWidget->setSender(isUser ? i18n("You") : sender);
+    msgWidget->setContent(message);
+
+    addMessageWidget(msgWidget);
+}
+
+void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
+{
+    if (!widget || !m_chatMessagesLayout) {
+        return;
     }
 
-    appendHtml(htmlMessage);
+    widget->show();
+    m_chatMessagesLayout->addWidget(widget);
+    m_messageWidgets.append(widget);
 
-    // Auto-scroll to bottom
-    QTextCursor cursor = m_ui->chatDisplay->textCursor();
-    cursor.movePosition(QTextCursor::End);
-    m_ui->chatDisplay->setTextCursor(cursor);
+    // Scroll to bottom
+    QTimer::singleShot(0, this, [this]() {
+        m_chatScrollArea->ensureVisible(0, m_chatDisplayContainer->height(), 0, 0);
+    });
+}
+
+void ACPClientChatWidget::clearMessages()
+{
+    // Delete all message widgets
+    for (ACPChatMessageWidget *widget : m_messageWidgets) {
+        widget->deleteLater();
+    }
+    m_messageWidgets.clear();
+
+    // Clear layout
+    QLayoutItem *child;
+    while ((child = m_chatMessagesLayout->takeAt(0)) != nullptr) {
+        if (child->widget()) {
+            child->widget()->deleteLater();
+        }
+        delete child;
+    }
 }
 
 void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObject &toolCall, const QJsonArray &options)
@@ -338,7 +356,7 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
 
 void ACPClientChatWidget::clearChat()
 {
-    m_ui->chatDisplay->clear();
+    clearMessages();
     m_messageHistory.clear();
 }
 
@@ -508,15 +526,38 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
             // Check if this is a new message or continuation
             static QString lastMessageId;
             if (messageId != lastMessageId && !messageId.isEmpty()) {
-                // New message - add with header
+                // New message
                 lastMessageId = messageId;
-                QString html = formatAgentTextMessage(text, messageId);
-                appendHtml(html);
+                ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Agent, m_chatDisplayContainer);
+                msgWidget->setTimestamp(QDateTime::currentDateTime());
+                msgWidget->setSender(i18n("Agent"));
+                msgWidget->setMessageId(messageId);
+                msgWidget->setContent(text);
+                addMessageWidget(msgWidget);
+            } else if (!messageId.isEmpty()) {
+                // Continuation - try to find the last agent message and append
+                if (!m_messageWidgets.isEmpty()) {
+                    ACPChatMessageWidget *lastWidget = m_messageWidgets.last();
+                    if (lastWidget->type() == ACPChatMessageWidget::MessageType::Agent && lastWidget->messageId() == messageId) {
+                        // Append to existing message
+                        QString existingContent = lastWidget->content();
+                        lastWidget->setContent(existingContent + QStringLiteral(" ") + text);
+                        return;
+                    }
+                }
+                // Fallback: create new message
+                ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Agent, m_chatDisplayContainer);
+                msgWidget->setTimestamp(QDateTime::currentDateTime());
+                msgWidget->setSender(i18n("Agent"));
+                msgWidget->setContent(text);
+                addMessageWidget(msgWidget);
             } else {
-                // Continuation of previous message - append text
-                QString formattedText = text;
-                formattedText.replace(QLatin1Char('\n'), QStringLiteral("<br/>"));
-                appendHtml(formattedText);
+                // No message ID - create new message
+                ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Agent, m_chatDisplayContainer);
+                msgWidget->setTimestamp(QDateTime::currentDateTime());
+                msgWidget->setSender(i18n("Agent"));
+                msgWidget->setContent(text);
+                addMessageWidget(msgWidget);
             }
         }
     }
@@ -527,53 +568,22 @@ void ACPClientChatWidget::handlePlanUpdate(const QJsonObject &update)
     if (update.contains(u"entries") && update[u"entries"].isArray()) {
         QJsonArray entries = update[u"entries"].toArray();
 
-        QString html = QStringLiteral("<div style='margin: 8px 0; padding: 8px; background-color: #fff; border-left: 3px solid #3498db;'>");
-        html += QStringLiteral("<strong style='color: #2980b9;'>%1:</strong>").arg(i18n("Plan"));
-        html += QStringLiteral("<ul style='margin: 4px 0; padding-left: 20px;'>");
+        ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Plan, m_chatDisplayContainer);
+        msgWidget->setTimestamp(QDateTime::currentDateTime());
+        msgWidget->setSender(i18n("Agent"));
 
+        // Add each plan entry
         for (const QJsonValue &entryValue : entries) {
             if (entryValue.isObject()) {
                 QJsonObject entry = entryValue.toObject();
                 QString content = entry[u"content"].toString();
                 QString priority = entry[u"priority"].toString();
                 QString status = entry[u"status"].toString();
-
-                // Map priority to color
-                QString priorityColor;
-                if (priority == QStringLiteral("high")) {
-                    priorityColor = QStringLiteral("#e74c3c");
-                } else if (priority == QStringLiteral("medium")) {
-                    priorityColor = QStringLiteral("#f39c12");
-                } else {
-                    priorityColor = QStringLiteral("#95a5a6");
-                }
-
-                // Map status to icon
-                QString statusIcon;
-                if (status == QStringLiteral("completed")) {
-                    statusIcon = QStringLiteral("[DONE]");
-                } else if (status == QStringLiteral("in_progress")) {
-                    statusIcon = QStringLiteral("[RUNNING]");
-                } else if (status == QStringLiteral("pending")) {
-                    statusIcon = QStringLiteral("[PENDING]");
-                } else if (status == QStringLiteral("error")) {
-                    statusIcon = QStringLiteral("[ERROR]");
-                } else {
-                    statusIcon = QString();
-                }
-
-                html += QStringLiteral("<li style='margin: 2px 0; color: %1;'>").arg(priorityColor);
-                if (!statusIcon.isEmpty()) {
-                    html += QStringLiteral("<span style='font-weight: bold;'>%1</span> ").arg(statusIcon);
-                }
-                html += QStringLiteral("<span style='color: %1; font-weight: bold;'>%2:</span> %3</li>")
-                            .arg(priorityColor, priority.toHtmlEscaped(), content.toHtmlEscaped());
+                msgWidget->addPlanEntry(content, priority, status);
             }
         }
 
-        html += QStringLiteral("</ul></div><br clear='all'/>");
-
-        appendHtml(html);
+        addMessageWidget(msgWidget);
     }
 }
 
@@ -584,73 +594,19 @@ void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
     QString kind = update[u"kind"].toString();
     QString status = update[u"status"].toString();
 
-    QString statusText;
-    QString statusColor;
-    if (status == QStringLiteral("pending")) {
-        statusText = i18n("Pending");
-        statusColor = QStringLiteral("#f39c12");
-    } else if (status == QStringLiteral("in_progress")) {
-        statusText = i18n("In Progress");
-        statusColor = QStringLiteral("#3498db");
-    } else if (status == QStringLiteral("completed")) {
-        statusText = i18n("Completed");
-        statusColor = QStringLiteral("#27ae60");
-    } else if (status == QStringLiteral("error")) {
-        statusText = i18n("Error");
-        statusColor = QStringLiteral("#e74c3c");
-    } else {
-        statusText = status;
-        statusColor = QStringLiteral("#7f8c8d");
-    }
+    ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::ToolCall, m_chatDisplayContainer);
+    msgWidget->setTimestamp(QDateTime::currentDateTime());
+    msgWidget->setSender(i18n("Agent"));
+    msgWidget->setToolCallInfo(toolCallId, title, kind, status);
 
-    QString html = QStringLiteral("<div style='margin: 6px 0; padding: 6px; background-color: #f8f9fa; border-left: 3px solid %1;'>").arg(statusColor);
-    html += QStringLiteral("<strong>%1:</strong> ").arg(i18n("Tool Call"));
-    if (!title.isEmpty()) {
-        html += QStringLiteral("<span style='color: #2c3e50;'>%1</span> ").arg(title.toHtmlEscaped());
-    }
-    if (!kind.isEmpty()) {
-        html += QStringLiteral("<span style='color: #7f8c8d; font-size: small;'>(%1)</span> ").arg(kind.toHtmlEscaped());
-    }
-    html += QStringLiteral("<span style='color: %1; font-weight: bold;'>%2</span>").arg(statusColor, statusText.toHtmlEscaped());
-    if (!toolCallId.isEmpty()) {
-        html += QStringLiteral(" <span style='color: #95a5a6; font-size: small;'>[ID: %1]</span>").arg(toolCallId.toHtmlEscaped());
-    }
-    html += QStringLiteral("</div><br clear='all'/>");
-
-    appendHtml(html);
+    addMessageWidget(msgWidget);
 }
 
 void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
 {
     QString toolCallId = update[u"toolCallId"].toString();
     QString status = update[u"status"].toString();
-
-    QString statusText;
-    QString statusColor;
-    if (status == QStringLiteral("pending")) {
-        statusText = i18n("Pending");
-        statusColor = QStringLiteral("#f39c12");
-    } else if (status == QStringLiteral("in_progress")) {
-        statusText = i18n("In Progress");
-        statusColor = QStringLiteral("#3498db");
-    } else if (status == QStringLiteral("completed")) {
-        statusText = i18n("Completed");
-        statusColor = QStringLiteral("#27ae60");
-    } else if (status == QStringLiteral("error")) {
-        statusText = i18n("Error");
-        statusColor = QStringLiteral("#e74c3c");
-    } else {
-        statusText = status;
-        statusColor = QStringLiteral("#7f8c8d");
-    }
-
-    QString html = QStringLiteral("<div style='margin: 4px 0; padding: 4px 8px; background-color: #ecf0f1; border-left: 3px solid %1; font-size: small;'>")
-                       .arg(statusColor);
-    html += QStringLiteral("<strong>%1:</strong> ").arg(i18n("Tool Update"));
-    html += QStringLiteral("%1 ").arg(statusText.toHtmlEscaped());
-    if (!toolCallId.isEmpty()) {
-        html += QStringLiteral("<span style='color: #7f8c8d;'>[ID: %1]</span>").arg(toolCallId.toHtmlEscaped());
-    }
+    QString contentText;
 
     // Check for content
     if (update.contains(u"content") && update[u"content"].isArray()) {
@@ -661,67 +617,44 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
                 if (content.contains(u"content") && content[u"content"].isObject()) {
                     QJsonObject innerContent = content[u"content"].toObject();
                     if (innerContent.contains(u"type") && innerContent[u"type"].toString() == QStringLiteral("text")) {
-                        QString text = innerContent[u"text"].toString();
-                        QString formattedText = text;
-                        formattedText.replace(QLatin1Char('\n'), QStringLiteral("<br/>"));
-                        html += QStringLiteral(
-                                    "<br/><pre style='margin: 4px 0; padding: 4px; background-color: #fff; border-radius: 2px; overflow-x: auto; white-space: "
-                                    "pre-wrap;'>%1</pre>")
-                                    .arg(formattedText.toHtmlEscaped());
+                        contentText = innerContent[u"text"].toString();
+                        break;
                     }
                 }
             }
         }
     }
 
-    html += QStringLiteral("</div>");
+    ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::ToolCallUpdate, m_chatDisplayContainer);
+    msgWidget->setTimestamp(QDateTime::currentDateTime());
+    msgWidget->setSender(i18n("Agent"));
+    msgWidget->setToolCallStatus(toolCallId, status, contentText);
 
-    appendHtml(html);
+    addMessageWidget(msgWidget);
 }
 
 void ACPClientChatWidget::handleUsageUpdate(const QJsonObject &update)
 {
     qint64 used = update[u"used"].toInt();
     qint64 size = update[u"size"].toInt();
-
-    QString html = QStringLiteral("<div style='margin: 6px 0; padding: 6px; background-color: #f8f9fa; border-left: 3px solid #9b59b6;'>");
-    html += QStringLiteral("<strong>%1:</strong> ").arg(i18n("Usage"));
-    html += QStringLiteral("%1 / %2 tokens used").arg(QString::number(used), QString::number(size));
+    double cost = 0.0;
+    QString currency;
 
     // Handle cost if present
     if (update.contains(u"cost") && update[u"cost"].isObject()) {
-        QJsonObject cost = update[u"cost"].toObject();
-        if (cost.contains(u"amount") && cost.contains(u"currency")) {
-            double amount = cost[u"amount"].toDouble();
-            QString currency = cost[u"currency"].toString();
-            html += QStringLiteral(" | <span style='color: #27ae60;'>%1 %2</span>").arg(QString::number(amount, 'f', 4), currency);
+        QJsonObject costObj = update[u"cost"].toObject();
+        if (costObj.contains(u"amount") && costObj.contains(u"currency")) {
+            cost = costObj[u"amount"].toDouble();
+            currency = costObj[u"currency"].toString();
         }
     }
 
-    html += QStringLiteral("</div><br clear='all'/>");
+    ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Usage, m_chatDisplayContainer);
+    msgWidget->setTimestamp(QDateTime::currentDateTime());
+    msgWidget->setSender(i18n("System"));
+    msgWidget->setUsageInfo(used, size, cost, currency);
 
-    appendHtml(html);
-}
-
-QString ACPClientChatWidget::formatAgentTextMessage(const QString &text, const QString &messageId)
-{
-    QString timestamp = QDateTime::currentDateTime().toString(QStringLiteral("hh:mm:ss"));
-    QString html = QStringLiteral("<p class='agent'><span class='timestamp'>[%1]</span> <strong>%2:</strong> ").arg(timestamp, i18n("Agent"));
-
-    if (!messageId.isEmpty()) {
-        html += QStringLiteral("<span style='color: #7f8c8d; font-size: small;'>[%1] </span>").arg(messageId);
-    }
-
-    // Format the text: preserve newlines and format code blocks
-    QString formattedText = text;
-    formattedText.replace(QLatin1Char('\n'), QStringLiteral("<br/>"));
-    formattedText.replace(QRegularExpression(QLatin1String("```(\\w*)\n([\\s\\S]*?)\n```")),
-                          QStringLiteral("<pre style='background-color: #f5f5f5; padding: 4px; border-radius: 2px; overflow-x: auto;'><code>\2</code></pre>"));
-    formattedText.replace(QRegularExpression(QLatin1String("`([^`]+)`")),
-                          QStringLiteral("<code style='background-color: #f5f5f5; padding: 2px; border-radius: 2px;'>\1</code>"));
-
-    html += QStringLiteral("%1</p><br clear='all'/>").arg(formattedText);
-    return html;
+    addMessageWidget(msgWidget);
 }
 
 void ACPClientChatWidget::updateSessionState()

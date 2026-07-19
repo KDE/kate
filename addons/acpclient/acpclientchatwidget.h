@@ -8,7 +8,8 @@
 
 #include <QLineEdit>
 #include <QPushButton>
-#include <QTextEdit>
+#include <QScrollArea>
+#include <QVBoxLayout>
 #include <QWidget>
 
 #include <KTextEditor/MainWindow>
@@ -16,6 +17,7 @@
 class ACPClientPlugin;
 class ACPClientServer;
 class ACPClientServerManager;
+class ACPChatMessageWidget;
 
 namespace Ui
 {
@@ -63,12 +65,9 @@ private Q_SLOTS:
     void onPermissionRequested(qint64 requestId, const QJsonObject &toolCall, const QJsonArray &options);
 
 private:
-    void setupUI();
-    void loadHistory();
-    void saveHistory();
-    QString formatMessage(const QString &sender, const QString &message, bool isUser) const;
     void updateSessionState();
-    void appendHtml(const QString &html);
+    void addMessageWidget(ACPChatMessageWidget *widget);
+    void clearMessages();
 
     // Message handlers
     void handleAgentMessageChunk(const QJsonObject &update);
@@ -76,7 +75,6 @@ private:
     void handleToolCallUpdate(const QJsonObject &update);
     void handleToolCallStatusUpdate(const QJsonObject &update);
     void handleUsageUpdate(const QJsonObject &update);
-    QString formatAgentTextMessage(const QString &text, const QString &messageId);
 
     ACPClientPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
@@ -87,4 +85,10 @@ private:
     Ui::ACPChatWidget *m_ui;
     QList<QString> m_messageHistory;
     int m_historyIndex = 0;
+
+    // Message display
+    QVBoxLayout *m_chatMessagesLayout = nullptr;
+    QScrollArea *m_chatScrollArea = nullptr;
+    QWidget *m_chatDisplayContainer = nullptr;
+    QList<ACPChatMessageWidget *> m_messageWidgets;
 };

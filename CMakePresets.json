@@ -7,27 +7,40 @@
             "displayName": "base preset",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/build-${presetName}",
-            "installDir": "$env{KF5}",
-            "hidden": true
+            "installDir": "$env{KF6}",
+            "hidden": true,
+            "cacheVariables": {
+                "WARNINGS_AS_ERRORS": "ON"
+            }
+        },
+        {
+            "name": "dev-mold",
+            "displayName": "Build as debug + using mold linker",
+            "cacheVariables": {
+                "CMAKE_SHARED_LINKER_FLAGS": "-fuse-ld=mold"
+            },
+            "inherits": [
+                "dev"
+            ]
+        },
+        {
+            "name": "check-cmake",
+            "displayName": "Configure with strict warning",
+            "inherits": [
+                "dev-mold"
+            ],
+            "errors": {
+                "dev": true
+            },
+            "warnings": {
+                "uninitialized": true
+            }
         },
         {
             "name": "dev",
             "displayName": "Build as debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-            },
-            "inherits": [
-                "base"
-            ]
-        },
-        {
-            "name": "dev-qt6",
-            "displayName": "Build against qt6",
-            "binaryDir": "${sourceDir}/build-qt6",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "BUILD_WITH_QT6": "ON",
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
             },
             "inherits": [
@@ -48,34 +61,30 @@
         {
             "name": "dev-clang",
             "displayName": "dev-clang",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-            },
             "environment": {
                 "CXX": "clang++",
                 "CCACHE_DISABLE": "ON"
             },
             "inherits": [
-                "base"
+                "dev"
             ]
         },
         {
             "name": "unity",
             "displayName": "Build with CMake unity support.",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
                 "USE_UNITY_CMAKE_SUPPORT": "ON"
             },
             "inherits": [
-                "base"
+                "dev"
             ]
         },
         {
             "name": "release",
             "displayName": "Build as release mode.",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "BUILD_TESTING": "OFF"
             },
             "inherits": [
                 "base"
@@ -118,15 +127,19 @@
             ]
         },
         {
-            "name": "pch",
-            "displayName": "pch",
+            "name": "ftime-trace",
+            "displayName": "ftime-trace",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "USE_PRECOMPILED_HEADERS": "ON",
-                "BUILD_COVERAGE": "ON"
+                "CMAKE_C_FLAGS_INIT": "-ftime-trace",
+                "CMAKE_CXX_FLAGS_INIT": "-ftime-trace"
+            },
+            "environment": {
+                "CC": "/usr/bin/clang",
+                "CXX": "/usr/bin/clang++",
+                "CCACHE_DISABLE": "ON"
             },
             "inherits": [
-                "base"
+                "dev"
             ]
         }
     ],
@@ -136,16 +149,16 @@
             "configurePreset": "dev"
         },
         {
-            "name": "dev-qt6",
-            "configurePreset": "dev-qt6"
+            "name": "ftime-trace",
+            "configurePreset": "ftime-trace"
+        },
+        {
+            "name": "dev-mold",
+            "configurePreset": "dev-mold"
         },
         {
             "name": "dev-clang",
             "configurePreset": "dev-clang"
-        },
-        {
-            "name": "pch",
-            "configurePreset": "pch"
         },
         {
             "name": "release",

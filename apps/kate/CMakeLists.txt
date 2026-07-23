@@ -45,6 +45,7 @@ set(ICON_FILES
   ${ICONS_FOLDER}/512-apps-kate.png
 )
 
+set(ICONS_SOURCES)
 # Add icon files to the application's source files to have CMake bundle them in the executable.
 ecm_add_app_icon(ICONS_SOURCES ICONS ${ICON_FILES})
 target_sources(kate-bin PRIVATE ${ICONS_SOURCES})

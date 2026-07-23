@@ -23,6 +23,7 @@ set(ICON_FILES
 )
 
 # Add icon files to the application's source files to have CMake bundle them in the executable.
+set(ICONS_SOURCES)
 ecm_add_app_icon(ICONS_SOURCES ICONS ${ICON_FILES})
 target_sources(kwrite PRIVATE ${ICONS_SOURCES})
 

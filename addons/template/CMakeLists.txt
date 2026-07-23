@@ -1,4 +1,4 @@
-find_package(KF6 ${KF_MIN_VERSION} COMPONENTS
+find_package(KF6 ${KF6_DEP_VERSION} COMPONENTS
     Archive
     Config
 )

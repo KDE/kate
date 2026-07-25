@@ -1,6 +1,14 @@
+/*
+    SPDX-FileCopyrightText: 2026 Christoph Cullmann <cullmann@kde.org>
+
+    SPDX-License-Identifier: MIT
+*/
+
 # ACP Client Plugin for Kate - Developer Guide
 
 This document provides an overview of the Agent Client Protocol (ACP) client plugin for Kate, its architecture, and guidelines for development.
+
+**Note:** Some parts of this plugin were adapted from the LSP Client plugin.
 
 ## Overview
 

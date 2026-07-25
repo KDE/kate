@@ -27,82 +27,240 @@ namespace Ui
 class ACPChatWidget;
 }
 
+/**
+ * @class ACPClientChatWidget
+ * @brief Main chat widget for ACP agent interaction
+ *
+ * This widget provides the complete chat interface including:
+ * - Message display area with scrollable history
+ * - Message input field with send button
+ * - Session controls (new, end, copy)
+ * - Status bar for usage information
+ *
+ * The widget connects to the server manager to send and receive messages.
+ * It handles various ACP message types (agent messages, tool calls, plans, etc.)
+ * and displays them appropriately.
+ *
+ * @see ACPChatMessageWidget for individual message display
+ * @see ACPClientPluginView for plugin view integration
+ */
 class ACPClientChatWidget : public QWidget
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Construct the chat widget
+     * @param plugin Parent plugin instance
+     * @param mainWindow Kate main window
+     * @param parent Qt parent widget
+     */
     explicit ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::MainWindow *mainWindow, QWidget *parent = nullptr);
+
+    /** @brief Destructor */
     ~ACPClientChatWidget() override;
 
-    // Start a new chat session
+    // ========================================================================
+    // SESSION MANAGEMENT
+    // ========================================================================
+
+    /**
+     * @brief Start a new chat session
+     *
+     * Creates a new session via the server manager and sets up connections
+     * to receive messages for that session.
+     */
     void startNewSession();
 
-    // Set the active session ID
+    /** @brief Set the active session ID */
     void setSessionId(const QString &sessionId);
 
-    // Get the current session ID
+    /** @brief Get the current session ID */
     QString sessionId() const;
 
-    // Append a message to the chat
+    // ========================================================================
+    // MESSAGE MANAGEMENT
+    // ========================================================================
+
+    /**
+     * @brief Append a message to the chat display
+     * @param sender Who sent the message
+     * @param message Message text
+     * @param isUser Whether this is a user message (affects styling)
+     */
     void appendMessage(const QString &sender, const QString &message, bool isUser = false);
 
-    // Clear the chat
+    /** @brief Clear all messages from the chat */
     void clearChat();
 
-    // Set the server
+    // ========================================================================
+    // SERVER MANAGEMENT
+    // ========================================================================
+
+    /**
+     * @brief Set the active server
+     * @param server Server to use for this chat
+     *
+     * Disconnects from the previous server and connects to the new one.
+     */
     void setServer(ACPClientServer *server);
 
 Q_SIGNALS:
+    // ========================================================================
+    // OUTGOING SIGNALS
+    // ========================================================================
+
+    /** @brief Emitted when a message is sent */
     void messageSent(const QString &sessionId, const QString &message);
+
+    /** @brief Emitted when a new session is requested */
     void sessionRequested();
+
+    /** @brief Emitted when the user ends the session */
     void sessionEnded();
 
-    // Permission response signal
+    /**
+     * @brief Emitted when user responds to a permission request
+     * @param requestId Permission request ID
+     * @param optionId Selected option ID
+     */
     void permissionResponse(qint64 requestId, const QString &optionId);
 
 private Q_SLOTS:
+    // ========================================================================
+    // USER ACTION HANDLERS
+    // ========================================================================
+
+    /** @brief Handle send button click or Enter key in input */
     void sendMessage();
+
+    /** @brief Handle Return key in input field */
     void onInputReturnPressed();
+
+    // ========================================================================
+    // SERVER MESSAGE HANDLERS
+    // ========================================================================
+
+    /**
+     * @brief Handle incoming messages from the server
+     * @param message JSON document received
+     *
+     * Parses the message and routes to appropriate handler based on type.
+     */
     void onServerMessageReceived(const QJsonDocument &message);
+
+    /**
+     * @brief Handle permission requests from the server
+     * @param requestId Permission request ID
+     * @param toolCall Tool call details
+     * @param options Available permission options
+     *
+     * Creates an inline permission request widget in the chat.
+     */
     void onPermissionRequested(qint64 requestId, const QJsonObject &toolCall, const QJsonArray &options);
+
+    /** @brief Handle copy button click */
     void copyChatText();
 
 public Q_SLOTS:
+    // ========================================================================
+    // STATUS UPDATES
+    // ========================================================================
+
+    /**
+     * @brief Update the status bar text
+     * @param text Status text to display
+     *
+     * Used to show token usage, cost, connection status, etc.
+     */
     void updateStatus(const QString &text);
 
 private:
+    // ========================================================================
+    // INTERNAL STATE MANAGEMENT
+    // ========================================================================
+
+    /** @brief Update UI based on session state */
     void updateSessionState();
+
+    /** @brief Add a message widget to the display */
     void addMessageWidget(ACPChatMessageWidget *widget);
+
+    /** @brief Clear all message widgets */
     void clearMessages();
+
+    /** @brief Get all chat text for copying */
     QString getAllChatText() const;
 
-    // Message handlers
+    // ========================================================================
+    // MESSAGE TYPE HANDLERS
+    // ========================================================================
+
+    /** @brief Handle agent_message_chunk session update */
     void handleAgentMessageChunk(const QJsonObject &update);
+
+    /** @brief Handle plan session update */
     void handlePlanUpdate(const QJsonObject &update);
+
+    /** @brief Handle tool_call session update */
     void handleToolCallUpdate(const QJsonObject &update);
+
+    /** @brief Handle tool_call_update session update */
     void handleToolCallStatusUpdate(const QJsonObject &update);
+
+    /** @brief Handle usage_update session update */
     void handleUsageUpdate(const QJsonObject &update);
 
-    ACPClientPlugin *m_plugin;
-    KTextEditor::MainWindow *m_mainWindow;
-    ACPClientServerManager *m_serverManager = nullptr;
-    ACPClientServer *m_server = nullptr;
-    QString m_sessionId;
+    // ========================================================================
+    // REFERENCES
+    // ========================================================================
 
-    Ui::ACPChatWidget *m_ui;
-    QList<QString> m_messageHistory;
-    int m_historyIndex = 0;
+    ACPClientPlugin *m_plugin; ///< Parent plugin instance
+    KTextEditor::MainWindow *m_mainWindow; ///< Kate main window
+    ACPClientServerManager *m_serverManager = nullptr; ///< Server manager (shared)
+    ACPClientServer *m_server = nullptr; ///< Active server for this chat
+    QString m_sessionId; ///< Current session ID
 
-    // Message display
-    QVBoxLayout *m_chatMessagesLayout = nullptr;
-    QScrollArea *m_chatScrollArea = nullptr;
-    QWidget *m_chatDisplayContainer = nullptr;
-    QList<ACPChatMessageWidget *> m_messageWidgets;
+    // ========================================================================
+    // UI REFERENCES
+    // ========================================================================
 
-    // Status bar
-    QLabel *m_statusLabel = nullptr;
+    Ui::ACPChatWidget *m_ui; ///< UI form from acpclientchat.ui
+
+    // ========================================================================
+    // MESSAGE HISTORY
+    // ========================================================================
+
+    QList<QString> m_messageHistory; ///< History of user messages
+    int m_historyIndex = 0; ///< Current position in history
+
+    // ========================================================================
+    // MESSAGE DISPLAY
+    // ========================================================================
+
+    QVBoxLayout *m_chatMessagesLayout = nullptr; ///< Layout for message widgets
+    QScrollArea *m_chatScrollArea = nullptr; ///< Scrollable area for messages
+    QWidget *m_chatDisplayContainer = nullptr; ///< Container widget for messages
+    QList<ACPChatMessageWidget *> m_messageWidgets; ///< All displayed message widgets
+
+    // ========================================================================
+    // STATUS BAR
+    // ========================================================================
+
+    QLabel *m_statusLabel = nullptr; ///< Status bar label for usage/cost info
 
 protected:
+    // ========================================================================
+    // EVENT HANDLING
+    // ========================================================================
+
+    /**
+     * @brief Handle context menu and other events
+     * @param watched Object being watched
+     * @param event Event to handle
+     * @return true if event was handled, false otherwise
+     *
+     * Currently handles context menu on the chat display for "Copy All" action.
+     */
     bool eventFilter(QObject *watched, QEvent *event) override;
 };

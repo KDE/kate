@@ -56,12 +56,15 @@ ACPClientPlugin::ACPClientPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
     , m_settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/acpclient"))
     , m_defaultConfigPath(QUrl::fromLocalFile(m_settingsPath + QStringLiteral("/settings.json")))
-    , m_debugMode(debug)
 {
     qCDebug(ACPCLIENT) << "ACPClientPlugin created";
 
     // Ensure settings path exists
     QDir().mkpath(m_settingsPath);
+
+    // Initialize debug mode from environment variable
+    // Note: m_debugMode is inherited from ACPClientPluginOptions
+    m_debugMode = debug;
 
     // Ensure we don't spam the user with debug messages per default
     if (!oldCategoryFilter) {

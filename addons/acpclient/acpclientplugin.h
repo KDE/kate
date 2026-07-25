@@ -180,8 +180,6 @@ public:
      */
     std::set<QString> m_currentActiveCommandLineDialogs;
 
-    // Note: m_debugMode is inherited from ACPClientPluginOptions
-
     QUrl m_configPath; ///< Current configuration file path (may be overridden)
 
     /**

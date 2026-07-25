@@ -17,9 +17,11 @@
 class ACPClientPlugin;
 class ACPClientServerManager;
 class ACPClientChatWidget;
+class ACPSessionListWidget;
 class QAction;
 class QToolBar;
 class QMenu;
+class QTabWidget;
 
 /**
  * @class ACPClientPluginView
@@ -131,6 +133,9 @@ private Q_SLOTS:
     /** @brief Handle "Show Chat" action */
     void onShowChat();
 
+    /** @brief Handle session list received from server */
+    void onSessionListReceived(const QJsonArray &sessions);
+
     /** @brief Handle server connected event */
     void onServerConnected();
 
@@ -180,6 +185,8 @@ private:
     // ========================================================================
 
     QWidget *m_toolWidget; ///< Tool widget (currently unused)
+    QTabWidget *m_tabWidget = nullptr; ///< Tab widget for chat and sessions
     ACPClientChatWidget *m_chatWidget = nullptr; ///< Main chat widget
+    ACPSessionListWidget *m_sessionListWidget = nullptr; ///< Session list widget
     QWidget *m_chatToolView = nullptr; ///< Kate tool view container
 };

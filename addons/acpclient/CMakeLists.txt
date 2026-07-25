@@ -21,6 +21,8 @@ target_sources(
     acpclientchatwidget.cpp
     acpchatmessagewidget.cpp
     acpclient_debug.h
+    acpsessionlistwidget.cpp
+    acpsessionlistwidget.h
 
     plugin.qrc
 )

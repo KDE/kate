@@ -9,6 +9,7 @@
 #include "acpclientchatwidget.h"
 #include "acpclientplugin.h"
 #include "acpclientservermanager.h"
+#include "acpsessionlistwidget.h"
 
 #include <KActionCollection>
 #include <KLocalizedString>
@@ -24,6 +25,7 @@
 #include <QJsonObject>
 #include <QMenu>
 #include <QMessageBox>
+#include <QTabWidget>
 
 ACPClientPluginView::ACPClientPluginView(ACPClientPlugin *plugin,
                                          KTextEditor::MainWindow *mainWindow,
@@ -180,9 +182,36 @@ void ACPClientPluginView::showChatToolView()
                                                   QIcon::fromTheme(QStringLiteral("internet-services")),
                                                   i18n("ACP Chat"));
 
-    // Create the chat widget with the tool view as parent
-    m_chatWidget = new ACPClientChatWidget(m_plugin, m_mainWindow, m_chatToolView);
+    // Create a tab widget to hold chat and session list
+    m_tabWidget = new QTabWidget(m_chatToolView);
+    m_tabWidget->setObjectName(QStringLiteral("ACPClientTabWidget"));
+
+    // Create the chat widget
+    m_chatWidget = new ACPClientChatWidget(m_plugin, m_mainWindow, m_tabWidget);
     m_chatWidget->setObjectName(QStringLiteral("ACPChatWidget"));
+    m_tabWidget->addTab(m_chatWidget, i18n("Chat"));
+
+    // Create the session list widget
+    m_sessionListWidget = new ACPSessionListWidget(m_serverManager.get(), m_tabWidget);
+    m_sessionListWidget->setObjectName(QStringLiteral("ACPSessionListWidget"));
+    m_tabWidget->addTab(m_sessionListWidget, i18n("Sessions"));
+
+    // Connect session resumed signal to resume the session
+    connect(m_sessionListWidget, &ACPSessionListWidget::sessionResumed, this, [this](const QString &sessionId) {
+        m_chatWidget->setSessionId(sessionId);
+        m_serverManager->resumeSession(sessionId);
+    });
+
+    // Connect to server manager for session list updates
+    connect(m_serverManager.get(), &ACPClientServerManager::sessionListReceived, this, &ACPClientPluginView::onSessionListReceived);
+
+    // Connect to active server changed to auto-query sessions when server becomes available
+    connect(m_serverManager.get(), &ACPClientServerManager::activeServerChanged, this, [this](ACPClientServer *server) {
+        if (server) {
+            // Query session list when an active server is set
+            m_serverManager->listSessions();
+        }
+    });
 }
 
 void ACPClientPluginView::onNewSession()
@@ -265,6 +294,15 @@ void ACPClientPluginView::onShowChat()
 {
     qCDebug(ACPCLIENT) << "Show chat requested";
     showChatToolView();
+}
+
+void ACPClientPluginView::onSessionListReceived(const QJsonArray &sessions)
+{
+    qCDebug(ACPCLIENT) << "Session list received with" << sessions.size() << "sessions";
+
+    if (m_sessionListWidget) {
+        m_sessionListWidget->updateSessionList(sessions);
+    }
 }
 
 void ACPClientPluginView::onServerConnected()

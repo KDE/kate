@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kateacpclient" version="1">
+<kpartgui name="kateacpclient" version="2">
 
   <MenuBar>
     <Menu name="acp_client" >
@@ -15,14 +15,5 @@
       <Action name="acp_manage_servers" />
     </Menu>
   </MenuBar>
-
-  <ToolBar name="acp_toolbar" fullName="ACP Toolbar">
-    <Text>ACP Tools</Text>
-    <Action name="acp_new_session" />
-    <Action name="acp_send_prompt" />
-    <Action name="acp_list_sessions" />
-    <Action name="acp_show_tools" />
-    <Action name="acp_show_chat" />
-  </ToolBar>
 
 </kpartgui>

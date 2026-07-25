@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-06 00:49+0000\n"
-"PO-Revision-Date: 2026-06-21 12:06+0200\n"
+"PO-Revision-Date: 2026-07-24 11:03+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,27 +17,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.04.2\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
-#, fuzzy, kde-format
-#| msgid "Could not open file '%1'."
+#, kde-format
 msgid "Could not open file ‘%1’."
-msgstr "Грешка при отваряне на файла %1"
+msgstr "Не може да се отвори файл „%1“."
 
 #: keyboardmacrosplugin.cpp:72
-#, fuzzy, kde-format
-#| msgid "Malformed JSON file '%1': %2"
+#, kde-format
 msgctxt "%2 is an error message"
 msgid "Malformed JSON file ‘%1’: %2"
-msgstr "Неправилен JSON файл „%1“: %2"
+msgstr "Невалиден JSON файл „%1“: %2"
 
 #: keyboardmacrosplugin.cpp:80
-#, fuzzy, kde-format
-#| msgid "Could not load '%1': malformed macro; wiping it."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Could not load ‘%1’: malformed macro; wiping it."
-msgstr "Неуспешно зареждане на '%1': невалиден макрос; изчистване."
+msgstr "Неуспешно зареждане на „%1“: неправилен макрос; изтриване."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
@@ -52,52 +49,45 @@ msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Клавиатурни макроси:</b> %1"
 
 #: keyboardmacrosplugin.cpp:170
-#, fuzzy, kde-format
-#| msgid "Can't save macro during recording. Please end recoding first"
+#, kde-format
 msgid "Can’t save macro during recording. Please end recording first"
 msgstr ""
-"Неуспешно запазване на макрос по време на запис. Моля, прекратете "
-"записването първо."
+"Невъзможно запазване на макроси по време на запис. Моля, първо завършете "
+"записа"
 
 #: keyboardmacrosplugin.cpp:241
-#, fuzzy, kde-format
-#| msgid "Recording…"
+#, kde-format
 msgctxt "@info:progress Macro is being recorded right now"
 msgid "Recording…"
 msgstr "Записване…"
 
 #: keyboardmacrosplugin.cpp:278
-#, fuzzy, kde-format
-#| msgid "Recording %1"
+#, kde-format
 msgid "Recording ended"
-msgstr "Записване %1"
+msgstr "Записът завърши"
 
 #: keyboardmacrosplugin.cpp:279
-#, fuzzy, kde-format
-#| msgid "Recording %1"
+#, kde-format
 msgid "Recording canceled"
-msgstr "Записване %1"
+msgstr "Записът е отменен"
 
 #: keyboardmacrosplugin.cpp:330
-#, fuzzy, kde-format
-#| msgid "Saved '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Saved ‘%1’"
-msgstr "Запазено „%1“"
+msgstr "„%1“ е запазен"
 
 #: keyboardmacrosplugin.cpp:350
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Loaded ‘%1’"
-msgstr "Заредено „%1“"
+msgstr "„%1“ е зареден"
 
 #: keyboardmacrosplugin.cpp:368
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wiped ‘%1’"
-msgstr "Изчистено „%1“"
+msgstr "„%1“ е изтрит"
 
 #: keyboardmacrosplugincommands.cpp:27
 #, kde-format
@@ -108,7 +98,7 @@ msgstr "Употреба: %1 <name>."
 #: keyboardmacrosplugincommands.cpp:62
 #, kde-format
 msgid "No keyboard macro named '%1' found."
-msgstr "Не е намерен клавиатурен макрос с име ‘%1’."
+msgstr "Не е намерен клавиатурен макрос с име „%1“."
 
 #: keyboardmacrosplugincommands.cpp:50
 #, kde-format
@@ -164,10 +154,9 @@ msgid "Record and play keyboard macros."
 msgstr "Запис и изпълнение на клавиатурни макроси."
 
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Record Macro..."
+#, kde-format
 msgid "&Record Macro…"
-msgstr "&Запис на макрос..."
+msgstr "&Запис на макрос…"
 
 #: keyboardmacrospluginview.cpp:43
 #, kde-format
@@ -214,10 +203,9 @@ msgid "Give a name to the current macro and persistently save it."
 msgstr "Дайте име на текущия макрос и го запазете за постоянно."
 
 #: keyboardmacrospluginview.cpp:90
-#, fuzzy, kde-format
-#| msgid "&Load Named Macro..."
+#, kde-format
 msgid "&Load Named Macro…"
-msgstr "Зареждане на именуван макрос..."
+msgstr "&Зареждане на именуван макрос…"
 
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
@@ -225,10 +213,9 @@ msgid "Load a named macro as the current one."
 msgstr "Зареждане на именуван макрос като текущ."
 
 #: keyboardmacrospluginview.cpp:98
-#, fuzzy, kde-format
-#| msgid "&Play Named Macro..."
+#, kde-format
 msgid "&Play Named Macro…"
-msgstr "&Изпълнение на именуван макро..."
+msgstr "&Изпълнение на именуван макрос…"
 
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
@@ -236,10 +223,9 @@ msgid "Play a named macro without loading it."
 msgstr "Изпълнение на именуван макрос без зареждане."
 
 #: keyboardmacrospluginview.cpp:106
-#, fuzzy, kde-format
-#| msgid "&Wipe Named Macro..."
+#, kde-format
 msgid "&Wipe Named Macro…"
-msgstr "&Изтриване на именуван макрос…"
+msgstr "Из&триване на именуван макрос…"
 
 #: keyboardmacrospluginview.cpp:109
 #, kde-format
@@ -252,46 +238,40 @@ msgid "End Macro &Recording"
 msgstr "Край на запис на макрос"
 
 #: keyboardmacrospluginview.cpp:180
-#, fuzzy, kde-format
-#| msgid "Load %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Load %1"
 msgstr "Зареждане на %1"
 
 #: keyboardmacrospluginview.cpp:181
-#, fuzzy, kde-format
-#| msgid "Load the '%1' macro as the current one."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Load the ‘%1’ macro as the current one."
-msgstr "Зареждане на макрос %1 като текущ."
+msgstr "Зареждане на макрос „%1“ като текущ."
 
 #: keyboardmacrospluginview.cpp:193
-#, fuzzy, kde-format
-#| msgid "Play %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Play %1"
-msgstr "Игра %1"
+msgstr "Изпълнение на %1"
 
 #: keyboardmacrospluginview.cpp:194
-#, fuzzy, kde-format
-#| msgid "Play the '%1' macro without loading it."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Play the ‘%1’ macro without loading it."
-msgstr "Изпълнение на макрос %1 без зареждане."
+msgstr "Изпълнение на макрос „%1“ без зареждане."
 
 #: keyboardmacrospluginview.cpp:208
-#, fuzzy, kde-format
-#| msgid "Wipe %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe %1"
 msgstr "Изтриване на %1"
 
 #: keyboardmacrospluginview.cpp:209
-#, fuzzy, kde-format
-#| msgid "Wipe the '%1' macro."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe the ‘%1’ macro."
-msgstr "Изтриване на макрос %1."
+msgstr "Изтриване на макрос „%1“."
 
 #: keyboardmacrospluginview.cpp:289
 #, kde-format
@@ -299,11 +279,10 @@ msgid "Save current macro as?"
 msgstr "Запазване на текущия макрос като?"
 
 #: keyboardmacrospluginview.cpp:323
-#, fuzzy, kde-format
-#| msgid "Wipe the '%1' macro?"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe the ‘%1’ macro?"
-msgstr "Да се изтрие ли макрос '%1'?"
+msgstr "Да се изтрие ли макрос „%1“?"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

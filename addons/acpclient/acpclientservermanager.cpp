@@ -325,7 +325,9 @@ void ACPClientServerManager::listSessions()
     qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionListRequest(requestId);
 
-    // For now, we need to implement request tracking in the server
+    // Track the request type
+    m_pendingRequests[requestId] = PendingRequestType::SessionList;
+
     server->sendMessage(request);
 }
 
@@ -455,6 +457,25 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
         if (parsedMessage.method == ACP::METHOD_SESSION_CLOSE && parsedMessage.isResponse) {
             Q_EMIT sessionClosed(parsedMessage.id != 0 ? QString() : QString());
             return;
+        }
+
+        // Check for session/list response
+        if (parsedMessage.isResponse && parsedMessage.id != 0) {
+            auto it = m_pendingRequests.find(parsedMessage.id);
+            if (it != m_pendingRequests.end()) {
+                if (it->second == PendingRequestType::SessionList) {
+                    if (parsedMessage.result.contains(u"sessions") && parsedMessage.result[u"sessions"].isArray()) {
+                        QJsonArray sessions = parsedMessage.result[u"sessions"].toArray();
+                        qCDebug(ACPCLIENT) << "Received session list with" << sessions.size() << "sessions";
+                        Q_EMIT sessionListReceived(sessions);
+                    } else {
+                        qCDebug(ACPCLIENT) << "Received session list response without sessions array";
+                        Q_EMIT sessionListReceived(QJsonArray());
+                    }
+                    m_pendingRequests.erase(it);
+                    return;
+                }
+            }
         }
     }
 

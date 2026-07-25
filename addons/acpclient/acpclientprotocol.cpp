@@ -199,6 +199,16 @@ QJsonDocument ACPProtocol::createSessionListRequest(qint64 requestId)
     request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
     request[JSONRPC_METHOD] = METHOD_SESSION_LIST;
 
+    // vibe-acp requires params for session/list
+    // Send an object with fields that session/list might expect
+    QJsonObject params;
+    // Based on other session methods, these are common fields
+    params[u"cwd"] = QDir::currentPath();
+    params[u"mcpServers"] = QJsonArray();
+    params[u"additionalDirectories"] = QJsonArray();
+
+    request[JSONRPC_PARAMS] = params;
+
     return QJsonDocument(request);
 }
 

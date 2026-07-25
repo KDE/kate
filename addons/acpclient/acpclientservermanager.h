@@ -341,6 +341,27 @@ private:
      */
     std::map<qint64, qint64> m_pendingSessionRequests;
 
+    /**
+     * @brief Request types for tracking pending requests
+     */
+    enum class PendingRequestType {
+        SessionNew,
+        SessionLoad,
+        SessionResume,
+        SessionClose,
+        SessionList,
+        SessionDelete,
+        ToolsList,
+        ToolsCall
+    };
+
+    /**
+     * @brief Track all pending requests by type
+     *
+     * Maps request IDs to their request type for proper response handling.
+     */
+    std::map<qint64, PendingRequestType> m_pendingRequests;
+
 public:
     // ========================================================================
     // FACTORY METHOD

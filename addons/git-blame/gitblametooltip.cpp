@@ -317,6 +317,14 @@ public:
             p.ry() -= lineHeight + this->height();
         }
 
+        const int screenLeft = screenSize.x();
+        const int screenRight = screenLeft + screenSize.width();
+
+        constexpr int xMargin = 10;
+        const int xMin = screenLeft + xMargin;
+        const int xMax = std::max(xMin, screenRight - width() - xMargin);
+        p.setX(std::clamp(p.x(), xMin, xMax)); // Ensure tooltip stays within the screen bounds on the x axis
+
         this->move(p);
 
         show();

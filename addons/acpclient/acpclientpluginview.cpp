@@ -98,6 +98,12 @@ void ACPClientPluginView::setupActions()
     m_showToolsAction->setIcon(QIcon::fromTheme(QStringLiteral("utilities-terminal")));
     connect(m_showToolsAction, &QAction::triggered, this, &ACPClientPluginView::onShowTools);
     actionCollection()->addAction(QStringLiteral("acp_show_tools"), m_showToolsAction);
+
+    // Show chat action
+    m_showChatAction = new QAction(i18n("Show ACP Chat"), this);
+    m_showChatAction->setIcon(QIcon::fromTheme(QStringLiteral("internet-services")));
+    connect(m_showChatAction, &QAction::triggered, this, &ACPClientPluginView::onShowChat);
+    actionCollection()->addAction(QStringLiteral("acp_show_chat"), m_showChatAction);
 }
 
 void ACPClientPluginView::setupUI()
@@ -253,6 +259,12 @@ void ACPClientPluginView::onShowTools()
 {
     qCDebug(ACPCLIENT) << "Show tools requested";
     showToolPalette();
+}
+
+void ACPClientPluginView::onShowChat()
+{
+    qCDebug(ACPCLIENT) << "Show chat requested";
+    showChatToolView();
 }
 
 void ACPClientPluginView::onServerConnected()

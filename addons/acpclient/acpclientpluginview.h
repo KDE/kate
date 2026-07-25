@@ -128,6 +128,9 @@ private Q_SLOTS:
     /** @brief Handle "Show Tools" action */
     void onShowTools();
 
+    /** @brief Handle "Show Chat" action */
+    void onShowChat();
+
     /** @brief Handle server connected event */
     void onServerConnected();
 
@@ -170,6 +173,7 @@ private:
     QAction *m_listSessionsAction; ///< Action: List all sessions
     QAction *m_manageServersAction; ///< Action: Configure servers
     QAction *m_showToolsAction; ///< Action: Show available tools
+    QAction *m_showChatAction; ///< Action: Show ACP Chat tool view
 
     // ========================================================================
     // UI ELEMENTS

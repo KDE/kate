@@ -3,13 +3,14 @@
 <kpartgui name="kateacpclient" version="1">
 
   <MenuBar>
-    <Menu name="tools" >
+    <Menu name="acp_client" >
+      <Text>ACP Client</Text>
       <Action name="acp_new_session" />
       <Action name="acp_send_prompt" />
+      <Action name="acp_show_chat" />
       <Separator/>
       <Action name="acp_list_sessions" />
       <Action name="acp_show_tools" />
-      <Action name="acp_show_chat" />
       <Separator/>
       <Action name="acp_manage_servers" />
     </Menu>

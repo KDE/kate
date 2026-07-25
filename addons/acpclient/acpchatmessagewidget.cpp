@@ -1,5 +1,5 @@
 /*
-    SPDX-FileCopyrightText: 2026
+    SPDX-FileCopyrightText: 2026 Christoph Cullmann <cullmann@kde.org>
 
     SPDX-License-Identifier: MIT
 */
@@ -72,8 +72,8 @@ void ACPChatMessageWidget::setupUI()
     contentLayout->setSpacing(2);
     m_mainLayout->addWidget(m_contentWidget);
 
-    // Apply type-specific styling
-    setStyleSheet(getTypeStyle());
+    // Set type-specific styling using palette colors
+    applyTypeSpecificStyling();
     updateContentDisplay();
 }
 
@@ -161,6 +161,12 @@ QString ACPChatMessageWidget::content() const
     return m_content;
 }
 
+void ACPChatMessageWidget::applyTypeSpecificStyling()
+{
+    // Avoid stylesheets - use only QPalette and QFont
+    setAutoFillBackground(true);
+}
+
 void ACPChatMessageWidget::updateContentDisplay()
 {
     // Clear existing content
@@ -193,24 +199,28 @@ void ACPChatMessageWidget::updateContentDisplay()
             entryLayout->setContentsMargins(4, 2, 4, 2);
             entryLayout->setSpacing(4);
 
-            // Priority color
-            QString priorityColor;
-            if (entry.priority == QStringLiteral("high")) {
-                priorityColor = QStringLiteral("#e74c3c");
-            } else if (entry.priority == QStringLiteral("medium")) {
-                priorityColor = QStringLiteral("#f39c12");
-            } else {
-                priorityColor = QStringLiteral("#95a5a6");
-            }
-
             QLabel *priorityLabel = new QLabel(entry.priority, entryWidget);
-            priorityLabel->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(priorityColor));
+            QFont boldFont = priorityLabel->font();
+            boldFont.setBold(true);
+            priorityLabel->setFont(boldFont);
+            // Set color based on priority using palette-appropriate colors
+            QPalette priPal = priorityLabel->palette();
+            if (entry.priority == QStringLiteral("high")) {
+                priPal.setColor(QPalette::WindowText, priPal.color(QPalette::BrightText));
+            } else if (entry.priority == QStringLiteral("medium")) {
+                priPal.setColor(QPalette::WindowText, priPal.color(QPalette::Link));
+            } else {
+                priPal.setColor(QPalette::WindowText, priPal.color(QPalette::Text));
+            }
+            priorityLabel->setPalette(priPal);
             entryLayout->addWidget(priorityLabel);
 
             // Status
             if (!entry.status.isEmpty()) {
                 QLabel *statusLabel = new QLabel(QStringLiteral("[%1]").arg(entry.status), entryWidget);
-                statusLabel->setStyleSheet(QStringLiteral("color: #7f8c8d; font-size: small;"));
+                QFont smallFont = statusLabel->font();
+                smallFont.setPointSize(smallFont.pointSize() - 2);
+                statusLabel->setFont(smallFont);
                 entryLayout->addWidget(statusLabel);
             }
 
@@ -229,42 +239,46 @@ void ACPChatMessageWidget::updateContentDisplay()
         toolLayout->setContentsMargins(4, 2, 4, 2);
         toolLayout->setSpacing(4);
 
-        // Status color
-        QString statusColor;
-        if (m_toolStatus == QStringLiteral("pending")) {
-            statusColor = QStringLiteral("#f39c12");
-        } else if (m_toolStatus == QStringLiteral("in_progress")) {
-            statusColor = QStringLiteral("#3498db");
-        } else if (m_toolStatus == QStringLiteral("completed")) {
-            statusColor = QStringLiteral("#27ae60");
-        } else if (m_toolStatus == QStringLiteral("error") || m_toolStatus == QStringLiteral("failed")) {
-            statusColor = QStringLiteral("#e74c3c");
-        } else {
-            statusColor = QStringLiteral("#7f8c8d");
-        }
-
         if (!m_toolTitle.isEmpty()) {
             QLabel *titleLabel = new QLabel(m_toolTitle, toolWidget);
-            titleLabel->setStyleSheet(QStringLiteral("font-weight: bold; color: #2c3e50;"));
+            QFont boldFont = titleLabel->font();
+            boldFont.setBold(true);
+            titleLabel->setFont(boldFont);
             titleLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
             toolLayout->addWidget(titleLabel);
         }
 
         if (!m_toolKind.isEmpty()) {
             QLabel *kindLabel = new QLabel(QStringLiteral("(%1)").arg(m_toolKind), toolWidget);
-            kindLabel->setStyleSheet(QStringLiteral("color: #7f8c8d; font-size: small;"));
+            QFont smallFont = kindLabel->font();
+            smallFont.setPointSize(smallFont.pointSize() - 2);
+            kindLabel->setFont(smallFont);
             kindLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
             toolLayout->addWidget(kindLabel);
         }
 
         QLabel *statusLabel = new QLabel(m_toolStatus, toolWidget);
-        statusLabel->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(statusColor));
+        QFont boldFont2 = statusLabel->font();
+        boldFont2.setBold(true);
+        statusLabel->setFont(boldFont2);
+        // Set status color based on state using palette colors
+        QPalette statusPal = statusLabel->palette();
+        if (m_toolStatus == QStringLiteral("pending") || m_toolStatus == QStringLiteral("in_progress")) {
+            statusPal.setColor(QPalette::WindowText, statusPal.color(QPalette::Link));
+        } else if (m_toolStatus == QStringLiteral("completed")) {
+            statusPal.setColor(QPalette::WindowText, statusPal.color(QPalette::LinkVisited));
+        } else if (m_toolStatus == QStringLiteral("error") || m_toolStatus == QStringLiteral("failed")) {
+            statusPal.setColor(QPalette::WindowText, statusPal.color(QPalette::BrightText));
+        }
+        statusLabel->setPalette(statusPal);
         statusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
         toolLayout->addWidget(statusLabel);
 
         if (!m_toolCallId.isEmpty()) {
             QLabel *idLabel = new QLabel(QStringLiteral("[ID: %1]").arg(m_toolCallId), toolWidget);
-            idLabel->setStyleSheet(QStringLiteral("color: #95a5a6; font-size: small;"));
+            QFont smallFont = idLabel->font();
+            smallFont.setPointSize(smallFont.pointSize() - 2);
+            idLabel->setFont(smallFont);
             idLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
             toolLayout->addWidget(idLabel);
         }
@@ -278,31 +292,38 @@ void ACPChatMessageWidget::updateContentDisplay()
         updateLayout->setContentsMargins(4, 2, 4, 2);
         updateLayout->setSpacing(4);
 
-        // Status color
-        QString statusColor;
-        if (m_toolStatus == QStringLiteral("pending")) {
-            statusColor = QStringLiteral("#f39c12");
-        } else if (m_toolStatus == QStringLiteral("in_progress")) {
-            statusColor = QStringLiteral("#3498db");
+        // Status color - using palette colors for dark/light mode support
+        QPalette updatePal = updateWidget->palette();
+        QPalette svPal = updateWidget->palette();
+
+        if (m_toolStatus == QStringLiteral("pending") || m_toolStatus == QStringLiteral("in_progress")) {
+            svPal.setColor(QPalette::WindowText, updatePal.color(QPalette::Link));
         } else if (m_toolStatus == QStringLiteral("completed")) {
-            statusColor = QStringLiteral("#27ae60");
+            svPal.setColor(QPalette::WindowText, updatePal.color(QPalette::LinkVisited));
         } else {
-            statusColor = QStringLiteral("#7f8c8d");
+            svPal.setColor(QPalette::WindowText, updatePal.color(QPalette::Text));
         }
 
         QLabel *statusLabel = new QLabel(i18n("Tool Update:"), updateWidget);
-        statusLabel->setStyleSheet(QStringLiteral("font-weight: bold;"));
+        QFont boldFont = statusLabel->font();
+        boldFont.setBold(true);
+        statusLabel->setFont(boldFont);
         statusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
         updateLayout->addWidget(statusLabel);
 
         QLabel *statusValueLabel = new QLabel(m_toolStatus, updateWidget);
-        statusValueLabel->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(statusColor));
+        QFont boldFont2 = statusValueLabel->font();
+        boldFont2.setBold(true);
+        statusValueLabel->setFont(boldFont2);
+        statusValueLabel->setPalette(svPal);
         statusValueLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
         updateLayout->addWidget(statusValueLabel);
 
         if (!m_toolCallId.isEmpty()) {
             QLabel *idLabel = new QLabel(QStringLiteral("[ID: %1]").arg(m_toolCallId), updateWidget);
-            idLabel->setStyleSheet(QStringLiteral("color: #95a5a6; font-size: small;"));
+            QFont smallFont2 = idLabel->font();
+            smallFont2.setPointSize(smallFont2.pointSize() - 2);
+            idLabel->setFont(smallFont2);
             idLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
             updateLayout->addWidget(idLabel);
         }
@@ -324,7 +345,9 @@ void ACPChatMessageWidget::updateContentDisplay()
         usageLayout->setSpacing(8);
 
         QLabel *usageLabel = new QLabel(i18n("Usage:"), usageWidget);
-        usageLabel->setStyleSheet(QStringLiteral("font-weight: bold;"));
+        QFont boldFont = usageLabel->font();
+        boldFont.setBold(true);
+        usageLabel->setFont(boldFont);
         usageLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
         usageLayout->addWidget(usageLabel);
 
@@ -334,7 +357,10 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         if (m_cost > 0.0 && !m_currency.isEmpty()) {
             QLabel *costLabel = new QLabel(QStringLiteral("| Cost: %1 %2").arg(m_cost, 0, 'f', 4).arg(m_currency), usageWidget);
-            costLabel->setStyleSheet(QStringLiteral("color: #27ae60;"));
+            // Use LinkVisited color (typically purple) for cost display
+            QPalette costPal = costLabel->palette();
+            costPal.setColor(QPalette::WindowText, costPal.color(QPalette::LinkVisited));
+            costLabel->setPalette(costPal);
             costLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
             usageLayout->addWidget(costLabel);
         }
@@ -351,7 +377,12 @@ void ACPChatMessageWidget::updateContentDisplay()
         // Title
         if (!m_permissionTitle.isEmpty()) {
             QLabel *titleLabel = new QLabel(m_permissionTitle, permissionWidget);
-            titleLabel->setStyleSheet(QStringLiteral("font-weight: bold; color: #2c3e50;"));
+            QPalette pal = titleLabel->palette();
+            pal.setColor(QPalette::WindowText, pal.color(QPalette::Text));
+            titleLabel->setPalette(pal);
+            QFont boldFont = titleLabel->font();
+            boldFont.setBold(true);
+            titleLabel->setFont(boldFont);
             titleLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
             titleLabel->setWordWrap(true);
             permissionLayout->addWidget(titleLabel);
@@ -359,9 +390,20 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         // Command to execute (the full command)
         QLabel *commandLabel = new QLabel(m_permissionCommand, permissionWidget);
-        commandLabel->setStyleSheet(QStringLiteral("color: #7f8c8d; font-family: monospace; background-color: #f0f0f0; padding: 4px; border-radius: 4px;"));
+        // Use a monospace font
+        QFont monoFont(QStringLiteral("monospace"));
+        commandLabel->setFont(monoFont);
+        // Use alternate background for command display with proper text color
+        QPalette cmdPal = commandLabel->palette();
+        cmdPal.setColor(QPalette::Base, cmdPal.color(QPalette::AlternateBase));
+        // Ensure text is readable on the alternate background
+        cmdPal.setColor(QPalette::WindowText, cmdPal.color(QPalette::Text));
+        commandLabel->setPalette(cmdPal);
+        commandLabel->setAutoFillBackground(true);
         commandLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
         commandLabel->setWordWrap(true);
+        // Add margins via the label's contents margins
+        commandLabel->setContentsMargins(4, 4, 4, 4);
         permissionLayout->addWidget(commandLabel);
 
         // Buttons
@@ -371,7 +413,6 @@ void ACPChatMessageWidget::updateContentDisplay()
         buttonLayout->setSpacing(8);
 
         QPushButton *allowButton = new QPushButton(i18n("Allow"), buttonWidget);
-        allowButton->setStyleSheet(QStringLiteral("background-color: #27ae60; color: white; border: none; padding: 4px 12px; border-radius: 4px;"));
         allowButton->setProperty("requestId", QVariant::fromValue(m_requestId));
         allowButton->setProperty("optionId", QVariant::fromValue(m_permissionAllowOptionId));
         connect(allowButton, &QPushButton::clicked, this, [this, allowButton]() {
@@ -380,7 +421,6 @@ void ACPChatMessageWidget::updateContentDisplay()
         buttonLayout->addWidget(allowButton);
 
         QPushButton *rejectButton = new QPushButton(i18n("Reject"), buttonWidget);
-        rejectButton->setStyleSheet(QStringLiteral("background-color: #e74c3c; color: white; border: none; padding: 4px 12px; border-radius: 4px;"));
         rejectButton->setProperty("requestId", QVariant::fromValue(m_requestId));
         rejectButton->setProperty("optionId", QVariant::fromValue(m_permissionRejectOptionId));
         connect(rejectButton, &QPushButton::clicked, this, [this, rejectButton]() {
@@ -401,77 +441,6 @@ void ACPChatMessageWidget::updateContentDisplay()
 QString ACPChatMessageWidget::formatTimestamp(const QDateTime &dt) const
 {
     return dt.toString(QStringLiteral("hh:mm:ss"));
-}
-
-QString ACPChatMessageWidget::getTypeStyle() const
-{
-    QString baseStyle = QStringLiteral(
-        "ACPChatMessageWidget { "
-        "   background-color: #f8f9fa; "
-        "   border-radius: 6px; "
-        "   padding: 6px; "
-        "   margin: 2px 0; "
-        "}");
-
-    switch (m_type) {
-    case MessageType::User:
-        return baseStyle
-            + QStringLiteral(
-                   "#timestampLabel { color: #7f8c8d; font-size: small; }"
-                   "#senderLabel { color: #2c3e50; }"
-                   "#typeLabel { color: #2c3e50; }");
-    case MessageType::Agent:
-        return baseStyle
-            + QStringLiteral(
-                   "#timestampLabel { color: #7f8c8d; font-size: small; }"
-                   "#senderLabel { color: #27ae60; }"
-                   "#typeLabel { color: #27ae60; }"
-                   "ACPChatMessageWidget { border-left: 3px solid #27ae60; }");
-    case MessageType::System:
-        return baseStyle
-            + QStringLiteral(
-                   "#timestampLabel { color: #7f8c8d; font-size: small; }"
-                   "#senderLabel { color: #7f8c8d; }"
-                   "#typeLabel { color: #7f8c8d; }"
-                   "ACPChatMessageWidget { border-left: 3px solid #95a5a6; }");
-    case MessageType::Plan:
-        return baseStyle
-            + QStringLiteral(
-                   "#timestampLabel { color: #7f8c8d; font-size: small; }"
-                   "#senderLabel { color: #3498db; }"
-                   "#typeLabel { color: #3498db; }"
-                   "ACPChatMessageWidget { border-left: 3px solid #3498db; background-color: #fff; }");
-    case MessageType::ToolCall:
-        return baseStyle
-            + QStringLiteral(
-                   "#timestampLabel { color: #7f8c8d; font-size: small; }"
-                   "#senderLabel { color: #f39c12; }"
-                   "#typeLabel { color: #f39c12; }"
-                   "ACPChatMessageWidget { border-left: 3px solid #f39c12; }");
-    case MessageType::ToolCallUpdate:
-        return baseStyle
-            + QStringLiteral(
-                   "#timestampLabel { color: #7f8c8d; font-size: small; }"
-                   "#senderLabel { color: #3498db; }"
-                   "#typeLabel { color: #3498db; }"
-                   "ACPChatMessageWidget { border-left: 3px solid #3498db; background-color: #f0f8ff; }");
-    case MessageType::Usage:
-        return baseStyle
-            + QStringLiteral(
-                   "#timestampLabel { color: #7f8c8d; font-size: small; }"
-                   "#senderLabel { color: #9b59b6; }"
-                   "#typeLabel { color: #9b59b6; }"
-                   "ACPChatMessageWidget { border-left: 3px solid #9b59b6; }");
-    case MessageType::PermissionRequest:
-        return baseStyle
-            + QStringLiteral(
-                   "#timestampLabel { color: #7f8c8d; font-size: small; }"
-                   "#senderLabel { color: #e67e22; }"
-                   "#typeLabel { color: #e67e22; }"
-                   "ACPChatMessageWidget { border-left: 3px solid #e67e22; background-color: #fff8f0; }");
-    }
-
-    return baseStyle;
 }
 
 QString ACPChatMessageWidget::getTypeLabel() const

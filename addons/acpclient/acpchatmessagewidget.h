@@ -162,11 +162,15 @@ private:
     /** @brief Set up the widget UI (header, content area, layout) */
     void setupUI();
 
+    /**
+     * @brief Apply basic styling without hardcoded colors
+     *
+     * Uses QPalette and QFont instead of stylesheets for proper theming.
+     */
+    void applyTypeSpecificStyling();
+
     /** @brief Format a timestamp for display */
     QString formatTimestamp(const QDateTime &dt) const;
-
-    /** @brief Get CSS styling for this message type */
-    QString getTypeStyle() const;
 
     /** @brief Get the type label text */
     QString getTypeLabel() const;

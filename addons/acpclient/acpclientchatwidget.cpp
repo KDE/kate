@@ -132,6 +132,8 @@ void ACPClientChatWidget::setSessionId(const QString &sessionId)
 {
     if (m_sessionId != sessionId) {
         m_sessionId = sessionId;
+        // Clear stored tool calls when session changes
+        m_toolCalls.clear();
         updateSessionState();
     }
 }
@@ -327,10 +329,30 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
 {
     qCDebug(ACPCLIENT) << "Permission requested for requestId:" << requestId << "with" << options.size() << "options";
 
-    // Get tool call ID for display
+    // Debug: log the full toolCall object
+    qCDebug(ACPCLIENT) << "Permission request toolCall:" << QJsonDocument(toolCall).toJson();
+
+    // Get toolCallId from the permission request
     QString toolCallId = toolCall[u"toolCallId"].toString();
-    QString title = toolCall[u"title"].toString();
-    QString kind = toolCall[u"kind"].toString();
+
+    // Try to look up the full tool call details from our stored map
+    QJsonObject fullToolCall = toolCall;
+    if (!toolCallId.isEmpty() && m_toolCalls.contains(toolCallId)) {
+        fullToolCall = m_toolCalls[toolCallId];
+        qCDebug(ACPCLIENT) << "Found stored tool call" << toolCallId << "details:" << QJsonDocument(fullToolCall).toJson();
+    } else if (!toolCallId.isEmpty()) {
+        qCDebug(ACPCLIENT) << "Tool call" << toolCallId << "not found in storage, using permission request data";
+    }
+
+    // Get all fields from the toolCall (either from storage or from the request itself)
+    QString title = fullToolCall[u"title"].toString();
+    QString kind = fullToolCall[u"kind"].toString();
+    QString toolIdentifier = fullToolCall[u"toolIdentifier"].toString();
+
+    // Also check for common tool call fields
+    QString toolName = fullToolCall[u"name"].toString();
+    QString identifier = fullToolCall[u"identifier"].toString();
+    QString action = fullToolCall[u"action"].toString();
 
     // Get the plugin to check the permission mode
     if (!m_plugin) {
@@ -350,11 +372,11 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
             for (const QJsonValue &opt : options) {
                 if (opt.isObject()) {
                     QJsonObject option = opt.toObject();
-                    QString kind = option[u"kind"].toString();
-                    if (kind == ACP::PERMISSION_KIND_ALLOW_ALWAYS) {
+                    QString optKind = option[u"kind"].toString();
+                    if (optKind == ACP::PERMISSION_KIND_ALLOW_ALWAYS) {
                         optionId = option[u"optionId"].toString();
                         break;
-                    } else if (kind == ACP::PERMISSION_KIND_ALLOW_ONCE && optionId.isEmpty()) {
+                    } else if (optKind == ACP::PERMISSION_KIND_ALLOW_ONCE && optionId.isEmpty()) {
                         optionId = option[u"optionId"].toString();
                     }
                 }
@@ -368,11 +390,11 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
             for (const QJsonValue &opt : options) {
                 if (opt.isObject()) {
                     QJsonObject option = opt.toObject();
-                    QString kind = option[u"kind"].toString();
-                    if (kind == ACP::PERMISSION_KIND_REJECT_ALWAYS) {
+                    QString optKind = option[u"kind"].toString();
+                    if (optKind == ACP::PERMISSION_KIND_REJECT_ALWAYS) {
                         optionId = option[u"optionId"].toString();
                         break;
-                    } else if (kind == ACP::PERMISSION_KIND_REJECT_ONCE && optionId.isEmpty()) {
+                    } else if (optKind == ACP::PERMISSION_KIND_REJECT_ONCE && optionId.isEmpty()) {
                         optionId = option[u"optionId"].toString();
                     }
                 }
@@ -401,22 +423,69 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
         }
     }
 
-    // Build the full command from toolCall if available
-    QString fullCommand;
-    if (toolCall.contains(u"arguments") && toolCall[u"arguments"].isObject()) {
-        QJsonObject arguments = toolCall[u"arguments"].toObject();
-        // Try to extract command from arguments
+    // Build the full tool call description from all available fields
+    QString toolCallDescription;
+
+    // Try various field names for the tool identifier
+    if (!toolIdentifier.isEmpty()) {
+        toolCallDescription = toolIdentifier;
+    } else if (!identifier.isEmpty()) {
+        toolCallDescription = identifier;
+    } else if (!toolName.isEmpty()) {
+        toolCallDescription = toolName;
+    } else if (!title.isEmpty()) {
+        toolCallDescription = title;
+    } else if (!action.isEmpty()) {
+        toolCallDescription = action;
+    } else {
+        toolCallDescription = QStringLiteral("Unknown tool");
+    }
+
+    // Append kind if available and different
+    if (!kind.isEmpty() && kind != toolCallDescription) {
+        toolCallDescription += QStringLiteral(" (/") + kind + QStringLiteral(")");
+    }
+
+    // Extract and append arguments - check multiple possible locations
+    if (fullToolCall.contains(u"arguments") && fullToolCall[u"arguments"].isObject()) {
+        QJsonObject arguments = fullToolCall[u"arguments"].toObject();
         if (arguments.contains(u"command")) {
-            fullCommand = arguments[u"command"].toString();
+            QString command = arguments[u"command"].toString();
+            if (!command.isEmpty()) {
+                toolCallDescription += QStringLiteral(": ") + command;
+            }
         } else {
-            // Build a string representation of the arguments
-            fullCommand = QString::fromUtf8(QJsonDocument(arguments).toJson());
+            // Append the full arguments JSON
+            QString argsJson = QString::fromUtf8(QJsonDocument(arguments).toJson());
+            if (!argsJson.isEmpty() && argsJson != QStringLiteral("{}")) {
+                toolCallDescription += QStringLiteral(": ") + argsJson;
+            }
+        }
+    } else if (fullToolCall.contains(u"params") && fullToolCall[u"params"].isObject()) {
+        // Some servers might use "params" instead of "arguments"
+        QJsonObject arguments = fullToolCall[u"params"].toObject();
+        if (arguments.contains(u"command")) {
+            QString command = arguments[u"command"].toString();
+            if (!command.isEmpty()) {
+                toolCallDescription += QStringLiteral(": ") + command;
+            }
+        } else {
+            QString argsJson = QString::fromUtf8(QJsonDocument(arguments).toJson());
+            if (!argsJson.isEmpty() && argsJson != QStringLiteral("{}")) {
+                toolCallDescription += QStringLiteral(": ") + argsJson;
+            }
         }
     }
 
-    // If no command found in arguments, use the title
-    if (fullCommand.isEmpty() && !title.isEmpty()) {
-        fullCommand = title;
+    // Also try to extract from the toolCallId as a last resort
+    if (toolCallDescription == QStringLiteral("Unknown tool") && !toolCallId.isEmpty()) {
+        toolCallDescription = toolCallId;
+    }
+
+    // Log a warning if we still can't identify the tool
+    if (toolCallDescription == QStringLiteral("Unknown tool")) {
+        qCWarning(ACPCLIENT) << "Permission request: Could not extract tool information. Tool call ID:" << toolCallId
+                             << "Stored tool calls:" << m_toolCalls.keys() << "Full toolCall:" << QJsonDocument(fullToolCall).toJson();
     }
 
     // Create a permission request widget inline in the chat
@@ -425,7 +494,8 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
     permissionWidget->setSender(i18n("ACP Agent"));
 
     // Use the new method to support all permission options
-    permissionWidget->setPermissionRequestWithOptions(requestId, title, fullCommand, permissionOptions);
+    // Pass toolCallDescription as the tool name, and leave command empty since we already built the full description
+    permissionWidget->setPermissionRequestWithOptions(requestId, title, toolCallDescription, QString(), permissionOptions);
 
     // Connect the widget's signal to our handler
     connect(permissionWidget, &ACPChatMessageWidget::permissionResponse, this, [this](qint64 reqId, const QString &optionId) {
@@ -439,6 +509,7 @@ void ACPClientChatWidget::clearChat()
 {
     clearMessages();
     m_messageHistory.clear();
+    m_toolCalls.clear();
     updateStatus(QString());
 }
 
@@ -770,6 +841,12 @@ void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
     QString title = update[u"title"].toString();
     QString kind = update[u"kind"].toString();
     QString status = update[u"status"].toString();
+
+    // Store the tool call information for later permission lookup
+    if (!toolCallId.isEmpty()) {
+        m_toolCalls[toolCallId] = update;
+        qCDebug(ACPCLIENT) << "Stored tool call" << toolCallId << "for permission lookup";
+    }
 
     ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::ToolCall, m_chatDisplayContainer);
     msgWidget->setTimestamp(QDateTime::currentDateTime());

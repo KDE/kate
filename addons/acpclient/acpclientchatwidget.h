@@ -259,6 +259,13 @@ private:
     QString m_sessionId; ///< Current session ID
 
     // ========================================================================
+    // TOOL CALL TRACKING
+    // ========================================================================
+
+    /** @brief Store tool call information by ID for permission lookups */
+    QMap<QString, QJsonObject> m_toolCalls;
+
+    // ========================================================================
     // UI REFERENCES
     // ========================================================================
 

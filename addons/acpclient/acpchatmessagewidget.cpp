@@ -226,11 +226,13 @@ void ACPChatMessageWidget::setPermissionRequest(qint64 requestId,
 
 void ACPChatMessageWidget::setPermissionRequestWithOptions(qint64 requestId,
                                                            const QString &title,
+                                                           const QString &toolName,
                                                            const QString &command,
                                                            const QList<PermissionOption> &options)
 {
     m_requestId = requestId;
     m_permissionTitle = title;
+    m_permissionToolName = toolName;
     m_permissionCommand = command;
     m_permissionOptions = options;
 
@@ -498,23 +500,35 @@ void ACPChatMessageWidget::updateContentDisplay()
             permissionLayout->addWidget(titleLabel);
         }
 
-        // Command to execute (the full command)
-        QLabel *commandLabel = new QLabel(m_permissionCommand, permissionWidget);
-        // Use a monospace font
-        QFont monoFont(QStringLiteral("monospace"));
-        commandLabel->setFont(monoFont);
-        // Use alternate background for command display with proper text color
-        QPalette cmdPal = commandLabel->palette();
-        cmdPal.setColor(QPalette::Base, cmdPal.color(QPalette::AlternateBase));
-        // Ensure text is readable on the alternate background
-        cmdPal.setColor(QPalette::WindowText, cmdPal.color(QPalette::Text));
-        commandLabel->setPalette(cmdPal);
-        commandLabel->setAutoFillBackground(true);
-        commandLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-        commandLabel->setWordWrap(true);
-        // Add margins via the label's contents margins
-        commandLabel->setContentsMargins(4, 4, 4, 4);
-        permissionLayout->addWidget(commandLabel);
+        // Tool name and command
+        QString toolInfo;
+        if (!m_permissionToolName.isEmpty()) {
+            toolInfo = m_permissionToolName;
+            if (!m_permissionCommand.isEmpty()) {
+                toolInfo += QStringLiteral(": ") + m_permissionCommand;
+            }
+        } else if (!m_permissionCommand.isEmpty()) {
+            toolInfo = m_permissionCommand;
+        }
+
+        if (!toolInfo.isEmpty()) {
+            QLabel *commandLabel = new QLabel(toolInfo, permissionWidget);
+            // Use a monospace font
+            QFont monoFont(QStringLiteral("monospace"));
+            commandLabel->setFont(monoFont);
+            // Use alternate background for command display with proper text color
+            QPalette cmdPal = commandLabel->palette();
+            cmdPal.setColor(QPalette::Base, cmdPal.color(QPalette::AlternateBase));
+            // Ensure text is readable on the alternate background
+            cmdPal.setColor(QPalette::WindowText, cmdPal.color(QPalette::Text));
+            commandLabel->setPalette(cmdPal);
+            commandLabel->setAutoFillBackground(true);
+            commandLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+            commandLabel->setWordWrap(true);
+            // Add margins via the label's contents margins
+            commandLabel->setContentsMargins(4, 4, 4, 4);
+            permissionLayout->addWidget(commandLabel);
+        }
 
         // Buttons - create a button for each permission option
         QWidget *buttonWidget = new QWidget(permissionWidget);

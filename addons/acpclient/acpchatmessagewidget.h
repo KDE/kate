@@ -162,13 +162,18 @@ public:
      * @brief Set permission request with multiple options (for PermissionRequest message type)
      * @param requestId Permission request identifier
      * @param title Permission request title
+     * @param toolName The name/type of the tool being called
      * @param command Full command line to display
      * @param options List of all available permission options from the server
      *
      * Creates inline buttons for each permission option that emit permissionResponse signal.
      * Each option has its own button with the name displayed on it.
      */
-    void setPermissionRequestWithOptions(qint64 requestId, const QString &title, const QString &command, const QList<PermissionOption> &options);
+    void setPermissionRequestWithOptions(qint64 requestId,
+                                         const QString &title,
+                                         const QString &toolName,
+                                         const QString &command,
+                                         const QList<PermissionOption> &options);
 
     // ========================================================================
     // ACCESSORS
@@ -277,6 +282,7 @@ private:
 
     qint64 m_requestId; ///< Permission request identifier
     QString m_permissionTitle; ///< Permission request title
+    QString m_permissionToolName; ///< Name/type of the tool being called
     QString m_permissionCommand; ///< Full command line
     QString m_permissionAllowOptionId; ///< Option ID for allow (deprecated, kept for backward compat)
     QString m_permissionRejectOptionId; ///< Option ID for reject (deprecated, kept for backward compat)

@@ -172,13 +172,39 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
         return;
     }
 
-    widget->show();
+    // Find and temporarily remove the stretch if it exists
+    QLayoutItem *stretchItem = nullptr;
+    int stretchIndex = -1;
+    for (int i = 0; i < m_chatMessagesLayout->count(); ++i) {
+        QLayoutItem *item = m_chatMessagesLayout->itemAt(i);
+        if (item && item->spacerItem()) {
+            stretchItem = item;
+            stretchIndex = i;
+            break;
+        }
+    }
+
+    if (stretchIndex >= 0) {
+        stretchItem = m_chatMessagesLayout->takeAt(stretchIndex);
+    }
+
+    // Add the widget
     m_chatMessagesLayout->addWidget(widget);
+
+    // Re-add the stretch at the end
+    if (stretchItem) {
+        m_chatMessagesLayout->addItem(stretchItem);
+    } else {
+        // No stretch found, add one
+        m_chatMessagesLayout->addStretch();
+    }
+
+    widget->show();
     m_messageWidgets.append(widget);
 
-    // Scroll to bottom
-    QTimer::singleShot(0, this, [this]() {
-        m_chatScrollArea->ensureVisible(0, m_chatDisplayContainer->height(), 0, 0);
+    // Scroll to the new widget
+    QTimer::singleShot(0, this, [this, widget]() {
+        m_chatScrollArea->ensureVisible(0, widget->y(), 0, 0);
     });
 }
 
@@ -190,13 +216,34 @@ void ACPClientChatWidget::clearMessages()
     }
     m_messageWidgets.clear();
 
-    // Clear layout
+    // Clear layout but preserve the stretch
+    QLayoutItem *stretchItem = nullptr;
+
+    // First, find and save the stretch item
+    for (int i = 0; i < m_chatMessagesLayout->count(); ++i) {
+        QLayoutItem *item = m_chatMessagesLayout->itemAt(i);
+        if (item && item->spacerItem()) {
+            stretchItem = item;
+            break;
+        }
+    }
+
+    // Clear all items
     QLayoutItem *child;
     while ((child = m_chatMessagesLayout->takeAt(0)) != nullptr) {
-        if (child->widget()) {
+        if (child->widget() && child != stretchItem) {
             child->widget()->deleteLater();
         }
-        delete child;
+        if (child != stretchItem) {
+            delete child;
+        }
+    }
+
+    // Re-add the stretch if we found one, otherwise create new one
+    if (stretchItem) {
+        m_chatMessagesLayout->addItem(stretchItem);
+    } else {
+        m_chatMessagesLayout->addStretch();
     }
 }
 

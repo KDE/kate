@@ -522,7 +522,6 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
             QJsonObject result = obj[u"result"].toObject();
             if (result.contains(u"stopReason")) {
                 QString stopReason = result[u"stopReason"].toString();
-                appendMessage(i18n("ACP Agent"), i18n("Turn completed: %1", stopReason));
 
                 // Mark the last user message as completed or error based on stopReason
                 if (stopReason == QStringLiteral("cancelled")) {

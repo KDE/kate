@@ -10,8 +10,8 @@
 
 #include <QJsonArray>
 
-class QListWidget;
-class QListWidgetItem;
+class QTreeWidget;
+class QTreeWidgetItem;
 class QVBoxLayout;
 class ACPClientServerManager;
 
@@ -56,6 +56,6 @@ Q_SIGNALS:
 
 private:
     ACPClientServerManager *m_serverManager = nullptr;
-    QListWidget *m_sessionList = nullptr;
+    QTreeWidget *m_sessionTree = nullptr;
     QVBoxLayout *m_layout = nullptr;
 };

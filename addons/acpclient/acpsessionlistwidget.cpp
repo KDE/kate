@@ -9,7 +9,9 @@
 
 #include <KLocalizedString>
 
-#include <QListWidget>
+#include <QDateTime>
+#include <QHeaderView>
+#include <QTreeWidget>
 #include <QVBoxLayout>
 
 ACPSessionListWidget::ACPSessionListWidget(ACPClientServerManager *serverManager, QWidget *parent)
@@ -20,14 +22,28 @@ ACPSessionListWidget::ACPSessionListWidget(ACPClientServerManager *serverManager
     m_layout->setContentsMargins(0, 0, 0, 0);
     m_layout->setSpacing(0);
 
-    m_sessionList = new QListWidget(this);
-    m_sessionList->setObjectName(QStringLiteral("sessionList"));
-    m_sessionList->setIconSize(QSize(16, 16));
-    m_layout->addWidget(m_sessionList);
+    m_sessionTree = new QTreeWidget(this);
+    m_sessionTree->setObjectName(QStringLiteral("sessionTree"));
+    m_sessionTree->setHeaderHidden(false);
+    m_sessionTree->setRootIsDecorated(false);
+    m_sessionTree->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_sessionTree->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    // Set up columns
+    QStringList headers;
+    headers << i18n("Session") << i18n("Title") << i18n("Updated") << i18n("Working Directory");
+    m_sessionTree->setColumnCount(headers.size());
+    m_sessionTree->setHeaderLabels(headers);
+
+    // Resize columns to fit content
+    m_sessionTree->header()->setSectionResizeMode(QHeaderView::Stretch);
+
+    m_layout->addWidget(m_sessionTree);
 
     // Connect double-click to resume session
-    connect(m_sessionList, &QListWidget::itemDoubleClicked, this, [this](QListWidgetItem *item) {
-        QString sessionId = item->data(Qt::UserRole).toString();
+    connect(m_sessionTree, &QTreeWidget::itemDoubleClicked, this, [this](QTreeWidgetItem *item, int column) {
+        Q_UNUSED(column);
+        QString sessionId = item->data(0, Qt::UserRole).toString();
         qCDebug(ACPCLIENT) << "Session double-clicked:" << sessionId;
         if (!sessionId.isEmpty()) {
             Q_EMIT sessionResumed(sessionId);
@@ -41,64 +57,98 @@ ACPSessionListWidget::~ACPSessionListWidget()
 
 void ACPSessionListWidget::updateSessionList(const QJsonArray &sessions)
 {
-    m_sessionList->clear();
+    m_sessionTree->clear();
 
     if (sessions.isEmpty()) {
-        QListWidgetItem *item = new QListWidgetItem(i18n("No sessions available"), m_sessionList);
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_sessionTree);
+        item->setText(0, i18n("No sessions available"));
         item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+        // Span across all columns
+        for (int col = 1; col < m_sessionTree->columnCount(); ++col) {
+            item->setText(col, QString());
+        }
         return;
     }
 
+    // Sort sessions by updatedAt date (newest first) if available
+    QList<QJsonObject> sessionList;
     for (const QJsonValue &value : sessions) {
         if (value.isObject()) {
-            QJsonObject session = value.toObject();
-
-            QString sessionId = session[u"id"].toString();
-            // Try alternative key names that vibe-acp might use
-            if (sessionId.isEmpty()) {
-                sessionId = session[u"sessionId"].toString();
-            }
-            if (sessionId.isEmpty()) {
-                sessionId = session[u"name"].toString();
-            }
-            QString title = session[u"title"].toString();
-            QString name = session[u"name"].toString();
-            QString updatedAt = session[u"updatedAt"].toString();
-            QString cwd = session[u"cwd"].toString();
-
-            // Use title if available, otherwise name, otherwise sessionId
-            QString displayName = title;
-            if (displayName.isEmpty()) {
-                displayName = name;
-            }
-            if (displayName.isEmpty()) {
-                displayName = sessionId;
-            }
-
-            // Build display text with session info
-            QString displayText = displayName;
-            if (!updatedAt.isEmpty()) {
-                displayText += QStringLiteral(" (Updated: ") + updatedAt + QStringLiteral(")");
-            }
-
-            // Build tooltip with all details
-            QString toolTip = QStringLiteral("Session ID: ") + sessionId;
-            if (!title.isEmpty()) {
-                toolTip += QStringLiteral("\nTitle: ") + title;
-            }
-            if (!updatedAt.isEmpty()) {
-                toolTip += QStringLiteral("\nUpdated: ") + updatedAt;
-            }
-            if (!cwd.isEmpty()) {
-                toolTip += QStringLiteral("\nWorking Directory: ") + cwd;
-            }
-
-            QListWidgetItem *item = new QListWidgetItem(displayText, m_sessionList);
-            item->setData(Qt::UserRole, sessionId);
-            item->setToolTip(toolTip);
-            // Ensure item is selectable and enabled for double-click
-            item->setFlags(item->flags() | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+            sessionList.append(value.toObject());
         }
+    }
+
+    // Sort by updatedAt descending (newest first)
+    std::sort(sessionList.begin(), sessionList.end(), [](const QJsonObject &a, const QJsonObject &b) {
+        QString aDate = a[u"updatedAt"].toString();
+        QString bDate = b[u"updatedAt"].toString();
+        if (!aDate.isEmpty() && !bDate.isEmpty()) {
+            return QDateTime::fromString(aDate, Qt::ISODate) > QDateTime::fromString(bDate, Qt::ISODate);
+        }
+        return false;
+    });
+
+    for (const QJsonObject &session : sessionList) {
+        QString sessionId = session[u"id"].toString();
+        // Try alternative key names that vibe-acp might use
+        if (sessionId.isEmpty()) {
+            sessionId = session[u"sessionId"].toString();
+        }
+        if (sessionId.isEmpty()) {
+            sessionId = session[u"name"].toString();
+        }
+        QString title = session[u"title"].toString();
+        QString name = session[u"name"].toString();
+        QString updatedAt = session[u"updatedAt"].toString();
+        QString cwd = session[u"cwd"].toString();
+
+        // Use title if available, otherwise name, otherwise sessionId
+        QString displayName = title;
+        if (displayName.isEmpty()) {
+            displayName = name;
+        }
+        if (displayName.isEmpty()) {
+            displayName = sessionId;
+        }
+
+        // Format the updated date for display
+        QString displayDate = updatedAt;
+        if (!updatedAt.isEmpty()) {
+            // Try to parse ISO date and format it nicely
+            QDateTime dt = QDateTime::fromString(updatedAt, Qt::ISODate);
+            if (dt.isValid()) {
+                displayDate = dt.toLocalTime().toString(Qt::TextDate);
+            }
+        }
+
+        // Truncate cwd if too long
+        QString displayCwd = cwd;
+        if (cwd.length() > 40) {
+            displayCwd = QStringLiteral("...") + cwd.right(37);
+        }
+
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_sessionTree);
+        item->setData(0, Qt::UserRole, sessionId);
+        item->setText(0, displayName);
+        item->setText(1, title);
+        item->setText(2, displayDate);
+        item->setText(3, displayCwd);
+
+        // Build tooltip with all details
+        QString toolTip = QStringLiteral("Session ID: ") + sessionId;
+        if (!title.isEmpty()) {
+            toolTip += QStringLiteral("\nTitle: ") + title;
+        }
+        if (!updatedAt.isEmpty()) {
+            toolTip += QStringLiteral("\nUpdated: ") + updatedAt;
+        }
+        if (!cwd.isEmpty()) {
+            toolTip += QStringLiteral("\nWorking Directory: ") + cwd;
+        }
+        item->setToolTip(0, toolTip);
+
+        // Ensure item is selectable and enabled for double-click
+        item->setFlags(item->flags() | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     }
 }
 

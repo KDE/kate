@@ -5,6 +5,7 @@
 */
 
 #include "acpchatmessagewidget.h"
+#include "acpclientprotocol.h"
 
 #include <KLocalizedString>
 
@@ -210,6 +211,44 @@ void ACPChatMessageWidget::setPermissionRequest(qint64 requestId,
     m_permissionCommand = command;
     m_permissionAllowOptionId = allowOptionId;
     m_permissionRejectOptionId = rejectOptionId;
+
+    // Convert to new format for backward compatibility
+    m_permissionOptions.clear();
+    if (!allowOptionId.isEmpty()) {
+        m_permissionOptions.append({allowOptionId, i18n("Allow"), ACP::PERMISSION_KIND_ALLOW_ONCE});
+    }
+    if (!rejectOptionId.isEmpty()) {
+        m_permissionOptions.append({rejectOptionId, i18n("Reject"), ACP::PERMISSION_KIND_REJECT_ONCE});
+    }
+
+    updateContentDisplay();
+}
+
+void ACPChatMessageWidget::setPermissionRequestWithOptions(qint64 requestId,
+                                                           const QString &title,
+                                                           const QString &command,
+                                                           const QList<PermissionOption> &options)
+{
+    m_requestId = requestId;
+    m_permissionTitle = title;
+    m_permissionCommand = command;
+    m_permissionOptions = options;
+
+    // For backward compatibility, set the first allow/reject options found
+    m_permissionAllowOptionId.clear();
+    m_permissionRejectOptionId.clear();
+    for (const PermissionOption &opt : options) {
+        if (opt.kind == ACP::PERMISSION_KIND_ALLOW_ONCE || opt.kind == ACP::PERMISSION_KIND_ALLOW_ALWAYS) {
+            if (m_permissionAllowOptionId.isEmpty()) {
+                m_permissionAllowOptionId = opt.optionId;
+            }
+        } else if (opt.kind == ACP::PERMISSION_KIND_REJECT_ONCE || opt.kind == ACP::PERMISSION_KIND_REJECT_ALWAYS) {
+            if (m_permissionRejectOptionId.isEmpty()) {
+                m_permissionRejectOptionId = opt.optionId;
+            }
+        }
+    }
+
     updateContentDisplay();
 }
 
@@ -477,27 +516,59 @@ void ACPChatMessageWidget::updateContentDisplay()
         commandLabel->setContentsMargins(4, 4, 4, 4);
         permissionLayout->addWidget(commandLabel);
 
-        // Buttons
+        // Buttons - create a button for each permission option
         QWidget *buttonWidget = new QWidget(permissionWidget);
         QHBoxLayout *buttonLayout = new QHBoxLayout(buttonWidget);
         buttonLayout->setContentsMargins(0, 4, 0, 0);
         buttonLayout->setSpacing(8);
 
-        QPushButton *allowButton = new QPushButton(i18n("Allow"), buttonWidget);
-        allowButton->setProperty("requestId", QVariant::fromValue(m_requestId));
-        allowButton->setProperty("optionId", QVariant::fromValue(m_permissionAllowOptionId));
-        connect(allowButton, &QPushButton::clicked, this, [this, allowButton]() {
-            Q_EMIT permissionResponse(allowButton->property("requestId").toLongLong(), allowButton->property("optionId").toString());
-        });
-        buttonLayout->addWidget(allowButton);
+        // If we have explicit options, use them
+        if (!m_permissionOptions.isEmpty()) {
+            for (const PermissionOption &option : m_permissionOptions) {
+                QPushButton *button = new QPushButton(option.name, buttonWidget);
+                button->setProperty("requestId", QVariant::fromValue(m_requestId));
+                button->setProperty("optionId", QVariant::fromValue(option.optionId));
 
-        QPushButton *rejectButton = new QPushButton(i18n("Reject"), buttonWidget);
-        rejectButton->setProperty("requestId", QVariant::fromValue(m_requestId));
-        rejectButton->setProperty("optionId", QVariant::fromValue(m_permissionRejectOptionId));
-        connect(rejectButton, &QPushButton::clicked, this, [this, rejectButton]() {
-            Q_EMIT permissionResponse(rejectButton->property("requestId").toLongLong(), rejectButton->property("optionId").toString());
-        });
-        buttonLayout->addWidget(rejectButton);
+                // Apply styling based on the option kind
+                QPalette btnPal = button->palette();
+                if (option.kind == ACP::PERMISSION_KIND_ALLOW_ALWAYS) {
+                    // Green-ish for "always allow"
+                    btnPal.setColor(QPalette::ButtonText, btnPal.color(QPalette::LinkVisited));
+                } else if (option.kind == ACP::PERMISSION_KIND_REJECT_ALWAYS) {
+                    // Red-ish for "always reject"
+                    btnPal.setColor(QPalette::ButtonText, btnPal.color(QPalette::BrightText));
+                } else if (option.kind == ACP::PERMISSION_KIND_ALLOW_ONCE) {
+                    // Blue-ish for "allow once"
+                    btnPal.setColor(QPalette::ButtonText, btnPal.color(QPalette::Link));
+                } else if (option.kind == ACP::PERMISSION_KIND_REJECT_ONCE) {
+                    // Orange-ish for "reject once"
+                    btnPal.setColor(QPalette::ButtonText, btnPal.color(QPalette::Mid));
+                }
+                button->setPalette(btnPal);
+
+                connect(button, &QPushButton::clicked, this, [this, button]() {
+                    Q_EMIT permissionResponse(button->property("requestId").toLongLong(), button->property("optionId").toString());
+                });
+                buttonLayout->addWidget(button);
+            }
+        } else {
+            // Fallback to old behavior with just allow/reject buttons
+            QPushButton *allowButton = new QPushButton(i18n("Allow"), buttonWidget);
+            allowButton->setProperty("requestId", QVariant::fromValue(m_requestId));
+            allowButton->setProperty("optionId", QVariant::fromValue(m_permissionAllowOptionId));
+            connect(allowButton, &QPushButton::clicked, this, [this, allowButton]() {
+                Q_EMIT permissionResponse(allowButton->property("requestId").toLongLong(), allowButton->property("optionId").toString());
+            });
+            buttonLayout->addWidget(allowButton);
+
+            QPushButton *rejectButton = new QPushButton(i18n("Reject"), buttonWidget);
+            rejectButton->setProperty("requestId", QVariant::fromValue(m_requestId));
+            rejectButton->setProperty("optionId", QVariant::fromValue(m_permissionRejectOptionId));
+            connect(rejectButton, &QPushButton::clicked, this, [this, rejectButton]() {
+                Q_EMIT permissionResponse(rejectButton->property("requestId").toLongLong(), rejectButton->property("optionId").toString());
+            });
+            buttonLayout->addWidget(rejectButton);
+        }
 
         permissionLayout->addWidget(buttonWidget);
         contentLayout->addWidget(permissionWidget);

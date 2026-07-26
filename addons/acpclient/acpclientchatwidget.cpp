@@ -325,7 +325,7 @@ void ACPClientChatWidget::updateStatus(const QString &text)
 
 void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObject &toolCall, const QJsonArray &options)
 {
-    qCDebug(ACPCLIENT) << "Permission requested for requestId:" << requestId;
+    qCDebug(ACPCLIENT) << "Permission requested for requestId:" << requestId << "with" << options.size() << "options";
 
     // Get tool call ID for display
     QString toolCallId = toolCall[u"toolCallId"].toString();
@@ -387,33 +387,18 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
         return;
     }
 
-    // Map options to find allow/reject option IDs
-    bool hasAllow = false;
-    bool hasReject = false;
-    QString allowOptionId;
-    QString rejectOptionId;
-
+    // Parse all permission options from the server
+    QList<ACPChatMessageWidget::PermissionOption> permissionOptions;
     for (const QJsonValue &opt : options) {
         if (opt.isObject()) {
             QJsonObject option = opt.toObject();
-            QString kind = option[u"kind"].toString();
-            QString optionId = option[u"optionId"].toString();
-
-            if (kind == ACP::PERMISSION_KIND_ALLOW_ONCE || kind == ACP::PERMISSION_KIND_ALLOW_ALWAYS) {
-                hasAllow = true;
-                allowOptionId = optionId;
-            } else if (kind == ACP::PERMISSION_KIND_REJECT_ONCE || kind == ACP::PERMISSION_KIND_REJECT_ALWAYS) {
-                hasReject = true;
-                rejectOptionId = optionId;
-            }
+            ACPChatMessageWidget::PermissionOption permOpt;
+            permOpt.optionId = option[u"optionId"].toString();
+            permOpt.name = option[u"name"].toString();
+            permOpt.kind = option[u"kind"].toString();
+            permissionOptions.append(permOpt);
+            qCDebug(ACPCLIENT) << "Permission option:" << permOpt.optionId << "(" << permOpt.kind << ")" << permOpt.name;
         }
-    }
-
-    if (!hasAllow) {
-        allowOptionId = ACP::PERMISSION_KIND_ALLOW_ONCE;
-    }
-    if (!hasReject) {
-        rejectOptionId = ACP::PERMISSION_KIND_REJECT_ONCE;
     }
 
     // Build the full command from toolCall if available
@@ -438,7 +423,9 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
     ACPChatMessageWidget *permissionWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::PermissionRequest, m_chatDisplayContainer);
     permissionWidget->setTimestamp(QDateTime::currentDateTime());
     permissionWidget->setSender(i18n("ACP Agent"));
-    permissionWidget->setPermissionRequest(requestId, title, fullCommand, allowOptionId, rejectOptionId);
+
+    // Use the new method to support all permission options
+    permissionWidget->setPermissionRequestWithOptions(requestId, title, fullCommand, permissionOptions);
 
     // Connect the widget's signal to our handler
     connect(permissionWidget, &ACPChatMessageWidget::permissionResponse, this, [this](qint64 reqId, const QString &optionId) {

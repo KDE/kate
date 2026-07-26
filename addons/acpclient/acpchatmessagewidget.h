@@ -97,6 +97,17 @@ public:
     MessageStatus status() const;
 
     // ========================================================================
+    // PERMISSION OPTION STRUCTURE
+    // ========================================================================
+
+    /** @brief A permission option from the server */
+    struct PermissionOption {
+        QString optionId; ///< Unique identifier for this option
+        QString name; ///< Human-readable label to display
+        QString kind; ///< Kind: allow_once, allow_always, reject_once, reject_always
+    };
+
+    // ========================================================================
     // TYPE-SPECIFIC SETTERS
     // ========================================================================
 
@@ -143,8 +154,21 @@ public:
      * @param rejectOptionId Option ID for reject action
      *
      * Creates inline Allow/Reject buttons that emit permissionResponse signal.
+     * @deprecated Use setPermissionRequestWithOptions() instead
      */
     void setPermissionRequest(qint64 requestId, const QString &title, const QString &command, const QString &allowOptionId, const QString &rejectOptionId);
+
+    /**
+     * @brief Set permission request with multiple options (for PermissionRequest message type)
+     * @param requestId Permission request identifier
+     * @param title Permission request title
+     * @param command Full command line to display
+     * @param options List of all available permission options from the server
+     *
+     * Creates inline buttons for each permission option that emit permissionResponse signal.
+     * Each option has its own button with the name displayed on it.
+     */
+    void setPermissionRequestWithOptions(qint64 requestId, const QString &title, const QString &command, const QList<PermissionOption> &options);
 
     // ========================================================================
     // ACCESSORS
@@ -254,8 +278,9 @@ private:
     qint64 m_requestId; ///< Permission request identifier
     QString m_permissionTitle; ///< Permission request title
     QString m_permissionCommand; ///< Full command line
-    QString m_permissionAllowOptionId; ///< Option ID for allow
-    QString m_permissionRejectOptionId; ///< Option ID for reject
+    QString m_permissionAllowOptionId; ///< Option ID for allow (deprecated, kept for backward compat)
+    QString m_permissionRejectOptionId; ///< Option ID for reject (deprecated, kept for backward compat)
+    QList<PermissionOption> m_permissionOptions; ///< All available permission options
 
     // ========================================================================
     // UI ELEMENTS

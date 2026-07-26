@@ -157,7 +157,7 @@ Defined in `acpclientprotocol.h`:
 - **ToolCall** - Tool call notifications (orange styling)
 - **ToolCallUpdate** - Tool call progress (blue styling)
 - **Usage** - Usage/token information (purple styling)
-- **PermissionRequest** - Inline permission prompts with Allow/Reject buttons
+- **PermissionRequest** - Inline permission prompts with buttons for all permission options (allow_once, allow_always, reject_once, reject_always)
 
 ## Configuration
 

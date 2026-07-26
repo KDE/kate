@@ -28,10 +28,11 @@ ACPSessionListWidget::ACPSessionListWidget(ACPClientServerManager *serverManager
     m_sessionTree->setRootIsDecorated(false);
     m_sessionTree->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_sessionTree->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_sessionTree->setSortingEnabled(true);
 
     // Set up columns
     QStringList headers;
-    headers << i18n("Session") << i18n("Title") << i18n("Updated") << i18n("Working Directory");
+    headers << i18n("Title") << i18n("Updated") << i18n("Working Directory");
     m_sessionTree->setColumnCount(headers.size());
     m_sessionTree->setHeaderLabels(headers);
 
@@ -111,13 +112,13 @@ void ACPSessionListWidget::updateSessionList(const QJsonArray &sessions)
             displayName = sessionId;
         }
 
-        // Format the updated date for display
+        // Format the updated date for display (using sortable ISO-like format)
         QString displayDate = updatedAt;
         if (!updatedAt.isEmpty()) {
-            // Try to parse ISO date and format it nicely
             QDateTime dt = QDateTime::fromString(updatedAt, Qt::ISODate);
             if (dt.isValid()) {
-                displayDate = dt.toLocalTime().toString(Qt::TextDate);
+                // Use a format that's both readable and sortable: YYYY-MM-DD HH:MM
+                displayDate = dt.toLocalTime().toString(QStringLiteral("yyyy-MM-dd HH:mm"));
             }
         }
 
@@ -129,10 +130,12 @@ void ACPSessionListWidget::updateSessionList(const QJsonArray &sessions)
 
         QTreeWidgetItem *item = new QTreeWidgetItem(m_sessionTree);
         item->setData(0, Qt::UserRole, sessionId);
+        // Column 0: Title (with fallback to name or sessionId)
         item->setText(0, displayName);
-        item->setText(1, title);
-        item->setText(2, displayDate);
-        item->setText(3, displayCwd);
+        // Column 1: Updated
+        item->setText(1, displayDate);
+        // Column 2: Working Directory
+        item->setText(2, displayCwd);
 
         // Build tooltip with all details
         QString toolTip = QStringLiteral("Session ID: ") + sessionId;

@@ -404,13 +404,16 @@ void ACPClientChatWidget::setServer(ACPClientServer *server)
         // Disconnect from old server
         if (m_server) {
             disconnect(m_server, nullptr, this, nullptr);
+            // Also disconnect permissionResponse connections that were set up with the old server
+            disconnect(this, &ACPClientChatWidget::permissionResponse, this, nullptr);
         }
 
         m_server = server;
 
         // Connect to new server
         if (m_server) {
-            connect(m_server, &ACPClientServer::messageReceived, this, &ACPClientChatWidget::onServerMessageReceived);
+            // Note: messageReceived is connected via serverManager in setupServerConnections()
+            // to avoid duplicate messages
             connect(m_server, &ACPClientServer::disconnected, this, [this]() {
                 appendMessage(QStringLiteral("System"), i18n("Server disconnected"));
                 setSessionId(QString());
@@ -433,6 +436,9 @@ void ACPClientChatWidget::setupServerConnections()
     if (!m_serverManager || !m_server) {
         return;
     }
+
+    // Disconnect any existing server manager connections to avoid duplicates
+    disconnect(m_serverManager, nullptr, this, nullptr);
 
     // Connect to messageReceived to show all messages in chat
     connect(m_serverManager, &ACPClientServerManager::messageReceived, this, [this](const QJsonDocument &doc) {

@@ -62,7 +62,6 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     connect(m_ui->messageInput, &QLineEdit::returnPressed, this, &ACPClientChatWidget::onInputReturnPressed);
     connect(m_ui->newSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::startNewSession);
     connect(m_ui->endSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::endSession);
-    connect(m_ui->copyButton, &QPushButton::clicked, this, &ACPClientChatWidget::copyChatText);
 
     // Get the scroll area and message container from UI
     m_chatScrollArea = m_ui->chatScrollArea;
@@ -874,7 +873,6 @@ void ACPClientChatWidget::updateActionStates()
     m_ui->newSessionButton->setEnabled(hasActiveServer);
     m_ui->sendButton->setEnabled(hasActiveServer && !m_sessionId.isEmpty());
     m_ui->endSessionButton->setEnabled(hasActiveServer && !m_sessionId.isEmpty());
-    m_ui->copyButton->setEnabled(hasActiveServer);
     m_ui->messageInput->setEnabled(hasActiveServer);
 }
 

@@ -85,19 +85,6 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="copyButton">
-       <property name="text">
-        <string>Copy</string>
-       </property>
-       <property name="icon">
-        <iconset theme="edit-copy"/>
-       </property>
-       <property name="toolTip">
-        <string>Copy chat text to clipboard</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>

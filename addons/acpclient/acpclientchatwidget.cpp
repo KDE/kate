@@ -59,9 +59,27 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
 
     // Connect signals
     connect(m_ui->sendButton, &QPushButton::clicked, this, &ACPClientChatWidget::sendMessage);
-    connect(m_ui->messageInput, &QLineEdit::returnPressed, this, &ACPClientChatWidget::onInputReturnPressed);
     connect(m_ui->newSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::startNewSession);
     connect(m_ui->endSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::endSession);
+
+    // Set up QComboBox as editable with completer and history model
+    QComboBox *inputCombo = m_ui->messageInput;
+    inputCombo->setEditable(true);
+    inputCombo->setInsertPolicy(QComboBox::NoInsert);
+    inputCombo->setMinimumContentsLength(20);
+
+    // Set up model with message history
+    m_historyModel = new QStringListModel(m_messageHistory, this);
+    inputCombo->setModel(m_historyModel);
+
+    // Set up completer
+    m_completer = new QCompleter(m_historyModel, inputCombo);
+    m_completer->setCaseSensitivity(Qt::CaseInsensitive);
+    m_completer->setFilterMode(Qt::MatchContains);
+    inputCombo->setCompleter(m_completer);
+
+    // Connect to returnPressed signal from the line edit inside the combo box
+    connect(inputCombo->lineEdit(), &QLineEdit::returnPressed, this, &ACPClientChatWidget::onInputReturnPressed);
 
     // Get the scroll area and message container from UI
     m_chatScrollArea = m_ui->chatScrollArea;
@@ -509,6 +527,9 @@ void ACPClientChatWidget::clearChat()
 {
     clearMessages();
     m_messageHistory.clear();
+    if (m_historyModel) {
+        m_historyModel->setStringList(m_messageHistory);
+    }
     m_toolCalls.clear();
     updateStatus(QString());
 }
@@ -602,7 +623,7 @@ void ACPClientChatWidget::setupServerConnections()
 
 void ACPClientChatWidget::sendMessage()
 {
-    QString message = m_ui->messageInput->text().trimmed();
+    QString message = m_ui->messageInput->currentText().trimmed();
     if (message.isEmpty()) {
         return;
     }
@@ -610,12 +631,15 @@ void ACPClientChatWidget::sendMessage()
     // Add to history
     if (!m_messageHistory.contains(message)) {
         m_messageHistory.prepend(message);
+        // Update the completer model
+        if (m_historyModel) {
+            m_historyModel->setStringList(m_messageHistory);
+        }
     }
-    m_historyIndex = 0;
 
     // Display user message
     appendMessage(i18n("You"), message, true);
-    m_ui->messageInput->clear();
+    m_ui->messageInput->clearEditText();
 
     // Mark the user message as running (prompt turn started)
     updateLastUserMessageStatus(MessageStatus::Running);
@@ -954,6 +978,7 @@ bool ACPClientChatWidget::eventFilter(QObject *watched, QEvent *event)
         delete menu;
         return true;
     }
+
     return QWidget::eventFilter(watched, event);
 }
 

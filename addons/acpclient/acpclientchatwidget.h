@@ -6,10 +6,12 @@
 
 #pragma once
 
+#include <QComboBox>
+#include <QCompleter>
 #include <QLabel>
-#include <QLineEdit>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QStringListModel>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -276,7 +278,8 @@ private:
     // ========================================================================
 
     QList<QString> m_messageHistory; ///< History of user messages
-    int m_historyIndex = 0; ///< Current position in history
+    QStringListModel *m_historyModel = nullptr; ///< Model for history completer
+    QCompleter *m_completer = nullptr; ///< Completer for input combobox
 
     // ========================================================================
     // MESSAGE DISPLAY

@@ -254,9 +254,10 @@ void ACPChatMessageWidget::updateContentDisplay()
     case MessageType::User:
     case MessageType::Agent:
     case MessageType::System: {
+        // Use QLabel with MarkdownText format for native Markdown rendering
         QLabel *contentLabel = new QLabel(m_content, m_contentWidget);
         contentLabel->setWordWrap(true);
-        contentLabel->setTextFormat(Qt::RichText);
+        contentLabel->setTextFormat(Qt::MarkdownText);
         contentLabel->setOpenExternalLinks(true);
         contentLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
         contentLayout->addWidget(contentLabel);

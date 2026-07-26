@@ -105,6 +105,23 @@ public:
      */
     void setServer(ACPClientServer *server);
 
+    /**
+     * @brief Set up all connections for the current server and manager
+     *
+     * Connects to server messages, server manager signals, and permission requests.
+     * Call this after setting the server and server manager.
+     */
+    void setupServerConnections();
+
+    /**
+     * @brief Initialize the chat widget with an existing session
+     * @param sessionId The session ID to use
+     *
+     * Sets up the server, connections, and session ID for an existing session
+     * (loaded or resumed from the session list).
+     */
+    void initializeWithSession(const QString &sessionId);
+
 Q_SIGNALS:
     // ========================================================================
     // OUTGOING SIGNALS

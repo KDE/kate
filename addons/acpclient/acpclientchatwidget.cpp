@@ -98,15 +98,9 @@ void ACPClientChatWidget::startNewSession()
         return;
     }
 
-    m_server = server;
-
-    // Connect to server messages first
-    connect(server, &ACPClientServer::messageReceived, this, &ACPClientChatWidget::onServerMessageReceived);
-    connect(server, &ACPClientServer::disconnected, this, [this]() {
-        appendMessage(QStringLiteral("System"), i18n("Server disconnected"));
-        setSessionId(QString());
-        updateSessionState();
-    });
+    // Set the server and establish connections
+    setServer(server);
+    setupServerConnections();
 
     // Connect to sessionCreated signal to get the actual session ID
     connect(m_serverManager, &ACPClientServerManager::sessionCreated, this, [this](const QString &sessionId) {
@@ -117,23 +111,6 @@ void ACPClientChatWidget::startNewSession()
         setSessionId(sessionId);
         appendMessage(QStringLiteral("System"), i18n("New ACP session started: %1", sessionId));
         updateSessionState();
-    });
-
-    // Connect to messageReceived to show all messages in chat
-    connect(m_serverManager, &ACPClientServerManager::messageReceived, this, [this](const QJsonDocument &doc) {
-        // Forward to our handler
-        onServerMessageReceived(doc);
-    });
-
-    // Connect to permissionRequested signal
-    connect(m_serverManager, &ACPClientServerManager::permissionRequested, this, &ACPClientChatWidget::onPermissionRequested);
-
-    // Connect permissionResponse signal to send response back to server
-    connect(this, &ACPClientChatWidget::permissionResponse, this, [server](qint64 requestId, const QString &optionId) {
-        if (server && server->state() == ACPClientServer::ServerState::Initialized) {
-            QJsonDocument response = ACP::ACPProtocol::createPermissionResponse(requestId, optionId);
-            server->sendMessage(response);
-        }
     });
 
     // Create a new session
@@ -152,6 +129,29 @@ void ACPClientChatWidget::setSessionId(const QString &sessionId)
 QString ACPClientChatWidget::sessionId() const
 {
     return m_sessionId;
+}
+
+void ACPClientChatWidget::initializeWithSession(const QString &sessionId)
+{
+    if (!m_serverManager) {
+        appendMessage(QStringLiteral("System"), i18n("No ACP server manager available"));
+        return;
+    }
+
+    ACPClientServer *server = m_serverManager->activeServer();
+    if (!server) {
+        appendMessage(QStringLiteral("System"), i18n("No active ACP server. Please connect to an agent first."));
+        return;
+    }
+
+    // Set the server and establish connections
+    setServer(server);
+    setupServerConnections();
+
+    // Set the session ID
+    setSessionId(sessionId);
+    appendMessage(QStringLiteral("System"), i18n("Using session: %1", sessionId));
+    updateSessionState();
 }
 
 void ACPClientChatWidget::appendMessage(const QString &sender, const QString &message, bool isUser)
@@ -395,6 +395,38 @@ void ACPClientChatWidget::setServer(ACPClientServer *server)
             });
         }
     }
+}
+
+void ACPClientChatWidget::setupServerConnections()
+{
+    if (!m_serverManager || !m_server) {
+        return;
+    }
+
+    // Connect to messageReceived to show all messages in chat
+    connect(m_serverManager, &ACPClientServerManager::messageReceived, this, [this](const QJsonDocument &doc) {
+        // Forward to our handler
+        onServerMessageReceived(doc);
+    });
+
+    // Connect to permissionRequested signal
+    connect(m_serverManager, &ACPClientServerManager::permissionRequested, this, &ACPClientChatWidget::onPermissionRequested);
+
+    // Connect to sessionLoaded signal to update state
+    connect(m_serverManager, &ACPClientServerManager::sessionLoaded, this, [this](const QString &sessionId) {
+        if (m_sessionId == sessionId || m_sessionId.isEmpty()) {
+            appendMessage(QStringLiteral("System"), i18n("Session loaded: %1", sessionId));
+            updateSessionState();
+        }
+    });
+
+    // Connect to sessionResumed signal to update state
+    connect(m_serverManager, &ACPClientServerManager::sessionResumed, this, [this](const QString &sessionId) {
+        if (m_sessionId == sessionId || m_sessionId.isEmpty()) {
+            appendMessage(QStringLiteral("System"), i18n("Session resumed: %1", sessionId));
+            updateSessionState();
+        }
+    });
 }
 
 void ACPClientChatWidget::sendMessage()

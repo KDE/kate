@@ -209,7 +209,11 @@ void ACPClientPluginView::showChatToolView()
         }
 
         qCDebug(ACPCLIENT) << "Loading session from double-click:" << sessionId;
-        m_chatWidget->setSessionId(sessionId);
+
+        // Initialize the chat widget with the session (sets up server connections)
+        if (m_chatWidget) {
+            m_chatWidget->initializeWithSession(sessionId);
+        }
 
         // Check agent capabilities to determine which method to use
         if (m_serverManager->supportsLoadSession()) {

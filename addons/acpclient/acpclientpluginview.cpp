@@ -111,6 +111,11 @@ void ACPClientPluginView::setupActions()
 void ACPClientPluginView::setupUI()
 {
     showChatToolView();
+
+    // Query session list once UI is set up
+    if (m_serverManager->activeServer()) {
+        m_serverManager->listSessions();
+    }
 }
 
 void ACPClientPluginView::createSessionFromDocument()
@@ -196,10 +201,31 @@ void ACPClientPluginView::showChatToolView()
     m_sessionListWidget->setObjectName(QStringLiteral("ACPSessionListWidget"));
     m_tabWidget->addTab(m_sessionListWidget, i18n("Sessions"));
 
-    // Connect session resumed signal to resume the session
+    // Connect session activated signal to load/resume the session
     connect(m_sessionListWidget, &ACPSessionListWidget::sessionResumed, this, [this](const QString &sessionId) {
+        if (sessionId.isEmpty()) {
+            qCWarning(ACPCLIENT) << "Cannot load session: empty session ID";
+            return;
+        }
+
+        qCDebug(ACPCLIENT) << "Loading session from double-click:" << sessionId;
         m_chatWidget->setSessionId(sessionId);
-        m_serverManager->resumeSession(sessionId);
+
+        // Check agent capabilities to determine which method to use
+        if (m_serverManager->supportsLoadSession()) {
+            qCDebug(ACPCLIENT) << "Using session/load (agent supports loadSession)";
+            m_serverManager->loadSession(sessionId);
+        } else if (m_serverManager->supportsResumeSession()) {
+            qCDebug(ACPCLIENT) << "Using session/resume (agent supports resume)";
+            m_serverManager->resumeSession(sessionId);
+        } else {
+            qCWarning(ACPCLIENT) << "Agent does not support session/load or session/resume";
+        }
+
+        // Switch to the chat tab
+        if (m_tabWidget && m_chatToolView) {
+            m_tabWidget->setCurrentIndex(0); // 0 = Chat tab
+        }
     });
 
     // Connect to server manager for session list updates

@@ -199,6 +199,24 @@ void ACPClientServerManager::startAutoStartServers()
     }
 }
 
+bool ACPClientServerManager::supportsLoadSession() const
+{
+    ACPClientServer *server = activeServer();
+    if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
+        return false;
+    }
+    return server->capabilities().loadSession;
+}
+
+bool ACPClientServerManager::supportsResumeSession() const
+{
+    ACPClientServer *server = activeServer();
+    if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
+        return false;
+    }
+    return server->capabilities().sessionCapabilities.resume;
+}
+
 QString ACPClientServerManager::createSession()
 {
     ACPClientServer *server = activeServer();

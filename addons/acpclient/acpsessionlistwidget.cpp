@@ -5,6 +5,7 @@
 */
 
 #include "acpsessionlistwidget.h"
+#include "acpclient_debug.h"
 
 #include <KLocalizedString>
 
@@ -27,6 +28,7 @@ ACPSessionListWidget::ACPSessionListWidget(ACPClientServerManager *serverManager
     // Connect double-click to resume session
     connect(m_sessionList, &QListWidget::itemDoubleClicked, this, [this](QListWidgetItem *item) {
         QString sessionId = item->data(Qt::UserRole).toString();
+        qCDebug(ACPCLIENT) << "Session double-clicked:" << sessionId;
         if (!sessionId.isEmpty()) {
             Q_EMIT sessionResumed(sessionId);
         }
@@ -52,6 +54,13 @@ void ACPSessionListWidget::updateSessionList(const QJsonArray &sessions)
             QJsonObject session = value.toObject();
 
             QString sessionId = session[u"id"].toString();
+            // Try alternative key names that vibe-acp might use
+            if (sessionId.isEmpty()) {
+                sessionId = session[u"sessionId"].toString();
+            }
+            if (sessionId.isEmpty()) {
+                sessionId = session[u"name"].toString();
+            }
             QString title = session[u"title"].toString();
             QString name = session[u"name"].toString();
             QString updatedAt = session[u"updatedAt"].toString();
@@ -87,6 +96,8 @@ void ACPSessionListWidget::updateSessionList(const QJsonArray &sessions)
             QListWidgetItem *item = new QListWidgetItem(displayText, m_sessionList);
             item->setData(Qt::UserRole, sessionId);
             item->setToolTip(toolTip);
+            // Ensure item is selectable and enabled for double-click
+            item->setFlags(item->flags() | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         }
     }
 }

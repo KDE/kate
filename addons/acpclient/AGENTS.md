@@ -124,6 +124,16 @@ The plugin implements ACP Protocol v1 (JSON-RPC 2.0 based) as defined in `acpcli
 - `$/progress` - Progress notifications
 - `$/cancel_request` - Cancellation requests
 
+### Session Management
+
+The plugin checks agent capabilities from the `initialize` response to determine which session methods are available:
+
+- **session/new** - Always available after initialization
+- **session/load** - Used if `agentCapabilities.loadSession` is true (loads session with full conversation replay)
+- **session/resume** - Used if `agentCapabilities.sessionCapabilities.resume` is true (resumes session without replay)
+
+Double-clicking a session in the Sessions tab will automatically use the appropriate method based on what the agent supports.
+
 ### Session Update Types
 
 Defined in `acpclientprotocol.h`:

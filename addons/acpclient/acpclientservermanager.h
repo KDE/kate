@@ -122,6 +122,18 @@ public:
      */
     void startAutoStartServers();
 
+    /**
+     * @brief Check if the active server supports session loading
+     * @return true if the agent supports loadSession capability
+     */
+    bool supportsLoadSession() const;
+
+    /**
+     * @brief Check if the active server supports session resuming
+     * @return true if the agent supports sessionCapabilities.resume
+     */
+    bool supportsResumeSession() const;
+
     // ========================================================================
     // SESSION MANAGEMENT
     // ========================================================================

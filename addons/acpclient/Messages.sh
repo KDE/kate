@@ -1,4 +1,7 @@
 #!/bin/sh
+# SPDX-FileCopyrightText: 2026 Christoph Cullmann <cullmann@kde.org>
+#
+# SPDX-License-Identifier: MIT
 # Extract messages for ACP Client plugin
 
 exrc="acpclientplugin.cpp acpclientpluginview.cpp acpclientconfigpage.cpp acpserverdialog.cpp acpclientserver.cpp acpclientservermanager.cpp acpclientprotocol.cpp"

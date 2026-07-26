@@ -52,25 +52,41 @@ void ACPSessionListWidget::updateSessionList(const QJsonArray &sessions)
             QJsonObject session = value.toObject();
 
             QString sessionId = session[u"id"].toString();
+            QString title = session[u"title"].toString();
             QString name = session[u"name"].toString();
+            QString updatedAt = session[u"updatedAt"].toString();
+            QString cwd = session[u"cwd"].toString();
 
-            // Use sessionId as name if name is not available
-            if (name.isEmpty()) {
-                name = sessionId;
+            // Use title if available, otherwise name, otherwise sessionId
+            QString displayName = title;
+            if (displayName.isEmpty()) {
+                displayName = name;
+            }
+            if (displayName.isEmpty()) {
+                displayName = sessionId;
             }
 
-            // Add session info if available
-            QString createdAt = session[u"createdAt"].toString();
-            QString updatedAt = session[u"updatedAt"].toString();
+            // Build display text with session info
+            QString displayText = displayName;
+            if (!updatedAt.isEmpty()) {
+                displayText += QStringLiteral(" (Updated: ") + updatedAt + QStringLiteral(")");
+            }
 
-            QString displayText = name;
-            if (!createdAt.isEmpty()) {
-                displayText += QStringLiteral(" (Created: ") + createdAt + QStringLiteral(")");
+            // Build tooltip with all details
+            QString toolTip = QStringLiteral("Session ID: ") + sessionId;
+            if (!title.isEmpty()) {
+                toolTip += QStringLiteral("\nTitle: ") + title;
+            }
+            if (!updatedAt.isEmpty()) {
+                toolTip += QStringLiteral("\nUpdated: ") + updatedAt;
+            }
+            if (!cwd.isEmpty()) {
+                toolTip += QStringLiteral("\nWorking Directory: ") + cwd;
             }
 
             QListWidgetItem *item = new QListWidgetItem(displayText, m_sessionList);
             item->setData(Qt::UserRole, sessionId);
-            item->setToolTip(QStringLiteral("Session ID: ") + sessionId);
+            item->setToolTip(toolTip);
         }
     }
 }

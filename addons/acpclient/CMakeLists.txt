@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Christoph Cullmann <cullmann@kde.org>
+#
+# SPDX-License-Identifier: MIT
+
 kate_add_plugin(acpclientplugin)
 target_compile_definitions(acpclientplugin PRIVATE TRANSLATION_DOMAIN="acpclient")
 

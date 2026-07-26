@@ -150,9 +150,6 @@ Q_SIGNALS:
     /** @brief Emitted when a new session is requested */
     void sessionRequested();
 
-    /** @brief Emitted when the user ends the session */
-    void sessionEnded();
-
     /**
      * @brief Emitted when user responds to a permission request
      * @param requestId Permission request ID
@@ -170,6 +167,9 @@ private Q_SLOTS:
 
     /** @brief Handle Return key in input field */
     void onInputReturnPressed();
+
+    /** @brief Handle end session button click */
+    void endSession();
 
     // ========================================================================
     // SERVER MESSAGE HANDLERS

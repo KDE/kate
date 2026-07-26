@@ -61,7 +61,7 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     connect(m_ui->sendButton, &QPushButton::clicked, this, &ACPClientChatWidget::sendMessage);
     connect(m_ui->messageInput, &QLineEdit::returnPressed, this, &ACPClientChatWidget::onInputReturnPressed);
     connect(m_ui->newSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::startNewSession);
-    connect(m_ui->endSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::sessionEnded);
+    connect(m_ui->endSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::endSession);
     connect(m_ui->copyButton, &QPushButton::clicked, this, &ACPClientChatWidget::copyChatText);
 
     // Get the scroll area and message container from UI
@@ -577,6 +577,27 @@ void ACPClientChatWidget::sendMessage()
 void ACPClientChatWidget::onInputReturnPressed()
 {
     sendMessage();
+}
+
+void ACPClientChatWidget::endSession()
+{
+    if (!m_serverManager) {
+        appendMessage(QStringLiteral("System"), i18n("No ACP server manager available"));
+        return;
+    }
+
+    if (m_sessionId.isEmpty()) {
+        appendMessage(QStringLiteral("System"), i18n("No active session to end"));
+        return;
+    }
+
+    // Close the current session via server manager
+    m_serverManager->closeSession(m_sessionId);
+
+    // Clear the session and update UI
+    setSessionId(QString());
+    updateSessionState();
+    updateActionStates();
 }
 
 void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)

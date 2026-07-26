@@ -32,12 +32,12 @@ ACPSessionListWidget::ACPSessionListWidget(ACPClientServerManager *serverManager
 
     // Set up columns
     QStringList headers;
-    headers << i18n("Title") << i18n("Updated") << i18n("Working Directory");
+    headers << i18n("Updated") << i18n("Title") << i18n("Working Directory");
     m_sessionTree->setColumnCount(headers.size());
     m_sessionTree->setHeaderLabels(headers);
 
     // Resize columns to fit content
-    m_sessionTree->header()->setSectionResizeMode(QHeaderView::Stretch);
+    m_sessionTree->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     m_layout->addWidget(m_sessionTree);
 
@@ -129,11 +129,12 @@ void ACPSessionListWidget::updateSessionList(const QJsonArray &sessions)
         }
 
         QTreeWidgetItem *item = new QTreeWidgetItem(m_sessionTree);
+        // Store sessionId in column 0's UserRole for double-click handler
         item->setData(0, Qt::UserRole, sessionId);
-        // Column 0: Title (with fallback to name or sessionId)
-        item->setText(0, displayName);
-        // Column 1: Updated
-        item->setText(1, displayDate);
+        // Column 0: Updated
+        item->setText(0, displayDate);
+        // Column 1: Title (with fallback to name or sessionId)
+        item->setText(1, displayName);
         // Column 2: Working Directory
         item->setText(2, displayCwd);
 
@@ -153,6 +154,9 @@ void ACPSessionListWidget::updateSessionList(const QJsonArray &sessions)
         // Ensure item is selectable and enabled for double-click
         item->setFlags(item->flags() | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     }
+
+    // Resize columns to fit content after loading
+    m_sessionTree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 #include "moc_acpsessionlistwidget.cpp"

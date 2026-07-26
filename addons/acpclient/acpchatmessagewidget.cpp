@@ -61,6 +61,12 @@ void ACPChatMessageWidget::setupUI()
     m_typeLabel->setObjectName(QStringLiteral("typeLabel"));
     headerLayout->addWidget(m_typeLabel);
 
+    // Status icon (for prompt turn tracking)
+    m_statusIconLabel = new QLabel(this);
+    m_statusIconLabel->setObjectName(QStringLiteral("statusIconLabel"));
+    m_statusIconLabel->setVisible(false); // Hidden by default
+    headerLayout->addWidget(m_statusIconLabel);
+
     headerLayout->addStretch();
 
     m_mainLayout->addWidget(m_headerWidget);
@@ -98,6 +104,67 @@ void ACPChatMessageWidget::setTimestamp(const QDateTime &timestamp)
 void ACPChatMessageWidget::setMessageId(const QString &messageId)
 {
     m_messageId = messageId;
+}
+
+void ACPChatMessageWidget::setStatus(MessageStatus status)
+{
+    if (m_status != status) {
+        m_status = status;
+        updateContentDisplay();
+    }
+}
+
+ACPChatMessageWidget::MessageStatus ACPChatMessageWidget::status() const
+{
+    return m_status;
+}
+
+void ACPChatMessageWidget::updateStatusIcon()
+{
+    if (!m_statusIconLabel) {
+        return;
+    }
+
+    // Only show status icon for user messages (prompt turns)
+    if (m_type != MessageType::User) {
+        m_statusIconLabel->setVisible(false);
+        return;
+    }
+
+    // Show the icon for user messages based on status
+    m_statusIconLabel->setVisible(m_status != MessageStatus::None);
+
+    // Set appropriate icon based on status using QPalette for colors
+    QPalette pal = m_statusIconLabel->palette();
+    switch (m_status) {
+    case MessageStatus::Running:
+        // Show a spinner or loading indicator
+        // Using a simple text representation for now: "⏳"
+        m_statusIconLabel->setText(QStringLiteral("⏳"));
+        break;
+    case MessageStatus::Completed:
+        // Show a checkmark
+        m_statusIconLabel->setText(QStringLiteral("✓"));
+        pal.setColor(QPalette::WindowText, pal.color(QPalette::LinkVisited));
+        m_statusIconLabel->setPalette(pal);
+        break;
+    case MessageStatus::Error:
+        // Show an error indicator
+        m_statusIconLabel->setText(QStringLiteral("✗"));
+        pal.setColor(QPalette::WindowText, pal.color(QPalette::BrightText));
+        m_statusIconLabel->setPalette(pal);
+        break;
+    case MessageStatus::Cancelled:
+        // Show a cancelled indicator
+        m_statusIconLabel->setText(QStringLiteral("○"));
+        pal.setColor(QPalette::WindowText, pal.color(QPalette::Mid));
+        m_statusIconLabel->setPalette(pal);
+        break;
+    case MessageStatus::None:
+    default:
+        m_statusIconLabel->setVisible(false);
+        break;
+    }
 }
 
 void ACPChatMessageWidget::addPlanEntry(const QString &content, const QString &priority, const QString &status)
@@ -169,6 +236,9 @@ void ACPChatMessageWidget::applyTypeSpecificStyling()
 
 void ACPChatMessageWidget::updateContentDisplay()
 {
+    // Update status icon visibility and pixmap
+    updateStatusIcon();
+
     // Clear existing content
     QLayoutItem *child;
     while ((child = m_contentWidget->layout()->takeAt(0)) != nullptr) {

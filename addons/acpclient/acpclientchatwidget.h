@@ -49,6 +49,15 @@ class ACPClientChatWidget : public QWidget
     Q_OBJECT
 
 public:
+    /** @brief Message status for tracking prompt turn state */
+    enum class MessageStatus {
+        None, ///< No status (default)
+        Running, ///< Prompt is being processed
+        Completed, ///< Prompt turn completed successfully
+        Error, ///< Prompt turn ended with error
+        Cancelled ///< Prompt turn was cancelled
+    };
+
     /**
      * @brief Construct the chat widget
      * @param plugin Parent plugin instance
@@ -92,6 +101,14 @@ public:
 
     /** @brief Clear all messages from the chat */
     void clearChat();
+
+    /**
+     * @brief Update the status of the last user message
+     * @param status The status to set (Running, Completed, Error, Cancelled)
+     *
+     * Used to track prompt turn lifecycle and show appropriate icons.
+     */
+    void updateLastUserMessageStatus(MessageStatus status);
 
     // ========================================================================
     // SERVER MANAGEMENT

@@ -38,6 +38,15 @@ public:
      *
      * Each type has different visual styling and content display.
      */
+    /** @brief Message status for tracking prompt turn state */
+    enum class MessageStatus {
+        None, ///< No status (default)
+        Running, ///< Prompt is being processed (show spinner/loading indicator)
+        Completed, ///< Prompt turn completed successfully (show checkmark)
+        Error, ///< Prompt turn ended with error (show error indicator)
+        Cancelled ///< Prompt turn was cancelled (show cancelled indicator)
+    };
+
     enum class MessageType {
         User, ///< User's message (blue styling)
         Agent, ///< Agent's text message (green styling)
@@ -80,6 +89,12 @@ public:
 
     /** @brief Set the message ID (for tracking streaming chunks) */
     void setMessageId(const QString &messageId);
+
+    /** @brief Set the message status (for prompt turn tracking) */
+    void setStatus(MessageStatus status);
+
+    /** @brief Get the current message status */
+    MessageStatus status() const;
 
     // ========================================================================
     // TYPE-SPECIFIC SETTERS
@@ -183,11 +198,19 @@ private:
      */
     void updateContentDisplay();
 
+    /**
+     * @brief Update the status icon based on the current message status
+     *
+     * Shows/hides the status icon and sets the appropriate symbol and color.
+     */
+    void updateStatusIcon();
+
     // ========================================================================
     // CORE DATA
     // ========================================================================
 
     MessageType m_type; ///< Message type (set at construction)
+    MessageStatus m_status = MessageStatus::None; ///< Message status (for prompt turn tracking)
     QString m_content; ///< Main content text
     QString m_sender; ///< Sender name (e.g., "You", "Agent", "System")
     QDateTime m_timestamp; ///< Timestamp for the message
@@ -242,6 +265,7 @@ private:
     QLabel *m_timestampLabel; ///< Display: formatted timestamp
     QLabel *m_senderLabel; ///< Display: sender name
     QLabel *m_typeLabel; ///< Display: message type label
+    QLabel *m_statusIconLabel; ///< Display: status icon (spinner, checkmark, etc.)
     QWidget *m_contentWidget; ///< Container for message content
     QVBoxLayout *m_mainLayout; ///< Main widget layout
 };

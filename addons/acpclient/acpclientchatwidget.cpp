@@ -200,6 +200,37 @@ void ACPClientChatWidget::clearMessages()
     }
 }
 
+void ACPClientChatWidget::updateLastUserMessageStatus(MessageStatus status)
+{
+    // Convert chat widget status to message widget status
+    ACPChatMessageWidget::MessageStatus msgStatus;
+    switch (status) {
+    case MessageStatus::None:
+        msgStatus = ACPChatMessageWidget::MessageStatus::None;
+        break;
+    case MessageStatus::Running:
+        msgStatus = ACPChatMessageWidget::MessageStatus::Running;
+        break;
+    case MessageStatus::Completed:
+        msgStatus = ACPChatMessageWidget::MessageStatus::Completed;
+        break;
+    case MessageStatus::Error:
+        msgStatus = ACPChatMessageWidget::MessageStatus::Error;
+        break;
+    case MessageStatus::Cancelled:
+        msgStatus = ACPChatMessageWidget::MessageStatus::Cancelled;
+        break;
+    }
+
+    // Find the last user message and update its status
+    for (auto it = m_messageWidgets.rbegin(); it != m_messageWidgets.rend(); ++it) {
+        if ((*it)->type() == ACPChatMessageWidget::MessageType::User) {
+            (*it)->setStatus(msgStatus);
+            break;
+        }
+    }
+}
+
 QString ACPClientChatWidget::getAllChatText() const
 {
     QString allText;
@@ -446,11 +477,16 @@ void ACPClientChatWidget::sendMessage()
     appendMessage(i18n("You"), message, true);
     m_ui->messageInput->clear();
 
+    // Mark the user message as running (prompt turn started)
+    updateLastUserMessageStatus(MessageStatus::Running);
+
     // Send to ACP server
     if (!m_sessionId.isEmpty() && m_serverManager) {
         m_serverManager->sendPrompt(m_sessionId, message);
         Q_EMIT messageSent(m_sessionId, message);
     } else {
+        // No active session - mark as error
+        updateLastUserMessageStatus(MessageStatus::Error);
         appendMessage(QStringLiteral("System"), i18n("No active session. Please start a new session first."));
     }
 }
@@ -474,6 +510,9 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
         QString errorMsg = errorObj[u"message"].toString();
         QString errorCode = QString::number(errorObj[u"code"].toInt());
         appendMessage(QStringLiteral("System"), i18n("Error [%1]: %2", errorCode, errorMsg));
+
+        // Mark the last user message as error
+        updateLastUserMessageStatus(MessageStatus::Error);
         return;
     }
 
@@ -484,6 +523,16 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
             if (result.contains(u"stopReason")) {
                 QString stopReason = result[u"stopReason"].toString();
                 appendMessage(i18n("ACP Agent"), i18n("Turn completed: %1", stopReason));
+
+                // Mark the last user message as completed or error based on stopReason
+                if (stopReason == QStringLiteral("cancelled")) {
+                    updateLastUserMessageStatus(MessageStatus::Cancelled);
+                } else if (stopReason == QStringLiteral("refusal")) {
+                    updateLastUserMessageStatus(MessageStatus::Error);
+                } else {
+                    // end_turn, max_tokens, max_turn_requests - all indicate completion
+                    updateLastUserMessageStatus(MessageStatus::Completed);
+                }
             }
         }
         return;

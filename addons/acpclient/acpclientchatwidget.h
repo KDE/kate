@@ -217,6 +217,9 @@ private:
     /** @brief Update UI based on session state */
     void updateSessionState();
 
+    /** @brief Update action enablement based on server initialization state */
+    void updateActionStates();
+
     /** @brief Add a message widget to the display */
     void addMessageWidget(ACPChatMessageWidget *widget);
 

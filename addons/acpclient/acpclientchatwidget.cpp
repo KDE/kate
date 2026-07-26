@@ -40,7 +40,17 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     if (m_plugin) {
         m_serverManager = m_plugin->serverManager();
         if (m_serverManager) {
-            m_server = m_serverManager->activeServer();
+            // Set initial server if one is active
+            ACPClientServer *initialServer = m_serverManager->activeServer();
+            if (initialServer) {
+                setServer(initialServer);
+                setupServerConnections();
+            }
+            // Connect to activeServerChanged to update action states when server initialization changes
+            connect(m_serverManager, &ACPClientServerManager::activeServerChanged, this, [this](ACPClientServer *server) {
+                Q_UNUSED(server);
+                updateActionStates();
+            });
         }
     }
 
@@ -69,8 +79,9 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     // Install event filter on chat display container for context menu
     m_chatDisplayContainer->installEventFilter(this);
 
-    // Update UI state
+    // Update UI state - initialize actions as disabled (no server yet)
     updateSessionState();
+    updateActionStates();
 }
 
 ACPClientChatWidget::~ACPClientChatWidget()
@@ -457,6 +468,9 @@ void ACPClientChatWidget::setServer(ACPClientServer *server)
 
         m_server = server;
 
+        // Update action states with new server
+        updateActionStates();
+
         // Connect to new server
         if (m_server) {
             // Note: messageReceived is connected via serverManager in setupServerConnections()
@@ -465,6 +479,16 @@ void ACPClientChatWidget::setServer(ACPClientServer *server)
                 appendMessage(QStringLiteral("System"), i18n("Server disconnected"));
                 setSessionId(QString());
                 updateSessionState();
+            });
+
+            // Connect to server state changes and initialization to update action enablement
+            connect(m_server, &ACPClientServer::stateChanged, this, [this](ACPClientServer::ServerState state) {
+                Q_UNUSED(state);
+                updateActionStates();
+            });
+            connect(m_server, &ACPClientServer::initialized, this, [this](const ACP::InitializeResult &result) {
+                Q_UNUSED(result);
+                updateActionStates();
             });
 
             // Connect permissionResponse to send back to this server
@@ -495,6 +519,12 @@ void ACPClientChatWidget::setupServerConnections()
 
     // Connect to permissionRequested signal
     connect(m_serverManager, &ACPClientServerManager::permissionRequested, this, &ACPClientChatWidget::onPermissionRequested);
+
+    // Connect to activeServerChanged to update action states when server initialization changes
+    connect(m_serverManager, &ACPClientServerManager::activeServerChanged, this, [this](ACPClientServer *server) {
+        Q_UNUSED(server);
+        updateActionStates();
+    });
 
     // Connect to sessionLoaded signal to update state
     connect(m_serverManager, &ACPClientServerManager::sessionLoaded, this, [this](const QString &sessionId) {
@@ -809,6 +839,22 @@ void ACPClientChatWidget::updateSessionState()
         m_ui->sessionLabel->setText(i18n("ACP Chat: Session %1", m_sessionId));
         m_ui->endSessionButton->setEnabled(true);
     }
+
+    // Also update action states based on server initialization
+    updateActionStates();
+}
+
+void ACPClientChatWidget::updateActionStates()
+{
+    // Check if there's an active, initialized server via the server manager
+    bool hasActiveServer = m_serverManager && m_serverManager->activeServer();
+
+    // Enable/disable actions based on server availability and session state
+    m_ui->newSessionButton->setEnabled(hasActiveServer);
+    m_ui->sendButton->setEnabled(hasActiveServer && !m_sessionId.isEmpty());
+    m_ui->endSessionButton->setEnabled(hasActiveServer && !m_sessionId.isEmpty());
+    m_ui->copyButton->setEnabled(hasActiveServer);
+    m_ui->messageInput->setEnabled(hasActiveServer);
 }
 
 bool ACPClientChatWidget::eventFilter(QObject *watched, QEvent *event)

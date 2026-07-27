@@ -30,6 +30,7 @@ private Q_SLOTS:
         QTest::addColumn<std::vector<OpenLinkRange>>("expected");
 
         using R = std::vector<OpenLinkRange>;
+
         QTest::addRow("1") << "Line has https://google.com"
                            << R{OpenLinkRange{.start = 9, .end = 27, .link = QStringLiteral("https://google.com"), .type = HttpLink}};
         QTest::addRow("2") << "Line has https://google.com and https://google.com"
@@ -106,6 +107,10 @@ private Q_SLOTS:
         QTest::addRow("22") << QStringLiteral("<https://cullmann.dev> xxx <https://hello.dev>")
                             << R{OpenLinkRange{.start = 1, .end = 21, .link = QStringLiteral("https://cullmann.dev"), .type = HttpLink},
                                  OpenLinkRange{.start = 28, .end = 45, .link = QStringLiteral("https://hello.dev"), .type = HttpLink}};
+
+        // something like: (/home/user/projects/file/Extensions/xyz/File.cpp:713,
+        QTest::addRow("23") << QLatin1String("(%1:713,").arg(filePath)
+                            << R{OpenLinkRange{.start = 1, .end = 1 + fileLen + 4, .link = filePath, .startPos = {713, 0}, .type = FileLink}};
     }
 
     void test()

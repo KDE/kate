@@ -87,8 +87,22 @@ static KTextEditor::Cursor parseLineCol(QStringView &link)
     return KTextEditor::Cursor(line, col);
 }
 
+static void pushLink(int s, int e, QStringView line, std::vector<OpenLinkRange> *outColumnRanges)
+{
+    QStringView linkView(QStringView(line).mid(s, e - s));
+    KTextEditor::Cursor c = parseLineCol(linkView);
+    QString link = linkView.toString();
+    if (QFileInfo(link).isFile()) {
+        outColumnRanges->push_back({.start = s, .end = e, .link = link, .startPos = c, .type = FileLink});
+    }
+}
+
 static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outColumnRanges)
 {
+    const auto isPrevCharAcceptable = [](QChar c) {
+        return c == u' ' || c == u'"' || c == u'(' || c == u')' || c == u'=';
+    };
+
 #ifdef Q_OS_WIN
     const auto isValidDriveLetter = [](QChar letter) {
         return (letter.isLetter() && letter.toUpper() >= u'A' && letter.toUpper() <= u'Z');
@@ -112,8 +126,8 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
             s = isAbsoloutePath ? s - 2 : s - 1;
             s = isDotDotRelativePath ? s - 1 : s;
 
-            // must be preceded by a space or d-quote
-            if (s != 0 && line[s - 1] != u'"' && line[s - 1] != u' ') {
+            // must be preceded by a space or a symbol
+            if (s != 0 && !isPrevCharAcceptable(line[s - 1])) {
                 s = orignalS + 1;
                 continue;
             }
@@ -123,6 +137,11 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
             if (!matchNextQuote) {
                 e = line.indexOf(QLatin1String(" "), s);
                 e = e == -1 ? line.size() : e;
+
+                // Strip trailing punctuation
+                while (e > s && (line[e - 1] == u',' || line[e - 1] == u'.')) {
+                    e--;
+                }
             } else {
                 e = line.indexOf(u'"', s);
                 if (e == -1) {
@@ -137,15 +156,9 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
             }
 
             if (e != -1) {
-                QStringView linkView(QStringView(line).mid(s, e - s));
-                KTextEditor::Cursor c = parseLineCol(linkView);
-                QString link = linkView.toString();
-                if (QFileInfo(link).isFile()) {
-                    outColumnRanges->push_back({s, e, link, c, FileLink});
-                }
+                pushLink(s, e, line, outColumnRanges);
             }
             s = e;
-            continue;
         } else {
             s++;
         }
@@ -158,17 +171,21 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
         if (s == -1) {
             break;
         }
-        // must be preceded by a space or d-quote
-        if (s != 0 && line[s - 1] != u'"' && line[s - 1] != u' ') {
+        // must be preceded by a space or a symbol
+        if (s != 0 && !isPrevCharAcceptable(line[s - 1])) {
             s++;
             continue;
         }
-
         const bool matchNextQuote = s > 0 && line[s - 1] == u'"'; // last char is quote?
         int e = -1;
         if (!matchNextQuote) {
             e = line.indexOf(QLatin1String(" "), s);
             e = e == -1 ? line.size() : e;
+
+            // Strip trailing punctuation
+            while (e > s && (line[e - 1] == u',' || line[e - 1] == u'.')) {
+                e--;
+            }
         } else {
             e = line.indexOf(u'"', s);
             if (e == -1) {
@@ -177,12 +194,7 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
         }
 
         if (e != -1) {
-            QStringView linkView(QStringView(line).mid(s, e - s));
-            KTextEditor::Cursor c = parseLineCol(linkView);
-            QString link = linkView.toString();
-            if (QFileInfo(link).isFile()) {
-                outColumnRanges->push_back({s, e, link, c, FileLink});
-            }
+            pushLink(s, e, line, outColumnRanges);
         }
         s = e;
     }

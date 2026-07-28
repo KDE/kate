@@ -238,28 +238,28 @@ KateProjectViewTree::~KateProjectViewTree() = default;
 
 void KateProjectViewTree::selectFile(const QString &file)
 {
-    /**
-     * get item if any
-     */
-    QStandardItem *item = m_project->itemForFile(file);
-    if (!item) {
-        return;
-    }
+    // We do 2 iterations
+    // first iteration for normal case
+    // second one is for the case where directories are flattened into
+    // a single node
+    for (int i = 0; i < 2; i++) {
+        const QStandardItem *item = m_project->itemForFile(file);
+        const auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
+        const auto index = item ? proxyModel->mapFromSource(m_project->model()->indexFromItem(item)) : QModelIndex();
+        if (!index.isValid()) {
+            return;
+        }
 
-    /**
-     * select it
-     */
-    const auto index = static_cast<QSortFilterProxyModel *>(model())->mapFromSource(m_project->model()->indexFromItem(item));
-    if (!index.isValid()) {
-        return;
-    }
+        // scrollTo may lead to path flattening (see flattenPath) which might invalidate this index
+        const QPersistentModelIndex persistentIndex = index;
 
-    // scrollTo may lead to path flattening (see flattenPath) which might invalidate this index
-    const QPersistentModelIndex persistentIndex = index;
-
-    scrollTo(index, QAbstractItemView::EnsureVisible);
-    if (persistentIndex.isValid()) {
-        selectionModel()->setCurrentIndex(persistentIndex, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+        scrollTo(index, QAbstractItemView::EnsureVisible);
+        if (persistentIndex.isValid()) {
+            selectionModel()->setCurrentIndex(persistentIndex, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+            return;
+        } else {
+            // index was invalidated due to flattening, try to select file again
+        }
     }
 }
 

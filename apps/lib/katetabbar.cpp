@@ -41,6 +41,9 @@ KateTabBar::KateTabBar(QWidget *parent)
     // we want drag and drop
     setAcceptDrops(true);
 
+    // allow users to change the tab during a drag
+    setChangeCurrentOnDrag(true);
+
     // allow users to re-arrange the tabs
     setMovable(true);
 

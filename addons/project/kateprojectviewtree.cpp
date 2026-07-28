@@ -44,24 +44,25 @@ struct ActivePart {
 
 ActivePart activeFlattenedPathItem(const QStringList &splittedPath, int mouseX, int xStart, const QFontMetrics &fm)
 {
+    const int slashWidth = fm.horizontalAdvance(QStringLiteral(" / "));
+
     int textIndex = 0;
     for (int i = 0; i < splittedPath.size(); ++i) {
         int width = fm.horizontalAdvance(splittedPath[i]);
         if (xStart <= mouseX && mouseX <= xStart + width) {
             return {.index = i, .textIndex = textIndex, .textLength = static_cast<int>(splittedPath[i].size())};
-            break;
         }
 
         xStart += width;
         textIndex += splittedPath[i].length();
 
         if (i < splittedPath.size() - 1) {
-            xStart += fm.horizontalAdvance(QStringLiteral(" / "));
+            xStart += slashWidth;
             textIndex += 3;
         }
     }
 
-    return {-1, -1, -1};
+    return {.index = -1, .textIndex = -1, .textLength = -1};
 }
 }
 
@@ -268,22 +269,22 @@ void KateProjectViewTree::openSelectedDocument()
     /**
      * anything selected?
      */
-    QModelIndexList selecteStuff = selectedIndexes();
-    if (selecteStuff.isEmpty()) {
+    const QModelIndexList selectedIndexes = this->selectedIndexes();
+    if (selectedIndexes.isEmpty()) {
         return;
     }
 
     /**
      * we only handle files here!
      */
-    if (selecteStuff[0].data(KateProjectItem::TypeRole).toInt() != KateProjectItem::File) {
+    if (selectedIndexes[0].data(KateProjectItem::TypeRole).toInt() != KateProjectItem::File) {
         return;
     }
 
     /**
      * open document for first element, if possible
      */
-    QString filePath = selecteStuff[0].data(Qt::UserRole).toString();
+    QString filePath = selectedIndexes[0].data(Qt::UserRole).toString();
     if (!filePath.isEmpty()) {
         m_pluginView->mainWindow()->openUrl(QUrl::fromLocalFile(filePath));
     }

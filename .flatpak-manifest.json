@@ -33,6 +33,26 @@
             ]
         },
         {
+            "name": "plasma-activities",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/plasma/plasma-activities.git"
+                }
+            ]
+        },
+        {
+            "name": "plasma-activities-stats",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://invent.kde.org/plasma/plasma-activities-stats.git"
+                }
+            ]
+        },
+        {
             "name": "kio-extras",
             "buildsystem": "cmake-ninja",
             "sources": [

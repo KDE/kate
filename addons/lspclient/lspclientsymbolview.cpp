@@ -44,9 +44,6 @@ public:
 private:
     void paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const override
     {
-        const int w = 16 + 8;
-        const int h = 16 + 8;
-
         QStyleOptionHeader optHeader;
         initStyleOption(&optHeader);
         initStyleOptionForIndex(&optHeader, logicalIndex);
@@ -58,15 +55,16 @@ private:
         if (logicalIndex == 0) {
             QStyleOptionToolButton option;
             option.toolButtonStyle = Qt::ToolButtonIconOnly;
-            option.rect = QRect(0, 0, w, h);
-            option.rect = QStyle::alignedRect(layoutDirection(), Qt::AlignVCenter, option.rect.size(), rect);
-            option.rect.moveLeft(rect.left());
             option.state = QStyle::State_Enabled;
             option.state.setFlag(QStyle::State_Sunken, m_clicked);
             option.state.setFlag(QStyle::State_AutoRaise);
             option.state.setFlag(QStyle::State_MouseOver, m_hovered);
             option.icon = QIcon::fromTheme(QStringLiteral("application-menu"));
             option.iconSize = QSize(16, 16);
+            option.subControls = QStyle::SC_ToolButton;
+            option.activeSubControls = m_clicked ? QStyle::SC_ToolButton : QStyle::SC_None;
+            QSize size = style()->sizeFromContents(QStyle::CT_ToolButton, &option, option.iconSize, this);
+            option.rect = QStyle::alignedRect(layoutDirection(), Qt::AlignLeft | Qt::AlignVCenter, size, rect);
             painter->save();
             this->style()->drawComplexControl(QStyle::CC_ToolButton, &option, painter, nullptr);
             painter->restore();

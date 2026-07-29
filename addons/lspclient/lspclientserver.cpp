@@ -846,6 +846,14 @@ static LSPCompletionItem parseCompletionItem(const rapidjson::Value &item)
 
     auto label = GetStringValue(item, MEMBER_LABEL);
     auto detail = GetStringValue(item, MEMBER_DETAIL);
+
+    if (detail.isEmpty()) {
+        const auto &labelDetail = GetJsonValueForKey(item, "labelDetails");
+        if (labelDetail.IsObject()) {
+            detail = GetStringValue(labelDetail, "description");
+        }
+    }
+
     LSPMarkupContent doc;
     auto it = item.FindMember(MEMBER_DOCUMENTATION);
     if (it != item.MemberEnd()) {
@@ -1819,6 +1827,7 @@ private:
                                             {QLatin1String("completion"), QJsonObject{
                                                 {QLatin1String("completionItem"), QJsonObject{
                                                     {QLatin1String("snippetSupport"), m_config.caps.snippetSupport},
+                                                    {QLatin1String("labelDetailsSupport"), true},
                                                     {QLatin1String("resolveSupport"), QJsonObject{
                                                         {QLatin1String("properties"), QJsonArray{
                                                             QLatin1String("additionalTextEdits"),

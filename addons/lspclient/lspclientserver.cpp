@@ -858,7 +858,7 @@ static LSPCompletionItem parseCompletionItem(const rapidjson::Value &item)
     }
     auto insertText = GetStringValue(item, "insertText");
     LSPTextEdit lspTextEdit;
-    const auto &textEdit = GetJsonObjectForKey(item, "textEdit");
+    const auto &textEdit = GetJsonValueForKey(item, "textEdit");
     if (textEdit.IsObject()) {
         // Not a proper implementation of textEdit, but a workaround for KDE bug #445085
         auto newText = GetStringValue(textEdit, "newText");

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-07 00:46+0000\n"
+"POT-Creation-Date: 2026-07-30 00:48+0000\n"
 "PO-Revision-Date: 2026-06-17 21:29+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -551,9 +551,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Neplatný soubor JSON '%1': %2"
 
 #: kateproject.cpp:424 kateprojectplugin.cpp:826 kateprojectpluginview.cpp:77
-#: kateprojectpluginview.cpp:233 kateprojectviewtree.cpp:367
-#: kateprojectviewtree.cpp:378 kateprojectviewtree.cpp:408
-#: kateprojectviewtree.cpp:415
+#: kateprojectpluginview.cpp:233 kateprojectviewtree.cpp:368
+#: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
+#: kateprojectviewtree.cpp:416
 #, kde-format
 msgid "Project"
 msgstr "Projekt"
@@ -1090,22 +1090,22 @@ msgstr "Nový soubor"
 msgid "New Folder"
 msgstr "Nová složka"
 
-#: kateprojectviewtree.cpp:367
+#: kateprojectviewtree.cpp:368
 #, kde-format
 msgid "The file already exists"
 msgstr "Tento soubor již existuje"
 
-#: kateprojectviewtree.cpp:378
+#: kateprojectviewtree.cpp:379
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Nelze vytvořit soubor: %1, Chyba: %2"
 
-#: kateprojectviewtree.cpp:408
+#: kateprojectviewtree.cpp:409
 #, kde-format
 msgid "The directory already exists"
 msgstr "Adresář již existuje"
 
-#: kateprojectviewtree.cpp:415
+#: kateprojectviewtree.cpp:416
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Nelze vytvořit adresář: %1"

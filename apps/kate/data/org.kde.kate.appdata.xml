@@ -474,7 +474,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="gl">Funcionalidade de atopar e substituír baseada en expresións regulares.</li>
       <li xml:lang="he">חיפוש והחלפה מבוססי ביטויים רגולריים</li>
       <li xml:lang="hu">Reguláris kifejezéseken alapuló keresés és csere</li>
-      <li xml:lang="ia">Trovar basate sur expression regular expression based  &amp; reimplaciar</li>
+      <li xml:lang="ia">Trovar basate sur expression regular &amp; reimplaciar</li>
       <li xml:lang="id">Ekspresi reguler berdasarkan cari &amp; ganti</li>
       <li xml:lang="is">Leitað og skipt út á grunni reglulegra segða</li>
       <li xml:lang="it">Ricerche e sostituzioni basate sulle espressioni regolari</li>
@@ -607,7 +607,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ga">Ilchúrsóirí agus ilroghanna</li>
       <li xml:lang="gl">Varios cursores e seleccións.</li>
       <li xml:lang="he">מספר מצביעים ומגוון אזורי בחירה</li>
-      <li xml:lang="ia">Nultiple cursores e multiple selectiones</li>
+      <li xml:lang="ia">Multiple cursores e multiple selectiones</li>
       <li xml:lang="it">Cursori multipli e selezioni multiple</li>
       <li xml:lang="ka">ერთზე მეტი კურსორი და მონიშნული</li>
       <li xml:lang="ko">다중 커서와 다중 선택</li>
@@ -894,7 +894,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ga">Inleathnaithe trí bhreiseáin</li>
       <li xml:lang="gl">Extensíbel mediante complementos.</li>
       <li xml:lang="he">ניתן להרחבה בעזרת תוספים</li>
-      <li xml:lang="ia">Extensibile via pluginbs</li>
+      <li xml:lang="ia">Extensibile via plugins</li>
       <li xml:lang="it">Espandibile tramite estensioni</li>
       <li xml:lang="ka">გაფართოებადი დამატებების საშუალებით</li>
       <li xml:lang="ko">플러그인으로 확장 가능</li>
@@ -1193,7 +1193,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ga">Formáidiú cóid ag baint úsáide as formáideoirí dúchasacha ar nós clang-format, prettier srl</li>
       <li xml:lang="gl">Formatación de código mediante formatadores nativos como clang-format, prettier, etc.</li>
       <li xml:lang="he">עיצוב קוד בעזרת מעצבים טבעיים כגון clang-format,‏ prettier ועוד</li>
-      <li xml:lang="ia">Fnormatation de codice usante fnormatatores native como formato de clang, prettier etc.</li>
+      <li xml:lang="ia">Formatation de codice usante formatatores native como formato de clang, prettier etc.</li>
       <li xml:lang="it">Formattazione del codice utilizzando formattatori nativi come clang-format, prettier ecc.</li>
       <li xml:lang="ka">კოდის დაფორმატება საკუთარი დამფორმატებლებით, როგორიცაა clang-format, prettier და ა.შ</li>
       <li xml:lang="ko">clang-format, prettier 등 네이티브 포매터를 사용한 형식 재지정 지원</li>

@@ -284,30 +284,12 @@ void ACPClientChatWidget::clearMessages()
 
 void ACPClientChatWidget::updateLastUserMessageStatus(MessageStatus status)
 {
-    // Convert chat widget status to message widget status
-    ACPChatMessageWidget::MessageStatus msgStatus;
-    switch (status) {
-    case MessageStatus::None:
-        msgStatus = ACPChatMessageWidget::MessageStatus::None;
-        break;
-    case MessageStatus::Running:
-        msgStatus = ACPChatMessageWidget::MessageStatus::Running;
-        break;
-    case MessageStatus::Completed:
-        msgStatus = ACPChatMessageWidget::MessageStatus::Completed;
-        break;
-    case MessageStatus::Error:
-        msgStatus = ACPChatMessageWidget::MessageStatus::Error;
-        break;
-    case MessageStatus::Cancelled:
-        msgStatus = ACPChatMessageWidget::MessageStatus::Cancelled;
-        break;
-    }
+    // No conversion needed - both use the same MessageStatus enum now
 
     // Find the last user message and update its status
     for (auto it = m_messageWidgets.rbegin(); it != m_messageWidgets.rend(); ++it) {
         if ((*it)->type() == ACPChatMessageWidget::MessageType::User) {
-            (*it)->setStatus(msgStatus);
+            (*it)->setStatus(status);
             break;
         }
     }

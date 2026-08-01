@@ -108,7 +108,7 @@ void ACPChatMessageWidget::setMessageId(const QString &messageId)
     m_messageId = messageId;
 }
 
-void ACPChatMessageWidget::setStatus(MessageStatus status)
+void ACPChatMessageWidget::setStatus(ACPClientChatWidget::MessageStatus status)
 {
     if (m_status != status) {
         m_status = status;
@@ -116,7 +116,7 @@ void ACPChatMessageWidget::setStatus(MessageStatus status)
     }
 }
 
-ACPChatMessageWidget::MessageStatus ACPChatMessageWidget::status() const
+ACPClientChatWidget::MessageStatus ACPChatMessageWidget::status() const
 {
     return m_status;
 }
@@ -134,35 +134,35 @@ void ACPChatMessageWidget::updateStatusIcon()
     }
 
     // Show the icon for user messages based on status
-    m_statusIconLabel->setVisible(m_status != MessageStatus::None);
+    m_statusIconLabel->setVisible(m_status != ACPClientChatWidget::MessageStatus::None);
 
     // Set appropriate icon based on status using QPalette for colors
     QPalette pal = m_statusIconLabel->palette();
     switch (m_status) {
-    case MessageStatus::Running:
+    case ACPClientChatWidget::MessageStatus::Running:
         // Show a spinner or loading indicator
         // Using a simple text representation for now: "⏳"
         m_statusIconLabel->setText(QStringLiteral("⏳"));
         break;
-    case MessageStatus::Completed:
+    case ACPClientChatWidget::MessageStatus::Completed:
         // Show a checkmark
         m_statusIconLabel->setText(QStringLiteral("✓"));
         pal.setColor(QPalette::WindowText, pal.color(QPalette::LinkVisited));
         m_statusIconLabel->setPalette(pal);
         break;
-    case MessageStatus::Error:
+    case ACPClientChatWidget::MessageStatus::Error:
         // Show an error indicator
         m_statusIconLabel->setText(QStringLiteral("✗"));
         pal.setColor(QPalette::WindowText, pal.color(QPalette::BrightText));
         m_statusIconLabel->setPalette(pal);
         break;
-    case MessageStatus::Cancelled:
+    case ACPClientChatWidget::MessageStatus::Cancelled:
         // Show a cancelled indicator
         m_statusIconLabel->setText(QStringLiteral("○"));
         pal.setColor(QPalette::WindowText, pal.color(QPalette::Mid));
         m_statusIconLabel->setPalette(pal);
         break;
-    case MessageStatus::None:
+    case ACPClientChatWidget::MessageStatus::None:
     default:
         m_statusIconLabel->setVisible(false);
         break;

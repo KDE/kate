@@ -14,6 +14,9 @@ class QLabel;
 class QVBoxLayout;
 class QHBoxLayout;
 
+// Include for MessageStatus enum type
+#include "acpclientchatwidget.h"
+
 /**
  * @class ACPChatMessageWidget
  * @brief A widget for displaying a single message in the ACP chat
@@ -39,14 +42,6 @@ public:
      *
      * Each type has different visual styling and content display.
      */
-    /** @brief Message status for tracking prompt turn state */
-    enum class MessageStatus {
-        None, ///< No status (default)
-        Running, ///< Prompt is being processed (show spinner/loading indicator)
-        Completed, ///< Prompt turn completed successfully (show checkmark)
-        Error, ///< Prompt turn ended with error (show error indicator)
-        Cancelled ///< Prompt turn was cancelled (show cancelled indicator)
-    };
 
     enum class MessageType {
         User, ///< User's message (blue styling)
@@ -92,10 +87,10 @@ public:
     void setMessageId(const QString &messageId);
 
     /** @brief Set the message status (for prompt turn tracking) */
-    void setStatus(MessageStatus status);
+    void setStatus(ACPClientChatWidget::MessageStatus status);
 
     /** @brief Get the current message status */
-    MessageStatus status() const;
+    ACPClientChatWidget::MessageStatus status() const;
 
     // ========================================================================
     // PERMISSION OPTION STRUCTURE
@@ -240,7 +235,7 @@ private:
     // ========================================================================
 
     MessageType m_type; ///< Message type (set at construction)
-    MessageStatus m_status = MessageStatus::None; ///< Message status (for prompt turn tracking)
+    ACPClientChatWidget::MessageStatus m_status = ACPClientChatWidget::MessageStatus::None; ///< Message status (for prompt turn tracking)
     QString m_content; ///< Main content text
     QString m_sender; ///< Sender name (e.g., "You", "Agent", "System")
     QDateTime m_timestamp; ///< Timestamp for the message

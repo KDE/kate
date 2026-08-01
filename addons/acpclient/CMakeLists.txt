@@ -24,7 +24,6 @@ target_sources(
     acpclientprotocol.cpp
     acpclientchatwidget.cpp
     acpchatmessagewidget.cpp
-    acpclient_debug.h
     acpsessionlistwidget.cpp
     acpsessionlistwidget.h
 

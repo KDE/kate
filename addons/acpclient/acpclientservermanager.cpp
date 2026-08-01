@@ -60,10 +60,6 @@ void ACPClientServerManager::loadDefaultServers()
 
                         info.autoStart = serverObj[u"auto_start"].toBool();
 
-                        if (serverObj.contains(u"metadata") && serverObj[u"metadata"].isObject()) {
-                            info.metadata = serverObj[u"metadata"].toObject();
-                        }
-
                         // Create the server but don't auto-start here (handled by createServer)
                         createServer(info);
                     }

@@ -8,22 +8,7 @@
             "command": "vibe-acp",
             "arguments": [],
             "auto_start": true,
-            "description": "Mistral AI's Vibe CLI with ACP support",
-            "metadata": {
-                "agent_name": "Vibe",
-                "agent_version": "1.0.0",
-                "provider": "Mistral AI",
-                "documentation_url": "https://github.com/mistralai/vibe",
-                "capabilities": {
-                    "supports_sessions": true,
-                    "supports_tools": true,
-                    "supports_progress": true,
-                    "supported_protocol_versions": [
-                        "2.0",
-                        "1.0"
-                    ]
-                }
-            }
+            "description": "Mistral AI's Vibe CLI with ACP support"
         },
         {
             "name": "Generic ACP Agent",
@@ -31,17 +16,7 @@
             "command": "acp-agent",
             "arguments": [],
             "auto_start": false,
-            "description": "Generic ACP-compliant agent",
-            "metadata": {
-                "capabilities": {
-                    "supports_sessions": true,
-                    "supports_tools": true,
-                    "supports_progress": true,
-                    "supported_protocol_versions": [
-                        "2.0"
-                    ]
-                }
-            }
+            "description": "Generic ACP-compliant agent"
         }
     ],
     "options": {

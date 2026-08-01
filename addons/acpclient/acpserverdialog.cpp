@@ -94,10 +94,6 @@ void ACPServerDialog::loadPresets()
                             }
                         }
 
-                        if (serverObj.contains(u"metadata") && serverObj[u"metadata"].isObject()) {
-                            info.metadata = serverObj[u"metadata"].toObject();
-                        }
-
                         m_presets.append(info);
                         m_ui->presetComboBox->addItem(info.name);
                     }

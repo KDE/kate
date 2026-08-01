@@ -188,8 +188,7 @@ Stored in `~/.config/kate/acpclient/settings.json`:
       "version": "1.0",
       "command": "vibe-acp",
       "arguments": [],
-      "auto_start": true,
-      "metadata": {...}
+      "auto_start": true
     }
   ],
   "options": {...}

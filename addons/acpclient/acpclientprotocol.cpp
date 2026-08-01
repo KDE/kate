@@ -105,11 +105,6 @@ QJsonDocument ACPProtocol::createSessionNewRequest(const SessionNewParams &param
         paramsObj[u"additionalDirectories"] = params.additionalDirectories;
     }
 
-    // metadata - optional
-    if (!params.metadata.isEmpty()) {
-        paramsObj[u"metadata"] = params.metadata;
-    }
-
     request[JSONRPC_PARAMS] = paramsObj;
 
     return QJsonDocument(request);
@@ -271,11 +266,6 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
 
     paramsObj[u"prompt"] = promptArray;
 
-    // Add metadata if present
-    if (!params.metadata.isEmpty()) {
-        paramsObj[u"metadata"] = params.metadata;
-    }
-
     request[JSONRPC_PARAMS] = paramsObj;
 
     return QJsonDocument(request);
@@ -334,9 +324,6 @@ QJsonDocument ACPProtocol::createSessionUpdateNotification(const SessionUpdateNo
 
     if (!notification.message.isEmpty()) {
         paramsObj[u"message"] = notification.message;
-    }
-    if (!notification.metadata.isEmpty()) {
-        paramsObj[u"metadata"] = notification.metadata;
     }
     if (!notification.stopReason.isEmpty()) {
         paramsObj[u"stopReason"] = notification.stopReason;
@@ -513,10 +500,6 @@ bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeRe
         }
     }
 
-    if (resultObj.contains(u"metadata")) {
-        result.metadata = resultObj[u"metadata"].toObject();
-    }
-
     // Try to get capabilities from agentCapabilities (v1 spec)
     if (resultObj.contains(u"agentCapabilities") && resultObj[u"agentCapabilities"].isObject()) {
         QJsonObject agentCaps = resultObj[u"agentCapabilities"].toObject();
@@ -566,11 +549,6 @@ bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeRe
             } else if (versionValue.isString()) {
                 result.protocolVersion = versionValue.toString();
             }
-        }
-
-        // Metadata
-        if (resultObj.contains(u"metadata")) {
-            result.metadata = resultObj[u"metadata"].toObject();
         }
 
         // Custom capabilities
@@ -632,9 +610,6 @@ bool ACPProtocol::parseSessionUpdate(const QJsonDocument &doc, SessionUpdateNoti
     }
     if (params.contains(u"message")) {
         update.message = params[u"message"].toString();
-    }
-    if (params.contains(u"metadata")) {
-        update.metadata = params[u"metadata"].toObject();
     }
     if (params.contains(u"stopReason")) {
         update.stopReason = params[u"stopReason"].toString();

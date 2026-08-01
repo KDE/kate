@@ -66,7 +66,6 @@ public:
         QString command; ///< Executable command path/name
         QStringList arguments; ///< Command-line arguments
         bool autoStart = false; ///< Whether to start automatically
-        QJsonObject metadata; ///< Additional server metadata
     };
 
     /**

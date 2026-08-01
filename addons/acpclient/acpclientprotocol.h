@@ -258,7 +258,6 @@ struct InitializeResult {
     QString agentVersion; ///< Version of the agent
     AgentCapabilities capabilities; ///< What the agent supports
     QString protocolVersion; ///< Negotiated protocol version
-    QJsonObject metadata; ///< Additional agent metadata
 };
 
 /** @brief Parameters for auth/login request */
@@ -270,12 +269,10 @@ struct AuthLoginParams {
 /** @brief Base session parameters (used in multiple session methods) */
 struct SessionParams {
     QString sessionId; ///< Unique session identifier
-    QJsonObject metadata; ///< Session metadata
 };
 
 /** @brief Parameters for session/new request */
 struct SessionNewParams {
-    QJsonObject metadata; ///< Optional session metadata
     QString cwd; ///< Working directory for the session
     QJsonArray mcpServers; ///< MCP servers to connect to
     QJsonArray additionalDirectories; ///< Additional directories for file access
@@ -354,7 +351,6 @@ struct ContentBlock {
 struct SessionPromptParams {
     QString sessionId; ///< Target session
     QList<ContentBlock> prompt; ///< List of content blocks to send
-    QJsonObject metadata; ///< Optional metadata
 };
 
 // ============================================================================
@@ -370,7 +366,6 @@ struct SessionUpdateNotification {
     QString sessionId; ///< The session being updated
     QString status; ///< Current status: "idle", "working", "completed", "error"
     QString message; ///< Human-readable message
-    QJsonObject metadata; ///< Additional metadata
     QString stopReason; ///< Why the session stopped (for idle status)
 };
 
@@ -383,7 +378,6 @@ struct Tool {
     QString identifier; ///< Unique tool identifier
     QString description; ///< Human-readable tool description
     QJsonObject inputSchema; ///< JSON Schema for tool arguments
-    QJsonObject metadata; ///< Additional tool metadata
 };
 
 /** @brief Tool call parameters for tools/call request */

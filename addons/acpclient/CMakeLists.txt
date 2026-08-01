@@ -19,7 +19,6 @@ target_sources(
     acpclientplugin.cpp
     acpclientpluginview.cpp
     acpclientconfigpage.cpp
-    acpserverdialog.cpp
     acpclientserver.cpp
     acpclientservermanager.cpp
     acpclientprotocol.cpp
@@ -43,7 +42,6 @@ target_sources(acpclientplugin PRIVATE ${DEBUG_SOURCES})
 
 ki18n_wrap_ui(acpclientplugin
     acpconfigwidget.ui
-    acpserverdialog.ui
     acpclientchat.ui
 )
 

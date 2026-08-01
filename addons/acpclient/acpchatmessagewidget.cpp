@@ -370,7 +370,18 @@ void ACPChatMessageWidget::updateContentDisplay()
             toolLayout->addWidget(kindLabel);
         }
 
-        QLabel *statusLabel = new QLabel(m_toolStatus, toolWidget);
+        // Map status text to appropriate icons
+        QString statusText = m_toolStatus;
+        if (m_toolStatus == QStringLiteral("in_progress")) {
+            statusText = QStringLiteral("⏳"); // Spinner for in progress
+        } else if (m_toolStatus == QStringLiteral("pending")) {
+            statusText = QStringLiteral("⏳"); // Spinner for pending as well
+        } else if (m_toolStatus == QStringLiteral("completed")) {
+            statusText = QStringLiteral("✓"); // Checkmark for completed
+        } else if (m_toolStatus == QStringLiteral("error") || m_toolStatus == QStringLiteral("failed")) {
+            statusText = QStringLiteral("✗"); // Error indicator
+        }
+        QLabel *statusLabel = new QLabel(statusText, toolWidget);
         QFont boldFont2 = statusLabel->font();
         boldFont2.setBold(true);
         statusLabel->setFont(boldFont2);
@@ -424,7 +435,18 @@ void ACPChatMessageWidget::updateContentDisplay()
         statusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
         updateLayout->addWidget(statusLabel);
 
-        QLabel *statusValueLabel = new QLabel(m_toolStatus, updateWidget);
+        // Map status text to appropriate icons
+        QString statusValueText = m_toolStatus;
+        if (m_toolStatus == QStringLiteral("in_progress")) {
+            statusValueText = QStringLiteral("⏳"); // Spinner for in progress
+        } else if (m_toolStatus == QStringLiteral("pending")) {
+            statusValueText = QStringLiteral("⏳"); // Spinner for pending as well
+        } else if (m_toolStatus == QStringLiteral("completed")) {
+            statusValueText = QStringLiteral("✓"); // Checkmark for completed
+        } else if (m_toolStatus == QStringLiteral("error") || m_toolStatus == QStringLiteral("failed")) {
+            statusValueText = QStringLiteral("✗"); // Error indicator
+        }
+        QLabel *statusValueLabel = new QLabel(statusValueText, updateWidget);
         QFont boldFont2 = statusValueLabel->font();
         boldFont2.setBold(true);
         statusValueLabel->setFont(boldFont2);

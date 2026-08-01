@@ -247,17 +247,33 @@ struct AgentCapabilities {
 // REQUEST/RESPONSE PARAMETER STRUCTURES
 // ============================================================================
 
+/** @brief Client info for initialize request */
+struct ClientInfo {
+    QString name; ///< Client name (e.g., "kate")
+    QString title; ///< Human-readable client title
+    QString version; ///< Client version
+};
+
 /** @brief Parameters for initialize request */
 struct InitializeParams {
+    int protocolVersion; ///< Protocol version (should be 1 for v1)
     ClientCapabilities clientCapabilities; ///< Capabilities this client supports
+    ClientInfo clientInfo; ///< Information about the client
+};
+
+/** @brief Agent info from initialize response */
+struct AgentInfo {
+    QString name; ///< Name of the agent (e.g., "Mistral Vibe")
+    QString title; ///< Human-readable agent title
+    QString version; ///< Version of the agent
 };
 
 /** @brief Result from initialize request */
 struct InitializeResult {
-    QString agentName; ///< Name of the agent (e.g., "Mistral Vibe")
-    QString agentVersion; ///< Version of the agent
-    AgentCapabilities capabilities; ///< What the agent supports
     QString protocolVersion; ///< Negotiated protocol version
+    AgentCapabilities capabilities; ///< What the agent supports
+    AgentInfo agentInfo; ///< Information about the agent
+    QJsonArray authMethods; ///< Available authentication methods
 };
 
 /** @brief Parameters for auth/login request */
@@ -361,12 +377,11 @@ struct SessionPromptParams {
  * @brief Session update notification parameters
  *
  * Sent by server to update client on session state changes.
+ * According to ACP spec, params contain sessionId and update object.
  */
 struct SessionUpdateNotification {
     QString sessionId; ///< The session being updated
-    QString status; ///< Current status: "idle", "working", "completed", "error"
-    QString message; ///< Human-readable message
-    QString stopReason; ///< Why the session stopped (for idle status)
+    QJsonObject update; ///< The update object with type-specific data
 };
 
 // ============================================================================

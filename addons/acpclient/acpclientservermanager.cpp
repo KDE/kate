@@ -395,7 +395,7 @@ void ACPClientServerManager::onServerInitialized(const ACP::InitializeResult &re
 {
     ACPClientServer *server = qobject_cast<ACPClientServer *>(sender());
     if (server) {
-        qCDebug(ACPCLIENT) << "Server initialized:" << server->info().name << "Agent:" << result.agentName << "Version:" << result.agentVersion
+        qCDebug(ACPCLIENT) << "Server initialized:" << server->info().name << "Agent:" << result.agentInfo.name << "Version:" << result.agentInfo.version
                            << "Protocol:" << result.protocolVersion;
     }
 }

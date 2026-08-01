@@ -21,7 +21,7 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
 
     QJsonObject paramsObj;
     // Protocol version should be integer 1 for v1
-    paramsObj[u"protocolVersion"] = PROTOCOL_VERSION_INT;
+    paramsObj[u"protocolVersion"] = params.protocolVersion;
 
     // Client capabilities
     QJsonObject clientCapabilitiesObj;
@@ -42,7 +42,7 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
     // Session config options
     if (params.clientCapabilities.sessionConfigOptionsBoolean.supported) {
         QJsonObject sessionConfigObj;
-        sessionConfigObj[u"boolean"] = true;
+        sessionConfigObj[u"boolean"] = QJsonObject(); // Empty object indicates support
         QJsonObject sessionObj;
         sessionObj[u"configOptions"] = sessionConfigObj;
         clientCapabilitiesObj[u"session"] = sessionObj;
@@ -52,10 +52,11 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
         paramsObj[u"clientCapabilities"] = clientCapabilitiesObj;
     }
 
+    // Client info
     QJsonObject clientInfo;
-    clientInfo[u"name"] = QStringLiteral("kate");
-    clientInfo[u"title"] = i18n("Kate ACP Client");
-    clientInfo[u"version"] = KAboutData::applicationData().version();
+    clientInfo[u"name"] = params.clientInfo.name;
+    clientInfo[u"title"] = params.clientInfo.title;
+    clientInfo[u"version"] = params.clientInfo.version;
     if (!clientInfo.isEmpty()) {
         paramsObj[u"clientInfo"] = clientInfo;
     }
@@ -320,14 +321,7 @@ QJsonDocument ACPProtocol::createSessionUpdateNotification(const SessionUpdateNo
 
     QJsonObject paramsObj;
     paramsObj[u"sessionId"] = notification.sessionId;
-    paramsObj[u"status"] = notification.status;
-
-    if (!notification.message.isEmpty()) {
-        paramsObj[u"message"] = notification.message;
-    }
-    if (!notification.stopReason.isEmpty()) {
-        paramsObj[u"stopReason"] = notification.stopReason;
-    }
+    paramsObj[u"update"] = notification.update;
 
     notif[JSONRPC_PARAMS] = paramsObj;
 
@@ -472,22 +466,17 @@ bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeRe
 
     QJsonObject resultObj = obj[JSONRPC_RESULT].toObject();
 
-    // Try to get agent info from agentInfo object or fallback to individual fields
+    // Get agent info
     if (resultObj.contains(u"agentInfo") && resultObj[u"agentInfo"].isObject()) {
         QJsonObject agentInfo = resultObj[u"agentInfo"].toObject();
-        result.agentName = agentInfo[u"name"].toString();
-        if (result.agentName.isEmpty()) {
-            result.agentName = agentInfo[u"title"].toString();
-        }
-        result.agentVersion = agentInfo[u"version"].toString();
-    } else {
-        // Fallback to individual fields
-        if (resultObj.contains(u"agentName")) {
-            result.agentName = resultObj[u"agentName"].toString();
-        }
-        if (resultObj.contains(u"agentVersion")) {
-            result.agentVersion = resultObj[u"agentVersion"].toString();
-        }
+        result.agentInfo.name = agentInfo[u"name"].toString();
+        result.agentInfo.title = agentInfo[u"title"].toString();
+        result.agentInfo.version = agentInfo[u"version"].toString();
+    }
+
+    // Get auth methods
+    if (resultObj.contains(u"authMethods") && resultObj[u"authMethods"].isArray()) {
+        result.authMethods = resultObj[u"authMethods"].toArray();
     }
 
     // Protocol version can be a string or number
@@ -509,7 +498,7 @@ bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeRe
         result.capabilities.supportsSessions = true; // All agents must support sessions
         result.capabilities.supportsTools = true;
         result.capabilities.supportsProgress = true;
-        result.capabilities.supportsAuthentication = resultObj.contains(u"authMethods") && !resultObj[u"authMethods"].toArray().isEmpty();
+        result.capabilities.supportsAuthentication = !result.authMethods.isEmpty();
 
         // Prompt capabilities
         if (agentCaps.contains(u"promptCapabilities") && agentCaps[u"promptCapabilities"].isObject()) {
@@ -602,18 +591,17 @@ bool ACPProtocol::parseSessionUpdate(const QJsonDocument &doc, SessionUpdateNoti
 
     QJsonObject params = obj[JSONRPC_PARAMS].toObject();
 
-    if (params.contains(u"sessionId")) {
-        update.sessionId = params[u"sessionId"].toString();
+    // sessionId is required
+    if (!params.contains(u"sessionId")) {
+        return false;
     }
-    if (params.contains(u"status")) {
-        update.status = params[u"status"].toString();
+    update.sessionId = params[u"sessionId"].toString();
+
+    // update object is required
+    if (!params.contains(u"update") || !params[u"update"].isObject()) {
+        return false;
     }
-    if (params.contains(u"message")) {
-        update.message = params[u"message"].toString();
-    }
-    if (params.contains(u"stopReason")) {
-        update.stopReason = params[u"stopReason"].toString();
-    }
+    update.update = params[u"update"].toObject();
 
     return true;
 }

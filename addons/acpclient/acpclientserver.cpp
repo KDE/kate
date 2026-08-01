@@ -100,22 +100,17 @@ void ACPClientServer::initializeServer()
 
     setState(ServerState::Initializing);
 
-    QString version = KAboutData::applicationData().version();
-    if (version.isEmpty()) {
-        version = QStringLiteral("26.11.70");
-    }
-
     ACP::InitializeParams params;
     params.protocolVersion = ACP::PROTOCOL_VERSION_INT;
     params.clientInfo.name = QStringLiteral("kate");
     params.clientInfo.title = QStringLiteral("Kate ACP Client");
-    params.clientInfo.version = version;
+    params.clientInfo.version = KAboutData::applicationData().version();
 
     // Set client capabilities
-    params.clientCapabilities.fs.readTextFile = true;
-    params.clientCapabilities.fs.writeTextFile = true;
-    params.clientCapabilities.terminal = true;
-    params.clientCapabilities.sessionConfigOptionsBoolean.supported = true;
+    params.clientCapabilities.fs.readTextFile = false;
+    params.clientCapabilities.fs.writeTextFile = false;
+    params.clientCapabilities.terminal = false;
+    params.clientCapabilities.sessionConfigOptionsBoolean.supported = false;
 
     qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createInitializeRequest(params, requestId);

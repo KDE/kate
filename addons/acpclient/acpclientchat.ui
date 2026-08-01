@@ -128,15 +128,19 @@
        <property name="placeholderText">
         <string>Type your message here...</string>
        </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        </sizepolicy>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="sendButton">
-       <property name="text">
-        <string>Send</string>
-       </property>
        <property name="icon">
         <iconset theme="mail-send"/>
+       </property>
+       <property name="toolTip">
+        <string>Send message</string>
        </property>
        <property name="default">
         <bool>true</bool>

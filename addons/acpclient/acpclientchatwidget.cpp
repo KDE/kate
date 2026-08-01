@@ -22,6 +22,7 @@
 #include <QJsonObject>
 #include <QMenu>
 #include <QScrollArea>
+#include <QScrollBar>
 #include <QTimer>
 
 #include "ui_acpclientchat.h"
@@ -232,9 +233,12 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
     widget->show();
     m_messageWidgets.append(widget);
 
-    // Scroll to the new widget
-    QTimer::singleShot(0, this, [this, widget]() {
-        m_chatScrollArea->ensureVisible(0, widget->y(), 0, 0);
+    // Scroll to the bottom of the chat display
+    QTimer::singleShot(0, this, [this]() {
+        QScrollBar *vScrollBar = m_chatScrollArea->verticalScrollBar();
+        if (vScrollBar) {
+            vScrollBar->setValue(vScrollBar->maximum());
+        }
     });
 }
 

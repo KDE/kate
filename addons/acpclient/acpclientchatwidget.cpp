@@ -85,7 +85,9 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
 
     // Get the scroll area and message container from UI
     m_chatScrollArea = m_ui->chatScrollArea;
+    m_chatScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     m_chatDisplayContainer = m_ui->chatDisplay;
+    m_chatDisplayContainer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_chatMessagesLayout = qobject_cast<QVBoxLayout *>(m_chatDisplayContainer->layout());
 
     if (!m_chatMessagesLayout) {
@@ -359,6 +361,18 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
     QString identifier = fullToolCall[u"identifier"].toString();
     QString action = fullToolCall[u"action"].toString();
 
+    // Check for tool name in _meta object
+    QString metaToolName;
+    if (fullToolCall.contains(u"_meta") && fullToolCall[u"_meta"].isObject()) {
+        QJsonObject meta = fullToolCall[u"_meta"].toObject();
+        metaToolName = meta[u"tool_name"].toString();
+        // Also check for effect_kind which describes the operation type
+        QString effectKind = meta[u"effect_kind"].toString();
+        if (!effectKind.isEmpty() && toolName.isEmpty()) {
+            toolName = effectKind;
+        }
+    }
+
     // Get the plugin to check the permission mode
     if (!m_plugin) {
         qCWarning(ACPCLIENT) << "No plugin available to check permission mode";
@@ -436,10 +450,14 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
     QString toolDisplayName;
     if (!toolIdentifier.isEmpty()) {
         toolDisplayName = toolIdentifier;
+    } else if (!metaToolName.isEmpty()) {
+        toolDisplayName = metaToolName;
     } else if (!identifier.isEmpty()) {
         toolDisplayName = identifier;
     } else if (!toolName.isEmpty()) {
         toolDisplayName = toolName;
+    } else if (!kind.isEmpty()) {
+        toolDisplayName = kind;
     } else if (!title.isEmpty()) {
         toolDisplayName = title;
     } else if (!action.isEmpty()) {
@@ -454,8 +472,31 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
         argumentsObj = fullToolCall[u"params"].toObject();
     }
 
+    // Also check for locations (file paths being accessed)
+    QStringList locationPaths;
+    if (fullToolCall.contains(u"locations") && fullToolCall[u"locations"].isArray()) {
+        QJsonArray locations = fullToolCall[u"locations"].toArray();
+        for (const QJsonValue &loc : locations) {
+            if (loc.isObject()) {
+                QJsonObject locObj = loc.toObject();
+                QString path = locObj[u"path"].toString();
+                if (!path.isEmpty()) {
+                    locationPaths.append(path);
+                }
+            }
+        }
+    }
+
+    // Check for content field (might contain the actual content or command)
+    QString content = fullToolCall[u"content"].toString();
+    QString textContent = fullToolCall[u"text"].toString();
+
     // Build arguments string
-    if (!argumentsObj.isEmpty()) {
+    if (!content.isEmpty()) {
+        argumentsStr = content;
+    } else if (!textContent.isEmpty()) {
+        argumentsStr = textContent;
+    } else if (!argumentsObj.isEmpty()) {
         // For bash/shell tools, extract the command directly
         if (argumentsObj.contains(u"command")) {
             argumentsStr = argumentsObj[u"command"].toString();
@@ -465,6 +506,13 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
             if (argumentsStr == QStringLiteral("{}")) {
                 argumentsStr.clear();
             }
+        }
+    } else if (!locationPaths.isEmpty()) {
+        // If we have location paths but no arguments, use them
+        if (locationPaths.size() == 1) {
+            argumentsStr = locationPaths.first();
+        } else if (locationPaths.size() > 1) {
+            argumentsStr = locationPaths.join(QStringLiteral(", "));
         }
     }
 

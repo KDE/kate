@@ -159,37 +159,7 @@ public:
         return m_toolCallPermission;
     }
 
-    // ========================================================================
-    // COMMAND LINE PERMISSION MANAGEMENT
-    // ========================================================================
-
-    /**
-     * @brief Map of server command lines to their permission state
-     *
-     * Key: Full command line string (command + arguments)
-     * Value: true = allowed, false = blocked
-     *
-     * @see isCommandLineAllowed()
-     * @see askForCommandLinePermission()
-     */
-    std::map<QString, bool> m_serverCommandLineToAllowedState;
-
-    /**
-     * @brief Set of command lines currently showing permission dialogs
-     *
-     * Prevents showing multiple dialogs for the same command.
-     */
-    std::set<QString> m_currentActiveCommandLineDialogs;
-
     QUrl m_configPath; ///< Current configuration file path (may be overridden)
-
-    /**
-     * Check if given command line is allowed to be executed.
-     * Might ask the user for permission.
-     * @param cmdline full command line including program to check
-     * @return execution allowed?
-     */
-    bool isCommandLineAllowed(const QStringList &cmdline);
 
 Q_SIGNALS:
     // ========================================================================
@@ -211,21 +181,6 @@ Q_SIGNALS:
      * Connected to by views to display messages in Kate's message bar.
      */
     void showMessage(KTextEditor::Message::MessageType level, const QString &msg);
-
-private Q_SLOTS:
-    // ========================================================================
-    // PERMISSION MANAGEMENT
-    // ========================================================================
-
-    /**
-     * @brief Ask user for permission to execute a command line
-     * @param fullCommandLineString Full command line string to get permission for
-     *
-     * Shows a modal dialog asking the user to allow or deny execution.
-     * The decision is stored persistently and ACP servers are restarted if needed.
-     * Ensures only one dialog is shown per command line.
-     */
-    void askForCommandLinePermission(const QString &fullCommandLineString);
 
 private:
     // ========================================================================

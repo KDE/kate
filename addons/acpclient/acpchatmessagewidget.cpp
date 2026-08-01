@@ -505,6 +505,7 @@ void ACPChatMessageWidget::updateContentDisplay()
     }
     case MessageType::PermissionRequest: {
         QWidget *permissionWidget = new QWidget(m_contentWidget);
+        permissionWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
         QVBoxLayout *permissionLayout = new QVBoxLayout(permissionWidget);
         permissionLayout->setContentsMargins(4, 2, 4, 2);
         permissionLayout->setSpacing(4);
@@ -555,6 +556,7 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         // Buttons - create a button for each permission option
         QWidget *buttonWidget = new QWidget(permissionWidget);
+        buttonWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
         QHBoxLayout *buttonLayout = new QHBoxLayout(buttonWidget);
         buttonLayout->setContentsMargins(0, 4, 0, 0);
         buttonLayout->setSpacing(8);
@@ -563,6 +565,7 @@ void ACPChatMessageWidget::updateContentDisplay()
         if (!m_permissionOptions.isEmpty()) {
             for (const PermissionOption &option : m_permissionOptions) {
                 QPushButton *button = new QPushButton(option.name, buttonWidget);
+                button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
                 button->setProperty("requestId", QVariant::fromValue(m_requestId));
                 button->setProperty("optionId", QVariant::fromValue(option.optionId));
 
@@ -591,6 +594,7 @@ void ACPChatMessageWidget::updateContentDisplay()
         } else {
             // Fallback to old behavior with just allow/reject buttons
             QPushButton *allowButton = new QPushButton(i18n("Allow"), buttonWidget);
+            allowButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
             allowButton->setProperty("requestId", QVariant::fromValue(m_requestId));
             allowButton->setProperty("optionId", QVariant::fromValue(m_permissionAllowOptionId));
             connect(allowButton, &QPushButton::clicked, this, [this, allowButton]() {
@@ -599,6 +603,7 @@ void ACPChatMessageWidget::updateContentDisplay()
             buttonLayout->addWidget(allowButton);
 
             QPushButton *rejectButton = new QPushButton(i18n("Reject"), buttonWidget);
+            rejectButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
             rejectButton->setProperty("requestId", QVariant::fromValue(m_requestId));
             rejectButton->setProperty("optionId", QVariant::fromValue(m_permissionRejectOptionId));
             connect(rejectButton, &QPushButton::clicked, this, [this, rejectButton]() {

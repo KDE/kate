@@ -290,7 +290,7 @@ void ACPChatMessageWidget::updateContentDisplay()
         delete child;
     }
 
-    QVBoxLayout *contentLayout = qobject_cast<QVBoxLayout *>(m_contentWidget->layout());
+    QLayout *contentLayout = m_contentWidget->layout();
 
     switch (m_type) {
     case MessageType::User:

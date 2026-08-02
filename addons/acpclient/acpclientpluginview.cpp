@@ -251,7 +251,7 @@ void ACPClientPluginView::showChatToolView()
 
         // Switch to the chat tab
         if (m_tabWidget && m_chatToolView) {
-            m_tabWidget->setCurrentIndex(0); // 0 = Chat tab
+            m_tabWidget->setCurrentIndex(m_chatTabIndex);
         }
     });
 

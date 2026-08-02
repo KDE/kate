@@ -34,9 +34,9 @@ ACPServerListWidget::ACPServerListWidget(ACPClientServerManager *serverManager, 
     m_serverTree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_serverTree->setSortingEnabled(true);
 
-    // Set up columns
+    // Set up columns - Actions, Status, Name, Command
     QStringList headers;
-    headers << i18n("Name") << i18n("Version") << i18n("Command") << i18n("Status") << i18n("Actions");
+    headers << i18n("Actions") << i18n("Status") << i18n("Name") << i18n("Command");
     m_serverTree->setColumnCount(headers.size());
     m_serverTree->setHeaderLabels(headers);
 
@@ -45,7 +45,7 @@ ACPServerListWidget::ACPServerListWidget(ACPClientServerManager *serverManager, 
     m_serverTree->header()->setStretchLastSection(false);
 
     // Ensure the actions column has enough space for buttons
-    m_serverTree->setColumnWidth(4, 200); // Actions column
+    m_serverTree->setColumnWidth(0, 200); // Actions column is first
 
     m_layout->addWidget(m_serverTree);
 
@@ -78,10 +78,12 @@ void ACPServerListWidget::updateServerList(const QList<ACPClientServer *> &serve
 
     if (servers.isEmpty()) {
         QTreeWidgetItem *item = new QTreeWidgetItem(m_serverTree);
-        item->setText(0, i18n("No servers available"));
+        item->setText(0, QString()); // Column 0 is Actions (empty for this message)
+        item->setText(1, QString()); // Column 1 is Status (empty for this message)
+        item->setText(2, i18n("No servers available"));
         item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
         // Span across all columns
-        for (int col = 1; col < m_serverTree->columnCount(); ++col) {
+        for (int col = 3; col < m_serverTree->columnCount(); ++col) {
             item->setText(col, QString());
         }
         return;
@@ -99,14 +101,27 @@ void ACPServerListWidget::updateServerList(const QList<ACPClientServer *> &serve
         }
 
         QTreeWidgetItem *item = new QTreeWidgetItem(m_serverTree);
-        // Column 0: Name
-        item->setText(0, serverName);
-        // Column 1: Version
-        item->setText(1, info.version);
-        // Column 2: Command
-        item->setText(2, info.command);
 
-        // Column 3: Status
+        // Column 0: Actions (buttons)
+        QWidget *actionsWidget = new QWidget(m_serverTree);
+        QHBoxLayout *actionsLayout = new QHBoxLayout(actionsWidget);
+        actionsLayout->setContentsMargins(2, 2, 2, 2);
+        actionsLayout->setSpacing(4);
+
+        QPushButton *startButton = new QPushButton(i18n("Start"), actionsWidget);
+        startButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        QPushButton *stopButton = new QPushButton(i18n("Stop"), actionsWidget);
+        stopButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+        actionsLayout->addWidget(startButton);
+        actionsLayout->addWidget(stopButton);
+        actionsLayout->addStretch();
+
+        // Store buttons for state updates
+        m_serverButtons[serverName] = qMakePair(startButton, stopButton);
+        m_serverTree->setItemWidget(item, 0, actionsWidget);
+
+        // Column 1: Status
         QString statusText;
         ACPClientServer::ServerState state = server->state();
         switch (state) {
@@ -129,25 +144,17 @@ void ACPServerListWidget::updateServerList(const QList<ACPClientServer *> &serve
             statusText = i18n("Unknown");
             break;
         }
-        item->setText(3, statusText);
+        item->setText(1, statusText);
 
-        // Column 4: Actions (buttons)
-        QWidget *actionsWidget = new QWidget(m_serverTree);
-        QHBoxLayout *actionsLayout = new QHBoxLayout(actionsWidget);
-        actionsLayout->setContentsMargins(2, 2, 2, 2);
-        actionsLayout->setSpacing(4);
+        // Column 2: Name
+        item->setText(2, serverName);
 
-        QPushButton *startButton = new QPushButton(i18n("Start"), actionsWidget);
-        startButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        QPushButton *stopButton = new QPushButton(i18n("Stop"), actionsWidget);
-        stopButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-
-        actionsLayout->addWidget(startButton);
-        actionsLayout->addWidget(stopButton);
-        actionsLayout->addStretch();
-
-        // Store buttons for state updates
-        m_serverButtons[serverName] = qMakePair(startButton, stopButton);
+        // Column 3: Command & Arguments
+        QString commandText = info.command;
+        if (!info.arguments.isEmpty()) {
+            commandText += QStringLiteral(" ") + info.arguments.join(QStringLiteral(" "));
+        }
+        item->setText(3, commandText);
 
         // Update button states based on server state
         updateButtonStates(serverName, state);
@@ -177,21 +184,17 @@ void ACPServerListWidget::updateServerList(const QList<ACPClientServer *> &serve
             updateServerList(m_serverManager->servers());
         });
 
-        m_serverTree->setItemWidget(item, 4, actionsWidget);
-
         // Build tooltip
         QString toolTip = QStringLiteral("Name: ") + serverName;
-        if (!info.version.isEmpty()) {
-            toolTip += QStringLiteral("\nVersion: ") + info.version;
+        if (!commandText.isEmpty()) {
+            toolTip += QStringLiteral("\nCommand: ") + commandText;
         }
-        if (!info.command.isEmpty()) {
-            toolTip += QStringLiteral("\nCommand: ") + info.command;
-        }
-        item->setToolTip(0, toolTip);
+        item->setToolTip(2, toolTip);
     }
 
     // Resize columns to fit content after loading
-    for (int col = 0; col < m_serverTree->columnCount() - 1; ++col) {
+    // Skip column 0 (Actions) as it has a fixed width
+    for (int col = 1; col < m_serverTree->columnCount(); ++col) {
         m_serverTree->resizeColumnToContents(col);
     }
 }

@@ -168,7 +168,7 @@ void ACPServerListWidget::updateServerList(const QList<ACPClientServer *> &serve
             Q_EMIT serverActivated(serverName);
         });
 
-        connect(stopButton, &QPushButton::clicked, this, [this, server, serverName]() {
+        connect(stopButton, &QPushButton::clicked, this, [server, serverName]() {
             qCDebug(ACPCLIENT) << "Stop button clicked for server:" << serverName;
             if (server->state() != ACPClientServer::ServerState::Disconnected) {
                 server->stop();

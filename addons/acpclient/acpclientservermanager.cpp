@@ -99,9 +99,6 @@ ACPClientServer *ACPClientServerManager::createServer(const ACPClientServer::Ser
     connect(serverPtr, &ACPClientServer::disconnected, this, &ACPClientServerManager::onServerDisconnected);
     connect(serverPtr, &ACPClientServer::errorOccurred, this, &ACPClientServerManager::onServerError);
     connect(serverPtr, &ACPClientServer::messageReceived, this, &ACPClientServerManager::onServerMessageReceived);
-    connect(serverPtr, &ACPClientServer::stateChanged, this, [this, serverPtr](ACPClientServer::ServerState) {
-        // Auto-activation removed - servers are now manually started/stopped
-    });
 
     m_servers.push_back(std::move(server));
 

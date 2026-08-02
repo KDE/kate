@@ -1054,12 +1054,16 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
         }
     }
 
-    ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::ToolCallUpdate, m_chatDisplayContainer);
-    msgWidget->setTimestamp(QDateTime::currentDateTime());
-    msgWidget->setSender(i18n("Agent"));
-    msgWidget->setToolCallStatus(toolCallId, status, contentText);
-
-    addMessageWidget(msgWidget);
+    // Find the existing ToolCall widget for this toolCallId and update it
+    if (!toolCallId.isEmpty()) {
+        for (ACPChatMessageWidget *widget : m_messageWidgets) {
+            if (widget->type() == ACPChatMessageWidget::MessageType::ToolCall && widget->toolCallId() == toolCallId) {
+                // Found the ToolCall widget - update its status and content
+                widget->setToolCallStatus(toolCallId, status, contentText);
+                break;
+            }
+        }
+    }
 }
 
 void ACPClientChatWidget::handleUsageUpdate(const QJsonObject &update)

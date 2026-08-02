@@ -442,7 +442,7 @@ void ACPChatMessageWidget::updateContentDisplay()
             toolLayout->addWidget(idLabel);
         }
 
-        // Display command line if available - add last so it can stretch
+        // Display command line if available
         if (!m_toolCommand.isEmpty()) {
             QLabel *commandLabel = new QLabel(m_toolCommand, toolWidget);
             // Use a monospace font for command display
@@ -460,6 +460,14 @@ void ACPChatMessageWidget::updateContentDisplay()
             // Add margins via the label's contents margins
             commandLabel->setContentsMargins(4, 4, 4, 4);
             toolLayout->addWidget(commandLabel, 1); // Take remaining space
+        }
+
+        // Display content if available (from tool call updates)
+        if (!m_toolContent.isEmpty()) {
+            QLabel *contentLabel = new QLabel(m_toolContent, toolWidget);
+            contentLabel->setWordWrap(true);
+            contentLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+            toolLayout->addWidget(contentLabel, 1); // Take remaining space
         }
 
         contentLayout->addWidget(toolWidget);

@@ -78,19 +78,6 @@ QObject *ACPClientPlugin::createView(KTextEditor::MainWindow *mainWindow)
     auto view = new ACPClientPluginView(this, mainWindow, m_serverManager);
     m_views.append(view);
 
-    // Connect signals
-    connect(view, &ACPClientPluginView::sessionRequested, this, [this](const QString &prompt) {
-        // Create a new session and send the prompt
-        QString sessionId = m_serverManager->createSession();
-        if (!sessionId.isEmpty()) {
-            m_serverManager->sendPrompt(sessionId, prompt);
-        }
-    });
-
-    connect(view, &ACPClientPluginView::toolCallRequested, this, [this](const QString &toolId, const QJsonObject &arguments) {
-        m_serverManager->callTool(toolId, arguments);
-    });
-
     connect(this, &ACPClientPlugin::showMessage, mainWindow, [](KTextEditor::Message::MessageType level, const QString &msg) {
         KTextEditor::Message *message = new KTextEditor::Message(msg, level);
         message->setPosition(KTextEditor::Message::BottomInView);

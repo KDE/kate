@@ -20,9 +20,6 @@ class ACPClientServerManager;
 class ACPClientChatWidget;
 class ACPSessionListWidget;
 class ACPServerListWidget;
-class QAction;
-class QToolBar;
-class QMenu;
 class QTabWidget;
 
 /**
@@ -30,11 +27,7 @@ class QTabWidget;
  * @brief Kate plugin view for ACP Client integration
  *
  * This class implements KXMLGUIClient to integrate with Kate's GUI system.
- * It:
- * - Creates actions for menus and toolbars
- * - Manages the chat tool view
- * - Handles action triggers
- * - Connects UI actions to server manager operations
+ * It manages the chat tool view with servers, sessions, and chat tabs.
  *
  * Each Kate main window gets its own ACPClientPluginView instance.
  *
@@ -59,44 +52,8 @@ public:
     ~ACPClientPluginView() override;
 
     // ========================================================================
-    // DOCUMENT-ACTION METHODS
-    // ========================================================================
-
-    /**
-     * @brief Create a session using the entire document as context
-     *
-     * Reads the current document text and sends it as a prompt to start a session.
-     */
-    void createSessionFromDocument();
-
-    /**
-     * @brief Send the current text selection as a prompt
-     *
-     * Uses the selected text in the active view as the prompt.
-     */
-    void sendSelectionAsPrompt();
-
-    // ========================================================================
     // UI METHODS
     // ========================================================================
-
-    /**
-     * @brief Show the session management dialog
-     * @todo Implement full session manager dialog
-     */
-    void showSessionManager();
-
-    /**
-     * @brief Show the server configuration dialog
-     * @todo Implement server configuration dialog
-     */
-    void showServerConfig();
-
-    /**
-     * @brief Show the tool palette
-     * @todo Implement tool palette
-     */
-    void showToolPalette();
 
     /**
      * @brief Show the chat tool view
@@ -105,35 +62,10 @@ public:
      */
     void showChatToolView();
 
-Q_SIGNALS:
-    /** @brief Emitted when a new session should be created with a prompt */
-    void sessionRequested(const QString &prompt);
-
-    /** @brief Emitted when a tool should be called */
-    void toolCallRequested(const QString &toolId, const QJsonObject &arguments);
-
 private Q_SLOTS:
     // ========================================================================
-    // ACTION HANDLERS
+    // SLOTS
     // ========================================================================
-
-    /** @brief Handle "New Session" action */
-    void onNewSession();
-
-    /** @brief Handle "Send Prompt" action */
-    void onSendPrompt();
-
-    /** @brief Handle "List Sessions" action */
-    void onListSessions();
-
-    /** @brief Handle "Manage Servers" action */
-    void onManageServers();
-
-    /** @brief Handle "Show Tools" action */
-    void onShowTools();
-
-    /** @brief Handle "Show Chat" action */
-    void onShowChat();
 
     /** @brief Handle session list received from server */
     void onSessionListReceived(const QJsonArray &sessions);
@@ -164,9 +96,6 @@ private:
     // SETUP METHODS
     // ========================================================================
 
-    /** @brief Create and register all actions */
-    void setupActions();
-
     /** @brief Set up the user interface */
     void setupUI();
 
@@ -177,17 +106,6 @@ private:
     ACPClientPlugin *m_plugin; ///< Parent plugin instance
     KTextEditor::MainWindow *m_mainWindow; ///< Kate main window
     std::shared_ptr<ACPClientServerManager> m_serverManager; ///< Shared server manager
-
-    // ========================================================================
-    // ACTIONS
-    // ========================================================================
-
-    QAction *m_newSessionAction; ///< Action: Create new session
-    QAction *m_sendPromptAction; ///< Action: Send document/selection as prompt
-    QAction *m_listSessionsAction; ///< Action: List all sessions
-    QAction *m_manageServersAction; ///< Action: Configure servers
-    QAction *m_showToolsAction; ///< Action: Show available tools
-    QAction *m_showChatAction; ///< Action: Show ACP Chat tool view
 
     // ========================================================================
     // UI ELEMENTS

@@ -315,8 +315,10 @@ void ACPClientServerManager::listSessions()
         return;
     }
 
+    ACP::ListSessionsRequest params;
+    // Use default values: no limit, no offset
     qint64 requestId = ACP::ACPProtocol::generateRequestId();
-    QJsonDocument request = ACP::ACPProtocol::createSessionListRequest(requestId);
+    QJsonDocument request = ACP::ACPProtocol::createSessionListRequest(params, requestId);
 
     // Track the request type
     m_pendingRequests[requestId] = PendingRequestType::SessionList;
@@ -376,6 +378,17 @@ void ACPClientServerManager::onServerInitialized(const ACP::InitializeResult &re
     if (server) {
         qCDebug(ACPCLIENT) << "Server initialized:" << server->info().name << "Agent:" << result.agentInfo.name << "Version:" << result.agentInfo.version
                            << "Protocol:" << result.protocolVersion;
+
+        // If no server is currently active, or if the active server is not initialized,
+        // set this server as the active server
+        if (!m_activeServer || m_activeServer->state() != ACPClientServer::ServerState::Initialized) {
+            m_activeServer = server;
+            m_activeServerName = server->info().name;
+        }
+
+        // Always emit activeServerChanged when a server initializes
+        // This ensures the session list is queried after the server is ready
+        Q_EMIT activeServerChanged(m_activeServer);
     }
 }
 
@@ -457,14 +470,23 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
             auto it = m_pendingRequests.find(parsedMessage.id);
             if (it != m_pendingRequests.end()) {
                 if (it->second == PendingRequestType::SessionList) {
+                    qCDebug(ACPCLIENT) << "Received session/list response:" << parsedMessage.result;
+
+                    // Try to extract sessions from different possible locations
+                    QJsonArray sessions;
                     if (parsedMessage.result.contains(u"sessions") && parsedMessage.result[u"sessions"].isArray()) {
-                        QJsonArray sessions = parsedMessage.result[u"sessions"].toArray();
-                        qCDebug(ACPCLIENT) << "Received session list with" << sessions.size() << "sessions";
-                        Q_EMIT sessionListReceived(sessions);
+                        sessions = parsedMessage.result[u"sessions"].toArray();
                     } else {
+                        // Some servers might return the sessions array directly as the result
+                        // But result is a QJsonObject, not an array, so this shouldn't happen
+                        // Just emit empty array
                         qCDebug(ACPCLIENT) << "Received session list response without sessions array";
-                        Q_EMIT sessionListReceived(QJsonArray());
                     }
+
+                    if (!sessions.isEmpty()) {
+                        qCDebug(ACPCLIENT) << "Received session list with" << sessions.size() << "sessions";
+                    }
+                    Q_EMIT sessionListReceived(sessions);
                     m_pendingRequests.erase(it);
                     return;
                 }

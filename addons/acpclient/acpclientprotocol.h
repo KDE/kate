@@ -321,6 +321,12 @@ struct SessionDeleteParams {
     QString sessionId; ///< Session to delete
 };
 
+/** @brief Parameters for session/list request */
+struct ListSessionsRequest {
+    int limit = -1; ///< Maximum number of sessions to return (-1 for no limit)
+    int offset = 0; ///< Number of sessions to skip for pagination
+};
+
 // ============================================================================
 // CONTENT TYPES
 // ============================================================================
@@ -536,10 +542,11 @@ public:
 
     /**
      * @brief Create a session/list request to get all sessions
+     * @param params List sessions parameters (optional limit/offset)
      * @param requestId Unique request identifier
      * @return JSON-RPC 2.0 session/list request document
      */
-    static QJsonDocument createSessionListRequest(qint64 requestId);
+    static QJsonDocument createSessionListRequest(const ListSessionsRequest &params, qint64 requestId);
 
     /**
      * @brief Create a session/delete request to remove a session

@@ -189,17 +189,28 @@ QJsonDocument ACPProtocol::createSessionCloseRequest(const SessionCloseParams &p
     return QJsonDocument(request);
 }
 
-QJsonDocument ACPProtocol::createSessionListRequest(qint64 requestId)
+QJsonDocument ACPProtocol::createSessionListRequest(const ListSessionsRequest &params, qint64 requestId)
 {
     QJsonObject request;
     request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
     request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
     request[JSONRPC_METHOD] = METHOD_SESSION_LIST;
 
-    // session/list typically doesn't require parameters, send empty object
-    // Some servers (like vibe-acp) expect either no params or a valid ListSessionsRequest
-    QJsonObject params;
-    request[JSONRPC_PARAMS] = params;
+    QJsonObject paramsObj;
+
+    // Add optional fields only if they have non-default values
+    // limit: only include if >= 0 (vibe-acp expects no limit by default)
+    if (params.limit >= 0) {
+        paramsObj[u"limit"] = params.limit;
+    }
+
+    // offset: only include if > 0
+    if (params.offset > 0) {
+        paramsObj[u"offset"] = params.offset;
+    }
+
+    // Always include params object, even if empty, to satisfy strict servers
+    request[JSONRPC_PARAMS] = paramsObj;
 
     return QJsonDocument(request);
 }

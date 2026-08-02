@@ -34,16 +34,6 @@ ACPClientConfigPage::ACPClientConfigPage(ACPClientPlugin *plugin, QWidget *paren
 
     reset();
 
-    for (const auto &cb : {
-             ui->autoStartCheckBox,
-             ui->showNotificationsCheckBox,
-             ui->showToolCallsCheckBox,
-             ui->showProgressCheckBox,
-             ui->debugModeCheckBox,
-         }) {
-        connect(cb, &QCheckBox::toggled, this, &ACPClientConfigPage::changed);
-    }
-
     connect(ui->toolCallPermissionComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ACPClientConfigPage::changed);
 }
 
@@ -69,12 +59,6 @@ QIcon ACPClientConfigPage::icon() const
 
 void ACPClientConfigPage::apply()
 {
-    m_plugin->m_autoStartSession = ui->autoStartCheckBox->isChecked();
-    m_plugin->m_showNotifications = ui->showNotificationsCheckBox->isChecked();
-    m_plugin->m_showToolCalls = ui->showToolCallsCheckBox->isChecked();
-    m_plugin->m_showProgress = ui->showProgressCheckBox->isChecked();
-    m_plugin->m_debugMode = ui->debugModeCheckBox->isChecked();
-
     int permissionIndex = ui->toolCallPermissionComboBox->currentIndex();
     switch (permissionIndex) {
     case 1:
@@ -98,12 +82,6 @@ void ACPClientConfigPage::apply()
 
 void ACPClientConfigPage::resetUiTo()
 {
-    ui->autoStartCheckBox->setChecked(m_plugin->m_autoStartSession);
-    ui->showNotificationsCheckBox->setChecked(m_plugin->m_showNotifications);
-    ui->showToolCallsCheckBox->setChecked(m_plugin->m_showToolCalls);
-    ui->showProgressCheckBox->setChecked(m_plugin->m_showProgress);
-    ui->debugModeCheckBox->setChecked(m_plugin->m_debugMode);
-
     int permissionIndex = 0;
     switch (m_plugin->m_toolCallPermission) {
     case ACPClientPluginOptions::AllowAll:

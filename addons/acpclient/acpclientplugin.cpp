@@ -29,11 +29,6 @@ QString acpClientConfigGroup()
     return QStringLiteral("acpclient");
 }
 
-static constexpr char CONFIG_AUTO_START[] = "AutoStartSession";
-static constexpr char CONFIG_SHOW_NOTIFICATIONS[] = "ShowNotifications";
-static constexpr char CONFIG_SHOW_TOOL_CALLS[] = "ShowToolCalls";
-static constexpr char CONFIG_SHOW_PROGRESS[] = "ShowProgress";
-static constexpr char CONFIG_DEBUG_MODE[] = "DebugMode";
 static constexpr char CONFIG_TOOL_CALL_PERMISSION[] = "ToolCallPermission";
 
 K_PLUGIN_FACTORY_WITH_JSON(ACPClientPluginFactory, "acpclientplugin.json", registerPlugin<ACPClientPlugin>();)
@@ -60,10 +55,6 @@ ACPClientPlugin::ACPClientPlugin(QObject *parent)
 
     // Ensure settings path exists
     QDir().mkpath(m_settingsPath);
-
-    // Initialize debug mode from environment variable
-    // Note: m_debugMode is inherited from ACPClientPluginOptions
-    m_debugMode = debug;
 
     // Ensure we don't spam the user with debug messages per default
     if (!oldCategoryFilter) {
@@ -127,22 +118,12 @@ KTextEditor::ConfigPage *ACPClientPlugin::configPage(int number, QWidget *parent
 void ACPClientPlugin::writeConfig() const
 {
     KConfigGroup config(KSharedConfig::openConfig(), acpClientConfigGroup());
-    config.writeEntry(CONFIG_AUTO_START, m_autoStartSession);
-    config.writeEntry(CONFIG_SHOW_NOTIFICATIONS, m_showNotifications);
-    config.writeEntry(CONFIG_SHOW_TOOL_CALLS, m_showToolCalls);
-    config.writeEntry(CONFIG_SHOW_PROGRESS, m_showProgress);
-    config.writeEntry(CONFIG_DEBUG_MODE, m_debugMode);
     config.writeEntry(CONFIG_TOOL_CALL_PERMISSION, static_cast<int>(m_toolCallPermission));
 }
 
 void ACPClientPlugin::readConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), acpClientConfigGroup());
-    m_autoStartSession = config.readEntry(CONFIG_AUTO_START, false);
-    m_showNotifications = config.readEntry(CONFIG_SHOW_NOTIFICATIONS, true);
-    m_showToolCalls = config.readEntry(CONFIG_SHOW_TOOL_CALLS, true);
-    m_showProgress = config.readEntry(CONFIG_SHOW_PROGRESS, true);
-    m_debugMode = config.readEntry(CONFIG_DEBUG_MODE, debug);
     m_toolCallPermission = static_cast<ToolCallPermission>(config.readEntry(CONFIG_TOOL_CALL_PERMISSION, static_cast<int>(AskEachTime)));
 }
 

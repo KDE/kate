@@ -64,18 +64,31 @@
                                 </widget>
                             </item>
                             <item>
-                                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                                <layout class="QHBoxLayout" name="toolCallPermissionLayout">
                                     <item>
-                                        <widget class="QLabel" name="label">
+                                        <widget class="QLabel" name="toolCallPermissionLabel">
                                             <property name="text">
-                                                <string>General Options:</string>
+                                                <string>Tool call permission:</string>
                                             </property>
-                                            <property name="font">
-                                                <font>
-                                                    <weight>75</weight>
-                                                    <bold>true</bold>
-                                                </font>
-                                            </property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <widget class="QComboBox" name="toolCallPermissionComboBox">
+                                            <item>
+                                                <property name="text">
+                                                    <string>Ask each time</string>
+                                                </property>
+                                            </item>
+                                            <item>
+                                                <property name="text">
+                                                    <string>Allow all</string>
+                                                </property>
+                                            </item>
+                                            <item>
+                                                <property name="text">
+                                                    <string>Deny all</string>
+                                                </property>
+                                            </item>
                                         </widget>
                                     </item>
                                     <item>
@@ -90,75 +103,6 @@
                                                 </size>
                                             </property>
                                         </spacer>
-                                    </item>
-                                </layout>
-                            </item>
-                            <item>
-                                <layout class="QGridLayout" name="gridLayout">
-                                    <item row="0" column="0">
-                                        <widget class="QCheckBox" name="autoStartCheckBox">
-                                            <property name="text">
-                                                <string>Auto-start session on Kate startup</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item row="0" column="1">
-                                        <widget class="QCheckBox" name="showNotificationsCheckBox">
-                                            <property name="text">
-                                                <string>Show ACP notifications</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item row="1" column="0">
-                                        <widget class="QCheckBox" name="showToolCallsCheckBox">
-                                            <property name="text">
-                                                <string>Show tool call details</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item row="1" column="1">
-                                        <widget class="QCheckBox" name="showProgressCheckBox">
-                                            <property name="text">
-                                                <string>Show progress updates</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item row="2" column="0">
-                                        <widget class="QCheckBox" name="debugModeCheckBox">
-                                            <property name="text">
-                                                <string>Enable debug logging</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item row="3" column="0" colspan="2">
-                                        <layout class="QHBoxLayout" name="toolCallPermissionLayout">
-                                            <item>
-                                                <widget class="QLabel" name="toolCallPermissionLabel">
-                                                    <property name="text">
-                                                        <string>Tool call permission:</string>
-                                                    </property>
-                                                </widget>
-                                            </item>
-                                            <item>
-                                                <widget class="QComboBox" name="toolCallPermissionComboBox">
-                                                    <item>
-                                                        <property name="text">
-                                                            <string>Ask each time</string>
-                                                        </property>
-                                                    </item>
-                                                    <item>
-                                                        <property name="text">
-                                                            <string>Allow all</string>
-                                                        </property>
-                                                    </item>
-                                                    <item>
-                                                        <property name="text">
-                                                            <string>Deny all</string>
-                                                        </property>
-                                                    </item>
-                                                </widget>
-                                            </item>
-                                        </layout>
                                     </item>
                                 </layout>
                             </item>

@@ -35,12 +35,6 @@ class ACPClientPluginView;
  * Kate Settings dialog (Plugins → ACP Client).
  */
 struct ACPClientPluginOptions {
-    bool m_autoStartSession = false; ///< Automatically start a new session when Kate opens
-    bool m_showNotifications = true; ///< Show ACP notifications in Kate's message bar
-    bool m_showToolCalls = true; ///< Display tool call details in the chat
-    bool m_showProgress = true; ///< Display progress updates in the chat
-    bool m_debugMode = false; ///< Enable verbose debug logging
-
     // Tool call permission settings
     /** @brief Permission modes for tool calls */
     enum ToolCallPermission {

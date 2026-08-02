@@ -21,8 +21,8 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QListWidgetItem>
 #include <QMenu>
-#include <QScrollArea>
 #include <QScrollBar>
 #include <QTimer>
 
@@ -83,22 +83,13 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     // Connect to returnPressed signal from the line edit inside the combo box
     connect(inputCombo->lineEdit(), &QLineEdit::returnPressed, this, &ACPClientChatWidget::onInputReturnPressed);
 
-    // Get the scroll area and message container from UI
-    m_chatScrollArea = m_ui->chatScrollArea;
-    m_chatScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    m_chatDisplayContainer = m_ui->chatDisplay;
-    m_chatDisplayContainer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    m_chatMessagesLayout = qobject_cast<QVBoxLayout *>(m_chatDisplayContainer->layout());
+    // Get the list widget from UI
+    m_chatListWidget = m_ui->chatListWidget;
+    m_chatListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_chatListWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    if (!m_chatMessagesLayout) {
-        // Fallback if layout not found
-        m_chatMessagesLayout = new QVBoxLayout(m_chatDisplayContainer);
-        m_chatMessagesLayout->setSpacing(2);
-        m_chatMessagesLayout->setContentsMargins(4, 4, 4, 4);
-    }
-
-    // Install event filter on chat display container for context menu
-    m_chatDisplayContainer->installEventFilter(this);
+    // Install event filter on chat list widget for context menu
+    m_chatListWidget->installEventFilter(this);
 
     // Update UI state - initialize actions as disabled (no server yet)
     updateSessionState();
@@ -191,7 +182,7 @@ void ACPClientChatWidget::initializeWithSession(const QString &sessionId)
 void ACPClientChatWidget::appendMessage(const QString &sender, const QString &message, bool isUser)
 {
     ACPChatMessageWidget *msgWidget =
-        new ACPChatMessageWidget(isUser ? ACPChatMessageWidget::MessageType::User : ACPChatMessageWidget::MessageType::Agent, m_chatDisplayContainer);
+        new ACPChatMessageWidget(isUser ? ACPChatMessageWidget::MessageType::User : ACPChatMessageWidget::MessageType::Agent, m_chatListWidget);
 
     msgWidget->setTimestamp(QDateTime::currentDateTime());
     msgWidget->setSender(isUser ? i18n("You") : sender);
@@ -202,43 +193,39 @@ void ACPClientChatWidget::appendMessage(const QString &sender, const QString &me
 
 void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
 {
-    if (!widget || !m_chatMessagesLayout) {
+    if (!widget || !m_chatListWidget) {
         return;
     }
 
-    // Find and temporarily remove the stretch if it exists
-    QLayoutItem *stretchItem = nullptr;
-    int stretchIndex = -1;
-    for (int i = 0; i < m_chatMessagesLayout->count(); ++i) {
-        QLayoutItem *item = m_chatMessagesLayout->itemAt(i);
-        if (item && item->spacerItem()) {
-            stretchItem = item;
-            stretchIndex = i;
-            break;
-        }
-    }
+    // Create a container widget to hold the message widget
+    // This ensures proper size calculation
+    QWidget *container = new QWidget(m_chatListWidget);
+    QVBoxLayout *containerLayout = new QVBoxLayout(container);
+    containerLayout->setContentsMargins(0, 0, 0, 0);
+    containerLayout->setSpacing(0);
+    containerLayout->addWidget(widget);
 
-    if (stretchIndex >= 0) {
-        stretchItem = m_chatMessagesLayout->takeAt(stretchIndex);
-    }
+    // Create a list widget item
+    QListWidgetItem *item = new QListWidgetItem(m_chatListWidget);
 
-    // Add the widget
-    m_chatMessagesLayout->addWidget(widget);
+    // Add the container to the list
+    m_chatListWidget->addItem(item);
+    m_chatListWidget->setItemWidget(item, container);
 
-    // Re-add the stretch at the end
-    if (stretchItem) {
-        m_chatMessagesLayout->addItem(stretchItem);
-    } else {
-        // No stretch found, add one
-        m_chatMessagesLayout->addStretch();
-    }
+    // Store the mappings
+    m_widgetToContainerMap[widget] = container;
+    m_containerToItemMap[container] = item;
 
     widget->show();
     m_messageWidgets.append(widget);
 
-    // Scroll to the bottom of the chat display
-    QTimer::singleShot(0, this, [this]() {
-        QScrollBar *vScrollBar = m_chatScrollArea->verticalScrollBar();
+    // Schedule update of item size hint after the widget has been fully laid out
+    QTimer::singleShot(50, this, [this, item, container]() {
+        // Force container to layout and calculate proper size
+        container->adjustSize();
+        container->ensurePolished();
+        item->setSizeHint(container->sizeHint());
+        QScrollBar *vScrollBar = m_chatListWidget->verticalScrollBar();
         if (vScrollBar) {
             vScrollBar->setValue(vScrollBar->maximum());
         }
@@ -247,40 +234,40 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
 
 void ACPClientChatWidget::clearMessages()
 {
-    // Delete all message widgets
+    // Delete all message widgets and their containers
     for (ACPChatMessageWidget *widget : m_messageWidgets) {
+        QWidget *container = m_widgetToContainerMap.value(widget);
+        if (container) {
+            container->deleteLater();
+        }
         widget->deleteLater();
     }
     m_messageWidgets.clear();
+    m_widgetToContainerMap.clear();
+    m_containerToItemMap.clear();
 
-    // Clear layout but preserve the stretch
-    QLayoutItem *stretchItem = nullptr;
+    // Clear the list widget
+    if (m_chatListWidget) {
+        m_chatListWidget->clear();
+    }
+}
 
-    // First, find and save the stretch item
-    for (int i = 0; i < m_chatMessagesLayout->count(); ++i) {
-        QLayoutItem *item = m_chatMessagesLayout->itemAt(i);
-        if (item && item->spacerItem()) {
-            stretchItem = item;
-            break;
-        }
+void ACPClientChatWidget::updateWidgetSizeHint(ACPChatMessageWidget *widget)
+{
+    if (!widget || !m_chatListWidget) {
+        return;
     }
 
-    // Clear all items
-    QLayoutItem *child;
-    while ((child = m_chatMessagesLayout->takeAt(0)) != nullptr) {
-        if (child->widget() && child != stretchItem) {
-            child->widget()->deleteLater();
+    QWidget *container = m_widgetToContainerMap.value(widget);
+    if (container) {
+        auto itemIt = m_containerToItemMap.find(container);
+        if (itemIt != m_containerToItemMap.end()) {
+            QListWidgetItem *item = itemIt.value();
+            // Force container to layout and calculate proper size
+            container->adjustSize();
+            container->ensurePolished();
+            item->setSizeHint(container->sizeHint());
         }
-        if (child != stretchItem) {
-            delete child;
-        }
-    }
-
-    // Re-add the stretch if we found one, otherwise create new one
-    if (stretchItem) {
-        m_chatMessagesLayout->addItem(stretchItem);
-    } else {
-        m_chatMessagesLayout->addStretch();
     }
 }
 
@@ -549,7 +536,7 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
                        << "argumentsStr:" << argumentsStr;
 
     // Create a permission request widget inline in the chat
-    ACPChatMessageWidget *permissionWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::PermissionRequest, m_chatDisplayContainer);
+    ACPChatMessageWidget *permissionWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::PermissionRequest, m_chatListWidget);
     permissionWidget->setTimestamp(QDateTime::currentDateTime());
     permissionWidget->setSender(i18n("ACP Agent"));
 
@@ -845,7 +832,7 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
             if (messageId != lastMessageId && !messageId.isEmpty()) {
                 // New message
                 lastMessageId = messageId;
-                ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Agent, m_chatDisplayContainer);
+                ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Agent, m_chatListWidget);
                 msgWidget->setTimestamp(QDateTime::currentDateTime());
                 msgWidget->setSender(i18n("Agent"));
                 msgWidget->setMessageId(messageId);
@@ -859,18 +846,26 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
                         // Append to existing message
                         QString existingContent = lastWidget->content();
                         lastWidget->setContent(existingContent + QStringLiteral(" ") + text);
+                        // Update the item size hint
+                        QTimer::singleShot(10, this, [this, lastWidget]() {
+                            updateWidgetSizeHint(lastWidget);
+                            QScrollBar *vScrollBar = m_chatListWidget->verticalScrollBar();
+                            if (vScrollBar) {
+                                vScrollBar->setValue(vScrollBar->maximum());
+                            }
+                        });
                         return;
                     }
                 }
                 // Fallback: create new message
-                ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Agent, m_chatDisplayContainer);
+                ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Agent, m_chatListWidget);
                 msgWidget->setTimestamp(QDateTime::currentDateTime());
                 msgWidget->setSender(i18n("Agent"));
                 msgWidget->setContent(text);
                 addMessageWidget(msgWidget);
             } else {
                 // No message ID - create new message
-                ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Agent, m_chatDisplayContainer);
+                ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Agent, m_chatListWidget);
                 msgWidget->setTimestamp(QDateTime::currentDateTime());
                 msgWidget->setSender(i18n("Agent"));
                 msgWidget->setContent(text);
@@ -885,7 +880,7 @@ void ACPClientChatWidget::handlePlanUpdate(const QJsonObject &update)
     if (update.contains(u"entries") && update[u"entries"].isArray()) {
         QJsonArray entries = update[u"entries"].toArray();
 
-        ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Plan, m_chatDisplayContainer);
+        ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Plan, m_chatListWidget);
         msgWidget->setTimestamp(QDateTime::currentDateTime());
         msgWidget->setSender(i18n("Agent"));
 
@@ -977,7 +972,7 @@ void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
         }
     }
 
-    ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::ToolCall, m_chatDisplayContainer);
+    ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::ToolCall, m_chatListWidget);
     msgWidget->setTimestamp(QDateTime::currentDateTime());
     msgWidget->setSender(i18n("Agent"));
     msgWidget->setToolCallInfo(toolCallId, title, kind, status, command);
@@ -1060,6 +1055,14 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
             if (widget->type() == ACPChatMessageWidget::MessageType::ToolCall && widget->toolCallId() == toolCallId) {
                 // Found the ToolCall widget - update its status and content
                 widget->setToolCallStatus(toolCallId, status, contentText);
+                // Update the item size hint
+                QTimer::singleShot(10, this, [this, widget]() {
+                    updateWidgetSizeHint(widget);
+                    QScrollBar *vScrollBar = m_chatListWidget->verticalScrollBar();
+                    if (vScrollBar) {
+                        vScrollBar->setValue(vScrollBar->maximum());
+                    }
+                });
                 break;
             }
         }
@@ -1121,10 +1124,10 @@ void ACPClientChatWidget::updateActionStates()
 
 bool ACPClientChatWidget::eventFilter(QObject *watched, QEvent *event)
 {
-    if (watched == m_chatDisplayContainer && event->type() == QEvent::ContextMenu) {
+    if (watched == m_chatListWidget && event->type() == QEvent::ContextMenu) {
         QContextMenuEvent *contextEvent = static_cast<QContextMenuEvent *>(event);
 
-        QMenu *menu = new QMenu(m_chatDisplayContainer);
+        QMenu *menu = new QMenu(m_chatListWidget);
         QAction *copyAction = menu->addAction(i18n("Copy All"));
         copyAction->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
         connect(copyAction, &QAction::triggered, this, &ACPClientChatWidget::copyChatText);

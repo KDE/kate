@@ -88,31 +88,16 @@
     </layout>
    </item>
    <item>
-    <widget class="QScrollArea" name="chatScrollArea">
-     <property name="widgetResizable">
-      <bool>true</bool>
-     </property>
+    <widget class="QListWidget" name="chatListWidget">
      <property name="horizontalScrollBarPolicy">
       <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
-     <widget class="QWidget" name="chatDisplay">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>380</width>
-        <height>380</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="chatMessagesLayout">
-       <property name="spacing">
-        <number>2</number>
-       </property>
-       <property name="margin">
-        <number>4</number>
-       </property>
-      </layout>
-     </widget>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAsNeeded</enum>
+     </property>
+     <property name="spacing">
+      <number>2</number>
+     </property>
     </widget>
    </item>
    <item>

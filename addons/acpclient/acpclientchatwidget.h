@@ -9,9 +9,11 @@
 
 #include <QComboBox>
 #include <QCompleter>
+#include <QHash>
 #include <QLabel>
+#include <QListWidget>
+#include <QListWidgetItem>
 #include <QPushButton>
-#include <QScrollArea>
 #include <QStringListModel>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -229,6 +231,9 @@ private:
     /** @brief Clear all message widgets */
     void clearMessages();
 
+    /** @brief Update the size hint for a widget's list item */
+    void updateWidgetSizeHint(ACPChatMessageWidget *widget);
+
     /** @brief Get all chat text for copying */
     QString getAllChatText() const;
 
@@ -286,9 +291,9 @@ private:
     // MESSAGE DISPLAY
     // ========================================================================
 
-    QVBoxLayout *m_chatMessagesLayout = nullptr; ///< Layout for message widgets
-    QScrollArea *m_chatScrollArea = nullptr; ///< Scrollable area for messages
-    QWidget *m_chatDisplayContainer = nullptr; ///< Container widget for messages
+    QListWidget *m_chatListWidget = nullptr; ///< List widget for messages
+    QHash<ACPChatMessageWidget *, QWidget *> m_widgetToContainerMap; ///< Map from widgets to container widgets
+    QHash<QWidget *, QListWidgetItem *> m_containerToItemMap; ///< Map from container widgets to list items
     QList<ACPChatMessageWidget *> m_messageWidgets; ///< All displayed message widgets
 
     // ========================================================================

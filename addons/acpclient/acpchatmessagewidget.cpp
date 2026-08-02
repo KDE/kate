@@ -37,8 +37,8 @@ ACPChatMessageWidget::~ACPChatMessageWidget()
 
 void ACPChatMessageWidget::setupUI()
 {
-    // Set size policy to prefer expanding vertically but not horizontally
-    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    // Set size policy to prefer expanding in both directions
+    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
     m_mainLayout = new QVBoxLayout(this);
     m_mainLayout->setContentsMargins(8, 4, 8, 4);
@@ -46,7 +46,7 @@ void ACPChatMessageWidget::setupUI()
 
     // Header widget with timestamp, sender, and type
     m_headerWidget = new QWidget(this);
-    m_headerWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    m_headerWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     QHBoxLayout *headerLayout = new QHBoxLayout(m_headerWidget);
     headerLayout->setContentsMargins(0, 0, 0, 0);
     headerLayout->setSpacing(8);
@@ -83,7 +83,7 @@ void ACPChatMessageWidget::setupUI()
 
     // Content widget
     m_contentWidget = new QWidget(this);
-    m_contentWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    m_contentWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     QVBoxLayout *contentLayout = new QVBoxLayout(m_contentWidget);
     contentLayout->setContentsMargins(0, 0, 0, 0);
     contentLayout->setSpacing(2);

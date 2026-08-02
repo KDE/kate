@@ -7,7 +7,6 @@
             "version": "1.0",
             "command": "vibe-acp",
             "arguments": [],
-            "auto_start": true,
             "description": "Mistral AI's Vibe CLI with ACP support"
         },
         {
@@ -15,7 +14,6 @@
             "version": "1.0",
             "command": "acp-agent",
             "arguments": [],
-            "auto_start": false,
             "description": "Generic ACP-compliant agent"
         }
     ],

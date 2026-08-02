@@ -10,6 +10,7 @@
 #include "acpclientchatwidget.h"
 #include "acpclientplugin.h"
 #include "acpclientservermanager.h"
+#include "acpserverlistwidget.h"
 #include "acpsessionlistwidget.h"
 
 #include <KActionCollection>
@@ -35,7 +36,6 @@ ACPClientPluginView::ACPClientPluginView(ACPClientPlugin *plugin,
     , m_plugin(plugin)
     , m_mainWindow(mainWindow)
     , m_serverManager(serverManager)
-    , m_toolWidget(nullptr)
 {
     qCDebug(ACPCLIENT) << "ACPClientPluginView created";
 
@@ -61,6 +61,10 @@ ACPClientPluginView::~ACPClientPluginView()
     // Clean up chat tool view
     delete m_chatWidget;
     m_chatWidget = nullptr;
+    delete m_sessionListWidget;
+    m_sessionListWidget = nullptr;
+    delete m_serverListWidget;
+    m_serverListWidget = nullptr;
 
     // The tool view is managed by Kate, just clear the pointer
     m_chatToolView = nullptr;
@@ -201,6 +205,16 @@ void ACPClientPluginView::showChatToolView()
     m_sessionListWidget = new ACPSessionListWidget(m_serverManager.get(), m_tabWidget);
     m_sessionListWidget->setObjectName(QStringLiteral("ACPSessionListWidget"));
     m_tabWidget->addTab(m_sessionListWidget, i18n("Sessions"));
+
+    // Create the server list widget
+    m_serverListWidget = new ACPServerListWidget(m_serverManager.get(), m_tabWidget);
+    m_serverListWidget->setObjectName(QStringLiteral("ACPServerListWidget"));
+    m_tabWidget->addTab(m_serverListWidget, i18n("Servers"));
+
+    // Connect server activated signal to set active server
+    connect(m_serverListWidget, &ACPServerListWidget::serverActivated, this, [this](const QString &serverName) {
+        m_serverManager->setActiveServer(serverName);
+    });
 
     // Connect session activated signal to load/resume the session
     connect(m_sessionListWidget, &ACPSessionListWidget::sessionResumed, this, [this](const QString &sessionId) {

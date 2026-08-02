@@ -117,13 +117,6 @@ public:
     void setActiveServer(const QString &name);
 
     /**
-     * @brief Start all servers configured for auto-start
-     *
-     * Iterates through all servers and starts those with autoStart = true.
-     */
-    void startAutoStartServers();
-
-    /**
      * @brief Check if the active server supports session loading
      * @return true if the agent supports loadSession capability
      */

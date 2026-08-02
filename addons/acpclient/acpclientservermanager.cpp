@@ -22,9 +22,6 @@ ACPClientServerManager::ACPClientServerManager(ACPClientPlugin *plugin, QObject 
 
     // Load default servers on creation
     loadDefaultServers();
-
-    // Start auto-start servers
-    startAutoStartServers();
 }
 
 void ACPClientServerManager::loadDefaultServers()
@@ -77,7 +74,6 @@ void ACPClientServerManager::loadDefaultServers()
         vibeServer.name = QStringLiteral("Mistral Vibe (vibe-acp)");
         vibeServer.version = QStringLiteral("1.0");
         vibeServer.command = QStringLiteral("vibe-acp");
-        vibeServer.autoStart = true;
         createServer(vibeServer);
     }
 }
@@ -103,22 +99,13 @@ ACPClientServer *ACPClientServerManager::createServer(const ACPClientServer::Ser
     connect(serverPtr, &ACPClientServer::disconnected, this, &ACPClientServerManager::onServerDisconnected);
     connect(serverPtr, &ACPClientServer::errorOccurred, this, &ACPClientServerManager::onServerError);
     connect(serverPtr, &ACPClientServer::messageReceived, this, &ACPClientServerManager::onServerMessageReceived);
-    connect(serverPtr, &ACPClientServer::stateChanged, this, [this, serverPtr, info](ACPClientServer::ServerState state) {
-        if (state == ACPClientServer::ServerState::Initialized) {
-            if (!m_activeServer && info.autoStart) {
-                setActiveServer(serverPtr->info().name);
-            }
-        }
+    connect(serverPtr, &ACPClientServer::stateChanged, this, [this, serverPtr](ACPClientServer::ServerState) {
+        // Auto-activation removed - servers are now manually started/stopped
     });
 
     m_servers.push_back(std::move(server));
 
     Q_EMIT serverAdded(serverPtr);
-
-    // Start the server if it should auto-start
-    if (info.autoStart) {
-        serverPtr->start();
-    }
 
     return serverPtr;
 }
@@ -184,15 +171,6 @@ void ACPClientServerManager::setActiveServer(const QString &name)
         m_activeServer = newServer;
         m_activeServerName = name;
         Q_EMIT activeServerChanged(m_activeServer);
-    }
-}
-
-void ACPClientServerManager::startAutoStartServers()
-{
-    for (auto &server : m_servers) {
-        if (server->info().autoStart && server->state() == ACPClientServer::ServerState::Disconnected) {
-            server->start();
-        }
     }
 }
 

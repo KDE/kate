@@ -19,6 +19,7 @@ class ACPClientPlugin;
 class ACPClientServerManager;
 class ACPClientChatWidget;
 class ACPSessionListWidget;
+class ACPServerListWidget;
 class QAction;
 class QToolBar;
 class QMenu;
@@ -185,9 +186,9 @@ private:
     // UI ELEMENTS
     // ========================================================================
 
-    QWidget *m_toolWidget; ///< Tool widget (currently unused)
-    QTabWidget *m_tabWidget = nullptr; ///< Tab widget for chat and sessions
+    QTabWidget *m_tabWidget = nullptr; ///< Tab widget for chat, sessions, and servers
     ACPClientChatWidget *m_chatWidget = nullptr; ///< Main chat widget
     ACPSessionListWidget *m_sessionListWidget = nullptr; ///< Session list widget
+    ACPServerListWidget *m_serverListWidget = nullptr; ///< Server list widget
     QWidget *m_chatToolView = nullptr; ///< Kate tool view container
 };

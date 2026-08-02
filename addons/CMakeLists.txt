@@ -1,5 +1,6 @@
+# helper to add kate plugins
 function (kate_add_plugin name)
-kcoreaddons_add_plugin(${name} INSTALL_NAMESPACE "kf6/ktexteditor")
+    kcoreaddons_add_plugin(${name} INSTALL_NAMESPACE "kf6/ktexteditor")
 endfunction()
 
 ecm_optional_add_subdirectory(close-except-like) # Close all documents except this one (or similar).
@@ -37,6 +38,4 @@ ecm_optional_add_subdirectory(openlink)
 ecm_optional_add_subdirectory(rbql)
 ecm_optional_add_subdirectory(bookmarks)
 ecm_optional_add_subdirectory(kategpgplugin) # Adds transparent editing of GPG encrypted files.
-
-# Mistral generated, this needs first review...
-# ecm_optional_add_subdirectory(acpclient) # Agent Client Protocol (ACP) client plugin.
+ecm_optional_add_subdirectory(acpclient) # Agent Client Protocol (ACP) client plugin.

@@ -37,12 +37,16 @@ ACPChatMessageWidget::~ACPChatMessageWidget()
 
 void ACPChatMessageWidget::setupUI()
 {
+    // Set size policy to prefer expanding vertically but not horizontally
+    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
     m_mainLayout = new QVBoxLayout(this);
     m_mainLayout->setContentsMargins(8, 4, 8, 4);
     m_mainLayout->setSpacing(4);
 
     // Header widget with timestamp, sender, and type
     m_headerWidget = new QWidget(this);
+    m_headerWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
     QHBoxLayout *headerLayout = new QHBoxLayout(m_headerWidget);
     headerLayout->setContentsMargins(0, 0, 0, 0);
     headerLayout->setSpacing(8);
@@ -50,11 +54,13 @@ void ACPChatMessageWidget::setupUI()
     m_timestampLabel = new QLabel(this);
     m_timestampLabel->setObjectName(QStringLiteral("timestampLabel"));
     m_timestampLabel->setTextFormat(Qt::PlainText);
+    m_timestampLabel->setWordWrap(true);
     headerLayout->addWidget(m_timestampLabel);
 
     m_senderLabel = new QLabel(this);
     m_senderLabel->setObjectName(QStringLiteral("senderLabel"));
     m_senderLabel->setTextFormat(Qt::PlainText);
+    m_senderLabel->setWordWrap(true);
     QFont boldFont = m_senderLabel->font();
     boldFont.setBold(true);
     m_senderLabel->setFont(boldFont);
@@ -62,6 +68,7 @@ void ACPChatMessageWidget::setupUI()
 
     m_typeLabel = new QLabel(this);
     m_typeLabel->setObjectName(QStringLiteral("typeLabel"));
+    m_typeLabel->setWordWrap(true);
     headerLayout->addWidget(m_typeLabel);
 
     // Status icon (for prompt turn tracking)
@@ -76,6 +83,7 @@ void ACPChatMessageWidget::setupUI()
 
     // Content widget
     m_contentWidget = new QWidget(this);
+    m_contentWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
     QVBoxLayout *contentLayout = new QVBoxLayout(m_contentWidget);
     contentLayout->setContentsMargins(0, 0, 0, 0);
     contentLayout->setSpacing(2);
@@ -327,11 +335,13 @@ void ACPChatMessageWidget::updateContentDisplay()
     case MessageType::Plan: {
         for (const PlanEntry &entry : m_planEntries) {
             QWidget *entryWidget = new QWidget(m_contentWidget);
+            entryWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
             QHBoxLayout *entryLayout = new QHBoxLayout(entryWidget);
             entryLayout->setContentsMargins(4, 2, 4, 2);
             entryLayout->setSpacing(4);
 
             QLabel *priorityLabel = new QLabel(entry.priority, entryWidget);
+            priorityLabel->setWordWrap(true);
             QFont boldFont = priorityLabel->font();
             boldFont.setBold(true);
             priorityLabel->setFont(boldFont);
@@ -350,6 +360,7 @@ void ACPChatMessageWidget::updateContentDisplay()
             // Status
             if (!entry.status.isEmpty()) {
                 QLabel *statusLabel = new QLabel(QStringLiteral("[%1]").arg(entry.status), entryWidget);
+                statusLabel->setWordWrap(true);
                 QFont smallFont = statusLabel->font();
                 smallFont.setPointSize(smallFont.pointSize() - 2);
                 statusLabel->setFont(smallFont);
@@ -367,12 +378,14 @@ void ACPChatMessageWidget::updateContentDisplay()
     }
     case MessageType::ToolCall: {
         QWidget *toolWidget = new QWidget(m_contentWidget);
+        toolWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
         QHBoxLayout *toolLayout = new QHBoxLayout(toolWidget);
         toolLayout->setContentsMargins(4, 2, 4, 2);
         toolLayout->setSpacing(4);
 
         if (!m_toolTitle.isEmpty()) {
             QLabel *titleLabel = new QLabel(m_toolTitle, toolWidget);
+            titleLabel->setWordWrap(true);
             QFont boldFont = titleLabel->font();
             boldFont.setBold(true);
             titleLabel->setFont(boldFont);
@@ -382,6 +395,7 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         if (!m_toolKind.isEmpty()) {
             QLabel *kindLabel = new QLabel(QStringLiteral("(%1)").arg(m_toolKind), toolWidget);
+            kindLabel->setWordWrap(true);
             QFont smallFont = kindLabel->font();
             smallFont.setPointSize(smallFont.pointSize() - 2);
             kindLabel->setFont(smallFont);
@@ -401,6 +415,7 @@ void ACPChatMessageWidget::updateContentDisplay()
             statusText = QStringLiteral("✗"); // Error indicator
         }
         QLabel *statusLabel = new QLabel(statusText, toolWidget);
+        statusLabel->setWordWrap(true);
         QFont boldFont2 = statusLabel->font();
         boldFont2.setBold(true);
         statusLabel->setFont(boldFont2);
@@ -419,6 +434,7 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         if (!m_toolCallId.isEmpty()) {
             QLabel *idLabel = new QLabel(QStringLiteral("[ID: %1]").arg(m_toolCallId), toolWidget);
+            idLabel->setWordWrap(true);
             QFont smallFont = idLabel->font();
             smallFont.setPointSize(smallFont.pointSize() - 2);
             idLabel->setFont(smallFont);
@@ -451,6 +467,7 @@ void ACPChatMessageWidget::updateContentDisplay()
     }
     case MessageType::ToolCallUpdate: {
         QWidget *updateWidget = new QWidget(m_contentWidget);
+        updateWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
         QHBoxLayout *updateLayout = new QHBoxLayout(updateWidget);
         updateLayout->setContentsMargins(4, 2, 4, 2);
         updateLayout->setSpacing(4);
@@ -468,6 +485,7 @@ void ACPChatMessageWidget::updateContentDisplay()
         }
 
         QLabel *statusLabel = new QLabel(i18n("Tool Update:"), updateWidget);
+        statusLabel->setWordWrap(true);
         QFont boldFont = statusLabel->font();
         boldFont.setBold(true);
         statusLabel->setFont(boldFont);
@@ -486,6 +504,7 @@ void ACPChatMessageWidget::updateContentDisplay()
             statusValueText = QStringLiteral("✗"); // Error indicator
         }
         QLabel *statusValueLabel = new QLabel(statusValueText, updateWidget);
+        statusValueLabel->setWordWrap(true);
         QFont boldFont2 = statusValueLabel->font();
         boldFont2.setBold(true);
         statusValueLabel->setFont(boldFont2);
@@ -495,6 +514,7 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         if (!m_toolCallId.isEmpty()) {
             QLabel *idLabel = new QLabel(QStringLiteral("[ID: %1]").arg(m_toolCallId), updateWidget);
+            idLabel->setWordWrap(true);
             QFont smallFont2 = idLabel->font();
             smallFont2.setPointSize(smallFont2.pointSize() - 2);
             idLabel->setFont(smallFont2);
@@ -514,11 +534,13 @@ void ACPChatMessageWidget::updateContentDisplay()
     }
     case MessageType::Usage: {
         QWidget *usageWidget = new QWidget(m_contentWidget);
+        usageWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
         QHBoxLayout *usageLayout = new QHBoxLayout(usageWidget);
         usageLayout->setContentsMargins(4, 2, 4, 2);
         usageLayout->setSpacing(8);
 
         QLabel *usageLabel = new QLabel(i18n("Usage:"), usageWidget);
+        usageLabel->setWordWrap(true);
         QFont boldFont = usageLabel->font();
         boldFont.setBold(true);
         usageLabel->setFont(boldFont);
@@ -526,11 +548,13 @@ void ACPChatMessageWidget::updateContentDisplay()
         usageLayout->addWidget(usageLabel);
 
         QLabel *tokensLabel = new QLabel(QStringLiteral("%1 / %2 tokens").arg(m_usedTokens).arg(m_sizeTokens), usageWidget);
+        tokensLabel->setWordWrap(true);
         tokensLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
         usageLayout->addWidget(tokensLabel);
 
         if (m_cost > 0.0 && !m_currency.isEmpty()) {
             QLabel *costLabel = new QLabel(QStringLiteral("| Cost: %1 %2").arg(m_cost, 0, 'f', 4).arg(m_currency), usageWidget);
+            costLabel->setWordWrap(true);
             // Use LinkVisited color (typically purple) for cost display
             QPalette costPal = costLabel->palette();
             costPal.setColor(QPalette::WindowText, costPal.color(QPalette::LinkVisited));
@@ -544,7 +568,7 @@ void ACPChatMessageWidget::updateContentDisplay()
     }
     case MessageType::PermissionRequest: {
         QWidget *permissionWidget = new QWidget(m_contentWidget);
-        permissionWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+        permissionWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
         QVBoxLayout *permissionLayout = new QVBoxLayout(permissionWidget);
         permissionLayout->setContentsMargins(4, 2, 4, 2);
         permissionLayout->setSpacing(4);
@@ -595,7 +619,7 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         // Buttons - create a button for each permission option
         QWidget *buttonWidget = new QWidget(permissionWidget);
-        buttonWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+        buttonWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
         QHBoxLayout *buttonLayout = new QHBoxLayout(buttonWidget);
         buttonLayout->setContentsMargins(0, 4, 0, 0);
         buttonLayout->setSpacing(8);

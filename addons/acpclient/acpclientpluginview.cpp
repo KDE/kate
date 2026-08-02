@@ -192,29 +192,37 @@ void ACPClientPluginView::showChatToolView()
                                                   QIcon::fromTheme(QStringLiteral("internet-services")),
                                                   i18n("ACP Chat"));
 
-    // Create a tab widget to hold chat and session list
+    // Create a tab widget to hold servers, sessions and chat
     m_tabWidget = new QTabWidget(m_chatToolView);
     m_tabWidget->setObjectName(QStringLiteral("ACPClientTabWidget"));
-
-    // Create the chat widget
-    m_chatWidget = new ACPClientChatWidget(m_plugin, m_mainWindow, m_tabWidget);
-    m_chatWidget->setObjectName(QStringLiteral("ACPChatWidget"));
-    m_tabWidget->addTab(m_chatWidget, i18n("Chat"));
-
-    // Create the session list widget
-    m_sessionListWidget = new ACPSessionListWidget(m_serverManager.get(), m_tabWidget);
-    m_sessionListWidget->setObjectName(QStringLiteral("ACPSessionListWidget"));
-    m_tabWidget->addTab(m_sessionListWidget, i18n("Sessions"));
 
     // Create the server list widget
     m_serverListWidget = new ACPServerListWidget(m_serverManager.get(), m_tabWidget);
     m_serverListWidget->setObjectName(QStringLiteral("ACPServerListWidget"));
-    m_tabWidget->addTab(m_serverListWidget, i18n("Servers"));
+    m_serversTabIndex = m_tabWidget->addTab(m_serverListWidget, i18n("Servers"));
+
+    // Create the session list widget
+    m_sessionListWidget = new ACPSessionListWidget(m_serverManager.get(), m_tabWidget);
+    m_sessionListWidget->setObjectName(QStringLiteral("ACPSessionListWidget"));
+    m_sessionsTabIndex = m_tabWidget->addTab(m_sessionListWidget, i18n("Sessions"));
+
+    // Create the chat widget
+    m_chatWidget = new ACPClientChatWidget(m_plugin, m_mainWindow, m_tabWidget);
+    m_chatWidget->setObjectName(QStringLiteral("ACPChatWidget"));
+    m_chatTabIndex = m_tabWidget->addTab(m_chatWidget, i18n("Chat"));
 
     // Connect server activated signal to set active server
     connect(m_serverListWidget, &ACPServerListWidget::serverActivated, this, [this](const QString &serverName) {
         m_serverManager->setActiveServer(serverName);
     });
+
+    // Disable Sessions and Chat tabs until a server is available
+    m_tabWidget->setTabEnabled(m_sessionsTabIndex, false);
+    m_tabWidget->setTabEnabled(m_chatTabIndex, false);
+
+    // Update tab enabled state when active server changes
+    updateTabEnabledState();
+    connect(m_serverManager.get(), &ACPClientServerManager::activeServerChanged, this, &ACPClientPluginView::updateTabEnabledState);
 
     // Connect session activated signal to load/resume the session
     connect(m_sessionListWidget, &ACPSessionListWidget::sessionResumed, this, [this](const QString &sessionId) {
@@ -360,6 +368,22 @@ void ACPClientPluginView::onServerDisconnected()
 {
     qCDebug(ACPCLIENT) << "Server disconnected";
     // Update action states
+    updateTabEnabledState();
+}
+
+void ACPClientPluginView::updateTabEnabledState()
+{
+    // Enable Sessions and Chat tabs only if there's an active server
+    bool hasActiveServer = m_serverManager && m_serverManager->activeServer();
+
+    if (m_tabWidget) {
+        if (m_sessionsTabIndex >= 0) {
+            m_tabWidget->setTabEnabled(m_sessionsTabIndex, hasActiveServer);
+        }
+        if (m_chatTabIndex >= 0) {
+            m_tabWidget->setTabEnabled(m_chatTabIndex, hasActiveServer);
+        }
+    }
 }
 
 void ACPClientPluginView::onMessageReceived(const QJsonDocument &message)

@@ -152,6 +152,13 @@ private Q_SLOTS:
      */
     void onMessageReceived(const QJsonDocument &message);
 
+    /**
+     * @brief Update the enabled state of tabs based on server availability
+     *
+     * Enables Sessions and Chat tabs only when an active server is available.
+     */
+    void updateTabEnabledState();
+
 private:
     // ========================================================================
     // SETUP METHODS
@@ -186,9 +193,14 @@ private:
     // UI ELEMENTS
     // ========================================================================
 
-    QTabWidget *m_tabWidget = nullptr; ///< Tab widget for chat, sessions, and servers
+    QTabWidget *m_tabWidget = nullptr; ///< Tab widget for servers, sessions, and chat
     ACPClientChatWidget *m_chatWidget = nullptr; ///< Main chat widget
     ACPSessionListWidget *m_sessionListWidget = nullptr; ///< Session list widget
     ACPServerListWidget *m_serverListWidget = nullptr; ///< Server list widget
     QWidget *m_chatToolView = nullptr; ///< Kate tool view container
+
+    // Tab indices for enabling/disabling
+    int m_serversTabIndex = -1; ///< Index of the Servers tab
+    int m_sessionsTabIndex = -1; ///< Index of the Sessions tab
+    int m_chatTabIndex = -1; ///< Index of the Chat tab
 };

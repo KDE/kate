@@ -1,5 +1,6 @@
 # Translation of katecompilerexplorer to Norwegian Bokmål
 #
+# Kjetil Sørlund <translate@sorlund.no>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"

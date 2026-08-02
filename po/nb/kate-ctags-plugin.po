@@ -1,6 +1,7 @@
 # Translation of kate-ctags-plugin to Norwegian Bokmål
 #
 # Bjørn Steensrud <bjornst@skogkatt.homelinux.org>, 2009, 2010, 2011, 2014, 2016.
+# Kjetil Sørlund <translate@sorlund.no>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4\n"

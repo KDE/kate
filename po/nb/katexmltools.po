@@ -2,6 +2,7 @@
 #
 # Bjørn Steensrud <bjornst@skogkatt.homelinux.org>, 2002, 2013, 2014.
 # Knut Yrvin <knut.yrvin@gmail.com>, 2003.
+# Kjetil Sørlund <translate@sorlund.no>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"

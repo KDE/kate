@@ -1,5 +1,6 @@
 # Translation of kategitblameplugin to Norwegian Nynorsk
 #
+# Karl Ove Hufthammer <karl@huftis.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"

@@ -1,5 +1,6 @@
 # Translation of katexmlcheck to Norwegian Nynorsk
 #
+# Karl Ove Hufthammer <karl@huftis.org>, 2016, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"

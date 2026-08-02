@@ -5,6 +5,7 @@
 # Sven Harald Klein Bakke <sirius@nonline.org>, 2004.
 # Axel Bojer <fri_programvare@bojer.no>, 2004, 2005, 2006, 2007.
 # Nils Kristian Tomren <slx@nilsk.net>, 2005.
+# Kjetil Sørlund <translate@sorlund.no>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"

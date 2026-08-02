@@ -2,6 +2,7 @@
 #
 # Gaute Hvoslef Kvalnes <gaute@verdsveven.com>, 2002, 2004.
 # Tor Hveem <tor@hveem.no>, 2004.
+# Karl Ove Hufthammer <karl@huftis.org>, 2007, 2008, 2015, 2018, 2024.
 # Eirik U. Birkeland <eirbir@gmail.com>, 2008.
 msgid ""
 msgstr ""

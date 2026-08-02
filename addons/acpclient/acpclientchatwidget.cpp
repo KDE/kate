@@ -336,9 +336,6 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
 {
     qCDebug(ACPCLIENT) << "Permission requested for requestId:" << requestId << "with" << options.size() << "options";
 
-    // Debug: log the full toolCall object
-    qCDebug(ACPCLIENT) << "Permission request toolCall:" << QJsonDocument(toolCall).toJson();
-
     // Get toolCallId from the permission request
     QString toolCallId = toolCall[u"toolCallId"].toString();
 
@@ -346,7 +343,6 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
     QJsonObject fullToolCall = toolCall;
     if (!toolCallId.isEmpty() && m_toolCalls.contains(toolCallId)) {
         fullToolCall = m_toolCalls[toolCallId];
-        qCDebug(ACPCLIENT) << "Found stored tool call" << toolCallId << "details:" << QJsonDocument(fullToolCall).toJson();
     } else if (!toolCallId.isEmpty()) {
         qCDebug(ACPCLIENT) << "Tool call" << toolCallId << "not found in storage, using permission request data";
     }
@@ -355,8 +351,6 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
     QString title = fullToolCall[u"title"].toString();
     QString kind = fullToolCall[u"kind"].toString();
     QString toolIdentifier = fullToolCall[u"toolIdentifier"].toString();
-
-    qCDebug(ACPCLIENT) << "fullToolCall:" << QJsonDocument(fullToolCall).toJson();
 
     // Also check for common tool call fields
     QString toolName = fullToolCall[u"name"].toString();
@@ -440,7 +434,6 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
             permOpt.name = option[u"name"].toString();
             permOpt.kind = option[u"kind"].toString();
             permissionOptions.append(permOpt);
-            qCDebug(ACPCLIENT) << "Permission option:" << permOpt.optionId << "(" << permOpt.kind << ")" << permOpt.name;
         }
     }
 
@@ -562,8 +555,6 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
 
     // Use the new method to support all permission options
     // Pass the tool name and command separately for better display
-    qCDebug(ACPCLIENT) << "Calling setPermissionRequestWithOptions with title:" << title << "toolDisplayName:" << toolDisplayName
-                       << "argumentsStr:" << argumentsStr;
     permissionWidget->setPermissionRequestWithOptions(requestId, title, toolDisplayName, argumentsStr, permissionOptions);
 
     // Connect the widget's signal to our handler
@@ -915,8 +906,6 @@ void ACPClientChatWidget::handlePlanUpdate(const QJsonObject &update)
 
 void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
 {
-    qCDebug(ACPCLIENT) << "handleToolCallUpdate called with:" << QJsonDocument(update).toJson();
-
     QString toolCallId = update[u"toolCallId"].toString();
     QString toolIdentifier = update[u"toolIdentifier"].toString();
     QString title = update[u"title"].toString();
@@ -932,7 +921,6 @@ void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
 
     // Extract the command line from various possible locations
     QString command;
-    qCDebug(ACPCLIENT) << "Initial command extraction - title:" << title << "toolIdentifier:" << toolIdentifier;
 
     // First, try to get from rawInput.command (common for shell tools)
     if (update.contains(u"rawInput") && update[u"rawInput"].isObject()) {
@@ -982,11 +970,12 @@ void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
     // Store the tool call information for later permission lookup
     // Store the full update object which should contain all tool call details
     if (!toolCallId.isEmpty()) {
-        m_toolCalls[toolCallId] = update;
+        // Only store if we don't have this toolCallId yet, or if this message has command info
+        bool hasCommandInfo = !command.isEmpty() || (!title.isEmpty() && title.contains(u":"));
+        if (!m_toolCalls.contains(toolCallId) || hasCommandInfo) {
+            m_toolCalls[toolCallId] = update;
+        }
     }
-
-    qCDebug(ACPCLIENT) << "Creating ToolCall widget - toolCallId:" << toolCallId << "title:" << title << "command:" << command << "kind:" << kind
-                       << "status:" << status;
 
     ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::ToolCall, m_chatDisplayContainer);
     msgWidget->setTimestamp(QDateTime::currentDateTime());
@@ -994,14 +983,10 @@ void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
     msgWidget->setToolCallInfo(toolCallId, title, kind, status, command);
 
     addMessageWidget(msgWidget);
-
-    qCDebug(ACPCLIENT) << "ToolCall widget created. Total widgets:" << m_messageWidgets.size();
 }
 
 void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
 {
-    qCDebug(ACPCLIENT) << "handleToolCallStatusUpdate called with:" << QJsonDocument(update).toJson();
-
     QString toolCallId = update[u"toolCallId"].toString();
     QString status = update[u"status"].toString();
     QString contentText;
@@ -1024,11 +1009,21 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
         }
     }
 
-    qCDebug(ACPCLIENT) << "handleToolCallStatusUpdate: toolCallId=" << toolCallId << "command=" << command << "title=" << title;
-
     // Store/update the tool call information for later permission lookup
     if (!toolCallId.isEmpty()) {
-        m_toolCalls[toolCallId] = update;
+        // Only update storage if this message has command information
+        // Check if rawInput actually contains a command
+        bool hasRawInputCommand = false;
+        if (update.contains(u"rawInput") && update[u"rawInput"].isObject()) {
+            QJsonObject rawInput = update[u"rawInput"].toObject();
+            hasRawInputCommand = rawInput.contains(u"command");
+        }
+
+        bool hasCommandInfo = !command.isEmpty() || hasRawInputCommand || (!title.isEmpty() && title.contains(u":"));
+
+        if (hasCommandInfo || !m_toolCalls.contains(toolCallId)) {
+            m_toolCalls[toolCallId] = update;
+        }
     }
 
     // If we have a command and a toolCallId, try to update the existing ToolCall widget
@@ -1037,7 +1032,6 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
             if (widget->type() == ACPChatMessageWidget::MessageType::ToolCall && widget->toolCallId() == toolCallId && widget->toolCommand().isEmpty()) {
                 // Found the ToolCall widget without a command - update it
                 widget->setToolCallCommand(command);
-                qCDebug(ACPCLIENT) << "Updated ToolCall widget" << toolCallId << "with command:" << command;
                 break;
             }
         }

@@ -428,7 +428,6 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         // Display command line if available - add last so it can stretch
         if (!m_toolCommand.isEmpty()) {
-            qCDebug(ACPCLIENT) << "Displaying command in ToolCall widget:" << m_toolCommand;
             QLabel *commandLabel = new QLabel(m_toolCommand, toolWidget);
             // Use a monospace font for command display
             QFont monoFont(QStringLiteral("monospace"));
@@ -445,8 +444,6 @@ void ACPChatMessageWidget::updateContentDisplay()
             // Add margins via the label's contents margins
             commandLabel->setContentsMargins(4, 4, 4, 4);
             toolLayout->addWidget(commandLabel, 1); // Take remaining space
-        } else {
-            qCDebug(ACPCLIENT) << "No command to display in ToolCall widget (toolCallId:" << m_toolCallId << ")";
         }
 
         contentLayout->addWidget(toolWidget);

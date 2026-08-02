@@ -6,6 +6,7 @@
 */
 
 #include "acpchatmessagewidget.h"
+#include "acpclient_debug.h"
 #include "acpclientprotocol.h"
 
 #include <KLocalizedString>
@@ -175,12 +176,20 @@ void ACPChatMessageWidget::addPlanEntry(const QString &content, const QString &p
     updateContentDisplay();
 }
 
-void ACPChatMessageWidget::setToolCallInfo(const QString &toolCallId, const QString &title, const QString &kind, const QString &status)
+void ACPChatMessageWidget::setToolCallInfo(const QString &toolCallId, const QString &title, const QString &kind, const QString &status, const QString &command)
 {
     m_toolCallId = toolCallId;
     m_toolTitle = title;
     m_toolKind = kind;
     m_toolStatus = status;
+    m_toolCommand = command;
+    updateContentDisplay();
+}
+
+void ACPChatMessageWidget::setToolCallCommand(const QString &command)
+{
+    qCDebug(ACPCLIENT) << "setToolCallCommand called with:" << command << "(was:" << m_toolCommand << ")";
+    m_toolCommand = command;
     updateContentDisplay();
 }
 
@@ -268,6 +277,16 @@ QString ACPChatMessageWidget::messageId() const
 QString ACPChatMessageWidget::content() const
 {
     return m_content;
+}
+
+QString ACPChatMessageWidget::toolCallId() const
+{
+    return m_toolCallId;
+}
+
+QString ACPChatMessageWidget::toolCommand() const
+{
+    return m_toolCommand;
 }
 
 void ACPChatMessageWidget::applyTypeSpecificStyling()
@@ -405,6 +424,29 @@ void ACPChatMessageWidget::updateContentDisplay()
             idLabel->setFont(smallFont);
             idLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
             toolLayout->addWidget(idLabel);
+        }
+
+        // Display command line if available - add last so it can stretch
+        if (!m_toolCommand.isEmpty()) {
+            qCDebug(ACPCLIENT) << "Displaying command in ToolCall widget:" << m_toolCommand;
+            QLabel *commandLabel = new QLabel(m_toolCommand, toolWidget);
+            // Use a monospace font for command display
+            QFont monoFont(QStringLiteral("monospace"));
+            commandLabel->setFont(monoFont);
+            // Use alternate background for command display with proper text color
+            QPalette cmdPal = commandLabel->palette();
+            cmdPal.setColor(QPalette::Base, cmdPal.color(QPalette::AlternateBase));
+            // Ensure text is readable on the alternate background
+            cmdPal.setColor(QPalette::WindowText, cmdPal.color(QPalette::Text));
+            commandLabel->setPalette(cmdPal);
+            commandLabel->setAutoFillBackground(true);
+            commandLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+            commandLabel->setWordWrap(true);
+            // Add margins via the label's contents margins
+            commandLabel->setContentsMargins(4, 4, 4, 4);
+            toolLayout->addWidget(commandLabel, 1); // Take remaining space
+        } else {
+            qCDebug(ACPCLIENT) << "No command to display in ToolCall widget (toolCallId:" << m_toolCallId << ")";
         }
 
         contentLayout->addWidget(toolWidget);

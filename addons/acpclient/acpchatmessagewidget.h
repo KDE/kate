@@ -121,8 +121,15 @@ public:
      * @param title Tool name/title
      * @param kind Tool kind/type
      * @param status Current status ("pending", "in_progress", "completed", "error")
+     * @param command Full command line for the tool call
      */
-    void setToolCallInfo(const QString &toolCallId, const QString &title, const QString &kind, const QString &status);
+    void setToolCallInfo(const QString &toolCallId, const QString &title, const QString &kind, const QString &status, const QString &command = QString());
+
+    /**
+     * @brief Set or update the command for a tool call
+     * @param command Full command line for the tool call
+     */
+    void setToolCallCommand(const QString &command);
 
     /**
      * @brief Set tool call status update (for ToolCallUpdate message type)
@@ -183,6 +190,12 @@ public:
 
     /** @brief Get the content text */
     QString content() const;
+
+    /** @brief Get the tool call ID (for ToolCall and ToolCallUpdate messages) */
+    QString toolCallId() const;
+
+    /** @brief Get the tool command (for ToolCall messages) */
+    QString toolCommand() const;
 
 Q_SIGNALS:
     /**
@@ -262,6 +275,7 @@ private:
     QString m_toolKind; ///< Tool kind/type
     QString m_toolStatus; ///< Current status
     QString m_toolContent; ///< Status content text
+    QString m_toolCommand; ///< Full command line for tool calls
 
     // ========================================================================
     // USAGE-SPECIFIC DATA

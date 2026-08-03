@@ -1,5 +1,6 @@
 # Translation of katefilebrowserplugin to Norwegian Nynorsk
 #
+# Karl Ove Hufthammer <karl@huftis.org>, 2007, 2008, 2009, 2015, 2020, 2024.
 # Eirik U. Birkeland <eirbir@gmail.com>, 2008.
 msgid ""
 msgstr ""

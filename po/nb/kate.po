@@ -5,13 +5,14 @@
 # Sven Harald Klein Bakke <sirius@nonline.org>, 2004.
 # Axel Bojer <fri_programvare@bojer.no>, 2004, 2005, 2006, 2007.
 # Nils Kristian Tomren <slx@nilsk.net>, 2005.
+# Kjetil Sørlund <translate@sorlund.no>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-17 02:43+0000\n"
 "PO-Revision-Date: 2026-03-01 12:27+0100\n"
-"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
+"Last-Translator: Kjetil Sørlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@nuug.no>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +27,7 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Knut Yrvin,Knut Erik Hollund,Axel Bojer,Kjetil Sorlund"
+msgstr "Knut Yrvin,Knut Erik Hollund,Axel Bojer,Kjetil Sørlund"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"

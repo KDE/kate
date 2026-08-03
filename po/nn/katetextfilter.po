@@ -1,6 +1,7 @@
 # Translation of katetextfilter to Norwegian Nynorsk
 #
 # Gaute Hvoslef Kvalnes <gaute@verdsveven.com>, 2002.
+# Karl Ove Hufthammer <karl@huftis.org>, 2007, 2008, 2009, 2015, 2018, 2024.
 # Eirik U. Birkeland <eirbir@gmail.com>, 2008.
 msgid ""
 msgstr ""

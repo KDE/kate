@@ -1,5 +1,6 @@
 # Translation of katekeyboardmacros to Norwegian Nynorsk
 #
+# Karl Ove Hufthammer <karl@huftis.org>, 2024, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"

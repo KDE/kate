@@ -2,6 +2,7 @@
 #
 # Syver Stensholt <sssandum@gmail.com>, 2019.
 # Karl Ove Hufthammer <karl@huftis.org>, 2020.
+# Kjetil Sørlund <translate@sorlund.no>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"

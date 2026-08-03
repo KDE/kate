@@ -1,5 +1,6 @@
 # Translation of katebuild-plugin to Norwegian Nynorsk
 #
+# Karl Ove Hufthammer <karl@huftis.org>, 2009, 2010, 2015, 2019, 2020, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4\n"

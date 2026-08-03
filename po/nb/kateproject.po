@@ -1,6 +1,7 @@
 # Translation of kateproject to Norwegian Bokmål
 #
 # Bjørn Steensrud <bjornst@skogkatt.homelinux.org>, 2012, 2013, 2014, 2015, 2016.
+# Kjetil Sørlund <translate@sorlund.no>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"

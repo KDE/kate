@@ -42,6 +42,11 @@ KateBuildConfigPage::KateBuildConfigPage(KateBuildPlugin *plugin, QWidget *paren
     connect(ui->allowedAndBlockedCommands, &QWidget::customContextMenuRequested, this, &KateBuildConfigPage::showContextMenuAllowedBlocked);
 }
 
+KateBuildConfigPage::~KateBuildConfigPage()
+{
+    delete ui;
+}
+
 /******************************************************************/
 QString KateBuildConfigPage::name() const
 {

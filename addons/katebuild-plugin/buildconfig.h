@@ -25,9 +25,7 @@ class KateBuildConfigPage : public KTextEditor::ConfigPage
 {
 public:
     explicit KateBuildConfigPage(KateBuildPlugin *plugin, QWidget *parent = nullptr);
-    ~KateBuildConfigPage() override
-    {
-    }
+    ~KateBuildConfigPage() override;
 
     QString name() const override;
     QString fullName() const override;

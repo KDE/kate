@@ -662,7 +662,7 @@ void DapBackend::onCapabilitiesReceived(const dap::Capabilities &capabilities)
          << format(i18n("terminate debuggee"), capabilities.supportTerminateDebuggee);
 
     if (capabilities.exceptionBreakpointFilters) {
-        text << format(i18n("exception breakpoint filters"), capabilities.supportTerminateDebuggee);
+        text << format(i18n("exception breakpoint filters"), capabilities.exceptionBreakpointFilters.has_value());
         for (const auto &exceptionBreakpointFilter : capabilities.exceptionBreakpointFilters.value()) {
             text << QStringLiteral("   ") << exceptionBreakpointFilter.toString();
         }

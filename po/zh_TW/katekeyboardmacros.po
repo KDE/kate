@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2023, 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023-2024, 2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-06 00:49+0000\n"
-"PO-Revision-Date: 2024-11-26 21:54+0900\n"
+"PO-Revision-Date: 2026-08-04 07:30+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -15,27 +15,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 26.11.70\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
-#, fuzzy, kde-format
-#| msgid "Could not open file '%1'."
+#, kde-format
 msgid "Could not open file ‘%1’."
-msgstr "無法開啟檔案 '%1'。"
+msgstr "無法開啟檔案「%1」。"
 
 #: keyboardmacrosplugin.cpp:72
-#, fuzzy, kde-format
-#| msgid "Malformed JSON file '%1': %2"
+#, kde-format
 msgctxt "%2 is an error message"
 msgid "Malformed JSON file ‘%1’: %2"
-msgstr "格式不正確的 JSON 檔案 '%1'：%2"
+msgstr "格式不正確的 JSON 檔案「%1」：%2"
 
 #: keyboardmacrosplugin.cpp:80
-#, fuzzy, kde-format
-#| msgid "Could not load '%1': malformed macro; wiping it."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Could not load ‘%1’: malformed macro; wiping it."
-msgstr "無法載入 '%1'：格式不正確的巨集；正在清除它。"
+msgstr "無法載入「%1」：格式不正確的巨集；正在清除它。"
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
@@ -50,14 +47,12 @@ msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>鍵盤巨集:</b>%1"
 
 #: keyboardmacrosplugin.cpp:170
-#, fuzzy, kde-format
-#| msgid "Can't save macro during recording. Please end recoding first"
+#, kde-format
 msgid "Can’t save macro during recording. Please end recording first"
 msgstr "無法在錄製時儲存巨集。請先結束錄製"
 
 #: keyboardmacrosplugin.cpp:241
-#, fuzzy, kde-format
-#| msgid "Recording…"
+#, kde-format
 msgctxt "@info:progress Macro is being recorded right now"
 msgid "Recording…"
 msgstr "錄製中…"
@@ -65,39 +60,34 @@ msgstr "錄製中…"
 # %1 是 canceled 或 ended
 # (this should've been in the context)
 #: keyboardmacrosplugin.cpp:278
-#, fuzzy, kde-format
-#| msgid "Recording %1"
+#, kde-format
 msgid "Recording ended"
-msgstr "錄製%1"
+msgstr "錄製已結束"
 
 # %1 是 canceled 或 ended
 # (this should've been in the context)
 #: keyboardmacrosplugin.cpp:279
-#, fuzzy, kde-format
-#| msgid "Recording %1"
+#, kde-format
 msgid "Recording canceled"
-msgstr "錄製%1"
+msgstr "錄製已取消"
 
 #: keyboardmacrosplugin.cpp:330
-#, fuzzy, kde-format
-#| msgid "Saved '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Saved ‘%1’"
-msgstr "已儲存 '%1'"
+msgstr "已儲存「%1」"
 
 #: keyboardmacrosplugin.cpp:350
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Loaded ‘%1’"
-msgstr "已載入 '%1'"
+msgstr "已載入「%1」"
 
 #: keyboardmacrosplugin.cpp:368
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wiped ‘%1’"
-msgstr "已清除 '%1'"
+msgstr "已清除「%1」"
 
 #: keyboardmacrosplugincommands.cpp:27
 #, kde-format
@@ -162,10 +152,9 @@ msgid "Record and play keyboard macros."
 msgstr "錄製並回放鍵盤巨集。"
 
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Record Macro..."
+#, kde-format
 msgid "&Record Macro…"
-msgstr "錄製巨集(&R)..."
+msgstr "錄製巨集(&R)…"
 
 #: keyboardmacrospluginview.cpp:43
 #, kde-format
@@ -206,10 +195,9 @@ msgid "Give a name to the current macro and persistently save it."
 msgstr "給目前巨集一個名字並將其儲存在磁碟上。"
 
 #: keyboardmacrospluginview.cpp:90
-#, fuzzy, kde-format
-#| msgid "&Load Named Macro..."
+#, kde-format
 msgid "&Load Named Macro…"
-msgstr "載入有名稱的巨集(&L)..."
+msgstr "載入有名稱的巨集(&L)…"
 
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
@@ -217,10 +205,9 @@ msgid "Load a named macro as the current one."
 msgstr "載入一個有名稱的巨集作為目前的巨集。"
 
 #: keyboardmacrospluginview.cpp:98
-#, fuzzy, kde-format
-#| msgid "&Play Named Macro..."
+#, kde-format
 msgid "&Play Named Macro…"
-msgstr "回放有名稱的巨集(&P)..."
+msgstr "回放有名稱的巨集(&P)…"
 
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
@@ -228,10 +215,9 @@ msgid "Play a named macro without loading it."
 msgstr "回放一個有名稱的巨集而不載入它。"
 
 #: keyboardmacrospluginview.cpp:106
-#, fuzzy, kde-format
-#| msgid "&Wipe Named Macro..."
+#, kde-format
 msgid "&Wipe Named Macro…"
-msgstr "清除有名稱的巨集(&W)..."
+msgstr "清除有名稱的巨集(&W)…"
 
 #: keyboardmacrospluginview.cpp:109
 #, kde-format
@@ -244,46 +230,40 @@ msgid "End Macro &Recording"
 msgstr "結束巨集錄製(&R)"
 
 #: keyboardmacrospluginview.cpp:180
-#, fuzzy, kde-format
-#| msgid "Load %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Load %1"
 msgstr "載入 %1"
 
 #: keyboardmacrospluginview.cpp:181
-#, fuzzy, kde-format
-#| msgid "Load the '%1' macro as the current one."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Load the ‘%1’ macro as the current one."
-msgstr "載入巨集 '%1' 作為目前的巨集。"
+msgstr "載入巨集「%1」作為目前的巨集。"
 
 #: keyboardmacrospluginview.cpp:193
-#, fuzzy, kde-format
-#| msgid "Play %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Play %1"
 msgstr "回放 %1"
 
 #: keyboardmacrospluginview.cpp:194
-#, fuzzy, kde-format
-#| msgid "Play the '%1' macro without loading it."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Play the ‘%1’ macro without loading it."
-msgstr "回放巨集 '%1' 而不載入它。"
+msgstr "回放巨集「%1」而不載入它。"
 
 #: keyboardmacrospluginview.cpp:208
-#, fuzzy, kde-format
-#| msgid "Wipe %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe %1"
 msgstr "清除 %1"
 
 #: keyboardmacrospluginview.cpp:209
-#, fuzzy, kde-format
-#| msgid "Wipe the '%1' macro."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe the ‘%1’ macro."
-msgstr "清除巨集 '%1'。"
+msgstr "清除巨集「%1」。"
 
 #: keyboardmacrospluginview.cpp:289
 #, kde-format
@@ -291,11 +271,10 @@ msgid "Save current macro as?"
 msgstr "儲存目前巨集為？"
 
 #: keyboardmacrospluginview.cpp:323
-#, fuzzy, kde-format
-#| msgid "Wipe the '%1' macro?"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe the ‘%1’ macro?"
-msgstr "清除巨集 '%1'？"
+msgstr "要清除巨集「%1」嗎？"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

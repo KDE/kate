@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-11 00:47+0000\n"
-"PO-Revision-Date: 2026-05-12 03:21+0900\n"
+"PO-Revision-Date: 2026-08-04 07:28+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 26.07.70\n"
+"X-Generator: Lokalize 26.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -146,7 +146,7 @@ msgstr "應用程式開啟的檔案/URL在使用後會被刪除"
 msgid ""
 "Starts the application in self-test mode for some basic functions checks and "
 "quits afterwards"
-msgstr ""
+msgstr "用自我測試模式啟動應用程式，會進行一些基礎功能檢查之後就退出"
 
 #: kate/main.cpp:225 kwrite/main.cpp:127
 #, kde-format

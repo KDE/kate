@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-04 00:47+0000\n"
+"POT-Creation-Date: 2026-08-05 00:50+0000\n"
 "PO-Revision-Date: 2026-02-04 00:36+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 25.08.1\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:359
 #, kde-format
 msgid "Filter…"
 msgstr "필터…"
@@ -249,12 +249,12 @@ msgstr "이동"
 msgid "More options"
 msgstr "옵션 더 보기"
 
-#: lspclientpluginview.cpp:844 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:844 lspclientsymbolview.cpp:395
 #, kde-format
 msgid "Expand All"
 msgstr "모두 펴기"
 
-#: lspclientpluginview.cpp:845 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:845 lspclientsymbolview.cpp:396
 #, kde-format
 msgid "Collapse All"
 msgstr "모두 접기"
@@ -433,42 +433,42 @@ msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr "이전 기호 강조로 이동"
 
-#: lspclientsymbolview.cpp:342
+#: lspclientsymbolview.cpp:340
 #, kde-format
 msgid "Symbol Outline"
 msgstr "기호 요약"
 
-#: lspclientsymbolview.cpp:388
+#: lspclientsymbolview.cpp:386
 #, kde-format
 msgid "Tree Mode"
 msgstr "트리 모드"
 
-#: lspclientsymbolview.cpp:390
+#: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "자동으로 트리 펼치기"
 
-#: lspclientsymbolview.cpp:392
+#: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "가나다순으로 정렬"
 
-#: lspclientsymbolview.cpp:394
+#: lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Show Details"
 msgstr "자세히 보기"
 
-#: lspclientsymbolview.cpp:556
+#: lspclientsymbolview.cpp:554
 #, kde-format
 msgid "Symbols"
 msgstr "기호"
 
-#: lspclientsymbolview.cpp:616
+#: lspclientsymbolview.cpp:614
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr "LSP 서버에서 기호 요약을 지원하지 않습니다."
 
-#: lspclientsymbolview.cpp:694
+#: lspclientsymbolview.cpp:692
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "이 문서의 LSP 서버가 없습니다."

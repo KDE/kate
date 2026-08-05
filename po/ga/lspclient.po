@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-04 00:47+0000\n"
+"POT-Creation-Date: 2026-08-05 00:50+0000\n"
 "PO-Revision-Date: 2026-02-19 15:25+0000\n"
 "Last-Translator: charlotte <altronic25@protonmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "3 : 4\n"
 "X-Generator: Lokalize 25.12.2\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:359
 #, kde-format
 msgid "Filter…"
 msgstr "Scagaire…"
@@ -249,12 +249,12 @@ msgstr "Téigh Chuig"
 msgid "More options"
 msgstr "Tuilleadh roghanna"
 
-#: lspclientpluginview.cpp:844 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:844 lspclientsymbolview.cpp:395
 #, kde-format
 msgid "Expand All"
 msgstr "Leathnaigh Uile"
 
-#: lspclientpluginview.cpp:845 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:845 lspclientsymbolview.cpp:396
 #, kde-format
 msgid "Collapse All"
 msgstr "Laghdaigh Gach Rud"
@@ -435,42 +435,42 @@ msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr "Téigh go dtí an siombail roimhe seo a aibhsiú"
 
-#: lspclientsymbolview.cpp:342
+#: lspclientsymbolview.cpp:340
 #, kde-format
 msgid "Symbol Outline"
 msgstr "Imlíne Siombail"
 
-#: lspclientsymbolview.cpp:388
+#: lspclientsymbolview.cpp:386
 #, kde-format
 msgid "Tree Mode"
 msgstr "Mód Crann"
 
-#: lspclientsymbolview.cpp:390
+#: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "Leathnaigh an Crann go hUathoibríoch"
 
-#: lspclientsymbolview.cpp:392
+#: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Sórtáil in ord aibítre"
 
-#: lspclientsymbolview.cpp:394
+#: lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Show Details"
 msgstr "Taispeáin Sonraí"
 
-#: lspclientsymbolview.cpp:556
+#: lspclientsymbolview.cpp:554
 #, kde-format
 msgid "Symbols"
 msgstr "Siombailí"
 
-#: lspclientsymbolview.cpp:616
+#: lspclientsymbolview.cpp:614
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr "Ní thacaíonn freastalaí LSP le himlíne siombailí."
 
-#: lspclientsymbolview.cpp:694
+#: lspclientsymbolview.cpp:692
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Níl aon fhreastalaí LSP ann don doiciméad seo."

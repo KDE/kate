@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-04 00:47+0000\n"
+"POT-Creation-Date: 2026-08-05 00:50+0000\n"
 "PO-Revision-Date: 2025-12-31 18:14+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 25.12.0\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:359
 #, kde-format
 msgid "Filter…"
 msgstr "Filtrar…"
@@ -252,12 +252,12 @@ msgstr "Ir a"
 msgid "More options"
 msgstr "Más opciones"
 
-#: lspclientpluginview.cpp:844 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:844 lspclientsymbolview.cpp:395
 #, kde-format
 msgid "Expand All"
 msgstr "Expandir todo"
 
-#: lspclientpluginview.cpp:845 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:845 lspclientsymbolview.cpp:396
 #, kde-format
 msgid "Collapse All"
 msgstr "Contraer todo"
@@ -441,42 +441,42 @@ msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr "Ir al anterior símbolo resaltado"
 
-#: lspclientsymbolview.cpp:342
+#: lspclientsymbolview.cpp:340
 #, kde-format
 msgid "Symbol Outline"
 msgstr "Esquema de símbolos"
 
-#: lspclientsymbolview.cpp:388
+#: lspclientsymbolview.cpp:386
 #, kde-format
 msgid "Tree Mode"
 msgstr "Modo árbol"
 
-#: lspclientsymbolview.cpp:390
+#: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "Expandir el árbol automáticamente"
 
-#: lspclientsymbolview.cpp:392
+#: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Ordenar alfabéticamente"
 
-#: lspclientsymbolview.cpp:394
+#: lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Show Details"
 msgstr "Mostrar detalles"
 
-#: lspclientsymbolview.cpp:556
+#: lspclientsymbolview.cpp:554
 #, kde-format
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: lspclientsymbolview.cpp:616
+#: lspclientsymbolview.cpp:614
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr "El servidor LSP no permite esquema de símbolos."
 
-#: lspclientsymbolview.cpp:694
+#: lspclientsymbolview.cpp:692
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "No hay ningún servidor LSP para este documento."

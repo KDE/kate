@@ -70,6 +70,7 @@ public:
 
 protected:
     void showEvent(QShowEvent *e) override;
+    void resizeEvent(QResizeEvent *event) override;
 
 private:
     void clearData();
@@ -111,6 +112,7 @@ private:
     class DiffEditor *m_right;
     class QPlainTextEdit *const m_commitInfo;
     class Toolbar *const m_toolbar;
+    class QSplitter *m_splitter;
     DiffSyntaxHighlighter *leftHl;
     DiffSyntaxHighlighter *rightHl;
     DiffStyle m_style = SideBySide;
@@ -122,6 +124,7 @@ private:
     std::vector<int> m_linesWithFileName;
     bool m_stopScrollSync = false;
     bool m_blockShowEvent = true;
+    int m_commitInfoHeight = -1;
 
 Q_SIGNALS:
     void openFileRequested(QString path, int line, int columnNumber);

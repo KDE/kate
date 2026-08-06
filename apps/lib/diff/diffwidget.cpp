@@ -19,6 +19,7 @@
 #include <QRegularExpression>
 #include <QScopedValueRollback>
 #include <QScrollBar>
+#include <QSplitter>
 #include <QStyle>
 #include <QSyntaxHighlighter>
 #include <QTemporaryFile>
@@ -241,18 +242,41 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     , m_right(new DiffEditor(p.flags, this))
     , m_commitInfo(new CommitInfoView(this))
     , m_toolbar(new Toolbar(this))
+    , m_splitter(new QSplitter(Qt::Vertical, this))
     , m_params(p)
 {
     auto layout = new QVBoxLayout(this);
     layout->setSpacing(2);
     layout->setContentsMargins({});
     layout->addWidget(m_toolbar);
-    layout->addWidget(m_commitInfo);
+    layout->addWidget(m_splitter);
     auto diffLayout = new QHBoxLayout;
     diffLayout->setContentsMargins({});
     diffLayout->addWidget(m_left);
     diffLayout->addWidget(m_right);
-    layout->addLayout(diffLayout);
+    auto diffPane = new QWidget(this);
+    diffPane->setLayout(diffLayout);
+    m_splitter->setChildrenCollapsible(false);
+    m_splitter->addWidget(m_commitInfo);
+    m_splitter->addWidget(diffPane);
+
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+
+    auto timer = new QTimer(this);
+    timer->setSingleShot(true);
+    timer->setInterval(300);
+    connect(timer, &QTimer::timeout, this, [this, config] {
+        KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+        cgGeneral.writeEntry("Commit info height", m_commitInfoHeight);
+    });
+
+    m_commitInfoHeight = cgGeneral.readEntry("Commit info height", m_commitInfo->sizeHint().height());
+    m_splitter->setSizes({m_commitInfoHeight, m_splitter->height() - m_commitInfoHeight});
+    connect(m_splitter, &QSplitter::splitterMoved, this, [this, timer](int pos, int) {
+        m_commitInfoHeight = pos;
+        timer->start();
+    });
 
     leftHl = new DiffSyntaxHighlighter(m_left->document(), this);
     rightHl = new DiffSyntaxHighlighter(m_right->document(), this);
@@ -329,9 +353,6 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     const int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, this);
     m_toolbar->setIconSize(QSize(iconSize, iconSize));
 
-    KSharedConfig::Ptr config = KSharedConfig::openConfig();
-    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
-
     // DiffStyle::SideBySide defaults
     m_left->setOpenLineNumAEnabled(m_params.flags.testFlag(DiffParams::Flag::ShowEditLeftSide));
     m_right->setOpenLineNumAEnabled(m_params.flags.testFlag(DiffParams::Flag::ShowEditRightSide));
@@ -341,6 +362,19 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     // clear, after handleStyleChange there might be "no differences found" text
     m_left->clear();
     m_right->clear();
+}
+
+void DiffWidget::resizeEvent(QResizeEvent *event)
+{
+    QWidget::resizeEvent(event);
+    if (m_commitInfoHeight < 0) {
+        return;
+    }
+
+    int total = m_splitter->height();
+    int diffPaneMin = m_splitter->widget(1)->minimumSizeHint().height();
+    int splitterPos = std::min(m_commitInfoHeight, total - diffPaneMin);
+    m_splitter->setSizes({splitterPos, total - splitterPos});
 }
 
 DiffWidget::~DiffWidget()

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/katebuild-plugin.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-27 00:47+0000\n"
+"POT-Creation-Date: 2026-08-06 00:48+0000\n"
 "PO-Revision-Date: 2025-11-30 14:13+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -46,22 +46,22 @@ msgstr "Breiseán TógálaTóg Arís"
 msgid "Cancel"
 msgstr "Cealaigh"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:53
 #, kde-format
 msgid "Build & Run"
 msgstr "Breiseán TógálaTóg & Rith"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:59
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Socruithe Tógála & Rith"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Socraithe Tógála & Rith"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:117
 #, kde-format
 msgid "Delete all entries"
 msgstr "Scrios gach iontráil"

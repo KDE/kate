@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-27 00:47+0000\n"
+"POT-Creation-Date: 2026-08-06 00:48+0000\n"
 "PO-Revision-Date: 2025-08-26 09:43+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -50,22 +50,22 @@ msgstr "Torna a construir"
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:53
 #, kde-format
 msgid "Build & Run"
 msgstr "Construïx i executa"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:59
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Paràmetres de la construcció i execució"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Suprimix les entrades seleccionades"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:117
 #, kde-format
 msgid "Delete all entries"
 msgstr "Suprimix totes les entrades"

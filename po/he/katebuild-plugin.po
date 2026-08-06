@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-27 00:47+0000\n"
+"POT-Creation-Date: 2026-08-06 00:48+0000\n"
 "PO-Revision-Date: 2025-09-17 10:44+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -48,22 +48,22 @@ msgstr "בנייה חוזרת"
 msgid "Cancel"
 msgstr "ביטול"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:53
 #, kde-format
 msgid "Build & Run"
 msgstr "בנייה והרצה"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:59
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "הגדרות בנייה והרצה"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete selected entries"
 msgstr "מחיקת הרשומות הנבחרות"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:117
 #, kde-format
 msgid "Delete all entries"
 msgstr "מחיקת כל הרשומות"

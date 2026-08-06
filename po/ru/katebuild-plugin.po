@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-27 00:47+0000\n"
+"POT-Creation-Date: 2026-08-06 00:48+0000\n"
 "PO-Revision-Date: 2026-02-05 10:16+0300\n"
 "Last-Translator: Olesya Gerasimenko <goa@altlinux.org>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -55,22 +55,22 @@ msgstr "Собрать заново"
 msgid "Cancel"
 msgstr "Отменить"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:53
 #, kde-format
 msgid "Build & Run"
 msgstr "Сборка и запуск"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:59
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Параметры сборки и запуска"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Удалить выбранные записи"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:117
 #, kde-format
 msgid "Delete all entries"
 msgstr "Удалить все записи"

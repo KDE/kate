@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-27 00:47+0000\n"
+"POT-Creation-Date: 2026-08-06 00:48+0000\n"
 "PO-Revision-Date: 2026-05-30 16:54-0400\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -46,22 +46,22 @@ msgstr "قايتا ھاسىللا"
 msgid "Cancel"
 msgstr "ۋاز كەچ"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:53
 #, kde-format
 msgid "Build & Run"
 msgstr "ھاسىللا ۋە ئىجرا قىل"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:59
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "ھاسىللا ۋە ئىجرا قىلىش تەڭشىكى"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete selected entries"
 msgstr "تاللانغان تۈرنى ئۆچۈر"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:117
 #, kde-format
 msgid "Delete all entries"
 msgstr "ھەممە تۈرنى ئۆچۈر"

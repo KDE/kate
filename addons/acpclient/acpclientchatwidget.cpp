@@ -236,7 +236,7 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
 void ACPClientChatWidget::clearMessages()
 {
     // Delete all message widgets and their containers
-    for (ACPChatMessageWidget *widget : m_messageWidgets) {
+    for (ACPChatMessageWidget *widget : std::as_const(m_messageWidgets)) {
         QWidget *container = m_widgetToContainerMap.value(widget);
         if (container) {
             container->deleteLater();
@@ -288,7 +288,7 @@ void ACPClientChatWidget::updateLastUserMessageStatus(MessageStatus status)
 QString ACPClientChatWidget::getAllChatText() const
 {
     QString allText;
-    for (ACPChatMessageWidget *widget : m_messageWidgets) {
+    for (ACPChatMessageWidget *widget : std::as_const(m_messageWidgets)) {
         if (!allText.isEmpty()) {
             allText += QLatin1String("\n\n");
         }
@@ -879,7 +879,7 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
 void ACPClientChatWidget::handlePlanUpdate(const QJsonObject &update)
 {
     if (update.contains(u"entries") && update[u"entries"].isArray()) {
-        QJsonArray entries = update[u"entries"].toArray();
+        const QJsonArray entries = update[u"entries"].toArray();
 
         ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Plan, m_chatListWidget);
         msgWidget->setTimestamp(QDateTime::currentDateTime());
@@ -934,7 +934,7 @@ void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
             command = arguments[u"cmd"].toString();
         } else if (arguments.contains(u"args") && arguments[u"args"].isArray()) {
             // Build command from args array
-            QJsonArray args = arguments[u"args"].toArray();
+            const QJsonArray args = arguments[u"args"].toArray();
             QStringList argList;
             for (const QJsonValue &argValue : args) {
                 if (argValue.isString()) {
@@ -1024,7 +1024,7 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
 
     // If we have a command and a toolCallId, try to update the existing ToolCall widget
     if (!command.isEmpty() && !toolCallId.isEmpty()) {
-        for (ACPChatMessageWidget *widget : m_messageWidgets) {
+        for (ACPChatMessageWidget *widget : std::as_const(m_messageWidgets)) {
             if (widget->type() == ACPChatMessageWidget::MessageType::ToolCall && widget->toolCallId() == toolCallId && widget->toolCommand().isEmpty()) {
                 // Found the ToolCall widget without a command - update it
                 widget->setToolCallCommand(command);
@@ -1035,12 +1035,12 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
 
     // Check for content
     if (update.contains(u"content") && update[u"content"].isArray()) {
-        QJsonArray contentArray = update[u"content"].toArray();
+        const QJsonArray contentArray = update[u"content"].toArray();
         for (const QJsonValue &contentValue : contentArray) {
             if (contentValue.isObject()) {
-                QJsonObject content = contentValue.toObject();
+                const QJsonObject content = contentValue.toObject();
                 if (content.contains(u"content") && content[u"content"].isObject()) {
-                    QJsonObject innerContent = content[u"content"].toObject();
+                    const QJsonObject innerContent = content[u"content"].toObject();
                     if (innerContent.contains(u"type") && innerContent[u"type"].toString() == QStringLiteral("text")) {
                         contentText = innerContent[u"text"].toString();
                         break;
@@ -1052,7 +1052,7 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
 
     // Find the existing ToolCall widget for this toolCallId and update it
     if (!toolCallId.isEmpty()) {
-        for (ACPChatMessageWidget *widget : m_messageWidgets) {
+        for (ACPChatMessageWidget *widget : std::as_const(m_messageWidgets)) {
             if (widget->type() == ACPChatMessageWidget::MessageType::ToolCall && widget->toolCallId() == toolCallId) {
                 // Found the ToolCall widget - update its status and content
                 widget->setToolCallStatus(toolCallId, status, contentText);

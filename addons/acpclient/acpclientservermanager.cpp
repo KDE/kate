@@ -63,27 +63,26 @@ void ACPClientServerManager::loadDefaultServers()
     // create the servers for the config
     // FIXME: what to do if we have some that are already running on reload?
 
-    if (m_serverConfig.contains(u"servers") && m_serverConfig[u"servers"].isArray()) {
-        QJsonArray servers = m_serverConfig[u"servers"].toArray();
-        for (const QJsonValue &v : servers) {
-            if (v.isObject()) {
-                QJsonObject serverObj = v.toObject();
-                ACPClientServer::ServerInfo info;
+    if (m_serverConfig.contains(u"servers") && m_serverConfig[u"servers"].isObject()) {
+        QJsonObject servers = m_serverConfig[u"servers"].toObject();
+        for (auto it = servers.constBegin(); it != servers.constEnd(); ++it) {
+            const QString &serverName = it.key();
+            const QJsonObject &serverObj = it.value().toObject();
+            ACPClientServer::ServerInfo info;
 
-                info.name = serverObj[u"name"].toString();
-                info.version = serverObj[u"version"].toString();
-                info.command = serverObj[u"command"].toString();
+            info.name = serverName;
+            info.version = serverObj[u"version"].toString();
+            info.command = serverObj[u"command"].toString();
 
-                if (serverObj.contains(u"arguments") && serverObj[u"arguments"].isArray()) {
-                    QJsonArray args = serverObj[u"arguments"].toArray();
-                    for (const QJsonValue &arg : args) {
-                        info.arguments.append(arg.toString());
-                    }
+            if (serverObj.contains(u"arguments") && serverObj[u"arguments"].isArray()) {
+                QJsonArray args = serverObj[u"arguments"].toArray();
+                for (const QJsonValue &arg : args) {
+                    info.arguments.append(arg.toString());
                 }
-
-                // Create the server but don't auto-start here (handled by createServer)
-                createServer(info);
             }
+
+            // Create the server but don't auto-start here (handled by createServer)
+            createServer(info);
         }
     }
 }

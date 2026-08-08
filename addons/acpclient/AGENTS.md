@@ -180,20 +180,20 @@ Stored in `~/.config/kate/acpclient/settings.json`:
 
 ```json
 {
-  "version": "1.0",
-  "acp_protocol_version": "2.0",
-  "servers": [
-    {
-      "name": "Mistral Vibe (vibe-acp)",
-      "version": "1.0",
+  "servers": {
+    "Mistral Vibe": {
       "command": "vibe-acp",
       "arguments": [],
-      "auto_start": true
+      "version": "1.0",
+      "description": "Mistral AI's Vibe CLI with ACP support",
+      "repository": "https://github.com/mistralai/vibe",
+      "website": "https://vibe.mistral.ai/"
     }
-  ],
-  "options": {...}
+  }
 }
 ```
+
+Note: The `servers` field is an object where each key is the server name.
 
 ## Development Guidelines
 

@@ -1,140 +1,123 @@
 {
-    "servers": [
-        {
-            "name": "Mistral Vibe",
+    "servers": {
+        "Mistral Vibe": {
             "command": "vibe-acp",
             "arguments": [],
             "description": "Mistral AI's Vibe CLI with ACP support",
             "repository": "https://github.com/mistralai/vibe",
             "website": "https://vibe.mistral.ai/"
         },
-        {
-            "name": "Claude Agent",
+        "Claude Agent": {
             "command": "npx",
             "arguments": ["@agentclientprotocol/claude-agent-acp"],
             "description": "ACP wrapper for Anthropic's Claude",
             "repository": "https://github.com/agentclientprotocol/claude-agent-acp",
             "website": "https://www.anthropic.com/"
         },
-        {
-            "name": "Amp",
+        "Amp": {
             "command": "amp-acp",
             "arguments": [],
             "description": "ACP wrapper for Amp - the frontier coding agent",
             "repository": "https://github.com/tao12345666333/amp-acp",
             "website": ""
         },
-        {
-            "name": "Codex",
+        "Codex": {
             "command": "npx",
             "arguments": ["@agentclientprotocol/codex-acp"],
             "description": "ACP adapter for OpenAI's coding assistant",
             "repository": "https://github.com/agentclientprotocol/codex-acp",
             "website": ""
         },
-        {
-            "name": "Cursor",
+        "Cursor": {
             "command": "cursor-agent",
             "arguments": ["acp"],
             "description": "Cursor's coding agent",
             "repository": "",
             "website": "https://cursor.com/docs/cli/acp"
         },
-        {
-            "name": "Devin",
+        "Devin": {
             "command": "devin",
             "arguments": ["acp"],
             "description": "Devin CLI coding agent by Cognition",
             "repository": "https://github.com/CognitionAI/devin-cli",
             "website": "https://docs.devin.ai/cli"
         },
-        {
-            "name": "Auggie CLI",
+        "Auggie CLI": {
             "command": "npx",
             "arguments": ["@augmentcode/auggie", "--acp"],
             "description": "Augment Code's powerful software agent, backed by industry-leading context engine",
             "repository": "https://github.com/augmentcode/auggie",
             "website": "https://www.augmentcode.com/"
         },
-        {
-            "name": "Autohand Code",
+        "Autohand Code": {
             "command": "npx",
             "arguments": ["@autohandai/autohand-acp"],
             "description": "Autohand Code - AI coding agent powered by Autohand AI",
             "repository": "https://github.com/autohandai/autohand-acp",
             "website": "https://www.autohand.ai/cli/"
         },
-        {
-            "name": "Cortex Code",
+        "Cortex Code": {
             "command": "cortex",
             "arguments": ["acp", "serve"],
             "description": "Snowflake's Cortex Code coding agent",
             "repository": "",
             "website": "https://docs.snowflake.com/en/user-guide/cortex-code/cortex-code"
         },
-        {
-            "name": "Corust Agent",
+        "Corust Agent": {
             "command": "corust-agent-acp",
             "arguments": [],
             "description": "Co-building with a seasoned Rust partner",
             "repository": "https://github.com/Corust-ai/corust-agent-release",
             "website": "https://corust.ai/"
         },
-        {
-            "name": "Cline",
+        "Cline": {
             "command": "npx",
             "arguments": ["cline", "--acp"],
             "description": "Autonomous coding agent CLI - capable of creating/editing files, running commands, using the browser, and more",
             "repository": "https://github.com/cline/cline",
             "website": "https://cline.bot/cli"
         },
-        {
-            "name": "Codebuddy Code",
+        "Codebuddy Code": {
             "command": "npx",
             "arguments": ["@tencent-ai/codebuddy-code", "--acp"],
             "description": "Tencent Cloud's official intelligent coding tool",
             "repository": "",
             "website": "https://www.codebuddy.cn/cli/"
         },
-        {
-            "name": "crow-cli",
+        "crow-cli": {
             "command": "crow-cli",
             "arguments": ["acp"],
             "description": "Minimal ACP Native Coding Agent",
             "repository": "https://github.com/crow-cli/crow-cli",
             "website": "https://crow-ai.dev"
         },
-        {
-            "name": "DeepAgents",
+        "DeepAgents": {
             "command": "npx",
             "arguments": ["deepagents-acp"],
             "description": "Batteries-included AI coding and general purpose agent powered by LangChain",
             "repository": "https://github.com/langchain-ai/deepagentsjs",
             "website": "https://docs.langchain.com/oss/javascript/deepagents/overview"
         },
-        {
-            "name": "Agoragentic",
+        "Agoragentic": {
             "command": "npx",
             "arguments": ["agoragentic-mcp", "--acp"],
             "description": "Agent marketplace with 174+ AI capabilities",
             "repository": "https://github.com/rhein1/agoragentic-integrations",
             "website": "https://agoragentic.com"
         },
-        {
-            "name": "Gemini CLI",
+        "Gemini CLI": {
             "command": "npx",
             "arguments": ["@google/gemini-cli"],
             "description": "Gemini CLI AI agent",
             "repository": "",
             "website": ""
         },
-        {
-            "name": "GitHub Copilot",
+        "GitHub Copilot": {
             "command": "npx",
             "arguments": ["@github/copilot"],
             "description": "GitHub Copilot CLI",
             "repository": "",
             "website": ""
         }
-    ]
+    }
 }

@@ -333,7 +333,7 @@ void ACPChatMessageWidget::updateContentDisplay()
         break;
     }
     case MessageType::Plan: {
-        for (const PlanEntry &entry : m_planEntries) {
+        for (const PlanEntry &entry : std::as_const(m_planEntries)) {
             QWidget *entryWidget = new QWidget(m_contentWidget);
             entryWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
             QHBoxLayout *entryLayout = new QHBoxLayout(entryWidget);

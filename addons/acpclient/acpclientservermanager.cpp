@@ -113,7 +113,7 @@ void ACPClientServerManager::loadDefaultServers()
             info.command = serverObj[u"command"].toString();
 
             if (serverObj.contains(u"arguments") && serverObj[u"arguments"].isArray()) {
-                QJsonArray args = serverObj[u"arguments"].toArray();
+                const QJsonArray args = serverObj[u"arguments"].toArray();
                 for (const QJsonValue &arg : args) {
                     info.arguments.append(arg.toString());
                 }
@@ -176,7 +176,6 @@ void ACPClientServerManager::removeServer(ACPClientServer *server)
 {
     for (auto it = m_servers.begin(); it != m_servers.end(); ++it) {
         if (it->second.get() == server) {
-            const QString serverName = it->first;
             server->stop();
 
             if (m_activeServer == server) {

@@ -566,7 +566,7 @@ bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeRe
         result.capabilities.supportsAuthentication = caps[u"supportsAuthentication"].toBool();
 
         if (caps.contains(u"supportedProtocolVersions")) {
-            QJsonArray versions = caps[u"supportedProtocolVersions"].toArray();
+            const QJsonArray versions = caps[u"supportedProtocolVersions"].toArray();
             for (const QJsonValue &v : versions) {
                 result.capabilities.supportedProtocolVersions.append(v.toString());
             }

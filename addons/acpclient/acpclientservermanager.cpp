@@ -29,10 +29,7 @@ void ACPClientServerManager::loadDefaultServers()
     qCDebug(ACPCLIENT) << "Loading default ACP servers";
 
     // Load from shipped settings.json
-    QString settingsPath = QStringLiteral(":/kateacpclient/settings.json");
-    QFile settingsFile(settingsPath);
-
-    if (settingsFile.exists() && settingsFile.open(QIODevice::ReadOnly)) {
+    if (QFile settingsFile(QStringLiteral(":/kateacpclient/settings.json")); settingsFile.open(QIODevice::ReadOnly)) {
         QJsonParseError parseError;
         QJsonDocument doc = QJsonDocument::fromJson(settingsFile.readAll(), &parseError);
 
@@ -62,17 +59,6 @@ void ACPClientServerManager::loadDefaultServers()
                 }
             }
         }
-        settingsFile.close();
-    }
-
-    // If no servers were loaded, add vibe-acp as default
-    if (m_servers.empty()) {
-        qCDebug(ACPCLIENT) << "No servers in config, adding default vibe-acp";
-        ACPClientServer::ServerInfo vibeServer;
-        vibeServer.name = QStringLiteral("Mistral Vibe (vibe-acp)");
-        vibeServer.version = QStringLiteral("1.0");
-        vibeServer.command = QStringLiteral("vibe-acp");
-        createServer(vibeServer);
     }
 }
 

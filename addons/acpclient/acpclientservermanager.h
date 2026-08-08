@@ -62,7 +62,7 @@ public:
      * @param info Server configuration
      * @return Pointer to the new server (managed by this manager)
      *
-     * The server will be added to the internal list and started if autoStart is true.
+     * The server will be added to the internal list.
      * The serverAdded signal will be emitted.
      */
     ACPClientServer *createServer(const ACPClientServer::ServerInfo &info);

@@ -56,8 +56,6 @@ void ACPClientServerManager::loadDefaultServers()
                             }
                         }
 
-                        info.autoStart = serverObj[u"auto_start"].toBool();
-
                         // Create the server but don't auto-start here (handled by createServer)
                         createServer(info);
                     }

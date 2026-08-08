@@ -46,11 +46,6 @@ ki18n_wrap_ui(acpclientplugin
     acpclientchat.ui
 )
 
-qt_add_resources(acpclientplugin plugin.qrc
-    PREFIX "/kxmlgui5/kateacpclient"
-    FILES ui.rc
-)
-
 if (ENABLE_PCH)
     target_precompile_headers(acpclientplugin REUSE_FROM katepch)
 endif()

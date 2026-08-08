@@ -12,6 +12,7 @@
 
 #include <QDateTime>
 #include <QHeaderView>
+#include <QJsonObject>
 #include <QTreeWidget>
 #include <QVBoxLayout>
 

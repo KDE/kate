@@ -634,7 +634,7 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         // If we have explicit options, use them
         if (!m_permissionOptions.isEmpty()) {
-            for (const PermissionOption &option : m_permissionOptions) {
+            for (const PermissionOption &option : std::as_const(m_permissionOptions)) {
                 QPushButton *button = new QPushButton(option.name, buttonWidget);
                 button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
                 button->setProperty("requestId", QVariant::fromValue(m_requestId));

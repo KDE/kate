@@ -201,11 +201,4 @@ private:
      * Created on first view creation and shared across all views.
      */
     ACPClientServerManager m_serverManager;
-
-    /**
-     * @brief List of all plugin views (one per main window)
-     *
-     * Used to broadcast signals to all open windows.
-     */
-    QList<ACPClientPluginView *> m_views;
 };

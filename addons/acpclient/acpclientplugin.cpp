@@ -63,7 +63,7 @@ ACPClientPlugin::ACPClientPlugin(QObject *parent)
         oldCategoryFilter = QLoggingCategory::installFilter(myCategoryFilter);
     }
 
-    // Apply our config
+    // Apply our config, will trigger server manager settings loading, too
     readConfig();
 }
 
@@ -71,10 +71,7 @@ ACPClientPlugin::~ACPClientPlugin() = default;
 
 QObject *ACPClientPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    qCDebug(ACPCLIENT) << "Creating view for main window";
-
     auto view = new ACPClientPluginView(this, mainWindow, &m_serverManager);
-    m_views.append(view);
 
     connect(this, &ACPClientPlugin::showMessage, mainWindow, [](KTextEditor::Message::MessageType level, const QString &msg) {
         KTextEditor::Message *message = new KTextEditor::Message(msg, level);

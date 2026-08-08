@@ -18,10 +18,8 @@ ACPClientServerManager::ACPClientServerManager(ACPClientPlugin *plugin, QObject 
     : QObject(parent)
     , m_plugin(plugin)
 {
-    qCDebug(ACPCLIENT) << "ACPClientServerManager created";
-
-    // Load default servers on creation
-    loadDefaultServers();
+    // we load the server config on change, plugin will emit that once on startup, too
+    connect(m_plugin, &ACPClientPlugin::update, this, &ACPClientServerManager::loadDefaultServers);
 }
 
 void ACPClientServerManager::loadDefaultServers()

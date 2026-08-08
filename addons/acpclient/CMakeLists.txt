@@ -6,11 +6,9 @@ kate_add_plugin(acpclientplugin)
 target_compile_definitions(acpclientplugin PRIVATE TRANSLATION_DOMAIN="acpclient")
 
 target_link_libraries(
-  acpclientplugin
-  PRIVATE
+    acpclientplugin
+    PRIVATE
     kateprivate
-    KF6::I18n
-    KF6::TextEditor
 )
 
 target_sources(

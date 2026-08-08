@@ -1,18 +1,11 @@
 {
     "servers": {
-        "Mistral Vibe": {
-            "command": "vibe-acp",
-            "arguments": [],
-            "description": "Mistral AI's Vibe CLI with ACP support",
-            "repository": "https://github.com/mistralai/vibe",
-            "website": "https://vibe.mistral.ai/"
-        },
-        "Claude Agent": {
+        "Agoragentic": {
             "command": "npx",
-            "arguments": ["@agentclientprotocol/claude-agent-acp"],
-            "description": "ACP wrapper for Anthropic's Claude",
-            "repository": "https://github.com/agentclientprotocol/claude-agent-acp",
-            "website": "https://www.anthropic.com/"
+            "arguments": ["agoragentic-mcp", "--acp"],
+            "description": "Agent marketplace with 174+ AI capabilities",
+            "repository": "https://github.com/rhein1/agoragentic-integrations",
+            "website": "https://agoragentic.com"
         },
         "Amp": {
             "command": "amp-acp",
@@ -20,27 +13,6 @@
             "description": "ACP wrapper for Amp - the frontier coding agent",
             "repository": "https://github.com/tao12345666333/amp-acp",
             "website": ""
-        },
-        "Codex": {
-            "command": "npx",
-            "arguments": ["@agentclientprotocol/codex-acp"],
-            "description": "ACP adapter for OpenAI's coding assistant",
-            "repository": "https://github.com/agentclientprotocol/codex-acp",
-            "website": ""
-        },
-        "Cursor": {
-            "command": "cursor-agent",
-            "arguments": ["acp"],
-            "description": "Cursor's coding agent",
-            "repository": "",
-            "website": "https://cursor.com/docs/cli/acp"
-        },
-        "Devin": {
-            "command": "devin",
-            "arguments": ["acp"],
-            "description": "Devin CLI coding agent by Cognition",
-            "repository": "https://github.com/CognitionAI/devin-cli",
-            "website": "https://docs.devin.ai/cli"
         },
         "Auggie CLI": {
             "command": "npx",
@@ -56,19 +28,12 @@
             "repository": "https://github.com/autohandai/autohand-acp",
             "website": "https://www.autohand.ai/cli/"
         },
-        "Cortex Code": {
-            "command": "cortex",
-            "arguments": ["acp", "serve"],
-            "description": "Snowflake's Cortex Code coding agent",
-            "repository": "",
-            "website": "https://docs.snowflake.com/en/user-guide/cortex-code/cortex-code"
-        },
-        "Corust Agent": {
-            "command": "corust-agent-acp",
-            "arguments": [],
-            "description": "Co-building with a seasoned Rust partner",
-            "repository": "https://github.com/Corust-ai/corust-agent-release",
-            "website": "https://corust.ai/"
+        "Claude Agent": {
+            "command": "npx",
+            "arguments": ["@agentclientprotocol/claude-agent-acp"],
+            "description": "ACP wrapper for Anthropic's Claude",
+            "repository": "https://github.com/agentclientprotocol/claude-agent-acp",
+            "website": "https://www.anthropic.com/"
         },
         "Cline": {
             "command": "npx",
@@ -84,6 +49,34 @@
             "repository": "",
             "website": "https://www.codebuddy.cn/cli/"
         },
+        "Codex": {
+            "command": "npx",
+            "arguments": ["@agentclientprotocol/codex-acp"],
+            "description": "ACP adapter for OpenAI's coding assistant",
+            "repository": "https://github.com/agentclientprotocol/codex-acp",
+            "website": ""
+        },
+        "Cortex Code": {
+            "command": "cortex",
+            "arguments": ["acp", "serve"],
+            "description": "Snowflake's Cortex Code coding agent",
+            "repository": "",
+            "website": "https://docs.snowflake.com/en/user-guide/cortex-code/cortex-code"
+        },
+        "Corust Agent": {
+            "command": "corust-agent-acp",
+            "arguments": [],
+            "description": "Co-building with a seasoned Rust partner",
+            "repository": "https://github.com/Corust-ai/corust-agent-release",
+            "website": "https://corust.ai/"
+        },
+        "Cursor": {
+            "command": "cursor-agent",
+            "arguments": ["acp"],
+            "description": "Cursor's coding agent",
+            "repository": "",
+            "website": "https://cursor.com/docs/cli/acp"
+        },
         "crow-cli": {
             "command": "crow-cli",
             "arguments": ["acp"],
@@ -91,19 +84,19 @@
             "repository": "https://github.com/crow-cli/crow-cli",
             "website": "https://crow-ai.dev"
         },
+        "Devin": {
+            "command": "devin",
+            "arguments": ["acp"],
+            "description": "Devin CLI coding agent by Cognition",
+            "repository": "https://github.com/CognitionAI/devin-cli",
+            "website": "https://docs.devin.ai/cli"
+        },
         "DeepAgents": {
             "command": "npx",
             "arguments": ["deepagents-acp"],
             "description": "Batteries-included AI coding and general purpose agent powered by LangChain",
             "repository": "https://github.com/langchain-ai/deepagentsjs",
             "website": "https://docs.langchain.com/oss/javascript/deepagents/overview"
-        },
-        "Agoragentic": {
-            "command": "npx",
-            "arguments": ["agoragentic-mcp", "--acp"],
-            "description": "Agent marketplace with 174+ AI capabilities",
-            "repository": "https://github.com/rhein1/agoragentic-integrations",
-            "website": "https://agoragentic.com"
         },
         "Gemini CLI": {
             "command": "npx",
@@ -118,6 +111,13 @@
             "description": "GitHub Copilot CLI",
             "repository": "",
             "website": ""
+        },
+        "Mistral Vibe": {
+            "command": "vibe-acp",
+            "arguments": [],
+            "description": "Mistral AI's Vibe CLI with ACP support",
+            "repository": "https://github.com/mistralai/vibe",
+            "website": "https://vibe.mistral.ai/"
         }
     }
 }

@@ -203,7 +203,7 @@ void ACPClientPluginView::onMessageReceived(const QJsonDocument &message)
         if (obj.contains(u"method")) {
             QString method = obj[u"method"].toString();
 
-            if (method == ACP::NOTIFICATION_SESSION_UPDATE) {
+            if (method == ACP::notificationSessionUpdate()) {
                 // Handle session update
                 if (obj.contains(u"params")) {
                     QJsonObject params = obj[u"params"].toObject();

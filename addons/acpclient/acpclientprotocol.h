@@ -35,8 +35,14 @@ namespace ACP
 {
 
 // ACP Protocol Version - should be integer 1 for v1
-const int PROTOCOL_VERSION_INT = 1;
-const QString PROTOCOL_VERSION = QStringLiteral("1");
+inline int protocolVersionInt()
+{
+    return 1;
+}
+inline QString protocolVersion()
+{
+    return QStringLiteral("1");
+}
 
 // ============================================================================
 // ACP METHOD CONSTANTS
@@ -44,49 +50,94 @@ const QString PROTOCOL_VERSION = QStringLiteral("1");
 // ============================================================================
 
 /** @brief Initialize a new ACP connection */
-const QString METHOD_INITIALIZE = QStringLiteral("initialize");
+inline QString methodInitialize()
+{
+    return QStringLiteral("initialize");
+}
 
 /** @brief Authenticate with an auth provider */
-const QString METHOD_AUTH_LOGIN = QStringLiteral("auth/login");
+inline QString methodAuthLogin()
+{
+    return QStringLiteral("auth/login");
+}
 
 /** @brief Create a new conversation session */
-const QString METHOD_SESSION_NEW = QStringLiteral("session/new");
+inline QString methodSessionNew()
+{
+    return QStringLiteral("session/new");
+}
 
 /** @brief Load a previously saved session */
-const QString METHOD_SESSION_LOAD = QStringLiteral("session/load");
+inline QString methodSessionLoad()
+{
+    return QStringLiteral("session/load");
+}
 
 /** @brief Resume a paused session */
-const QString METHOD_SESSION_RESUME = QStringLiteral("session/resume");
+inline QString methodSessionResume()
+{
+    return QStringLiteral("session/resume");
+}
 
 /** @brief Close an active session */
-const QString METHOD_SESSION_CLOSE = QStringLiteral("session/close");
+inline QString methodSessionClose()
+{
+    return QStringLiteral("session/close");
+}
 
 /** @brief List all available sessions */
-const QString METHOD_SESSION_LIST = QStringLiteral("session/list");
+inline QString methodSessionList()
+{
+    return QStringLiteral("session/list");
+}
 
 /** @brief Delete a session */
-const QString METHOD_SESSION_DELETE = QStringLiteral("session/delete");
+inline QString methodSessionDelete()
+{
+    return QStringLiteral("session/delete");
+}
 
 /** @brief Send a prompt/message to a session */
-const QString METHOD_SESSION_PROMPT = QStringLiteral("session/prompt");
+inline QString methodSessionPrompt()
+{
+    return QStringLiteral("session/prompt");
+}
 
 /** @brief Cancel the current agent operation */
-const QString METHOD_SESSION_CANCEL = QStringLiteral("session/cancel");
+inline QString methodSessionCancel()
+{
+    return QStringLiteral("session/cancel");
+}
 
 /** @brief Request permission for a tool call (server -> client notification) */
-const QString METHOD_SESSION_REQUEST_PERMISSION = QStringLiteral("session/request_permission");
+inline QString methodSessionRequestPermission()
+{
+    return QStringLiteral("session/request_permission");
+}
 
 /** @brief List available tools from the agent */
-const QString METHOD_TOOLS_LIST = QStringLiteral("tools/list");
+inline QString methodToolsList()
+{
+    return QStringLiteral("tools/list");
+}
 
 /** @brief Call a specific tool */
-const QString METHOD_TOOLS_CALL = QStringLiteral("tools/call");
+inline QString methodToolsCall()
+{
+    return QStringLiteral("tools/call");
+}
 
 /** @brief Send progress update (rarely used, prefer $/progress notification) */
-const QString METHOD_PROGRESS = QStringLiteral("progress");
+inline QString methodProgress()
+{
+    return QStringLiteral("progress");
+}
 
 /** @brief Generic notification method */
-const QString METHOD_NOTIFICATION = QStringLiteral("notification");
+inline QString methodNotification()
+{
+    return QStringLiteral("notification");
+}
 
 // ============================================================================
 // NOTIFICATION CONSTANTS
@@ -94,13 +145,22 @@ const QString METHOD_NOTIFICATION = QStringLiteral("notification");
 // ============================================================================
 
 /** @brief Session state update notification (streaming responses) */
-const QString NOTIFICATION_SESSION_UPDATE = QStringLiteral("session/update");
+inline QString notificationSessionUpdate()
+{
+    return QStringLiteral("session/update");
+}
 
 /** @brief Progress notification for long-running operations */
-const QString NOTIFICATION_PROGRESS = QStringLiteral("$/progress");
+inline QString notificationProgress()
+{
+    return QStringLiteral("$/progress");
+}
 
 /** @brief Cancellation request notification */
-const QString NOTIFICATION_CANCELLATION = QStringLiteral("$/cancel_request");
+inline QString notificationCancellation()
+{
+    return QStringLiteral("$/cancel_request");
+}
 
 // ============================================================================
 // SESSION UPDATE TYPES
@@ -108,78 +168,144 @@ const QString NOTIFICATION_CANCELLATION = QStringLiteral("$/cancel_request");
 // ============================================================================
 
 /** @brief Agent is sending a plan/step update */
-const QString SESSION_UPDATE_PLAN = QStringLiteral("plan");
+inline QString sessionUpdatePlan()
+{
+    return QStringLiteral("plan");
+}
 
 /** @brief Streaming chunk of agent's text response */
-const QString SESSION_UPDATE_AGENT_MESSAGE_CHUNK = QStringLiteral("agent_message_chunk");
+inline QString sessionUpdateAgentMessageChunk()
+{
+    return QStringLiteral("agent_message_chunk");
+}
 
 /** @brief Streaming chunk of user message (echo) */
-const QString SESSION_UPDATE_USER_MESSAGE_CHUNK = QStringLiteral("user_message_chunk");
+inline QString sessionUpdateUserMessageChunk()
+{
+    return QStringLiteral("user_message_chunk");
+}
 
 /** @brief Streaming chunk of agent's thought process */
-const QString SESSION_UPDATE_THOUGHT_MESSAGE_CHUNK = QStringLiteral("thought_message_chunk");
+inline QString sessionUpdateThoughtMessageChunk()
+{
+    return QStringLiteral("thought_message_chunk");
+}
 
 /** @brief Notification that agent is calling a tool */
-const QString SESSION_UPDATE_TOOL_CALL = QStringLiteral("tool_call");
+inline QString sessionUpdateToolCall()
+{
+    return QStringLiteral("tool_call");
+}
 
 /** @brief Progress update for a running tool call */
-const QString SESSION_UPDATE_TOOL_CALL_UPDATE = QStringLiteral("tool_call_update");
+inline QString sessionUpdateToolCallUpdate()
+{
+    return QStringLiteral("tool_call_update");
+}
 
 /** @brief Token usage or cost information update */
-const QString SESSION_UPDATE_USAGE_UPDATE = QStringLiteral("usage_update");
+inline QString sessionUpdateUsageUpdate()
+{
+    return QStringLiteral("usage_update");
+}
 
 /** @brief Agent mode change notification */
-const QString SESSION_UPDATE_MODE = QStringLiteral("mode");
+inline QString sessionUpdateMode()
+{
+    return QStringLiteral("mode");
+}
 
 /** @brief Available commands/actions update */
-const QString SESSION_UPDATE_AVAILABLE_COMMANDS = QStringLiteral("available_commands");
+inline QString sessionUpdateAvailableCommands()
+{
+    return QStringLiteral("available_commands");
+}
 
 // ============================================================================
 // PERMISSION CONSTANTS
 // ============================================================================
 
 /** @brief Allow the action once */
-const QString PERMISSION_KIND_ALLOW_ONCE = QStringLiteral("allow_once");
+inline QString permissionKindAllowOnce()
+{
+    return QStringLiteral("allow_once");
+}
 
 /** @brief Allow the action and remember for future requests */
-const QString PERMISSION_KIND_ALLOW_ALWAYS = QStringLiteral("allow_always");
+inline QString permissionKindAllowAlways()
+{
+    return QStringLiteral("allow_always");
+}
 
 /** @brief Reject the action once */
-const QString PERMISSION_KIND_REJECT_ONCE = QStringLiteral("reject_once");
+inline QString permissionKindRejectOnce()
+{
+    return QStringLiteral("reject_once");
+}
 
 /** @brief Reject the action and remember for future requests */
-const QString PERMISSION_KIND_REJECT_ALWAYS = QStringLiteral("reject_always");
+inline QString permissionKindRejectAlways()
+{
+    return QStringLiteral("reject_always");
+}
 
 /** @brief User selected a permission option */
-const QString PERMISSION_OUTCOME_SELECTED = QStringLiteral("selected");
+inline QString permissionOutcomeSelected()
+{
+    return QStringLiteral("selected");
+}
 
 /** @brief User cancelled the permission request */
-const QString PERMISSION_OUTCOME_CANCELLED = QStringLiteral("cancelled");
+inline QString permissionOutcomeCancelled()
+{
+    return QStringLiteral("cancelled");
+}
 
 // ============================================================================
 // JSON-RPC FIELD CONSTANTS
 // ============================================================================
 
 /** @brief JSON-RPC version field name */
-const QString JSONRPC_VERSION_KEY = QStringLiteral("jsonrpc");
+inline QString jsonrpcVersionKey()
+{
+    return QStringLiteral("jsonrpc");
+}
 
 /** @brief JSON-RPC version value (always 2.0) */
-const QString JSONRPC_VERSION_VALUE = QStringLiteral("2.0");
+inline QString jsonrpcVersionValue()
+{
+    return QStringLiteral("2.0");
+}
 
 /** @brief Request/response ID field name */
-const QString JSONRPC_ID = QStringLiteral("id");
+inline QString jsonrpcId()
+{
+    return QStringLiteral("id");
+}
 
 /** @brief Method name field */
-const QString JSONRPC_METHOD = QStringLiteral("method");
+inline QString jsonrpcMethod()
+{
+    return QStringLiteral("method");
+}
 
 /** @brief Parameters object field */
-const QString JSONRPC_PARAMS = QStringLiteral("params");
+inline QString jsonrpcParams()
+{
+    return QStringLiteral("params");
+}
 
 /** @brief Result object field (in responses) */
-const QString JSONRPC_RESULT = QStringLiteral("result");
+inline QString jsonrpcResult()
+{
+    return QStringLiteral("result");
+}
 
 /** @brief Error object field (in error responses) */
-const QString JSONRPC_ERROR = QStringLiteral("error");
+inline QString jsonrpcError()
+{
+    return QStringLiteral("error");
+}
 
 // ============================================================================
 // CAPABILITY STRUCTURES
@@ -332,26 +458,44 @@ struct ListSessionsRequest {
 // ============================================================================
 
 /** @brief Plain text content */
-const QString CONTENT_TYPE_TEXT = QStringLiteral("text");
+inline QString contentTypeText()
+{
+    return QStringLiteral("text");
+}
 
 /** @brief Resource content (file, etc.) */
-const QString CONTENT_TYPE_RESOURCE = QStringLiteral("resource");
+inline QString contentTypeResource()
+{
+    return QStringLiteral("resource");
+}
 
 /** @brief Image content */
-const QString CONTENT_TYPE_IMAGE = QStringLiteral("image");
+inline QString contentTypeImage()
+{
+    return QStringLiteral("image");
+}
 
 /** @brief Audio content */
-const QString CONTENT_TYPE_AUDIO = QStringLiteral("audio");
+inline QString contentTypeAudio()
+{
+    return QStringLiteral("audio");
+}
 
 /** @brief Resource link (URI reference) */
-const QString CONTENT_TYPE_RESOURCE_LINK = QStringLiteral("resourceLink");
+inline QString contentTypeResourceLink()
+{
+    return QStringLiteral("resourceLink");
+}
 
 // ============================================================================
 // RESOURCE TYPES
 // ============================================================================
 
 /** @brief URI resource type */
-const QString RESOURCE_TYPE_URI = QStringLiteral("uri");
+inline QString resourceTypeUri()
+{
+    return QStringLiteral("uri");
+}
 
 // ============================================================================
 // CONTENT STRUCTURES
@@ -364,9 +508,9 @@ const QString RESOURCE_TYPE_URI = QStringLiteral("uri");
  * Each content block has a type and type-specific data.
  */
 struct ContentBlock {
-    QString type; ///< Content type (CONTENT_TYPE_*)
-    QString text; ///< Text content (for type == CONTENT_TYPE_TEXT)
-    QJsonObject resource; ///< Resource object (for type == CONTENT_TYPE_RESOURCE)
+    QString type; ///< Content type (contentTypeText, contentTypeResource, etc.)
+    QString text; ///< Text content (for type == contentTypeText())
+    QJsonObject resource; ///< Resource object (for type == contentTypeResource())
     QString mimeType; ///< Optional MIME type
 };
 

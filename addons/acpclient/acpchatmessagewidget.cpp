@@ -233,10 +233,10 @@ void ACPChatMessageWidget::setPermissionRequest(qint64 requestId,
     // Convert to new format for backward compatibility
     m_permissionOptions.clear();
     if (!allowOptionId.isEmpty()) {
-        m_permissionOptions.append({allowOptionId, i18n("Allow"), ACP::PERMISSION_KIND_ALLOW_ONCE});
+        m_permissionOptions.append({allowOptionId, i18n("Allow"), ACP::permissionKindAllowOnce()});
     }
     if (!rejectOptionId.isEmpty()) {
-        m_permissionOptions.append({rejectOptionId, i18n("Reject"), ACP::PERMISSION_KIND_REJECT_ONCE});
+        m_permissionOptions.append({rejectOptionId, i18n("Reject"), ACP::permissionKindRejectOnce()});
     }
 
     updateContentDisplay();
@@ -258,11 +258,11 @@ void ACPChatMessageWidget::setPermissionRequestWithOptions(qint64 requestId,
     m_permissionAllowOptionId.clear();
     m_permissionRejectOptionId.clear();
     for (const PermissionOption &opt : options) {
-        if (opt.kind == ACP::PERMISSION_KIND_ALLOW_ONCE || opt.kind == ACP::PERMISSION_KIND_ALLOW_ALWAYS) {
+        if (opt.kind == ACP::permissionKindAllowOnce() || opt.kind == ACP::permissionKindAllowAlways()) {
             if (m_permissionAllowOptionId.isEmpty()) {
                 m_permissionAllowOptionId = opt.optionId;
             }
-        } else if (opt.kind == ACP::PERMISSION_KIND_REJECT_ONCE || opt.kind == ACP::PERMISSION_KIND_REJECT_ALWAYS) {
+        } else if (opt.kind == ACP::permissionKindRejectOnce() || opt.kind == ACP::permissionKindRejectAlways()) {
             if (m_permissionRejectOptionId.isEmpty()) {
                 m_permissionRejectOptionId = opt.optionId;
             }
@@ -642,16 +642,16 @@ void ACPChatMessageWidget::updateContentDisplay()
 
                 // Apply styling based on the option kind
                 QPalette btnPal = button->palette();
-                if (option.kind == ACP::PERMISSION_KIND_ALLOW_ALWAYS) {
+                if (option.kind == ACP::permissionKindAllowAlways()) {
                     // Green-ish for "always allow"
                     btnPal.setColor(QPalette::ButtonText, btnPal.color(QPalette::LinkVisited));
-                } else if (option.kind == ACP::PERMISSION_KIND_REJECT_ALWAYS) {
+                } else if (option.kind == ACP::permissionKindRejectAlways()) {
                     // Red-ish for "always reject"
                     btnPal.setColor(QPalette::ButtonText, btnPal.color(QPalette::BrightText));
-                } else if (option.kind == ACP::PERMISSION_KIND_ALLOW_ONCE) {
+                } else if (option.kind == ACP::permissionKindAllowOnce()) {
                     // Blue-ish for "allow once"
                     btnPal.setColor(QPalette::ButtonText, btnPal.color(QPalette::Link));
-                } else if (option.kind == ACP::PERMISSION_KIND_REJECT_ONCE) {
+                } else if (option.kind == ACP::permissionKindRejectOnce()) {
                     // Orange-ish for "reject once"
                     btnPal.setColor(QPalette::ButtonText, btnPal.color(QPalette::Mid));
                 }

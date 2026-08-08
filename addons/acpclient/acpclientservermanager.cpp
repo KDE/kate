@@ -278,7 +278,7 @@ void ACPClientServerManager::sendPrompt(const QString &sessionId, const QString 
 
     // Create a text content block
     ACP::ContentBlock textBlock;
-    textBlock.type = ACP::CONTENT_TYPE_TEXT;
+    textBlock.type = ACP::contentTypeText();
     textBlock.text = message;
     params.prompt.append(textBlock);
 
@@ -400,7 +400,7 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
     QJsonObject obj = message.object();
 
     // Check for session/request_permission method
-    if (obj.contains(u"method") && obj[u"method"].toString() == ACP::METHOD_SESSION_REQUEST_PERMISSION) {
+    if (obj.contains(u"method") && obj[u"method"].toString() == ACP::methodSessionRequestPermission()) {
         qCDebug(ACPCLIENT) << "Received permission request:" << message.toJson();
         handlePermissionRequest(message);
         return;
@@ -426,7 +426,7 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
         }
 
         // Check for session/load response
-        if (parsedMessage.method == ACP::METHOD_SESSION_LOAD && parsedMessage.isResponse && parsedMessage.id != 0) {
+        if (parsedMessage.method == ACP::methodSessionLoad() && parsedMessage.isResponse && parsedMessage.id != 0) {
             m_pendingSessionRequests.erase(parsedMessage.id);
             // session/load response has null result on success
             Q_EMIT sessionLoaded(parsedMessage.id != 0 ? QString() : QString()); // Session ID should be from the request
@@ -434,14 +434,14 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
         }
 
         // Check for session/resume response
-        if (parsedMessage.method == ACP::METHOD_SESSION_RESUME && parsedMessage.isResponse && parsedMessage.id != 0) {
+        if (parsedMessage.method == ACP::methodSessionResume() && parsedMessage.isResponse && parsedMessage.id != 0) {
             m_pendingSessionRequests.erase(parsedMessage.id);
             Q_EMIT sessionResumed(parsedMessage.id != 0 ? QString() : QString());
             return;
         }
 
         // Check for session/close response
-        if (parsedMessage.method == ACP::METHOD_SESSION_CLOSE && parsedMessage.isResponse) {
+        if (parsedMessage.method == ACP::methodSessionClose() && parsedMessage.isResponse) {
             Q_EMIT sessionClosed(parsedMessage.id != 0 ? QString() : QString());
             return;
         }

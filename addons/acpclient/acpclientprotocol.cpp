@@ -16,9 +16,9 @@ namespace ACP
 QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &params, qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_INITIALIZE;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodInitialize();
 
     QJsonObject paramsObj;
     // Protocol version should be integer 1 for v1
@@ -62,22 +62,22 @@ QJsonDocument ACPProtocol::createInitializeRequest(const InitializeParams &param
         paramsObj[u"clientInfo"] = clientInfo;
     }
 
-    request[JSONRPC_PARAMS] = paramsObj;
+    request[jsonrpcParams()] = paramsObj;
     return QJsonDocument(request);
 }
 
 QJsonDocument ACPProtocol::createAuthLoginRequest(const AuthLoginParams &params, qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_AUTH_LOGIN;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodAuthLogin();
 
     QJsonObject paramsObj;
     paramsObj[u"providerId"] = params.providerId;
     paramsObj[u"providerData"] = params.providerData;
 
-    request[JSONRPC_PARAMS] = paramsObj;
+    request[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(request);
 }
@@ -85,9 +85,9 @@ QJsonDocument ACPProtocol::createAuthLoginRequest(const AuthLoginParams &params,
 QJsonDocument ACPProtocol::createSessionNewRequest(const SessionNewParams &params, qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_SESSION_NEW;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodSessionNew();
 
     QJsonObject paramsObj;
 
@@ -107,7 +107,7 @@ QJsonDocument ACPProtocol::createSessionNewRequest(const SessionNewParams &param
         paramsObj[u"additionalDirectories"] = params.additionalDirectories;
     }
 
-    request[JSONRPC_PARAMS] = paramsObj;
+    request[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(request);
 }
@@ -115,9 +115,9 @@ QJsonDocument ACPProtocol::createSessionNewRequest(const SessionNewParams &param
 QJsonDocument ACPProtocol::createSessionLoadRequest(const SessionLoadParams &params, qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_SESSION_LOAD;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodSessionLoad();
 
     QJsonObject paramsObj;
     paramsObj[u"sessionId"] = params.sessionId;
@@ -138,7 +138,7 @@ QJsonDocument ACPProtocol::createSessionLoadRequest(const SessionLoadParams &par
         paramsObj[u"additionalDirectories"] = params.additionalDirectories;
     }
 
-    request[JSONRPC_PARAMS] = paramsObj;
+    request[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(request);
 }
@@ -146,9 +146,9 @@ QJsonDocument ACPProtocol::createSessionLoadRequest(const SessionLoadParams &par
 QJsonDocument ACPProtocol::createSessionResumeRequest(const SessionResumeParams &params, qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_SESSION_RESUME;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodSessionResume();
 
     QJsonObject paramsObj;
     paramsObj[u"sessionId"] = params.sessionId;
@@ -169,7 +169,7 @@ QJsonDocument ACPProtocol::createSessionResumeRequest(const SessionResumeParams 
         paramsObj[u"additionalDirectories"] = params.additionalDirectories;
     }
 
-    request[JSONRPC_PARAMS] = paramsObj;
+    request[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(request);
 }
@@ -177,14 +177,14 @@ QJsonDocument ACPProtocol::createSessionResumeRequest(const SessionResumeParams 
 QJsonDocument ACPProtocol::createSessionCloseRequest(const SessionCloseParams &params, qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_SESSION_CLOSE;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodSessionClose();
 
     QJsonObject paramsObj;
     paramsObj[u"sessionId"] = params.sessionId;
 
-    request[JSONRPC_PARAMS] = paramsObj;
+    request[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(request);
 }
@@ -192,9 +192,9 @@ QJsonDocument ACPProtocol::createSessionCloseRequest(const SessionCloseParams &p
 QJsonDocument ACPProtocol::createSessionListRequest(const ListSessionsRequest &params, qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_SESSION_LIST;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodSessionList();
 
     QJsonObject paramsObj;
 
@@ -210,7 +210,7 @@ QJsonDocument ACPProtocol::createSessionListRequest(const ListSessionsRequest &p
     }
 
     // Always include params object, even if empty, to satisfy strict servers
-    request[JSONRPC_PARAMS] = paramsObj;
+    request[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(request);
 }
@@ -218,14 +218,14 @@ QJsonDocument ACPProtocol::createSessionListRequest(const ListSessionsRequest &p
 QJsonDocument ACPProtocol::createSessionDeleteRequest(const SessionDeleteParams &params, qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_SESSION_DELETE;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodSessionDelete();
 
     QJsonObject paramsObj;
     paramsObj[u"sessionId"] = params.sessionId;
 
-    request[JSONRPC_PARAMS] = paramsObj;
+    request[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(request);
 }
@@ -233,9 +233,9 @@ QJsonDocument ACPProtocol::createSessionDeleteRequest(const SessionDeleteParams 
 QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams &params, qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_SESSION_PROMPT;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodSessionPrompt();
 
     QJsonObject paramsObj;
     paramsObj[u"sessionId"] = params.sessionId;
@@ -246,11 +246,11 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
         QJsonObject contentBlock;
         contentBlock[u"type"] = block.type;
 
-        if (block.type == CONTENT_TYPE_TEXT) {
+        if (block.type == contentTypeText()) {
             contentBlock[u"text"] = block.text;
-        } else if (block.type == CONTENT_TYPE_RESOURCE || block.type == CONTENT_TYPE_RESOURCE_LINK) {
+        } else if (block.type == contentTypeResource() || block.type == contentTypeResourceLink()) {
             contentBlock[u"resource"] = block.resource;
-        } else if (block.type == CONTENT_TYPE_IMAGE) {
+        } else if (block.type == contentTypeImage()) {
             // Image content block
             if (!block.mimeType.isEmpty()) {
                 contentBlock[u"mimeType"] = block.mimeType;
@@ -261,7 +261,7 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
             if (!block.resource.isEmpty()) {
                 contentBlock[u"resource"] = block.resource;
             }
-        } else if (block.type == CONTENT_TYPE_AUDIO) {
+        } else if (block.type == contentTypeAudio()) {
             // Audio content block
             if (!block.mimeType.isEmpty()) {
                 contentBlock[u"mimeType"] = block.mimeType;
@@ -279,7 +279,7 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
 
     paramsObj[u"prompt"] = promptArray;
 
-    request[JSONRPC_PARAMS] = paramsObj;
+    request[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(request);
 }
@@ -287,14 +287,14 @@ QJsonDocument ACPProtocol::createSessionPromptRequest(const SessionPromptParams 
 QJsonDocument ACPProtocol::createSessionCancelRequest(const QString &sessionId, qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_SESSION_CANCEL;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodSessionCancel();
 
     QJsonObject paramsObj;
     paramsObj[u"sessionId"] = sessionId;
 
-    request[JSONRPC_PARAMS] = paramsObj;
+    request[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(request);
 }
@@ -302,9 +302,9 @@ QJsonDocument ACPProtocol::createSessionCancelRequest(const QString &sessionId, 
 QJsonDocument ACPProtocol::createToolsListRequest(qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_TOOLS_LIST;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodToolsList();
 
     return QJsonDocument(request);
 }
@@ -312,15 +312,15 @@ QJsonDocument ACPProtocol::createToolsListRequest(qint64 requestId)
 QJsonDocument ACPProtocol::createToolsCallRequest(const QString &toolId, const QJsonObject &arguments, qint64 requestId)
 {
     QJsonObject request;
-    request[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    request[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
-    request[JSONRPC_METHOD] = METHOD_TOOLS_CALL;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodToolsCall();
 
     QJsonObject paramsObj;
     paramsObj[u"toolIdentifier"] = toolId;
     paramsObj[u"arguments"] = arguments;
 
-    request[JSONRPC_PARAMS] = paramsObj;
+    request[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(request);
 }
@@ -328,14 +328,14 @@ QJsonDocument ACPProtocol::createToolsCallRequest(const QString &toolId, const Q
 QJsonDocument ACPProtocol::createSessionUpdateNotification(const SessionUpdateNotification &notification)
 {
     QJsonObject notif;
-    notif[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    notif[JSONRPC_METHOD] = NOTIFICATION_SESSION_UPDATE;
+    notif[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    notif[jsonrpcMethod()] = notificationSessionUpdate();
 
     QJsonObject paramsObj;
     paramsObj[u"sessionId"] = notification.sessionId;
     paramsObj[u"update"] = notification.update;
 
-    notif[JSONRPC_PARAMS] = paramsObj;
+    notif[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(notif);
 }
@@ -343,14 +343,14 @@ QJsonDocument ACPProtocol::createSessionUpdateNotification(const SessionUpdateNo
 QJsonDocument ACPProtocol::createProgressNotification(const ProgressNotification &notification)
 {
     QJsonObject notif;
-    notif[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    notif[JSONRPC_METHOD] = NOTIFICATION_PROGRESS;
+    notif[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    notif[jsonrpcMethod()] = notificationProgress();
 
     QJsonObject paramsObj;
     paramsObj[u"token"] = notification.token;
     paramsObj[u"value"] = notification.value;
 
-    notif[JSONRPC_PARAMS] = paramsObj;
+    notif[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(notif);
 }
@@ -358,13 +358,13 @@ QJsonDocument ACPProtocol::createProgressNotification(const ProgressNotification
 QJsonDocument ACPProtocol::createCancelRequestNotification(const CancelRequestNotification &notification)
 {
     QJsonObject notif;
-    notif[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    notif[JSONRPC_METHOD] = NOTIFICATION_CANCELLATION;
+    notif[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    notif[jsonrpcMethod()] = notificationCancellation();
 
     QJsonObject paramsObj;
     paramsObj[u"id"] = notification.id;
 
-    notif[JSONRPC_PARAMS] = paramsObj;
+    notif[jsonrpcParams()] = paramsObj;
 
     return QJsonDocument(notif);
 }
@@ -372,16 +372,16 @@ QJsonDocument ACPProtocol::createCancelRequestNotification(const CancelRequestNo
 QJsonDocument ACPProtocol::createPermissionResponse(qint64 requestId, const QString &optionId)
 {
     QJsonObject response;
-    response[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    response[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
+    response[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    response[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
 
     QJsonObject resultObj;
     QJsonObject outcomeObj;
-    outcomeObj[u"outcome"] = PERMISSION_OUTCOME_SELECTED;
+    outcomeObj[u"outcome"] = permissionOutcomeSelected();
     outcomeObj[u"optionId"] = optionId;
     resultObj[u"outcome"] = outcomeObj;
 
-    response[JSONRPC_RESULT] = resultObj;
+    response[jsonrpcResult()] = resultObj;
 
     return QJsonDocument(response);
 }
@@ -389,15 +389,15 @@ QJsonDocument ACPProtocol::createPermissionResponse(qint64 requestId, const QStr
 QJsonDocument ACPProtocol::createPermissionResponseCancelled(qint64 requestId)
 {
     QJsonObject response;
-    response[JSONRPC_VERSION_KEY] = JSONRPC_VERSION_VALUE;
-    response[JSONRPC_ID] = QJsonValue(static_cast<qint64>(requestId));
+    response[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    response[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
 
     QJsonObject resultObj;
     QJsonObject outcomeObj;
-    outcomeObj[u"outcome"] = PERMISSION_OUTCOME_CANCELLED;
+    outcomeObj[u"outcome"] = permissionOutcomeCancelled();
     resultObj[u"outcome"] = outcomeObj;
 
-    response[JSONRPC_RESULT] = resultObj;
+    response[jsonrpcResult()] = resultObj;
 
     return QJsonDocument(response);
 }
@@ -411,16 +411,16 @@ bool ACPProtocol::parseMessage(const QJsonDocument &doc, ACPMessage &message)
     QJsonObject obj = doc.object();
 
     // Check if it's a JSON-RPC message
-    if (obj.contains(JSONRPC_VERSION_KEY)) {
-        QString version = obj[JSONRPC_VERSION_KEY].toString();
-        if (version != JSONRPC_VERSION_VALUE) {
+    if (obj.contains(jsonrpcVersionKey())) {
+        QString version = obj[jsonrpcVersionKey()].toString();
+        if (version != jsonrpcVersionValue()) {
             return false;
         }
     }
 
     // Parse common fields
-    if (obj.contains(JSONRPC_ID)) {
-        QJsonValue idValue = obj[JSONRPC_ID];
+    if (obj.contains(jsonrpcId())) {
+        QJsonValue idValue = obj[jsonrpcId()];
         if (idValue.isDouble()) {
             message.id = static_cast<qint64>(idValue.toInteger());
         } else {
@@ -428,20 +428,20 @@ bool ACPProtocol::parseMessage(const QJsonDocument &doc, ACPMessage &message)
         }
     }
 
-    if (obj.contains(JSONRPC_METHOD)) {
-        message.method = obj[JSONRPC_METHOD].toString();
+    if (obj.contains(jsonrpcMethod())) {
+        message.method = obj[jsonrpcMethod()].toString();
     }
 
-    if (obj.contains(JSONRPC_PARAMS)) {
-        message.params = obj[JSONRPC_PARAMS].toObject();
+    if (obj.contains(jsonrpcParams())) {
+        message.params = obj[jsonrpcParams()].toObject();
     }
 
     // Check if it's a response
-    if (obj.contains(JSONRPC_RESULT)) {
-        message.result = obj[JSONRPC_RESULT].toObject();
+    if (obj.contains(jsonrpcResult())) {
+        message.result = obj[jsonrpcResult()].toObject();
         message.isResponse = true;
-    } else if (obj.contains(JSONRPC_ERROR)) {
-        QJsonObject errorObj = obj[JSONRPC_ERROR].toObject();
+    } else if (obj.contains(jsonrpcError())) {
+        QJsonObject errorObj = obj[jsonrpcError()].toObject();
         if (errorObj.contains(u"code")) {
             message.error.code = static_cast<ErrorCode>(errorObj[u"code"].toInt());
         }
@@ -472,11 +472,11 @@ bool ACPProtocol::parseInitializeResponse(const QJsonDocument &doc, InitializeRe
     QJsonObject obj = doc.object();
 
     // Check if it's a valid response
-    if (!obj.contains(JSONRPC_RESULT)) {
+    if (!obj.contains(jsonrpcResult())) {
         return false;
     }
 
-    QJsonObject resultObj = obj[JSONRPC_RESULT].toObject();
+    QJsonObject resultObj = obj[jsonrpcResult()].toObject();
 
     // Get agent info
     if (resultObj.contains(u"agentInfo") && resultObj[u"agentInfo"].isObject()) {
@@ -593,15 +593,15 @@ bool ACPProtocol::parseSessionUpdate(const QJsonDocument &doc, SessionUpdateNoti
     QJsonObject obj = doc.object();
 
     // Check if it's a notification
-    if (!obj.contains(JSONRPC_METHOD) || obj[JSONRPC_METHOD].toString() != NOTIFICATION_SESSION_UPDATE) {
+    if (!obj.contains(jsonrpcMethod()) || obj[jsonrpcMethod()].toString() != notificationSessionUpdate()) {
         return false;
     }
 
-    if (!obj.contains(JSONRPC_PARAMS)) {
+    if (!obj.contains(jsonrpcParams())) {
         return false;
     }
 
-    QJsonObject params = obj[JSONRPC_PARAMS].toObject();
+    QJsonObject params = obj[jsonrpcParams()].toObject();
 
     // sessionId is required
     if (!params.contains(u"sessionId")) {
@@ -627,15 +627,15 @@ bool ACPProtocol::parseProgressNotification(const QJsonDocument &doc, ProgressNo
     QJsonObject obj = doc.object();
 
     // Check if it's a progress notification
-    if (!obj.contains(JSONRPC_METHOD) || obj[JSONRPC_METHOD].toString() != NOTIFICATION_PROGRESS) {
+    if (!obj.contains(jsonrpcMethod()) || obj[jsonrpcMethod()].toString() != notificationProgress()) {
         return false;
     }
 
-    if (!obj.contains(JSONRPC_PARAMS)) {
+    if (!obj.contains(jsonrpcParams())) {
         return false;
     }
 
-    QJsonObject params = obj[JSONRPC_PARAMS].toObject();
+    QJsonObject params = obj[jsonrpcParams()].toObject();
 
     if (params.contains(u"token")) {
         progress.token = params[u"token"].toString();
@@ -656,11 +656,11 @@ bool ACPProtocol::parseErrorResponse(const QJsonDocument &doc, ACPError &error)
     QJsonObject obj = doc.object();
 
     // Check if it's an error response
-    if (!obj.contains(JSONRPC_ERROR)) {
+    if (!obj.contains(jsonrpcError())) {
         return false;
     }
 
-    QJsonObject errorObj = obj[JSONRPC_ERROR].toObject();
+    QJsonObject errorObj = obj[jsonrpcError()].toObject();
 
     if (errorObj.contains(u"code")) {
         error.code = static_cast<ErrorCode>(errorObj[u"code"].toInt());
@@ -688,7 +688,7 @@ qint64 ACPProtocol::generateRequestId()
 
 QString ACPProtocol::getProtocolVersion()
 {
-    return PROTOCOL_VERSION;
+    return protocolVersion();
 }
 
 } // namespace ACP

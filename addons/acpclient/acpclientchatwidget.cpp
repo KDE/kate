@@ -360,7 +360,7 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
     if (!m_plugin) {
         qCWarning(ACPCLIENT) << "No plugin available to check permission mode";
         // Default to deny if we can't check
-        Q_EMIT permissionResponse(requestId, ACP::PERMISSION_KIND_REJECT_ONCE);
+        Q_EMIT permissionResponse(requestId, ACP::permissionKindRejectOnce());
         return;
     }
 
@@ -375,17 +375,17 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
                 if (opt.isObject()) {
                     QJsonObject option = opt.toObject();
                     QString optKind = option[u"kind"].toString();
-                    if (optKind == ACP::PERMISSION_KIND_ALLOW_ALWAYS) {
+                    if (optKind == ACP::permissionKindAllowAlways()) {
                         optionId = option[u"optionId"].toString();
                         break;
-                    } else if (optKind == ACP::PERMISSION_KIND_ALLOW_ONCE && optionId.isEmpty()) {
+                    } else if (optKind == ACP::permissionKindAllowOnce() && optionId.isEmpty()) {
                         optionId = option[u"optionId"].toString();
                     }
                 }
             }
             if (optionId.isEmpty()) {
                 // Fallback to allow_once
-                optionId = ACP::PERMISSION_KIND_ALLOW_ONCE;
+                optionId = ACP::permissionKindAllowOnce();
             }
         } else { // DenyAll
             // Find a reject option, prefer reject_always then reject_once
@@ -393,17 +393,17 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
                 if (opt.isObject()) {
                     QJsonObject option = opt.toObject();
                     QString optKind = option[u"kind"].toString();
-                    if (optKind == ACP::PERMISSION_KIND_REJECT_ALWAYS) {
+                    if (optKind == ACP::permissionKindRejectAlways()) {
                         optionId = option[u"optionId"].toString();
                         break;
-                    } else if (optKind == ACP::PERMISSION_KIND_REJECT_ONCE && optionId.isEmpty()) {
+                    } else if (optKind == ACP::permissionKindRejectOnce() && optionId.isEmpty()) {
                         optionId = option[u"optionId"].toString();
                     }
                 }
             }
             if (optionId.isEmpty()) {
                 // Fallback to reject_once
-                optionId = ACP::PERMISSION_KIND_REJECT_ONCE;
+                optionId = ACP::permissionKindRejectOnce();
             }
         }
         qCDebug(ACPCLIENT) << "Auto-responding to permission request with:" << optionId;
@@ -752,7 +752,7 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
     }
 
     // Handle session update notifications
-    if (obj.contains(u"method") && obj[u"method"].toString() == ACP::NOTIFICATION_SESSION_UPDATE) {
+    if (obj.contains(u"method") && obj[u"method"].toString() == ACP::notificationSessionUpdate()) {
         if (obj.contains(u"params") && obj[u"params"].isObject()) {
             QJsonObject params = obj[u"params"].toObject();
             QString sessionId = params[u"sessionId"].toString();
@@ -767,19 +767,19 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
                 QJsonObject update = params[u"update"].toObject();
                 QString updateType = update[u"sessionUpdate"].toString();
 
-                qCDebug(ACPCLIENT) << "Session update type:" << updateType << "== TOOL_CALL?" << (updateType == ACP::SESSION_UPDATE_TOOL_CALL)
-                                   << "== TOOL_CALL_UPDATE?" << (updateType == ACP::SESSION_UPDATE_TOOL_CALL_UPDATE);
+                qCDebug(ACPCLIENT) << "Session update type:" << updateType << "== TOOL_CALL?" << (updateType == ACP::sessionUpdateToolCall())
+                                   << "== TOOL_CALL_UPDATE?" << (updateType == ACP::sessionUpdateToolCallUpdate());
 
                 // Handle different update types
-                if (updateType == ACP::SESSION_UPDATE_AGENT_MESSAGE_CHUNK) {
+                if (updateType == ACP::sessionUpdateAgentMessageChunk()) {
                     handleAgentMessageChunk(update);
-                } else if (updateType == ACP::SESSION_UPDATE_PLAN) {
+                } else if (updateType == ACP::sessionUpdatePlan()) {
                     handlePlanUpdate(update);
-                } else if (updateType == ACP::SESSION_UPDATE_TOOL_CALL) {
+                } else if (updateType == ACP::sessionUpdateToolCall()) {
                     handleToolCallUpdate(update);
-                } else if (updateType == ACP::SESSION_UPDATE_TOOL_CALL_UPDATE) {
+                } else if (updateType == ACP::sessionUpdateToolCallUpdate()) {
                     handleToolCallStatusUpdate(update);
-                } else if (updateType == ACP::SESSION_UPDATE_USAGE_UPDATE) {
+                } else if (updateType == ACP::sessionUpdateUsageUpdate()) {
                     handleUsageUpdate(update);
                 }
             }
@@ -805,7 +805,7 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
     }
 
     // Handle progress notifications
-    if (obj.contains(u"method") && obj[u"method"].toString() == ACP::NOTIFICATION_PROGRESS) {
+    if (obj.contains(u"method") && obj[u"method"].toString() == ACP::notificationProgress()) {
         if (obj.contains(u"params") && obj[u"params"].isObject()) {
             QJsonObject params = obj[u"params"].toObject();
             if (params.contains(u"value") && params[u"value"].isObject()) {

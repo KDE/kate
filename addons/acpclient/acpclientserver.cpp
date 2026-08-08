@@ -101,7 +101,7 @@ void ACPClientServer::initializeServer()
     setState(ServerState::Initializing);
 
     ACP::InitializeParams params;
-    params.protocolVersion = ACP::PROTOCOL_VERSION_INT;
+    params.protocolVersion = ACP::protocolVersionInt();
     params.clientInfo.name = QStringLiteral("kate");
     params.clientInfo.title = QStringLiteral("Kate ACP Client");
     params.clientInfo.version = KAboutData::applicationData().version();

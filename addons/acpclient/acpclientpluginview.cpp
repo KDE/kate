@@ -22,9 +22,7 @@
 #include <QJsonObject>
 #include <QTabWidget>
 
-ACPClientPluginView::ACPClientPluginView(ACPClientPlugin *plugin,
-                                         KTextEditor::MainWindow *mainWindow,
-                                         const std::shared_ptr<ACPClientServerManager> &serverManager)
+ACPClientPluginView::ACPClientPluginView(ACPClientPlugin *plugin, KTextEditor::MainWindow *mainWindow, ACPClientServerManager *serverManager)
     : QObject(mainWindow)
     , m_plugin(plugin)
     , m_mainWindow(mainWindow)
@@ -38,8 +36,8 @@ ACPClientPluginView::ACPClientPluginView(ACPClientPlugin *plugin,
     setupUI();
 
     // Connect to server manager signals
-    connect(m_serverManager.get(), &ACPClientServerManager::messageReceived, this, &ACPClientPluginView::onMessageReceived);
-    connect(m_serverManager.get(), &ACPClientServerManager::errorOccurred, this, [this](const QString &error) {
+    connect(m_serverManager, &ACPClientServerManager::messageReceived, this, &ACPClientPluginView::onMessageReceived);
+    connect(m_serverManager, &ACPClientServerManager::errorOccurred, this, [this](const QString &error) {
         Q_EMIT m_plugin->showMessage(KTextEditor::Message::Error, error);
     });
 
@@ -90,12 +88,12 @@ void ACPClientPluginView::showChatToolView()
     m_tabWidget->setObjectName(QStringLiteral("ACPClientTabWidget"));
 
     // Create the server list widget
-    m_serverListWidget = new ACPServerListWidget(m_serverManager.get(), m_tabWidget);
+    m_serverListWidget = new ACPServerListWidget(m_serverManager, m_tabWidget);
     m_serverListWidget->setObjectName(QStringLiteral("ACPServerListWidget"));
     m_serversTabIndex = m_tabWidget->addTab(m_serverListWidget, i18n("Servers"));
 
     // Create the session list widget
-    m_sessionListWidget = new ACPSessionListWidget(m_serverManager.get(), m_tabWidget);
+    m_sessionListWidget = new ACPSessionListWidget(m_serverManager, m_tabWidget);
     m_sessionListWidget->setObjectName(QStringLiteral("ACPSessionListWidget"));
     m_sessionsTabIndex = m_tabWidget->addTab(m_sessionListWidget, i18n("Sessions"));
 
@@ -115,7 +113,7 @@ void ACPClientPluginView::showChatToolView()
 
     // Update tab enabled state when active server changes
     updateTabEnabledState();
-    connect(m_serverManager.get(), &ACPClientServerManager::activeServerChanged, this, &ACPClientPluginView::updateTabEnabledState);
+    connect(m_serverManager, &ACPClientServerManager::activeServerChanged, this, &ACPClientPluginView::updateTabEnabledState);
 
     // Connect session activated signal to load/resume the session
     connect(m_sessionListWidget, &ACPSessionListWidget::sessionResumed, this, [this](const QString &sessionId) {
@@ -149,10 +147,10 @@ void ACPClientPluginView::showChatToolView()
     });
 
     // Connect to server manager for session list updates
-    connect(m_serverManager.get(), &ACPClientServerManager::sessionListReceived, this, &ACPClientPluginView::onSessionListReceived);
+    connect(m_serverManager, &ACPClientServerManager::sessionListReceived, this, &ACPClientPluginView::onSessionListReceived);
 
     // Connect to active server changed to auto-query sessions when server becomes available
-    connect(m_serverManager.get(), &ACPClientServerManager::activeServerChanged, this, [this](ACPClientServer *server) {
+    connect(m_serverManager, &ACPClientServerManager::activeServerChanged, this, [this](ACPClientServer *server) {
         if (server) {
             // Query session list when an active server is set
             m_serverManager->listSessions();

@@ -51,6 +51,7 @@ ACPClientPlugin::ACPClientPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
     , m_settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/acpclient"))
     , m_defaultConfigPath(QUrl::fromLocalFile(m_settingsPath + QStringLiteral("/settings.json")))
+    , m_serverManager(this, this)
 {
     qCDebug(ACPCLIENT) << "ACPClientPlugin created";
 
@@ -72,11 +73,7 @@ QObject *ACPClientPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
     qCDebug(ACPCLIENT) << "Creating view for main window";
 
-    if (!m_serverManager) {
-        m_serverManager = std::shared_ptr<ACPClientServerManager>(ACPClientServerManager::new_(this, this));
-    }
-
-    auto view = new ACPClientPluginView(this, mainWindow, m_serverManager);
+    auto view = new ACPClientPluginView(this, mainWindow, &m_serverManager);
     m_views.append(view);
 
     connect(this, &ACPClientPlugin::showMessage, mainWindow, [](KTextEditor::Message::MessageType level, const QString &msg) {
@@ -97,10 +94,11 @@ int ACPClientPlugin::configPages() const
 
 KTextEditor::ConfigPage *ACPClientPlugin::configPage(int number, QWidget *parent)
 {
-    if (number != 0) {
-        return nullptr;
+    if (number == 0) {
+        return new ACPClientConfigPage(this, parent);
     }
-    return new ACPClientConfigPage(this, parent);
+
+    return nullptr;
 }
 
 void ACPClientPlugin::writeConfig() const
@@ -108,6 +106,9 @@ void ACPClientPlugin::writeConfig() const
     KConfigGroup config(KSharedConfig::openConfig(), acpClientConfigGroup());
     config.writeEntry(CONFIG_SERVER_CONFIG, m_configPath);
     config.writeEntry(CONFIG_TOOL_CALL_PERMISSION, static_cast<int>(m_toolCallPermission));
+
+    // trigger that we react on config changes in the server manager and Co.
+    Q_EMIT update();
 }
 
 void ACPClientPlugin::readConfig()
@@ -115,6 +116,9 @@ void ACPClientPlugin::readConfig()
     KConfigGroup config(KSharedConfig::openConfig(), acpClientConfigGroup());
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
     m_toolCallPermission = static_cast<ToolCallPermission>(config.readEntry(CONFIG_TOOL_CALL_PERMISSION, static_cast<int>(AskEachTime)));
+
+    // trigger that we react on config changes in the server manager and Co.
+    Q_EMIT update();
 }
 
 #include "acpclientplugin.moc"

@@ -46,7 +46,7 @@ public:
      * @param mainWindow Kate main window
      * @param serverManager Shared server manager
      */
-    explicit ACPClientPluginView(ACPClientPlugin *plugin, KTextEditor::MainWindow *mainWindow, const std::shared_ptr<ACPClientServerManager> &serverManager);
+    explicit ACPClientPluginView(ACPClientPlugin *plugin, KTextEditor::MainWindow *mainWindow, ACPClientServerManager *serverManager);
 
     /** @brief Destructor */
     ~ACPClientPluginView() override;
@@ -105,7 +105,7 @@ private:
 
     ACPClientPlugin *m_plugin; ///< Parent plugin instance
     KTextEditor::MainWindow *m_mainWindow; ///< Kate main window
-    std::shared_ptr<ACPClientServerManager> m_serverManager; ///< Shared server manager
+    ACPClientServerManager *m_serverManager; ///< Shared server manager
 
     // ========================================================================
     // UI ELEMENTS

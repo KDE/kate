@@ -17,7 +17,8 @@
 #include <memory>
 #include <set>
 
-class ACPClientServerManager;
+#include "acpclientservermanager.h"
+
 class ACPClientPluginView;
 
 /**
@@ -142,9 +143,9 @@ public:
     }
 
     /** @brief Get the server manager instance */
-    ACPClientServerManager *serverManager() const
+    ACPClientServerManager *serverManager()
     {
-        return m_serverManager ? m_serverManager.get() : nullptr;
+        return &m_serverManager;
     }
 
     /** @brief Get the tool call permission mode */
@@ -199,7 +200,7 @@ private:
      *
      * Created on first view creation and shared across all views.
      */
-    std::shared_ptr<ACPClientServerManager> m_serverManager = nullptr;
+    ACPClientServerManager m_serverManager;
 
     /**
      * @brief List of all plugin views (one per main window)

@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    SPDX-FileCopyrightText: 2026 Christoph Cullmann <cullmann@kde.org>
-
-    SPDX-License-Identifier: MIT
--->
 <ui version="4.0">
  <class>ACPChatWidget</class>
  <widget class="QWidget" name="ACPChatWidget">

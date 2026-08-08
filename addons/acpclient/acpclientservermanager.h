@@ -338,11 +338,11 @@ private:
     QJsonObject m_serverConfig;
 
     /**
-     * @brief List of all managed servers
+     * @brief Map of all managed servers, keyed by server name
      *
      * Uses unique_ptr for automatic cleanup when servers are removed.
      */
-    std::vector<std::unique_ptr<ACPClientServer>> m_servers;
+    std::map<QString, std::unique_ptr<ACPClientServer>> m_servers;
 
     ACPClientServer *m_activeServer = nullptr; ///< Currently active server
     QString m_activeServerName; ///< Name of the active server

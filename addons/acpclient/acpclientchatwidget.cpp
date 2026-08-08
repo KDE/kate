@@ -458,7 +458,7 @@ void ACPClientChatWidget::onPermissionRequested(qint64 requestId, const QJsonObj
     // Also check for locations (file paths being accessed)
     QStringList locationPaths;
     if (fullToolCall.contains(u"locations") && fullToolCall[u"locations"].isArray()) {
-        QJsonArray locations = fullToolCall[u"locations"].toArray();
+        const QJsonArray locations = fullToolCall[u"locations"].toArray();
         for (const QJsonValue &loc : locations) {
             if (loc.isObject()) {
                 QJsonObject locObj = loc.toObject();

@@ -17,6 +17,7 @@
 #include <QDir>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QSet>
 
 ACPClientServerManager::ACPClientServerManager(ACPClientPlugin *plugin, QObject *parent)
     : QObject(parent)
@@ -60,13 +61,50 @@ void ACPClientServerManager::loadDefaultServers()
         }
     }
 
-    // create the servers for the config
-    // FIXME: what to do if we have some that are already running on reload?
+    // Create the servers for the config
+    // Ensure we only have servers that are still in the config
 
+    // Build a set of server names from the config
+    QSet<QString> configServerNames;
+    if (m_serverConfig.contains(u"servers") && m_serverConfig[u"servers"].isObject()) {
+        QJsonObject servers = m_serverConfig[u"servers"].toObject();
+        for (auto it = servers.constBegin(); it != servers.constEnd(); ++it) {
+            configServerNames.insert(it.key());
+        }
+    }
+
+    // Remove servers that are no longer in the config
+    for (auto it = m_servers.begin(); it != m_servers.end();) {
+        const QString &serverName = it->first;
+        if (!configServerNames.contains(serverName)) {
+            // Server is no longer in config, remove it
+            ACPClientServer *server = it->second.get();
+            server->stop();
+
+            if (m_activeServer == server) {
+                m_activeServer = nullptr;
+                m_activeServerName.clear();
+                Q_EMIT activeServerChanged(nullptr);
+            }
+
+            Q_EMIT serverRemoved(server);
+            it = m_servers.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
+    // Create servers from the config that don't already exist
     if (m_serverConfig.contains(u"servers") && m_serverConfig[u"servers"].isObject()) {
         QJsonObject servers = m_serverConfig[u"servers"].toObject();
         for (auto it = servers.constBegin(); it != servers.constEnd(); ++it) {
             const QString &serverName = it.key();
+
+            // Skip if server already exists
+            if (m_servers.find(serverName) != m_servers.end()) {
+                continue;
+            }
+
             const QJsonObject &serverObj = it.value().toObject();
             ACPClientServer::ServerInfo info;
 
@@ -90,8 +128,8 @@ void ACPClientServerManager::loadDefaultServers()
 ACPClientServerManager::~ACPClientServerManager()
 {
     // Clean up all servers
-    for (auto &server : m_servers) {
-        server->stop();
+    for (auto &serverPair : m_servers) {
+        serverPair.second->stop();
     }
     m_servers.clear();
     qCDebug(ACPCLIENT) << "ACPClientServerManager destroyed";
@@ -109,7 +147,7 @@ ACPClientServer *ACPClientServerManager::createServer(const ACPClientServer::Ser
     connect(serverPtr, &ACPClientServer::errorOccurred, this, &ACPClientServerManager::onServerError);
     connect(serverPtr, &ACPClientServer::messageReceived, this, &ACPClientServerManager::onServerMessageReceived);
 
-    m_servers.push_back(std::move(server));
+    m_servers[info.name] = std::move(server);
 
     Q_EMIT serverAdded(serverPtr);
 
@@ -119,18 +157,17 @@ ACPClientServer *ACPClientServerManager::createServer(const ACPClientServer::Ser
 QList<ACPClientServer *> ACPClientServerManager::servers() const
 {
     QList<ACPClientServer *> result;
-    for (const auto &server : m_servers) {
-        result.append(server.get());
+    for (const auto &serverPair : m_servers) {
+        result.append(serverPair.second.get());
     }
     return result;
 }
 
 ACPClientServer *ACPClientServerManager::server(const QString &name) const
 {
-    for (const auto &server : m_servers) {
-        if (server->info().name == name) {
-            return server.get();
-        }
+    auto it = m_servers.find(name);
+    if (it != m_servers.end()) {
+        return it->second.get();
     }
     return nullptr;
 }
@@ -138,7 +175,8 @@ ACPClientServer *ACPClientServerManager::server(const QString &name) const
 void ACPClientServerManager::removeServer(ACPClientServer *server)
 {
     for (auto it = m_servers.begin(); it != m_servers.end(); ++it) {
-        if (it->get() == server) {
+        if (it->second.get() == server) {
+            const QString serverName = it->first;
             server->stop();
 
             if (m_activeServer == server) {
@@ -161,9 +199,9 @@ ACPClientServer *ACPClientServerManager::activeServer() const
     }
 
     // Try to find the first initialized server
-    for (const auto &server : m_servers) {
-        if (server->state() == ACPClientServer::ServerState::Initialized) {
-            return server.get();
+    for (const auto &serverPair : m_servers) {
+        if (serverPair.second->state() == ACPClientServer::ServerState::Initialized) {
+            return serverPair.second.get();
         }
     }
 

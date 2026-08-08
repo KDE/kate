@@ -10,6 +10,10 @@
 #include "acpclientplugin.h"
 #include "acpclientprotocol.h"
 
+#include <json_utils.h>
+
+#include <KLocalizedString>
+
 #include <QDir>
 #include <QJsonArray>
 #include <QJsonObject>
@@ -24,37 +28,61 @@ ACPClientServerManager::ACPClientServerManager(ACPClientPlugin *plugin, QObject 
 
 void ACPClientServerManager::loadDefaultServers()
 {
-    qCDebug(ACPCLIENT) << "Loading default ACP servers";
+    // default configuration, compiled into plugin resource, reading can't fail
+    QFile defaultConfigFile(QStringLiteral(":/kateacpclient/settings.json"));
+    if (!defaultConfigFile.open(QIODevice::ReadOnly)) {
+        Q_UNREACHABLE();
+    }
+    Q_ASSERT(defaultConfigFile.isOpen());
+    m_serverConfig = QJsonDocument::fromJson(defaultConfigFile.readAll()).object();
 
-    // Load from shipped settings.json
-    if (QFile settingsFile(QStringLiteral(":/kateacpclient/settings.json")); settingsFile.open(QIODevice::ReadOnly)) {
-        QJsonParseError parseError;
-        QJsonDocument doc = QJsonDocument::fromJson(settingsFile.readAll(), &parseError);
+    // consider specified configuration if existing
+    const auto configPath = m_plugin->configPath().toLocalFile();
+    if (!configPath.isEmpty() && QFile::exists(configPath)) {
+        QFile f(configPath);
+        if (f.open(QIODevice::ReadOnly)) {
+            const auto data = f.readAll();
+            if (!data.isEmpty()) {
+                QJsonParseError error{};
+                auto json = QJsonDocument::fromJson(data, &error);
+                if (error.error == QJsonParseError::NoError) {
+                    if (json.isObject()) {
+                        m_serverConfig = json::merge(m_serverConfig, json.object());
+                    } else {
+                        showMessage(i18n("Failed to parse server configuration '%1': no JSON object", configPath), KTextEditor::Message::Error);
+                    }
+                } else {
+                    showMessage(i18n("Failed to parse server configuration '%1': %2", configPath, error.errorString()), KTextEditor::Message::Error);
+                }
+            }
+        } else {
+            showMessage(i18n("Failed to read server configuration: %1", configPath), KTextEditor::Message::Error);
+        }
+    }
 
-        if (parseError.error == QJsonParseError::NoError && doc.isObject()) {
-            QJsonObject obj = doc.object();
-            if (obj.contains(u"servers") && obj[u"servers"].isArray()) {
-                QJsonArray servers = obj[u"servers"].toArray();
-                for (const QJsonValue &v : servers) {
-                    if (v.isObject()) {
-                        QJsonObject serverObj = v.toObject();
-                        ACPClientServer::ServerInfo info;
+    // create the servers for the config
+    // FIXME: what to do if we have some that are already running on reload?
 
-                        info.name = serverObj[u"name"].toString();
-                        info.version = serverObj[u"version"].toString();
-                        info.command = serverObj[u"command"].toString();
+    if (m_serverConfig.contains(u"servers") && m_serverConfig[u"servers"].isArray()) {
+        QJsonArray servers = m_serverConfig[u"servers"].toArray();
+        for (const QJsonValue &v : servers) {
+            if (v.isObject()) {
+                QJsonObject serverObj = v.toObject();
+                ACPClientServer::ServerInfo info;
 
-                        if (serverObj.contains(u"arguments") && serverObj[u"arguments"].isArray()) {
-                            QJsonArray args = serverObj[u"arguments"].toArray();
-                            for (const QJsonValue &arg : args) {
-                                info.arguments.append(arg.toString());
-                            }
-                        }
+                info.name = serverObj[u"name"].toString();
+                info.version = serverObj[u"version"].toString();
+                info.command = serverObj[u"command"].toString();
 
-                        // Create the server but don't auto-start here (handled by createServer)
-                        createServer(info);
+                if (serverObj.contains(u"arguments") && serverObj[u"arguments"].isArray()) {
+                    QJsonArray args = serverObj[u"arguments"].toArray();
+                    for (const QJsonValue &arg : args) {
+                        info.arguments.append(arg.toString());
                     }
                 }
+
+                // Create the server but don't auto-start here (handled by createServer)
+                createServer(info);
             }
         }
     }
@@ -559,4 +587,10 @@ ACPClientServerManager *ACPClientServerManager::new_(ACPClientPlugin *plugin, QO
         s_instance = new ACPClientServerManager(plugin, parent);
     }
     return s_instance;
+}
+
+void ACPClientServerManager::showMessage(const QString &msg, KTextEditor::Message::MessageType level)
+{
+    // inform interested view(er) which will decide how/where to show
+    Q_EMIT m_plugin->showMessage(level, msg);
 }

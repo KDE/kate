@@ -12,10 +12,13 @@
 #include <QList>
 #include <QObject>
 
+#include <KTextEditor/Message>
+
 #include "acpclientserver.h"
 
 #include <map>
 #include <memory>
+#include <qjsondocument.h>
 
 class ACPClientPlugin;
 
@@ -323,11 +326,16 @@ private:
      */
     void handlePermissionRequest(const QJsonDocument &doc);
 
+    void showMessage(const QString &msg, KTextEditor::Message::MessageType level);
+
     // ========================================================================
     // MEMBER VARIABLES
     // ========================================================================
 
     ACPClientPlugin *m_plugin; ///< Parent plugin instance
+
+    // current json config for the servers
+    QJsonObject m_serverConfig;
 
     /**
      * @brief List of all managed servers

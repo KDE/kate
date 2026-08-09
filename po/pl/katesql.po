@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2011, 2012, 2014, 2015, 2019, 2020, 2021, 2022, 2023, 2025, 2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+# SPDX-FileCopyrightText: 2011-2012, 2014-2015, 2019-2023, 2025-2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-24 01:27+0000\n"
-"PO-Revision-Date: 2026-04-04 19:47+0200\n"
+"PO-Revision-Date: 2026-08-08 12:55+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 25.08.2\n"
+"X-Generator: Lokalize 26.04.2\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -244,7 +244,7 @@ msgstr "Zapisz"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "Uczyń tę kolumnę prezentowalną dla powiązanych tabel"
 
 #: dataoutputwidget.cpp:254
 #, kde-format
@@ -253,6 +253,9 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Uwaga! Dla kolumn bez warunku niepowtarzalności nie możemy zagwarantować "
+"poprawnego kopiowania i wklejania (gdy pokazywana jest kolumna zamiast "
+"klucza obcego)"
 
 #: dataoutputwidget.cpp:265
 #, kde-format
@@ -405,43 +408,43 @@ msgstr "Zapisz i przywróć połączenia w sesji Kate"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Włącz edytowalną tabelę dla przeglądania danych"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "Włącz edytowalne powiązane tabele"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "Eksperymentalne"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@option:check"
 msgid "Allow running queries in non-SQL files"
-msgstr ""
+msgstr "Zezwól na uruchamianie zapytań na plikach nie-SQL"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable auto query selection"
-msgstr ""
+msgstr "Włącz samoczynny wybór zapytania"
 
 #: katesqlconfigpage.cpp:41
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "Pusty wiersz traktuj jako przerwanie instrukcji"
 
 #: katesqlconfigpage.cpp:42
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show query selector popup"
-msgstr ""
+msgstr "Zawsze pokazuj okno wyboru zapytania"
 
 #: katesqlconfigpage.cpp:44
 #, kde-format
@@ -450,18 +453,16 @@ msgid "Output Customization"
 msgstr "Dostosowywanie wyjścia"
 
 #: katesqlconfigpage.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Użyj systemowych ustawień regionalnych"
+msgstr "Użyj domyślnych ustawień systemowych"
 
 #: katesqlconfigpage.cpp:52
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Przywróć domyślne ustawienia systemowe"
 
 #: katesqlconfigpage.cpp:113
 #, kde-format
@@ -491,7 +492,7 @@ msgstr "Schemat SQL"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
-msgstr "Dodaj połączenie..."
+msgstr "Dodaj połączenie…"
 
 #: katesqlview.cpp:164
 #, kde-format
@@ -542,20 +543,16 @@ msgid "Background Color"
 msgstr "Kolor tła"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "Kolor tekstu"
+msgstr "Zmień barwę tekstu"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "Kolor tła"
+msgstr "Zmieniono barwę tła"
 
 #: outputstylewidget.cpp:49
 #, kde-format
@@ -608,7 +605,7 @@ msgstr "Wyjście danych SQL"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "Odfiltruj tabele i widoki…"
 
 #: schemawidget.cpp:45
 #, kde-format

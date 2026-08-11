@@ -160,7 +160,7 @@ msgstr "KWrite"
 #: kwrite/main.cpp:48
 #, kde-format
 msgid "KWrite - Text Editor"
-msgstr "KWrite - uređivač teksta"
+msgstr "KWrite – Uređivač teksta"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
 #: lib/filehistorywidget.cpp:467 lib/kateconfigplugindialogpage.cpp:109

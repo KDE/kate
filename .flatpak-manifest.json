@@ -58,7 +58,7 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url":"https://download.kde.org/stable/release-service/26.04.3/src/kio-extras-26.04.3.tar.xz",
+                    "url": "https://download.kde.org/stable/release-service/26.04.3/src/kio-extras-26.04.3.tar.xz",
                     "sha256": "8448075fdedd1e5ae43b865337f5ac3ca39037726dd0deaa061797fa84d31d63",
                     "x-checker-data": {
                         "type": "anitya",
@@ -80,8 +80,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://git.libssh.org/projects/libssh.git/snapshot/libssh-0.12.0.tar.gz",
-                    "sha256": "a93c97f539f23a213734fa4a1807c7da577ad155d78145d44fd2af26bfb0e2ea",
+                    "url": "https://git.libssh.org/projects/libssh.git/snapshot/libssh-0.12.2.tar.gz",
+                    "sha256": "6d3c4025c746dd31571f1e241d4c15e4e23a4c45fc2b725fdec42b678d7205c5",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 1729,

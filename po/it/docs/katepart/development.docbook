@@ -945,7 +945,7 @@
 <para
 ><userinput
 >char</userinput
-> è un carattere codificato.</para>
+> è un carattere codificato. Se non specificato, il correttore ortografico ignorerà questa codifica.</para>
 <para
 ><userinput
 >string</userinput
@@ -1201,6 +1201,14 @@
 >, che faranno prima seguire al motore l'ordine, e poi lo mandano in un altro contesto, &eg; <userinput
 >#pop#pop!OtherContext</userinput
 >.</para>
+<para
+>Puoi sovrapporre più contesti ripetendo il segno(<emphasis
+>!</emphasis
+>) e un <emphasis
+>identificatore</emphasis
+>`, ad esempio <userinput
+>ContextA!ContextB!ContextC</userinput
+>. L'ultimo contesto nell'elenco è immediatamente attivo, mentre agli altri puoi accedere con `#pop`.</para>
 </listitem>
 <listitem>
 <para

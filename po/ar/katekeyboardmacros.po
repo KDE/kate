@@ -50,7 +50,7 @@ msgstr "<b>وحدات ماكرو لوحة المفاتيح:</b> %1"
 #: keyboardmacrosplugin.cpp:170
 #, kde-format
 msgid "Can’t save macro during recording. Please end recording first"
-msgstr "لا يمكن حفظ الماكرو أثناء التسجيل. يرجى إنهاء التسجيل أولاً"
+msgstr "لا يمكن حفظ الماكرو أثناء التسجيل. يرجى إنهاء التسجيل أولًا"
 
 #: keyboardmacrosplugin.cpp:241
 #, kde-format
@@ -189,7 +189,7 @@ msgstr "ا&حفظ الماكرو الحالي"
 #: keyboardmacrospluginview.cpp:78
 #, kde-format
 msgid "Give a name to the current macro and persistently save it."
-msgstr "أعط اسماً للماكرو الحالي واحفظه باستمرار."
+msgstr "أعط اسمًا للماكرو الحالي واحفظه باستمرار."
 
 #: keyboardmacrospluginview.cpp:90
 #, kde-format

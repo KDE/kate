@@ -598,7 +598,7 @@ msgstr "اعرض تفاصيل إضافية للرموز"
 #: lspconfigwidget.ui:222
 #, kde-format
 msgid "Present symbols in a hierarchy instead of a flat list"
-msgstr "اعرض الرموز في التسلسل الهرمي بدلاً من قائمة مسطحة"
+msgstr "اعرض الرموز في التسلسل الهرمي بدلًا من قائمة مسطحة"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightSymbol)
 #: lspconfigwidget.ui:229

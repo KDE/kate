@@ -245,7 +245,7 @@ msgstr "احفظ"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr "اجعل هذا العمود قابلاً للعرض في الجداول ذات الصلة"
+msgstr "اجعل هذا العمود قابلًا للعرض في الجداول ذات الصلة"
 
 #: dataoutputwidget.cpp:254
 #, kde-format
@@ -255,7 +255,7 @@ msgid ""
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
 "تحذير! بالنسبة للأعمدة التي لا تحتوي على قيد فريد، لا يمكننا ضمان نسخ-لصق "
-"صحيح (عندما يُعرض العمود بدلاً من المفتاح الخارجي)."
+"صحيح (عندما يُعرض العمود بدلًا من المفتاح الخارجي)."
 
 #: dataoutputwidget.cpp:265
 #, kde-format

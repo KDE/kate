@@ -100,7 +100,7 @@ msgstr "مرّر إلى الطرفية"
 #: kateconsole.cpp:509
 #, kde-format
 msgid "Not a local file: '%1'"
-msgstr "ليس ملفّاً محليّاً: '%1'"
+msgstr "ليس ملفًّا محليًّا: '%1'"
 
 #: kateconsole.cpp:542
 #, kde-format

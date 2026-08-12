@@ -86,7 +86,7 @@ msgid ""
 "key fingerprint are available."
 msgstr ""
 "اختر عنوان بريد إلكتروني للتعمية إليه.\n"
-"فقط عناوين البريد المرتبطة ببصمة المفتاح المختارة حالياً\n"
+"فقط عناوين البريد المرتبطة ببصمة المفتاح المختارة حاليًا\n"
 "متوفرة."
 
 #: kategpgplugin.cpp:101
@@ -94,7 +94,7 @@ msgstr ""
 msgid ""
 "This is your currently selected GPG key fingerprint that will be used for "
 "encryption."
-msgstr "هذه هي بصمة مفتاح GPG المختارة حالياً والتي ستستخدم للتعمية."
+msgstr "هذه هي بصمة مفتاح GPG المختارة حاليًا والتي ستستخدم للتعمية."
 
 #: kategpgplugin.cpp:104
 #, kde-format
@@ -135,7 +135,7 @@ msgid ""
 msgstr ""
 "خطأ في فك التعمية للنص!\n"
 "لا يوجد بصمة مطابقة عُثر عليها!\n"
-"أو هذا ليس نصاً معمّى بـ GPG..."
+"أو هذا ليس نصًا معمّى بـ GPG..."
 
 #: kategpgplugin.cpp:334 kategpgplugin.cpp:464
 #, kde-format
@@ -185,7 +185,7 @@ msgstr "خطأ في تعمية النص! المستند فارغ..."
 #, kde-format
 msgid ""
 "Attempted double encryption detected! Encrypting twice is disabled for now..."
-msgstr "اكتشف محاولة تعمية مزدوجة! تعمية مرتين معطلة حالياً..."
+msgstr "اكتشف محاولة تعمية مزدوجة! تعمية مرتين معطلة حاليًا..."
 
 #: kategpgplugin.cpp:528
 #, kde-format

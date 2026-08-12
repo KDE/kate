@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-17 02:43+0000\n"
-"PO-Revision-Date: 2026-04-30 08:47+0400\n"
+"PO-Revision-Date: 2026-07-15 19:43+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -480,7 +480,7 @@ msgstr[0] "سطر مُعد"
 msgstr[1] "سطر مُعد"
 msgstr[2] "سطران مُعدان"
 msgstr[3] "سطور مُعدة"
-msgstr[4] "سطراً مُعداً"
+msgstr[4] "سطرًا مُعدًا"
 msgstr[5] "سطر مُعد"
 
 #: lib/diff/diffeditor.cpp:286
@@ -496,7 +496,7 @@ msgstr[0] "سطر مُهمل"
 msgstr[1] "سطر مُهمل"
 msgstr[2] "سطران مُهملان"
 msgstr[3] "سطور مُهملة"
-msgstr[4] "سطراً مُهملاً"
+msgstr[4] "سطرًا مُهملًا"
 msgstr[5] "سطر مُهمل"
 
 #: lib/diff/diffeditor.cpp:298
@@ -512,7 +512,7 @@ msgstr[0] "سطر غير مُعد"
 msgstr[1] "سطر غير مُعد"
 msgstr[2] "سطران غير مُعدان"
 msgstr[3] "سطور غير مُعدة"
-msgstr[4] "سطراً غير مُعد"
+msgstr[4] "سطرًا غير مُعد"
 msgstr[5] "سطر غير مُعد"
 
 #: lib/diff/diffeditor.cpp:310
@@ -707,7 +707,7 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"يمكن أن يسبب تشغيل المحرر مع sudo الأخطاء ويعرضك على ثغرات الأمن. بدلاً من "
+"يمكن أن يسبب تشغيل المحرر مع sudo الأخطاء ويعرضك على ثغرات الأمن. بدلًا من "
 "ذلك، استخدم المحرر بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا "
 "لزم الأمر."
 
@@ -717,7 +717,7 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"يمكن أن يسبب تشغيل المحرر مع kdesu الأخطاء ويعرضك على ثغرات الأمن. بدلاً من "
+"يمكن أن يسبب تشغيل المحرر مع kdesu الأخطاء ويعرضك على ثغرات الأمن. بدلًا من "
 "ذلك، استخدم المحرر بشكل طبيعي وسيتطلب امتيازات أرفع عند حفظ المستندات إذا "
 "لزم الأمر."
 
@@ -1208,7 +1208,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:259
 #, kde-format
 msgid "&Auto hide tabs"
-msgstr "أ&خفِ الألسنة آليّاً"
+msgstr "أ&خفِ الألسنة آليًّا"
 
 #: lib/kateconfigdialog.cpp:261
 #, kde-format
@@ -2323,7 +2323,7 @@ msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
 msgstr ""
-"اقسم عمودياً المنظور النشط حالياً إلى إثنين، وانقل المستند الحالي النشط إلى "
+"اقسم عموديًا المنظور النشط حاليًا إلى إثنين، وانقل المستند الحالي النشط إلى "
 "القسم اليمين."
 
 #: lib/kateviewmanager.cpp:175
@@ -2337,7 +2337,7 @@ msgid ""
 "Split the currently active view horizontally into two views and move the "
 "currently active document to view below."
 msgstr ""
-"اقسم أفقياً المنظور النشط حالياً إلى إثنين، وانقل المستند الحالي النشط إلى "
+"اقسم أفقيًا المنظور النشط حاليًا إلى إثنين، وانقل المستند الحالي النشط إلى "
 "القسم الأسفل."
 
 #: lib/kateviewmanager.cpp:184
@@ -2408,7 +2408,7 @@ msgstr "المنظور المقسوم اليسار"
 #: lib/kateviewmanager.cpp:233
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr "اجعل المنظور المقسوم الذي في اليسار حدساً هو النّشط."
+msgstr "اجعل المنظور المقسوم الذي في اليسار حدسًا هو النّشط."
 
 #: lib/kateviewmanager.cpp:236
 #, kde-format
@@ -2418,7 +2418,7 @@ msgstr "المنظور المقسوم اليمين"
 #: lib/kateviewmanager.cpp:241
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr "اجعل المنظور المقسوم الذي في اليمين حدساً هو النّشط."
+msgstr "اجعل المنظور المقسوم الذي في اليمين حدسًا هو النّشط."
 
 #: lib/kateviewmanager.cpp:244
 #, kde-format
@@ -2428,7 +2428,7 @@ msgstr "المنظور المقسوم الأعلى"
 #: lib/kateviewmanager.cpp:249
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr "اجعل المنظور المقسوم الذي في الأعلى حدساً هو النّشط."
+msgstr "اجعل المنظور المقسوم الذي في الأعلى حدسًا هو النّشط."
 
 #: lib/kateviewmanager.cpp:252
 #, kde-format
@@ -2438,7 +2438,7 @@ msgstr "المنظور المقسوم الأسفل"
 #: lib/kateviewmanager.cpp:257
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr "اجعل المنظور المقسوم الذي في الأسفل حدساً هو النّشط."
+msgstr "اجعل المنظور المقسوم الذي في الأسفل حدسًا هو النّشط."
 
 #: lib/kateviewmanager.cpp:260
 #, kde-format
@@ -2558,7 +2558,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
-msgstr "افتح مجلّداً"
+msgstr "افتح مجلّدًا"
 
 #: lib/kateviewmanager.cpp:622
 #, kde-format
@@ -3107,7 +3107,7 @@ msgstr "ملفّ جديد"
 #: lib/welcomeview/welcomeview.ui:186
 #, kde-format
 msgid "Open Folder..."
-msgstr "افتح مجلّداً..."
+msgstr "افتح مجلّدًا..."
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193

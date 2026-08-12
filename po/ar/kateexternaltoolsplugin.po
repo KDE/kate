@@ -273,7 +273,7 @@ msgstr "أضف أداة من المبدئيات"
 #: kateexternaltoolsconfigwidget.cpp:244
 #, kde-format
 msgid "Add Category"
-msgstr "أضف صنفاً"
+msgstr "أضف صنفًا"
 
 #: kateexternaltoolsconfigwidget.cpp:289 kateexternaltoolsconfigwidget.cpp:402
 #: kateexternaltoolsconfigwidget.cpp:449

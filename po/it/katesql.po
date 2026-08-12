@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-24 01:27+0000\n"
-"PO-Revision-Date: 2026-05-07 18:59+0200\n"
+"PO-Revision-Date: 2026-08-06 10:24+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.04.0\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -253,6 +253,9 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Attenzione: per le colonne prive di vincolo di unicità non è possibile "
+"garantire che il copia-incolla avvenga correttamente (quando viene "
+"visualizzata la colonna anziché la chiave esterna)"
 
 #: dataoutputwidget.cpp:265
 #, kde-format
@@ -405,13 +408,13 @@ msgstr "Salva e ripristina le connessioni nella sessione di Kate"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Abilita tabella modificabile per Sfoglia i dati"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "Abilita tabelle relazionali modificabili"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
@@ -423,25 +426,25 @@ msgstr "Sperimentale"
 #, kde-format
 msgctxt "@option:check"
 msgid "Allow running queries in non-SQL files"
-msgstr ""
+msgstr "Consenti l'esecuzione di interrogazioni in file non SQL"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable auto query selection"
-msgstr ""
+msgstr "Abilita la selezione automatica delle interrogazioni"
 
 #: katesqlconfigpage.cpp:41
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "Considera una riga vuota come un'interruzione di istruzione"
 
 #: katesqlconfigpage.cpp:42
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show query selector popup"
-msgstr ""
+msgstr "Mostra sempre la finestra a comparsa del selettore di interrogazioni"
 
 #: katesqlconfigpage.cpp:44
 #, kde-format
@@ -602,7 +605,7 @@ msgstr "Risultato di dati SQL"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "Filtra tabelle e viste..."
 
 #: schemawidget.cpp:45
 #, kde-format

@@ -268,7 +268,7 @@ msgstr "«وسوم‌سي» لم يتمكن من تحليل هذا الملف."
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
-msgstr "لم يعثر على ملف الوسوم. فضلا ولّد واحدا يدوياً أو استخدم ملحقة وسوم سي"
+msgstr "لم يعثر على ملف الوسوم. فضلا ولّد واحدا يدويًا أو استخدم ملحقة وسوم سي"
 
 #: gotosymbolwidget.cpp:321
 #, kde-format

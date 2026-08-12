@@ -1,5 +1,6 @@
 {
     "formatOnSave": true,
+    "formatterForCmake": "cmake-format",
     "formatterForJson": "jq",
     "formatterForPython": "ruff",
     "formatterForYaml": "yamlfmt",
@@ -45,6 +46,11 @@
         "command": [
             "gdformat",
             "-"
+        ]
+    },
+    "gersemi": {
+        "command": [
+            "gersemi"
         ]
     },
     "gofmt": {

@@ -17,6 +17,8 @@ enum class Formatters {
     Autopep8,
     Ruff,
     YamlFmt,
+    CmakeFormat,
+    Gersemi,
 
     // keep at end
     COUNT,
@@ -38,6 +40,8 @@ inline Formatters formatterForName(const QString &name, Formatters defaultValue)
         {"autopep8", Formatters::Autopep8},
         {"ruff", Formatters::Ruff},
         {"yamlfmt", Formatters::YamlFmt},
+        {"cmake-format", Formatters::CmakeFormat},
+        {"gersemi", Formatters::Gersemi},
     };
 
     for (const auto &[fmtName, enumValue] : strToFmt) {

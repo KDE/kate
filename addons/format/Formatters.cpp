@@ -273,7 +273,14 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
     } else if (is("zig")) {
         return newStdinFmt("zig", {});
     } else if (is("cmake")) {
-        return newStdinFmt("cmake-format", {S("-")});
+        const auto configValue = config.value(QLatin1String("formatterForCmake")).toString();
+        Formatters f = formatterForName(configValue, Formatters::CmakeFormat);
+        if (f == Formatters::CmakeFormat) {
+            return newStdinFmt("cmake-format", {S("-")});
+        } else if (f == Formatters::Gersemi) {
+            return newStdinFmt("gersemi", {S("-")});
+        }
+        Utils::showMessage(i18n("Unknown formatterForCmake: %1", configValue), {}, i18n("Format"), MessageType::Error);
     } else if (is("python")) {
         const auto configValue = config.value(QLatin1String("formatterForPython")).toString();
         Formatters f = formatterForName(configValue, Formatters::Ruff);

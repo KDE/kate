@@ -69,6 +69,10 @@ void FormatApplyTest::testFormatterForName()
             return "ruff";
         case Formatters::YamlFmt:
             return "yamlfmt";
+        case Formatters::CmakeFormat:
+            return "cmake-format";
+        case Formatters::Gersemi:
+            return "gersemi";
         case Formatters::COUNT:
             Q_ASSERT(false);
             return "";

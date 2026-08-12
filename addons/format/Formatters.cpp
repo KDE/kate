@@ -4,6 +4,7 @@
 */
 #include "Formatters.h"
 #include "FormattersEnum.h"
+#include "gitprocess.h"
 
 #include <QElapsedTimer>
 #include <QFile>
@@ -161,7 +162,14 @@ void FormatterRunner::run(KTextEditor::Document *doc)
     if (!workingDir().isEmpty()) {
         m_procHandle->setWorkingDirectory(workingDir());
     } else {
-        m_procHandle->setWorkingDirectory(QFileInfo(doc->url().toDisplayString(QUrl::PreferLocalFile)).absolutePath());
+        const auto absFile = QFileInfo(doc->url().toDisplayString(QUrl::PreferLocalFile)).absolutePath();
+        const std::optional<QString> repoBase = getRepoBasePath(absFile);
+        // Set the working directory to the top of the file's project directory (repo)
+        if (repoBase.has_value()) {
+            m_procHandle->setWorkingDirectory(repoBase.value());
+        } else {
+            m_procHandle->setWorkingDirectory(QFileInfo(doc->url().toDisplayString(QUrl::PreferLocalFile)).absolutePath());
+        }
     }
     m_procHandle->setProcessEnvironment(env());
 

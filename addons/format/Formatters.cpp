@@ -158,6 +158,12 @@ void FormatterRunner::run(KTextEditor::Document *doc)
         deleteLater();
     });
 
+    // Do NOT look at the top level of the document's project for configuration files
+    // in order to support tools that search for configurations starting from the file's
+    // directory and working their way up the hierarchy. We rely on the tool doing the
+    // right thing (i.e. searching up for the configuration file), possibly by using a
+    // command line option; for example look at perltidy's "-pro=.../.perltidyrc" option.
+    // IOW: Do NOT set the workingDir to the repo base path.
     if (!workingDir().isEmpty()) {
         m_procHandle->setWorkingDirectory(workingDir());
     } else {

@@ -15,11 +15,6 @@
         ],
         "formatOnSave": true
     },
-    "cmake-format": {
-        "command": [
-            "cmake-format"
-        ]
-    },
     "dart": {
         "command": [
             "dart"
@@ -44,6 +39,12 @@
     "gdformat": {
         "command": [
             "gdformat",
+            "-"
+        ]
+    },
+    "gersemi": {
+        "command": [
+            "gersemi",
             "-"
         ]
     },

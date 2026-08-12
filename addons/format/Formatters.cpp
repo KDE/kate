@@ -279,7 +279,7 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
     } else if (is("zig")) {
         return newStdinFmt("zig", {});
     } else if (is("cmake")) {
-        return newStdinFmt("cmake-format", {S("-")});
+        return newStdinFmt("gersemi", {});
     } else if (is("python")) {
         const auto configValue = config.value(QLatin1String("formatterForPython")).toString();
         Formatters f = formatterForName(configValue, Formatters::Ruff);

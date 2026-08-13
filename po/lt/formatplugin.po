@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-08-13 00:54+0000\n"
 "PO-Revision-Date: 2023-12-13 01:36+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,8 +19,8 @@ msgstr ""
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
-#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
-#: Formatters.cpp:308 Formatters.cpp:338
+#: FormatPlugin.cpp:245 Formatters.cpp:271 Formatters.cpp:291
+#: Formatters.cpp:314 Formatters.cpp:344
 #, kde-format
 msgid "Format"
 msgstr ""
@@ -81,22 +81,22 @@ msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr ""
 
-#: Formatters.cpp:265
+#: Formatters.cpp:271
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr ""
 
-#: Formatters.cpp:285
+#: Formatters.cpp:291
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr ""
 
-#: Formatters.cpp:308
+#: Formatters.cpp:314
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr ""
 
-#: Formatters.cpp:338
+#: Formatters.cpp:344
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""

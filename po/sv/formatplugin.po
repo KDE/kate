@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-08-13 00:54+0000\n"
 "PO-Revision-Date: 2025-08-23 06:30+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Lokalize 25.08.0\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
-#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
-#: Formatters.cpp:308 Formatters.cpp:338
+#: FormatPlugin.cpp:245 Formatters.cpp:271 Formatters.cpp:291
+#: Formatters.cpp:314 Formatters.cpp:344
 #, kde-format
 msgid "Format"
 msgstr "Format"
@@ -82,22 +82,22 @@ msgid ""
 msgstr ""
 "%1 är inte installerat, installera det för att kunna formatera dokumentet."
 
-#: Formatters.cpp:265
+#: Formatters.cpp:271
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Okänd formatering för Json: %1"
 
-#: Formatters.cpp:285
+#: Formatters.cpp:291
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Okänd formatering för Python: %1"
 
-#: Formatters.cpp:308
+#: Formatters.cpp:314
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Okänd formatering för Yaml: %1, återgår till yamlfmt"
 
-#: Formatters.cpp:338
+#: Formatters.cpp:344
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Misslyckades köra formatering. Språket %1 stöds inte."

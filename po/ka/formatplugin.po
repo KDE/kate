@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-08-13 00:54+0000\n"
 "PO-Revision-Date: 2025-08-24 04:04+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -19,8 +19,8 @@ msgstr ""
 "X-Generator: Poedit 3.7\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
-#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
-#: Formatters.cpp:308 Formatters.cpp:338
+#: FormatPlugin.cpp:245 Formatters.cpp:271 Formatters.cpp:291
+#: Formatters.cpp:314 Formatters.cpp:344
 #, kde-format
 msgid "Format"
 msgstr "ფორმატი"
@@ -83,22 +83,22 @@ msgstr ""
 "%1 დაყენებული არაა. დააყენეთ ის, თუ გნებავთ, ამ დოკუმენტის დაფორმატება "
 "შეგეძლოთ!"
 
-#: Formatters.cpp:265
+#: Formatters.cpp:271
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "უცნობი formatterForJson: %1"
 
-#: Formatters.cpp:285
+#: Formatters.cpp:291
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "უცნობი formatterForPython: %1"
 
-#: Formatters.cpp:308
+#: Formatters.cpp:314
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "უცნობი formatterForYaml: %1, გადართვა პროგრამაზე yamlfmt"
 
-#: Formatters.cpp:338
+#: Formatters.cpp:344
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "დამფორმატებლის გაშვება ჩავარდა. მხარდაუჭერელი ენა %1"

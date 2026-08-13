@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-08-13 00:54+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
-#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
-#: Formatters.cpp:308 Formatters.cpp:338
+#: FormatPlugin.cpp:245 Formatters.cpp:271 Formatters.cpp:291
+#: Formatters.cpp:314 Formatters.cpp:344
 #, kde-format
 msgid "Format"
 msgstr "प्रारूप"
@@ -81,22 +81,22 @@ msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 संस्थापितम् नास्ति, कृपया एतत् दस्तावेजं स्वरूपयितुं शक्नुवन्तु इति संस्थापयन्तु!"
 
-#: Formatters.cpp:265
+#: Formatters.cpp:271
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "अज्ञात formatterForJson: %1"
 
-#: Formatters.cpp:285
+#: Formatters.cpp:291
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "अज्ञात प्रारूपकForPython: %1"
 
-#: Formatters.cpp:308
+#: Formatters.cpp:314
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "अज्ञात formatterForYaml: %1, पुनः yamlfmt प्रति पतति"
 
-#: Formatters.cpp:338
+#: Formatters.cpp:344
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "स्वरूपकं चालयितुं असफलम्। असमर्थिता भाषा %1"

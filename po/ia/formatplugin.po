@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"POT-Creation-Date: 2026-08-13 00:54+0000\n"
 "PO-Revision-Date: 2026-07-29 11:43+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Lokalize 25.04.0\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
-#: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285
-#: Formatters.cpp:308 Formatters.cpp:338
+#: FormatPlugin.cpp:245 Formatters.cpp:271 Formatters.cpp:291
+#: Formatters.cpp:314 Formatters.cpp:344
 #, kde-format
 msgid "Format"
 msgstr "Formato"
@@ -83,22 +83,22 @@ msgstr ""
 "%1 non es installate, pro favor tu installa lo pro poter formatar iste "
 "documento!"
 
-#: Formatters.cpp:265
+#: Formatters.cpp:271
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "FormatatorPerJson incognoscite: %1 "
 
-#: Formatters.cpp:285
+#: Formatters.cpp:291
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "FormatatorPerPython incognoscite: %1"
 
-#: Formatters.cpp:308
+#: Formatters.cpp:314
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Incognoscite  formatterForYaml: %1, retorna a  yamlfmt"
 
-#: Formatters.cpp:338
+#: Formatters.cpp:344
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Falleva a executar gnormatator (formatter). Linguage non supportate %1"

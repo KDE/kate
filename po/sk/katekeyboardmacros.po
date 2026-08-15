@@ -17,21 +17,18 @@ msgstr ""
 "X-Generator: Lokalize 21.12.3\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
-#, fuzzy, kde-format
-#| msgid "Could not open file '%1'."
+#, kde-format
 msgid "Could not open file ‘%1’."
 msgstr "Nepodarilo sa otvoriť súbor '%1'."
 
 #: keyboardmacrosplugin.cpp:72
-#, fuzzy, kde-format
-#| msgid "Malformed JSON file '%1': %2"
+#, kde-format
 msgctxt "%2 is an error message"
 msgid "Malformed JSON file ‘%1’: %2"
 msgstr "Chybne vytvorený súbor JSON '%1': %2"
 
 #: keyboardmacrosplugin.cpp:80
-#, fuzzy, kde-format
-#| msgid "Could not load '%1': malformed macro; wiping it."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Could not load ‘%1’: malformed macro; wiping it."
 msgstr "Nemožno načítať '%1': chybne vytvorené makro; vymazanie."
@@ -49,47 +46,40 @@ msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Makrá klávesnice:</b> %1"
 
 #: keyboardmacrosplugin.cpp:170
-#, fuzzy, kde-format
-#| msgid "Can't save macro during recording. Please end recoding first"
+#, kde-format
 msgid "Can’t save macro during recording. Please end recording first"
 msgstr "Nie je možné uložiť makro počas nahrávania. Najprv ukončte nahrávanie"
 
 #: keyboardmacrosplugin.cpp:241
-#, fuzzy, kde-format
-#| msgid "Recording…"
+#, kde-format
 msgctxt "@info:progress Macro is being recorded right now"
 msgid "Recording…"
 msgstr "Nahrávanie..."
 
 #: keyboardmacrosplugin.cpp:278
-#, fuzzy, kde-format
-#| msgid "Recording %1"
+#, kde-format
 msgid "Recording ended"
-msgstr "Nahrávanie %1"
+msgstr "Nahrávanie skončilo"
 
 #: keyboardmacrosplugin.cpp:279
-#, fuzzy, kde-format
-#| msgid "Recording %1"
+#, kde-format
 msgid "Recording canceled"
-msgstr "Nahrávanie %1"
+msgstr "Nahrávanie zrušené"
 
 #: keyboardmacrosplugin.cpp:330
-#, fuzzy, kde-format
-#| msgid "Saved '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Saved ‘%1’"
 msgstr "Uložené '%1'"
 
 #: keyboardmacrosplugin.cpp:350
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Loaded ‘%1’"
 msgstr "Načítané '%1'"
 
 #: keyboardmacrosplugin.cpp:368
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wiped ‘%1’"
 msgstr "Vymazané '%1'"
@@ -158,10 +148,9 @@ msgid "Record and play keyboard macros."
 msgstr "Nahrávať a prehrávať makrá klávesnice"
 
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Record Macro..."
+#, kde-format
 msgid "&Record Macro…"
-msgstr "Nah&rať makro..."
+msgstr "Nah&rať makro…"
 
 #: keyboardmacrospluginview.cpp:43
 #, kde-format
@@ -206,10 +195,9 @@ msgid "Give a name to the current macro and persistently save it."
 msgstr "Zadať aktuálnemu makru názov a trvalo ho uložiť."
 
 #: keyboardmacrospluginview.cpp:90
-#, fuzzy, kde-format
-#| msgid "&Load Named Macro..."
+#, kde-format
 msgid "&Load Named Macro…"
-msgstr "Načítať pomenované makro..."
+msgstr "Načítať pomenované makro…"
 
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
@@ -217,10 +205,9 @@ msgid "Load a named macro as the current one."
 msgstr "Načítať pomenované makro ako aktuálne."
 
 #: keyboardmacrospluginview.cpp:98
-#, fuzzy, kde-format
-#| msgid "&Play Named Macro..."
+#, kde-format
 msgid "&Play Named Macro…"
-msgstr "&Prehrať pomenované makro..."
+msgstr "&Prehrať pomenované makro…"
 
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
@@ -228,10 +215,9 @@ msgid "Play a named macro without loading it."
 msgstr "Prehrať pomenované makro bez jeho načítania."
 
 #: keyboardmacrospluginview.cpp:106
-#, fuzzy, kde-format
-#| msgid "&Wipe Named Macro..."
+#, kde-format
 msgid "&Wipe Named Macro…"
-msgstr "Vymazať pomenované makro..."
+msgstr "Vymazať pomenované makro…"
 
 #: keyboardmacrospluginview.cpp:109
 #, kde-format
@@ -244,43 +230,37 @@ msgid "End Macro &Recording"
 msgstr "Ukončiť nah&rávanie makra"
 
 #: keyboardmacrospluginview.cpp:180
-#, fuzzy, kde-format
-#| msgid "Load %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Load %1"
 msgstr "Načítané '%1'"
 
 #: keyboardmacrospluginview.cpp:181
-#, fuzzy, kde-format
-#| msgid "Load the '%1' macro as the current one."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Load the ‘%1’ macro as the current one."
 msgstr "Načítať makro '%1' ako aktuálne."
 
 #: keyboardmacrospluginview.cpp:193
-#, fuzzy, kde-format
-#| msgid "Play %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Play %1"
 msgstr "Prehrať %1"
 
 #: keyboardmacrospluginview.cpp:194
-#, fuzzy, kde-format
-#| msgid "Play the '%1' macro without loading it."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Play the ‘%1’ macro without loading it."
 msgstr "Prehrať makro '%1' bez jeho načítania."
 
 #: keyboardmacrospluginview.cpp:208
-#, fuzzy, kde-format
-#| msgid "Wipe %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe %1"
 msgstr "Vymazané '%1'"
 
 #: keyboardmacrospluginview.cpp:209
-#, fuzzy, kde-format
-#| msgid "Wipe the '%1' macro."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe the ‘%1’ macro."
 msgstr "Vymazať makro '%1'."
@@ -291,8 +271,7 @@ msgid "Save current macro as?"
 msgstr "Uložiť aktuálne makro ako?"
 
 #: keyboardmacrospluginview.cpp:323
-#, fuzzy, kde-format
-#| msgid "Wipe the '%1' macro?"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe the ‘%1’ macro?"
 msgstr "Vymazať makro '%1'?"

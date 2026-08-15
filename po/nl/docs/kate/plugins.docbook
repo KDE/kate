@@ -7411,7 +7411,7 @@ VALUES ("<replaceable
 <listitem
 ><para
 >CMake - <command
->cmake-format</command
+>gersemi</command
 ></para
 ></listitem>
 <listitem
@@ -7540,7 +7540,7 @@ VALUES ("<replaceable
 >{
     "formatOnSave": true,
     "formatterForJson": "jq",
-    "cmake-format": {
+    "gersemi": {
         "formatOnSave": false
     },
     "autopep8": {
@@ -7561,7 +7561,7 @@ VALUES ("<replaceable
 ></listitem>
 <listitem
 ><para
->schakelt "formatteren bij opslaan" uit voor cmake-format en autopep8</para
+>schakelt "formatteren bij opslaan" uit voor gersemi en autopep8</para
 ></listitem>
 </itemizedlist>
 </para>

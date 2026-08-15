@@ -150,6 +150,8 @@ msgid ""
 "Starts the application in self-test mode for some basic functions checks and "
 "quits afterwards"
 msgstr ""
+"Spustí aplikáciu v režime samotestovania na overenie niektorých základných "
+"funkcií a potom skončí"
 
 #: kate/main.cpp:225 kwrite/main.cpp:127
 #, kde-format

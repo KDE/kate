@@ -323,6 +323,8 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
         return newStdinFmt("erlfmt", {});
     } else if (is("godot")) {
         return newStdinFmt("gdformat", {});
+    } else if (is("perl")) {
+        return newStdinFmt("perltidy", {});
     }
     return {};
 #undef S

@@ -28,7 +28,7 @@ class LSPClientViewTracker : public QObject
     Q_OBJECT
 public:
     // factory method; private implementation by interface
-    static LSPClientViewTracker *new_(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, int change_ms, int motion_ms);
+    static LSPClientViewTracker *new_(KTextEditor::MainWindow *mainWin, int change_ms, int motion_ms);
 
     enum State {
         ViewChanged,

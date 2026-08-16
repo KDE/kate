@@ -829,10 +829,9 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
             QString text = content[u"text"].toString();
 
             // Check if this is a new message or continuation
-            static QString lastMessageId;
-            if (messageId != lastMessageId && !messageId.isEmpty()) {
+            if (messageId != m_lastMessageId && !messageId.isEmpty()) {
                 // New message
-                lastMessageId = messageId;
+                m_lastMessageId = messageId;
                 ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Agent, m_chatListWidget);
                 msgWidget->setTimestamp(QDateTime::currentDateTime());
                 msgWidget->setSender(i18n("Agent"));
@@ -865,7 +864,34 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
                 msgWidget->setContent(text);
                 addMessageWidget(msgWidget);
             } else {
-                // No message ID - create new message
+                // No message ID - try to update the last agent message
+                if (!m_messageWidgets.isEmpty()) {
+                    // Find the last Agent message widget
+                    ACPChatMessageWidget *lastAgentWidget = nullptr;
+                    for (auto it = m_messageWidgets.rbegin(); it != m_messageWidgets.rend(); ++it) {
+                        if ((*it)->type() == ACPChatMessageWidget::MessageType::Agent) {
+                            lastAgentWidget = *it;
+                            break;
+                        }
+                    }
+
+                    if (lastAgentWidget) {
+                        // Append to the last agent message
+                        QString existingContent = lastAgentWidget->content();
+                        lastAgentWidget->setContent(existingContent + text);
+                        // Update the item size hint and scroll
+                        QTimer::singleShot(10, this, [this, lastAgentWidget]() {
+                            updateWidgetSizeHint(lastAgentWidget);
+                            QScrollBar *vScrollBar = m_chatListWidget->verticalScrollBar();
+                            if (vScrollBar) {
+                                vScrollBar->setValue(vScrollBar->maximum());
+                            }
+                        });
+                        return;
+                    }
+                }
+
+                // Fallback: create new message if no agent message exists
                 ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Agent, m_chatListWidget);
                 msgWidget->setTimestamp(QDateTime::currentDateTime());
                 msgWidget->setSender(i18n("Agent"));

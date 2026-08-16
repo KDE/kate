@@ -297,6 +297,12 @@ private:
     QList<ACPChatMessageWidget *> m_messageWidgets; ///< All displayed message widgets
 
     // ========================================================================
+    // MESSAGE TRACKING
+    // ========================================================================
+
+    QString m_lastMessageId; ///< Last message ID for streaming chunks
+
+    // ========================================================================
     // STATUS BAR
     // ========================================================================
 

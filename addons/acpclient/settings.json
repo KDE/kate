@@ -118,6 +118,13 @@
             "description": "Mistral AI's Vibe CLI with ACP support",
             "repository": "https://github.com/mistralai/vibe",
             "website": "https://vibe.mistral.ai/"
+        },
+        "Qwen Code": {
+            "command": "qwen",
+            "arguments": ["--acp"],
+            "description": "An open-source AI coding agent that lives in your terminal",
+            "repository": "https://github.com/QwenLM/qwen-code",
+            "website": "https://qwen.ai/qwencode"
         }
     }
 }

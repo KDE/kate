@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-13 00:54+0000\n"
+"POT-Creation-Date: 2026-08-16 00:48+0000\n"
 "PO-Revision-Date: 2025-09-01 13:48+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
 #: FormatPlugin.cpp:245 Formatters.cpp:271 Formatters.cpp:291
-#: Formatters.cpp:314 Formatters.cpp:344
+#: Formatters.cpp:314 Formatters.cpp:346
 #, kde-format
 msgid "Format"
 msgstr "Formatta"
@@ -97,7 +97,7 @@ msgstr "formatterForPython sconosciuto: %1"
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "formatterForYaml sconosciuto: %1, ripiego su yamlfmt"
 
-#: Formatters.cpp:344
+#: Formatters.cpp:346
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Impossibile eseguire il formattatore. Lingua non supportata %1"

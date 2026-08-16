@@ -416,6 +416,9 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
             , m_lsp(lsp)
         {
             name = i18n("LSP");
+
+            m_viewTracker.reset(LSPClientViewTracker::new_(mainWin, 250, 0));
+            connect(m_viewTracker.get(), &LSPClientViewTracker::newState, this, &LSPDiagnosticProvider::onViewState);
         }
 
         QJsonObject suppressions(KTextEditor::Document *doc) const override
@@ -428,8 +431,33 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
             return {};
         }
 
+        void onViewState(KTextEditor::View *view, LSPClientViewTracker::State state)
+        {
+            // ignore cursor change events, we shouldn't even receive them because the motion timer is 0
+            // and the tracker ignores motion events if its 0, but just to be safe :)
+            if (state == LSPClientViewTracker::State::LineChanged)
+                return;
+
+            auto server = m_lsp->m_serverManager->findServer(view);
+            if (server && server->capabilities().diagnosticProvider) {
+                auto url = view->document()->url();
+
+                server->documentDiagnostic(url, this, [url, this](const LSPPullDiagnosticParams &params) {
+                    if (params.kind == LSPPullDiagnosticKind::Unchanged)
+                        return;
+
+                    FileDiagnostics diagnostics{
+                        .uri = url,
+                        .diagnostics = params.items,
+                    };
+                    Q_EMIT diagnosticsAdded(diagnostics);
+                });
+            }
+        }
+
     private:
         LSPClientPluginViewImpl *m_lsp;
+        std::unique_ptr<LSPClientViewTracker> m_viewTracker;
     };
 
     LSPDiagnosticProvider m_diagnosticProvider;

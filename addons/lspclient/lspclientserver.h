@@ -74,6 +74,7 @@ using WorkspaceSymbolsReplyHandler = ReplyHandler<std::vector<LSPSymbolInformati
 using SelectionRangeReplyHandler = ReplyHandler<QList<std::shared_ptr<LSPSelectionRange>>>;
 using InlayHintsReplyHandler = ReplyHandler<std::vector<LSPInlayHint>>;
 using ConfigurationReplyHandler = ReplyHandler<QList<QJsonValue>>;
+using DiagnosticReplayHandler = ReplyHandler<LSPPullDiagnosticParams>;
 
 class LSPClientPlugin;
 
@@ -209,6 +210,8 @@ public:
     RequestHandle documentSemanticTokensRange(const QUrl &document, const LSPRange &range, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
 
     RequestHandle documentInlayHint(const QUrl &document, const LSPRange &range, const QObject *context, const InlayHintsReplyHandler &h);
+
+    RequestHandle documentDiagnostic(const QUrl &document, const QObject *context, const DiagnosticReplayHandler &h);
 
     void executeCommand(const LSPCommand &command);
 

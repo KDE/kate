@@ -121,6 +121,7 @@ struct LSPServerCapabilities {
     LSPWorkspaceFoldersServerCapabilities workspaceFolders;
     bool selectionRangeProvider = false;
     bool inlayHintProvider = false;
+    bool diagnosticProvider = false;
 };
 
 enum class LSPMarkupKind {
@@ -317,6 +318,17 @@ using LSPDiagnosticRelatedInformation = DiagnosticRelatedInformation;
 using LSPDiagnostic = Diagnostic;
 
 using LSPPublishDiagnosticsParams = FileDiagnostics;
+
+enum class LSPPullDiagnosticKind {
+    Full,
+    Unchanged
+};
+
+struct LSPPullDiagnosticParams {
+    LSPPullDiagnosticKind kind;
+    QString resultId;
+    QList<Diagnostic> items;
+};
 
 enum class LSPMessageType {
     Error = 1,

@@ -539,6 +539,7 @@ static void from_json(LSPServerCapabilities &caps, const rapidjson::Value &json)
     from_json(caps.workspaceFolders, GetJsonObjectForKey(workspace, "workspaceFolders"));
     caps.selectionRangeProvider = json.HasMember("selectionRangeProvider");
     caps.inlayHintProvider = json.HasMember("inlayHintProvider");
+    caps.diagnosticProvider = json.HasMember("diagnosticProvider");
 }
 
 static QUrl urlFromRemote(const QString &s, bool normalize = true)
@@ -1243,6 +1244,24 @@ static LSPPublishDiagnosticsParams parseDiagnostics(const rapidjson::Value &resu
     return ret;
 }
 
+static LSPPullDiagnosticParams parsePullDiagnostics(const rapidjson::Value &result)
+{
+    LSPPullDiagnosticParams ret;
+
+    QString kind = GetStringValue(result, "kind");
+
+    ret.kind = kind == QStringLiteral("full") ? LSPPullDiagnosticKind::Full : LSPPullDiagnosticKind::Unchanged;
+
+    ret.resultId = GetStringValue(result, "resultId");
+
+    auto it = result.FindMember(MEMBER_ITEMS);
+    if (it != result.MemberEnd()) {
+        ret.items = parseDiagnosticsArray(it->value);
+    }
+
+    return ret;
+}
+
 static LSPApplyWorkspaceEditParams parseApplyWorkspaceEditParams(const rapidjson::Value &result)
 {
     LSPApplyWorkspaceEditParams ret;
@@ -1838,6 +1857,10 @@ private:
                                             }},
                                             {QLatin1String("inlayHint"), QJsonObject{
                                                 {QLatin1String("dynamicRegistration"), false}
+                                            }},
+                                            {QLatin1String("diagnostic"), QJsonObject{
+                                                {QLatin1String("dynamicRegistration"), false},
+                                                {QLatin1String("relatedInformation"), true}
                                             }}
                                         },
                                   },
@@ -2119,6 +2142,13 @@ public:
         auto params = textDocumentParams(document);
         params[QLatin1String(MEMBER_RANGE)] = to_json(range);
         return send(init_request(QStringLiteral("textDocument/inlayHint"), params), h);
+    }
+
+    RequestHandle documentDiagnostic(const QUrl &document, const GenericReplyHandler &h)
+    {
+        PushCurrentServer g(q);
+        auto params = textDocumentParams(document);
+        return send(init_request(QStringLiteral("textDocument/diagnostic"), params), h);
     }
 
     void executeCommand(const LSPCommand &command)
@@ -2571,6 +2601,11 @@ LSPClientServer::RequestHandle
 LSPClientServer::documentInlayHint(const QUrl &document, const LSPRange &range, const QObject *context, const InlayHintsReplyHandler &h)
 {
     return d->documentInlayHint(document, range, make_handler(h, context, parseInlayHints));
+}
+
+LSPClientServer::RequestHandle LSPClientServer::documentDiagnostic(const QUrl &document, const QObject *context, const DiagnosticReplayHandler &h)
+{
+    return d->documentDiagnostic(document, make_handler(h, context, parsePullDiagnostics));
 }
 
 void LSPClientServer::executeCommand(const LSPCommand &command)

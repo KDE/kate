@@ -7444,7 +7444,7 @@ VALUES ("<replaceable
 <listitem
 ><para
 >CMake — <command
->cmake-format</command
+>gersemi</command
 ></para
 ></listitem>
 <listitem
@@ -7499,6 +7499,12 @@ VALUES ("<replaceable
 ><para
 >Godot Script — <command
 >gdformat</command
+></para
+></listitem>
+<listitem
+><para
+>Perl — <command
+>perltidy</command
 ></para
 ></listitem>
 
@@ -7573,7 +7579,7 @@ VALUES ("<replaceable
 >{
     "formatOnSave": true,
     "formatterForJson": "jq",
-    "cmake-format": {
+    "gersemi": {
         "formatOnSave": false
     },
     "autopep8": {
@@ -7594,7 +7600,7 @@ VALUES ("<replaceable
 ></listitem>
 <listitem
 ><para
->cmake-format ve autopep8 için “kaydederken biçimlendirme”yi devre dışı bırakır</para
+>gersemi ve autopep8 için “kaydederken biçimlendirme”yi devre dışı bırakır</para
 ></listitem>
 </itemizedlist>
 </para>

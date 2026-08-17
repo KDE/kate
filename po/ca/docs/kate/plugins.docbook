@@ -7433,6 +7433,12 @@ VALUES ("<replaceable
 >gdformat</command
 ></para
 ></listitem>
+<listitem
+><para
+>Perl - <command
+>perltidy</command
+></para
+></listitem>
 
 <listitem
 ><para

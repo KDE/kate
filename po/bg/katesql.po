@@ -704,15 +704,3 @@ msgstr "Инструменти за връзки с SQL"
 #, kde-format
 msgid "SQL Toolbar"
 msgstr "Инструменти за SQL"
-
-#~ msgctxt "@option:check"
-#~ msgid "Allow running queries in non-SQL files"
-#~ msgstr "Разрешаване на изпълнение на заявки в файлове, различни от SQL"
-
-#~ msgctxt "@option:check"
-#~ msgid "Enable auto query selection"
-#~ msgstr "Активиране на автоматичния избор на заявки"
-
-#~ msgctxt "@option:check"
-#~ msgid "Always show query selector popup"
-#~ msgstr "Винаги да се показва изскачащият прозорец за избор на заявка"

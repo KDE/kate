@@ -289,9 +289,3 @@ msgstr "Да се изтрие ли макрос „%1“?"
 #, kde-format
 msgid "&Tools"
 msgstr "&Инструменти"
-
-#~ msgid "ended"
-#~ msgstr "завършено"
-
-#~ msgid "canceled"
-#~ msgstr "отменено"

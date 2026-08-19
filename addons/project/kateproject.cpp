@@ -303,13 +303,11 @@ bool KateProject::reload(bool force)
 
 void KateProject::renameFile(const QString &newName, const QString &oldName)
 {
-    auto it = m_file2Item->find(oldName);
-    if (it == m_file2Item->end()) {
+    if (auto *item = m_file2Item->take(oldName)) {
+        m_file2Item->insert(newName, item);
+    } else {
         qWarning("renameFile() File not found, new: %ls old: %ls", qUtf16Printable(newName), qUtf16Printable(oldName));
-        return;
     }
-    (*m_file2Item)[newName] = it.value();
-    m_file2Item->erase(it);
 }
 
 void KateProject::removeFile(const QString &file)

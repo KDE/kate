@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-05 00:50+0000\n"
+"POT-Creation-Date: 2026-08-19 00:50+0000\n"
 "PO-Revision-Date: 2026-01-02 08:03+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 25.11.70\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:359
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:357
 #, kde-format
 msgid "Filter…"
 msgstr "過濾…"
@@ -38,7 +38,7 @@ msgid "Default Server Settings"
 msgstr "預設伺服器設定"
 
 #: lspclientconfigpage.cpp:88 lspclientconfigpage.cpp:93
-#: lspclientpluginview.cpp:453 lspclientpluginview.cpp:602
+#: lspclientpluginview.cpp:481 lspclientpluginview.cpp:630
 #, kde-format
 msgid "LSP Client"
 msgstr "LSP 用戶端"
@@ -77,296 +77,296 @@ msgstr ""
 "使用者永久封鎖了 '%1' 的啟動。\n"
 "可以到外掛程式設定頁面中復原這個封鎖。"
 
-#: lspclientpluginview.cpp:418 lspclientpluginview.cpp:663
+#: lspclientpluginview.cpp:418 lspclientpluginview.cpp:691
 #, kde-format
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:483
+#: lspclientpluginview.cpp:511
 #, kde-format
 msgid "Go to Definition"
 msgstr "前往定義"
 
-#: lspclientpluginview.cpp:485
+#: lspclientpluginview.cpp:513
 #, kde-format
 msgid "Go to Declaration"
 msgstr "前往宣告"
 
-#: lspclientpluginview.cpp:487
+#: lspclientpluginview.cpp:515
 #, kde-format
 msgid "Go to Type Definition"
 msgstr "前往類型定義"
 
-#: lspclientpluginview.cpp:489
+#: lspclientpluginview.cpp:517
 #, kde-format
 msgid "Find References"
 msgstr "尋找參考"
 
-#: lspclientpluginview.cpp:492
+#: lspclientpluginview.cpp:520
 #, kde-format
 msgid "Find Implementations"
 msgstr "尋找實作"
 
-#: lspclientpluginview.cpp:494
+#: lspclientpluginview.cpp:522
 #, kde-format
 msgid "Highlight"
 msgstr "突顯"
 
-#: lspclientpluginview.cpp:496
+#: lspclientpluginview.cpp:524
 #, kde-format
 msgid "Symbol Info"
 msgstr "符號資訊"
 
-#: lspclientpluginview.cpp:498
+#: lspclientpluginview.cpp:526
 #, kde-format
 msgid "Search and Go to Symbol"
 msgstr "搜尋並前往符號"
 
-#: lspclientpluginview.cpp:503
+#: lspclientpluginview.cpp:531
 #, kde-format
 msgid "Format"
 msgstr "格式"
 
-#: lspclientpluginview.cpp:506
+#: lspclientpluginview.cpp:534
 #, kde-format
 msgid "Rename"
 msgstr "重新命名"
 
-#: lspclientpluginview.cpp:509
+#: lspclientpluginview.cpp:537
 #, kde-format
 msgid "Expand Selection"
 msgstr "擴大選取區域"
 
-#: lspclientpluginview.cpp:512
+#: lspclientpluginview.cpp:540
 #, kde-format
 msgid "Shrink Selection"
 msgstr "縮小選取區域"
 
-#: lspclientpluginview.cpp:515
+#: lspclientpluginview.cpp:543
 #, kde-format
 msgid "Switch Source Header"
 msgstr "切換來源標頭"
 
-#: lspclientpluginview.cpp:518
+#: lspclientpluginview.cpp:546
 #, kde-format
 msgid "Expand Macro"
 msgstr "展開巨集"
 
-#: lspclientpluginview.cpp:520
+#: lspclientpluginview.cpp:548
 #, kde-format
 msgid "Code Action"
 msgstr "程式碼動作"
 
-#: lspclientpluginview.cpp:535
+#: lspclientpluginview.cpp:563
 #, kde-format
 msgid "Show lsp completions"
 msgstr "顯示 LSP 補完"
 
-#: lspclientpluginview.cpp:538
+#: lspclientpluginview.cpp:566
 #, kde-format
 msgid "Show selected completion documentation"
 msgstr "顯示所選取的補完項目的說明文件"
 
-#: lspclientpluginview.cpp:541
+#: lspclientpluginview.cpp:569
 #, kde-format
 msgid "Enable signature help with auto completion"
 msgstr "啟用自動補完的"
 
-#: lspclientpluginview.cpp:544
+#: lspclientpluginview.cpp:572
 #, kde-format
 msgid "Include declaration in references"
 msgstr "在參考中包含 (include) 宣告"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:547 lspconfigwidget.ui:131
+#: lspclientpluginview.cpp:575 lspconfigwidget.ui:131
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr "補完函式後加入括號"
 
-#: lspclientpluginview.cpp:550
+#: lspclientpluginview.cpp:578
 #, kde-format
 msgid "Show hover information"
 msgstr "顯示懸停資訊"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:553 lspconfigwidget.ui:75
+#: lspclientpluginview.cpp:581 lspconfigwidget.ui:75
 #, kde-format
 msgid "Format on typing"
 msgstr "輸入時格式化"
 
-#: lspclientpluginview.cpp:556
+#: lspclientpluginview.cpp:584
 #, kde-format
 msgid "Incremental document synchronization"
 msgstr "漸進式文件同步"
 
-#: lspclientpluginview.cpp:559
+#: lspclientpluginview.cpp:587
 #, kde-format
 msgid "Highlight goto location"
 msgstr "突顯跳到的位置"
 
-#: lspclientpluginview.cpp:568
+#: lspclientpluginview.cpp:596
 #, kde-format
 msgid "Show Inlay Hints"
 msgstr "顯示行內提示"
 
-#: lspclientpluginview.cpp:572
+#: lspclientpluginview.cpp:600
 #, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "顯示診斷通知"
 
-#: lspclientpluginview.cpp:577
+#: lspclientpluginview.cpp:605
 #, kde-format
 msgid "Show Messages"
 msgstr "顯示訊息"
 
-#: lspclientpluginview.cpp:582
+#: lspclientpluginview.cpp:610
 #, kde-format
 msgid "Server Memory Usage"
 msgstr "伺服器記憶體用量"
 
-#: lspclientpluginview.cpp:586
+#: lspclientpluginview.cpp:614
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "關閉所有動態參考分頁"
 
-#: lspclientpluginview.cpp:588
+#: lspclientpluginview.cpp:616
 #, kde-format
 msgid "Restart LSP Server"
 msgstr "重新啟動 LSP 伺服器"
 
-#: lspclientpluginview.cpp:590
+#: lspclientpluginview.cpp:618
 #, kde-format
 msgid "Restart All LSP Servers"
 msgstr "重新啟動所有 LSP 伺服器"
 
-#: lspclientpluginview.cpp:594
+#: lspclientpluginview.cpp:622
 #, kde-format
 msgid "Suspend All"
 msgstr "暫停全部"
 
-#: lspclientpluginview.cpp:598
+#: lspclientpluginview.cpp:626
 #, kde-format
 msgid "Go To"
 msgstr "前往"
 
-#: lspclientpluginview.cpp:618
+#: lspclientpluginview.cpp:646
 #, kde-format
 msgid "More options"
 msgstr "更多選項"
 
-#: lspclientpluginview.cpp:844 lspclientsymbolview.cpp:395
+#: lspclientpluginview.cpp:872 lspclientsymbolview.cpp:393
 #, kde-format
 msgid "Expand All"
 msgstr "全部展開"
 
-#: lspclientpluginview.cpp:845 lspclientsymbolview.cpp:396
+#: lspclientpluginview.cpp:873 lspclientsymbolview.cpp:394
 #, kde-format
 msgid "Collapse All"
 msgstr "全部收起"
 
-#: lspclientpluginview.cpp:1050
+#: lspclientpluginview.cpp:1078
 #, kde-format
 msgid "RangeHighLight"
 msgstr "RangeHighLight (範圍突顯)"
 
-#: lspclientpluginview.cpp:1335
+#: lspclientpluginview.cpp:1363
 #, kde-format
 msgid "Line: %1: "
 msgstr "行：%1: "
 
-#: lspclientpluginview.cpp:1487 lspclientpluginview.cpp:1836
-#: lspclientpluginview.cpp:1956
+#: lspclientpluginview.cpp:1515 lspclientpluginview.cpp:1864
+#: lspclientpluginview.cpp:1984
 #, kde-format
 msgid "No results"
 msgstr "沒有結果"
 
-#: lspclientpluginview.cpp:1546
+#: lspclientpluginview.cpp:1574
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "定義：%1"
 
-#: lspclientpluginview.cpp:1552
+#: lspclientpluginview.cpp:1580
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "宣告：%1"
 
-#: lspclientpluginview.cpp:1558
+#: lspclientpluginview.cpp:1586
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "類型定義：%1"
 
-#: lspclientpluginview.cpp:1564
+#: lspclientpluginview.cpp:1592
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "參考：%1"
 
-#: lspclientpluginview.cpp:1576
+#: lspclientpluginview.cpp:1604
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "實作：%1"
 
-#: lspclientpluginview.cpp:1589
+#: lspclientpluginview.cpp:1617
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "突顯：%1"
 
-#: lspclientpluginview.cpp:1613 lspclientpluginview.cpp:1624
-#: lspclientpluginview.cpp:1637
+#: lspclientpluginview.cpp:1641 lspclientpluginview.cpp:1652
+#: lspclientpluginview.cpp:1665
 #, kde-format
 msgid "No Actions"
 msgstr "沒有動作"
 
-#: lspclientpluginview.cpp:1628
+#: lspclientpluginview.cpp:1656
 #, kde-format
 msgid "Loading..."
 msgstr "載入中..."
 
-#: lspclientpluginview.cpp:1720
+#: lspclientpluginview.cpp:1748
 #, kde-format
 msgid "No edits"
 msgstr "沒有編輯記錄"
 
-#: lspclientpluginview.cpp:1795
+#: lspclientpluginview.cpp:1823
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "重新命名"
 
-#: lspclientpluginview.cpp:1796
+#: lspclientpluginview.cpp:1824
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "新名稱（警告：不是所有參考都會被取代）"
 
-#: lspclientpluginview.cpp:1842
+#: lspclientpluginview.cpp:1870
 #, kde-format
 msgid "Not enough results"
 msgstr "不夠多結果"
 
-#: lspclientpluginview.cpp:1911
+#: lspclientpluginview.cpp:1939
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "找不到對應的標頭/來源"
 
-#: lspclientpluginview.cpp:2109 lspclientpluginview.cpp:2152
+#: lspclientpluginview.cpp:2137 lspclientpluginview.cpp:2180
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP 伺服器"
 
-#: lspclientpluginview.cpp:2175
+#: lspclientpluginview.cpp:2203
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP 用戶端"
 
-#: lspclientpluginview.cpp:2440
+#: lspclientpluginview.cpp:2468
 #, kde-format
 msgid "Question from LSP server"
 msgstr "來自 LSP 伺服器的詢問"
@@ -438,42 +438,42 @@ msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr "前往上一個符號突顯"
 
-#: lspclientsymbolview.cpp:340
+#: lspclientsymbolview.cpp:338
 #, kde-format
 msgid "Symbol Outline"
 msgstr "符號大綱"
 
-#: lspclientsymbolview.cpp:386
+#: lspclientsymbolview.cpp:384
 #, kde-format
 msgid "Tree Mode"
 msgstr "樹狀圖模式"
 
-#: lspclientsymbolview.cpp:388
+#: lspclientsymbolview.cpp:386
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "自動展開樹狀圖"
 
-#: lspclientsymbolview.cpp:390
+#: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "依字母排序"
 
-#: lspclientsymbolview.cpp:392
+#: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Show Details"
 msgstr "顯示詳細資訊"
 
-#: lspclientsymbolview.cpp:554
+#: lspclientsymbolview.cpp:552
 #, kde-format
 msgid "Symbols"
 msgstr "符號"
 
-#: lspclientsymbolview.cpp:614
+#: lspclientsymbolview.cpp:612
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr "LSP 伺服器不支援符號大綱。"
 
-#: lspclientsymbolview.cpp:692
+#: lspclientsymbolview.cpp:690
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "此文件沒有 LSP 伺服器。"

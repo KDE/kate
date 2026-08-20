@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-30 00:48+0000\n"
+"POT-Creation-Date: 2026-08-20 00:49+0000\n"
 "PO-Revision-Date: 2026-06-22 13:30+0200\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -554,12 +554,12 @@ msgstr "(Geändert)"
 msgid "(Staged)"
 msgstr "(Zum Commit vorgemerkt)"
 
-#: kateproject.cpp:357
+#: kateproject.cpp:355
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Ungültige JSON-Datei „%1“: %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:826 kateprojectpluginview.cpp:77
+#: kateproject.cpp:422 kateprojectplugin.cpp:826 kateprojectpluginview.cpp:77
 #: kateprojectpluginview.cpp:233 kateprojectviewtree.cpp:368
 #: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
 #: kateprojectviewtree.cpp:416
@@ -567,7 +567,7 @@ msgstr "Ungültige JSON-Datei „%1“: %2"
 msgid "Project"
 msgstr "Projekt"
 
-#: kateproject.cpp:725
+#: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
 msgstr "<unversioniert>"

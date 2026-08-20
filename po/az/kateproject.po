@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-30 00:48+0000\n"
+"POT-Creation-Date: 2026-08-20 00:49+0000\n"
 "PO-Revision-Date: 2025-12-12 21:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -545,12 +545,12 @@ msgstr "Dəyişdirildi"
 msgid "(Staged)"
 msgstr "Qeyd olundu"
 
-#: kateproject.cpp:357
+#: kateproject.cpp:355
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Səhv formatlanmış JSON \"%1\": %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:826 kateprojectpluginview.cpp:77
+#: kateproject.cpp:422 kateprojectplugin.cpp:826 kateprojectpluginview.cpp:77
 #: kateprojectpluginview.cpp:233 kateprojectviewtree.cpp:368
 #: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
 #: kateprojectviewtree.cpp:416
@@ -558,7 +558,7 @@ msgstr "Səhv formatlanmış JSON \"%1\": %2"
 msgid "Project"
 msgstr "Layihə"
 
-#: kateproject.cpp:725
+#: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
 msgstr "<qeydə alınmamış>"

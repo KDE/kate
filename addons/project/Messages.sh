@@ -1,3 +1,3 @@
 #! /bin/sh
 $EXTRACTRC *.rc >> rc.cpp
-$XGETTEXT *.cpp -o $podir/kateproject.pot
+$XGETTEXT `find . -name \*.cpp -o -name \*.h` -o $podir/kateproject.pot

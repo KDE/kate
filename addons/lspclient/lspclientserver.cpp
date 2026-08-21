@@ -947,7 +947,15 @@ static LSPSignatureInformation parseSignatureInformation(const rapidjson::Value 
     }
     const auto &params = GetJsonArrayForKey(json, "parameters");
     for (const auto &par : params.GetArray()) {
+        if (!par.IsObject()) {
+            continue;
+        }
+
         auto label = par.FindMember(MEMBER_LABEL);
+        if (label == par.MemberEnd()) {
+            continue;
+        }
+
         int begin = -1, end = -1;
         if (label->value.IsArray()) {
             auto range = label->value.GetArray();
@@ -1192,6 +1200,10 @@ static std::vector<LSPInlayHint> parseInlayHints(const rapidjson::Value &result)
     for (const auto &hint : hints) {
         LSPInlayHint h;
         auto labelIt = hint.FindMember("label");
+        if (labelIt == hint.MemberEnd()) {
+            continue;
+        }
+
         if (labelIt->value.IsArray()) {
             for (const auto &part : labelIt->value.GetArray()) {
                 h.label += GetStringValue(part, "value");

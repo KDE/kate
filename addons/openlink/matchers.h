@@ -37,8 +37,25 @@ static void adjustLink(QString &link)
     // Visit "https://cullmann.dev"
     // The web site https://cullmann.dev.
     // <https://cullmann.dev>
-    static const QRegularExpression skipSpecial(QStringLiteral("[)'\".>]$"));
-    link.replace(skipSpecial, QString());
+    // (for [#3695](https://github.com/pbek/QOwnNotes/issues/3695))
+    while (!link.isEmpty()) {
+        const QChar last = link.back();
+        if (last == u')') {
+            // Only strip ')' if the parentheses are unbalanced so that
+            // links with balanced parens like
+            // https://en.wikipedia.org/wiki/Link_(film) stay intact
+            if (link.count(u')') > link.count(u'(')) {
+                link.chop(1);
+                continue;
+            }
+            break;
+        }
+        if (last == u'\'' || last == u'"' || last == u'.' || last == u'>') {
+            link.chop(1);
+            continue;
+        }
+        break;
+    }
 }
 
 static KTextEditor::Cursor parseLineCol(QStringView &link)

@@ -1,5 +1,4 @@
 # Translation of kate into Japanese.
-# SPDX-FileCopyrightText: 2024 Ryuichi Yamada <ryuichi_ya220@outlook.jp>
 # This file is distributed under the same license as the kdesdk package.
 # Noboru Sinohara <shinobo@leo.bekkoame.ne.jp>, 2002.
 # Taiki Komoda <kom@kde.gr.jp>, 2002, 2003, 2004, 2005.
@@ -13,13 +12,15 @@
 # Tom Mishima <tom340@kde.gr.jp>, 2005.
 # Yukiko Bando <ybando@k6.dion.ne.jp>, 2006, 2007, 2008, 2009.
 # Fumiaki Okushi <okushi@kde.gr.jp>, 2005, 2006, 2011, 2012, 2013.
+# SPDX-FileCopyrightText: 2024 Ryuichi Yamada <ryuichi_ya220@outlook.jp>
+# SPDX-FileCopyrightText: 2026 Mint <5602mint@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-17 02:43+0000\n"
-"PO-Revision-Date: 2024-02-23 02:55+0900\n"
-"Last-Translator: Ryuichi Yamada <ryuichi_ya220@outlook.jp>\n"
+"PO-Revision-Date: 2026-08-19 18:15+0900\n"
+"Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -28,19 +29,19 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Noboru Sinohara,Tom Mishima,Shinichi Tsunoda,Ryuichi Yamada"
+msgstr "Noboru Sinohara,Tom Mishima,Shinichi Tsunoda,Ryuichi Yamada,Mint"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 "shinobo@leo.bekkoame.ne.jp,tom340@kde.gr.jp,tsuno@ngy.1st.ne.jp,"
-"ryuichi_ya220@outlook.jp"
+"ryuichi_ya220@outlook.jp,5602mint@gmail.com"
 
 #: kate/main.cpp:119
 #, kde-format
@@ -53,10 +54,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate - 高機能なテキストエディタ"
 
 #: kate/main.cpp:123 kwrite/main.cpp:50
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2022 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) 2000-2022 Kate 開発チーム"
+msgstr "(c) 2000-2024 Kate 開発チーム"
 
 #: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:220
 #: lib/autotests/kate_view_mgmt_test2.cpp:522
@@ -75,7 +75,7 @@ msgstr "セッション"
 #: kate/main.cpp:175
 #, kde-format
 msgid "Start Kate with a new anonymous session, implies '-n'."
-msgstr "新しい匿名セッションで Kate を起動します。('-n' を指定します。)"
+msgstr "新しい匿名セッションで Kate を起動します。('-n' を指定します)"
 
 #: kate/main.cpp:180
 #, kde-format
@@ -84,6 +84,9 @@ msgid ""
 "kate instance already has the given session opened), forced if no parameters "
 "and no URLs are given at all."
 msgstr ""
+"新しい Kate インスタンスを強制的に起動します (start が使用され、別の Kate イ"
+"ンスタンスが既に指定されたセッションを開いている場合は無視されます)。パラメー"
+"タおよび URL がまったく指定されていない場合は強制されます。"
 
 #: kate/main.cpp:186
 #, kde-format
@@ -91,6 +94,8 @@ msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
 "given to open."
 msgstr ""
+"既に実行中の Kate インスタンスを使用する場合、開く URL が指定されていれば終了"
+"するまでブロックします。"
 
 #: kate/main.cpp:192
 #, kde-format
@@ -98,11 +103,13 @@ msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
 "and another kate instance already has the given session opened)."
 msgstr ""
+"この pid の Kate インスタンスのみ再利用を試みます。(start が使用され、別の "
+"Kate インスタンスが既に指定されたセッションを開いている場合は無視されます)"
 
 #: kate/main.cpp:193
 #, kde-format
 msgid "pid"
-msgstr ""
+msgstr "pid"
 
 #: kate/main.cpp:198 kwrite/main.cpp:101
 #, kde-format
@@ -143,11 +150,12 @@ msgstr "標準入力の内容を読み込みます。"
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
+"このアプリケーションによって開かれたファイル/URL は使用後に削除されます。"
 
 #: kate/main.cpp:220 kwrite/main.cpp:122
 #, kde-format
 msgid "Documents to open."
-msgstr "開く文書です。"
+msgstr "開くドキュメントです。"
 
 #: kate/main.cpp:220 kwrite/main.cpp:122
 #, kde-format
@@ -166,10 +174,9 @@ msgstr "Kwrite - テキストエディタ"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
 #: lib/filehistorywidget.cpp:467 lib/kateconfigplugindialogpage.cpp:109
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "フィルタ..."
+msgstr "フィルタ…"
 
 #: lib/commitfilesview.cpp:499 lib/kateviewmanager.cpp:369
 #: lib/kateviewmanager.cpp:371
@@ -191,7 +198,7 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:625
 #, kde-format
 msgid "Renamed %1 => %2"
-msgstr ""
+msgstr "名前変更: %1 => %2"
 
 #: lib/commitfilesview.cpp:645
 #, kde-format
@@ -207,13 +214,13 @@ msgstr "%1 は Git リポジトリに存在しません。"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "%1 をコミット"
+msgstr "コミット %1"
 
 #: lib/commitfilesview.cpp:674
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr ""
+msgstr "スタッシュ %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -223,10 +230,9 @@ msgstr "ファイル(&F)"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:31
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "ファイルのアクション"
+msgstr "ファイル操作(&I)"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:45
@@ -236,10 +242,9 @@ msgstr "編集(&E)"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:56
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
-msgstr "選択(&S)"
+msgstr "選択(&C)"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:59
@@ -310,6 +315,8 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"正規表現のエラー: %1\n"
+"オフセット %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
@@ -322,6 +329,8 @@ msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
+"診断の上限に達したため、以降の診断を無視します。この上限は設定で変更できま"
+"す。"
 
 #: lib/diagnostics/diagnosticview.cpp:367
 #, kde-format
@@ -352,7 +361,7 @@ msgstr "診断フィルタをクリア"
 #: lib/diagnostics/diagnosticview.cpp:406
 #, kde-format
 msgid "Show Hover Info"
-msgstr ""
+msgstr "ホバー時の情報を表示"
 
 #: lib/diagnostics/diagnosticview.cpp:465 lib/kateconfigdialog.cpp:394
 #, kde-format
@@ -370,11 +379,10 @@ msgid "Warnings"
 msgstr "警告"
 
 #: lib/diagnostics/diagnosticview.cpp:547
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "診断フィルタをクリア"
+msgstr "診断をクリア"
 
 #: lib/diagnostics/diagnosticview.cpp:1216 lib/kateconfigdialog.cpp:167
 #, kde-format
@@ -396,7 +404,7 @@ msgstr "情報"
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [抑制中: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1479
 #, kde-format
@@ -416,110 +424,105 @@ msgstr "クリップボードにコピー"
 #: lib/diagnostics/diagnosticview.cpp:1528
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "グローバル抑制を削除"
 
 #: lib/diagnostics/diagnosticview.cpp:1530
-#, fuzzy, kde-format
-#| msgid "Sess&ions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "セッション(&I)"
+msgstr "グローバル抑制を追加"
 
 #: lib/diagnostics/diagnosticview.cpp:1534
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "ローカル抑制を削除"
 
 #: lib/diagnostics/diagnosticview.cpp:1536
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "ローカル抑制を追加"
 
 #: lib/diagnostics/diagnosticview.cpp:1551
-#, fuzzy, kde-format
-#| msgid "Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "セッション"
+msgstr "抑制を無効化"
 
 #: lib/diagnostics/diagnosticview.cpp:1553
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "セッション管理"
+msgstr "抑制を有効化"
 
 #: lib/diagnostics/diagnosticview.cpp:1620
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "Show fixes"
-msgstr "サイドバーを表示(&B)"
+msgstr "修正案を表示"
 
 #: lib/diff/diffeditor.cpp:197
 #, kde-format
 msgid "Change Style"
-msgstr ""
+msgstr "スタイルを変更"
 
 #: lib/diff/diffeditor.cpp:199 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Side By Side"
-msgstr ""
+msgstr "並べて表示"
 
 #: lib/diff/diffeditor.cpp:202 lib/kateconfigdialog.cpp:375
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "Unified"
-msgstr "変更されました"
+msgstr "統合して表示"
 
 #: lib/diff/diffeditor.cpp:205 lib/kateconfigdialog.cpp:376
 #, kde-format
 msgid "Raw"
-msgstr ""
+msgstr "Raw"
 
 #: lib/diff/diffeditor.cpp:216
 #, kde-format
 msgid "Edit Line"
-msgstr ""
+msgstr "行を編集"
 
 #: lib/diff/diffeditor.cpp:281
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
-msgstr[0] ""
+msgstr[0] "行をステージ"
 
 #: lib/diff/diffeditor.cpp:286
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "ハンクをステージ"
 
 #: lib/diff/diffeditor.cpp:293
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
+msgstr[0] "行を破棄"
 
 #: lib/diff/diffeditor.cpp:298
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "ハンクを破棄"
 
 #: lib/diff/diffeditor.cpp:305
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] ""
+msgstr[0] "行のステージを解除"
 
 #: lib/diff/diffeditor.cpp:310
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "ハンクのステージを解除"
 
 #: lib/diff/diffwidget.cpp:51
 #, kde-format
 msgid "Diff - %1"
-msgstr ""
+msgstr "Diff - %1"
 
 #: lib/diff/diffwidget.cpp:54
 #, kde-format
 msgid "Diff - %1..%2"
-msgstr ""
+msgstr "Diff - %1..%2"
 
 #: lib/diff/diffwidget.cpp:60
 #, kde-format
@@ -528,55 +531,57 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> が見つかりません。ドキュメントの差分を表示するには Git が必要で"
+"す。Git が既にインストールされている場合は、PATH 環境変数に含まれていることを"
+"確認してください。詳しくは https://git-scm.com/downloads をご覧ください。"
 
 #: lib/diff/diffwidget.cpp:63 lib/diff/diffwidget.cpp:1244
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
-msgstr ""
+msgstr "Diff"
 
 #: lib/diff/diffwidget.cpp:122
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr ""
+msgstr "Diff %1 .. %2"
 
 #: lib/diff/diffwidget.cpp:152
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "コミット情報の表示/非表示"
 
 #: lib/diff/diffwidget.cpp:157
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "次のファイルへ移動"
 
 #: lib/diff/diffwidget.cpp:161
 #, kde-format
 msgid "Jump to Previous File"
-msgstr ""
+msgstr "前のファイルへ移動"
 
 #: lib/diff/diffwidget.cpp:165
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "次のハンクへ移動"
 
 #: lib/diff/diffwidget.cpp:169
 #, kde-format
 msgid "Jump to Previous Hunk"
-msgstr ""
+msgstr "前のハンクへ移動"
 
 #: lib/diff/diffwidget.cpp:173
-#, fuzzy, kde-format
-#| msgid "&Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "再読み込み(&R)"
+msgstr "差分を再読み込み"
 
 #: lib/diff/diffwidget.cpp:177
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "変更された行だけでなく、完全なコンテキストを含めて差分を表示します"
 
 #: lib/diff/diffwidget.cpp:852 lib/diff/diffwidget.cpp:1056
 #, kde-format
@@ -591,14 +596,13 @@ msgstr "削除されたファイル %1"
 #: lib/diff/diffwidget.cpp:1227 lib/diff/diffwidget.cpp:1228
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "差分は見つかりませんでした"
 
 #: lib/filehistorywidget.cpp:253
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "無効なハッシュ"
+msgstr "無効な日付: %1"
 
 #: lib/filehistorywidget.cpp:475
 #, kde-format
@@ -616,74 +620,82 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"ログをフィルタします。<ul><li>作成者名でフィルタするには <code>\"a:\"</code> "
+"プレフィックスを使用してください。(例: <b>a:john doe</b>)</li><li>特定の作成"
+"者を除外するには <code>\"!a:\"</code> プレフィックスを使用してください。(例: "
+"<b>!a:john doe</b>)</li><li>指定した日付以降のコミットを表示するには <code>"
+"\"since:\"</code> プレフィックスを使用してください。各コミットの作成日時が"
+"チェックされます。日付の形式は yyyy-MM-dd です。(例: <b>since:2025-04-17</"
+"b>)</li><li>指定した日付以前のコミットを表示するには <code>\"until:\"</code> "
+"プレフィックスを使用してください。各コミットの作成日時がチェックされます。日"
+"付の形式は yyyy-MM-dd です。(例: <b>until:2025-04-17</b>)</li><li>メッセージ"
+"でフィルタするには、検索語を直接入力してください。複数の検索語が指定された場"
+"合は、すべての検索語に一致するメッセージが表示されます。</li></ul>フィルタを"
+"適用するには <b>Enter</b> キーを押してください。"
 
 #: lib/filehistorywidget.cpp:537
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
+"ファイルの履歴の取得に失敗しました: PATH に git 実行ファイルが見つかりません"
 
 #: lib/filehistorywidget.cpp:553
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
+msgstr "ファイルの履歴の取得に失敗しました: %1"
 
 #: lib/filehistorywidget.cpp:568
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "コミットハッシュをコピー"
 
 #: lib/filehistorywidget.cpp:576
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
-msgstr ""
+msgstr "コミット全体を表示"
 
 #: lib/filehistorywidget.cpp:712
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "File History - %1"
+#, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
-msgstr "ファイルの履歴 - %1"
+msgstr "履歴 - %1"
 
 #: lib/jsonsettings.cpp:30
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "User Settings"
-msgstr "設定(&S)"
+msgstr "ユーザー設定"
 
 #: lib/jsonsettings.cpp:39
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Settings file:"
-msgstr "設定(&S)"
+msgstr "設定ファイル:"
 
 #: lib/jsonsettings.cpp:75
-#, fuzzy, kde-format
-#| msgid "&Settings"
+#, kde-format
 msgid "Default Settings"
-msgstr "設定(&S)"
+msgstr "デフォルト設定"
 
 #: lib/jsonsettings.cpp:125
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "検証する JSON データがありません。"
 
 #: lib/jsonsettings.cpp:134
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON データは有効です。"
 
 #: lib/jsonsettings.cpp:136
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON データが無効です: JSON オブジェクトではありません"
 
 #: lib/jsonsettings.cpp:139
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON データが無効です: %1"
 
 #: lib/kateapp.cpp:147
 msgid ""
@@ -691,6 +703,9 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"sudo でこのエディタを実行すると、不具合の原因となったり、セキュリティの脆弱性"
+"にさらされるおそれがあります。代わりに、通常どおりこのエディタを使用してくだ"
+"さい。必要に応じて、ドキュメントの保存時に管理権限の認証が求められます。"
 
 #: lib/kateapp.cpp:154
 msgid ""
@@ -698,6 +713,9 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"kdesu でこのエディタを実行すると、不具合の原因となったり、セキュリティの脆弱"
+"性にさらされるおそれがあります。代わりに、通常どおりこのエディタを使用してく"
+"ださい。必要に応じて、ドキュメントの保存時に管理権限の認証が求められます。"
 
 #: lib/kateapp.cpp:381
 #, kde-format
@@ -798,7 +816,7 @@ msgstr "Michael Bartl"
 #: lib/kateapp.cpp:393
 #, kde-format
 msgid "Former Core Developer"
-msgstr "以前のコア開発者"
+msgstr "元コア開発者"
 
 #: lib/kateapp.cpp:394
 #, kde-format
@@ -843,7 +861,7 @@ msgstr "Glen Parker"
 #: lib/kateapp.cpp:399
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
-msgstr "KWrite「元に戻す」履歴、Kspell 統合"
+msgstr "KWrite の「元に戻す」履歴、Kspell 統合"
 
 #: lib/kateapp.cpp:400
 #, kde-format
@@ -1013,7 +1031,7 @@ msgstr "素晴らしいヘルプ"
 #: lib/kateapp.cpp:425
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
-msgstr "貢献してくれたすべての人々と私が言及し忘れてしまった人々"
+msgstr "貢献していただきながらここに書き忘れたすべての人々"
 
 #: lib/kateapp.cpp:591
 #, kde-format
@@ -1045,7 +1063,7 @@ msgstr "挙動のオプション"
 #: lib/kateconfigdialog.cpp:122
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:128
 #, kde-format
@@ -1054,6 +1072,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Kate が実行するプログラムを検索する、%1 で区切られたディレクトリのリストで"
+"す。このリストは PATH 環境変数の先頭に追加されます。(例: '/home/USER/myapps/"
+"bin/:/home/USER/.local/bin')"
 
 # ACCELERATOR removed by translator
 #: lib/kateconfigdialog.cpp:144
@@ -1064,7 +1085,7 @@ msgstr "挙動"
 #: lib/kateconfigdialog.cpp:149
 #, kde-format
 msgid "Open each document in its own window"
-msgstr "それぞれの文書を一つのウィンドウで開く"
+msgstr "それぞれのドキュメントを一つのウィンドウで開く"
 
 #: lib/kateconfigdialog.cpp:152
 #, kde-format
@@ -1072,11 +1093,13 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
+"有効にすると、各ドキュメントが個別のウィンドウで開かれます。無効の場合は、現"
+"在のウィンドウ内の新しいタブで開かれます。"
 
 #: lib/kateconfigdialog.cpp:162
 #, kde-format
 msgid "&Switch to output view upon message type:"
-msgstr ""
+msgstr "次の種類のメッセージを受け取ったら出力ビューに切り替え(&S):"
 
 #: lib/kateconfigdialog.cpp:167
 #, kde-format
@@ -1096,7 +1119,7 @@ msgstr "ログ"
 #: lib/kateconfigdialog.cpp:173
 #, kde-format
 msgid "&Limit output view history:"
-msgstr ""
+msgstr "出力ビューの履歴を制限(&L):"
 
 #: lib/kateconfigdialog.cpp:179 lib/kateconfigdialog.cpp:250
 #: lib/kateconfigdialog.cpp:402
@@ -1107,34 +1130,29 @@ msgstr "無制限"
 #: lib/kateconfigdialog.cpp:186
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
-msgstr ""
+msgstr "外部で変更されたファイルの処理に個別のダイアログを使用する(&D)"
 
 #: lib/kateconfigdialog.cpp:189
-#, fuzzy, kde-format
-#| msgid ""
-#| "If enabled, when Kate receives focus you will be asked what to do with "
-#| "files that have been modified on the hard disk. If not enabled, you will "
-#| "be asked what to do with a file that has been modified on the hard disk "
-#| "only when that file gains focus inside Kate."
+#, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
-"このオプションを有効にすると、Kate がフォーカスを受けたときに、ディスク上で変"
-"更されたファイルについてどうするか尋ねます。無効の場合、そのファイルが Kate "
-"の中でフォーカスを受けたときにのみ尋ねます。"
+"有効にすると、変更されたすべてのファイルを表示するモーダルダイアログが使用さ"
+"れます。無効の場合は、該当するファイルのビューがフォーカスを受け取ったときに"
+"のみ、ファイルごとにどうするか個別に確認されます。"
 
 #: lib/kateconfigdialog.cpp:194
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "タイムスタンプに日付を付加して出力"
 
 #: lib/kateconfigdialog.cpp:196
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
-msgstr ""
+msgstr "有効にすると、出力行のタイムスタンプヘッダーに日付が付加されます。"
 
 #: lib/kateconfigdialog.cpp:204
 #, kde-format
@@ -1144,7 +1162,7 @@ msgstr "サイドバー(&S)"
 #: lib/kateconfigdialog.cpp:207
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "セクションのサイズをタブの位置と同期"
 
 #: lib/kateconfigdialog.cpp:210
 #, kde-format
@@ -1153,16 +1171,18 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
+"有効にすると、タブの位置によってセクションのサイズが決定されます。\n"
+"このオプションは下部サイドバーには影響しません。"
 
 #: lib/kateconfigdialog.cpp:215
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
-msgstr ""
+msgstr "左右のサイドバーボタンのテキストを表示"
 
 #: lib/kateconfigdialog.cpp:220
 #, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr ""
+msgstr "左右のサイドバーボタンのアイコンサイズ:"
 
 #: lib/kateconfigdialog.cpp:240
 #, kde-format
@@ -1180,16 +1200,21 @@ msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
+"上限を大きくするとウィンドウサイズが大きくなる可能性があるため、これを防ぐに"
+"は「タブのスクロールを許可」を有効にしてください。無制限のタブは常にスクロー"
+"ルできます。"
 
 #: lib/kateconfigdialog.cpp:259
 #, kde-format
 msgid "&Auto hide tabs"
-msgstr "タブを自動的に隠す(&A)"
+msgstr "タブを自動的に非表示にする(&A)"
 
 #: lib/kateconfigdialog.cpp:261
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
+"チェックを入れると、開いているドキュメントが 1 つだけの場合にタブが非表示にな"
+"ります。"
 
 #: lib/kateconfigdialog.cpp:265
 #, kde-format
@@ -1199,44 +1224,43 @@ msgstr "閉じるボタンを表示(&S)"
 #: lib/kateconfigdialog.cpp:267
 #, kde-format
 msgid "When checked each tab will display a close button."
-msgstr ""
+msgstr "チェックを入れると、各タブに閉じるボタンが表示されるようになります。"
 
 #: lib/kateconfigdialog.cpp:271
 #, kde-format
 msgid "&Expand tabs"
-msgstr ""
+msgstr "タブを展開(&E)"
 
 #: lib/kateconfigdialog.cpp:273
 #, kde-format
 msgid "When checked tabs take as much size as possible."
-msgstr ""
+msgstr "チェックを入れると、タブが可能な限り幅を広く取るようになります。"
 
 #: lib/kateconfigdialog.cpp:277
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "&Double click opens a new document"
-msgstr "新しい文書を作成します"
+msgstr "ダブルクリックで新しいドキュメントを開く(&D)"
 
 #: lib/kateconfigdialog.cpp:279
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr ""
+"チェックを入れると、ダブルクリックで新しいドキュメントを開くようになります。"
 
 #: lib/kateconfigdialog.cpp:283
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "&Middle click closes a document"
-msgstr "すべての文書を閉じます。"
+msgstr "中クリックでドキュメントを閉じる(&M)"
 
 #: lib/kateconfigdialog.cpp:285
 #, kde-format
 msgid "When checked middle click closes a document."
-msgstr ""
+msgstr "チェックを入れると、中クリックでドキュメントを閉じるようになります。"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
 msgid "Allow tab scrolling"
-msgstr ""
+msgstr "タブのスクロールを許可"
 
 #: lib/kateconfigdialog.cpp:291
 #, kde-format
@@ -1244,31 +1268,35 @@ msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
+"チェックを入れると、タブの数が多いときにタブバー内でスクロールできるようにな"
+"ります。"
 
 #: lib/kateconfigdialog.cpp:295
 #, kde-format
 msgid "Elide tab text"
-msgstr ""
+msgstr "タブのテキストを省略"
 
 #: lib/kateconfigdialog.cpp:297
 #, kde-format
 msgid "When checked tab text might be elided if it is too long."
 msgstr ""
+"チェックを入れると、タブのテキストが長すぎる場合に省略表記されることがありま"
+"す。"
 
 #: lib/kateconfigdialog.cpp:301
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr ""
+msgstr "現在のタブの右側に新しいタブを開く"
 
 #: lib/kateconfigdialog.cpp:303
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
-msgstr ""
+msgstr "チェックを外すと、新しいタブは末尾に開かれます。"
 
 #: lib/kateconfigdialog.cpp:314
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "タブの巡回を許可"
 
 #: lib/kateconfigdialog.cpp:316
 #, kde-format
@@ -1277,16 +1305,18 @@ msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
+"チェックを外すと、端に達した後にアクション '%1'/'%2' で最初/最後のタブに移動"
+"しなくなります。"
 
 #: lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "&Mouse"
-msgstr ""
+msgstr "マウス(&M)"
 
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "&Backward button pressed:"
-msgstr ""
+msgstr "「戻る」ボタン押下時(&B):"
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
@@ -1296,12 +1326,12 @@ msgstr "前のタブ"
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "History back"
-msgstr ""
+msgstr "履歴を戻る"
 
 #: lib/kateconfigdialog.cpp:355
 #, kde-format
 msgid "&Forward button pressed:"
-msgstr ""
+msgstr "「進む」ボタン押下時(&F):"
 
 #: lib/kateconfigdialog.cpp:360
 #, kde-format
@@ -1311,12 +1341,12 @@ msgstr "次のタブ"
 #: lib/kateconfigdialog.cpp:360
 #, kde-format
 msgid "History forward"
-msgstr ""
+msgstr "履歴を進む"
 
 #: lib/kateconfigdialog.cpp:377
 #, kde-format
 msgid "Diff Style:"
-msgstr ""
+msgstr "Diff のスタイル:"
 
 #: lib/kateconfigdialog.cpp:384
 #, kde-format
@@ -1326,27 +1356,27 @@ msgstr "ナビゲーションバー"
 #: lib/kateconfigdialog.cpp:389
 #, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr ""
+msgstr "ナビゲーションバーに現在のシンボルを表示"
 
 #: lib/kateconfigdialog.cpp:399
 #, kde-format
 msgid "Diagnostics limit:"
-msgstr ""
+msgstr "診断の上限:"
 
 #: lib/kateconfigdialog.cpp:404
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
-msgstr ""
+msgstr "診断ツールビューで許可される診断の最大数を指定できます。"
 
 #: lib/kateconfigdialog.cpp:410 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "コンテキスト"
 
 #: lib/kateconfigdialog.cpp:415
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "ツールビューを有効化"
 
 #: lib/kateconfigdialog.cpp:417
 #, kde-format
@@ -1354,6 +1384,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"現在のカーソル位置に関連するコンテキスト (LSP のヒント、診断など) を表示する"
+"ツールビュー"
 
 #: lib/kateconfigdialog.cpp:432
 #, kde-format
@@ -1372,14 +1404,11 @@ msgid "(never)"
 msgstr "(しない)"
 
 #: lib/kateconfigdialog.cpp:448
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " 日"
+msgstr[0] " %v 日"
 
 #: lib/kateconfigdialog.cpp:478
 #, kde-format
@@ -1387,6 +1416,8 @@ msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
+"ウィンドウを閉じると、そのウィンドウでのみ開かれていたドキュメントも閉じられ"
+"ます。"
 
 #: lib/kateconfigdialog.cpp:513
 #, kde-format
@@ -1406,12 +1437,12 @@ msgstr "ユーザフィードバック"
 #: lib/kateconfigdialog.cpp:727
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "無効な PATH の値"
 
 #: lib/kateconfigdialog.cpp:727
 #, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr ""
+msgstr "パス '%1' は存在しません"
 
 #: lib/kateconfigdialog.cpp:811
 #, kde-format
@@ -1450,16 +1481,14 @@ msgid "Reopening files from the last session..."
 msgstr "最後のセッションのファイルを再読み込み中..."
 
 #: lib/katedocmanager.cpp:528
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "新しい文書を作成します"
+msgstr "無題のドキュメントは固定できません。"
 
 #: lib/katedocmanager.cpp:533
-#, fuzzy, kde-format
-#| msgid "Close other open documents."
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "開いている他の文書を閉じます。"
+msgstr "ローカル以外のドキュメントは固定できません。"
 
 #: lib/katefileactions.cpp:80
 #, kde-format
@@ -1507,10 +1536,9 @@ msgid "Show &Tabs"
 msgstr "タブを表示(&T)"
 
 #: lib/katemainwindow.cpp:315
-#, fuzzy, kde-format
-#| msgid "Use this command to show or hide the view's statusbar"
+#, kde-format
 msgid "Use this command to show or hide the tabs for the views"
-msgstr "ビューのステータスバーの表示/非表示を切り替えます"
+msgstr "ビューのタブの表示/非表示を切り替えます"
 
 #: lib/katemainwindow.cpp:317
 #, kde-format
@@ -1520,7 +1548,7 @@ msgstr "パスをタイトルバーに表示(&W)"
 #: lib/katemainwindow.cpp:322
 #, kde-format
 msgid "Show the complete document path in the window caption"
-msgstr "ウィンドウのタイトルバーに文書のフルパスを表示します"
+msgstr "ウィンドウのタイトルバーにドキュメントのフルパスを表示します"
 
 #: lib/katemainwindow.cpp:324
 #, kde-format
@@ -1556,7 +1584,7 @@ msgstr "次のタブをフォーカスします。"
 #, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr ""
+msgstr "タブ %1 に切り替え"
 
 #: lib/katemainwindow.cpp:384
 #, kde-format
@@ -1564,10 +1592,9 @@ msgid "&Quick Open"
 msgstr "素早く開く(&Q)"
 
 #: lib/katemainwindow.cpp:387
-#, fuzzy, kde-format
-#| msgid "Close other open documents."
+#, kde-format
 msgid "Open a form to quick open documents."
-msgstr "開いている他の文書を閉じます。"
+msgstr "ドキュメントを素早く開くためのフォームを開きます。"
 
 #: lib/katemainwindow.cpp:424
 #, kde-format
@@ -1577,12 +1604,12 @@ msgstr "出力"
 #: lib/katemainwindow.cpp:435
 #, kde-format
 msgid "Create a new document"
-msgstr "新しい文書を作成します"
+msgstr "新しいドキュメントを作成します"
 
 #: lib/katemainwindow.cpp:437
 #, kde-format
 msgid "Open an existing document for editing"
-msgstr "既存の文書を編集のために開きます"
+msgstr "既存のドキュメントを編集のために開きます"
 
 #: lib/katemainwindow.cpp:447
 #, kde-format
@@ -1594,39 +1621,35 @@ msgstr ""
 "ます。"
 
 #: lib/katemainwindow.cpp:451
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
-msgstr "すべて保存(&L)"
+msgstr "すべて保存(&V)"
 
 #: lib/katemainwindow.cpp:454
 #, kde-format
 msgid "Save all open, modified documents to disk."
-msgstr "開いている変更されたすべての文書を保存します。"
+msgstr "開いている変更されたすべてのドキュメントを保存します。"
 
 #: lib/katemainwindow.cpp:457
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
-msgstr "すべて再読み込み(&R)"
+msgstr "すべて再読み込み(&L)"
 
 #: lib/katemainwindow.cpp:459
 #, kde-format
 msgid "Reload all open documents."
-msgstr "開いているすべての文書を再読み込みします。"
+msgstr "開いているすべてのドキュメントを再読み込みします。"
 
 #: lib/katemainwindow.cpp:468 lib/katemainwindow.cpp:478
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Copies the file path of the current file to clipboard."
-msgstr "次の分割ビューをアクティブにします。"
+msgstr "現在のファイルのパスをクリップボードにコピーします。"
 
 #: lib/katemainwindow.cpp:472
-#, fuzzy, kde-format
-#| msgid "Filename"
+#, kde-format
 msgid "Copy Filename"
-msgstr "ファイル名"
+msgstr "ファイル名をコピー"
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1640,10 +1663,9 @@ msgid "Rename..."
 msgstr "名前変更..."
 
 #: lib/katemainwindow.cpp:496
-#, fuzzy, kde-format
-#| msgid "Close the current document."
+#, kde-format
 msgid "Renames the file belonging to the current document."
-msgstr "現在の文書を閉じます。"
+msgstr "現在のドキュメントに属するファイルの名前を変更します。"
 
 #: lib/katemainwindow.cpp:500
 #, kde-format
@@ -1652,10 +1674,9 @@ msgid "Delete"
 msgstr "削除"
 
 #: lib/katemainwindow.cpp:505 lib/katemainwindow.cpp:514
-#, fuzzy, kde-format
-#| msgid "Close the current document."
+#, kde-format
 msgid "Deletes the file belonging to the current document."
-msgstr "現在の文書を閉じます。"
+msgstr "現在のドキュメントに属するファイルを削除します。"
 
 #: lib/katemainwindow.cpp:509
 #, kde-format
@@ -1671,18 +1692,18 @@ msgstr "比較"
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
+"2 つのドキュメントを比較するには、タブバーのコンテキストメニューを使用してく"
+"ださい。"
 
 #: lib/katemainwindow.cpp:521
-#, fuzzy, kde-format
-#| msgid "Close other open documents."
+#, kde-format
 msgid "Shows a hint how to compare documents."
-msgstr "開いている他の文書を閉じます。"
+msgstr "ドキュメントを比較する方法のヒントを表示します。"
 
 #: lib/katemainwindow.cpp:524
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "孤立した文書を閉じる"
+msgstr "孤立したドキュメントを閉じる(&H)"
 
 #: lib/katemainwindow.cpp:526
 #, kde-format
@@ -1690,23 +1711,24 @@ msgid ""
 "Close all documents in the file list that could not be reopened, because "
 "they are not accessible anymore."
 msgstr ""
+"アクセスできなくなったため再度開くことができないファイルリスト内のすべてのド"
+"キュメントを閉じます。"
 
 #: lib/katemainwindow.cpp:530
 #, kde-format
 msgid "Close the current document."
-msgstr "現在の文書を閉じます。"
+msgstr "現在のドキュメントを閉じます。"
 
 # ACCELERATOR added by translator
 #: lib/katemainwindow.cpp:533
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "他を閉じる"
+msgstr "他を閉じる(&T)"
 
 #: lib/katemainwindow.cpp:537
 #, kde-format
 msgid "Close other open documents."
-msgstr "開いている他の文書を閉じます。"
+msgstr "開いている他のドキュメントを閉じます。"
 
 #: lib/katemainwindow.cpp:540
 #, kde-format
@@ -1716,24 +1738,22 @@ msgstr "すべて閉じる(&E)"
 #: lib/katemainwindow.cpp:542
 #, kde-format
 msgid "Close all open documents."
-msgstr "すべての文書を閉じます。"
+msgstr "すべてのドキュメントを閉じます。"
 
 #: lib/katemainwindow.cpp:545
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
-msgstr "開いているすべての文書を再読み込みします。"
+msgstr "最後に閉じたドキュメントを再度開く(&R)"
 
 #: lib/katemainwindow.cpp:547
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "直前に閉じた 1 つまたは複数のドキュメントを再度開きます"
 
 #: lib/katemainwindow.cpp:550
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "新しいウィンドウ(&N)"
+msgstr "ウィンドウを閉じる(&W)"
 
 # @info:whatsthis
 #: lib/katemainwindow.cpp:554
@@ -1742,16 +1762,14 @@ msgid "Close this window"
 msgstr "このウィンドウを閉じます。"
 
 #: lib/katemainwindow.cpp:559
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "その他のアプリケーション(&O)..."
+msgstr "アプリケーションを終了します"
 
 #: lib/katemainwindow.cpp:563
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "新しいウィンドウ(&N)"
+msgstr "新しいウィンドウ(&W)"
 
 #: lib/katemainwindow.cpp:566
 #, kde-format
@@ -1769,8 +1787,8 @@ msgid ""
 "Open the current document using another application registered for its file "
 "type, or an application of your choice."
 msgstr ""
-"現在の文書をそのファイルタイプ用に登録されている他のアプリケーションを使って"
-"開きます。あるいは開くアプリケーションを選択することもできます。"
+"現在のドキュメントをそのファイルタイプ用に登録されている他のアプリケーション"
+"を使って開きます。あるいは開くアプリケーションを選択することもできます。"
 
 #: lib/katemainwindow.cpp:587
 #, kde-format
@@ -1836,16 +1854,14 @@ msgid "Save Session &As..."
 msgstr "セッションに名前を付けて保存(&A)..."
 
 #: lib/katemainwindow.cpp:666
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "文書を分離(&E)"
+msgstr "アクティブなドキュメントの固定/固定解除"
 
 #: lib/katemainwindow.cpp:675
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "開いているすべての文書を再読み込みします。"
+msgstr "次の固定されたドキュメントを開く"
 
 #: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:70
 #, kde-format
@@ -1860,48 +1876,45 @@ msgstr "次の位置に移動"
 #: lib/katemainwindow.cpp:699
 #, kde-format
 msgid "Show File Git History"
-msgstr ""
+msgstr "ファイルの Git 履歴を表示"
 
 #: lib/katemainwindow.cpp:710
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "&Windows"
-msgstr "新しいウィンドウ(&N)"
+msgstr "ウィンドウ(&W)"
 
 #: lib/katemainwindow.cpp:749
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
-msgstr "開いているすべての文書を閉じます。続行してもよろしいですか？"
+msgstr "開いているすべてのドキュメントを閉じます。続行してもよろしいですか？"
 
 #: lib/katemainwindow.cpp:750
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "すべての文書を閉じます。"
+msgstr "すべてのドキュメントを閉じますか？"
 
 #: lib/katemainwindow.cpp:751
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "すべて閉じる(&E)"
+msgstr "すべて閉じる"
 
 #: lib/katemainwindow.cpp:765
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
-msgstr "現在の文書以外のすべての文書を閉じます。続行してもよろしいですか？"
+msgstr ""
+"現在のドキュメント以外のすべてのドキュメントを閉じます。続行してもよろしいで"
+"すか？"
 
 #: lib/katemainwindow.cpp:766
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "現在の文書以外の文書を閉じる"
+msgstr "現在のドキュメント以外をすべて閉じますか？"
 
 # ACCELERATOR added by translator
 #: lib/katemainwindow.cpp:767
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "他を閉じる"
 
@@ -1920,11 +1933,12 @@ msgstr "終了中止"
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
+"メニューバーが完全に非表示になります。%1 を入力すると再度表示できます。"
 
 #: lib/katemainwindow.cpp:1000
 #, kde-format
 msgid "Hide menu bar"
-msgstr "メニューバーを隠す"
+msgstr "メニューバーを非表示にする"
 
 #: lib/katemainwindow.cpp:1181
 #, kde-format
@@ -1932,6 +1946,8 @@ msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
+"ディレクトリ %1 が Kate にドロップされました。含まれるすべてのファイルを開き"
+"ますか？"
 
 #: lib/katemainwindow.cpp:1184
 #, kde-format
@@ -1978,7 +1994,7 @@ msgstr "サイドバーを表示(&B)"
 #: lib/katemdi.cpp:117
 #, kde-format
 msgid "Hide All Tool Views"
-msgstr "すべてのツールビューを隠す"
+msgstr "すべてのツールビューを非表示にする"
 
 #: lib/katemdi.cpp:165
 #, kde-format
@@ -2003,7 +2019,7 @@ msgstr "設定..."
 #: lib/katemdi.cpp:1128
 #, kde-format
 msgid "Hide Button"
-msgstr "ボタンを隠す"
+msgstr "ボタンを非表示にする"
 
 #: lib/katemdi.cpp:1130
 #, kde-format
@@ -2011,30 +2027,29 @@ msgid "Move To"
 msgstr "移動先"
 
 #: lib/katemdi.cpp:1135
-#, fuzzy, kde-format
-#| msgid "Sessions"
+#, kde-format
 msgid "Own Section"
-msgstr "セッション"
+msgstr "専用セクション"
 
 #: lib/katemdi.cpp:1141 lib/katemdi.cpp:1149
 #, kde-format
 msgid "One Down"
-msgstr ""
+msgstr "一つ下へ"
 
 #: lib/katemdi.cpp:1143 lib/katemdi.cpp:1154
 #, kde-format
 msgid "One Right"
-msgstr ""
+msgstr "一つ右へ"
 
 #: lib/katemdi.cpp:1147
 #, kde-format
 msgid "One Up"
-msgstr ""
+msgstr "一つ上へ"
 
 #: lib/katemdi.cpp:1152
 #, kde-format
 msgid "One Left"
-msgstr ""
+msgstr "一つ左へ"
 
 #: lib/katemdi.cpp:1161
 #, kde-format
@@ -2057,13 +2072,7 @@ msgid "Bottom Sidebar"
 msgstr "下サイドバー"
 
 #: lib/katemdi.cpp:1787
-#, fuzzy, kde-format
-#| msgid ""
-#| "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
-#| "possible to directly access the tool views with the mouse anymore, so if "
-#| "you need to access the sidebars again invoke <b>Window &gt; Tool Views "
-#| "&gt; Show Sidebars</b> in the menu. It is still possible to show/hide the "
-#| "tool views with the assigned shortcuts.</qt>"
+#, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
 "possible to directly access the tool views with the mouse anymore, so if you "
@@ -2071,16 +2080,16 @@ msgid ""
 "Sidebars</b> in the menu. It is still possible to show/hide the tool views "
 "with the assigned shortcuts.</qt>"
 msgstr ""
-"<qt><para>サイドバーを非表示にします。サイドバーを隠すと、マウスでツール"
+"<qt><p>サイドバーを非表示にします。サイドバーを非表示にすると、マウスでツール"
 "ビューに直接アクセスできなくなります。再びサイドバーにアクセスするには、メ"
-"ニューの<interface>ウィンドウ|ツールビュー|サイドバーを表示</interface>を選ん"
-"でください。割り当てられているショートカットを使ってツールビューの表示/非表示"
-"を切り替えることもできます。</para></qt>"
+"ニューの「<b>表示 &gt; ツールビュー &gt; サイドバーを表示</b>」を選択してくだ"
+"さい。割り当てられているショートカットを使ってツールビューの表示/非表示を切り"
+"替えることも可能です。</p></qt>"
 
 #: lib/katemwmodonhddialog.cpp:54
 #, kde-format
 msgid "Documents Modified on Disk"
-msgstr "ディスク上で変更された文書"
+msgstr "ディスク上で変更されたドキュメント"
 
 #: lib/katemwmodonhddialog.cpp:69
 #, kde-format
@@ -2088,9 +2097,9 @@ msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
 "once, and press an action button until the list is empty.</p></qt>"
 msgstr ""
-"<qt><p>以下の文書はディスク上で変更されました。</p><p>リストが空になるまで、"
-"文書を一つまたは複数選択して、適用するアクションのボタンを押してください。</"
-"p></qt>"
+"<qt><p>以下のドキュメントはディスク上で変更されました。</p><p>リストが空にな"
+"るまで、ドキュメントを一つまたは複数選択して、適用するアクションのボタンを押"
+"してください。</p></qt>"
 
 #: lib/katemwmodonhddialog.cpp:79
 #, kde-format
@@ -2105,17 +2114,17 @@ msgstr "ディスク上の状態"
 #: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Modified"
-msgstr "変更されました"
+msgstr "変更済"
 
 #: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Created"
-msgstr "作成されました"
+msgstr "作成済"
 
 #: lib/katemwmodonhddialog.cpp:84
 #, kde-format
 msgid "Deleted"
-msgstr "削除されました"
+msgstr "削除済"
 
 #: lib/katemwmodonhddialog.cpp:107
 #, kde-format
@@ -2123,18 +2132,13 @@ msgid "&View Difference"
 msgstr "差分を表示(&V)"
 
 #: lib/katemwmodonhddialog.cpp:108
-#, fuzzy, kde-format
-#| msgid ""
-#| "Calculates the difference between the editor contents and the disk file "
-#| "for the selected document, and shows the difference with the default "
-#| "application. Requires diff(1)."
+#, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr ""
-"<qt>選択された文書について、エディタの内容とディスク上のファイルの差分を計算"
-"し、標準のアプリケーションを使って表示します。<tt>diff(1)</tt> が必要です。</"
-"qt>"
+"選択したドキュメントについて、エディタの内容とディスク上のファイルの差分を計"
+"算"
 
 #: lib/katemwmodonhddialog.cpp:116
 #, kde-format
@@ -2144,17 +2148,12 @@ msgstr "変更を無視(&I)"
 #: lib/katemwmodonhddialog.cpp:117
 #, kde-format
 msgid "Remove modified flag from selected documents"
-msgstr ""
+msgstr "選択したドキュメントから変更済マークを削除"
 
 #: lib/katemwmodonhddialog.cpp:123
-#, fuzzy, kde-format
-#| msgid ""
-#| "Overwrite selected documents, discarding the disk changes and closes the "
-#| "dialog if there are no more unhandled documents."
+#, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
-msgstr ""
-"選択した文書を上書きし、ディスク上の変更を破棄します。未処理の文書がなくなる"
-"と、ダイアログを閉じます。"
+msgstr "選択したドキュメントを上書きし、ディスク上の変更を破棄"
 
 #: lib/katemwmodonhddialog.cpp:127
 #, kde-format
@@ -2162,10 +2161,9 @@ msgid "&Reload"
 msgstr "再読み込み(&R)"
 
 #: lib/katemwmodonhddialog.cpp:129
-#, fuzzy, kde-format
-#| msgid "All documents written to disk"
+#, kde-format
 msgid "Reload selected documents from disk"
-msgstr "ディスクに書き出されたすべての文書"
+msgstr "選択したドキュメントをディスクから再読み込み"
 
 #: lib/katemwmodonhddialog.cpp:191
 #, kde-format
@@ -2173,18 +2171,18 @@ msgid ""
 "Could not save the document \n"
 "'%1'"
 msgstr ""
-"文書を保存できませんでした\n"
+"ドキュメントを保存できませんでした\n"
 "“%1”"
 
 #: lib/katemwmodonhddialog.cpp:281
 #, kde-format
 msgid "Failed to create a temporary file"
-msgstr ""
+msgstr "一時ファイルの作成に失敗しました"
 
 #: lib/katemwmodonhddialog.cpp:292
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "差分を表示するには Git をインストールしてください"
 
 #: lib/katemwmodonhddialog.cpp:316
 #, kde-format
@@ -2192,23 +2190,23 @@ msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"diff コマンドの起動に失敗しました。git がインストールされていて、あなたの "
-"PATH に存在することを確認してください。"
+"diff コマンドに失敗しました。Git がインストールされており、PATH に含まれてい"
+"ることを確認してください。"
 
 #: lib/katemwmodonhddialog.cpp:318
 #, kde-format
 msgid "Error Creating Diff"
-msgstr "差分計算中にエラー"
+msgstr "差分の作成エラー"
 
 #: lib/katemwmodonhddialog.cpp:325
 #, kde-format
 msgid "[OLD]"
-msgstr ""
+msgstr "[旧]"
 
 #: lib/katemwmodonhddialog.cpp:326
 #, kde-format
 msgid "[NEW]"
-msgstr ""
+msgstr "[新]"
 
 #: lib/kateoutputview.cpp:176
 #, kde-format
@@ -2257,12 +2255,12 @@ msgstr "名前を付けて保存 (%1)"
 #: lib/katesavemodifieddialog.cpp:133
 #, kde-format
 msgid "Save Documents"
-msgstr "文書を保存"
+msgstr "ドキュメントを保存"
 
 #: lib/katesavemodifieddialog.cpp:133
 #, kde-format
 msgid "Close Document"
-msgstr "文書を閉じる"
+msgstr "ドキュメントを閉じる"
 
 #: lib/katesavemodifieddialog.cpp:157
 #, kde-format
@@ -2270,19 +2268,21 @@ msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"文書 “%1” は変更されています。変更を保存しますか？それとも破棄しますか？"
+"ドキュメント “%1” は変更されています。変更を保存しますか？それとも破棄します"
+"か？"
 
 #: lib/katesavemodifieddialog.cpp:161
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
 "before closing?</qt>"
-msgstr "<qt>以下の文書は変更されています。閉じる前に保存しますか？</qt>"
+msgstr ""
+"<qt>以下のドキュメントは変更されています。閉じる前に保存しますか？</qt>"
 
 #: lib/katesavemodifieddialog.cpp:170
 #, kde-format
 msgid "Documents"
-msgstr "文書"
+msgstr "ドキュメント"
 
 #: lib/katesavemodifieddialog.cpp:170
 #, kde-format
@@ -2302,25 +2302,22 @@ msgid ""
 msgstr "保存しようとしたデータを書き出すことができませんでした。どうしますか？"
 
 #: lib/kateurlbar.cpp:915
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "場所をコピー"
 
 #: lib/kateurlbar.cpp:920
-#, fuzzy, kde-format
-#| msgid "Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
-msgstr "ファイル名"
+msgstr "ファイル名をコピー"
 
 #: lib/kateurlbar.cpp:926
-#, fuzzy, kde-format
-#| msgid "Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Item"
-msgstr "ファイル名"
+msgstr "アイテムをコピー"
 
 #: lib/kateviewmanager.cpp:150
 #, kde-format
@@ -2345,28 +2342,30 @@ msgstr "現在アクティブなビューを上下二つのビューに分割し
 #: lib/kateviewmanager.cpp:166
 #, kde-format
 msgid "Move Document to New Vertical Split"
-msgstr ""
+msgstr "ドキュメントを新しい垂直分割ビューに移動"
 
 #: lib/kateviewmanager.cpp:170
-#, fuzzy, kde-format
-#| msgid "Split the currently active view vertically into two views."
+#, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
-msgstr "現在アクティブなビューを左右二つのビューに分割します。"
+msgstr ""
+"現在アクティブなビューを左右二つのビューに分割し、ドキュメントを右のビューに"
+"移動します。"
 
 #: lib/kateviewmanager.cpp:175
 #, kde-format
 msgid "Move Document to New Horizontal Split"
-msgstr ""
+msgstr "ドキュメントを新しい水平分割ビューに移動"
 
 #: lib/kateviewmanager.cpp:179
-#, fuzzy, kde-format
-#| msgid "Split the currently active view horizontally into two views."
+#, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
 "currently active document to view below."
-msgstr "現在アクティブなビューを上下二つのビューに分割します。"
+msgstr ""
+"現在アクティブなビューを上下二つのビューに分割し、ドキュメントを下のビューに"
+"移動します。"
 
 #: lib/kateviewmanager.cpp:184
 #, kde-format
@@ -2379,39 +2378,34 @@ msgid "Close the currently active split view"
 msgstr "現在アクティブな分割ビューを閉じます"
 
 #: lib/kateviewmanager.cpp:192
-#, fuzzy, kde-format
-#| msgid "Cl&ose Current View"
+#, kde-format
 msgid "Close Inactive Views"
-msgstr "現在のビューを閉じる(&O)"
+msgstr "非アクティブなビューを閉じる"
 
 #: lib/kateviewmanager.cpp:195
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Close every view but the active one"
-msgstr "次の分割ビューをアクティブにします。"
+msgstr "アクティブなビュー以外のすべてのビューを閉じます"
 
 #: lib/kateviewmanager.cpp:199
-#, fuzzy, kde-format
-#| msgid "Cl&ose Current View"
+#, kde-format
 msgid "Hide Inactive Views"
-msgstr "現在のビューを閉じる(&O)"
+msgstr "非アクティブなビューを非表示"
 
 #: lib/kateviewmanager.cpp:203
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Hide every view but the active one"
-msgstr "次の分割ビューをアクティブにします。"
+msgstr "アクティブなビュー以外のすべてのビューを非表示にします"
 
 #: lib/kateviewmanager.cpp:206
 #, kde-format
 msgid "Toggle Orientation"
-msgstr ""
+msgstr "分割方向を切り替え"
 
 #: lib/kateviewmanager.cpp:209
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Toggles the orientation of the current split view"
-msgstr "次の分割ビューをアクティブにします。"
+msgstr "現在の分割ビューの分割方向を切り替えます"
 
 #: lib/kateviewmanager.cpp:212
 #, kde-format
@@ -2434,93 +2428,84 @@ msgid "Make the previous split view the active one."
 msgstr "前の分割ビューをアクティブにします。"
 
 #: lib/kateviewmanager.cpp:228
-#, fuzzy, kde-format
-#| msgid "Next Split View"
+#, kde-format
 msgid "Left Split View"
-msgstr "次の分割ビュー"
+msgstr "左の分割ビュー"
 
 #: lib/kateviewmanager.cpp:233
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr "次の分割ビューをアクティブにします。"
+msgstr "直感的に左側にある分割ビューをアクティブにします。"
 
 #: lib/kateviewmanager.cpp:236
-#, fuzzy, kde-format
-#| msgid "Next Split View"
+#, kde-format
 msgid "Right Split View"
-msgstr "次の分割ビュー"
+msgstr "右の分割ビュー"
 
 #: lib/kateviewmanager.cpp:241
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr "次の分割ビューをアクティブにします。"
+msgstr "直感的に右側にある分割ビューをアクティブにします。"
 
 #: lib/kateviewmanager.cpp:244
-#, fuzzy, kde-format
-#| msgid "Split View"
+#, kde-format
 msgid "Upward Split View"
-msgstr "ビューを分割"
+msgstr "上の分割ビュー"
 
 #: lib/kateviewmanager.cpp:249
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr "次の分割ビューをアクティブにします。"
+msgstr "直感的に上側にある分割ビューをアクティブにします。"
 
 #: lib/kateviewmanager.cpp:252
-#, fuzzy, kde-format
-#| msgid "Split View"
+#, kde-format
 msgid "Downward Split View"
-msgstr "ビューを分割"
+msgstr "下の分割ビュー"
 
 #: lib/kateviewmanager.cpp:257
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr "次の分割ビューをアクティブにします。"
+msgstr "直感的に下側にある分割ビューをアクティブにします。"
 
 #: lib/kateviewmanager.cpp:260
 #, kde-format
 msgid "Move Splitter Right"
-msgstr "スプリッタを右へ移動"
+msgstr "境界を右へ移動"
 
 #: lib/kateviewmanager.cpp:263
 #, kde-format
 msgid "Move the splitter of the current view to the right"
-msgstr ""
+msgstr "現在のビューの境界を右へ移動します"
 
 #: lib/kateviewmanager.cpp:266
 #, kde-format
 msgid "Move Splitter Left"
-msgstr "スプリッタを左へ移動"
+msgstr "境界を左へ移動"
 
 #: lib/kateviewmanager.cpp:269
 #, kde-format
 msgid "Move the splitter of the current view to the left"
-msgstr ""
+msgstr "現在のビューの境界を左へ移動します"
 
 #: lib/kateviewmanager.cpp:272
 #, kde-format
 msgid "Move Splitter Up"
-msgstr "スプリッタを上へ移動"
+msgstr "境界を上へ移動"
 
 #: lib/kateviewmanager.cpp:275
 #, kde-format
 msgid "Move the splitter of the current view up"
-msgstr ""
+msgstr "現在のビューの境界を上へ移動します"
 
 #: lib/kateviewmanager.cpp:278
 #, kde-format
 msgid "Move Splitter Down"
-msgstr "スプリッタを下へ移動"
+msgstr "境界を下へ移動"
 
 #: lib/kateviewmanager.cpp:281
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Move the splitter of the current view down"
-msgstr "次の分割ビューをアクティブにします。"
+msgstr "現在のビューの境界を下へ移動します"
 
 #: lib/kateviewmanager.cpp:284
 #, kde-format
@@ -2530,7 +2515,7 @@ msgstr "ナビゲーションバーをフォーカス"
 #: lib/kateviewmanager.cpp:285
 #, kde-format
 msgid "Focus the navigation bar"
-msgstr ""
+msgstr "ナビゲーションバーをフォーカスします"
 
 #: lib/kateviewmanager.cpp:292
 #, kde-format
@@ -2545,25 +2530,25 @@ msgstr "ようこそページを表示"
 #: lib/kateviewmanager.cpp:303
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "スクロール同期の切り替え"
 
 #: lib/kateviewmanager.cpp:304
-#, fuzzy, kde-format
-#| msgid "Make the next split view the active one."
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "次の分割ビューをアクティブにします。"
+msgstr "現在のビューのスクロール同期を切り替えます"
 
 #: lib/kateviewmanager.cpp:314
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "文書を分離(&E)"
+msgstr "アクティブなドキュメントを分離"
 
 #: lib/kateviewmanager.cpp:315
 #, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
 msgstr ""
+"アクティブなドキュメントを新しいウィンドウで開き、現在のウィンドウでは閉じま"
+"す"
 
 #: lib/kateviewmanager.cpp:390
 #, kde-format
@@ -2572,6 +2557,9 @@ msgid ""
 "you want to proceed?</p><p><strong>Beware that kate may stop responding for "
 "some time when opening large files.</strong></p>"
 msgstr ""
+"<p>一つまたは複数の大きなファイルを開こうとしています。</p><ul>%1</ul><p>続行"
+"しますか？</p><p><strong>大きなファイルを開く際、Kate が一時的に応答しなくな"
+"る可能性があることにご注意ください。</strong></p>"
 
 #: lib/kateviewmanager.cpp:393
 #, kde-format
@@ -2581,18 +2569,20 @@ msgstr "大きなファイルを開いています"
 #: lib/kateviewmanager.cpp:596
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 はフォルダを開けません"
 
 #: lib/kateviewmanager.cpp:612
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "フォルダを開くために必要なプラグインが見つかりませんでした"
 
 #: lib/kateviewmanager.cpp:618
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"フォルダを開くには、<b>%1</b> プラグインを有効にする必要があります。有効にし"
+"ますか？"
 
 #: lib/kateviewmanager.cpp:621
 #, kde-format
@@ -2609,39 +2599,39 @@ msgstr "有効"
 #: lib/kateviewmanager.cpp:629
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "<b>%1</b> プラグインの有効化に失敗しました"
 
 #: lib/kateviewmanager.cpp:650
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr ""
+msgstr "ファイル '%1' は存在しません"
 
 #: lib/kateviewspace.cpp:107
 #, kde-format
 msgid "Synchronize Scrolling"
-msgstr ""
+msgstr "スクロールを同期"
 
 #: lib/kateviewspace.cpp:109
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
-msgstr ""
+msgstr "この分割ビューのスクロールを他の同期された分割ビューと同期します"
 
 #: lib/kateviewspace.cpp:131
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
-msgstr ""
+msgstr "+%1"
 
 #: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
-msgstr ""
+msgstr "ここをクリックしてクイックオープンビューに切り替えます。"
 
 #: lib/kateviewspace.cpp:153
 #, kde-format
 msgid "Control view space splitting"
-msgstr ""
+msgstr "ビュースペースの分割を制御"
 
 #: lib/kateviewspace.cpp:270
 #, kde-format
@@ -2652,62 +2642,60 @@ msgid_plural ""
 "Currently, there are %1 more documents open. To see all open documents, "
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
+"現在、他に %1 個のドキュメントが開いています。開いているすべてのドキュメント"
+"を表示するには、ここをクリックしてクイックオープンビューに切り替えてくださ"
+"い。"
 
 #: lib/kateviewspace.cpp:1135
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "タブを閉じる"
+msgstr "タブを閉じる(&C)"
 
 # ACCELERATOR added by translator
 #: lib/kateviewspace.cpp:1142
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "他を閉じる"
+msgstr "他のタブを閉じる(&O)"
 
 #: lib/kateviewspace.cpp:1156
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "すべて閉じる(&E)"
+msgstr "すべてのタブを閉じる(&T)"
 
 #: lib/kateviewspace.cpp:1189
 #, kde-format
 msgid "D&etach Document"
-msgstr "文書を分離(&E)"
+msgstr "ドキュメントを分離(&E)"
 
 #: lib/kateviewspace.cpp:1194
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
-msgstr ""
+msgstr "ドキュメントを新しいウィンドウで開き、現在のウィンドウでは閉じます"
 
 #: lib/kateviewspace.cpp:1235
 #, kde-format
 msgid "Compare with Active Document"
-msgstr "アクティブな文書と比較"
+msgstr "アクティブなドキュメントと比較"
 
 #: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Compare with Active Document Using"
-msgstr "アクティブな文書と比較:"
+msgstr "アクティブなドキュメントと比較"
 
 #: lib/kateviewspace.cpp:1249
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "文書"
+msgstr "ドキュメントの固定を解除"
 
 #: lib/kateviewspace.cpp:1251
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "文書"
+msgstr "ドキュメントを固定"
 
 #: lib/ktexteditor_utils.cpp:244
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "%1 を開けません"
 
 #: lib/mainwindow_commands.cpp:45
 #, kde-format
@@ -2715,43 +2703,49 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"名前 '%1' のツールビューが見つかりません。対応するプラグインが無効になってい"
+"るか、名前のスペルが間違っていませんか？"
 
 #: lib/mainwindow_commands.cpp:48
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
 msgstr ""
+"スクリプトでエラーが発生しました。ツールビュー名が必要です。利用可能: %1"
 
 #: lib/mainwindow_commands.cpp:56
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "QA とスクリプト"
+msgstr "スクリプト"
 
 #: lib/mainwindow_commands.cpp:77
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name': ツールビューパネルを表示します。利用可能なパネ"
+"ル: %1"
 
 #: lib/mainwindow_commands.cpp:79
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name': ツールビューパネルを非表示にします。利用可能な"
+"パネル: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
-msgstr ""
+msgstr "すべてのプロジェクトのファイルを検索 (右クリックで設定)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
-msgstr ""
+msgstr "現在のプロジェクトのファイルを検索 (右クリックで設定)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
@@ -2766,18 +2760,17 @@ msgstr "現在のプロジェクト"
 #: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "あいまいフィルタ"
 
 #: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "ワイルドカードフィルタ"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "すべてのプロジェクト"
+msgstr "プロジェクト: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
@@ -2797,7 +2790,7 @@ msgstr "復元"
 #: lib/session/katesessionmanagedialog.cpp:316
 #, kde-format
 msgid "Session will be deleted on dialog close"
-msgstr ""
+msgstr "ダイアログを閉じるとセッションが削除されます"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
 #: lib/session/katesessionmanagedialog.ui:30
@@ -2822,7 +2815,7 @@ msgstr "ファイル"
 #: lib/session/katesessionmanagedialog.ui:68
 #, kde-format
 msgid "Last opened"
-msgstr ""
+msgstr "最後に開いた日時"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_openButton)
 #: lib/session/katesessionmanagedialog.ui:87
@@ -2853,7 +2846,7 @@ msgstr "次回から確認しない"
 #: lib/session/katesessionmanagedialog.ui:134
 #, kde-format
 msgid "Duplicate..."
-msgstr "重複..."
+msgstr "複製..."
 
 #. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
 #: lib/session/katesessionmanagedialog.ui:141
@@ -2879,18 +2872,20 @@ msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
+"セッション '%1' は別の Kate インスタンスで既に開かれています。そちらに切り替"
+"えますか？それともこのインスタンスで再度開きますか？"
 
 #: lib/session/katesessionmanager.cpp:149
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
-msgstr ""
+msgstr "インスタンスに切り替え"
 
 #: lib/session/katesessionmanager.cpp:150
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
-msgstr ""
+msgstr "再度開く"
 
 #: lib/session/katesessionmanager.cpp:366
 #, kde-format
@@ -2921,7 +2916,7 @@ msgstr ""
 #: lib/session/katesessionmanager.cpp:539
 #, kde-format
 msgid "To save a session, you must specify a name."
-msgstr "セッションを保存するためには、名前を指定しなければなりません。"
+msgstr "セッションを保存するためには、名前を指定してください。"
 
 #: lib/session/katesessionmanager.cpp:566
 #, kde-format
@@ -2967,25 +2962,25 @@ msgstr "アプリケーション起動時/終了時の挙動"
 #: lib/ui/sessionconfigwidget.ui:55
 #, kde-format
 msgid "Automatically save and restore:"
-msgstr ""
+msgstr "自動保存と復元:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
 #: lib/ui/sessionconfigwidget.ui:67
 #, kde-format
 msgid "Newly-created unsaved files"
-msgstr ""
+msgstr "新規作成された未保存ファイル"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
 #: lib/ui/sessionconfigwidget.ui:77
 #, kde-format
 msgid "Files with unsaved changes"
-msgstr ""
+msgstr "未保存の変更があるファイル"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:88
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
-msgstr ""
+msgstr "無効にすると、新しいウィンドウでは無題のドキュメントが表示されます。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
@@ -3000,18 +2995,21 @@ msgid ""
 "If enabled, the application will shutdown when the last file being edited is "
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
+"有効にすると、編集中の最後のファイルが閉じられたときにアプリケーションが終了"
+"します。無効の場合は、新しいファイルを開始できるように空白のページが開きま"
+"す。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:101
 #, kde-format
 msgid "Close the application entirely when the last file is closed"
-msgstr ""
+msgstr "最後のファイルが閉じられたときにアプリケーションを完全に終了する"
 
 #. i18n: ectx: property (text), widget (QCheckBox, winClosesDocuments)
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "ウィンドウが閉じられたときにそのドキュメントも閉じる"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
@@ -3027,12 +3025,15 @@ msgid ""
 "bookmarks, cursor position etc. When the session is loaded all elements are "
 "restored."
 msgstr ""
+"セッションには、開いているドキュメントのリスト、最近開いたファイルのリスト、"
+"ブックマーク、カーソル位置などが含まれます。セッションが読み込まれると、すべ"
+"ての要素が復元されます。"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lib/ui/sessionconfigwidget.ui:136
 #, kde-format
 msgid "Maximum number of entries in recent file list:"
-msgstr ""
+msgstr "最近開いたファイルのリストの最大エントリ数:"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:164
@@ -3058,9 +3059,9 @@ msgid ""
 "be saved past editor sessions. The configuration will be restored if the "
 "document has not changed when reopened."
 msgstr ""
-"ブックマークなどの文書設定をセッションを越えて保存するには、このオプションを"
-"有効にしてください。再度開いたときに文書が変更されていなければ、設定が復元さ"
-"れます。"
+"ブックマークなどのドキュメント設定をセッションを越えて保存するには、このオプ"
+"ションを有効にしてください。再度開いたときにドキュメントが変更されていなけれ"
+"ば、設定が復元されます。"
 
 #. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
 #: lib/ui/sessionconfigwidget.ui:180
@@ -3082,22 +3083,22 @@ msgstr "%1 へようこそ"
 #: lib/welcomeview/welcomeview.cpp:61
 #, kde-format
 msgid "Recent Documents and Projects"
-msgstr "最近の文書とプロジェクト"
+msgstr "最近のドキュメントとプロジェクト"
 
 #: lib/welcomeview/welcomeview.cpp:61
 #, kde-format
 msgid "Recent Documents"
-msgstr "最近の文書"
+msgstr "最近のドキュメント"
 
 #: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents or projects"
-msgstr "最近の文書やプロジェクトはありません"
+msgstr "最近のドキュメントやプロジェクトはありません"
 
 #: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents"
-msgstr "最近の文書はありません"
+msgstr "最近のドキュメントはありません"
 
 #: lib/welcomeview/welcomeview.cpp:118
 #, kde-format
@@ -3197,22 +3198,3 @@ msgstr "セッションを管理..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "新しいウィンドウでようこそページを表示"
-
-#~ msgid ""
-#~ "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#~ "to save your changes or discard them?</p>"
-#~ msgstr ""
-#~ "<qt><p>文書 “%1” は変更されていますが、保存されていません。</p><p>変更を保"
-#~ "存しますか？それとも破棄しますか？</p></qt>"
-
-#~ msgid "Save As"
-#~ msgstr "名前を付けて保存"
-
-#~ msgid "&Close Document"
-#~ msgstr "文書を閉じる(&C)"
-
-#~ msgid "Close Other &Documents"
-#~ msgstr "他の文書を閉じる(&D)"
-
-#~ msgid "Close &All Documents"
-#~ msgstr "すべての文書を閉じる(&A)"

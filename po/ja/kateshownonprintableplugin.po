@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-03-08 00:49+0000\n"
 "PO-Revision-Date: 2026-08-01 23:02+0900\n"
 "Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -14,18 +14,12 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
-#: rainbowparens_plugin.cpp:434
+#: kateshownonprintableplugin.cpp:353
 #, kde-format
-msgctxt "group title"
-msgid "Bracket Colors"
-msgstr "括弧の色"
+msgid "Show Non-Printable Characters"
+msgstr "非印刷文字を表示"
 
-#: rainbowparens_plugin.cpp:451
+#: kateshownonprintableplugin.cpp:356
 #, kde-format
-msgid "Colored Brackets"
-msgstr "色付き括弧"
-
-#: rainbowparens_plugin.cpp:456
-#, kde-format
-msgid "Colored Brackets Settings"
-msgstr "色付き括弧の設定"
+msgid "Toggle Show Non-Printable Characters"
+msgstr "非印刷文字の表示を切り替え"

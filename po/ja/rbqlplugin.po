@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-04-07 00:47+0000\n"
+"PO-Revision-Date: 2026-08-01 23:02+0900\n"
+"Last-Translator: Mint <5602mint@gmail.com>\n"
+"Language-Team: Japanese <kde-jp@kde.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#: RBQLPlugin.cpp:32
+#, kde-format
+msgid "RBQL"
+msgstr "RBQL"
+
+#: RBQLWidget.cpp:53
+#, kde-format
+msgid "Enter RBQL query"
+msgstr "RBQL クエリを入力"
+
+#: RBQLWidget.cpp:55
+#, kde-format
+msgid "Add new tab"
+msgstr "新しいタブを追加"
+
+#: RBQLWidget.cpp:57
+#, kde-format
+msgid "Execute query"
+msgstr "クエリを実行"
+
+#: RBQLWidget.cpp:72
+#, kde-format
+msgid "File has header"
+msgstr "ファイルにヘッダーあり"
+
+#: RBQLWidget.cpp:112
+#, kde-format
+msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
+msgstr ""
+"現在のドキュメントの区切り文字を取得できませんでした。CSV/TSV ドキュメントで"
+"はありませんか？"
+
+#: RBQLWidget.cpp:121
+#, kde-format
+msgid "Document is empty"
+msgstr "ドキュメントが空です"

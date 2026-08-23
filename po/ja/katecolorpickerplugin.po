@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2020-12-28 21:45-0800\n"
-"Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
+"PO-Revision-Date: 2026-08-01 23:02+0900\n"
+"Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 #: colorpickerconfigpage.cpp:34
 #, kde-format
 msgid "Show preview for known color names"
-msgstr ""
+msgstr "既知の色名のプレビューを表示する"
 
 #: colorpickerconfigpage.cpp:36
 #, kde-format
@@ -26,58 +26,61 @@ msgid ""
 "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
 "colors."
 msgstr ""
+"既知の色名 (例: skyblue) に対してもカラーピッカーを表示します。\n"
+"色の一覧については https://www.w3.org/TR/SVG11/types.html#ColorKeywords をご"
+"覧ください。"
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format
 msgid "Place preview after text color"
-msgstr ""
+msgstr "テキストカラーの後にプレビューを配置する"
 
 #: colorpickerconfigpage.cpp:53
 #, kde-format
 msgid "Hex color matching"
-msgstr ""
+msgstr "16 進数カラーのマッチング"
 
 #: colorpickerconfigpage.cpp:56
 #, kde-format
 msgid "12 digits (#RRRRGGGGBBBB)"
-msgstr ""
+msgstr "12 桁 (#RRRRGGGGBBBB)"
 
 #: colorpickerconfigpage.cpp:57
 #, kde-format
 msgid "9 digits (#RRRGGGBBB)"
-msgstr ""
+msgstr "9 桁 (#RRRGGGBBB)"
 
 #: colorpickerconfigpage.cpp:58
 #, kde-format
 msgid "8 digits (#AARRGGBB)"
-msgstr ""
+msgstr "8 桁 (#AARRGGBB)"
 
 #: colorpickerconfigpage.cpp:59
 #, kde-format
 msgid "6 digits (#RRGGBB)"
-msgstr ""
+msgstr "6 桁 (#RRGGBB)"
 
 #: colorpickerconfigpage.cpp:60
 #, kde-format
 msgid "3 digits (#RGB)"
-msgstr ""
+msgstr "3 桁 (#RGB)"
 
 #: colorpickerconfigpage.cpp:84
 #, kde-format
 msgid "Color Picker"
-msgstr ""
+msgstr "カラーピッカー"
 
 #: colorpickerconfigpage.cpp:89
 #, kde-format
 msgid "Color Picker Settings"
-msgstr ""
+msgstr "カラーピッカーの設定"
 
 #: katecolorpickerplugin.cpp:255
 #, kde-format
 msgid "Select Color (Hex output)"
-msgstr ""
+msgstr "色の選択 (16 進数出力)"
 
 #: katecolorpickerplugin.cpp:258
 #, kde-format
 msgid "View Color [Read only]"
-msgstr ""
+msgstr "色の表示 [読み取り専用]"

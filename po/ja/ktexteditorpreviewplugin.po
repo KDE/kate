@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: ktexteditorpreviewplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2017-09-18 13:11-0700\n"
-"Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
+"PO-Revision-Date: 2026-08-01 23:02+0900\n"
+"Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -17,70 +17,70 @@ msgstr ""
 #: ktexteditorpreviewview.cpp:29
 #, kde-format
 msgid "Preview"
-msgstr ""
+msgstr "プレビュー"
 
 #: previewwidget.cpp:44
 #, kde-format
 msgid "Lock Current Document"
-msgstr ""
+msgstr "現在のドキュメントをロック"
 
 #: previewwidget.cpp:45
 #, kde-format
 msgid "Lock preview to current document"
-msgstr ""
+msgstr "プレビューを現在のドキュメントにロックします"
 
 #: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock Current View"
-msgstr ""
+msgstr "現在のビューのロックを解除"
 
 #: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock current view"
-msgstr ""
+msgstr "現在のビューのロックを解除します"
 
 #: previewwidget.cpp:53
 #, kde-format
 msgid "Automatically Update Preview"
-msgstr ""
+msgstr "プレビューを自動更新する"
 
 #: previewwidget.cpp:54
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
-msgstr ""
+msgstr "現在のドキュメントの内容に合わせてプレビューの自動更新を有効にします"
 
 #: previewwidget.cpp:55
 #, kde-format
 msgid "Manually Update Preview"
-msgstr ""
+msgstr "プレビューを手動更新する"
 
 #: previewwidget.cpp:57
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
-msgstr ""
+msgstr "現在のドキュメントの内容に合わせたプレビューの自動更新を無効にします"
 
 #: previewwidget.cpp:62
 #, kde-format
 msgid "Update Preview"
-msgstr ""
+msgstr "プレビューを更新"
 
 #: previewwidget.cpp:63
 #, kde-format
 msgid "Update the preview to the current document content"
-msgstr ""
+msgstr "プレビューを現在のドキュメントの内容に更新します"
 
 #: previewwidget.cpp:71
 #, kde-format
 msgid "View"
-msgstr ""
+msgstr "表示"
 
 #: previewwidget.cpp:96
 #, kde-format
 msgid "No preview available."
-msgstr ""
+msgstr "利用可能なプレビューがありません。"
 
 #: previewwidget.cpp:246
 #, kde-format
 msgid "About %1"
-msgstr ""
+msgstr "%1 について"

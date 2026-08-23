@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-17 00:47+0000\n"
-"PO-Revision-Date: 2021-03-12 22:13-0800\n"
-"Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
+"PO-Revision-Date: 2026-08-01 23:02+0900\n"
+"Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -17,47 +17,47 @@ msgstr ""
 #: kategitblameplugin.cpp:88
 #, kde-format
 msgid "Not Committed Yet"
-msgstr ""
+msgstr "未コミット"
 
 #: kategitblameplugin.cpp:97
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
-msgstr ""
+msgstr " %1: %2 "
 
 #: kategitblameplugin.cpp:98
 #, kde-format
 msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
-msgstr ""
+msgstr " %1: %2: %3 "
 
 #: kategitblameplugin.cpp:187
 #, kde-format
 msgid "Git Blame"
-msgstr ""
+msgstr "Git Blame"
 
 #: kategitblameplugin.cpp:190
 #, kde-format
 msgid "Show Git Blame Details"
-msgstr ""
+msgstr "Git Blame の詳細を表示"
 
 #: kategitblameplugin.cpp:193
 #, kde-format
 msgid "Toggle Git Blame Details"
-msgstr ""
+msgstr "Git Blame の詳細表示を切り替え"
 
 #: kategitblameplugin.cpp:340
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: kategitblameplugin.cpp:403
 #, kde-format
 msgid "Git blame, show commit failed."
-msgstr ""
+msgstr "Git blame: コミットの表示に失敗しました。"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6
 #, kde-format
 msgid "&Tools"
-msgstr ""
+msgstr "ツール(&T)"

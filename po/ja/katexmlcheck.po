@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-18 00:46+0000\n"
-"PO-Revision-Date: 2016-06-20 21:04-0700\n"
-"Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
+"PO-Revision-Date: 2026-08-01 23:02+0900\n"
+"Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -17,40 +17,41 @@ msgstr ""
 #: plugin_katexmlcheck.cpp:90
 #, kde-format
 msgid "XML Check"
-msgstr ""
+msgstr "XML チェック"
 
 #: plugin_katexmlcheck.cpp:95
 #, kde-format
 msgid "Validate XML"
-msgstr ""
+msgstr "XML を検証"
 
 #: plugin_katexmlcheck.cpp:125
 #, kde-format
 msgid "Validate process crashed"
-msgstr ""
+msgstr "検証プロセスがクラッシュしました"
 
 #: plugin_katexmlcheck.cpp:125 plugin_katexmlcheck.cpp:143
 #: plugin_katexmlcheck.cpp:203 plugin_katexmlcheck.cpp:228
 #: plugin_katexmlcheck.cpp:248 plugin_katexmlcheck.cpp:331
 #, kde-format
 msgid "XMLCheck"
-msgstr ""
+msgstr "XMLCheck"
 
 #: plugin_katexmlcheck.cpp:139
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr ""
+"DOCTYPE が見つかりません。整形式 (well-formedness) のみチェックします。"
 
 #: plugin_katexmlcheck.cpp:141
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
-msgstr ""
+msgstr "'%1' が見つかりません。整形式 (well-formedness) のみチェックします。"
 
 #: plugin_katexmlcheck.cpp:227
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
-msgstr ""
+msgstr "<b>エラー:</b> 一時ファイル '%1' を作成できませんでした。"
 
 #: plugin_katexmlcheck.cpp:246
 #, kde-format
@@ -58,6 +59,8 @@ msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
+"<b>エラー:</b> xmllint が見つかりませんでした。xmllint がインストールされてい"
+"るか確認してください。xmllint は libxml2 に含まれています。"
 
 #: plugin_katexmlcheck.cpp:329
 #, kde-format
@@ -65,9 +68,11 @@ msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
+"<b>エラー:</b> xmllint を実行できませんでした。xmllint がインストールされてい"
+"るか確認してください。xmllint は libxml2 に含まれています。"
 
 #. i18n: ectx: Menu (xml)
 #: ui.rc:6
 #, kde-format
 msgid "&XML"
-msgstr ""
+msgstr "XML(&X)"

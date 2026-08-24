@@ -91,6 +91,11 @@ protected:
             res = filterByName(name, fileNameMatchPattern, score);
         }
 
+        // Preserve filename scoring, but allow a query without slashes to match a directory name.
+        if (!matchPath && !res) {
+            res = filterByPath(sm->idxToFilePath(sourceRow), pattern, score);
+        }
+
         // only match file path if needed
         if (matchPath && res) {
             int scorep = 0;

@@ -1,6 +1,7 @@
 #include "hostprocess.h"
 #include "kateapp.h"
 #include "katemainwindow.h"
+#include "katequickopen.h"
 
 #include <KActionCollection>
 #include <KFontRequester>
@@ -9,9 +10,11 @@
 #include <QCommandLineParser>
 #include <QDialog>
 #include <QDir>
+#include <QFile>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTest>
+#include <QTreeView>
 
 class BasicUiTests : public QObject
 {
@@ -25,6 +28,7 @@ private Q_SLOTS:
     void test_sessionGeometrySaveRestore();
     void test_openFontDialog();
     void test_settingPATH();
+    void test_quickOpenMatchesFolderName();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -290,6 +294,40 @@ void BasicUiTests::test_settingPATH()
     mainWindow->showPluginConfigPage(nullptr, 0);
 
     QVERIFY(qEnvironmentVariable("PATH").isEmpty() || qEnvironmentVariable("PATH").split(QDir::listSeparator()).constFirst() != qApp->applicationDirPath());
+}
+
+void BasicUiTests::test_quickOpenMatchesFolderName()
+{
+    app->sessionManager()->sessionNew();
+    auto mainWindow = app->activeKateMainWindow();
+
+    const QString folderPath = m_tempdir->filePath(QStringLiteral("quickopen-folder"));
+    QVERIFY(QDir().mkpath(folderPath));
+    const QString filePath = folderPath + QStringLiteral("/main.cpp");
+    QFile file(filePath);
+    QVERIFY(file.open(QIODevice::WriteOnly));
+    file.close();
+    QVERIFY(mainWindow->wrapper()->openUrl(QUrl::fromLocalFile(filePath)));
+
+    mainWindow->slotQuickOpen();
+    QLineEdit *input = nullptr;
+    for (auto lineEdit : mainWindow->findChildren<QLineEdit *>()) {
+        if (qstrcmp(lineEdit->metaObject()->className(), "QuickOpenLineEdit") == 0) {
+            input = lineEdit;
+            break;
+        }
+    }
+    QVERIFY(input);
+    auto quickOpen = static_cast<KateQuickOpen *>(input->parentWidget());
+    auto list = quickOpen->findChild<QTreeView *>();
+    QVERIFY(list);
+
+    input->setText(QStringLiteral("quickopen-folder"));
+    QTRY_COMPARE(list->model()->rowCount(), 1);
+    QCOMPARE(list->model()->index(0, 0).data().toString(), QStringLiteral("main.cpp"));
+
+    delete quickOpen;
+    app->documentManager()->closeAllDocuments();
 }
 
 QTEST_MAIN(BasicUiTests)

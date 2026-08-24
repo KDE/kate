@@ -36,6 +36,7 @@
   <name xml:lang="id">KWrite</name>
   <name xml:lang="is">KWrite</name>
   <name xml:lang="it">KWrite</name>
+  <name xml:lang="ja">KWrite</name>
   <name xml:lang="ka">KWrite</name>
   <name xml:lang="ko">KWrite</name>
   <name xml:lang="lt">KWrite</name>
@@ -93,6 +94,7 @@
   <summary xml:lang="id">Pengedit Teks</summary>
   <summary xml:lang="is">Textaritill</summary>
   <summary xml:lang="it">Editor di testo</summary>
+  <summary xml:lang="ja">テキストエディタ</summary>
   <summary xml:lang="ka">ტექსტური რედაქტორი</summary>
   <summary xml:lang="ko">텍스트 편집기</summary>
   <summary xml:lang="lt">Rašyklė</summary>
@@ -151,6 +153,7 @@
     <p xml:lang="id">KWrite adalah sebuah pengedit teks oleh KDE, berdasarkan pada komponen editor Kate.</p>
     <p xml:lang="is">KWrite er textaritill KDE, byggður á ritilshluta Kate.</p>
     <p xml:lang="it">KWrite è un editor di testo di KDE, basato sul componente dell'editor di Kate.</p>
+    <p xml:lang="ja">KWrite は Kate のエディタコンポーネントをベースにした KDE のテキストエディタです。</p>
     <p xml:lang="ka">KWrite-ი KDE-ის ტექსტური რედაქტორია, რომელიც Kate-ის რედაქტორის კომპონენტზეა აგებული.</p>
     <p xml:lang="ko">KWrite는 Kate 편집기 구성 요소를 사용하는 KDE 텍스트 편집기입니다.</p>
     <p xml:lang="lv">„KWrite“ ir KDE teksta redaktors, kam pamatā ir „Kate“ programmas redaktors.</p>
@@ -206,6 +209,7 @@
     <p xml:lang="id">Fitur:</p>
     <p xml:lang="is">Eiginleikar:</p>
     <p xml:lang="it">Funzionalità:</p>
+    <p xml:lang="ja">機能:</p>
     <p xml:lang="ka">თვისებები:</p>
     <p xml:lang="ko">기능:</p>
     <p xml:lang="lt">Ypatybės:</p>
@@ -263,6 +267,7 @@
       <li xml:lang="id">Penyorotan sintaks sesuai dengan jenis file </li>
       <li xml:lang="is">Málfræðilitun miðað við gerð skráa</li>
       <li xml:lang="it">Evidenziazione della sintassi in base al tipo di file</li>
+      <li xml:lang="ja">ファイルタイプに応じた構文ハイライト</li>
       <li xml:lang="ka">სინტაქსის გამოკვეთა ფაილის ტიპის მიხედვით</li>
       <li xml:lang="ko">파일 형식별 구문 강조</li>
       <li xml:lang="lt">Sintaksės paryškinimas, priklausomai nuo dokumento tipo</li>
@@ -318,6 +323,7 @@
       <li xml:lang="id">Penyelesaian kata</li>
       <li xml:lang="is">Orðaútfylling</li>
       <li xml:lang="it">Completamento delle parole</li>
+      <li xml:lang="ja">単語補完</li>
       <li xml:lang="ka">სიტყვების ავტომატური დასრულება</li>
       <li xml:lang="ko">단어 완성</li>
       <li xml:lang="lt">Žodžių užbaigimas</li>
@@ -375,6 +381,7 @@
       <li xml:lang="id">Indentasi otomatis</li>
       <li xml:lang="is">Sjálfvirkur inndráttur</li>
       <li xml:lang="it">Rientro automatico</li>
+      <li xml:lang="ja">自動インデント</li>
       <li xml:lang="ka">ავტომატური სწორება</li>
       <li xml:lang="ko">자동 들여쓰기</li>
       <li xml:lang="lt">Automatinė įtrauka</li>
@@ -430,6 +437,7 @@
       <li xml:lang="id">Dukungan plugin</li>
       <li xml:lang="is">Stuðningur við viðbætur</li>
       <li xml:lang="it">Supporto delle estensioni</li>
+      <li xml:lang="ja">プラグインのサポート</li>
       <li xml:lang="ka">დამატებების მხარდაჭერა</li>
       <li xml:lang="ko">플러그인 지원</li>
       <li xml:lang="lt">Įskiepių palaikymas</li>
@@ -486,6 +494,7 @@
       <li xml:lang="id">Mode input Vi</li>
       <li xml:lang="is">Vi-innsláttarsnið</li>
       <li xml:lang="it">Modalità di inserimento Vi.</li>
+      <li xml:lang="ja">Vi 入力モード</li>
       <li xml:lang="ka">Vi-ის შეყვანის რეჟიმი</li>
       <li xml:lang="ko">VI 입력 모드</li>
       <li xml:lang="lt">Vi įvesties režimas</li>
@@ -547,6 +556,7 @@
       <caption xml:lang="id">Pengeditan kode menggunakan KWrite</caption>
       <caption xml:lang="is">Kóðaritun með KWrite</caption>
       <caption xml:lang="it">Modificare il codice con KWrite</caption>
+      <caption xml:lang="ja">KWrite でコードを編集</caption>
       <caption xml:lang="ka">KWrite-ის საშუალებით კოდის რედაქტირება</caption>
       <caption xml:lang="ko">KWrite로 코드 편집</caption>
       <caption xml:lang="lv">Koda rediģēšana ar „KWrite“</caption>

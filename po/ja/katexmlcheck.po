@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2026 Mint <5602mint@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"

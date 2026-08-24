@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-20 00:49+0000\n"
+"POT-Creation-Date: 2026-08-24 00:49+0000\n"
 "PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -128,6 +128,51 @@ msgstr ""
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
 msgstr "Έγινε εξαγωγή στον κλάδο: %1"
+
+#: git/gitstatus.cpp:159
+#, fuzzy, kde-format
+#| msgid "Modified"
+msgid " ‣ Modified"
+msgstr "Τροποποιημένο"
+
+#: git/gitstatus.cpp:161
+#, fuzzy, kde-format
+#| msgid "Untracked"
+msgid " ‣ Untracked"
+msgstr "<δεν παρακολουθείται>"
+
+#: git/gitstatus.cpp:163
+#, fuzzy, kde-format
+#| msgid "&Rename"
+msgid " ‣ Renamed"
+msgstr "&Μετονομασία"
+
+#: git/gitstatus.cpp:166
+#, fuzzy, kde-format
+#| msgid "Delete"
+msgid " ‣ Deleted"
+msgstr "Διαγραφή"
+
+#: git/gitstatus.cpp:169
+#, kde-format
+msgid " ‣ Added"
+msgstr ""
+
+#: git/gitstatus.cpp:171
+#, kde-format
+msgid " ‣ Copied"
+msgstr ""
+
+#: git/gitstatus.cpp:173
+#, kde-format
+msgid " ‣ Ignored"
+msgstr ""
+
+#: git/gitstatus.cpp:181
+#, fuzzy, kde-format
+#| msgid "Conflict"
+msgid " ‣ Conflicted"
+msgstr "Σύγκρουση"
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
@@ -1228,6 +1273,147 @@ msgstr "Έγινε εξαγωγή από τη στοίβα με επιτυχία
 msgid "Show stash failed. Error: "
 msgstr "Αποτυχία εμφάνισης της στοίβας. Σφάλμα: "
 
+#: tools/clazy.h:25
+#, kde-format
+msgid "Clazy (Qt/C++)"
+msgstr ""
+
+#: tools/clazy.h:30
+#, kde-format
+msgid "Clazy is a static analysis tool for Qt/C++ code"
+msgstr ""
+
+#: tools/clazy.h:71
+#, fuzzy, kde-format
+#| msgid "Please install 'cppcheck'."
+msgid "Please install 'clazy'"
+msgstr "Εγκαταστήστε το 'cppcheck'."
+
+#: tools/clazycurrent.h:24
+#, kde-format
+msgid "Clazy - Current File"
+msgstr ""
+
+#: tools/clazycurrent.h:29
+#, kde-format
+msgid "clang-tidy is a clang-based C++ “linter” tool"
+msgstr ""
+
+#: tools/clippy.h:27
+#, kde-format
+msgid "Clippy (Rust)"
+msgstr ""
+
+#: tools/clippy.h:32
+#, kde-format
+msgid "Clippy is a static analysis tool for Rust code"
+msgstr ""
+
+#: tools/clippy.h:95
+#, fuzzy, kde-format
+#| msgid "Please install 'cppcheck'."
+msgid "Please install 'cargo'"
+msgstr "Εγκαταστήστε το 'cppcheck'."
+
+#: tools/cppcheck.h:26
+#, kde-format
+msgid "Cppcheck (C++)"
+msgstr ""
+
+#: tools/cppcheck.h:31
+#, kde-format
+msgid "Cppcheck is a static analysis tool for C/C++ code"
+msgstr ""
+
+#: tools/cppcheck.h:64
+#, fuzzy, kde-format
+#| msgid "Please install 'cppcheck'."
+msgid "Please install 'cppcheck'"
+msgstr "Εγκαταστήστε το 'cppcheck'."
+
+#: tools/eslint.h:23
+#, kde-format
+msgid "ESLint"
+msgstr ""
+
+#: tools/eslint.h:28
+#, kde-format
+msgid ""
+"ESLint is a static analysis tool & style guide enforcer for JavaScript/"
+"Typescript code"
+msgstr ""
+
+#: tools/eslint.h:67
+#, fuzzy, kde-format
+#| msgid "Please install 'cppcheck'."
+msgid "Please install 'eslint'"
+msgstr "Εγκαταστήστε το 'cppcheck'."
+
+#: tools/flake8.h:26
+#, kde-format
+msgid "Flake8 (Python)"
+msgstr ""
+
+#: tools/flake8.h:31
+#, kde-format
+msgid "Flake8: Your Tool For Style Guide Enforcement for Python"
+msgstr ""
+
+#: tools/flake8.h:77
+#, fuzzy, kde-format
+#| msgid "Please install 'cppcheck'."
+msgid "Please install 'flake8'"
+msgstr "Εγκαταστήστε το 'cppcheck'."
+
+#: tools/ruff.h:28
+#, kde-format
+msgid "Ruff (Python)"
+msgstr ""
+
+#: tools/ruff.h:33
+#, kde-format
+msgid "An extremely fast Python linter"
+msgstr ""
+
+#: tools/ruff.h:64
+#, kde-format
+msgid ""
+"Ruff is not installed. Please use your package manager to install it. See "
+"https://docs.astral.sh/ruff/installation/"
+msgstr ""
+
+#: tools/shellcheck.h:24
+#, kde-format
+msgid "ShellCheck (sh/bash)"
+msgstr ""
+
+#: tools/shellcheck.h:29
+#, kde-format
+msgid "ShellCheck is a static analysis and linting tool for sh/bash scripts"
+msgstr ""
+
+#: tools/shellcheck.h:73
+#, kde-format
+msgid "Please install ShellCheck (see https://www.shellcheck.net)"
+msgstr ""
+
+#: tools/tidy.h:24
+#, kde-format
+msgid "Html Tidy"
+msgstr ""
+
+#: tools/tidy.h:29
+#, kde-format
+msgid "Runs html tidy on current file"
+msgstr ""
+
+#: tools/tidy.h:64
+#, kde-format
+msgid ""
+"Html tidy is not installed. Please use your package manager to install it. "
+"See https://www.html-tidy.org/"
+msgstr ""
+
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9
 #, kde-format
@@ -1340,9 +1526,6 @@ msgstr "Ολοκλήρωση έργου"
 
 #~ msgid "Analysis failed!"
 #~ msgstr "Αποτυχία ανάλυσης!"
-
-#~ msgid "Please install 'cppcheck'."
-#~ msgstr "Εγκαταστήστε το 'cppcheck'."
 
 #~ msgid "Git Tools"
 #~ msgstr "Εργαλεία git"

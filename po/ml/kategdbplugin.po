@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-25 00:47+0000\n"
+"POT-Creation-Date: 2026-08-24 00:49+0000\n"
 "PO-Revision-Date: 2018-08-16 08:58+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -177,6 +177,11 @@ msgstr ""
 #: configview.cpp:778
 #, kde-format
 msgid "Select Working Directory"
+msgstr ""
+
+#: dap/client.cpp:208
+#, kde-format
+msgid "the incompatible server did not honor the specification"
 msgstr ""
 
 #: dapbackend.cpp:187

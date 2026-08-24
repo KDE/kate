@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-25 00:47+0000\n"
+"POT-Creation-Date: 2026-08-24 00:49+0000\n"
 "PO-Revision-Date: 2023-01-02 10:17+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -192,6 +192,11 @@ msgstr "Εκτελέσιμο:"
 #| msgid "Working Directory:"
 msgid "Select Working Directory"
 msgstr "Κατάλογος εργασίας:"
+
+#: dap/client.cpp:208
+#, kde-format
+msgid "the incompatible server did not honor the specification"
+msgstr ""
 
 #: dapbackend.cpp:187
 #, fuzzy, kde-format

@@ -297,6 +297,10 @@ size_t rehighlight(KTextEditor::View *view,
     auto createOneColumnRange = [](KTextEditor::Cursor c) {
         return KTextEditor::Range(c.line(), c.column(), c.line(), c.column() + 1);
     };
+    auto isBracket = [](QChar c) {
+        return c == u'{' || c == u'[' || c == u'(' //
+            || c == u'}' || c == u']' || c == u')';
+    };
 
     // A struct representing an opening bracket
     struct Opener {
@@ -320,6 +324,12 @@ size_t rehighlight(KTextEditor::View *view,
     for (int l = start; l <= end; ++l) {
         const QString line = doc->line(l);
         for (int c = 0; c < line.length(); ++c) {
+            // Skip if its not a bracket
+            if (!isBracket(line[c])) {
+                continue;
+            }
+
+            // Skip if we are in a comment or string
             if (isCommentOrString(doc, l, c)) {
                 continue;
             }

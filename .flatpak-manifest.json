@@ -80,8 +80,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://git.libssh.org/projects/libssh.git/snapshot/libssh-0.12.2.tar.gz",
-                    "sha256": "6d3c4025c746dd31571f1e241d4c15e4e23a4c45fc2b725fdec42b678d7205c5",
+                    "url": "https://www.libssh.org/files/0.12/libssh-0.12.2.tar.xz",
+                    "sha256": "49560f677d96e3706a904ac2de1116e25f3680937d51e5c92198fcba4a1c1e9f",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 1729,

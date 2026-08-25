@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:49+0000\n"
-"PO-Revision-Date: 2026-05-15 06:55+0200\n"
+"PO-Revision-Date: 2026-08-24 10:15+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -131,49 +131,44 @@ msgid "Active branch: %1"
 msgstr "Aktivna veja: %1"
 
 #: git/gitstatus.cpp:159
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid " ‣ Modified"
-msgstr "Spremenjeno"
+msgstr " ‣ Spremenjeno"
 
 #: git/gitstatus.cpp:161
-#, fuzzy, kde-format
-#| msgid "Untracked"
+#, kde-format
 msgid " ‣ Untracked"
-msgstr "Nesledeno"
+msgstr " ‣ Nesledeno"
 
 #: git/gitstatus.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Rename"
+#, kde-format
 msgid " ‣ Renamed"
-msgstr "Preimenuj"
+msgstr " ‣ Preimenovano"
 
 #: git/gitstatus.cpp:166
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid " ‣ Deleted"
-msgstr "Zbriši"
+msgstr " ‣ Izbrisano"
 
 #: git/gitstatus.cpp:169
 #, kde-format
 msgid " ‣ Added"
-msgstr ""
+msgstr " ‣ Dodano"
 
 #: git/gitstatus.cpp:171
 #, kde-format
 msgid " ‣ Copied"
-msgstr ""
+msgstr " ‣ Kopirano"
 
 #: git/gitstatus.cpp:173
 #, kde-format
 msgid " ‣ Ignored"
-msgstr ""
+msgstr " ‣ Prezrto"
 
 #: git/gitstatus.cpp:181
-#, fuzzy, kde-format
-#| msgid "Conflict"
+#, kde-format
 msgid " ‣ Conflicted"
-msgstr "Spor"
+msgstr " ‣ V sporu"
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
@@ -1257,62 +1252,62 @@ msgstr "Prikazovanje zaloge je bilo neuspešno. Napaka: "
 #: tools/clazy.h:25
 #, kde-format
 msgid "Clazy (Qt/C++)"
-msgstr ""
+msgstr "Clazy (Qt/C++)"
 
 #: tools/clazy.h:30
 #, kde-format
 msgid "Clazy is a static analysis tool for Qt/C++ code"
-msgstr ""
+msgstr "Clazy je orodje za statično analizo kode Qt/C++."
 
 #: tools/clazy.h:71
 #, kde-format
 msgid "Please install 'clazy'"
-msgstr ""
+msgstr "Prosimo, namestite 'clazy'"
 
 #: tools/clazycurrent.h:24
 #, kde-format
 msgid "Clazy - Current File"
-msgstr ""
+msgstr "Clazy - Trenutna datoteka"
 
 #: tools/clazycurrent.h:29
 #, kde-format
 msgid "clang-tidy is a clang-based C++ “linter” tool"
-msgstr ""
+msgstr "clang-tidy je orodje \"linter\" na osnovi clang C++"
 
 #: tools/clippy.h:27
 #, kde-format
 msgid "Clippy (Rust)"
-msgstr ""
+msgstr "Clippy (Rust)"
 
 #: tools/clippy.h:32
 #, kde-format
 msgid "Clippy is a static analysis tool for Rust code"
-msgstr ""
+msgstr "Clippy je orodje za statično analizo kode Rust."
 
 #: tools/clippy.h:95
 #, kde-format
 msgid "Please install 'cargo'"
-msgstr ""
+msgstr "Prosimo, namestite 'cargo'"
 
 #: tools/cppcheck.h:26
 #, kde-format
 msgid "Cppcheck (C++)"
-msgstr ""
+msgstr "Cppcheck (C++)"
 
 #: tools/cppcheck.h:31
 #, kde-format
 msgid "Cppcheck is a static analysis tool for C/C++ code"
-msgstr ""
+msgstr "Cppcheck je orodje za statično analizo kode C/C++."
 
 #: tools/cppcheck.h:64
 #, kde-format
 msgid "Please install 'cppcheck'"
-msgstr ""
+msgstr "Prosimo, namestite 'cppcheck'"
 
 #: tools/eslint.h:23
 #, kde-format
 msgid "ESLint"
-msgstr ""
+msgstr "ESLint"
 
 #: tools/eslint.h:28
 #, kde-format
@@ -1320,36 +1315,38 @@ msgid ""
 "ESLint is a static analysis tool & style guide enforcer for JavaScript/"
 "Typescript code"
 msgstr ""
+"ESLint je orodje za statično analizo in uveljavljanje slogovnih vodil za "
+"kodo JavaScript/Typescript"
 
 #: tools/eslint.h:67
 #, kde-format
 msgid "Please install 'eslint'"
-msgstr ""
+msgstr "Prosimo, namestite 'eslint'"
 
 #: tools/flake8.h:26
 #, kde-format
 msgid "Flake8 (Python)"
-msgstr ""
+msgstr "Flake8 (Python)"
 
 #: tools/flake8.h:31
 #, kde-format
 msgid "Flake8: Your Tool For Style Guide Enforcement for Python"
-msgstr ""
+msgstr "Flake8: Vaše orodje za uveljavljanje vodil sloga za Python"
 
 #: tools/flake8.h:77
 #, kde-format
 msgid "Please install 'flake8'"
-msgstr ""
+msgstr "Prosimo, namestite 'flake8'"
 
 #: tools/ruff.h:28
 #, kde-format
 msgid "Ruff (Python)"
-msgstr ""
+msgstr "Ruff (Python)"
 
 #: tools/ruff.h:33
 #, kde-format
 msgid "An extremely fast Python linter"
-msgstr ""
+msgstr "Izjemno hiter Pythonov linter"
 
 #: tools/ruff.h:64
 #, kde-format
@@ -1357,31 +1354,34 @@ msgid ""
 "Ruff is not installed. Please use your package manager to install it. See "
 "https://docs.astral.sh/ruff/installation/"
 msgstr ""
+"Ruff ni nameščen. Za namestitev uporabite upravljalnika paketov. Glejte "
+"https://docs.astral.sh/ruff/installation/"
 
 #: tools/shellcheck.h:24
 #, kde-format
 msgid "ShellCheck (sh/bash)"
-msgstr ""
+msgstr "ShellCheck (sh/bash)"
 
 #: tools/shellcheck.h:29
 #, kde-format
 msgid "ShellCheck is a static analysis and linting tool for sh/bash scripts"
 msgstr ""
+"ShellCheck je orodje za statično analizo in orodje za lint za skripte sh/bash"
 
 #: tools/shellcheck.h:73
 #, kde-format
 msgid "Please install ShellCheck (see https://www.shellcheck.net)"
-msgstr ""
+msgstr "Prosimo, namestite ShellCheck (glejte https://www.shellcheck.net)"
 
 #: tools/tidy.h:24
 #, kde-format
 msgid "Html Tidy"
-msgstr ""
+msgstr "Html Tidy"
 
 #: tools/tidy.h:29
 #, kde-format
 msgid "Runs html tidy on current file"
-msgstr ""
+msgstr "Zažene html tidy na trenutni datoteki"
 
 #: tools/tidy.h:64
 #, kde-format
@@ -1389,6 +1389,8 @@ msgid ""
 "Html tidy is not installed. Please use your package manager to install it. "
 "See https://www.html-tidy.org/"
 msgstr ""
+"Html tidy ni nameščen. Za namestitev uporabite upravljalnika paketov. Glejte "
+"https://www.html-tidy.org/"
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

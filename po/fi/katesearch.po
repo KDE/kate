@@ -1,6 +1,6 @@
 # Copyright © 2011, 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kde-baseapps package.
-# SPDX-FileCopyrightText: 2012, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2012, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2011, 2013, 2014, 2015, 2016, 2017, 2022.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.
 # Tommi Nieminen <translator@legisign.org>, 2024.
@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-22 00:49+0000\n"
-"PO-Revision-Date: 2025-09-19 18:14+0300\n"
+"PO-Revision-Date: 2026-02-25 14:04+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -65,6 +65,7 @@ msgid ""
 "Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
 "captures"
 msgstr ""
+"Vientikuvio: \\0 koko osuma, \\1, \\2… säännöllisen lausekkeen kaappaukset"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:35
@@ -696,6 +697,9 @@ msgid ""
 "the whole matches, use \\0. To export regular expression captures, use \\1,"
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
+"Muunna ja vie hakuosumia korvauskuviolla. \\0 vie koko osuman. \\1, \\2 jne. "
+"vievät säännöllisten lausekkeiden kaappaukset. Muu kuvion teksti palautetaan "
+"vientituloksina."
 
 #: SearchPlugin.cpp:2288
 #, kde-format

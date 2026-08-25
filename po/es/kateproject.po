@@ -4,13 +4,13 @@
 #
 # SPDX-FileCopyrightText: 2012, 2014-2016, 2018-2026 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2012 Cristina Yenyxe Gonzalez Garcia <the.blue.valkyrie@gmail.com>
-# SPDX-FileCopyrightText: 2013, 2014, 2015 Rocio Gallego <traducciones@rociogallego.com>
+# SPDX-FileCopyrightText: 2013-2015 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:49+0000\n"
-"PO-Revision-Date: 2026-05-15 17:54+0100\n"
+"PO-Revision-Date: 2026-08-25 01:16+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.04.1\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -126,49 +126,44 @@ msgid "Active branch: %1"
 msgstr "Rama activa: %1"
 
 #: git/gitstatus.cpp:159
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid " ‣ Modified"
-msgstr "Modificado"
+msgstr " ‣ Modificado"
 
 #: git/gitstatus.cpp:161
-#, fuzzy, kde-format
-#| msgid "Untracked"
+#, kde-format
 msgid " ‣ Untracked"
-msgstr "No seguido"
+msgstr " ‣ No seguido"
 
 #: git/gitstatus.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Rename"
+#, kde-format
 msgid " ‣ Renamed"
-msgstr "Cambia&r nombre"
+msgstr " ‣ Nombre cambiado"
 
 #: git/gitstatus.cpp:166
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid " ‣ Deleted"
-msgstr "Borrar"
+msgstr " ‣ Borrado"
 
 #: git/gitstatus.cpp:169
 #, kde-format
 msgid " ‣ Added"
-msgstr ""
+msgstr " ‣ Añadido"
 
 #: git/gitstatus.cpp:171
 #, kde-format
 msgid " ‣ Copied"
-msgstr ""
+msgstr " ‣ Copiado"
 
 #: git/gitstatus.cpp:173
 #, kde-format
 msgid " ‣ Ignored"
-msgstr ""
+msgstr " ‣ Ignorado"
 
 #: git/gitstatus.cpp:181
-#, fuzzy, kde-format
-#| msgid "Conflict"
+#, kde-format
 msgid " ‣ Conflicted"
-msgstr "Conflicto"
+msgstr " ‣ Con conflictos"
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
@@ -1253,62 +1248,62 @@ msgstr "No se ha podido mostrar la reserva. Error: "
 #: tools/clazy.h:25
 #, kde-format
 msgid "Clazy (Qt/C++)"
-msgstr ""
+msgstr "Clazy (Qt/C++)"
 
 #: tools/clazy.h:30
 #, kde-format
 msgid "Clazy is a static analysis tool for Qt/C++ code"
-msgstr ""
+msgstr "Clazy es una herramienta de análisis estático para código Qt/C++"
 
 #: tools/clazy.h:71
 #, kde-format
 msgid "Please install 'clazy'"
-msgstr ""
+msgstr "Instale «clazy»"
 
 #: tools/clazycurrent.h:24
 #, kde-format
 msgid "Clazy - Current File"
-msgstr ""
+msgstr "Clazy: Archivo actual"
 
 #: tools/clazycurrent.h:29
 #, kde-format
 msgid "clang-tidy is a clang-based C++ “linter” tool"
-msgstr ""
+msgstr "«clang-tidy» es una herramienta «linter» de C++ basada en clang"
 
 #: tools/clippy.h:27
 #, kde-format
 msgid "Clippy (Rust)"
-msgstr ""
+msgstr "Clippy (Rust)"
 
 #: tools/clippy.h:32
 #, kde-format
 msgid "Clippy is a static analysis tool for Rust code"
-msgstr ""
+msgstr "Clippy es una herramienta de análisis estático para código Rust"
 
 #: tools/clippy.h:95
 #, kde-format
 msgid "Please install 'cargo'"
-msgstr ""
+msgstr "Instale «cargo»"
 
 #: tools/cppcheck.h:26
 #, kde-format
 msgid "Cppcheck (C++)"
-msgstr ""
+msgstr "Cppcheck (C++)"
 
 #: tools/cppcheck.h:31
 #, kde-format
 msgid "Cppcheck is a static analysis tool for C/C++ code"
-msgstr ""
+msgstr "Cppcheck es una herramienta de análisis estático para código C/C++"
 
 #: tools/cppcheck.h:64
 #, kde-format
 msgid "Please install 'cppcheck'"
-msgstr ""
+msgstr "Instale «cppcheck»"
 
 #: tools/eslint.h:23
 #, kde-format
 msgid "ESLint"
-msgstr ""
+msgstr "ESLint"
 
 #: tools/eslint.h:28
 #, kde-format
@@ -1316,36 +1311,38 @@ msgid ""
 "ESLint is a static analysis tool & style guide enforcer for JavaScript/"
 "Typescript code"
 msgstr ""
+"ESLint es una herramienta de análisis estático y de formateado de guía de "
+"estilo para código JavaScript/Typescript"
 
 #: tools/eslint.h:67
 #, kde-format
 msgid "Please install 'eslint'"
-msgstr ""
+msgstr "Instale «eslint»"
 
 #: tools/flake8.h:26
 #, kde-format
 msgid "Flake8 (Python)"
-msgstr ""
+msgstr "Flake8 (Python)"
 
 #: tools/flake8.h:31
 #, kde-format
 msgid "Flake8: Your Tool For Style Guide Enforcement for Python"
-msgstr ""
+msgstr "Flake8: Herramienta para aplicar la guía de estilo para Python"
 
 #: tools/flake8.h:77
 #, kde-format
 msgid "Please install 'flake8'"
-msgstr ""
+msgstr "Instale «flake8»"
 
 #: tools/ruff.h:28
 #, kde-format
 msgid "Ruff (Python)"
-msgstr ""
+msgstr "Ruff (Python)"
 
 #: tools/ruff.h:33
 #, kde-format
 msgid "An extremely fast Python linter"
-msgstr ""
+msgstr "Un «linter» de Python extremadamente rápido"
 
 #: tools/ruff.h:64
 #, kde-format
@@ -1353,31 +1350,35 @@ msgid ""
 "Ruff is not installed. Please use your package manager to install it. See "
 "https://docs.astral.sh/ruff/installation/"
 msgstr ""
+"Ruff no está instalado. Use el gestor de paquetes para instalarlo. Consulte "
+"https://docs.astral.sh/ruff/installation/"
 
 #: tools/shellcheck.h:24
 #, kde-format
 msgid "ShellCheck (sh/bash)"
-msgstr ""
+msgstr "ShellCheck (sh/bash)"
 
 #: tools/shellcheck.h:29
 #, kde-format
 msgid "ShellCheck is a static analysis and linting tool for sh/bash scripts"
 msgstr ""
+"ShellCheck es una herramienta de análisis estático y de «linting» para "
+"guiones sh/bash"
 
 #: tools/shellcheck.h:73
 #, kde-format
 msgid "Please install ShellCheck (see https://www.shellcheck.net)"
-msgstr ""
+msgstr "Instale ShellCheck (consulte https://www.shellcheck.net)"
 
 #: tools/tidy.h:24
 #, kde-format
 msgid "Html Tidy"
-msgstr ""
+msgstr "Html Tidy"
 
 #: tools/tidy.h:29
 #, kde-format
 msgid "Runs html tidy on current file"
-msgstr ""
+msgstr "Ejecuta «html tidy» en el archivo actual"
 
 #: tools/tidy.h:64
 #, kde-format
@@ -1385,6 +1386,8 @@ msgid ""
 "Html tidy is not installed. Please use your package manager to install it. "
 "See https://www.html-tidy.org/"
 msgstr ""
+"«Html tidy» no está instalado. Use el gestor de paquetes para instalarlo. "
+"Consulte https://www.html-tidy.org/"
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

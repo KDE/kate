@@ -122,28 +122,24 @@ msgid "Active branch: %1"
 msgstr "活动分支：%1"
 
 #: git/gitstatus.cpp:159
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid " ‣ Modified"
-msgstr "已修改"
+msgstr ""
 
 #: git/gitstatus.cpp:161
-#, fuzzy, kde-format
-#| msgid "Untracked"
+#, kde-format
 msgid " ‣ Untracked"
-msgstr "未跟踪"
+msgstr ""
 
 #: git/gitstatus.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Rename"
+#, kde-format
 msgid " ‣ Renamed"
-msgstr "重命名(&R)"
+msgstr ""
 
 #: git/gitstatus.cpp:166
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid " ‣ Deleted"
-msgstr "删除"
+msgstr ""
 
 #: git/gitstatus.cpp:169
 #, kde-format
@@ -161,10 +157,9 @@ msgid " ‣ Ignored"
 msgstr ""
 
 #: git/gitstatus.cpp:181
-#, fuzzy, kde-format
-#| msgid "Conflict"
+#, kde-format
 msgid " ‣ Conflicted"
-msgstr "冲突"
+msgstr ""
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format

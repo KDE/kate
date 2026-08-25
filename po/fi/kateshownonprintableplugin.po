@@ -1,0 +1,28 @@
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2026 Tommi Nieminen <translator@legisign.org>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-03-08 00:49+0000\n"
+"PO-Revision-Date: 2026-04-14 20:33+0300\n"
+"Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
+"Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 25.04.0\n"
+
+#: kateshownonprintableplugin.cpp:353
+#, kde-format
+msgid "Show Non-Printable Characters"
+msgstr "Näytä tulostumattomat merkit"
+
+#: kateshownonprintableplugin.cpp:356
+#, kde-format
+msgid "Toggle Show Non-Printable Characters"
+msgstr "Näytä tai piilota tulostumattomat merkit"

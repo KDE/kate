@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-08-27 00:48+0000\n"
 "PO-Revision-Date: 2026-06-28 12:10+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@nuug.no>\n"
@@ -19,18 +19,18 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
-#: rainbowparens_plugin.cpp:434
+#: rainbowparens_plugin.cpp:444
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
 msgstr "Parentesfargar"
 
-#: rainbowparens_plugin.cpp:451
+#: rainbowparens_plugin.cpp:461
 #, kde-format
 msgid "Colored Brackets"
 msgstr "Farga parentesar"
 
-#: rainbowparens_plugin.cpp:456
+#: rainbowparens_plugin.cpp:466
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Innstillingar for farga parentesar"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:49+0000\n"
-"PO-Revision-Date: 2026-05-15 09:49+0300\n"
+"PO-Revision-Date: 2026-08-26 09:02+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 26.04.0\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -128,49 +128,44 @@ msgid "Active branch: %1"
 msgstr "ענף פעיל: %1"
 
 #: git/gitstatus.cpp:159
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid " ‣ Modified"
-msgstr "נערכו"
+msgstr " 🞀 נערך"
 
 #: git/gitstatus.cpp:161
-#, fuzzy, kde-format
-#| msgid "Untracked"
+#, kde-format
 msgid " ‣ Untracked"
-msgstr "לא במעקב"
+msgstr " 🞀 לא במעקב"
 
 #: git/gitstatus.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Rename"
+#, kde-format
 msgid " ‣ Renamed"
-msgstr "&שינוי שם"
+msgstr " 🞀 שם שונה"
 
 #: git/gitstatus.cpp:166
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid " ‣ Deleted"
-msgstr "מחיקה"
+msgstr " 🞀 נמחק"
 
 #: git/gitstatus.cpp:169
 #, kde-format
 msgid " ‣ Added"
-msgstr ""
+msgstr " 🞀 נוסף"
 
 #: git/gitstatus.cpp:171
 #, kde-format
 msgid " ‣ Copied"
-msgstr ""
+msgstr " 🞀הועתק"
 
 #: git/gitstatus.cpp:173
 #, kde-format
 msgid " ‣ Ignored"
-msgstr ""
+msgstr " 🞀 נפסח"
 
 #: git/gitstatus.cpp:181
-#, fuzzy, kde-format
-#| msgid "Conflict"
+#, kde-format
 msgid " ‣ Conflicted"
-msgstr "סתירה"
+msgstr " 🞀 נסתר"
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
@@ -1244,65 +1239,62 @@ msgstr "הצגת ההטמנה (stash) נכשלה. שגיאה: "
 #: tools/clazy.h:25
 #, kde-format
 msgid "Clazy (Qt/C++)"
-msgstr ""
+msgstr "Clazy (Qt/C++)"
 
 #: tools/clazy.h:30
 #, kde-format
 msgid "Clazy is a static analysis tool for Qt/C++ code"
-msgstr ""
+msgstr "Clazy הוא כלי לניתוח קוד סטטי בשפות Qt/C++‏"
 
 #: tools/clazy.h:71
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'clazy'"
-msgstr "אנא התקן את \"cppcheck\""
+msgstr "נא להתקין את ‚clazy’"
 
 #: tools/clazycurrent.h:24
 #, kde-format
 msgid "Clazy - Current File"
-msgstr ""
+msgstr "Clazy - הקובץ הנוכחי"
 
 #: tools/clazycurrent.h:29
 #, kde-format
 msgid "clang-tidy is a clang-based C++ “linter” tool"
-msgstr ""
+msgstr "clang-tidy הוא כלי לינט (סימון תחביר ושגיאות) מבוסס clang לשפת C++‎"
 
 #: tools/clippy.h:27
 #, kde-format
 msgid "Clippy (Rust)"
-msgstr ""
+msgstr "Clippy (Rust)"
 
 #: tools/clippy.h:32
 #, kde-format
 msgid "Clippy is a static analysis tool for Rust code"
-msgstr ""
+msgstr "Clippy הוא כלי לניתוח קוד סטטי בשפת Rust"
 
 #: tools/clippy.h:95
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'cargo'"
-msgstr "אנא התקן את \"cppcheck\""
+msgstr "נא להתקין את ‚cargo’"
 
 #: tools/cppcheck.h:26
 #, kde-format
 msgid "Cppcheck (C++)"
-msgstr ""
+msgstr "Cppcheck (C++)"
 
 #: tools/cppcheck.h:31
 #, kde-format
 msgid "Cppcheck is a static analysis tool for C/C++ code"
-msgstr ""
+msgstr "Cppcheck הוא כלי לניתוח קוד סטטי בשפות C/C++‏"
 
 #: tools/cppcheck.h:64
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'cppcheck'"
-msgstr "אנא התקן את \"cppcheck\""
+msgstr "נא להתקין את ‚cppcheck’"
 
 #: tools/eslint.h:23
 #, kde-format
 msgid "ESLint"
-msgstr ""
+msgstr "ESLint"
 
 #: tools/eslint.h:28
 #, kde-format
@@ -1310,38 +1302,37 @@ msgid ""
 "ESLint is a static analysis tool & style guide enforcer for JavaScript/"
 "Typescript code"
 msgstr ""
+"ESLint הוא כלי לניתוח קוד סטטי ואוכף הדרכת סגנון בשפות JavaScript/Typescript"
 
 #: tools/eslint.h:67
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'eslint'"
-msgstr "אנא התקן את \"cppcheck\""
+msgstr "נא להתקין את ‚eslint’"
 
 #: tools/flake8.h:26
 #, kde-format
 msgid "Flake8 (Python)"
-msgstr ""
+msgstr "Flake8 (Python)"
 
 #: tools/flake8.h:31
 #, kde-format
 msgid "Flake8: Your Tool For Style Guide Enforcement for Python"
-msgstr ""
+msgstr "Flake8: הכלי שלך לאכיפת הדרכת סגנון ב־Python"
 
 #: tools/flake8.h:77
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'flake8'"
-msgstr "אנא התקן את \"cppcheck\""
+msgstr "נא להתקין את ‚flake8’"
 
 #: tools/ruff.h:28
 #, kde-format
 msgid "Ruff (Python)"
-msgstr ""
+msgstr "Ruff (Python)"
 
 #: tools/ruff.h:33
 #, kde-format
 msgid "An extremely fast Python linter"
-msgstr ""
+msgstr "לינטר (סימון תחביר ושגיאות) מהיר במיוחד לשפת Python"
 
 #: tools/ruff.h:64
 #, kde-format
@@ -1349,31 +1340,35 @@ msgid ""
 "Ruff is not installed. Please use your package manager to install it. See "
 "https://docs.astral.sh/ruff/installation/"
 msgstr ""
+"Ruff לא מותקן. נא להשתמש במנהל החבילות שלך כדי להתקין אותו. הסברים כאן: "
+"https://docs.astral.sh/ruff/installation/‎"
 
 #: tools/shellcheck.h:24
 #, kde-format
 msgid "ShellCheck (sh/bash)"
-msgstr ""
+msgstr "ShellCheck (sh/bash)"
 
 #: tools/shellcheck.h:29
 #, kde-format
 msgid "ShellCheck is a static analysis and linting tool for sh/bash scripts"
 msgstr ""
+"ShellCheck הוא מנתח קוד סטטי וכלי לינט (סימון תחביר ושגיאות) לסקריפטים בשפות "
+"sh/bash"
 
 #: tools/shellcheck.h:73
 #, kde-format
 msgid "Please install ShellCheck (see https://www.shellcheck.net)"
-msgstr ""
+msgstr "נא להתקין את ShellCheck (הסברים כאן https://www.shellcheck.net)"
 
 #: tools/tidy.h:24
 #, kde-format
 msgid "Html Tidy"
-msgstr ""
+msgstr "Html Tidy"
 
 #: tools/tidy.h:29
 #, kde-format
 msgid "Runs html tidy on current file"
-msgstr ""
+msgstr "הרצת html tidy על הקובץ הנוכחי"
 
 #: tools/tidy.h:64
 #, kde-format
@@ -1381,6 +1376,8 @@ msgid ""
 "Html tidy is not installed. Please use your package manager to install it. "
 "See https://www.html-tidy.org/"
 msgstr ""
+"Html tidy לא מותקן. נא להשתמש במנהל החבילות שלך כדי להתקין אותו. הסברים כאן: "
+"https://www.html-tidy.org/‎"
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

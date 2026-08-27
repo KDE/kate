@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-08-27 00:48+0000\n"
 "PO-Revision-Date: 2026-05-30 17:01-0400\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
@@ -18,18 +18,18 @@ msgstr ""
 "X-Generator: Poedit 3.9\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: rainbowparens_plugin.cpp:434
+#: rainbowparens_plugin.cpp:444
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
 msgstr "تىرناق رەڭگى"
 
-#: rainbowparens_plugin.cpp:451
+#: rainbowparens_plugin.cpp:461
 #, kde-format
 msgid "Colored Brackets"
 msgstr "رەڭلىك تىرناق"
 
-#: rainbowparens_plugin.cpp:456
+#: rainbowparens_plugin.cpp:466
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "رەڭلىك تىرناق تەڭشىكى"

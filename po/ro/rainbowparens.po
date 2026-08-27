@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-21 00:49+0000\n"
+"POT-Creation-Date: 2026-08-27 00:48+0000\n"
 "PO-Revision-Date: 2026-03-04 12:37+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -18,18 +18,18 @@ msgstr ""
 "20)) ? 1 : 2;\n"
 "X-Generator: Lokalize 25.08.1\n"
 
-#: rainbowparens_plugin.cpp:434
+#: rainbowparens_plugin.cpp:444
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
 msgstr "Culorile parantezelor"
 
-#: rainbowparens_plugin.cpp:451
+#: rainbowparens_plugin.cpp:461
 #, kde-format
 msgid "Colored Brackets"
 msgstr "Paranteze colorate"
 
-#: rainbowparens_plugin.cpp:456
+#: rainbowparens_plugin.cpp:466
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Configurări pentru paranteze colorate"

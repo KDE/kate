@@ -1,6 +1,6 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024 Vít Pelčák <vit@pelcak.org>
+# SPDX-FileCopyrightText: 2010-2020, 2023-2024, 2026 Vít Pelčák <vit@pelcak.org>
 # Lukáš Tinkl <ltinkl@redhat.com>, 2011.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
 # SPDX-FileCopyrightText: 2021, 2023, 2024 Vit Pelcak <vit@pelcak.org>
@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-16 00:48+0000\n"
-"PO-Revision-Date: 2026-07-11 11:02+0200\n"
-"Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
+"PO-Revision-Date: 2026-08-26 23:55+0200\n"
+"Last-Translator: Vít Pelčák <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
-"Lukáš Tinkl,Miroslav Flídr,Klára Cihlářová,Vít Pelčák,Marián Kyral;Jan Papež,"
+"Lukáš Tinkl,Miroslav Flídr,Klára Cihlářová,Vít Pelčák,Marián Kyral,Jan Papež,"
 "Libor Filípek"
 
 #, kde-format

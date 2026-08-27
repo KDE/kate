@@ -4,14 +4,14 @@
 Dependencies:
 - 'on': ['Linux', 'FreeBSD', 'Windows', 'macOS']
   'require':
-    'frameworks/breeze-icons': '@latest-kf6'
-    'frameworks/extra-cmake-modules': '@latest-kf6'
-    'frameworks/kdoctools': '@latest-kf6'
-    'frameworks/ki18n': '@latest-kf6'
-    'frameworks/kiconthemes': '@latest-kf6'
-    'frameworks/knewstuff': '@latest-kf6'
-    'frameworks/ktexteditor': '@latest-kf6'
-    'frameworks/kuserfeedback': '@latest-kf6'
+    'frameworks/breeze-icons': 'Frameworks/6.24'
+    'frameworks/extra-cmake-modules': 'Frameworks/6.24'
+    'frameworks/kdoctools': 'Frameworks/6.24'
+    'frameworks/ki18n': 'Frameworks/6.24'
+    'frameworks/kiconthemes': 'Frameworks/6.24'
+    'frameworks/knewstuff': 'Frameworks/6.24'
+    'frameworks/ktexteditor': 'Frameworks/6.24'
+    'frameworks/kuserfeedback': 'Frameworks/6.24'
     'third-party/qtkeychain': '@latest'
 
 Options:

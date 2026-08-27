@@ -28,6 +28,7 @@ private Q_SLOTS:
     void test_sessionGeometrySaveRestore();
     void test_openFontDialog();
     void test_settingPATH();
+    void test_quickOpenMatchesFolderName_data();
     void test_quickOpenMatchesFolderName();
 
 private:
@@ -298,6 +299,11 @@ void BasicUiTests::test_settingPATH()
 
 void BasicUiTests::test_quickOpenMatchesFolderName()
 {
+    QFETCH(bool, matchFolderNames);
+
+    KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("General"));
+    config.writeEntry("Quickopen Match Folder Names", matchFolderNames);
+
     app->sessionManager()->sessionNew();
     auto mainWindow = app->activeKateMainWindow();
 
@@ -323,11 +329,22 @@ void BasicUiTests::test_quickOpenMatchesFolderName()
     QVERIFY(list);
 
     input->setText(QStringLiteral("quickopen-folder"));
-    QTRY_COMPARE(list->model()->rowCount(), 1);
-    QCOMPARE(list->model()->index(0, 0).data().toString(), QStringLiteral("main.cpp"));
+    QTRY_COMPARE(list->model()->rowCount(), matchFolderNames ? 1 : 0);
+    if (matchFolderNames) {
+        QCOMPARE(list->model()->index(0, 0).data().toString(), QStringLiteral("main.cpp"));
+    }
 
     delete quickOpen;
     app->documentManager()->closeAllDocuments();
+    config.deleteEntry("Quickopen Match Folder Names");
+}
+
+void BasicUiTests::test_quickOpenMatchesFolderName_data()
+{
+    QTest::addColumn<bool>("matchFolderNames");
+
+    QTest::newRow("enabled") << true;
+    QTest::newRow("disabled") << false;
 }
 
 QTEST_MAIN(BasicUiTests)

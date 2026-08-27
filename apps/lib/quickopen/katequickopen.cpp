@@ -92,7 +92,7 @@ protected:
         }
 
         // Preserve filename scoring, but allow a query without slashes to match a directory name.
-        if (!matchPath && !res) {
+        if (matchFolderNames && !matchPath && !res) {
             res = filterByPath(sm->idxToFilePath(sourceRow), pattern, score);
         }
 
@@ -161,6 +161,13 @@ public Q_SLOTS:
         endResetModel();
     }
 
+    void setMatchFolderNames(bool enabled)
+    {
+        beginResetModel();
+        matchFolderNames = enabled;
+        endResetModel();
+    }
+
 private:
     static inline bool filterByPath(QStringView path, QStringView pattern, int &score)
     {
@@ -175,6 +182,7 @@ private:
 private:
     QString pattern;
     bool matchPath = false;
+    bool matchFolderNames = false;
     FilterMode filterMode = Fuzzy;
 };
 
@@ -282,6 +290,12 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     connect(m_inputLine, &QuickOpenLineEdit::returnPressed, this, &KateQuickOpen::slotReturnPressed);
     connect(m_inputLine, &QuickOpenLineEdit::listModeChanged, this, &KateQuickOpen::slotListModeChanged);
     connect(m_inputLine, &QuickOpenLineEdit::filterModeChanged, this, &KateQuickOpen::setFilterMode);
+    connect(m_inputLine, &QuickOpenLineEdit::matchFolderNamesChanged, this, [this](bool enabled) {
+        if (m_proxyModel) {
+            m_proxyModel->setMatchFolderNames(enabled);
+            reselectFirst();
+        }
+    });
 
     connect(m_listView, &QTreeView::activated, this, &KateQuickOpen::slotReturnPressed);
     connect(m_listView, &QTreeView::clicked, this, &KateQuickOpen::slotReturnPressed); // for single click
@@ -295,6 +309,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
             m_proxyModel = new QuickOpenFilterProxyModel(this);
             m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
             m_proxyModel->setFilterMode(m_inputLine->filterMode());
+            m_proxyModel->setMatchFolderNames(m_inputLine->matchFolderNames());
             didFilter = m_proxyModel->setFilterText(text);
             m_proxyModel->setSourceModel(m_model);
             m_listView->setModel(m_proxyModel);

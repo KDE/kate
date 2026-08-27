@@ -32,6 +32,11 @@ public:
         return m_filterMode;
     }
 
+    bool matchFolderNames() const
+    {
+        return m_matchFolderNames;
+    }
+
 protected:
     void contextMenuEvent(QContextMenuEvent *event) override;
 
@@ -43,8 +48,10 @@ private:
     std::unique_ptr<QMenu> menu;
     KateQuickOpenModelList m_listMode;
     FilterMode m_filterMode;
+    bool m_matchFolderNames = false;
 
 Q_SIGNALS:
     void listModeChanged(KateQuickOpenModelList mode);
     void filterModeChanged();
+    void matchFolderNamesChanged(bool enabled);
 };

@@ -15,6 +15,7 @@
 
 static const char CONFIG_QUICKOPEN_LISTMODE[] = {"Quickopen List Mode"};
 static const char CONFIG_QUICKOPEN_FILTERMODE[] = {"Quickopen Filter Mode"};
+static const char CONFIG_QUICKOPEN_MATCH_FOLDER_NAMES[] = {"Quickopen Match Folder Names"};
 
 QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
     : QLineEdit(parent)
@@ -29,6 +30,7 @@ QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
     updatePlaceholderText(m_listMode);
 
     m_filterMode = (FilterMode)cg.readEntry(CONFIG_QUICKOPEN_FILTERMODE, (int)Fuzzy);
+    m_matchFolderNames = cg.readEntry(CONFIG_QUICKOPEN_MATCH_FOLDER_NAMES, false);
 }
 
 QuickOpenLineEdit::~QuickOpenLineEdit()
@@ -38,6 +40,7 @@ QuickOpenLineEdit::~QuickOpenLineEdit()
 
     cg.writeEntry(CONFIG_QUICKOPEN_LISTMODE, m_listMode == KateQuickOpenModelList::CurrentProject);
     cg.writeEntry(CONFIG_QUICKOPEN_FILTERMODE, (int)m_filterMode);
+    cg.writeEntry(CONFIG_QUICKOPEN_MATCH_FOLDER_NAMES, m_matchFolderNames);
 }
 
 void QuickOpenLineEdit::updatePlaceholderText(KateQuickOpenModelList mode)
@@ -119,6 +122,16 @@ void QuickOpenLineEdit::setupMenu()
     });
     act->setChecked(m_filterMode == Wildcard);
     actGp->addAction(act);
+
+    menu->addSeparator();
+
+    act = menu->addAction(i18n("Match Folder Names"));
+    act->setCheckable(true);
+    connect(act, &QAction::toggled, this, [this](bool checked) {
+        m_matchFolderNames = checked;
+        Q_EMIT matchFolderNamesChanged(checked);
+    });
+    act->setChecked(m_matchFolderNames);
 }
 
 #include "moc_katequickopenlineedit.cpp"

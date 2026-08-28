@@ -668,7 +668,7 @@ KTextEditor::View *KateViewManager::openViewForDoc(KTextEditor::Document *doc)
 void KateViewManager::addPositionToHistory(const QUrl &url, KTextEditor::Cursor pos)
 {
     if (KateViewSpace *avs = activeViewSpace()) {
-        avs->addPositionToHistory(url, pos, /* calledExternally: */ true);
+        avs->addPositionToHistory(nullptr, url, pos, /* calledExternally: */ true);
     }
 }
 

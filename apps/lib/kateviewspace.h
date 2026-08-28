@@ -15,6 +15,7 @@
 #include "kateprivate_export.h"
 #include "katetabbar.h"
 
+#include <QPointer>
 #include <QWidget>
 
 class KConfig;
@@ -207,7 +208,7 @@ public:
     /**
      * Add a jump location for jumping back and forth between history
      */
-    void addPositionToHistory(const QUrl &url, KTextEditor::Cursor, bool calledExternally = false);
+    void addPositionToHistory(KTextEditor::Document *document, QUrl url, KTextEditor::Cursor, bool calledExternally = false);
 
     // END Location History Stuff
 
@@ -321,6 +322,9 @@ private:
 
     void updateButtonVisibility();
 
+    struct Location;
+    static bool locationMatches(const Location &l, const QUrl &url, KTextEditor::Document *doc);
+
 private:
     // Kate's view manager
     KateViewManager *m_viewManager;
@@ -337,6 +341,7 @@ private:
 
     // jump location history for this view-space
     struct Location {
+        QPointer<KTextEditor::Document> document;
         QUrl url;
         KTextEditor::Cursor cursor;
     };

@@ -94,7 +94,7 @@ void LocationHistoryTest::test_addLocationInvalidUrl()
 
     // invalid url will have no effect
 
-    vs->addPositionToHistory(QUrl(), {1, 1});
+    vs->addPositionToHistory(nullptr, QUrl(), {1, 1});
     QCOMPARE(vs->currentLoc(), 0);
     QCOMPARE(vs->locationHistoryBuffer().size(), 0);
 }
@@ -138,13 +138,13 @@ void LocationHistoryTest::test_addLocation()
 
     // Adding position, but via internal call i.e., cursorPositionChanged will only have an affect if
     // new position is at least "viewLineCount" away
-    vs->addPositionToHistory(currentFileUrl, {0, 3});
+    vs->addPositionToHistory(nullptr, currentFileUrl, {0, 3});
     QCOMPARE(vs->currentLoc(), 0);
     QCOMPARE(vs->locationHistoryBuffer().size(), 1);
     QCOMPARE(vs->locationHistoryBuffer().at(vs->currentLoc()).cursor, KTextEditor::Cursor(0, 3));
 
     const int viewLineCnt = viewLineCount(vm->activeView());
-    vs->addPositionToHistory(currentFileUrl, {0 + viewLineCnt + 1, 0});
+    vs->addPositionToHistory(nullptr, currentFileUrl, {0 + viewLineCnt + 1, 0});
     QCOMPARE(vs->currentLoc(), 1);
     QCOMPARE(vs->locationHistoryBuffer().size(), 2);
     QCOMPARE(vs->locationHistoryBuffer().at(vs->currentLoc()).cursor, KTextEditor::Cursor(0 + viewLineCnt + 1, 0));
@@ -341,6 +341,56 @@ void LocationHistoryTest::test_signalEmission()
         auto args = sigSpy.takeFirst();
         QCOMPARE(args.at(0).toBool(), true);
     }
+}
+
+void LocationHistoryTest::test_goBackForwardUntitledDoc()
+{
+    auto vs = viewSpace();
+    auto vm = viewManager();
+    Q_ASSERT(vs && vm);
+
+    auto view = vm->createView();
+    auto doc = view->document();
+
+    // setting text adds a location
+    doc->setText(QStringList(500, QStringLiteral("Hello world")));
+    QCOMPARE(doc->lines(), 500);
+
+    // add 5 positions
+    for (int i = 1; i < 6; ++i) {
+        vs->addPositionToHistory(doc, QUrl(), {i, 0}, /*calledExternally=*/true);
+    }
+    QCOMPARE(vs->isHistoryBackEnabled(), true);
+    QCOMPARE(vs->isHistoryForwardEnabled(), false);
+
+    // go back 3 positions
+    for (int i = 5; i >= 3; --i) {
+        QCOMPARE(vs->currentLoc(), i);
+        QCOMPARE(vs->locationHistoryBuffer().at(vs->currentLoc()).cursor, KTextEditor::Cursor(i, 0));
+        vs->goBack();
+    }
+    QCOMPARE(vs->isHistoryBackEnabled(), true);
+    QCOMPARE(vs->isHistoryForwardEnabled(), true);
+
+    QCOMPARE(vs->locationHistoryBuffer().size(), 6);
+    QCOMPARE(vs->currentLoc(), 2);
+
+    // jump to new position
+    // should clear forward history
+    vs->addPositionToHistory(doc, QUrl(), {50, 0}, /*calledExternally=*/true);
+
+    QCOMPARE(vs->locationHistoryBuffer().size(), 4);
+    QCOMPARE(vs->currentLoc(), 3);
+
+    QCOMPARE(vs->isHistoryBackEnabled(), true);
+    QCOMPARE(vs->isHistoryForwardEnabled(), false);
+
+    QCOMPARE(vs->locationHistoryBuffer().size(), 4);
+    // close this doc
+    doc->clear();
+    vm->slotDocumentClose();
+    // closing the document should clear the history buffer
+    QVERIFY(vs->locationHistoryBuffer().empty());
 }
 
 #include "moc_location_history_test.cpp"

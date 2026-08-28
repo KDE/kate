@@ -391,7 +391,7 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
 
     connect(v, &KTextEditor::View::cursorPositionChanged, this, [this](KTextEditor::View *view, const KTextEditor::Cursor &newPosition) {
         if (!m_blockAddHistory && view && view->document()) {
-            addPositionToHistory(view->document()->url(), newPosition);
+            addPositionToHistory(view->document(), view->document()->url(), newPosition);
         }
     });
 
@@ -788,6 +788,12 @@ void KateViewSpace::documentDestroyed(QObject *doc)
         return;
     }
 
+    // Remove references to this document where url is not set
+    // i.e., remove untitled document locations
+    std::erase_if(m_locations, [doc](const Location &l) {
+        return l.document == doc && !l.url.isValid();
+    });
+
     /**
      * we shall have no views for this document at this point in time!
      */
@@ -1040,11 +1046,27 @@ void KateViewSpace::detachDocument(KTextEditor::Document *doc)
     });
 }
 
-void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c, bool calledExternally)
+bool KateViewSpace::locationMatches(const KateViewSpace::Location &location, const QUrl &url, KTextEditor::Document *doc)
+{
+    if (url.isValid()) {
+        return location.url == url;
+    } else if (doc) {
+        return location.document == doc;
+    }
+    return false;
+}
+
+void KateViewSpace::addPositionToHistory(KTextEditor::Document *document, QUrl url, KTextEditor::Cursor c, bool calledExternally)
 {
     // We don't care about invalid urls (Fixed Diff View / Untitled docs)
-    if (!url.isValid()) {
+    if (!document && !url.isValid()) {
         return;
+    }
+
+    if (url.isValid()) {
+        // clear the doc if url is valid
+        // we either have url OR doc
+        document = nullptr;
     }
 
     // if same line, remove last entry
@@ -1052,12 +1074,13 @@ void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c,
     bool currPosIsInSameLine = false;
     if (currentLocation < m_locations.size()) {
         const auto &currentLoc = m_locations.at(currentLocation);
-        currPosIsInSameLine = currentLoc.url == url && currentLoc.cursor.line() == c.line();
+        currPosIsInSameLine = locationMatches(currentLoc, url, document) && currentLoc.cursor.line() == c.line();
     }
 
     // Check if the location is at least "viewLineCount" away from the "current" position in m_locations
-    if (const auto view = m_viewManager->activeView();
-        view && !calledExternally && currentLocation < m_locations.size() && m_locations.at(currentLocation).url == url) {
+    if (const auto view = m_viewManager->activeView(); view && !calledExternally //
+        && currentLocation < m_locations.size() //
+        && (locationMatches(m_locations.at(currentLocation), url, document))) {
         const int currentLine = m_locations.at(currentLocation).cursor.line();
         const int newPosLine = c.line();
         const int viewLineCount = view->lastDisplayedLine() - view->firstDisplayedLine();
@@ -1084,7 +1107,7 @@ void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c,
 
     /** this is our new forward **/
 
-    m_locations.push_back({url, c});
+    m_locations.push_back({.document = document, .url = url, .cursor = c});
     // set currentLocation as last
     currentLocation = m_locations.size() - 1;
     // disable forward button as we are at the end now
@@ -1459,7 +1482,7 @@ void KateViewSpace::goBack()
     }
 
     if (auto v = m_viewManager->activeView()) {
-        if (v->document()->url() == location.url) {
+        if (locationMatches(location, v->document()->url(), v->document())) {
             QScopedValueRollback blocker(m_blockAddHistory, true);
             v->setCursorPosition(location.cursor);
             // enable forward
@@ -1469,7 +1492,13 @@ void KateViewSpace::goBack()
         }
     }
 
-    auto v = m_viewManager->openUrlWithView(location.url, QString());
+    KTextEditor::View *v = nullptr;
+    if (location.document) {
+        v = m_viewManager->activateView(location.document.get());
+    } else {
+        v = m_viewManager->openUrlWithView(location.url, QString());
+    }
+
     QScopedValueRollback blocker(m_blockAddHistory, true);
     v->setCursorPosition(location.cursor);
     // enable forward in viewspace + mainwindow
@@ -1506,7 +1535,7 @@ void KateViewSpace::goForward()
         m_historyForward->setEnabled(false);
     }
 
-    if (!location.url.isValid() || !location.cursor.isValid()) {
+    if ((!location.url.isValid() && !location.document) || !location.cursor.isValid()) {
         m_locations.erase(m_locations.begin() + currentLocation);
         return;
     }
@@ -1515,14 +1544,20 @@ void KateViewSpace::goForward()
     Q_EMIT m_viewManager->historyBackEnabled(true);
 
     if (auto v = m_viewManager->activeView()) {
-        if (v->document()->url() == location.url) {
+        if (locationMatches(location, v->document()->url(), v->document())) {
             QScopedValueRollback blocker(m_blockAddHistory, true);
             v->setCursorPosition(location.cursor);
             return;
         }
     }
 
-    auto v = m_viewManager->openUrlWithView(location.url, QString());
+    KTextEditor::View *v = nullptr;
+    if (location.document) {
+        v = m_viewManager->activateView(location.document.get());
+    } else {
+        v = m_viewManager->openUrlWithView(location.url, QString());
+    }
+
     QScopedValueRollback blocker(m_blockAddHistory, true);
     v->setCursorPosition(location.cursor);
 }

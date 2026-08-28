@@ -35,6 +35,7 @@ private Q_SLOTS:
     void test_goBackForward2();
     void test_addOnlyIfViewLineCountAwayFromCurrentPos();
     void test_signalEmission();
+    void test_goBackForwardUntitledDoc();
 
 private:
     class QTemporaryDir *m_tempdir;

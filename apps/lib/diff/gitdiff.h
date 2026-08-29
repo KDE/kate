@@ -7,6 +7,8 @@
 */
 #pragma once
 
+#include "kateprivate_export.h"
+
 #include <QList>
 #include <memory>
 
@@ -69,7 +71,7 @@ class QString;
  * and indicate unresolved conflicts.
  *
  */
-class VcsDiff
+class KATE_PRIVATE_EXPORT VcsDiff
 {
 public:
     /* Used to represent a patch or its inverse */

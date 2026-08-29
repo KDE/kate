@@ -1,4 +1,5 @@
 #include "gitannotationdelegate.h"
+#include "gitannotationmodel.h"
 
 #include <KTextEditor/AbstractAnnotationItemDelegate>
 #include <KTextEditor/AnnotationInterface>
@@ -20,18 +21,42 @@ void GitAnnotationDelegate::paint(QPainter *painter, const KTextEditor::StyleOpt
         return;
     }
 
-    // TODO: Read line state instead of bg color
-    const QVariant background = model->data(line, Qt::BackgroundRole);
-    if (!background.isValid()) {
+    const QVariant value = model->data(line, GitAnnotationModel::ChangeRole);
+    if (!value.isValid()) {
         return;
     }
 
-    constexpr int barWidth = 2;
-    QRect rect = option.rect;
-    rect.setLeft(rect.right() - barWidth + 1); // Right aligned
-
+    const auto change = static_cast<GitAnnotationModel::ChangeType>(value.toInt());
     painter->save();
-    painter->fillRect(rect, background.value<QBrush>());
+
+    switch (change) {
+    case GitAnnotationModel::ChangeType::Added: {
+        constexpr int barWidth = 3;
+        QRect rect = option.rect;
+        rect.setLeft(rect.right() - barWidth + 1);
+        const QColor color = QColor(QStringLiteral("#4CAF50"));
+        painter->fillRect(rect, color);
+        break;
+    }
+
+    case GitAnnotationModel::ChangeType::Removed: {
+        constexpr int triangleHeight = 8;
+        int triangleWidth = option.rect.width();
+        const int right = option.rect.right();
+        const int centerY = option.rect.top();
+        const int left = right - triangleWidth;
+        QPolygon triangle;
+        triangle << QPoint(left, centerY - triangleHeight / 2) << QPoint(left, centerY + triangleHeight / 2) << QPoint(right, centerY);
+        painter->save();
+        painter->setRenderHint(QPainter::Antialiasing, true);
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(QColor(QStringLiteral("#F44336")));
+        painter->drawPolygon(triangle);
+        painter->restore();
+        break;
+    }
+    }
+
     painter->restore();
 }
 

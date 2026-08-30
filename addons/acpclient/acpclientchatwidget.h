@@ -240,6 +240,9 @@ private:
     /** @brief Update the size hint for a specific list item */
     void updateItemSizeHint(QListWidgetItem *item, QWidget *container);
 
+    /** @brief Scroll the chat to the bottom to show the last message */
+    void scrollToBottom();
+
     /** @brief Get all chat text for copying */
     QString getAllChatText() const;
 

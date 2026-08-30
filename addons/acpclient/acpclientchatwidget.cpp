@@ -247,10 +247,8 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
             item->setSizeHint(hint);
         }
 
-        QScrollBar *vScrollBar = m_chatListWidget->verticalScrollBar();
-        if (vScrollBar) {
-            vScrollBar->setValue(vScrollBar->maximum());
-        }
+        // Scroll to bottom to show the new message
+        scrollToBottom();
     });
 }
 
@@ -290,6 +288,28 @@ void ACPClientChatWidget::updateWidgetSizeHint(ACPChatMessageWidget *widget)
     }
 }
 
+void ACPClientChatWidget::scrollToBottom()
+{
+    if (!m_chatListWidget) {
+        return;
+    }
+
+    // Ensure the last message is fully visible
+    // Use a small delay to ensure layout is complete
+    QTimer::singleShot(0, this, [this]() {
+        m_chatListWidget->scrollToBottom();
+
+        // Also ensure the last item is visible at the bottom
+        int count = m_chatListWidget->count();
+        if (count > 0) {
+            QListWidgetItem *lastItem = m_chatListWidget->item(count - 1);
+            if (lastItem) {
+                m_chatListWidget->scrollToItem(lastItem, QAbstractItemView::PositionAtBottom);
+            }
+        }
+    });
+}
+
 void ACPClientChatWidget::updateAllItemSizeHints()
 {
     if (!m_chatListWidget) {
@@ -318,6 +338,9 @@ void ACPClientChatWidget::updateAllItemSizeHints()
             }
         }
     }
+
+    // After updating all sizes, ensure we're still scrolled to the bottom
+    scrollToBottom();
 }
 
 void ACPClientChatWidget::updateItemSizeHint(QListWidgetItem *item, QWidget *container)
@@ -923,10 +946,7 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
                         // Update the item size hint
                         QTimer::singleShot(10, this, [this, lastWidget]() {
                             updateWidgetSizeHint(lastWidget);
-                            QScrollBar *vScrollBar = m_chatListWidget->verticalScrollBar();
-                            if (vScrollBar) {
-                                vScrollBar->setValue(vScrollBar->maximum());
-                            }
+                            scrollToBottom();
                         });
                         return;
                     }
@@ -956,10 +976,7 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
                         // Update the item size hint and scroll
                         QTimer::singleShot(10, this, [this, lastAgentWidget]() {
                             updateWidgetSizeHint(lastAgentWidget);
-                            QScrollBar *vScrollBar = m_chatListWidget->verticalScrollBar();
-                            if (vScrollBar) {
-                                vScrollBar->setValue(vScrollBar->maximum());
-                            }
+                            scrollToBottom();
                         });
                         return;
                     }
@@ -1159,10 +1176,7 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
                 // Update the item size hint
                 QTimer::singleShot(10, this, [this, widget]() {
                     updateWidgetSizeHint(widget);
-                    QScrollBar *vScrollBar = m_chatListWidget->verticalScrollBar();
-                    if (vScrollBar) {
-                        vScrollBar->setValue(vScrollBar->maximum());
-                    }
+                    scrollToBottom();
                 });
                 break;
             }

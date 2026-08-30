@@ -659,6 +659,15 @@ void ACPChatMessageWidget::updateContentDisplay()
                 button->setPalette(btnPal);
 
                 connect(button, &QPushButton::clicked, this, [this, button]() {
+                    // Disable the button to show the action was taken
+                    button->setEnabled(false);
+                    // Disable all other permission buttons in the same widget
+                    QWidget *buttonWidget = button->parentWidget();
+                    if (buttonWidget) {
+                        for (QPushButton *b : buttonWidget->findChildren<QPushButton *>(QString(), Qt::FindDirectChildrenOnly)) {
+                            b->setEnabled(false);
+                        }
+                    }
                     Q_EMIT permissionResponse(button->property("requestId").toLongLong(), button->property("optionId").toString());
                 });
                 buttonLayout->addWidget(button);
@@ -669,18 +678,26 @@ void ACPChatMessageWidget::updateContentDisplay()
             allowButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
             allowButton->setProperty("requestId", QVariant::fromValue(m_requestId));
             allowButton->setProperty("optionId", QVariant::fromValue(m_permissionAllowOptionId));
-            connect(allowButton, &QPushButton::clicked, this, [this, allowButton]() {
-                Q_EMIT permissionResponse(allowButton->property("requestId").toLongLong(), allowButton->property("optionId").toString());
-            });
-            buttonLayout->addWidget(allowButton);
 
             QPushButton *rejectButton = new QPushButton(i18n("Reject"), buttonWidget);
             rejectButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
             rejectButton->setProperty("requestId", QVariant::fromValue(m_requestId));
             rejectButton->setProperty("optionId", QVariant::fromValue(m_permissionRejectOptionId));
-            connect(rejectButton, &QPushButton::clicked, this, [this, rejectButton]() {
+
+            connect(allowButton, &QPushButton::clicked, this, [this, allowButton, rejectButton]() {
+                // Disable both buttons to show the action was taken
+                allowButton->setEnabled(false);
+                rejectButton->setEnabled(false);
+                Q_EMIT permissionResponse(allowButton->property("requestId").toLongLong(), allowButton->property("optionId").toString());
+            });
+            connect(rejectButton, &QPushButton::clicked, this, [this, allowButton, rejectButton]() {
+                // Disable both buttons to show the action was taken
+                allowButton->setEnabled(false);
+                rejectButton->setEnabled(false);
                 Q_EMIT permissionResponse(rejectButton->property("requestId").toLongLong(), rejectButton->property("optionId").toString());
             });
+
+            buttonLayout->addWidget(allowButton);
             buttonLayout->addWidget(rejectButton);
         }
 

@@ -19,31 +19,41 @@ K_PLUGIN_FACTORY_WITH_JSON(GitDecorationsPluginFactory, "gitdecorationsplugin.js
 GitDecorationsPlugin::GitDecorationsPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
+    auto app = KTextEditor::Editor::instance()->application();
+    connect(app, &KTextEditor::Application::documentCreated, this, &GitDecorationsPlugin::registerDocument);
 }
 
-void GitDecorationsPlugin::annotateView(KTextEditor::View *view)
+void GitDecorationsPlugin::registerDocument(KTextEditor::Document *document)
 {
-    if (!view || !view->document()->url().isLocalFile()) {
+    connect(document, &KTextEditor::Document::documentUrlChanged, this, &GitDecorationsPlugin::annotateDocument);
+    annotateDocument(document);
+}
+
+void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
+{
+    // TODO: Keep track of git documents and related qprocesses lifecycle
+
+    if (!document || !document->url().isLocalFile()) {
         return;
     }
 
-    const QString filePath = view->document()->url().toLocalFile();
+    const QString filePath = document->url().toLocalFile();
     const QString directory = QFileInfo(filePath).absolutePath();
     const auto repoBasePath = getRepoBasePath(directory);
 
     if (repoBasePath) {
         const QString relativePath = QDir(*repoBasePath).relativeFilePath(filePath);
-        auto *process = new QProcess(view);
+        auto *process = new QProcess(document);
 
         if (!setupGitProcess(*process, *repoBasePath, {QStringLiteral("diff"), QStringLiteral("HEAD"), QStringLiteral("--"), relativePath})) {
             process->deleteLater();
             return;
         }
 
-        QPointer<KTextEditor::View> targetView = view;
-        const QUrl targetUrl = view->document()->url();
+        QPointer<KTextEditor::Document> targetDocument = document;
+        const QUrl targetUrl = document->url();
 
-        connect(process, &QProcess::finished, this, [process, targetView, targetUrl](int exitCode, QProcess::ExitStatus exitStatus) {
+        connect(process, &QProcess::finished, this, [this, process, targetDocument, targetUrl](int exitCode, QProcess::ExitStatus exitStatus) {
             const QByteArray output = process->readAllStandardOutput();
 
             if (exitStatus != QProcess::NormalExit || exitCode != 0) {
@@ -51,7 +61,7 @@ void GitDecorationsPlugin::annotateView(KTextEditor::View *view)
                 return;
             }
 
-            if (!targetView || targetView->document()->url() != targetUrl) {
+            if (!targetDocument || targetDocument->url() != targetUrl) { // Avoid applying stale results
                 process->deleteLater();
                 return;
             }
@@ -59,13 +69,13 @@ void GitDecorationsPlugin::annotateView(KTextEditor::View *view)
             VcsDiff diff;
             diff.setDiff(QString::fromUtf8(output));
 
-            auto *model = new GitAnnotationModel(targetView);
+            auto *model = new GitAnnotationModel(targetDocument);
             model->setDiff(diff);
 
-            targetView->setAnnotationModel(model);
-            targetView->setAnnotationBorderVisible(true);
-            auto *delegate = new GitAnnotationDelegate(targetView);
-            targetView->setAnnotationItemDelegate(delegate);
+            targetDocument->setAnnotationModel(model);
+            for (auto view : targetDocument->views()) {
+                annotateView(view);
+            }
 
             process->deleteLater();
         });
@@ -77,6 +87,20 @@ void GitDecorationsPlugin::annotateView(KTextEditor::View *view)
 QObject *GitDecorationsPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
     return new GitDecorationsPluginView(this, mainWindow);
+}
+
+void GitDecorationsPlugin::annotateView(KTextEditor::View *view)
+{
+    if (!view || !view->document()) {
+        return;
+    }
+
+    if (dynamic_cast<GitAnnotationModel *>(view->document()->annotationModel())) {
+        view->setAnnotationBorderVisible(true);
+        if (!dynamic_cast<GitAnnotationDelegate *>(view->annotationItemDelegate())) {
+            view->setAnnotationItemDelegate(new GitAnnotationDelegate(view));
+        }
+    }
 }
 
 GitDecorationsPluginView::GitDecorationsPluginView(GitDecorationsPlugin *plugin, KTextEditor::MainWindow *mainwindow)

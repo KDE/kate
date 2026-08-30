@@ -12,6 +12,10 @@ public:
     explicit GitDecorationsPlugin(QObject *parent);
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
     void annotateView(KTextEditor::View *view);
+
+private:
+    void registerDocument(KTextEditor::Document *document);
+    void annotateDocument(KTextEditor::Document *document);
 };
 
 class GitDecorationsPluginView : public QObject, public KXMLGUIClient

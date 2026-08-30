@@ -234,6 +234,12 @@ private:
     /** @brief Update the size hint for a widget's list item */
     void updateWidgetSizeHint(ACPChatMessageWidget *widget);
 
+    /** @brief Update all item size hints based on current viewport width */
+    void updateAllItemSizeHints();
+
+    /** @brief Update the size hint for a specific list item */
+    void updateItemSizeHint(QListWidgetItem *item, QWidget *container);
+
     /** @brief Get all chat text for copying */
     QString getAllChatText() const;
 

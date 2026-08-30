@@ -88,6 +88,7 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     m_chatListWidget = m_ui->chatListWidget;
     m_chatListWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_chatListWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    m_chatListWidget->setUniformItemSizes(false);
 
     // Install event filter on chat list widget for context menu
     m_chatListWidget->installEventFilter(this);
@@ -201,6 +202,7 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
     // Create a container widget to hold the message widget
     // This ensures proper size calculation
     QWidget *container = new QWidget(m_chatListWidget);
+    container->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     QVBoxLayout *containerLayout = new QVBoxLayout(container);
     containerLayout->setContentsMargins(0, 0, 0, 0);
     containerLayout->setSpacing(0);
@@ -225,7 +227,26 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
         // Force container to layout and calculate proper size
         container->adjustSize();
         container->ensurePolished();
-        item->setSizeHint(container->sizeHint());
+
+        // Get the available width from the list widget's viewport
+        // We need to use the viewport width for proper word wrapping
+        int availableWidth = m_chatListWidget->viewport()->width();
+        if (availableWidth <= 0) {
+            // Fallback: use the container's natural size hint
+            item->setSizeHint(container->sizeHint());
+        } else {
+            // Set the container width to match the available width
+            // This allows text to wrap properly
+            container->resize(availableWidth, container->height());
+            container->adjustSize();
+
+            // Use the container's adjusted size
+            QSize hint = container->sizeHint();
+            // Ensure width matches available width for proper wrapping
+            hint.setWidth(availableWidth);
+            item->setSizeHint(hint);
+        }
+
         QScrollBar *vScrollBar = m_chatListWidget->verticalScrollBar();
         if (vScrollBar) {
             vScrollBar->setValue(vScrollBar->maximum());
@@ -264,11 +285,64 @@ void ACPClientChatWidget::updateWidgetSizeHint(ACPChatMessageWidget *widget)
         auto itemIt = m_containerToItemMap.find(container);
         if (itemIt != m_containerToItemMap.end()) {
             QListWidgetItem *item = itemIt.value();
-            // Force container to layout and calculate proper size
-            container->adjustSize();
-            container->ensurePolished();
-            item->setSizeHint(container->sizeHint());
+            updateItemSizeHint(item, container);
         }
+    }
+}
+
+void ACPClientChatWidget::updateAllItemSizeHints()
+{
+    if (!m_chatListWidget) {
+        return;
+    }
+
+    // Update all item size hints based on the current viewport width
+    int availableWidth = m_chatListWidget->viewport()->width();
+    if (availableWidth <= 0) {
+        return;
+    }
+
+    for (int i = 0; i < m_chatListWidget->count(); ++i) {
+        QListWidgetItem *item = m_chatListWidget->item(i);
+        if (item) {
+            QWidget *widget = m_chatListWidget->itemWidget(item);
+            if (widget) {
+                // Find the container for this item
+                auto it = m_containerToItemMap.begin();
+                for (; it != m_containerToItemMap.end(); ++it) {
+                    if (it.key() == widget) {
+                        updateItemSizeHint(item, it.key());
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void ACPClientChatWidget::updateItemSizeHint(QListWidgetItem *item, QWidget *container)
+{
+    if (!item || !container || !m_chatListWidget) {
+        return;
+    }
+
+    // Force container to layout and calculate proper size
+    container->adjustSize();
+    container->ensurePolished();
+
+    // Get the available width from the list widget's viewport
+    int availableWidth = m_chatListWidget->viewport()->width();
+    if (availableWidth <= 0) {
+        item->setSizeHint(container->sizeHint());
+    } else {
+        // Set the container width to match the available width
+        container->resize(availableWidth, container->height());
+        container->adjustSize();
+
+        // Use the container's adjusted size
+        QSize hint = container->sizeHint();
+        hint.setWidth(availableWidth);
+        item->setSizeHint(hint);
     }
 }
 
@@ -1161,6 +1235,20 @@ bool ACPClientChatWidget::eventFilter(QObject *watched, QEvent *event)
 
         menu->exec(contextEvent->globalPos());
         delete menu;
+        return true;
+    }
+
+    // Handle resize events on the list widget to update item sizes
+    if (watched == m_chatListWidget && event->type() == QEvent::Resize) {
+        // When the chat list is resized, we need to update all item sizes
+        // to account for the new width and proper word wrapping
+        updateAllItemSizeHints();
+        return true;
+    }
+
+    // Handle resize events on the viewport as well
+    if (watched == m_chatListWidget->viewport() && event->type() == QEvent::Resize) {
+        updateAllItemSizeHints();
         return true;
     }
 

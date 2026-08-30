@@ -37,8 +37,9 @@ ACPChatMessageWidget::~ACPChatMessageWidget()
 
 void ACPChatMessageWidget::setupUI()
 {
-    // Set size policy to prefer expanding in both directions
-    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    // Set size policy to expand horizontally for proper word wrapping
+    // Use Minimum vertically to avoid excessive height
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     m_mainLayout = new QVBoxLayout(this);
     m_mainLayout->setContentsMargins(8, 4, 8, 4);

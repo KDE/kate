@@ -1,5 +1,9 @@
 #pragma once
 
+#include <QPointer>
+#include <QProcess>
+
+#include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
@@ -16,6 +20,9 @@ public:
 private:
     void registerDocument(KTextEditor::Document *document);
     void annotateDocument(KTextEditor::Document *document);
+
+private:
+    QHash<KTextEditor::Document *, QPointer<QProcess>> m_processes;
 };
 
 class GitDecorationsPluginView : public QObject, public KXMLGUIClient

@@ -25,17 +25,32 @@ GitDecorationsPlugin::GitDecorationsPlugin(QObject *parent)
 
 void GitDecorationsPlugin::registerDocument(KTextEditor::Document *document)
 {
-    connect(document, &KTextEditor::Document::documentUrlChanged, this, &GitDecorationsPlugin::annotateDocument);
     annotateDocument(document);
+
+    connect(document, &KTextEditor::Document::documentUrlChanged, this, &GitDecorationsPlugin::annotateDocument);
+    connect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::annotateDocument);
+    connect(document, &KTextEditor::Document::aboutToClose, this, [this](KTextEditor::Document *closingDocument) {
+        if (auto process = m_processes.take(closingDocument)) {
+            if (process->state() != QProcess::NotRunning) {
+                process->kill();
+            }
+        }
+    });
 }
 
 void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
 {
-    // TODO: Keep track of git documents and related qprocesses lifecycle
-
     if (!document || !document->url().isLocalFile()) {
         return;
     }
+
+    if (auto process = m_processes.take(document)) {
+        if (process->state() != QProcess::NotRunning) {
+            process->kill();
+        }
+    }
+
+    // TODO: Avoid running get getRepoBasePath every time
 
     const QString filePath = document->url().toLocalFile();
     const QString directory = QFileInfo(filePath).absolutePath();
@@ -50,6 +65,7 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
             return;
         }
 
+        m_processes.insert(document, process);
         QPointer<KTextEditor::Document> targetDocument = document;
         const QUrl targetUrl = document->url();
 

@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2010, 2011, 2012, 2013, 2014, 2015.
-# SPDX-FileCopyrightText: 2018, 2020, 2022, 2023, 2024, 2025, 2026 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2018, 2020, 2022-2026 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:49+0000\n"
-"PO-Revision-Date: 2026-02-07 17:21+0100\n"
+"PO-Revision-Date: 2026-08-24 17:50+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #: backend.cpp:48 dapbackend.cpp:175
 #, kde-format
@@ -184,7 +184,7 @@ msgstr "Seleziona la cartella di lavoro"
 #: dap/client.cpp:208
 #, kde-format
 msgid "the incompatible server did not honor the specification"
-msgstr ""
+msgstr "il server incompatibile non ha rispettato le specifiche"
 
 #: dapbackend.cpp:187
 #, kde-format

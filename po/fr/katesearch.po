@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Joëlle Cornavin <jcorn@free.fr>, 2011, 2012, 2013.
-# SPDX-FileCopyrightText: 2013, 2014, 2024, 2025, 2026 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2013-2014, 2024-2026 Xavier Besnard <xavier.besnard@kde.org>
 # Maxime Corteel <mcorteel@gmail.com>, 2015, 2017, 2019.
 # Vincent Pinon <vpinon@kde.org>, 2017.
 # Simon Depiets <sdepiets@gmail.com>, 2018, 2019.
@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-22 00:49+0000\n"
-"PO-Revision-Date: 2026-02-23 18:09+0100\n"
+"PO-Revision-Date: 2026-08-29 19:42+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
-"Language-Team: \n"
+"Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 26.08.0\n"
 "X-Text-Markup: kde4\n"
 
 #: KateSearchCommand.cpp:88
@@ -716,9 +716,9 @@ msgid ""
 msgstr ""
 "Transformez et exportez les correspondances de recherche en utilisant un "
 "motif de remplacement. Pour exporter toutes les correspondances, veuillez "
-"utiliser \\0. Pour exporter les captures d’expressions rationnelles, "
-"veuillez utiliser \\1,\\2,... L’autre texte du motif est retourné dans les "
-"résultats d’exportation."
+"utiliser \\0. Pour exporter les captures d'expressions rationnelles, "
+"veuillez utiliser \\1,\\2,... L'autre texte du motif est retourné dans les "
+"résultats d'exportation."
 
 #: SearchPlugin.cpp:2288
 #, kde-format

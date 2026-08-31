@@ -27,8 +27,11 @@ void GitDecorationsPlugin::registerDocument(KTextEditor::Document *document)
 {
     annotateDocument(document);
 
+    // TODO: Annotate document again when HEAD changes, eg: document file is committed
+
     connect(document, &KTextEditor::Document::documentUrlChanged, this, &GitDecorationsPlugin::annotateDocument);
     connect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::annotateDocument);
+    // connect(document, &KTextEditor::Document::modifiedOnDisk, this, &GitDecorationsPlugin::annotateDocument);
     connect(document, &KTextEditor::Document::aboutToClose, this, [this](KTextEditor::Document *closingDocument) {
         if (auto process = m_processes.take(closingDocument)) {
             if (process->state() != QProcess::NotRunning) {
@@ -77,7 +80,8 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
                 return;
             }
 
-            if (!targetDocument || targetDocument->url() != targetUrl) { // Avoid applying stale results
+            // Avoid using stale state
+            if (!targetDocument || targetDocument->url() != targetUrl || m_processes.value(targetDocument) != process) {
                 process->deleteLater();
                 return;
             }

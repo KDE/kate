@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:49+0000\n"
-"PO-Revision-Date: 2026-02-05 10:51+0100\n"
+"PO-Revision-Date: 2026-08-31 16:18+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: backend.cpp:48 dapbackend.cpp:175
@@ -183,7 +183,7 @@ msgstr "Selectiona directorio de travalio"
 #: dap/client.cpp:208
 #, kde-format
 msgid "the incompatible server did not honor the specification"
-msgstr ""
+msgstr "le servitor incompatible non honorava le specification"
 
 #: dapbackend.cpp:187
 #, kde-format

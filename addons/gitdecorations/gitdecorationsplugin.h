@@ -20,9 +20,16 @@ public:
 private:
     void registerDocument(KTextEditor::Document *document);
     void annotateDocument(KTextEditor::Document *document);
+    void trackDocument(KTextEditor::Document *document);
+    void untrackDocument(KTextEditor::Document *document);
 
 private:
-    QHash<KTextEditor::Document *, QPointer<QProcess>> m_processes;
+    struct DocumentContext {
+        QString repoBasePath;
+        QPointer<QProcess> process;
+    };
+
+    QHash<KTextEditor::Document *, DocumentContext> m_trackedDocuments;
 };
 
 class GitDecorationsPluginView : public QObject, public KXMLGUIClient

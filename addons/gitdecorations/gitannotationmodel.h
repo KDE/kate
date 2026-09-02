@@ -10,9 +10,13 @@ class GitAnnotationModel : public KTextEditor::AnnotationModel
 {
 public:
     enum class ChangeType {
-        Added,
-        Removed
+        None = 0,
+        Added = 1 << 0,
+        Changed = 1 << 1,
+        Removed = 1 << 2
     };
+
+    Q_DECLARE_FLAGS(ChangeTypes, ChangeType)
 
     static constexpr Qt::ItemDataRole ChangeRole = static_cast<Qt::ItemDataRole>(Qt::UserRole + 1);
 
@@ -21,5 +25,7 @@ public:
     QVariant data(int line, Qt::ItemDataRole role) const override;
 
 private:
-    QHash<int, ChangeType> m_changes;
+    QHash<int, ChangeTypes> m_changes;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(GitAnnotationModel::ChangeTypes)

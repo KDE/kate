@@ -13,11 +13,40 @@ GitAnnotationModel::GitAnnotationModel(QObject *parent)
 void GitAnnotationModel::setDiff(const VcsDiff &diff)
 {
     m_changes.clear();
-
     const auto lines = diff.diff().split(u'\n');
-    bool hasDeletion = false;
 
-    // TODO: Improve change type calculation and check for edge cases
+    QVector<int> addedLines;
+    int removedCount = 0;
+    int previousTargetLine = -1;
+
+    auto processBlock = [&](const int targetLineAfterBlock) {
+        if (removedCount == 0 && addedLines.isEmpty()) {
+            return;
+        }
+
+        if (addedLines.isEmpty()) {
+            const int removalLine = targetLineAfterBlock >= 0 ? targetLineAfterBlock : previousTargetLine;
+            if (removalLine >= 0) {
+                m_changes[removalLine] |= ChangeType::Removed;
+            }
+        } else {
+            const int changedCount = qMin(removedCount, addedLines.size());
+            for (int i = 0; i < changedCount; ++i) {
+                m_changes[addedLines.at(i)] |= ChangeType::Changed;
+            }
+
+            if (removedCount > addedLines.size() && changedCount > 0) {
+                m_changes[addedLines.first()] |= ChangeType::Removed;
+            }
+
+            for (int i = changedCount; i < addedLines.size(); ++i) {
+                m_changes[addedLines.at(i)] |= ChangeType::Added;
+            }
+        }
+
+        removedCount = 0;
+        addedLines.clear();
+    };
 
     for (int i = 0; i < lines.size(); ++i) {
         const auto &line = lines.at(i);
@@ -26,27 +55,36 @@ void GitAnnotationModel::setDiff(const VcsDiff &diff)
             continue;
         }
 
+        if (line.startsWith(u'\\')) {
+            continue;
+        }
+
         if (line.startsWith(u'-')) {
-            hasDeletion = true;
+            ++removedCount;
             continue;
         }
 
         if (line.startsWith(u'+')) {
             const int targetLine = diff.diffLineToTargetLine(i);
             if (targetLine >= 0) {
-                m_changes[targetLine] = ChangeType::Added;
+                addedLines.append(targetLine);
             }
 
-            hasDeletion = false;
             continue;
         }
 
         const int targetLine = diff.diffLineToTargetLine(i);
-        if (hasDeletion && targetLine >= 0) {
-            m_changes[targetLine] = ChangeType::Removed;
-            hasDeletion = false;
+        processBlock(targetLine);
+
+        if (targetLine >= 0) {
+            previousTargetLine = targetLine;
         }
     }
+
+    // TODO: Changes to file last line are not detected properly
+    // TODO: EOF removals should be displayed with marker below last line?
+
+    processBlock(-1);
 
     Q_EMIT reset();
 }

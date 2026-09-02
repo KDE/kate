@@ -26,20 +26,22 @@ void GitAnnotationDelegate::paint(QPainter *painter, const KTextEditor::StyleOpt
         return;
     }
 
-    const auto change = static_cast<GitAnnotationModel::ChangeType>(value.toInt());
-    painter->save();
+    const auto change = static_cast<GitAnnotationModel::ChangeTypes>(value.toInt());
+    bool added = change.testFlag(GitAnnotationModel::ChangeType::Added);
+    bool removed = change.testFlag(GitAnnotationModel::ChangeType::Removed);
+    bool changed = change.testFlag(GitAnnotationModel::ChangeType::Changed);
 
-    switch (change) {
-    case GitAnnotationModel::ChangeType::Added: {
+    if (added || changed) {
+        painter->save();
         constexpr int barWidth = 3;
         QRect rect = option.rect;
         rect.setLeft(rect.right() - barWidth + 1);
-        const QColor color = QColor(QStringLiteral("#4CAF50"));
+        const QColor color = QColor(changed ? QStringLiteral("#82cded") : QStringLiteral("#05a1fa"));
         painter->fillRect(rect, color);
-        break;
+        painter->restore();
     }
 
-    case GitAnnotationModel::ChangeType::Removed: {
+    if (removed) {
         constexpr int triangleHeight = 8;
         int triangleWidth = option.rect.width();
         const int right = option.rect.right();
@@ -53,11 +55,7 @@ void GitAnnotationDelegate::paint(QPainter *painter, const KTextEditor::StyleOpt
         painter->setBrush(QColor(QStringLiteral("#F44336")));
         painter->drawPolygon(triangle);
         painter->restore();
-        break;
     }
-    }
-
-    painter->restore();
 }
 
 QSize GitAnnotationDelegate::sizeHint(const KTextEditor::StyleOptionAnnotationItem &, KTextEditor::AnnotationModel *, int) const

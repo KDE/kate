@@ -121,7 +121,7 @@
 </listitem>
 <listitem>
 <para
->Replicode: Llenguatge IA constructivista i en temps d'execució</para>
+>Replicode: Llenguatge constructivista i entorn d'execució d'IA</para>
 </listitem>
 <listitem>
 <para
@@ -3293,7 +3293,7 @@ folder if possible.</para
 >prefix</literal
 > abans que la línia d'ordres del servidor DAP especificada en un altre lloc. L'efecte és que el servidor s'executa dins del contenidor especificat i després al seu torn també el procés llançat. El <literal
 >pathMapping</literal
-> organitza la transformació dels camins de fitxer entre la vista de l'editor i la vista del servidor DAP (contenidor), p. ex., quan es tracta de la configuració dels punts d'interrupció o la gestió de les traces inverses informades. Tingueu en compte que aquest mapatge és opcional i pot ser o no útil. Quan es tracta amb el codi C/C++ que es compila a «host», la informació dels símbols fa referència als fitxers de codi font de l'amfitrió que no existeixen en absolut a l'altre entorn. No obstant això, en altres circumstàncies de creació de scripts (p. ex. python), es fa referència als fitxers reals en temps d'execució (en l'altre entorn). </para>
+> organitza la transformació dels camins de fitxer entre la vista de l'editor i la vista del servidor DAP (contenidor), p. ex., quan es tracta de la configuració dels punts d'interrupció o la gestió de les traces inverses informades. Tingueu en compte que aquest mapatge és opcional i pot ser o no útil. Quan es tracta amb el codi C/C++ que es compila a «host», la informació dels símbols fa referència als fitxers de codi font de l'amfitrió que no existeixen en absolut a l'altre entorn. No obstant això, en altres circumstàncies de creació de scripts (p. ex. python), es fa referència als fitxers reals de l'entorn d'execució (en l'altre entorn). </para>
 
 <para
 >Evidentment, cal tenir en compte el següent. </para>

@@ -263,7 +263,9 @@ static std::vector<DiffHunk> parseHunks(VcsDiff &diff)
         const auto heading = m.captured(3);
         uint firstLineIdx = lineNo;
         QStringList hunkLines;
-        while (lines.hasNext() && (CONFLICT_START_RE->match(lines.peekNext()).hasMatch() || !META_LINE_RE->match(lines.peekNext()).hasMatch())) {
+        while (lines.hasNext()
+               && (lines.peekNext().startsWith(u'\\') || CONFLICT_START_RE->match(lines.peekNext()).hasMatch()
+                   || !META_LINE_RE->match(lines.peekNext()).hasMatch())) {
             // Consume the conflict
             if (CONFLICT_START_RE->match(lines.peekNext()).hasMatch()) {
                 lineNo++;
@@ -344,7 +346,8 @@ public:
                 // of dest should not be counted (they are not present in the dest)
                 int skipCount = 0;
                 for (int i = 0; i < hunkPos; i++) {
-                    if (h.lines.at(i).startsWith(skipChar))
+                    const auto &line = h.lines.at(i);
+                    if (line.startsWith(skipChar) || line.startsWith(u'\\'))
                         skipCount++;
                 }
 

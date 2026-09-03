@@ -2,10 +2,10 @@
 # Copyright (C) 1999-2026 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2 or later.
 #
-# SPDX-FileCopyrightText: 1999, 2000, 2001, 2002, 2004, 2005, 2006 Sebastià Pla i Sanz <sps@sastia.com>
-# SPDX-FileCopyrightText: 2003, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022 Antoni Bella Pérez <antonibella5@yahoo.com>
-# SPDX-FileCopyrightText: 2004, 2005 Albert Astals Cid <aacid@kde.org>
-# SPDX-FileCopyrightText: 2009, 2010 Manuel Tortosa Moreno <manutortosa@chakra-project.org>
+# SPDX-FileCopyrightText: 1999-2002, 2004-2006 Sebastià Pla i Sanz <sps@sastia.com>
+# SPDX-FileCopyrightText: 2003, 2014-2017, 2019-2022 Antoni Bella Pérez <antonibella5@yahoo.com>
+# SPDX-FileCopyrightText: 2004-2005 Albert Astals Cid <aacid@kde.org>
+# SPDX-FileCopyrightText: 2009-2010 Manuel Tortosa Moreno <manutortosa@chakra-project.org>
 # SPDX-FileCopyrightText: 2007-2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""

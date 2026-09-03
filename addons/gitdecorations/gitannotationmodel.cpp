@@ -25,9 +25,10 @@ void GitAnnotationModel::setDiff(const VcsDiff &diff)
         }
 
         if (addedLines.isEmpty()) {
-            const int removalLine = targetLineAfterBlock >= 0 ? targetLineAfterBlock : previousTargetLine;
-            if (removalLine >= 0) {
-                m_changes[removalLine] |= ChangeType::Removed;
+            if (targetLineAfterBlock >= 0) {
+                m_changes[targetLineAfterBlock] |= ChangeType::RemovedBefore;
+            } else if (previousTargetLine >= 0) {
+                m_changes[previousTargetLine] |= ChangeType::RemovedAfter;
             }
         } else {
             const int changedCount = qMin(removedCount, addedLines.size());
@@ -36,7 +37,7 @@ void GitAnnotationModel::setDiff(const VcsDiff &diff)
             }
 
             if (removedCount > addedLines.size() && changedCount > 0) {
-                m_changes[addedLines.first()] |= ChangeType::Removed;
+                m_changes[addedLines.first()] |= ChangeType::RemovedBefore;
             }
 
             for (int i = changedCount; i < addedLines.size(); ++i) {
@@ -50,6 +51,8 @@ void GitAnnotationModel::setDiff(const VcsDiff &diff)
 
     for (int i = 0; i < lines.size(); ++i) {
         const auto &line = lines.at(i);
+
+        // TODO: handle conflict markers
 
         if (line.startsWith(u"--- ") || line.startsWith(u"+++ ")) {
             continue;
@@ -80,9 +83,6 @@ void GitAnnotationModel::setDiff(const VcsDiff &diff)
             previousTargetLine = targetLine;
         }
     }
-
-    // TODO: Changes to file last line are not detected properly
-    // TODO: EOF removals should be displayed with marker below last line?
 
     processBlock(-1);
 

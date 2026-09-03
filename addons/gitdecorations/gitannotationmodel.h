@@ -13,7 +13,8 @@ public:
         None = 0,
         Added = 1 << 0,
         Changed = 1 << 1,
-        Removed = 1 << 2
+        RemovedAfter = 1 << 2,
+        RemovedBefore = 1 << 3
     };
 
     Q_DECLARE_FLAGS(ChangeTypes, ChangeType)

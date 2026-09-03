@@ -28,7 +28,8 @@ void GitAnnotationDelegate::paint(QPainter *painter, const KTextEditor::StyleOpt
 
     const auto change = static_cast<GitAnnotationModel::ChangeTypes>(value.toInt());
     bool added = change.testFlag(GitAnnotationModel::ChangeType::Added);
-    bool removed = change.testFlag(GitAnnotationModel::ChangeType::Removed);
+    bool removedAfter = change.testFlag(GitAnnotationModel::ChangeType::RemovedAfter);
+    bool removedBefore = change.testFlag(GitAnnotationModel::ChangeType::RemovedBefore);
     bool changed = change.testFlag(GitAnnotationModel::ChangeType::Changed);
 
     if (added || changed) {
@@ -41,11 +42,11 @@ void GitAnnotationDelegate::paint(QPainter *painter, const KTextEditor::StyleOpt
         painter->restore();
     }
 
-    if (removed) {
+    if (removedAfter || removedBefore) {
         constexpr int triangleHeight = 8;
         int triangleWidth = option.rect.width();
         const int right = option.rect.right();
-        const int centerY = option.rect.top();
+        const int centerY = removedBefore ? option.rect.top() : option.rect.bottom();
         const int left = right - triangleWidth;
         QPolygon triangle;
         triangle << QPoint(left, centerY - triangleHeight / 2) << QPoint(left, centerY + triangleHeight / 2) << QPoint(right, centerY);

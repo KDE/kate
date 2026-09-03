@@ -4,8 +4,8 @@
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # SPDX-FileCopyrightText: 2010 Manuel Tortosa Moreno <manutortosa@chakra-project.org>
-# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016 Antoni Bella Pérez <antonibella5@yahoo.com>
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2020, 2022, 2023, 2024, 2025 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2012-2016 Antoni Bella Pérez <antonibella5@yahoo.com>
+# SPDX-FileCopyrightText: 2011-2015, 2020, 2022-2025 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
@@ -756,27 +756,3 @@ msgstr "&Depura"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Connector de depuració"
-
-#~ msgid "User Debug Adapter Settings"
-#~ msgstr "Paràmetres d'usuari de l'adaptador de depuració"
-
-#~ msgid "Settings File:"
-#~ msgstr "Fitxer de configuració:"
-
-#~ msgid "Default Debug Adapter Settings"
-#~ msgstr "Paràmetres predeterminats de l'adaptador de depuració"
-
-#~ msgid "Failed to open file: %1"
-#~ msgstr "Ha fallat mentre s'obria el fitxer: %1"
-
-#~ msgid "No JSON data to validate."
-#~ msgstr "No hi ha dades JSON que s'hagen de validar."
-
-#~ msgid "JSON data is valid."
-#~ msgstr "Les dades JSON són vàlides."
-
-#~ msgid "JSON data is invalid: no JSON object"
-#~ msgstr "Les dades JSON no són vàlides: no és un objecte JSON"
-
-#~ msgid "JSON data is invalid: %1"
-#~ msgstr "Les dades JSON no són vàlides: %1"

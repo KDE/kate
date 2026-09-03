@@ -3,7 +3,7 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# SPDX-FileCopyrightText: 2023, 2024, 2025 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2023-2025 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
@@ -104,18 +104,3 @@ msgstr "«formatterForYaml» desconegut: %1, es torna de nou al «yamlfmt»"
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""
 "Ha fallat mentre s'executava el formatador. Llenguatge %1 no implementat"
-
-#~ msgid "User Settings"
-#~ msgstr "Configureu l'usuari"
-
-#~ msgid "Default Settings"
-#~ msgstr "Configuració predeterminada"
-
-#~ msgid "Please install node and prettier"
-#~ msgstr "Instal·leu «note» i «prettier»"
-
-#~ msgid "PrettierFormat: Failed to create temporary file"
-#~ msgstr "PrettierFormat: Ha fallat mentre es creava el fitxer temporal"
-
-#~ msgid "PrettierFormat: Failed to start 'node': %1"
-#~ msgstr "PrettierFormat: Ha fallat mentre s'iniciava el «node»: %1"

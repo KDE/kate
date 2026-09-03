@@ -1,3 +1,8 @@
+/*
+    SPDX-FileCopyrightText: 2026 Leo Ruggeri <leo5t@yahoo.it>
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
+
 #include "gitannotationmodel.h"
 #include "gitdiff.h"
 

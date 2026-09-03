@@ -43,18 +43,13 @@ void GitAnnotationDelegate::paint(QPainter *painter, const KTextEditor::StyleOpt
     }
 
     if (removedAfter || removedBefore) {
-        constexpr int triangleHeight = 8;
-        int triangleWidth = option.rect.width();
-        const int right = option.rect.right();
-        const int centerY = removedBefore ? option.rect.top() : option.rect.bottom();
-        const int left = right - triangleWidth;
-        QPolygon triangle;
-        triangle << QPoint(left, centerY - triangleHeight / 2) << QPoint(left, centerY + triangleHeight / 2) << QPoint(right, centerY);
         painter->save();
-        painter->setRenderHint(QPainter::Antialiasing, true);
-        painter->setPen(Qt::NoPen);
-        painter->setBrush(QColor(QStringLiteral("#F44336")));
-        painter->drawPolygon(triangle);
+        constexpr int barHeight = 3;
+        QRect rect = option.rect;
+        rect.setHeight(barHeight);
+        rect.moveTop(removedBefore ? option.rect.top() : option.rect.bottom() - barHeight + 1);
+        const QColor color(QStringLiteral("#F44336"));
+        painter->fillRect(rect, color);
         painter->restore();
     }
 }

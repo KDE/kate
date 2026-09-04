@@ -10,14 +10,24 @@
 #include <KTextEditor/AnnotationInterface>
 #include <KTextEditor/View>
 
+#include <KColorScheme>
 #include <QBrush>
 #include <QColor>
 #include <QHelpEvent>
 #include <QPainter>
 
-GitAnnotationDelegate::GitAnnotationDelegate(QObject *parent)
+GitAnnotationDelegate::GitAnnotationDelegate(KTextEditor::View *parent)
     : KTextEditor::AbstractAnnotationItemDelegate(parent)
 {
+    auto initializeColors = [this]() {
+        const KColorScheme scheme(QPalette::Active, KColorScheme::View);
+        m_addedColor = scheme.foreground(KColorScheme::ActiveText).color();
+        m_changedColor = scheme.foreground(KColorScheme::ActiveText).color().lighter(140);
+        m_removedColor = scheme.foreground(KColorScheme::NegativeText).color();
+    };
+
+    initializeColors();
+    // TODO: Update colors when theme changes
 }
 
 void GitAnnotationDelegate::paint(QPainter *painter, const KTextEditor::StyleOptionAnnotationItem &option, KTextEditor::AnnotationModel *model, int line) const
@@ -42,19 +52,18 @@ void GitAnnotationDelegate::paint(QPainter *painter, const KTextEditor::StyleOpt
         constexpr int barWidth = 3;
         QRect rect = option.rect;
         rect.setLeft(rect.right() - barWidth + 1);
-        const QColor color = QColor(changed ? QStringLiteral("#82cded") : QStringLiteral("#05a1fa"));
+        const QColor color = QColor(changed ? m_changedColor : m_addedColor);
         painter->fillRect(rect, color);
         painter->restore();
     }
 
     if (removedAfter || removedBefore) {
         painter->save();
-        constexpr int barHeight = 3;
+        constexpr int barHeight = 2;
         QRect rect = option.rect;
         rect.setHeight(barHeight);
         rect.moveTop(removedBefore ? option.rect.top() : option.rect.bottom() - barHeight + 1);
-        const QColor color(QStringLiteral("#F44336"));
-        painter->fillRect(rect, color);
+        painter->fillRect(rect, m_removedColor);
         painter->restore();
     }
 }

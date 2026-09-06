@@ -1,10 +1,11 @@
+# SPDX-FileCopyrightText: 2026 Mint <5602mint@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-22 00:49+0000\n"
-"PO-Revision-Date: 2011-05-14 09:30-0700\n"
-"Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
+"PO-Revision-Date: 2026-08-31 22:05+0900\n"
+"Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -13,108 +14,116 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
-msgstr ""
+msgstr "使い方: grep [フォルダ内検索のパターン]"
 
 #: KateSearchCommand.cpp:90
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
-msgstr ""
+msgstr "使い方: newGrep [フォルダ内検索のパターン]"
 
 #: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
-msgstr ""
+msgstr "使い方: search [開いているファイル内検索のパターン]"
 
 #: KateSearchCommand.cpp:100
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
-msgstr ""
+msgstr "使い方: pgrep [現在のプロジェクト内検索のパターン]"
 
 #: KateSearchCommand.cpp:102
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
-msgstr ""
+msgstr "使い方: newPGrep [現在のプロジェクト内検索のパターン]"
 
 #: KateSearchCommand.cpp:106
 #, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
-msgstr ""
+msgstr "使い方: preg [現在のプロジェクト内検索の正規表現パターン]"
 
 #: MatchExportDialog.cpp:20
 #, kde-format
 msgid "Export Search Result Matches"
-msgstr ""
+msgstr "検索結果のマッチ箇所をエクスポート"
 
 #: MatchExportDialog.cpp:21
 #, kde-format
 msgid ""
 "Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
 "captures"
-msgstr ""
+msgstr "エクスポートのパターン: \\0 でマッチ全体、\\1,\\2... で正規表現の参照"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:35
 #, kde-format
 msgid "Generate"
-msgstr ""
+msgstr "生成"
 
 #. i18n: ectx: property (placeholderText), widget (QPlainTextEdit, exportResultText)
 #: MatchExportDialog.ui:47
 #, kde-format
 msgid "Result"
-msgstr ""
+msgstr "結果"
 
 #: MatchModel.cpp:562 MatchModel.cpp:564
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
-msgstr ""
+msgstr "<b><i>ファイル一覧を生成中: ...%1</i></b>"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:572
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
-msgstr[0] ""
+msgstr[0] "<b><i>%1 件マッチしました | 検索中: ...%2</i></b>"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:577
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
-msgstr[0] ""
+msgstr[0] "<b><i>%1 件マッチしました | 検索中: %2</i></b>"
 
 #: MatchModel.cpp:584 MatchModel.cpp:739
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
-msgstr[0] ""
+msgstr[0] "%1 件チェック済み"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:588
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
-msgstr[0] ""
+msgstr[0] "<b><i>%1 件マッチ (%2) しました | 現在のファイル内</i></b>"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:590
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
-msgstr[0] ""
+msgstr[0] "<b><i>%1 件マッチ (%2) しました | 開いているファイル内</i></b>"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:593
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
-msgstr[0] ""
+msgstr[0] "<b><i>%1 件マッチ (%3) しました | %2 内</i></b>"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:600
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
-msgstr[0] ""
+msgstr[0] "<b><i>%1 件マッチ (%4) しました | プロジェクト %2 (%3) 内</i></b>"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:609
 #, kde-format
 msgid ""
@@ -122,70 +131,81 @@ msgid ""
 msgid_plural ""
 "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
 msgstr[0] ""
+"<b><i>%1 件マッチ (%3) しました | 開いているすべてのプロジェクト (共通の親: "
+"%2) 内 </i></b>"
 
 #: MatchModel.cpp:723 MatchModel.cpp:725
 #, kde-format
 msgid "Generating file list: ...%1"
-msgstr ""
+msgstr "ファイル一覧を生成中: ...%1"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:733
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
-msgstr[0] ""
+msgstr[0] "%1 件マッチしました | 検索中: ...%2"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:735
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
-msgstr[0] ""
+msgstr[0] "%1 件マッチしました | 検索中: %2"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:743
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
-msgstr[0] ""
+msgstr[0] "%1 件マッチ (%2) しました | 現在のファイル内"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:745
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
-msgstr[0] ""
+msgstr[0] "%1 件マッチ (%2) しました | 開いているファイル内"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:748
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
-msgstr[0] ""
+msgstr[0] "%1 件マッチ (%3) しました | %2 内"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:751
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
-msgstr[0] ""
+msgstr[0] "%1 件マッチ (%4) しました | プロジェクト %2 (%3) 内"
 
+# 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:760
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] ""
+"%1 件マッチ (%3) しました | 開いているすべてのプロジェクト (共通の親: %2) 内"
 
 #: Results.cpp:32
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "フィルタ…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #: search.ui:37
 #, kde-format
 msgid "Search in current tab; press and hold Ctrl to search in a new tab."
 msgstr ""
+"現在のタブで検索 (Ctrl を押したままクリックすると新しいタブで検索します)"
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:40 SearchPlugin.cpp:293
 #, kde-format
 msgid "Search"
-msgstr ""
+msgstr "検索"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:50
@@ -195,27 +215,27 @@ msgctxt ""
 "checkmark or not. It's not about any verification or similar, plainly about "
 "user interface"
 msgid "Replace Checked"
-msgstr ""
+msgstr "チェック済みを置換"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
 #: search.ui:70 search.ui:73
 #, kde-format
 msgid "Next"
-msgstr ""
+msgstr "次へ"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
 #. i18n: ectx: property (text), widget (QPushButton, stopButton)
 #: search.ui:78 search.ui:81
 #, kde-format
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
 #: search.ui:118
 #, kde-format
 msgid "Match case"
-msgstr ""
+msgstr "大文字と小文字を区別"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
 #: search.ui:134
@@ -224,12 +244,14 @@ msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
 "by using the buttons in the search and replace text fields.</p></body></html>"
 msgstr ""
+"<html><head/><body><p>正規表現を有効にします。正規表現構文のヘルプは検索と置"
+"換のテキストフィールドのボタンから確認できます。</p></body></html>"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
 #: search.ui:163
 #, kde-format
 msgid "Expand results"
-msgstr ""
+msgstr "検索結果を展開"
 
 #. i18n: ectx: property (text), widget (QToolButton, filterBtn)
 #. i18n: ectx: property (text), widget (QToolButton, displayOptions)
@@ -237,305 +259,305 @@ msgstr ""
 #: search.ui:179 search.ui:249 search.ui:262
 #, kde-format
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
 #: search.ui:195 SearchPlugin.cpp:510
 #, kde-format
 msgid "Replace"
-msgstr ""
+msgstr "置換"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:218
 #, kde-format
 msgid "In Current File"
-msgstr ""
+msgstr "現在のファイル内"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:223
 #, kde-format
 msgid "In Open Files"
-msgstr ""
+msgstr "開いているファイル内"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:228
 #, kde-format
 msgid "In Folder"
-msgstr ""
+msgstr "フォルダ内"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
 #: search.ui:236
 #, kde-format
 msgid "Use the current document's path."
-msgstr ""
+msgstr "現在のドキュメントのパスを使用します。"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
 #: search.ui:246
 #, kde-format
 msgid "Show more search options"
-msgstr ""
+msgstr "詳細な検索オプションを表示"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
 #: search.ui:259
 #, kde-format
 msgid "Add new search tab"
-msgstr ""
+msgstr "新しい検索タブを追加"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
 #: search.ui:350
 #, kde-format
 msgid "Folder:"
-msgstr ""
+msgstr "フォルダ:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
 #: search.ui:368
 #, kde-format
 msgid "Go one folder up."
-msgstr ""
+msgstr "一つ上のフォルダへ移動します。"
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
 #: search.ui:377
 #, kde-format
 msgid "Filter:"
-msgstr ""
+msgstr "フィルタ:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
 #: search.ui:399
 #, kde-format
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #. i18n: ectx: property (text), widget (QLabel, excludeLabel)
 #: search.ui:407
 #, kde-format
 msgid "Exclude:"
-msgstr ""
+msgstr "除外:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
 #: search.ui:428
 #, kde-format
 msgid "Recursive"
-msgstr ""
+msgstr "再帰検索"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
 #: search.ui:438
 #, kde-format
 msgid "Include hidden"
-msgstr ""
+msgstr "隠しファイルを含める"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
 #: search.ui:445
 #, kde-format
 msgid "Follow symbolic links"
-msgstr ""
+msgstr "シンボリックリンクをたどる"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
 #: search.ui:452
 #, kde-format
 msgid "Include binary files"
-msgstr ""
+msgstr "バイナリファイルを含める"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
 #: search.ui:459
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:472
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "サイズ上限"
 
 #: SearchPlugin.cpp:80 SearchPlugin.cpp:113
 #, kde-format
 msgid "Line break"
-msgstr ""
+msgstr "改行"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
 msgid "Tab"
-msgstr ""
+msgstr "タブ"
 
 #: SearchPlugin.cpp:92
 #, kde-format
 msgid "Beginning of line"
-msgstr ""
+msgstr "行頭"
 
 #: SearchPlugin.cpp:93
 #, kde-format
 msgid "End of line"
-msgstr ""
+msgstr "行末"
 
 #: SearchPlugin.cpp:95
 #, kde-format
 msgid "Any single character (excluding line breaks)"
-msgstr ""
+msgstr "任意の一文字 (改行を除く)"
 
 #: SearchPlugin.cpp:96
 #, kde-format
 msgid "Literal dot"
-msgstr ""
+msgstr "ドット記号 (リテラル)"
 
 #: SearchPlugin.cpp:98
 #, kde-format
 msgid "One or more occurrences"
-msgstr ""
+msgstr "1 回以上の繰り返し"
 
 #: SearchPlugin.cpp:99
 #, kde-format
 msgid "Zero or more occurrences"
-msgstr ""
+msgstr "0 回以上の繰り返し"
 
 #: SearchPlugin.cpp:100
 #, kde-format
 msgid "Zero or one occurrences"
-msgstr ""
+msgstr "0 回または 1 回の出現"
 
 #: SearchPlugin.cpp:102
 #, kde-format
 msgid "<a> through <b> occurrences"
-msgstr ""
+msgstr "a 回から b 回の繰り返し"
 
 #: SearchPlugin.cpp:104
 #, kde-format
 msgid "Group, capturing"
-msgstr ""
+msgstr "グループ化 (後方参照あり)"
 
 #: SearchPlugin.cpp:105
 #, kde-format
 msgid "Or"
-msgstr ""
+msgstr "OR (または)"
 
 #: SearchPlugin.cpp:106
 #, kde-format
 msgid "Set of characters"
-msgstr ""
+msgstr "文字セット"
 
 #: SearchPlugin.cpp:107
 #, kde-format
 msgid "Negative set of characters"
-msgstr ""
+msgstr "除外する文字セット"
 
 #: SearchPlugin.cpp:108
 #, kde-format
 msgid "Group, non-capturing"
-msgstr ""
+msgstr "グループ化 (後方参照なし)"
 
 #: SearchPlugin.cpp:109
 #, kde-format
 msgid "Lookahead"
-msgstr ""
+msgstr "先読み"
 
 #: SearchPlugin.cpp:110
 #, kde-format
 msgid "Negative lookahead"
-msgstr ""
+msgstr "否定先読み"
 
 #: SearchPlugin.cpp:115
 #, kde-format
 msgid "Word boundary"
-msgstr ""
+msgstr "単語境界"
 
 #: SearchPlugin.cpp:116
 #, kde-format
 msgid "Not word boundary"
-msgstr ""
+msgstr "単語境界以外"
 
 #: SearchPlugin.cpp:117
 #, kde-format
 msgid "Digit"
-msgstr ""
+msgstr "数字"
 
 #: SearchPlugin.cpp:118
 #, kde-format
 msgid "Non-digit"
-msgstr ""
+msgstr "数字以外"
 
 #: SearchPlugin.cpp:119
 #, kde-format
 msgid "Whitespace (excluding line breaks)"
-msgstr ""
+msgstr "空白文字 (改行を除く)"
 
 #: SearchPlugin.cpp:120
 #, kde-format
 msgid "Non-whitespace (excluding line breaks)"
-msgstr ""
+msgstr "非空白文字 (改行を除く)"
 
 #: SearchPlugin.cpp:121
 #, kde-format
 msgid "Word character (alphanumerics plus '_')"
-msgstr ""
+msgstr "単語構成文字 (英数字とアンダースコア \"_\")"
 
 #: SearchPlugin.cpp:122
 #, kde-format
 msgid "Non-word character"
-msgstr ""
+msgstr "単語構成文字以外"
 
 #: SearchPlugin.cpp:134
 #, kde-format
 msgid "Regular expression capture 0 (whole match)"
-msgstr ""
+msgstr "正規表現参照 グループ 0 (マッチしたもの全部)"
 
 #: SearchPlugin.cpp:135
 #, kde-format
 msgid "Regular expression capture 1-9"
-msgstr ""
+msgstr "正規表現参照 グループ 1~9"
 
 #: SearchPlugin.cpp:136
 #, kde-format
 msgid "Regular expression capture 0-999"
-msgstr ""
+msgstr "正規表現参照 グループ 0~999"
 
 #: SearchPlugin.cpp:138
 #, kde-format
 msgid "Upper-cased capture 0-9"
-msgstr ""
+msgstr "大文字化参照 グループ 0~9"
 
 #: SearchPlugin.cpp:139
 #, kde-format
 msgid "Upper-cased capture 0-999"
-msgstr ""
+msgstr "大文字化参照 グループ 0~999"
 
 #: SearchPlugin.cpp:140
 #, kde-format
 msgid "Lower-cased capture 0-9"
-msgstr ""
+msgstr "小文字化参照 グループ 0~9"
 
 #: SearchPlugin.cpp:141
 #, kde-format
 msgid "Lower-cased capture 0-999"
-msgstr ""
+msgstr "小文字化参照 グループ 0~999"
 
 #: SearchPlugin.cpp:286
 #, kde-format
 msgid "Search & Replace"
-msgstr ""
+msgstr "検索と置換"
 
 #: SearchPlugin.cpp:327
 #, kde-format
 msgid "Find in Files"
-msgstr ""
+msgstr "ファイル内検索"
 
 #: SearchPlugin.cpp:333
 #, kde-format
 msgid "Find in Files (in a New Tab)"
-msgstr ""
+msgstr "ファイル内検索 (新しいタブ)"
 
 #: SearchPlugin.cpp:339
 #, kde-format
 msgid "Go to Next Match"
-msgstr ""
+msgstr "次のマッチへ移動"
 
 #: SearchPlugin.cpp:345
 #, kde-format
 msgid "Go to Previous Match"
-msgstr ""
+msgstr "前のマッチへ移動"
 
 #: SearchPlugin.cpp:351
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "マッチする行を切り取り"
 
 #: SearchPlugin.cpp:353
 #, kde-format
@@ -543,11 +565,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"現在のドキュメントでハイライト表示されたすべてのマッチする行をクリップボード"
+"へ切り取ります。"
 
 #: SearchPlugin.cpp:358
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "マッチする行をコピー"
 
 #: SearchPlugin.cpp:360
 #, kde-format
@@ -555,11 +579,13 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"現在のドキュメントでハイライト表示されたすべてのマッチする行をクリップボード"
+"にコピーします。"
 
 #: SearchPlugin.cpp:393
 #, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
-msgstr ""
+msgstr "コンマ区切りで検索するファイル形式を指定できます (例: *.cpp,*.h)"
 
 #: SearchPlugin.cpp:395
 #, kde-format
@@ -569,76 +595,81 @@ msgid ""
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
+"コンマ区切りで検索から除外するファイル名またはディレクトリ名のワイルドカード"
+"パターンを指定できます。\n"
+"例: \"build*\"\n"
+"パターンに \"/\" が含まれている場合、パス全体がマッチするかチェックされます。"
 
 #: SearchPlugin.cpp:400
 #, kde-format
 msgid "Click to filter through results"
-msgstr ""
+msgstr "クリックして結果を絞り込み"
 
 #: SearchPlugin.cpp:490
 #, kde-format
 msgid "Find"
-msgstr ""
+msgstr "検索"
 
 #: SearchPlugin.cpp:1174
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
+"検索先のディレクトリ \"%1\" が存在しないため、検索は開始されませんでした。"
 
 #: SearchPlugin.cpp:1347
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
-msgstr ""
+msgstr "入力中は検索の処理時間が長くなってしまうため、検索を中断しました。"
 
 #: SearchPlugin.cpp:1680
 #, kde-format
 msgid "Search Match"
-msgstr ""
+msgstr "検索マッチ"
 
 #: SearchPlugin.cpp:1857 SearchPlugin.cpp:1933
 #, kde-format
 msgid "Next from cursor"
-msgstr ""
+msgstr "カーソル位置から次の検索結果"
 
 #: SearchPlugin.cpp:1874
 #, kde-format
 msgid "Starting from first match"
-msgstr ""
+msgstr "検索結果の一番最初から始めます"
 
 #: SearchPlugin.cpp:1894
 #, kde-format
 msgid "Continuing from first match"
-msgstr ""
+msgstr "検索結果の最初に戻りました"
 
 #: SearchPlugin.cpp:1950
 #, kde-format
 msgid "Starting from last match"
-msgstr ""
+msgstr "検索結果の一番最後から始めます"
 
 #: SearchPlugin.cpp:1970
 #, kde-format
 msgid "Continuing from last match"
-msgstr ""
+msgstr "検索結果の最後に戻りました"
 
 #: SearchPlugin.cpp:2131
 #, kde-format
 msgid "Search: %1"
-msgstr ""
+msgstr "検索: %1"
 
 #: SearchPlugin.cpp:2274
 #, kde-format
 msgid "Copy all"
-msgstr ""
+msgstr "すべてコピー"
 
 #: SearchPlugin.cpp:2279
 #, kde-format
 msgid "Copy expanded"
-msgstr ""
+msgstr "展開されている項目をコピー"
 
 #: SearchPlugin.cpp:2282
 #, kde-format
 msgid "Export matches"
-msgstr ""
+msgstr "マッチ箇所をエクスポート"
 
 #: SearchPlugin.cpp:2283
 #, kde-format
@@ -647,50 +678,54 @@ msgid ""
 "the whole matches, use \\0. To export regular expression captures, use \\1,"
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
+"置換パターンを使用して検索のマッチ箇所の変換とエクスポートを行うことができま"
+"す。マッチ全体をエクスポートするには \\0 を指定してください。正規表現の参照を"
+"エクスポートするには \\1, \\2, ... を指定してください。パターン内の他のテキス"
+"トはエクスポート結果にそのまま返されます。"
 
 #: SearchPlugin.cpp:2288
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "エディタのタブとして開く"
 
 #: SearchPlugin.cpp:2296
 #, kde-format
 msgid "Clear"
-msgstr ""
+msgstr "クリア"
 
 #: SearchPlugin.cpp:2405 SearchPlugin.cpp:2447
 #, kde-format
 msgid "Clear history"
-msgstr ""
+msgstr "履歴をクリア"
 
 #: SearchPlugin.cpp:2413 SearchPlugin.cpp:2454
 #, kde-format
 msgid "Add..."
-msgstr ""
+msgstr "追加..."
 
 #: SearchPlugin.cpp:2425
 #, kde-format
 msgid "Search As You Type"
-msgstr ""
+msgstr "入力しながら検索"
 
 #: SearchPlugin.cpp:2503
 #, kde-format
 msgid "In Current Project"
-msgstr ""
+msgstr "現在のプロジェクト内"
 
 #: SearchPlugin.cpp:2505
 #, kde-format
 msgid "In All Open Projects"
-msgstr ""
+msgstr "開いているすべてのプロジェクト内"
 
 #. i18n: ectx: Menu (edit)
 #: ui.rc:6
 #, kde-format
 msgid "&Edit"
-msgstr ""
+msgstr "編集(&E)"
 
 #. i18n: ectx: Menu (search_more)
 #: ui.rc:9
 #, kde-format
 msgid "Find in Files Variants"
-msgstr ""
+msgstr "ファイル内検索の操作"

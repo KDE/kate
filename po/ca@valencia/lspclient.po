@@ -3,8 +3,8 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025 Josep M. Ferrer <txemaq@gmail.com>
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022 Antoni Bella Pérez <antonibella5@yahoo.com>
+# SPDX-FileCopyrightText: 2019-2025 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2019-2022 Antoni Bella Pérez <antonibella5@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
@@ -638,18 +638,3 @@ msgstr "Client &LSP"
 #, kde-format
 msgid "More Options"
 msgstr "Més opcions"
-
-#~ msgid "No JSON data to validate."
-#~ msgstr "No hi ha dades JSON que s'hagen de validar."
-
-#~ msgid "JSON data is valid."
-#~ msgstr "Les dades JSON són vàlides."
-
-#~ msgid "JSON data is invalid: no JSON object"
-#~ msgstr "Les dades JSON no són vàlides: no és un objecte JSON"
-
-#~ msgid "JSON data is invalid: %1"
-#~ msgstr "Les dades JSON no són vàlides: %1"
-
-#~ msgid "Settings File:"
-#~ msgstr "Fitxer de configuració:"

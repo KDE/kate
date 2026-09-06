@@ -1,10 +1,11 @@
+# SPDX-FileCopyrightText: 2026 Mint <5602mint@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:49+0000\n"
-"PO-Revision-Date: 2012-08-15 23:01-0700\n"
-"Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
+"PO-Revision-Date: 2026-08-26 20:02+0900\n"
+"Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -13,569 +14,576 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr ""
+"チェックアウトするブランチを選択してください。Esc でキャンセルできます。"
 
 #: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr ""
+msgstr "ブランチ %1 をチェックアウトしました"
 
 #: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr ""
+msgstr "ブランチ %1 のチェックアウトに失敗しました。エラー内容: %2"
 
 #: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr ""
+msgstr "新しいブランチ名を入力してください。Esc でキャンセルできます。"
 
 #: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
+"チェックアウト元のブランチを選択してください。Esc でキャンセルできます。"
 
 #: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr ""
+msgstr "新しいブランチにチェックアウトしました: %1"
 
 #: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr ""
+msgstr "新しいブランチの作成に失敗しました。エラー内容: \"%1\""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Branch"
-msgstr ""
+msgstr "ブランチ"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Activity"
-msgstr ""
+msgstr "最終アクティビティ"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Commit"
-msgstr ""
+msgstr "最新のコミット"
 
 #: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 #: branchdeletedialog.cpp:142
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] ""
+msgstr[0] "本当に選択したブランチを削除してもよろしいですか？"
 
 #: branchesdialog.cpp:96
 #, kde-format
 msgid "Select Branch..."
-msgstr ""
+msgstr "ブランチを選択してください..."
 
 #: branchesdialog.cpp:108 gitwidget.cpp:551 kateprojectpluginview.cpp:72
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: branchesdialogmodel.cpp:102
 #, kde-format
 msgid "Create New Branch"
-msgstr ""
+msgstr "新しいブランチを作成"
 
 #: branchesdialogmodel.cpp:108
 #, kde-format
 msgid "Create New Branch From..."
-msgstr ""
+msgstr "指定元から新しいブランチを作成..."
 
 #: comparebranchesview.cpp:131
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "戻る"
 
 #: currentgitbranchbutton.cpp:122
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr ""
+msgstr "HEAD はコミット %1 を指しています"
 
 #: currentgitbranchbutton.cpp:124
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD はタグ %1 を指しています"
 
 #: currentgitbranchbutton.cpp:126
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr ""
+msgstr "現在のブランチ: %1"
 
 #: git/gitstatus.cpp:159
 #, kde-format
 msgid " ‣ Modified"
-msgstr ""
+msgstr " ‣ 変更あり"
 
 #: git/gitstatus.cpp:161
 #, kde-format
 msgid " ‣ Untracked"
-msgstr ""
+msgstr " ‣ 未追跡"
 
 #: git/gitstatus.cpp:163
 #, kde-format
 msgid " ‣ Renamed"
-msgstr ""
+msgstr " ‣ 名前変更"
 
 #: git/gitstatus.cpp:166
 #, kde-format
 msgid " ‣ Deleted"
-msgstr ""
+msgstr " ‣ 削除"
 
 #: git/gitstatus.cpp:169
 #, kde-format
 msgid " ‣ Added"
-msgstr ""
+msgstr " ‣ 追加"
 
 #: git/gitstatus.cpp:171
 #, kde-format
 msgid " ‣ Copied"
-msgstr ""
+msgstr " ‣ コピー"
 
 #: git/gitstatus.cpp:173
 #, kde-format
 msgid " ‣ Ignored"
-msgstr ""
+msgstr " ‣ 無視"
 
 #: git/gitstatus.cpp:181
 #, kde-format
 msgid " ‣ Conflicted"
-msgstr ""
+msgstr " ‣ 競合"
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
 msgid "Commit Changes"
-msgstr ""
+msgstr "変更をコミット"
 
 #: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:265
 #: gitwidget.cpp:1090
 #, kde-format
 msgid "Commit"
-msgstr ""
+msgstr "コミット"
 
 #: gitcommitdialog.cpp:75
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 #: gitcommitdialog.cpp:77
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "コミットメッセージを入力..."
 
 #: gitcommitdialog.cpp:84
 #, kde-format
 msgid "Extended commit description..."
-msgstr ""
+msgstr "詳細なコミット説明..."
 
 #: gitcommitdialog.cpp:108
 #, kde-format
 msgid "Sign off"
-msgstr ""
+msgstr "サインオフ (signoff)"
 
 #: gitcommitdialog.cpp:112 gitcommitdialog.cpp:125
 #, kde-format
 msgid "Amend"
-msgstr ""
+msgstr "修正 (amend)"
 
 #: gitcommitdialog.cpp:113 gitwidget.cpp:1043
 #, kde-format
 msgid "Amend Last Commit"
-msgstr ""
+msgstr "直前のコミットを修正"
 
 #: gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amending Commit"
-msgstr ""
+msgstr "コミットを修正中"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr ""
+msgstr "%1 / 52"
 
 #: gitcommitdialog.cpp:211
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
-msgstr ""
+msgstr "<span style=\"color:%1;\">%2</span> / 52"
 
 #: gitstatusmodel.cpp:97
 #, kde-format
 msgid "Staged"
-msgstr ""
+msgstr "ステージ済み"
 
 #: gitstatusmodel.cpp:99
 #, kde-format
 msgid "Untracked"
-msgstr ""
+msgstr "未追跡"
 
 #: gitstatusmodel.cpp:101
 #, kde-format
 msgid "Conflict"
-msgstr ""
+msgstr "競合"
 
 #: gitstatusmodel.cpp:103
 #, kde-format
 msgid "Modified"
-msgstr ""
+msgstr "変更あり"
 
 #: gitwidget.cpp:273
 #, kde-format
 msgid "Git Push"
-msgstr ""
+msgstr "git push"
 
 #: gitwidget.cpp:286
 #, kde-format
 msgid "Git Pull"
-msgstr ""
+msgstr "git pull"
 
 #: gitwidget.cpp:299
 #, kde-format
 msgid "Cancel Operation"
-msgstr ""
+msgstr "操作をキャンセル"
 
 #: gitwidget.cpp:307
 #, kde-format
 msgid " canceled."
-msgstr ""
+msgstr " がキャンセルされました。"
 
 #: gitwidget.cpp:315
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Git ステータスを更新"
 
 #: gitwidget.cpp:337 kateprojectview.cpp:61
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "フィルタ…"
 
 #: gitwidget.cpp:428
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
+"'%1' の .git ディレクトリが見つかりませんでした。正常に動作しない可能性があり"
+"ます"
 
+# 実行した Git コマンド名の直後につなげて表示される
+# 例: git push error: ....
 #: gitwidget.cpp:640
 #, kde-format
 msgid " error: %1"
-msgstr ""
+msgstr " エラー: %1"
 
 #: gitwidget.cpp:646
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr ""
+msgstr "\"%1\" が正常に実行されました: %2"
 
 #: gitwidget.cpp:666
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "ファイルのステージに失敗しました。エラー内容:"
 
 #: gitwidget.cpp:679
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "ファイルのステージ解除に失敗しました。エラー内容:"
 
 #: gitwidget.cpp:690
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr ""
+msgstr "変更の破棄に失敗しました。エラー内容:"
 
 #: gitwidget.cpp:701
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr ""
+msgstr "削除に失敗しました。エラー内容:"
 
 #: gitwidget.cpp:717
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr ""
+msgstr "HEAD のファイルを開けませんでした: %1"
 
 #: gitwidget.cpp:751
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr ""
+msgstr "ファイルの差分の取得に失敗しました: %1"
 
 #: gitwidget.cpp:820
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr ""
+msgstr "コミットに失敗しました: %1"
 
 #: gitwidget.cpp:824
 #, kde-format
 msgid "Changes committed successfully."
-msgstr ""
+msgstr "変更を正常にコミットしました。"
 
 #: gitwidget.cpp:834
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
+msgstr "コミットするものがありません。まず変更をステージしてください。"
 
 #: gitwidget.cpp:848
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr ""
+msgstr "コミットメッセージを空にすることはできません。"
 
 #: gitwidget.cpp:979
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr ""
+msgstr "%1...%2 の差分はありません"
 
 #: gitwidget.cpp:985
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr ""
+msgstr "%1...%2 の比較に失敗しました"
 
 #: gitwidget.cpp:1000
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr ""
+msgstr "%1...%2 の差分比較時に numstat の取得に失敗しました"
 
 #: gitwidget.cpp:1035
 #, kde-format
 msgid "Refresh"
-msgstr ""
+msgstr "更新"
 
 #: gitwidget.cpp:1052
 #, kde-format
 msgid "Checkout Branch"
-msgstr ""
+msgstr "ブランチをチェックアウト"
 
 #: gitwidget.cpp:1064
 #, kde-format
 msgid "Delete Branch"
-msgstr ""
+msgstr "ブランチを削除"
 
 #: gitwidget.cpp:1078
 #, kde-format
 msgid "Compare Branch with..."
-msgstr ""
+msgstr "ブランチを比較..."
 
 #: gitwidget.cpp:1084
 #, kde-format
 msgid "Show Commit"
-msgstr ""
+msgstr "コミットを表示"
 
 #: gitwidget.cpp:1102
 #, kde-format
 msgid "Show Last Commit"
-msgstr ""
+msgstr "直前のコミットを表示"
 
 #: gitwidget.cpp:1120
 #, kde-format
 msgid "Open Commit..."
-msgstr ""
+msgstr "コミットを開く..."
 
 #: gitwidget.cpp:1123 gitwidget.cpp:1171
 #, kde-format
 msgid "Stash"
-msgstr ""
+msgstr "スタッシュ"
 
 #: gitwidget.cpp:1127
 #, kde-format
 msgid "Show history"
-msgstr ""
+msgstr "履歴を表示"
 
 #: gitwidget.cpp:1139
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Diff - スタッシュ"
 
 #: gitwidget.cpp:1175
 #, kde-format
 msgid "Pop Last Stash"
-msgstr ""
+msgstr "直前のスタッシュをポップ"
 
 #: gitwidget.cpp:1179
 #, kde-format
 msgid "Pop Stash"
-msgstr ""
+msgstr "スタッシュをポップ"
 
 #: gitwidget.cpp:1183
 #, kde-format
 msgid "Apply Last Stash"
-msgstr ""
+msgstr "直前のスタッシュを適用"
 
 #: gitwidget.cpp:1185
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr ""
+msgstr "スタッシュ (ステージ済みを保持)"
 
 #: gitwidget.cpp:1189
 #, kde-format
 msgid "Stash (Include Untracked)"
-msgstr ""
+msgstr "スタッシュ (未追跡を含める)"
 
 #: gitwidget.cpp:1193
 #, kde-format
 msgid "Apply Stash"
-msgstr ""
+msgstr "スタッシュを適用"
 
 #: gitwidget.cpp:1194
 #, kde-format
 msgid "Drop Stash"
-msgstr ""
+msgstr "スタッシュを破棄"
 
 #: gitwidget.cpp:1198
 #, kde-format
 msgid "Show Stash"
-msgstr ""
+msgstr "スタッシュを表示"
 
 #: gitwidget.cpp:1202
 #, kde-format
 msgid "Show Stash Diff"
-msgstr ""
+msgstr "スタッシュの差分を表示"
 
 #: gitwidget.cpp:1240
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "すべてステージ"
 
 #: gitwidget.cpp:1242
 #, kde-format
 msgid "Remove All"
-msgstr ""
+msgstr "すべて削除"
 
 #: gitwidget.cpp:1242
 #, kde-format
 msgid "Discard All"
-msgstr ""
+msgstr "すべて破棄"
 
 #: gitwidget.cpp:1245
 #, kde-format
 msgid "Open .gitignore"
-msgstr ""
+msgstr ".gitignore を開く"
 
 #: gitwidget.cpp:1246 gitwidget.cpp:1295 gitwidget.cpp:1346
 #: kateprojectconfigpage.cpp:111 kateprojectconfigpage.cpp:123
 #, kde-format
 msgid "Show Diff"
-msgstr ""
+msgstr "差分を表示"
 
 #: gitwidget.cpp:1263
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr ""
+msgstr "本当にこれらのファイルを削除してもよろしいですか？"
 
 #: gitwidget.cpp:1268
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr ""
+msgstr "本当にすべての変更を破棄してもよろしいですか？"
 
 #: gitwidget.cpp:1286
 #, kde-format
 msgid "Open File"
-msgstr ""
+msgstr "ファイルを開く"
 
 #: gitwidget.cpp:1287
 #, kde-format
 msgid "Unstage File"
-msgstr ""
+msgstr "ファイルのステージを解除"
 
 #: gitwidget.cpp:1287
 #, kde-format
 msgid "Stage File"
-msgstr ""
+msgstr "ファイルをステージ"
 
 #: gitwidget.cpp:1288
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "削除"
 
 #: gitwidget.cpp:1288
 #, kde-format
 msgid "Discard"
-msgstr ""
+msgstr "破棄"
 
 #: gitwidget.cpp:1296
 #, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr ""
+msgstr "外部の Git 差分ツールで表示"
 
 #: gitwidget.cpp:1297
 #, kde-format
 msgid "Open at HEAD"
-msgstr ""
+msgstr "HEAD 版を開く"
 
 #: gitwidget.cpp:1301
 #, kde-format
 msgid "Show History"
-msgstr ""
+msgstr "履歴を表示"
 
 #: gitwidget.cpp:1317
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr ""
+msgstr "本当にこのファイルの変更を破棄してもよろしいですか？"
 
 #: gitwidget.cpp:1328
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr ""
+msgstr "本当にこのファイルを削除してもよろしいですか？"
 
 #: gitwidget.cpp:1345
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "すべてのステージを解除"
 
 #: gitwidget.cpp:1412
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "選択したファイルのステージを解除"
 
 #: gitwidget.cpp:1412
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "選択したファイルをステージ"
 
 #: gitwidget.cpp:1413
 #, kde-format
 msgid "Discard Selected Files"
-msgstr ""
+msgstr "選択したファイルの変更を破棄"
 
 #: gitwidget.cpp:1417
 #, kde-format
 msgid "Remove Selected Files"
-msgstr ""
+msgstr "選択したファイルを削除"
 
 #: gitwidget.cpp:1430
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
-msgstr ""
+msgstr "本当に変更を破棄してもよろしいですか？"
 
 #: gitwidget.cpp:1435
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
-msgstr ""
+msgstr "本当にこれらの未追跡の変更を削除してもよろしいですか？"
 
 #: kateproject.cpp:233
 #, kde-format
 msgid "(Modified)"
-msgstr ""
+msgstr "(変更あり)"
 
 #: kateproject.cpp:235
 #, kde-format
 msgid "(Staged)"
-msgstr ""
+msgstr "(ステージ済み)"
 
 #: kateproject.cpp:355
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "不正な JSON ファイル '%1': %2"
 
 #: kateproject.cpp:422 kateprojectplugin.cpp:826 kateprojectpluginview.cpp:77
 #: kateprojectpluginview.cpp:233 kateprojectviewtree.cpp:368
@@ -583,23 +591,23 @@ msgstr ""
 #: kateprojectviewtree.cpp:416
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "プロジェクト"
 
 #: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
-msgstr ""
+msgstr "<未追跡>"
 
 #: kateprojectcompletion.cpp:52
 #, kde-format
 msgid "Project Completion"
-msgstr ""
+msgstr "プロジェクト補完"
 
 #: kateprojectconfigpage.cpp:24
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr ""
+msgstr "リポジトリとビルドツリーの自動読み込み"
 
 #: kateprojectconfigpage.cpp:26
 #, kde-format
@@ -607,37 +615,39 @@ msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
+"プロジェクトプラグインは、.kateproject ファイルが定義されていない場合には、リ"
+"ポジトリの作業コピーとビルドツリーを自動的に読み込むことができます。"
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
 msgid "&Git"
-msgstr ""
+msgstr "&Git"
 
 #: kateprojectconfigpage.cpp:32
 #, kde-format
 msgid "&Subversion"
-msgstr ""
+msgstr "&Subversion"
 
 #: kateprojectconfigpage.cpp:34
 #, kde-format
 msgid "&Mercurial"
-msgstr ""
+msgstr "&Mercurial"
 
 #: kateprojectconfigpage.cpp:36
 #, kde-format
 msgid "&Fossil"
-msgstr ""
+msgstr "&Fossil"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Directory Listing"
-msgstr ""
+msgstr "ディレクトリ一覧"
 
 #: kateprojectconfigpage.cpp:49
 #, kde-format
@@ -645,11 +655,14 @@ msgid ""
 "When directory listing is enabled, autoloaded repository projects show all "
 "files instead of only VCS-tracked files."
 msgstr ""
+"ディレクトリ一覧を有効にすると、自動読み込みされたリポジトリプロジェクトにお"
+"いて、VCS で追跡されているファイルだけでなく、すべてのファイルを表示するよう"
+"になります。"
 
 #: kateprojectconfigpage.cpp:52
 #, kde-format
 msgid "Include files untracked by repository"
-msgstr ""
+msgstr "リポジトリで追跡されていないファイルを含める"
 
 #: kateprojectconfigpage.cpp:54
 #, kde-format
@@ -657,11 +670,13 @@ msgid ""
 "Show all files in the project directory including files not tracked by the "
 "version control system, such as those excluded via .gitignore."
 msgstr ""
+".gitignore で除外されたファイルなど、バージョン管理システムで追跡されていない"
+"ファイルを含め、プロジェクトディレクトリ内のすべてのファイルを表示します。"
 
 #: kateprojectconfigpage.cpp:58
 #, kde-format
 msgid "Show hidden files in non-VCS projects"
-msgstr ""
+msgstr "VCS を使用していないプロジェクトで隠しファイルを表示"
 
 #: kateprojectconfigpage.cpp:59
 #, kde-format
@@ -669,43 +684,45 @@ msgid ""
 "Show hidden files (dotfiles) in the project file tree for projects not "
 "loaded using version control."
 msgstr ""
+"バージョン管理を使用して読み込まれていないプロジェクトのプロジェクトファイル"
+"ツリーで、隠しファイル (ドットファイル) を表示します。"
 
 #: kateprojectconfigpage.cpp:68
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
-msgstr ""
+msgstr "セッションの動作"
 
 #: kateprojectconfigpage.cpp:69
 #, kde-format
 msgid "Session settings for projects"
-msgstr ""
+msgstr "プロジェクトのセッション設定"
 
 #: kateprojectconfigpage.cpp:70
 #, kde-format
 msgid "Restore Open Projects"
-msgstr ""
+msgstr "開いていたプロジェクトを復元"
 
 #: kateprojectconfigpage.cpp:77
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
-msgstr ""
+msgstr "プロジェクトインデックス"
 
 #: kateprojectconfigpage.cpp:78
 #, kde-format
 msgid "Project ctags index settings"
-msgstr ""
+msgstr "プロジェクトの ctags インデックス設定"
 
 #: kateprojectconfigpage.cpp:79 kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Enable indexing"
-msgstr ""
+msgstr "インデックス作成を有効にする"
 
 #: kateprojectconfigpage.cpp:82
 #, kde-format
 msgid "Directory for index files"
-msgstr ""
+msgstr "インデックスファイルのディレクトリ"
 
 #: kateprojectconfigpage.cpp:86
 #, kde-format
@@ -713,120 +730,123 @@ msgid ""
 "The system temporary directory is used if not specified, which may overflow "
 "for very large repositories"
 msgstr ""
+"指定しない場合はシステムの一時ディレクトリが使用されますが、とても大きなリポ"
+"ジトリでは容量不足になる可能性があります"
 
 #: kateprojectconfigpage.cpp:93
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
-msgstr ""
+msgstr "プロジェクト間機能"
 
 #: kateprojectconfigpage.cpp:94
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
 msgstr ""
+"プロジェクトプラグインでは、複数のプロジェクトにまたがる操作を実行できます"
 
 #: kateprojectconfigpage.cpp:95
 #, kde-format
 msgid "Cross-Project Completion"
-msgstr ""
+msgstr "プロジェクト間補完"
 
 #: kateprojectconfigpage.cpp:97
 #, kde-format
 msgid "Cross-Project Goto Symbol"
-msgstr ""
+msgstr "プロジェクト間のシンボルへ移動"
 
 #: kateprojectconfigpage.cpp:105
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: kateprojectconfigpage.cpp:108
 #, kde-format
 msgid "Single click action in the git status view"
-msgstr ""
+msgstr "Git ステータスビューでのシングルクリック時の動作"
 
 #: kateprojectconfigpage.cpp:110 kateprojectconfigpage.cpp:122
 #, kde-format
 msgid "No Action"
-msgstr ""
+msgstr "何もしない"
 
 #: kateprojectconfigpage.cpp:112 kateprojectconfigpage.cpp:124
 #, kde-format
 msgid "Open file"
-msgstr ""
+msgstr "ファイルを開く"
 
 #: kateprojectconfigpage.cpp:113 kateprojectconfigpage.cpp:125
 #, kde-format
 msgid "Stage / Unstage"
-msgstr ""
+msgstr "ステージ / ステージ解除"
 
 #: kateprojectconfigpage.cpp:120
 #, kde-format
 msgid "Double click action in the git status view"
-msgstr ""
+msgstr "Git ステータスビューでのダブルクリック時の動作"
 
 #: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:71
 #, kde-format
 msgid "Projects"
-msgstr ""
+msgstr "プロジェクト"
 
 #: kateprojectconfigpage.cpp:170
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
-msgstr ""
+msgstr "プロジェクトのプロパティ"
 
 #: kateprojectinfoview.cpp:84
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr ""
+msgstr "ターミナル"
 
 #: kateprojectinfoview.cpp:93
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr ""
+msgstr "ターミナル (プロジェクト)"
 
 #: kateprojectinfoview.cpp:102
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
-msgstr ""
+msgstr "ターミナル (ベース)"
 
 #: kateprojectinfoview.cpp:111
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
-msgstr ""
+msgstr "ターミナル (ビルド)"
 
 #: kateprojectinfoview.cpp:118
 #, kde-format
 msgid "Code Index"
-msgstr ""
+msgstr "コードインデックス"
 
 #: kateprojectinfoview.cpp:123
 #, kde-format
 msgid "Code Analysis"
-msgstr ""
+msgstr "コード解析"
 
 #: kateprojectinfoview.cpp:128
 #, kde-format
 msgid "Notes"
-msgstr ""
+msgstr "メモ"
 
 #: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
-msgstr ""
+msgstr "解析を開始..."
 
 #: kateprojectinfoviewcodeanalysis.cpp:42
 #, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr ""
+msgstr "コード解析 - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:99
 #, kde-format
@@ -834,6 +854,9 @@ msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"'%1' はシステムにインストールされていません。(%2)<br/><br/>%3。このツールは、"
+"プロジェクトの全ファイルのうち以下の拡張子のファイルに適用されます。<br/><b>"
+"%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:109
 #, kde-format
@@ -841,13 +864,16 @@ msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"%2 にインストールされている %1 を使用しています。<br/><br/>%3。このツールは、"
+"プロジェクトの全ファイルのうち以下の拡張子のファイルに適用されます。<br/><b>"
+"%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:151
 #: kateprojectinfoviewcodeanalysis.cpp:211
 #: kateprojectinfoviewcodeanalysis.cpp:215
 #, kde-format
 msgid "CodeAnalysis"
-msgstr ""
+msgstr "コード解析"
 
 #: kateprojectinfoviewcodeanalysis.cpp:206
 #, kde-format
@@ -857,72 +883,74 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] ""
+msgstr[0] "[%1]%2 個のファイルの解析が完了しました。"
 
 #: kateprojectinfoviewcodeanalysis.cpp:214
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr ""
+msgstr "解析が終了コード %1 で失敗しました。エラー内容: %2"
 
 #: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Kind"
-msgstr ""
+msgstr "種類"
 
 #: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "File"
-msgstr ""
+msgstr "ファイル"
 
 #: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Line"
-msgstr ""
+msgstr "行"
 
 #: kateprojectinfoviewindex.cpp:37
 #, kde-format
 msgid "Search"
-msgstr ""
+msgstr "検索"
 
 #: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr ""
+"インデックスを作成できませんでした。'ctags' をインストールしてください。"
 
 #: kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Indexing is not enabled"
-msgstr ""
+msgstr "インデックス作成が有効になっていません"
 
 #: kateprojectitem.cpp:181
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "エラー"
 
 #: kateprojectitem.cpp:181
 #, kde-format
 msgid "File name already exists"
-msgstr ""
+msgstr "ファイル名が既に存在します"
 
 #: kateprojectplugin.cpp:270
 #, kde-format
 msgid "Confirm project closing: %1"
-msgstr ""
+msgstr "プロジェクトの終了確認: %1"
 
 #: kateprojectplugin.cpp:271
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
+"プロジェクト %1 と、関連して開いている %2 個のドキュメントを閉じますか？"
 
 #: kateprojectplugin.cpp:691
 #, kde-format
 msgid "Full path to current project excluding the file name."
-msgstr ""
+msgstr "ファイル名を除く、現在のプロジェクトへのフルパスです。"
 
 #: kateprojectplugin.cpp:708
 #, kde-format
@@ -930,196 +958,198 @@ msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
+"OS ネイティブのパス区切り文字 (Windows ではバックスラッシュ) を使用した、ファ"
+"イル名を除く現在のプロジェクトへのフルパスです。"
 
 #: kateprojectpluginview.cpp:61
 #, kde-format
 msgid "Project Manager"
-msgstr ""
+msgstr "プロジェクト管理"
 
 #: kateprojectpluginview.cpp:82
 #, kde-format
 msgid "Current Project"
-msgstr ""
+msgstr "現在のプロジェクト"
 
 #: kateprojectpluginview.cpp:84
 #, kde-format
 msgid "Open projects list"
-msgstr ""
+msgstr "プロジェクト一覧を開く"
 
 #: kateprojectpluginview.cpp:92
 #, kde-format
 msgid "Reload project"
-msgstr ""
+msgstr "プロジェクトを再読み込み"
 
 #: kateprojectpluginview.cpp:95
 #, kde-format
 msgid "Close project"
-msgstr ""
+msgstr "プロジェクトを閉じる"
 
 #: kateprojectpluginview.cpp:171
 #, kde-format
 msgid "Open &Folder..."
-msgstr ""
+msgstr "フォルダを開く(&F)..."
 
 #: kateprojectpluginview.cpp:177
 #, kde-format
 msgid "Project TODOs"
-msgstr ""
+msgstr "プロジェクトの TODO"
 
 #: kateprojectpluginview.cpp:182
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "前のプロジェクトをアクティブ化"
 
 #: kateprojectpluginview.cpp:188
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "次のプロジェクトをアクティブ化"
 
 #: kateprojectpluginview.cpp:194
 #, kde-format
 msgid "Lookup"
-msgstr ""
+msgstr "検索"
 
 #: kateprojectpluginview.cpp:199
 #, kde-format
 msgid "Close Project"
-msgstr ""
+msgstr "プロジェクトを閉じる"
 
 #: kateprojectpluginview.cpp:204
 #, kde-format
 msgid "Close All Projects"
-msgstr ""
+msgstr "すべてのプロジェクトを閉じる"
 
 #: kateprojectpluginview.cpp:209
 #, kde-format
 msgid "Close Orphaned Projects"
-msgstr ""
+msgstr "孤立したプロジェクトを閉じる"
 
 #: kateprojectpluginview.cpp:214
 #, kde-format
 msgid "Reload Project"
-msgstr ""
+msgstr "プロジェクトを再読み込み"
 
 #: kateprojectpluginview.cpp:219
 #, kde-format
 msgid "Reload All Projects"
-msgstr ""
+msgstr "すべてのプロジェクトを再読み込み"
 
 #: kateprojectpluginview.cpp:230
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
+msgstr "Git ブランチをチェックアウト"
 
 #: kateprojectpluginview.cpp:236 kateprojectpluginview.cpp:845
 #, kde-format
 msgid "Lookup: %1"
-msgstr ""
+msgstr "検索: %1"
 
 #: kateprojectpluginview.cpp:237 kateprojectpluginview.cpp:846
 #, kde-format
 msgid "Goto: %1"
-msgstr ""
+msgstr "移動: %1"
 
 #: kateprojectpluginview.cpp:316
 #, kde-format
 msgid "Projects Index"
-msgstr ""
+msgstr "プロジェクトインデックス"
 
 #: kateprojectpluginview.cpp:890
 #, kde-format
 msgid "Choose a directory"
-msgstr ""
+msgstr "ディレクトリを選択"
 
 #: kateprojecttreeviewcontextmenu.cpp:48
 #, kde-format
 msgid "Enter name:"
-msgstr ""
+msgstr "名前を入力:"
 
 #: kateprojecttreeviewcontextmenu.cpp:113
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "場所をコピー"
 
 #: kateprojecttreeviewcontextmenu.cpp:120
 #, kde-format
 msgid "New File…"
-msgstr ""
+msgstr "新規ファイル…"
 
 #: kateprojecttreeviewcontextmenu.cpp:121
 #, kde-format
 msgid "New Folder…"
-msgstr ""
+msgstr "新規フォルダ…"
 
 #: kateprojecttreeviewcontextmenu.cpp:128
 #, kde-format
 msgid "&Rename"
-msgstr ""
+msgstr "名前を変更(&R)"
 
 #: kateprojecttreeviewcontextmenu.cpp:139
 #, kde-format
 msgid "Properties"
-msgstr ""
+msgstr "プロパティ"
 
 #: kateprojecttreeviewcontextmenu.cpp:143
 #, kde-format
 msgid "Open With"
-msgstr ""
+msgstr "アプリケーションで開く"
 
 #: kateprojecttreeviewcontextmenu.cpp:151
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "ここで内部ターミナルを開く"
 
 #: kateprojecttreeviewcontextmenu.cpp:163
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "ここで外部ターミナルを開く"
 
 #: kateprojecttreeviewcontextmenu.cpp:169
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr ""
+msgstr "保存フォルダを開く(&O)"
 
 #: kateprojecttreeviewcontextmenu.cpp:178
 #, kde-format
 msgid "Show Git History"
-msgstr ""
+msgstr "Git 履歴を表示"
 
 #: kateprojecttreeviewcontextmenu.cpp:242
 #, kde-format
 msgid "New File"
-msgstr ""
+msgstr "新規ファイル"
 
 #: kateprojecttreeviewcontextmenu.cpp:247
 #, kde-format
 msgid "New Folder"
-msgstr ""
+msgstr "新規フォルダ"
 
 #: kateprojectviewtree.cpp:368
 #, kde-format
 msgid "The file already exists"
-msgstr ""
+msgstr "ファイルは既に存在します"
 
 #: kateprojectviewtree.cpp:379
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr ""
+msgstr "%1 の作成に失敗しました。エラー内容: %2"
 
 #: kateprojectviewtree.cpp:409
 #, kde-format
 msgid "The directory already exists"
-msgstr ""
+msgstr "ディレクトリは既に存在します"
 
 #: kateprojectviewtree.cpp:416
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr ""
+msgstr "ディレクトリ %1 の作成に失敗しました"
 
 #: kateprojectworker.cpp:215
 #, kde-format
 msgid "Unable to find directory: %1"
-msgstr ""
+msgstr "ディレクトリ %1 が見つかりません"
 
 #: kateprojectworker.cpp:753
 #, kde-format
@@ -1129,141 +1159,145 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"%1 がインストールされていない、または PATH 環境変数で見つからないため、%1 "
+"ベースのプロジェクトを読み込めません。%1 をインストールするか、プロジェクトの"
+"設定で「リポジトリとビルドツリーの自動読み込み」オプションを無効にしてくださ"
+"い。"
 
 #: project_commands.cpp:35
 #, kde-format
 msgid "Execute a command in the active project's terminal."
-msgstr ""
+msgstr "アクティブなプロジェクトのターミナルでコマンドを実行します。"
 
 #: project_commands.cpp:47
 #, kde-format
 msgid "No cmd provided"
-msgstr ""
+msgstr "コマンドが指定されていません"
 
 #: project_commands.cpp:60
 #, kde-format
 msgid "Project Command"
-msgstr ""
+msgstr "プロジェクトコマンド"
 
 #: stashdialog.cpp:36
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
-msgstr ""
+msgstr "スタッシュメッセージ (任意) | Enter で確定、Esc で終了できます。"
 
 #: stashdialog.cpp:44
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
-msgstr ""
+msgstr "入力してフィルタ、Enter でスタッシュをポップ、Esc で終了できます。"
 
 #: stashdialog.cpp:147
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr ""
+msgstr "変更のスタッシュに失敗しました: %1"
 
 #: stashdialog.cpp:149
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr ""
+msgstr "変更を正常にスタッシュしました。"
 
 #: stashdialog.cpp:168
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr ""
+msgstr "スタッシュ一覧の取得に失敗しました。エラー内容: "
 
 #: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr ""
+msgstr "スタッシュの適用に失敗しました。エラー内容: "
 
 #: stashdialog.cpp:186
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr ""
+msgstr "スタッシュの破棄に失敗しました。エラー内容: "
 
 #: stashdialog.cpp:188
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr ""
+msgstr "スタッシュのポップに失敗しました。エラー内容: "
 
 #: stashdialog.cpp:192
 #, kde-format
 msgid "Stash applied successfully."
-msgstr ""
+msgstr "スタッシュを正常に適用しました。"
 
 #: stashdialog.cpp:194
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr ""
+msgstr "スタッシュを正常に破棄しました。"
 
 #: stashdialog.cpp:196
 #, kde-format
 msgid "Stash popped successfully."
-msgstr ""
+msgstr "スタッシュを正常にポップしました。"
 
 #: stashdialog.cpp:225
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr ""
+msgstr "スタッシュの表示に失敗しました。エラー内容: "
 
 #: tools/clazy.h:25
 #, kde-format
 msgid "Clazy (Qt/C++)"
-msgstr ""
+msgstr "Clazy (Qt/C++)"
 
 #: tools/clazy.h:30
 #, kde-format
 msgid "Clazy is a static analysis tool for Qt/C++ code"
-msgstr ""
+msgstr "Clazy は Qt/C++ コード用の静的解析ツールです"
 
 #: tools/clazy.h:71
 #, kde-format
 msgid "Please install 'clazy'"
-msgstr ""
+msgstr "'clazy' をインストールしてください"
 
 #: tools/clazycurrent.h:24
 #, kde-format
 msgid "Clazy - Current File"
-msgstr ""
+msgstr "Clazy - 現在のファイル"
 
 #: tools/clazycurrent.h:29
 #, kde-format
 msgid "clang-tidy is a clang-based C++ “linter” tool"
-msgstr ""
+msgstr "clang-tidy は Clang ベースの C++ リンターです"
 
 #: tools/clippy.h:27
 #, kde-format
 msgid "Clippy (Rust)"
-msgstr ""
+msgstr "Clippy (Rust)"
 
 #: tools/clippy.h:32
 #, kde-format
 msgid "Clippy is a static analysis tool for Rust code"
-msgstr ""
+msgstr "Clippy は Rust コード用の静的解析ツールです"
 
 #: tools/clippy.h:95
 #, kde-format
 msgid "Please install 'cargo'"
-msgstr ""
+msgstr "'cargo' をインストールしてください"
 
 #: tools/cppcheck.h:26
 #, kde-format
 msgid "Cppcheck (C++)"
-msgstr ""
+msgstr "Cppcheck (C++)"
 
 #: tools/cppcheck.h:31
 #, kde-format
 msgid "Cppcheck is a static analysis tool for C/C++ code"
-msgstr ""
+msgstr "Cppcheck は C/C++ コード用の静的解析ツールです"
 
 #: tools/cppcheck.h:64
 #, kde-format
 msgid "Please install 'cppcheck'"
-msgstr ""
+msgstr "'cppcheck' をインストールしてください"
 
 #: tools/eslint.h:23
 #, kde-format
 msgid "ESLint"
-msgstr ""
+msgstr "ESLint"
 
 #: tools/eslint.h:28
 #, kde-format
@@ -1271,36 +1305,38 @@ msgid ""
 "ESLint is a static analysis tool & style guide enforcer for JavaScript/"
 "Typescript code"
 msgstr ""
+"ESLint は JavaScript/TypeScript コード用の静的解析･スタイルガイド検証ツールで"
+"す"
 
 #: tools/eslint.h:67
 #, kde-format
 msgid "Please install 'eslint'"
-msgstr ""
+msgstr "'eslint' をインストールしてください"
 
 #: tools/flake8.h:26
 #, kde-format
 msgid "Flake8 (Python)"
-msgstr ""
+msgstr "Flake8 (Python)"
 
 #: tools/flake8.h:31
 #, kde-format
 msgid "Flake8: Your Tool For Style Guide Enforcement for Python"
-msgstr ""
+msgstr "Flake8: Python 用のスタイルガイド検証ツールです"
 
 #: tools/flake8.h:77
 #, kde-format
 msgid "Please install 'flake8'"
-msgstr ""
+msgstr "'flake8' をインストールしてください"
 
 #: tools/ruff.h:28
 #, kde-format
 msgid "Ruff (Python)"
-msgstr ""
+msgstr "Ruff (Python)"
 
 #: tools/ruff.h:33
 #, kde-format
 msgid "An extremely fast Python linter"
-msgstr ""
+msgstr "超高速な Python リンターです"
 
 #: tools/ruff.h:64
 #, kde-format
@@ -1308,31 +1344,34 @@ msgid ""
 "Ruff is not installed. Please use your package manager to install it. See "
 "https://docs.astral.sh/ruff/installation/"
 msgstr ""
+"Ruff がインストールされていません。パッケージマネージャからインストールしてく"
+"ださい。詳細: https://docs.astral.sh/ruff/installation/"
 
 #: tools/shellcheck.h:24
 #, kde-format
 msgid "ShellCheck (sh/bash)"
-msgstr ""
+msgstr "ShellCheck (sh/bash)"
 
 #: tools/shellcheck.h:29
 #, kde-format
 msgid "ShellCheck is a static analysis and linting tool for sh/bash scripts"
-msgstr ""
+msgstr "ShellCheck は sh/bash スクリプト用の静的解析･lint ツールです"
 
 #: tools/shellcheck.h:73
 #, kde-format
 msgid "Please install ShellCheck (see https://www.shellcheck.net)"
 msgstr ""
+"ShellCheck をインストールしてください。詳細: https://www.shellcheck.net"
 
 #: tools/tidy.h:24
 #, kde-format
 msgid "Html Tidy"
-msgstr ""
+msgstr "HTML Tidy"
 
 #: tools/tidy.h:29
 #, kde-format
 msgid "Runs html tidy on current file"
-msgstr ""
+msgstr "現在のファイルに対して HTML Tidy を実行します"
 
 #: tools/tidy.h:64
 #, kde-format
@@ -1340,15 +1379,17 @@ msgid ""
 "Html tidy is not installed. Please use your package manager to install it. "
 "See https://www.html-tidy.org/"
 msgstr ""
+"HTML Tidy がインストールされていません。パッケージマネージャからインストール"
+"してください。詳細: https://www.html-tidy.org/"
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9
 #, kde-format
 msgid "&Projects"
-msgstr ""
+msgstr "プロジェクト(&P)"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:29
 #, kde-format
 msgid "Project Plugin"
-msgstr ""
+msgstr "プロジェクトプラグイン"

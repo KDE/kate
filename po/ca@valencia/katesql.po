@@ -3,8 +3,8 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# SPDX-FileCopyrightText: 2011, 2012, 2014, 2015, 2020, 2021, 2022, 2023, 2025, 2026 Josep M. Ferrer <txemaq@gmail.com>
-# SPDX-FileCopyrightText: 2014, 2015, 2020, 2021 Antoni Bella Pérez <antonibella5@yahoo.com>
+# SPDX-FileCopyrightText: 2011-2012, 2014-2015, 2020-2023, 2025-2026 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2014-2015, 2020-2021 Antoni Bella Pérez <antonibella5@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
@@ -707,15 +707,3 @@ msgstr "Barra d'eines de les connexions SQL"
 #, kde-format
 msgid "SQL Toolbar"
 msgstr "Barra d'eines SQL"
-
-#~ msgctxt "@option:check"
-#~ msgid "Allow running queries in non-SQL files"
-#~ msgstr "Permetre executar consultes en fitxers no SQL"
-
-#~ msgctxt "@option:check"
-#~ msgid "Enable auto query selection"
-#~ msgstr "Habilita la selecció automàtica de consultes"
-
-#~ msgctxt "@option:check"
-#~ msgid "Always show query selector popup"
-#~ msgstr "Mostra sempre la finestra emergent de selector de consultes"

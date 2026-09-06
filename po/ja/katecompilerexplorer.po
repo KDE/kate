@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-03 00:46+0000\n"
-"PO-Revision-Date: 2026-08-01 23:02+0900\n"
+"PO-Revision-Date: 2026-08-31 22:05+0900\n"
 "Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
@@ -14,6 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #: AsmView.cpp:303
 #, kde-format
@@ -38,12 +39,12 @@ msgstr "すべて選択"
 #: ce_plugin.cpp:35
 #, kde-format
 msgid "Compiler Explorer"
-msgstr "コンパイラーエクスプローラー"
+msgstr "コンパイラエクスプローラー"
 
 #: ce_plugin.cpp:38
 #, kde-format
 msgid "&Open Current File in Compiler Explorer"
-msgstr "現在のファイルをコンパイラーエクスプローラーで開く(&O)"
+msgstr "現在のファイルをコンパイラエクスプローラーで開く(&O)"
 
 #: ce_plugin.cpp:54
 #, kde-format
@@ -54,7 +55,7 @@ msgstr "開いているファイルがありません"
 #, kde-format
 msgctxt "error category title"
 msgid "CompilerExplorer"
-msgstr "コンパイラーエクスプローラー"
+msgstr "コンパイラエクスプローラー"
 
 #: ce_widget.cpp:145
 #, kde-format
@@ -129,7 +130,7 @@ msgstr "URL の入力"
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
-"コンパイラーエクスプローラーのインスタンスの URL を入力してください (例: "
+"コンパイラエクスプローラーのインスタンスの URL を入力してください (例: "
 "“http://localhost:10240”)"
 
 #: ce_widget.cpp:404
@@ -145,10 +146,10 @@ msgstr "リンクされたコードを表示"
 #: ce_widget.cpp:576
 #, kde-format
 msgid "CompilerExplorer"
-msgstr "コンパイラーエクスプローラー"
+msgstr "コンパイラエクスプローラー"
 
 #: ce_widget.cpp:592
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr ""
-"'%1' のコンパイラフラグが見つかりました。出力は有用でない可能性があります。"
+"\"%1\" のコンパイラフラグが見つかりました。出力は有用でない可能性があります。"

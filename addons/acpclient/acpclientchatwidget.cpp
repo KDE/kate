@@ -942,7 +942,7 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
                     if (lastWidget->type() == ACPChatMessageWidget::MessageType::Agent && lastWidget->messageId() == messageId) {
                         // Append to existing message
                         QString existingContent = lastWidget->content();
-                        lastWidget->setContent(existingContent + QStringLiteral(" ") + text);
+                        lastWidget->setContent(existingContent + text);
                         // Update the item size hint
                         QTimer::singleShot(10, this, [this, lastWidget]() {
                             updateWidgetSizeHint(lastWidget);

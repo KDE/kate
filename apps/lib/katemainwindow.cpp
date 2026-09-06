@@ -1817,8 +1817,8 @@ void KateMainWindow::activate(const QString &token)
     ::SetForegroundWindow(winHandle);
 #endif
 
-    // like QtSingleApplication
-    setWindowState(windowState() & ~Qt::WindowMinimized);
+    // try to raise and activate, that might fail but most OSes will
+    // at least flash the task bar entry or similar with that
     raise();
     activateWindow();
 }

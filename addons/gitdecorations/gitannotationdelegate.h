@@ -22,7 +22,9 @@ public:
     void hideTooltip(KTextEditor::View *view) override;
 
 private:
-    QColor m_addedColor;
-    QColor m_changedColor;
+    QColor m_modifiedColor;
+    QBrush m_modifiedColorOutOfSync;
     QColor m_removedColor;
+    QColor m_removedColorOutOfSync;
+    KTextEditor::View *m_view;
 };

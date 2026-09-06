@@ -1,10 +1,11 @@
+# SPDX-FileCopyrightText: 2026 Mint <5602mint@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-24 01:27+0000\n"
-"PO-Revision-Date: 2010-07-22 20:50-0700\n"
-"Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
+"PO-Revision-Date: 2026-08-28 16:39+0900\n"
+"Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -13,89 +14,90 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
 msgctxt "@title:window"
 msgid "Connection Wizard"
-msgstr ""
+msgstr "接続ウィザード"
 
 #: connectionwizard.cpp:45
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Database Driver"
-msgstr ""
+msgstr "データベースドライバ"
 
 #: connectionwizard.cpp:46
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
-msgstr ""
+msgstr "データベースドライバを選択してください"
 
 #: connectionwizard.cpp:53
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Database driver:"
-msgstr ""
+msgstr "データベースドライバ:"
 
 #: connectionwizard.cpp:82 connectionwizard.cpp:168
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
-msgstr ""
+msgstr "接続パラメータ"
 
 #: connectionwizard.cpp:83
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
-msgstr ""
+msgstr "接続パラメータを入力してください"
 
 #: connectionwizard.cpp:95
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
-msgstr ""
+msgstr "デフォルト"
 
 #: connectionwizard.cpp:98
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Hostname:"
-msgstr ""
+msgstr "ホスト名:"
 
 #: connectionwizard.cpp:99
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
-msgstr ""
+msgstr "ユーザー名:"
 
 #: connectionwizard.cpp:100
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Password:"
-msgstr ""
+msgstr "パスワード:"
 
 #: connectionwizard.cpp:101
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Port:"
-msgstr ""
+msgstr "ポート:"
 
 #: connectionwizard.cpp:102
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Database name:"
-msgstr ""
+msgstr "データベース名:"
 
 #: connectionwizard.cpp:103 connectionwizard.cpp:180
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
-msgstr ""
+msgstr "接続オプション:"
 
 #: connectionwizard.cpp:153
 #, kde-format
 msgid "Unable to connect to database."
-msgstr ""
+msgstr "データベースに接続できません。"
 
 #: connectionwizard.cpp:170
 #, kde-format
@@ -104,141 +106,143 @@ msgid ""
 "Please enter the SQLite database file path.\n"
 "If the file does not exist, a new database will be created."
 msgstr ""
+"SQLite データベースのファイルパスを入力してください。\n"
+"ファイルが存在しない場合は、新しいデータベースが作成されます。"
 
 #: connectionwizard.cpp:178
 #, kde-format
 msgid "Database files"
-msgstr ""
+msgstr "データベースファイル"
 
 #: connectionwizard.cpp:178 exportwizard.cpp:54
 #, kde-format
 msgid "All files"
-msgstr ""
+msgstr "すべてのファイル"
 
 #: connectionwizard.cpp:179
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
-msgstr ""
+msgstr "パス:"
 
 #: connectionwizard.cpp:212
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
-msgstr ""
+msgstr "データベースに接続できません。<nl/><message>%1</message>"
 
 #: connectionwizard.cpp:227
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
-msgstr ""
+msgstr "接続名"
 
 #: connectionwizard.cpp:228
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
-msgstr ""
+msgstr "一意の接続名を入力してください"
 
 #: connectionwizard.cpp:234
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
-msgstr ""
+msgstr "接続名:"
 
 #: dataoutputwidget.cpp:93 katesqlview.cpp:52
 #, kde-format
 msgid "SQL"
-msgstr ""
+msgstr "SQL"
 
 #: dataoutputwidget.cpp:117
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
-msgstr ""
+msgstr "更新"
 
 #: dataoutputwidget.cpp:128
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
-msgstr ""
+msgstr "列幅を内容に合わせる"
 
 #: dataoutputwidget.cpp:134
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
-msgstr ""
+msgstr "行の高さを内容に合わせる"
 
 #: dataoutputwidget.cpp:140
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
-msgstr ""
+msgstr "エクスポート..."
 
 #: dataoutputwidget.cpp:147
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
-msgstr ""
+msgstr "コピー"
 
 #: dataoutputwidget.cpp:157 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
-msgstr ""
+msgstr "クリア"
 
 #: dataoutputwidget.cpp:165
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
-msgstr ""
+msgstr "システムのロケールを使用"
 
 #: dataoutputwidget.cpp:181
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "貼り付け"
 
 #: dataoutputwidget.cpp:191
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "NULL に設定"
 
 #: dataoutputwidget.cpp:201
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "行を挿入"
 
 #: dataoutputwidget.cpp:211
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "選択した行を削除"
 
 #: dataoutputwidget.cpp:221
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "選択した行を複製"
 
 #: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "元に戻す"
 
 #: dataoutputwidget.cpp:241
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: dataoutputwidget.cpp:251
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "関連テーブルの表示列にする"
 
 #: dataoutputwidget.cpp:254
 #, kde-format
@@ -247,83 +251,85 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"【警告】 一意制約のない列では、正しいコピー&&ペーストを保証できません (外部"
+"キーの代わりに列が表示されている場合)"
 
 #: dataoutputwidget.cpp:265
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "WHERE:"
 
 #: dataoutputwidget.cpp:273
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "SQL WHERE 句を入力してデータを絞り込み"
 
 #: dataoutputwidget.cpp:730
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
-msgstr ""
+msgstr "ファイル <filename>%1</filename> を開けません"
 
 #: dataoutputwidget.cpp:750
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr ""
+msgstr "変更の保存に失敗しました: <message>%1</message>"
 
 #: exportwizard.cpp:27
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
-msgstr ""
+msgstr "エクスポートウィザード"
 
 #: exportwizard.cpp:40
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
-msgstr ""
+msgstr "出力先"
 
 #: exportwizard.cpp:41
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
-msgstr ""
+msgstr "出力先を選択してください。"
 
 #: exportwizard.cpp:45
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
-msgstr ""
+msgstr "現在のドキュメント"
 
 #: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
-msgstr ""
+msgstr "クリップボード"
 
 #: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
-msgstr ""
+msgstr "ファイル"
 
 #: exportwizard.cpp:54
 #, kde-format
 msgid "Comma Separated Values"
-msgstr ""
+msgstr "コンマ区切り値"
 
 #: exportwizard.cpp:96
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
-msgstr ""
+msgstr "フィールド形式"
 
 #: exportwizard.cpp:97
 #, kde-format
@@ -332,336 +338,338 @@ msgid ""
 "Select fields format.\n"
 "Click on \"Finish\" button to export data."
 msgstr ""
+"フィールド形式を選択してください。\n"
+"\"完了\" ボタンをクリックするとデータをエクスポートします。"
 
 #: exportwizard.cpp:101
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
-msgstr ""
+msgstr "ヘッダー"
 
 #: exportwizard.cpp:104
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
-msgstr ""
+msgstr "列名をエクスポート"
 
 #: exportwizard.cpp:105
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
-msgstr ""
+msgstr "行番号をエクスポート"
 
 #: exportwizard.cpp:112
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
-msgstr ""
+msgstr "引用符"
 
 #: exportwizard.cpp:115
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
-msgstr ""
+msgstr "文字列を引用符で囲む"
 
 #: exportwizard.cpp:116
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
-msgstr ""
+msgstr "数値を引用符で囲む"
 
 #: exportwizard.cpp:124 exportwizard.cpp:127
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
-msgstr ""
+msgstr "文字:"
 
 #: exportwizard.cpp:133
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
-msgstr ""
+msgstr "区切り文字"
 
 #: exportwizard.cpp:139
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"
-msgstr ""
+msgstr "フィールド区切り文字:"
 
 #: katesqlconfigpage.cpp:28
 #, kde-format
 msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
-msgstr ""
+msgstr "Kate のセッション機能で接続を保存/復元する"
 
 #: katesqlconfigpage.cpp:29
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "「データ閲覧」でテーブルの編集機能を有効化"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "リレーショナルテーブルの編集機能を有効化"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "ベータ版"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@option:check"
 msgid "Allow running queries in non-SQL files"
-msgstr ""
+msgstr "SQL 外のファイルへのクエリ実行を許可する"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable auto query selection"
-msgstr ""
+msgstr "クエリの自動選択を有効にする"
 
 #: katesqlconfigpage.cpp:41
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "空行をステートメントの区切りとして扱う"
 
 #: katesqlconfigpage.cpp:42
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show query selector popup"
-msgstr ""
+msgstr "常にクエリ選択ポップアップを表示する"
 
 #: katesqlconfigpage.cpp:44
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
-msgstr ""
+msgstr "出力のカスタマイズ"
 
 #: katesqlconfigpage.cpp:51
 #, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr ""
+msgstr "システムのデフォルトを使用"
 
 #: katesqlconfigpage.cpp:52
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "システムのデフォルトにリセット"
 
 #: katesqlconfigpage.cpp:113
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
-msgstr ""
+msgstr "SQL"
 
 #: katesqlconfigpage.cpp:118
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
-msgstr ""
+msgstr "SQL 構成ページの設定"
 
 #: katesqlview.cpp:59
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
-msgstr ""
+msgstr "SQL "
 
 #: katesqlview.cpp:65
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
-msgstr ""
+msgstr "SQL スキーマ"
 
 #: katesqlview.cpp:159
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
-msgstr ""
+msgstr "接続先を追加..."
 
 #: katesqlview.cpp:164
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
-msgstr ""
+msgstr "接続先を削除"
 
 #: katesqlview.cpp:169
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
-msgstr ""
+msgstr "接続先を編集..."
 
 #: katesqlview.cpp:174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
-msgstr ""
+msgstr "再接続"
 
 #: katesqlview.cpp:180
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
-msgstr ""
+msgstr "接続"
 
 #: katesqlview.cpp:184
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr ""
+msgstr "クエリを実行"
 
 #: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
-msgstr ""
+msgstr "コンテキスト"
 
 #: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
-msgstr ""
+msgstr "文字色"
 
 #: outputstylewidget.cpp:39
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
-msgstr ""
+msgstr "背景色"
 
 #: outputstylewidget.cpp:39
 #, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr ""
+msgstr "変更後の文字色"
 
 #: outputstylewidget.cpp:40
 #, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr ""
+msgstr "変更後の背景色"
 
 #: outputstylewidget.cpp:49
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
-msgstr ""
+msgstr "テキスト"
 
 #: outputstylewidget.cpp:50
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
-msgstr ""
+msgstr "数値"
 
 #: outputstylewidget.cpp:51
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
-msgstr ""
+msgstr "ブール値"
 
 #: outputstylewidget.cpp:52
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
-msgstr ""
+msgstr "日付と時刻"
 
 #: outputstylewidget.cpp:53
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
-msgstr ""
+msgstr "NULL"
 
 #: outputstylewidget.cpp:54
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
-msgstr ""
+msgstr "BLOB"
 
 #: outputwidget.cpp:20
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
-msgstr ""
+msgstr "SQL テキスト出力"
 
 #: outputwidget.cpp:23
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"
-msgstr ""
+msgstr "SQL データ出力"
 
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "テーブルとビューを絞り込み..."
 
 #: schemawidget.cpp:45
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
-msgstr ""
+msgstr "データベーススキーマ"
 
 #: schemawidget.cpp:137
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
-msgstr ""
+msgstr "テーブル"
 
 #: schemawidget.cpp:142
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
-msgstr ""
+msgstr "ビュー"
 
 #: schemawidget.cpp:156
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
-msgstr ""
+msgstr "システムテーブル"
 
 #: schemawidget.cpp:356
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr ""
+msgstr "データを選択"
 
 #: schemawidget.cpp:360
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
-msgstr ""
+msgstr "生成"
 
 #: schemawidget.cpp:361
 #, kde-format
 msgid "SELECT"
-msgstr ""
+msgstr "SELECT"
 
 #: schemawidget.cpp:362
 #, kde-format
 msgid "UPDATE"
-msgstr ""
+msgstr "UPDATE"
 
 #: schemawidget.cpp:363
 #, kde-format
 msgid "INSERT"
-msgstr ""
+msgstr "INSERT"
 
 #: schemawidget.cpp:364
 #, kde-format
 msgid "DELETE"
-msgstr ""
+msgstr "DELETE"
 
 #: schemawidget.cpp:368
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
-msgstr ""
+msgstr "更新"
 
 #: sqlmanager.cpp:320
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "クエリのプリペアに失敗"
 
 #: sqlmanager.cpp:321
 #, kde-format
@@ -669,41 +677,43 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>クエリのプリペアに失敗しました。エラー内容: %1</p><p>プリペアせずに実行し"
+"ますか？</p>"
 
 #: sqlmanager.cpp:351
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
-msgstr ""
+msgstr "クエリが正常に完了しました"
 
 #: sqlmanager.cpp:354 sqlmanager.cpp:392 sqlmanager.cpp:453
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
-msgstr[0] ""
+msgstr[0] "%1 件のレコードが選択されました"
 
 #: sqlmanager.cpp:358
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"
 msgid_plural "%1 rows affected"
-msgstr[0] ""
+msgstr[0] "%1 行が影響を受けました"
 
 #. i18n: ectx: Menu (SQL)
 #: ui.rc:6
 #, kde-format
 msgid "&SQL"
-msgstr ""
+msgstr "&SQL"
 
 #. i18n: ectx: ToolBar (SQLConnectionsToolBar)
 #: ui.rc:17
 #, kde-format
 msgid "SQL Connections Toolbar"
-msgstr ""
+msgstr "SQL 接続ツールバー"
 
 #. i18n: ectx: ToolBar (SQLToolBar)
 #: ui.rc:25
 #, kde-format
 msgid "SQL Toolbar"
-msgstr ""
+msgstr "SQL ツールバー"

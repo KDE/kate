@@ -1,10 +1,12 @@
+# Translation of kategdbplugin into Japanese.
+# SPDX-FileCopyrightText: 2026 Mint <5602mint@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-25 00:47+0000\n"
-"PO-Revision-Date: 2010-11-02 00:29-0700\n"
-"Last-Translator: Japanese KDE translation team <kde-jp@kde.org>\n"
+"PO-Revision-Date: 2026-08-31 22:05+0900\n"
+"Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -13,6 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #: backend.cpp:48 dapbackend.cpp:175
 #, kde-format
@@ -20,51 +23,53 @@ msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr ""
+"デバッグセッションが実行中です。再実行するか現在のセッションを停止してくださ"
+"い。"
 
 #: breakpointview.cpp:354
 #, kde-format
 msgid "Line Breakpoints"
-msgstr ""
+msgstr "行ブレークポイント"
 
 #: breakpointview.cpp:356
 #, kde-format
 msgid "Function Breakpoints"
-msgstr ""
+msgstr "関数ブレークポイント"
 
 #: breakpointview.cpp:358
 #, kde-format
 msgid "Exception Breakpoints"
-msgstr ""
+msgstr "例外ブレークポイント"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "検証済み"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "保留中"
 
 #: breakpointview.cpp:965
 #, kde-format
 msgid "Add Function Breakpoint…"
-msgstr ""
+msgstr "関数ブレークポイントを追加…"
 
 #: breakpointview.cpp:969
 #, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr ""
+msgstr "すべての関数ブレークポイントを消去"
 
 #: breakpointview.cpp:976
 #, kde-format
 msgid "Remove Breakpoint"
-msgstr ""
+msgstr "ブレークポイントを削除"
 
 #: breakpointview.cpp:1493
 #, kde-format
 msgid "Breakpoint"
-msgstr ""
+msgstr "ブレークポイント"
 
 #: breakpointview.cpp:1556
 #, kde-format
@@ -79,425 +84,425 @@ msgstr ""
 #: breakpointview.cpp:1624
 #, kde-format
 msgid "Add Function Breakpoint"
-msgstr ""
+msgstr "関数ブレークポイントを追加"
 
 #: breakpointview.cpp:1625
 #, kde-format
 msgid "Function name:"
-msgstr ""
+msgstr "関数名:"
 
 #: configview.cpp:92
 #, kde-format
 msgid "Add new target"
-msgstr ""
+msgstr "新しいターゲットを追加"
 
 #: configview.cpp:96
 #, kde-format
 msgid "Copy target"
-msgstr ""
+msgstr "ターゲットをコピー"
 
 #: configview.cpp:100
 #, kde-format
 msgid "Delete target"
-msgstr ""
+msgstr "ターゲットを削除"
 
 #: configview.cpp:104
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "launch.json のターゲットを再読み込み"
 
 #: configview.cpp:109
 #, kde-format
 msgid "Executable:"
-msgstr ""
+msgstr "実行ファイル:"
 
 #: configview.cpp:129
 #, kde-format
 msgid "Working Directory:"
-msgstr ""
+msgstr "作業ディレクトリ:"
 
 #: configview.cpp:137
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "プロセス ID:"
 
 #: configview.cpp:142
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
-msgstr ""
+msgstr "引数:"
 
 #: configview.cpp:145
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
-msgstr ""
+msgstr "フォーカスを保持"
 
 #: configview.cpp:146
 #, kde-format
 msgid "Keep the focus on the command line"
-msgstr ""
+msgstr "コマンドラインにフォーカスを保持"
 
 #: configview.cpp:148
 #, kde-format
 msgid "Redirect IO"
-msgstr ""
+msgstr "I/O をリダイレクト"
 
 #: configview.cpp:149
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
-msgstr ""
+msgstr "デバッグ対象プログラムの I/O を別のタブにリダイレクト"
 
 #: configview.cpp:397
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "実行可能ターゲットが設定されていません"
 
 #: configview.cpp:407
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr ""
+msgstr "プロセス ID が無効です"
 
 #: configview.cpp:529 configview.cpp:542
 #, kde-format
 msgid "Target %1"
-msgstr ""
+msgstr "ターゲット %1"
 
 #: configview.cpp:765
 #, kde-format
 msgid "Select Executable"
-msgstr ""
+msgstr "実行ファイルを選択"
 
 #: configview.cpp:778
 #, kde-format
 msgid "Select Working Directory"
-msgstr ""
+msgstr "作業ディレクトリを選択"
 
 #: dapbackend.cpp:187
 #, kde-format
 msgid "DAP backend '%1' failed"
-msgstr ""
+msgstr "DAP バックエンド \"%1\" が失敗しました"
 
 #: dapbackend.cpp:238
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "プログラムが終了しました"
 
 #: dapbackend.cpp:243
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "終了に失敗しました。強制終了します..."
 
 #: dapbackend.cpp:254
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "切断を要求中"
 
 #: dapbackend.cpp:269
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "シャットダウンを要求中"
 
 #: dapbackend.cpp:294
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "DAP バックエンド: %1"
 
 #: dapbackend.cpp:303
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "停止しました。(%1)"
 
 #: dapbackend.cpp:311
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "アクティブなスレッド: %1 (すべてのスレッドが停止)"
 
 #: dapbackend.cpp:313
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "アクティブなスレッド: %1"
 
 #: dapbackend.cpp:318
 #, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr ""
+msgstr "到達したブレークポイント:"
 
 #: dapbackend.cpp:344
 #, kde-format
 msgid "(continued) thread %1"
-msgstr ""
+msgstr "(再開) スレッド %1"
 
 #: dapbackend.cpp:346
 #, kde-format
 msgid "all threads continued"
-msgstr ""
+msgstr "すべてのスレッドが再開しました"
 
 #: dapbackend.cpp:353
 #, kde-format
 msgid "(running)"
-msgstr ""
+msgstr "(実行中)"
 
 #: dapbackend.cpp:404
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "*** サーバとの接続が切断されました ***"
 
 #: dapbackend.cpp:411
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "プログラムがコード %1 で終了しました"
 
 #: dapbackend.cpp:433
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** ユーザーの操作を待機中 ***"
 
 #: dapbackend.cpp:438
 #, kde-format
 msgid "error on response: %1"
-msgstr ""
+msgstr "応答エラー: %1"
 
 #: dapbackend.cpp:454
 #, kde-format
 msgid "important"
-msgstr ""
+msgstr "重要"
 
 #: dapbackend.cpp:457
 #, kde-format
 msgid "telemetry"
-msgstr ""
+msgstr "テレメトリ"
 
 #: dapbackend.cpp:476
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "プロセス [%1] %2 をデバッグ中"
 
 #: dapbackend.cpp:478
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "プロセス %1 をデバッグ中"
 
 #: dapbackend.cpp:481
 #, kde-format
 msgid "Start method: %1"
-msgstr ""
+msgstr "起動方法: %1"
 
 #: dapbackend.cpp:496
 #, kde-format
 msgid "thread %1"
-msgstr ""
+msgstr "スレッド %1"
 
 #: dapbackend.cpp:577
 #, kde-format
 msgid "breakpoint set"
-msgstr ""
+msgstr "ブレークポイントが設定されました"
 
 #: dapbackend.cpp:611
 #, kde-format
 msgid "(%1) breakpoint"
-msgstr ""
+msgstr "(%1) ブレークポイント"
 
 #: dapbackend.cpp:629
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "<未評価>"
 
 #: dapbackend.cpp:651
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "サーバ機能"
 
 #: dapbackend.cpp:653
 #, kde-format
 msgid "supported"
-msgstr ""
+msgstr "対応"
 
 #: dapbackend.cpp:653
 #, kde-format
 msgid "unsupported"
-msgstr ""
+msgstr "非対応"
 
 #: dapbackend.cpp:656
 #, kde-format
 msgid "conditional breakpoints"
-msgstr ""
+msgstr "条件付きブレークポイント"
 
 #: dapbackend.cpp:657
 #, kde-format
 msgid "function breakpoints"
-msgstr ""
+msgstr "関数ブレークポイント"
 
 #: dapbackend.cpp:658
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "ヒット条件付きブレークポイント"
 
 #: dapbackend.cpp:659
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "ログポイント"
 
 #: dapbackend.cpp:659
 #, kde-format
 msgid "modules request"
-msgstr ""
+msgstr "モジュール要求"
 
 #: dapbackend.cpp:660
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "ジャンプ先要求"
 
 #: dapbackend.cpp:661
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "終了要求"
 
 #: dapbackend.cpp:662
 #, kde-format
 msgid "terminate debuggee"
-msgstr ""
+msgstr "デバッグ対象の終了"
 
 #: dapbackend.cpp:665
 #, kde-format
 msgid "exception breakpoint filters"
-msgstr ""
+msgstr "例外ブレークポイントフィルタ"
 
 #: dapbackend.cpp:812
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "構文エラー: 式が見つかりません"
 
 #: dapbackend.cpp:831 dapbackend.cpp:867 dapbackend.cpp:907 dapbackend.cpp:942
 #: dapbackend.cpp:979 dapbackend.cpp:1016 dapbackend.cpp:1053
 #: dapbackend.cpp:1144 dapbackend.cpp:1198
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "構文エラー: %1"
 
 #: dapbackend.cpp:839 dapbackend.cpp:875 dapbackend.cpp:1151
 #: dapbackend.cpp:1206
 #, kde-format
 msgid "invalid line: %1"
-msgstr ""
+msgstr "行が無効です: %1"
 
 #: dapbackend.cpp:847 dapbackend.cpp:852 dapbackend.cpp:883 dapbackend.cpp:888
 #: dapbackend.cpp:1176 dapbackend.cpp:1181 dapbackend.cpp:1214
 #: dapbackend.cpp:1219
 #, kde-format
 msgid "file not specified: %1"
-msgstr ""
+msgstr "ファイルが指定されていません: %1"
 
 #: dapbackend.cpp:919 dapbackend.cpp:954 dapbackend.cpp:991 dapbackend.cpp:1028
 #: dapbackend.cpp:1065
 #, kde-format
 msgid "invalid thread id: %1"
-msgstr ""
+msgstr "スレッド ID が無効です: %1"
 
 #: dapbackend.cpp:925 dapbackend.cpp:960 dapbackend.cpp:997 dapbackend.cpp:1034
 #: dapbackend.cpp:1071
 #, kde-format
 msgid "thread id not specified: %1"
-msgstr ""
+msgstr "スレッド ID が指定されていません: %1"
 
 #: dapbackend.cpp:1082
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "利用可能なコマンド:"
 
 #: dapbackend.cpp:1161
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "条件付きブレークポイントはサーバでサポートされていません"
 
 #: dapbackend.cpp:1169
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "ヒット条件付きブレークポイントはサーバでサポートされていません"
 
 #: dapbackend.cpp:1231
 #, kde-format
 msgid "Current thread: "
-msgstr ""
+msgstr "現在のスレッド: "
 
 #: dapbackend.cpp:1236 dapbackend.cpp:1243 dapbackend.cpp:1264
 #, kde-format
 msgid "none"
-msgstr ""
+msgstr "なし"
 
 #: dapbackend.cpp:1239
 #, kde-format
 msgid "Current frame: "
-msgstr ""
+msgstr "現在のフレーム: "
 
 #: dapbackend.cpp:1246
 #, kde-format
 msgid "Session state: "
-msgstr ""
+msgstr "セッション状態: "
 
 #: dapbackend.cpp:1249
 #, kde-format
 msgid "initializing"
-msgstr ""
+msgstr "初期化中"
 
 #: dapbackend.cpp:1252
 #, kde-format
 msgid "running"
-msgstr ""
+msgstr "実行中"
 
 #: dapbackend.cpp:1255
 #, kde-format
 msgid "stopped"
-msgstr ""
+msgstr "停止"
 
 #: dapbackend.cpp:1258
 #, kde-format
 msgid "terminated"
-msgstr ""
+msgstr "終了"
 
 #: dapbackend.cpp:1261
 #, kde-format
 msgid "disconnected"
-msgstr ""
+msgstr "切断"
 
 #: dapbackend.cpp:1319
 #, kde-format
 msgid "command not found"
-msgstr ""
+msgstr "コマンドが見つかりません"
 
 #: dapbackend.cpp:1354
 #, kde-format
 msgid "missing thread id"
-msgstr ""
+msgstr "スレッド ID が指定されていません"
 
 #: dapbackend.cpp:1507
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "現在のフレーム [%3]: %1:%2 (%4)"
 
 #: debugconfigpage.cpp:57 debugconfigpage.cpp:62
 #, kde-format
 msgid "Debugger"
-msgstr ""
+msgstr "デバッガ"
 
 #: launch_json_reader.cpp:40
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "%1 にある .vscode/launch.json の解析に失敗しました。"
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " (%1 行 %2 列)"
 
 #: localsview.cpp:39
 #, kde-format
 msgid "type"
-msgstr ""
+msgstr "型"
 
 #: localsview.cpp:48
 #, kde-format
@@ -512,22 +517,22 @@ msgstr ""
 #: localsview.cpp:67 localsview.cpp:68
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "読み込み中..."
 
 #: localsview.cpp:116
 #, kde-format
 msgid "Symbol"
-msgstr ""
+msgstr "シンボル"
 
 #: localsview.cpp:117
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "型"
 
 #: localsview.cpp:118
 #, kde-format
 msgid "Value"
-msgstr ""
+msgstr "値"
 
 #: localsview.cpp:300
 #, kde-format
@@ -542,124 +547,124 @@ msgstr ""
 #: plugin_kategdb.cpp:112
 #, kde-format
 msgid "Kate Debug"
-msgstr ""
+msgstr "Kate デバッグ"
 
 #: plugin_kategdb.cpp:116
 #, kde-format
 msgid "Debug View"
-msgstr ""
+msgstr "デバッグビュー"
 
 #: plugin_kategdb.cpp:116 plugin_kategdb.cpp:347
 #, kde-format
 msgid "Debug"
-msgstr ""
+msgstr "デバッグ"
 
 #: plugin_kategdb.cpp:119 plugin_kategdb.cpp:122
 #, kde-format
 msgid "Locals and Stack"
-msgstr ""
+msgstr "ローカル変数とスタック"
 
 #: plugin_kategdb.cpp:128
 #, kde-format
 msgid "Breakpoints"
-msgstr ""
+msgstr "ブレークポイント"
 
 #: plugin_kategdb.cpp:215
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>ファイルを開けませんでした:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:229
 #, kde-format
 msgid "Targets"
-msgstr ""
+msgstr "ターゲット"
 
 #: plugin_kategdb.cpp:234
 #, kde-format
 msgid "Start Debugging"
-msgstr ""
+msgstr "デバッグを開始"
 
 #: plugin_kategdb.cpp:244
 #, kde-format
 msgid "Kill / Stop Debugging"
-msgstr ""
+msgstr "デバッグを強制終了/停止"
 
 #: plugin_kategdb.cpp:251
 #, kde-format
 msgid "Continue"
-msgstr ""
+msgstr "続行"
 
 #: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Toggle Breakpoint / Break"
-msgstr ""
+msgstr "ブレークポイントを切り替え/中断"
 
 #: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Clear All Breakpoints"
-msgstr ""
+msgstr "すべてのブレークポイントを消去"
 
 #: plugin_kategdb.cpp:269
 #, kde-format
 msgid "Step In"
-msgstr ""
+msgstr "ステップイン"
 
 #: plugin_kategdb.cpp:276
 #, kde-format
 msgid "Step Over"
-msgstr ""
+msgstr "ステップオーバー"
 
 #: plugin_kategdb.cpp:283
 #, kde-format
 msgid "Step Out"
-msgstr ""
+msgstr "ステップアウト"
 
 #: plugin_kategdb.cpp:290 plugin_kategdb.cpp:354
 #, kde-format
 msgid "Run To Cursor"
-msgstr ""
+msgstr "カーソル位置まで実行"
 
 #: plugin_kategdb.cpp:297
 #, kde-format
 msgid "Restart Debugging"
-msgstr ""
+msgstr "デバッグを再開"
 
 #: plugin_kategdb.cpp:304
 #, kde-format
 msgid "Clear Output"
-msgstr ""
+msgstr "出力をクリア"
 
 #: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "ホットリロード"
 
 #: plugin_kategdb.cpp:319
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "ホットリスタート"
 
 #: plugin_kategdb.cpp:328
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "保存時にホットリロードを有効化"
 
 #: plugin_kategdb.cpp:337 plugin_kategdb.cpp:356
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
-msgstr ""
+msgstr "PC を移動"
 
 #: plugin_kategdb.cpp:342
 #, kde-format
 msgid "Print Value"
-msgstr ""
+msgstr "値を出力"
 
 #: plugin_kategdb.cpp:407
 #, kde-format
 msgid "Error: %1"
-msgstr ""
+msgstr "エラー: %1"
 
 #: plugin_kategdb.cpp:438
 #, kde-format
@@ -669,7 +674,7 @@ msgstr ""
 #: plugin_kategdb.cpp:444
 #, kde-format
 msgid "Toggle breakpoint"
-msgstr ""
+msgstr "ブレークポイントを切り替え"
 
 #: plugin_kategdb.cpp:559
 #, kde-format
@@ -680,65 +685,65 @@ msgstr ""
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr ""
+msgstr "デバッグ出力"
 
 #: plugin_kategdb.cpp:669
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 #: plugin_kategdb.cpp:704
 #, kde-format
 msgid "IO"
-msgstr ""
+msgstr "I/O"
 
 #: stackframe_model.cpp:95
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
-msgstr ""
+msgstr "番号"
 
 #: stackframe_model.cpp:97
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "関数"
 
 #: stackframe_model.cpp:99
 #, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr ""
+msgstr "場所"
 
 #: stackview.cpp:96 stackview.cpp:128
 #, kde-format
 msgid "Thread %1"
-msgstr ""
+msgstr "スレッド %1"
 
 #: stackview.cpp:167
 #, kde-format
 msgid "Copy Stack Trace"
-msgstr ""
+msgstr "スタックトレースをコピー"
 
 #: stackview.cpp:186
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "この場所を開く"
 
 #: stackview.cpp:193
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "この場所をコピー"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
 #, kde-format
 msgid "&Debug"
-msgstr ""
+msgstr "デバッグ(&D)"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:33
 #, kde-format
 msgid "Debug Plugin"
-msgstr ""
+msgstr "デバッグプラグイン"

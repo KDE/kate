@@ -21,7 +21,7 @@
         "Description[hu]": "ESLint futtatása a jelenlegi fájlon",
         "Description[ia]": "Executa ESLint sur file currente",
         "Description[it]": "Esegue ESLint sul file corrente",
-        "Description[ja]": "現在のファイルに対して ESLint を実行します",
+        "Description[ja]": "現在のファイルに対して ESLint を実行",
         "Description[ka]": "მიმდინარე ფაილზე ESLint-ის გაშვება",
         "Description[ko]": "현재 파일에 ESLint 실행",
         "Description[lv]": "Pašreizējai datnei palaist „ESLint“",

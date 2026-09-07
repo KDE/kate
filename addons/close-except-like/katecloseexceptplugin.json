@@ -22,7 +22,7 @@
         "Description[ia]": "Claude gruppo de documentos basate sur un commun percurso o extension de file",
         "Description[ie]": "Cluder un gruppe de documentes secun un comun rute o extension de file",
         "Description[it]": "Chiudi gruppo di documenti in base a un percorso comune o per estensione di file",
-        "Description[ja]": "共通のパスやファイル拡張子に基づいてドキュメントのグループを閉じます",
+        "Description[ja]": "共通のパスやファイル拡張子に基づいて一括でドキュメントを閉じる",
         "Description[ka]": "საერთო ბილიკის ან ფაილის გაფართოების მქონე დოკუმენტების ჯგუფის დახურვა",
         "Description[ko]": "공통 경로나 확장자를 기준으로 문서 그룹 닫기",
         "Description[lv]": "Aizvērt dokumentu grupu, balstoties vienotā ceļā vai datņu paplašinājumā",

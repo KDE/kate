@@ -66,16 +66,20 @@ void GitAnnotationDelegate::paint(QPainter *painter, const KTextEditor::StyleOpt
     }
 
     const auto change = static_cast<GitAnnotationModel::ChangeTypes>(value.toInt());
-    bool added = change.testFlag(GitAnnotationModel::ChangeType::Added);
-    bool removedAfter = change.testFlag(GitAnnotationModel::ChangeType::RemovedAfter);
-    bool removedBefore = change.testFlag(GitAnnotationModel::ChangeType::RemovedBefore);
-    bool changed = change.testFlag(GitAnnotationModel::ChangeType::Changed);
-    bool isDocumentModified = m_view->document()->isModified();
+    const bool modified = change.testFlag(GitAnnotationModel::ChangeType::Modified);
+    const bool removedAfter = change.testFlag(GitAnnotationModel::ChangeType::RemovedAfter);
+    const bool removedBefore = change.testFlag(GitAnnotationModel::ChangeType::RemovedBefore);
+    const bool isDocumentModified = m_view->document()->isModified();
 
-    if (added || changed) {
-        constexpr int barWidth = 3;
+    constexpr int vBarWidth = 3;
+    constexpr int hBarHeight = 3;
+
+    if (modified) {
         QRect rect = option.rect;
-        rect.setLeft(rect.right() - barWidth + 1);
+        rect.setLeft(rect.right() - vBarWidth + 1);
+        if (removedAfter || removedBefore) {
+            rect.moveTop(option.rect.top() + hBarHeight + 1); // Reserve 1px margin between the markers
+        }
         painter->fillRect(rect, m_modifiedColor);
         if (isDocumentModified) {
             painter->fillRect(rect, m_modifiedColorOutOfSync);
@@ -83,17 +87,16 @@ void GitAnnotationDelegate::paint(QPainter *painter, const KTextEditor::StyleOpt
     }
 
     if (removedAfter || removedBefore) {
-        constexpr int barHeight = 2;
         QRect rect = option.rect;
-        rect.setHeight(barHeight);
-        rect.moveTop(removedBefore ? option.rect.top() : option.rect.bottom() - barHeight + 1);
+        rect.setHeight(hBarHeight);
+        rect.moveTop(removedBefore ? option.rect.top() : option.rect.bottom() - hBarHeight + 1);
         painter->fillRect(rect, isDocumentModified ? m_removedColorOutOfSync : m_removedColor);
     }
 }
 
 QSize GitAnnotationDelegate::sizeHint(const KTextEditor::StyleOptionAnnotationItem &, KTextEditor::AnnotationModel *, int) const
 {
-    return QSize(6, 0); // TODO: Remove workaround and fix KateIconBorder
+    return QSize(6, 0); // KateIconBorder ignores lower values
 }
 
 bool GitAnnotationDelegate::helpEvent(QHelpEvent *, KTextEditor::View *, const KTextEditor::StyleOptionAnnotationItem &, KTextEditor::AnnotationModel *, int)

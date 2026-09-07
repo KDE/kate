@@ -20,38 +20,29 @@ void GitAnnotationModel::setDiff(const VcsDiff &diff)
     m_changes.clear();
     const auto lines = diff.diff().split(u'\n');
 
-    QVector<int> addedLines;
     int removedCount = 0;
-    int previousTargetLine = -1;
+    int addedCount = 0;
+    int firstAddedLine = -1;
+    int lastUnchangedLine = -1;
 
     auto processBlock = [&](const int targetLineAfterBlock) {
-        if (removedCount == 0 && addedLines.isEmpty()) {
+        if (removedCount == 0 && addedCount == 0) {
             return;
         }
 
-        if (addedLines.isEmpty()) {
+        if (addedCount == 0) {
             if (targetLineAfterBlock >= 0) {
                 m_changes[targetLineAfterBlock] |= ChangeType::RemovedBefore;
-            } else if (previousTargetLine >= 0) {
-                m_changes[previousTargetLine] |= ChangeType::RemovedAfter;
+            } else if (lastUnchangedLine >= 0) {
+                m_changes[lastUnchangedLine] |= ChangeType::RemovedAfter;
             }
-        } else {
-            const int changedCount = qMin(removedCount, addedLines.size());
-            for (int i = 0; i < changedCount; ++i) {
-                m_changes[addedLines.at(i)] |= ChangeType::Changed;
-            }
-
-            if (removedCount > addedLines.size() && changedCount > 0) {
-                m_changes[addedLines.first()] |= ChangeType::RemovedBefore;
-            }
-
-            for (int i = changedCount; i < addedLines.size(); ++i) {
-                m_changes[addedLines.at(i)] |= ChangeType::Added;
-            }
+        } else if (removedCount > addedCount) {
+            m_changes[firstAddedLine] |= ChangeType::RemovedBefore;
         }
 
         removedCount = 0;
-        addedLines.clear();
+        addedCount = 0;
+        firstAddedLine = -1;
     };
 
     for (int i = 0; i < lines.size(); ++i) {
@@ -63,7 +54,7 @@ void GitAnnotationModel::setDiff(const VcsDiff &diff)
             continue;
         }
 
-        if (line.startsWith(u'\\')) {
+        if (line.startsWith(u'\\')) { // No newline at EOF marker
             continue;
         }
 
@@ -75,7 +66,11 @@ void GitAnnotationModel::setDiff(const VcsDiff &diff)
         if (line.startsWith(u'+')) {
             const int targetLine = diff.diffLineToTargetLine(i);
             if (targetLine >= 0) {
-                addedLines.append(targetLine);
+                ++addedCount;
+                m_changes[targetLine] |= ChangeType::Modified;
+                if (firstAddedLine < 0) {
+                    firstAddedLine = targetLine;
+                }
             }
 
             continue;
@@ -85,7 +80,7 @@ void GitAnnotationModel::setDiff(const VcsDiff &diff)
         processBlock(targetLine);
 
         if (targetLine >= 0) {
-            previousTargetLine = targetLine;
+            lastUnchangedLine = targetLine;
         }
     }
 

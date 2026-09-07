@@ -16,10 +16,9 @@ class GitAnnotationModel : public KTextEditor::AnnotationModel
 public:
     enum class ChangeType {
         None = 0,
-        Added = 1 << 0,
-        Changed = 1 << 1,
-        RemovedAfter = 1 << 2,
-        RemovedBefore = 1 << 3
+        Modified = 1 << 0,
+        RemovedAfter = 1 << 1,
+        RemovedBefore = 1 << 2
     };
 
     Q_DECLARE_FLAGS(ChangeTypes, ChangeType)

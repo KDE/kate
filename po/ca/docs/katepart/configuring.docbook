@@ -306,11 +306,11 @@
 <varlistentry>
 <term
 ><guilabel
->Multiplicador de l'alçada de les línies </guilabel
+>Multiplicador de l'altura de les línies </guilabel
 ></term>
 <listitem
 ><para
->Aquest valor es multiplicarà per l'alçada predeterminada de les línies de la lletra. Un valor d'1,0 vol dir que s'emprarà l'alçada predeterminada.</para
+>Aquest valor es multiplicarà per l'altura predeterminada de les línies de la lletra. Un valor d'1,0 vol dir que s'emprarà l'altura predeterminada.</para
 ></listitem
 ></varlistentry>
 </variablelist>

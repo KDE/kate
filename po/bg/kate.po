@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-07-24 10:53+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -2745,7 +2745,7 @@ msgstr ""
 "'showtoolview $toolview_name'. Скриване на панел за изглед на инструменти. "
 "Налични панели: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2754,7 +2754,7 @@ msgstr ""
 "Търсене на файлове във всички проекти (щракнете с десния бутон на мишката, "
 "за да конфигурирате)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2763,25 +2763,30 @@ msgstr ""
 "Търсене на файлове в този проект (щракнете с десния бутон на мишката, за да "
 "конфигурирате)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Всички проекти"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Текущ проект"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Грубо филтриране"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Филтриране със заместващи символи"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, kde-format
+msgid "Match Folder Names"
+msgstr ""
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format

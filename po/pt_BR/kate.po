@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-07-11 06:26-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -2762,7 +2762,7 @@ msgstr ""
 "'showtoolview $nome_ferramenta_visualizacao'. Oculta um painel de "
 "visualização de ferramentas. Painéis disponíveis: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2771,7 +2771,7 @@ msgstr ""
 "Pesquisar arquivos em todos os projetos (clique com o botão direito para "
 "configurar)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2780,25 +2780,31 @@ msgstr ""
 "Pesquisar arquivos no projeto atual (clique com o botão direito para "
 "configurar)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Todos os projetos"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Projeto atual"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Filtragem difusa"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtragem curinga"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, fuzzy, kde-format
+#| msgid "&Match Mode:"
+msgid "Match Folder Names"
+msgstr "&Modo de correspondência:"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -3381,9 +3387,6 @@ msgstr "Mostrar página de boas-vindas para nova janela"
 
 #~ msgid "Quick Open Search"
 #~ msgstr "Pesquisa na abertura rápida"
-
-#~ msgid "&Match Mode:"
-#~ msgstr "&Modo de correspondência:"
 
 #~ msgid "Filepath"
 #~ msgstr "Caminho do arquivo"

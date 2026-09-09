@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-07-11 13:05+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -2750,39 +2750,44 @@ msgstr ""
 "«showtoolview $toolview_name». Oculta un plafó de vista d'eina. Plafons "
 "disponibles: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr "Cerca fitxers en tots els projectes (clic dret per a configurar)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "Cerca fitxers en el projecte actual (clic dret per a configurar)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Tots els projectes"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Projecte actual"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Filtratge difús"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtratge amb comodins"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, kde-format
+msgid "Match Folder Names"
+msgstr ""
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format

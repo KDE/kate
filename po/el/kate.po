@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-04-15 23:40+0300\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -2770,39 +2770,45 @@ msgstr ""
 "'showtoolview $toolview_name'. Απόκρυψη ενός πίνακα toolview. Διαθέσιμοι "
 "πίνακες: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr "Αναζήτηση αρχείων σε όλα τα έργα (κάντε δεξί κλικ για διαμόρφωση)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "Αναζήτηση αρχείων στο τρέχον έργο (κάντε δεξί κλικ για διαμόρφωση)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Όλα τα έργα"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Τρέχον έργο"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Ασαφές φιλτράρισμα"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Φιλτράρισμα με υποκατάσταση"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, fuzzy, kde-format
+#| msgid "Search folders"
+msgid "Match Folder Names"
+msgstr "Αναζήτηση φακέλων"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -4738,9 +4744,6 @@ msgstr "Εμφάνιση σελίδας υποδοχής για νέο παρά�
 
 #~ msgid "File Selector Settings"
 #~ msgstr "Ρυθμίσεις επιλογέα αρχείων"
-
-#~ msgid "Search folders"
-#~ msgstr "Αναζήτηση φακέλων"
 
 #~ msgid ""
 #~ "Please add the source folders where to search for the files in the "

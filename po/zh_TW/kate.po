@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-08-04 07:28+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -2663,39 +2663,45 @@ msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr "'showtoolview $toolview_name'。隱藏工具檢視面板。可用面板：%1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr "在所有專案中搜尋檔案（點右鍵來調整設定）"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "在目前專案中搜尋檔案（點右鍵來調整設定）"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "所有專案"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "目前專案"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "模糊過濾"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "萬用字元過濾"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, fuzzy, kde-format
+#| msgid "&Match Mode:"
+msgid "Match Folder Names"
+msgstr "尋找符合模式(&M)："
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -3259,9 +3265,6 @@ msgstr "為新視窗顯示歡迎頁面"
 
 #~ msgid "Quick Open Search"
 #~ msgstr "快速開啟搜尋"
-
-#~ msgid "&Match Mode:"
-#~ msgstr "尋找符合模式(&M)："
 
 #~ msgid "Filepath"
 #~ msgstr "檔案位置"

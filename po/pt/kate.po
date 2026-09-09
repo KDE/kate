@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-01-30 00:28+0000\n"
 "Last-Translator: César A. P. Cláudio <cesarapclaudio@gmail.com>\n"
 "Language-Team: pt\n"
@@ -2784,7 +2784,7 @@ msgstr ""
 "'showtoolview $toolview_name'. Oculta um painel de vista de ferramentas. "
 "Painéis disponíveis: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2793,7 +2793,7 @@ msgstr ""
 "Pesquisar ficheiros em todos os projetos (clique com o botão direito para "
 "configurar)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2802,25 +2802,30 @@ msgstr ""
 "Pesquisar ficheiros no projeto atual (clique com o botão direito para "
 "configurar)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Todos os projetos"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Projeto atual"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Filtragem difusa"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtragem com caracteres especiais"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, kde-format
+msgid "Match Folder Names"
+msgstr ""
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format

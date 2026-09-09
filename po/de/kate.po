@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-06-30 21:43+0200\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2775,39 +2775,45 @@ msgstr ""
 "„showtoolview $toolview_name“ – Werkzeugansicht-Leiste ausblenden. "
 "Verfügbare Leisten: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr "Nach Dateien in allen Projekten suchen (Rechtsklick zum Einrichten)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "Nach Dateien im aktuellen Projekt suchen (Rechtsklick zum Einrichten)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Alle Projekte"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Aktuelles Projekt"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Ungenaue Filterung"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Platzhalter-Filterung"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, fuzzy, kde-format
+#| msgid "Search folders"
+msgid "Match Folder Names"
+msgstr "Ordner durchsuchen"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -4665,9 +4671,6 @@ msgstr "Willkommen-Seite in neuem Fenster anzeigen"
 
 #~ msgid "File Selector Settings"
 #~ msgstr "Einrichtung der Dateiauswahl"
-
-#~ msgid "Search folders"
-#~ msgstr "Ordner durchsuchen"
 
 #~ msgid ""
 #~ "Please add the source folders where to search for the files in the "

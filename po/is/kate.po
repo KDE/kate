@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-04-29 15:52+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
@@ -2719,14 +2719,14 @@ msgstr ""
 "'showtoolview $toolview_name'. Fela spjald með verkfærayfirliti. Tiltæk "
 "spjöld: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr "Leita að skrám í öllum verkefnum (hægrismelltu til að grunnstilla)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2734,25 +2734,30 @@ msgid "Search files in current project (right click to configure)"
 msgstr ""
 "Leita að skrám í fyrirliggjandi verkefni (hægrismelltu til að grunnstilla)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Öll verkefni"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Núverandi verkefni"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Loðin síun"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Síun með algildistákni"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, fuzzy, kde-format
+msgid "Match Folder Names"
+msgstr "&Ný"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -3314,10 +3319,6 @@ msgstr "Sýna upphafssíðu í nýjum gluggum"
 #~| msgid "Open Session"
 #~ msgid "Quick Open Search"
 #~ msgstr "Opna setu"
-
-#, fuzzy
-#~ msgid "&Match Mode:"
-#~ msgstr "&Ný"
 
 #, fuzzy
 #~| msgid "Filename"

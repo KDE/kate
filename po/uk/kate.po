@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-07-11 13:45+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -2772,7 +2772,7 @@ msgstr ""
 "'showtoolview $toolview_name'. Приховати панель інструментів. Доступні "
 "панелі: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2780,7 +2780,7 @@ msgid "Search files in all projects (right click to configure)"
 msgstr ""
 "Шукати файли в усіх проєктах (клацніть правою кнопкою миші, щоб налаштувати)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2789,25 +2789,31 @@ msgstr ""
 "Шукати файли у поточному проєкті (клацніть правою кнопкою миші, щоб "
 "налаштувати)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Всі проєкти"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Поточний проєкт"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Нечітке фільтрування"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Фільтрування за шаблоном"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, fuzzy, kde-format
+#| msgid "&Match Mode:"
+msgid "Match Folder Names"
+msgstr "&Режим відповідності:"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -3432,9 +3438,6 @@ msgstr "Показувати вітальну сторінку для нових
 
 #~ msgid "Quick Open Search"
 #~ msgstr "Пошук пришвидшеного відкриття"
-
-#~ msgid "&Match Mode:"
-#~ msgstr "&Режим відповідності:"
 
 #~ msgid "Filepath"
 #~ msgstr "Шлях до файла"

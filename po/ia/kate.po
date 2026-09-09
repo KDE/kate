@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-07-16 16:36+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -2752,39 +2752,45 @@ msgstr ""
 "'showtoolview $toolview_name'. Cela un pannello de vista de instrumento.  "
 "Pannellos disponibile: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr "Cerca files in omne projectos (clicca a dextera per configurar)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "Cerca files in projecto currente (clicca a dextera per configurar)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Omne projectos"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Projecto currente"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Filtrar Fuzzy (confuse)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtrar de wildcards"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, fuzzy, kde-format
+#| msgid "&Match Mode:"
+msgid "Match Folder Names"
+msgstr "&Modo de coincidentia:"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -3402,9 +3408,6 @@ msgstr "Monstra pagina de benvenite per nove fenestra"
 
 #~ msgid "Quick Open Search"
 #~ msgstr "Aperi cerca rapidemente"
-
-#~ msgid "&Match Mode:"
-#~ msgstr "&Modo de coincidentia:"
 
 #~ msgid "Filepath"
 #~ msgstr "Percurso de file"

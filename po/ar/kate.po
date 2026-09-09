@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-07-15 19:43+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2720,39 +2720,45 @@ msgid ""
 msgstr ""
 "'showtoolview $toolview_name'. إخفاء لوحة عرض الأدوات. الألواح المتوفرة: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr "ابحث عن الملفات في جميع المشاريع (انقر بزر الفأر الأيمن للضبط)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "ابحث عن الملفات في المشروع الحالي (انقر بزر الفأرة الأيمن للضبط)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "كلّ المشاريع"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "المشروع الحاليّ"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "ترشيح ضبابي"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "ترشيح حرف البدل"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, fuzzy, kde-format
+#| msgid "&View Mode:"
+msgid "Match Folder Names"
+msgstr "وضع ال&عرض:"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -3346,11 +3352,6 @@ msgstr "أظهر شاشة الترحيب للنوافذ الجديدة"
 
 #~ msgid "Quick Open Search"
 #~ msgstr "ابحث للفتح السّريع"
-
-#, fuzzy
-#~| msgid "&View Mode:"
-#~ msgid "&Match Mode:"
-#~ msgstr "وضع ال&عرض:"
 
 #, fuzzy
 #~| msgid "Filename"

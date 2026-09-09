@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1745071 $
+# Version: $Revision: 1745999 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011-2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-08-08 12:50+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -2746,7 +2746,7 @@ msgid ""
 msgstr ""
 "'showtoolview $toolview_name'. Ukryj okno widoku narzędzia. Dostępne okna: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2754,32 +2754,38 @@ msgid "Search files in all projects (right click to configure)"
 msgstr ""
 "Poszukaj plików we wszystkich projektach (naciśnij prawym, aby ustawić)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "Poszukaj plików we bieżącym projekcie (naciśnij prawym, aby ustawić)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Wszystkie projekty"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Bieżący projekt"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Filtrowanie rozmyte"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtrowanie po znakach wieloznacznych"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, fuzzy, kde-format
+#| msgid "&Match Mode:"
+msgid "Match Folder Names"
+msgstr "Tryb &dopasowywania:"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -3386,9 +3392,6 @@ msgstr "Pokaż ekran powitalny dla nowo otwartych okien"
 
 #~ msgid "Quick Open Search"
 #~ msgstr "Wyszukiwanie dla szybkiego otwarcia"
-
-#~ msgid "&Match Mode:"
-#~ msgstr "Tryb &dopasowywania:"
 
 #~ msgid "Filepath"
 #~ msgstr "Ścieżka pliku"

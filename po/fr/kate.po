@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2026-07-12 09:31+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
@@ -2816,7 +2816,7 @@ msgstr ""
 "« showtoolview $toolview_name ». Masquer un panneau d'affichage des outils. "
 "Panneaux disponibles : %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2825,7 +2825,7 @@ msgstr ""
 "Rechercher des fichiers dans tous les projets (Faire un clic droit pour "
 "configurer)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2834,25 +2834,31 @@ msgstr ""
 "Rechercher des fichiers dans le projet courant (Faire un clic droit pour "
 "configurer)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Tous les projets"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Projet courant"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Filtrage flou"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtrage avec caractères génériques "
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, fuzzy, kde-format
+#| msgid "&Match Mode:"
+msgid "Match Folder Names"
+msgstr "&Mode de correspondance :"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -3479,9 +3485,6 @@ msgstr "Afficher la page d'accueil pour une nouvelle fenêtre."
 
 #~ msgid "Quick Open Search"
 #~ msgstr "Recherche avec ouverture rapide"
-
-#~ msgid "&Match Mode:"
-#~ msgstr "&Mode de correspondance :"
 
 #~ msgid "Filepath"
 #~ msgstr "Emplacement du fichier"

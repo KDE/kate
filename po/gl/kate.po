@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-30 00:50+0000\n"
+"POT-Creation-Date: 2026-09-09 00:53+0000\n"
 "PO-Revision-Date: 2025-05-16 11:22+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -2760,7 +2760,7 @@ msgstr ""
 "'showtoolview $toolview_name'. Agochar un panel de vistas de ferramenta. "
 "Paneis dispoñíbeis: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:47
+#: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
@@ -2768,32 +2768,38 @@ msgid "Search files in all projects (right click to configure)"
 msgstr ""
 "Buscar nos ficheiros de todos os proxectos (clic dereito para configurar)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:53
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "Buscar nos ficheiros do proxecto actual (clic dereito para configurar)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:72
+#: lib/quickopen/katequickopenlineedit.cpp:75
 #, kde-format
 msgid "All Projects"
 msgstr "Todos os proxectos"
 
-#: lib/quickopen/katequickopenlineedit.cpp:85
+#: lib/quickopen/katequickopenlineedit.cpp:88
 #, kde-format
 msgid "Current Project"
 msgstr "Proxecto actual"
 
-#: lib/quickopen/katequickopenlineedit.cpp:101
+#: lib/quickopen/katequickopenlineedit.cpp:104
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Filtro inexacto"
 
-#: lib/quickopen/katequickopenlineedit.cpp:112
+#: lib/quickopen/katequickopenlineedit.cpp:115
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtro con caracteres de substitución"
+
+#: lib/quickopen/katequickopenlineedit.cpp:128
+#, fuzzy, kde-format
+#| msgid "&Match Mode:"
+msgid "Match Folder Names"
+msgstr "&Modo de coincidencia:"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -3353,9 +3359,6 @@ msgstr "Amosar a páxina de benvida na xanela nova."
 
 #~ msgid "Quick Open Search"
 #~ msgstr "Abrir rapidamente a busca"
-
-#~ msgid "&Match Mode:"
-#~ msgstr "&Modo de coincidencia:"
 
 #~ msgid "Filepath"
 #~ msgstr "Ruta de ficheiro"

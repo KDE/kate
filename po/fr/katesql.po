@@ -167,7 +167,7 @@ msgstr "SQL"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
-msgstr "Rafraîchir"
+msgstr "Rafraichir"
 
 #: dataoutputwidget.cpp:128
 #, kde-format
@@ -656,7 +656,7 @@ msgstr "DELETE"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
-msgstr "Rafraîchir"
+msgstr "Rafraichir"
 
 #: sqlmanager.cpp:320
 #, kde-format

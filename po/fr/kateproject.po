@@ -278,7 +278,7 @@ msgstr "annulée"
 #: gitwidget.cpp:315
 #, kde-format
 msgid "Refresh git status"
-msgstr "Rafraîchir l'état « git »"
+msgstr "Rafraichir l'état « git »"
 
 #: gitwidget.cpp:337 kateprojectview.cpp:61
 #, kde-format
@@ -372,7 +372,7 @@ msgstr "Impossible d'obtenir « numstat » lors de comparaison %1... %2"
 #: gitwidget.cpp:1035
 #, kde-format
 msgid "Refresh"
-msgstr "Rafraîchir"
+msgstr "Rafraichir"
 
 #: gitwidget.cpp:1052
 #, kde-format

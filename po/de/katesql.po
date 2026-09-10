@@ -6,20 +6,21 @@
 # SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
 # SPDX-FileCopyrightText: 2025-2026 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 # SPDX-FileCopyrightText: 2026 Philipp Kiemle <l10n.daphipz@fastmail.de>
+# SPDX-FileCopyrightText: 2026 Ewald Müller <EMuede@netscape.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-24 01:27+0000\n"
-"PO-Revision-Date: 2026-06-22 13:31+0200\n"
-"Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
+"PO-Revision-Date: 2026-09-07 11:11+0200\n"
+"Last-Translator: Ewald Müller <EMuede@netscape.net>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.04.2\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -249,7 +250,7 @@ msgstr "Speichern"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "Diese Spalte in verknüpften Tabellen darstellbar machen"
 
 #: dataoutputwidget.cpp:254
 #, kde-format
@@ -258,6 +259,9 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Warnung! Für Spalten ohne eindeutige Bedingung können wir nicht garantieren, "
+"dass Ziehen- und Ablegen-Aktionen korrekt ausgeführt werden (wenn die Spalte "
+"anstelle des Fremd-Schlüssels angezeigt wird)"
 
 #: dataoutputwidget.cpp:265
 #, kde-format
@@ -410,13 +414,13 @@ msgstr "Verbindungen in Kate-Sitzungen speichern und wiederherstellen"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Modifizieren der Abfragetabellen zum Durchsuchen der Daten ermöglichen"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "Bearbeiten der relationalen Tabellen ermöglichen"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
@@ -428,25 +432,25 @@ msgstr "Experimentell"
 #, kde-format
 msgctxt "@option:check"
 msgid "Allow running queries in non-SQL files"
-msgstr ""
+msgstr "Ausführung der Abfragen in Nicht-SQL-Dateien erlauben"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable auto query selection"
-msgstr ""
+msgstr "Automatische Abfrageauswahl aktivieren"
 
 #: katesqlconfigpage.cpp:41
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "Eine Leerzeile als Anweisungsende behandeln"
 
 #: katesqlconfigpage.cpp:42
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show query selector popup"
-msgstr ""
+msgstr "Das Aufklappfenster für die Abfrageauswahl immer anzeigen"
 
 #: katesqlconfigpage.cpp:44
 #, kde-format
@@ -464,7 +468,7 @@ msgstr "Systemstandard verwenden"
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Auf Systemvoreinstellungen zurücksetzen"
 
 #: katesqlconfigpage.cpp:113
 #, kde-format
@@ -607,7 +611,7 @@ msgstr "SQL-Datenausgabe"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "Tabellen und Ansichten filtern …"
 
 #: schemawidget.cpp:45
 #, kde-format

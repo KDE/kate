@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-09 00:53+0000\n"
-"PO-Revision-Date: 2026-07-11 05:32+0200\n"
+"PO-Revision-Date: 2026-09-09 09:05+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2765,7 +2765,7 @@ msgstr "ვაილდკარდით ფილტრი"
 #: lib/quickopen/katequickopenlineedit.cpp:128
 #, kde-format
 msgid "Match Folder Names"
-msgstr ""
+msgstr "საქაღალდის სახელების დამთხვევა"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format

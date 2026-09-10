@@ -115,17 +115,17 @@ void KateProjectInfoView::initialize()
     /**
      * index
      */
-    addTab(new KateProjectInfoViewIndex(m_pluginView, m_project), i18n("Code Index"));
+    addTab(new KateProjectInfoViewIndex(m_pluginView, m_project), QIcon::fromTheme(QStringLiteral("database-index-symbolic")), i18n("Code Index"));
 
     /**
      * code analysis
      */
-    addTab(new KateProjectInfoViewCodeAnalysis(m_pluginView, m_project), i18n("Code Analysis"));
+    addTab(new KateProjectInfoViewCodeAnalysis(m_pluginView, m_project), QIcon::fromTheme(QStringLiteral("code-class-symbolic")), i18n("Code Analysis"));
 
     /**
      * notes
      */
-    addTab(new KateProjectInfoViewNotes(m_project->notesDocument()), i18n("Notes"));
+    addTab(new KateProjectInfoViewNotes(m_project->notesDocument()), QIcon::fromTheme(QStringLiteral("note-symbolic")), i18n("Notes"));
 }
 
 void KateProjectInfoView::runCmdInTerminal(const QString &cmd)

@@ -1172,6 +1172,7 @@ private:
         Q_ASSERT(m_sepPixmap.isNull());
         const auto dpr = this->devicePixelRatioF();
         m_sepPixmap = QPixmap(8 * dpr, 8 * dpr);
+        m_sepPixmap.setDevicePixelRatio(dpr);
         m_sepPixmap.fill(Qt::transparent);
 
         auto pal = palette();
@@ -1186,7 +1187,6 @@ private:
         o.rect.setRect(0, 0, 8, 8);
         o.palette = pal;
         style()->drawPrimitive(QStyle::PE_IndicatorArrowRight, &o, &p, this);
-        m_sepPixmap.setDevicePixelRatio(dpr);
     }
 
     KateUrlBar *const m_urlBar;

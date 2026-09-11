@@ -63,7 +63,7 @@ msgstr "Identifiant de clé"
 #, kde-format
 msgid "A search string used to filter keys by available email addresses"
 msgstr ""
-"Une chaîne de recherche utilisée pour filtrer les clés par adresses de "
+"Une chaine de recherche utilisée pour filtrer les clés par adresses de "
 "courriels disponibles"
 
 #: kategpgplugin.cpp:87

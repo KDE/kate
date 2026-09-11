@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-09 00:53+0000\n"
-"PO-Revision-Date: 2026-07-11 13:05+0200\n"
+"PO-Revision-Date: 2026-09-09 10:07+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.04.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -2792,7 +2792,7 @@ msgstr "Filtratge amb comodins"
 #: lib/quickopen/katequickopenlineedit.cpp:128
 #, kde-format
 msgid "Match Folder Names"
-msgstr ""
+msgstr "Coincidència de noms de carpeta"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format

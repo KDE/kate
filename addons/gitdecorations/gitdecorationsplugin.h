@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <QFileSystemWatcher>
 #include <QPointer>
 #include <QProcess>
 
@@ -27,6 +28,9 @@ private:
     void annotateDocument(KTextEditor::Document *document);
     void trackDocument(KTextEditor::Document *document);
     void untrackDocument(KTextEditor::Document *document);
+    void trackRepository(const QString &repoBasePath);
+    void untrackRepository(const QString &repoBasePath);
+    void refreshRepositoryHead(const QString &repoBasePath);
 
 private:
     struct DocumentContext {
@@ -34,6 +38,15 @@ private:
         QPointer<QProcess> process;
     };
 
+    struct RepositoryContext {
+        QString head;
+        QPointer<QProcess> headProcess;
+        QString repoBasePath;
+        QFileSystemWatcher watcher;
+        QTimer watcherTimer;
+    };
+
+    QHash<QString, QSharedPointer<RepositoryContext>> m_trackedRepositories;
     QHash<KTextEditor::Document *, DocumentContext> m_trackedDocuments;
 };
 

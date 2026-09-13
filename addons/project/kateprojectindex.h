@@ -14,6 +14,8 @@
 #include <QStringList>
 #include <QTemporaryFile>
 
+#include <stop_token>
+
 /**
  * ctags reading
  */
@@ -67,6 +69,13 @@ public:
      */
     void findMatches(QStandardItemModel &model, const QString &searchWord, MatchType type, int options = -1);
 
+    std::stop_source findMatchesAsync(const QObject *context,
+                                      std::function<void(QStandardItemModel &&)> cb,
+                                      const QString &searchWord,
+                                      MatchType type,
+                                      bool automatic,
+                                      int options = -1);
+
     /**
      * Check if running ctags was successful. This can be used
      * as indicator whether ctags is installed or not.
@@ -74,7 +83,7 @@ public:
      */
     bool isValid() const
     {
-        return m_ctagsIndexHandle;
+        return m_size > 0;
     }
 
 private:
@@ -98,8 +107,6 @@ private:
 
     qint64 m_size;
 
-    /**
-     * handle to ctags file for querying, if possible
-     */
-    tagFile *m_ctagsIndexHandle;
+    class KateProjectIndexPrivate;
+    std::shared_ptr<KateProjectIndexPrivate> d;
 };

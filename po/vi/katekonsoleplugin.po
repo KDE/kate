@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-09-13 00:48+0000\n"
 "PO-Revision-Date: 2021-09-09 16:20+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 20.12.2\n"
 
-#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:795
+#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:796
 #, kde-format
 msgid "Terminal"
 msgstr "Dòng lệnh"
@@ -40,7 +40,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Chạy tài liệu hiện tại"
 
-#: kateconsole.cpp:177 kateconsole.cpp:579
+#: kateconsole.cpp:177 kateconsole.cpp:580
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
@@ -127,35 +127,35 @@ msgstr "Chạy trong dòng lệnh?"
 msgid "Run"
 msgstr "Chạy"
 
-#: kateconsole.cpp:581
+#: kateconsole.cpp:582
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "Ẩn bảng \"Dòng &lệnh\""
 
-#: kateconsole.cpp:589
+#: kateconsole.cpp:590
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Bỏ nhắm khỏi bảng \"Dòng lệnh\""
 
-#: kateconsole.cpp:590 kateconsole.cpp:591
+#: kateconsole.cpp:591 kateconsole.cpp:592
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Nhắm vào bảng \"Dòng lệnh\""
 
-#: kateconsole.cpp:703
+#: kateconsole.cpp:704
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr ""
 
-#: kateconsole.cpp:706
+#: kateconsole.cpp:707
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "S&ynchronize Terminal with Current Document"
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "Đồng &bộ hoá dòng lệnh với tài liệu hiện tại"
 
-#: kateconsole.cpp:709
+#: kateconsole.cpp:710
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -165,7 +165,7 @@ msgid ""
 "document when possible"
 msgstr "&Tự động đồng bộ hoá dòng lệnh với tài liệu hiện tại khi có thể"
 
-#: kateconsole.cpp:712
+#: kateconsole.cpp:713
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -175,27 +175,27 @@ msgid ""
 "document and switch to it"
 msgstr "&Tự động đồng bộ hoá dòng lệnh với tài liệu hiện tại khi có thể"
 
-#: kateconsole.cpp:719 kateconsole.cpp:740
+#: kateconsole.cpp:720 kateconsole.cpp:741
 #, kde-format
 msgid "Run in terminal"
 msgstr "Chạy trong dòng lệnh"
 
-#: kateconsole.cpp:721
+#: kateconsole.cpp:722
 #, kde-format
 msgid "&Remove extension"
 msgstr "&Xoá phần mở rộng"
 
-#: kateconsole.cpp:726
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Prefix:"
 msgstr "Tiền tố:"
 
-#: kateconsole.cpp:734
+#: kateconsole.cpp:735
 #, kde-format
 msgid "&Show warning next time"
 msgstr "H&iện cảnh báo lần sau"
 
-#: kateconsole.cpp:736
+#: kateconsole.cpp:737
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -204,24 +204,24 @@ msgstr ""
 "Lần tiếp theo '%1' được thực thi, đảm bảo rằng một cửa sổ cảnh báo sẽ bật "
 "lên, hiển thị lệnh sẽ được gửi đến dòng lệnh."
 
-#: kateconsole.cpp:747
+#: kateconsole.cpp:748
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Đặt biến môi trường &EDITOR thành 'kate -b'"
 
-#: kateconsole.cpp:750
+#: kateconsole.cpp:751
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr "Quan trọng: Tài liệu phải được đóng để trình dòng lệnh tiếp tục"
 
-#: kateconsole.cpp:753
+#: kateconsole.cpp:754
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Ẩn Konsole khi nhấn 'Esc'"
 
-#: kateconsole.cpp:756
+#: kateconsole.cpp:757
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -231,7 +231,7 @@ msgstr ""
 "vim. Thêm các ứng dụng như vậy vào ô bên dưới (danh sách phân cách bởi dấu "
 "phẩy)"
 
-#: kateconsole.cpp:800
+#: kateconsole.cpp:801
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Thiết lập dòng lệnh"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-09-13 00:48+0000\n"
 "PO-Revision-Date: 2012-01-28 12:09+0200\n"
 "Last-Translator: Liudas Ališauskas <liudas@akmc.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
 "X-Generator: Lokalize 1.4\n"
 
-#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:795
+#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:796
 #, kde-format
 msgid "Terminal"
 msgstr "Terminalas"
@@ -42,7 +42,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr ""
 
-#: kateconsole.cpp:177 kateconsole.cpp:579
+#: kateconsole.cpp:177 kateconsole.cpp:580
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "&Focus Terminal"
@@ -135,7 +135,7 @@ msgstr "Nukreipti į konsolę?"
 msgid "Run"
 msgstr ""
 
-#: kateconsole.cpp:581
+#: kateconsole.cpp:582
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "&Pipe to Terminal"
@@ -143,31 +143,31 @@ msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "&Nukreipti į konsolę"
 
-#: kateconsole.cpp:589
+#: kateconsole.cpp:590
 #, fuzzy, kde-format
 #| msgid "Defocus Terminal"
 msgid "Defocus Terminal Panel"
 msgstr "Palikti Terminalą"
 
-#: kateconsole.cpp:590 kateconsole.cpp:591
+#: kateconsole.cpp:591 kateconsole.cpp:592
 #, fuzzy, kde-format
 #| msgid "Focus Terminal"
 msgid "Focus Terminal Panel"
 msgstr "Pereiti į Terminalą"
 
-#: kateconsole.cpp:703
+#: kateconsole.cpp:704
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr ""
 
-#: kateconsole.cpp:706
+#: kateconsole.cpp:707
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "S&ynchronize Terminal with Current Document"
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "Sinchronizuoti Terminalą su dabartiniu dokumentu"
 
-#: kateconsole.cpp:709
+#: kateconsole.cpp:710
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -179,7 +179,7 @@ msgstr ""
 "&Automatiškai sinchronizuoti Terminalą su dabartiniu dokumentu kaip tik "
 "galima"
 
-#: kateconsole.cpp:712
+#: kateconsole.cpp:713
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -191,40 +191,40 @@ msgstr ""
 "&Automatiškai sinchronizuoti Terminalą su dabartiniu dokumentu kaip tik "
 "galima"
 
-#: kateconsole.cpp:719 kateconsole.cpp:740
+#: kateconsole.cpp:720 kateconsole.cpp:741
 #, fuzzy, kde-format
 #| msgid "Pipe to Terminal"
 msgid "Run in terminal"
 msgstr "Nukreipti į konsolę"
 
-#: kateconsole.cpp:721
+#: kateconsole.cpp:722
 #, kde-format
 msgid "&Remove extension"
 msgstr ""
 
-#: kateconsole.cpp:726
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Prefix:"
 msgstr ""
 
-#: kateconsole.cpp:734
+#: kateconsole.cpp:735
 #, kde-format
 msgid "&Show warning next time"
 msgstr ""
 
-#: kateconsole.cpp:736
+#: kateconsole.cpp:737
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
 
-#: kateconsole.cpp:747
+#: kateconsole.cpp:748
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Nustatyti &REDAKTORIAUS aplinkos kintamąjį į „kate-b“"
 
-#: kateconsole.cpp:750
+#: kateconsole.cpp:751
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -232,19 +232,19 @@ msgid ""
 msgstr ""
 "Svarbu: Dokumentą reikia uždaryti, kad būtų galima tęsti su konsolės programa"
 
-#: kateconsole.cpp:753
+#: kateconsole.cpp:754
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr ""
 
-#: kateconsole.cpp:756
+#: kateconsole.cpp:757
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
 
-#: kateconsole.cpp:800
+#: kateconsole.cpp:801
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Terminalo nuostatos"

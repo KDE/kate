@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-09-13 00:48+0000\n"
 "PO-Revision-Date: 2024-04-28 16:24+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 24.02.2\n"
 
-#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:795
+#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:796
 #, kde-format
 msgid "Terminal"
 msgstr "முனையம்"
@@ -40,7 +40,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr "தற்போதைய ஆவணத்தை இயக்கு"
 
-#: kateconsole.cpp:177 kateconsole.cpp:579
+#: kateconsole.cpp:177 kateconsole.cpp:580
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
@@ -123,67 +123,67 @@ msgstr "முனையத்தில் இயக்கலாமா?"
 msgid "Run"
 msgstr "இயக்கு"
 
-#: kateconsole.cpp:581
+#: kateconsole.cpp:582
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "முனையப்பலகையை ம&றை"
 
-#: kateconsole.cpp:589
+#: kateconsole.cpp:590
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "முனையப் பலகையிலிருந்து குவியத்தை எடு"
 
-#: kateconsole.cpp:590 kateconsole.cpp:591
+#: kateconsole.cpp:591 kateconsole.cpp:592
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "முனையப் பலகையில் குவியத்தை வை"
 
-#: kateconsole.cpp:703
+#: kateconsole.cpp:704
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr "முனைய ஒத்திசைவு முறை"
 
-#: kateconsole.cpp:706
+#: kateconsole.cpp:707
 #, kde-format
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "&தற்போதைய ஆவணத்துடன் முனையக்கீற்றை ஒத்திசையச்செய்யாதே"
 
-#: kateconsole.cpp:709
+#: kateconsole.cpp:710
 #, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
 msgstr "&முடிந்தால் தற்போதைய முனையக்கீற்றை தற்போதைய ஆவணத்துடன் ஒத்திசையச்செய்"
 
-#: kateconsole.cpp:712
+#: kateconsole.cpp:713
 #, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr "தற்போதைய &ஆவணத்தின் அடைவிற்கு ஓர் புதிய முனையக்கீற்றை உருவாக்கி அதற்கு தாவு"
 
-#: kateconsole.cpp:719 kateconsole.cpp:740
+#: kateconsole.cpp:720 kateconsole.cpp:741
 #, kde-format
 msgid "Run in terminal"
 msgstr "முனையத்தில் இயக்கு"
 
-#: kateconsole.cpp:721
+#: kateconsole.cpp:722
 #, kde-format
 msgid "&Remove extension"
 msgstr "&வகைப்பெயரை நீக்கு"
 
-#: kateconsole.cpp:726
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Prefix:"
 msgstr "முன்னொட்டு:"
 
-#: kateconsole.cpp:734
+#: kateconsole.cpp:735
 #, kde-format
 msgid "&Show warning next time"
 msgstr "&அடுத்த முறையும் எச்சரி"
 
-#: kateconsole.cpp:736
+#: kateconsole.cpp:737
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -192,24 +192,24 @@ msgstr ""
 "அடுத்த முறை '%1' இயக்கப்படும்போதும், முனையத்துக்கு அனுப்பப்படவுள்ள கட்டளையைக் காட்டும் "
 "எச்சரிக்கைச் சாளரம் காட்டப்படும்."
 
-#: kateconsole.cpp:747
+#: kateconsole.cpp:748
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "EDITOR சூழ்மாறியை 'kate -b' என்று அமை"
 
-#: kateconsole.cpp:750
+#: kateconsole.cpp:751
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr "முக்கியமானது: ஆவணத்தை மூடிய பின்னே முனைய நிரல் தொடரும்"
 
-#: kateconsole.cpp:753
+#: kateconsole.cpp:754
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "'Esc' விசையை அழுத்தும்போது முனையத்தை மறை"
 
-#: kateconsole.cpp:756
+#: kateconsole.cpp:757
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -219,7 +219,7 @@ msgstr ""
 "பின்வரும் உரைப்பெட்டியில் காற்புள்ளிகளால் பிரிக்கப்பட்டுள்ள பட்டியலாக அப்படிப்பட்ட நிரல்களின் "
 "பெயர்களை உள்ளிடுங்கள்."
 
-#: kateconsole.cpp:800
+#: kateconsole.cpp:801
 #, kde-format
 msgid "Terminal Settings"
 msgstr "முனைய அமைப்புகள்"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-09-13 00:48+0000\n"
 "PO-Revision-Date: 2026-02-23 17:41+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@nuug.no>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
-#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:795
+#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:796
 #, kde-format
 msgid "Terminal"
 msgstr "Terminal"
@@ -43,7 +43,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Kjør gjeldende dokument"
 
-#: kateconsole.cpp:177 kateconsole.cpp:579
+#: kateconsole.cpp:177 kateconsole.cpp:580
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
@@ -128,33 +128,33 @@ msgstr "Kjøre i terminal?"
 msgid "Run"
 msgstr "Kjør"
 
-#: kateconsole.cpp:581
+#: kateconsole.cpp:582
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "&Gjem terminalpanelet"
 
-#: kateconsole.cpp:589
+#: kateconsole.cpp:590
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Ta fokus vekk fra terminalpanelet"
 
-#: kateconsole.cpp:590 kateconsole.cpp:591
+#: kateconsole.cpp:591 kateconsole.cpp:592
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Fokuser på terminalpanelet"
 
-#: kateconsole.cpp:703
+#: kateconsole.cpp:704
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr "Modus for terminalsynkronisering"
 
-#: kateconsole.cpp:706
+#: kateconsole.cpp:707
 #, kde-format
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "&Ikke synkroniser terminalfanen med gjeldende dokument"
 
-#: kateconsole.cpp:709
+#: kateconsole.cpp:710
 #, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
@@ -163,7 +163,7 @@ msgstr ""
 "Synkroniser &automatisk den gjeldende terminalfanen med gjeldende dokument "
 "når mulig"
 
-#: kateconsole.cpp:712
+#: kateconsole.cpp:713
 #, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
@@ -172,27 +172,27 @@ msgstr ""
 "Opprett en terminalfane &automatisk for mappa til det gjeldende dokumentet "
 "og bytt til den"
 
-#: kateconsole.cpp:719 kateconsole.cpp:740
+#: kateconsole.cpp:720 kateconsole.cpp:741
 #, kde-format
 msgid "Run in terminal"
 msgstr "Kjør i terminal"
 
-#: kateconsole.cpp:721
+#: kateconsole.cpp:722
 #, kde-format
 msgid "&Remove extension"
 msgstr "Fje&rn etternavn"
 
-#: kateconsole.cpp:726
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Prefix:"
 msgstr "Prefiks:"
 
-#: kateconsole.cpp:734
+#: kateconsole.cpp:735
 #, kde-format
 msgid "&Show warning next time"
 msgstr "Vi&s advarsel neste gang"
 
-#: kateconsole.cpp:736
+#: kateconsole.cpp:737
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -201,12 +201,12 @@ msgstr ""
 "Sikre at en advarsel spretter opp, som viser kommandoen som er i ferd med å "
 "sendes til terminalen slik at den kan kontrolleres før «%1» kjøres."
 
-#: kateconsole.cpp:747
+#: kateconsole.cpp:748
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Sett miljøvariabelen &EDITOR til «kate -b»"
 
-#: kateconsole.cpp:750
+#: kateconsole.cpp:751
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -214,12 +214,12 @@ msgid ""
 msgstr ""
 "Viktig: Dokumentet må være lukket for at konsollprogrammet skal fortsette"
 
-#: kateconsole.cpp:753
+#: kateconsole.cpp:754
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Gjem Konsole ved å trykke på «Escape»"
 
-#: kateconsole.cpp:756
+#: kateconsole.cpp:757
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -229,7 +229,7 @@ msgstr ""
 "f.eks. Vim. Legg til disse programmene nedenfor (skill programnavnene med "
 "komma)"
 
-#: kateconsole.cpp:800
+#: kateconsole.cpp:801
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Terminalinnstillinger"

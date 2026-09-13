@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-09-13 00:48+0000\n"
 "PO-Revision-Date: 2021-06-14 10:01+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 20.04.2\n"
 
-#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:795
+#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:796
 #, kde-format
 msgid "Terminal"
 msgstr "Τερματικό"
@@ -45,7 +45,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Εκτέλεση τρέχοντος εγγράφου"
 
-#: kateconsole.cpp:177 kateconsole.cpp:579
+#: kateconsole.cpp:177 kateconsole.cpp:580
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
@@ -132,35 +132,35 @@ msgstr "Να εκτελεστεί στο τερματικό;"
 msgid "Run"
 msgstr "Εκτέλεση"
 
-#: kateconsole.cpp:581
+#: kateconsole.cpp:582
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "&Απόκρυψη πίνακα τερματικού"
 
-#: kateconsole.cpp:589
+#: kateconsole.cpp:590
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Απομάκρυνση από τον πίνακα τερματικού"
 
-#: kateconsole.cpp:590 kateconsole.cpp:591
+#: kateconsole.cpp:591 kateconsole.cpp:592
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Εστίαση στον πίνακα τερματικού"
 
-#: kateconsole.cpp:703
+#: kateconsole.cpp:704
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr ""
 
-#: kateconsole.cpp:706
+#: kateconsole.cpp:707
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "S&ynchronize Terminal with Current Document"
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "Σ&υγχρονισμός τερματικού με το τρέχον έγγραφο"
 
-#: kateconsole.cpp:709
+#: kateconsole.cpp:710
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -172,7 +172,7 @@ msgstr ""
 "&Αυτόματος συγχρονισμός του τερματικού με το τρέχον έγγραφο όταν αυτό είναι "
 "δυνατό"
 
-#: kateconsole.cpp:712
+#: kateconsole.cpp:713
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -184,27 +184,27 @@ msgstr ""
 "&Αυτόματος συγχρονισμός του τερματικού με το τρέχον έγγραφο όταν αυτό είναι "
 "δυνατό"
 
-#: kateconsole.cpp:719 kateconsole.cpp:740
+#: kateconsole.cpp:720 kateconsole.cpp:741
 #, kde-format
 msgid "Run in terminal"
 msgstr "Εκτέλεση στο τερματικό"
 
-#: kateconsole.cpp:721
+#: kateconsole.cpp:722
 #, kde-format
 msgid "&Remove extension"
 msgstr "&Αφαίρεση επέκτασης"
 
-#: kateconsole.cpp:726
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Prefix:"
 msgstr "Πρόθεμα:"
 
-#: kateconsole.cpp:734
+#: kateconsole.cpp:735
 #, kde-format
 msgid "&Show warning next time"
 msgstr "&Να εμφανιστεί προειδοποίηση την επόμενη φορά"
 
-#: kateconsole.cpp:736
+#: kateconsole.cpp:737
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -214,12 +214,12 @@ msgstr ""
 "προειδοποίησης θα εμφανιστεί με την εντολή που θα σταλεί στο τερματικό, για "
 "επισκόπηση."
 
-#: kateconsole.cpp:747
+#: kateconsole.cpp:748
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Ορισμός της μεταβλητής περιβάλλοντος &EDITOR στο 'kate -b'"
 
-#: kateconsole.cpp:750
+#: kateconsole.cpp:751
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -228,12 +228,12 @@ msgstr ""
 "Σημαντικό: Το έγγραφο πρέπει να κλείσει για να συνεχιστεί η εφαρμογή της "
 "κονσόλας"
 
-#: kateconsole.cpp:753
+#: kateconsole.cpp:754
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Απόκρυψη κονσόλας με το πάτημα του 'Esc'"
 
-#: kateconsole.cpp:756
+#: kateconsole.cpp:757
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -243,7 +243,7 @@ msgstr ""
 "χρησιμοποιούν το πλήκτρο Esc, π.χ. το vim. Προσθέστε αυτές τις εφαρμογές "
 "στην παρακάτω είσοδο δεδομένων (λίστα με διαχωριστικό το κόμμα)"
 
-#: kateconsole.cpp:800
+#: kateconsole.cpp:801
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Ρυθμίσεις τερματικού"

@@ -803,9 +803,14 @@ QString KateBuildView::parseWorkDir(QString dir) const
 {
     // When adding new placeholders, also update the tooltip in TargetHtmlDelegate::createEditor()
     if (m_projectPluginView) {
-        const QFileInfo baseDir(m_projectPluginView->property("projectBaseDir").toString());
+        auto projectDir = m_projectPluginView->property("projectBaseDir").toString();
+        while (projectDir.endsWith(QLatin1Char('/'))) {
+            projectDir.chop(1);
+        }
+        const QFileInfo baseDir(projectDir);
         dir.replace(QStringLiteral("%B"), baseDir.absoluteFilePath());
-        dir.replace(QStringLiteral("%b"), baseDir.baseName());
+        // baseName() is sensitive to a . in directory name, and a partial name is neither intended nor useful here
+        dir.replace(QStringLiteral("%b"), baseDir.fileName());
     }
     return dir;
 }

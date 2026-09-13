@@ -33,12 +33,6 @@ KateProjectCompletion::KateProjectCompletion(KateProjectPlugin *plugin)
 
 KateProjectCompletion::~KateProjectCompletion() = default;
 
-void KateProjectCompletion::saveMatches(KTextEditor::View *view, const KTextEditor::Range &range)
-{
-    m_matches.clear();
-    allMatches(m_matches, view, range);
-}
-
 QVariant KateProjectCompletion::data(const QModelIndex &index, int role) const
 {
     if (role == InheritanceDepth) {
@@ -153,27 +147,19 @@ void KateProjectCompletion::completionInvoked(KTextEditor::View *view, const KTe
     /**
      * auto invoke...
      */
-    m_automatic = false;
-    if (it == AutomaticInvocation) {
-        m_automatic = true;
-
-        if (range.columnWidth() >= minimalCompletionLength(view)) {
-            saveMatches(view, range);
-        } else {
-            m_matches.clear();
-        }
-
-        // done here...
+    m_automatic = it == AutomaticInvocation;
+    // consider auto-invoke settings
+    if (m_automatic && range.columnWidth() < minimalCompletionLength(view)) {
         return;
     }
-
-    // normal case ;)
-    saveMatches(view, range);
+    // otherwise always proceed
+    m_matches.clear();
+    allMatches(view, range);
 }
 
 // Scan throughout the entire document for possible completions,
 // ignoring any dublets
-void KateProjectCompletion::allMatches(QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range) const
+void KateProjectCompletion::allMatches(KTextEditor::View *view, const KTextEditor::Range &range)
 {
     /**
      * get project scope for this document, else fail
@@ -193,7 +179,7 @@ void KateProjectCompletion::allMatches(QStandardItemModel &model, KTextEditor::V
      */
     for (const auto project : std::as_const(projects)) {
         if (project->projectIndex()) {
-            project->projectIndex()->findMatches(model, view->document()->text(range), KateProjectIndex::CompletionMatches);
+            project->projectIndex()->findMatches(m_matches, view->document()->text(range), KateProjectIndex::CompletionMatches);
         }
     }
 }

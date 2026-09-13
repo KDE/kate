@@ -21,7 +21,7 @@
 #include <KXMLGUIFactory>
 
 K_PLUGIN_FACTORY_WITH_JSON(GitDecorationsPluginFactory, "gitdecorationsplugin.json", registerPlugin<GitDecorationsPlugin>();)
-Q_LOGGING_CATEGORY(gitDecorationsLog, "git-decorations", QtWarningMsg)
+Q_LOGGING_CATEGORY(gitDecorationsLog, "gitdecorations", QtWarningMsg)
 
 GitDecorationsPlugin::GitDecorationsPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
@@ -36,6 +36,43 @@ void GitDecorationsPlugin::registerDocument(KTextEditor::Document *document)
 
     connect(document, &KTextEditor::Document::documentUrlChanged, this, &GitDecorationsPlugin::trackDocument);
     connect(document, &KTextEditor::Document::aboutToClose, this, &GitDecorationsPlugin::untrackDocument);
+}
+
+void GitDecorationsPlugin::invalidateAnnotations(KTextEditor::Document *document)
+{
+    if (!document) {
+        return;
+    }
+
+    const auto it = m_trackedDocuments.find(document);
+    if (it == m_trackedDocuments.end()) {
+        return;
+    }
+
+    it->annotationNeedsUpdate = true;
+    refreshAnnotations(document);
+}
+
+void GitDecorationsPlugin::refreshAnnotations(KTextEditor::Document *document, KTextEditor::View *view)
+{
+    const auto it = m_trackedDocuments.find(document);
+    if (it == m_trackedDocuments.end()) {
+        return;
+    }
+
+    if (!it->annotationNeedsUpdate || it->process) {
+        return;
+    }
+
+    const bool hasViewToAnnotate = view != nullptr || std::any_of(document->views().cbegin(), document->views().cend(), [](KTextEditor::View *view) {
+                                       return view->isVisible();
+                                   });
+
+    if (!hasViewToAnnotate) {
+        return;
+    }
+
+    annotateDocument(document);
 }
 
 void GitDecorationsPlugin::trackDocument(KTextEditor::Document *document)
@@ -56,10 +93,10 @@ void GitDecorationsPlugin::trackDocument(KTextEditor::Document *document)
 
     if (repoBasePath) {
         trackRepository(*repoBasePath);
-        m_trackedDocuments.insert(document, DocumentContext{.repoBasePath = *repoBasePath, .process = nullptr});
-        connect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::annotateDocument);
-        connect(document, &KTextEditor::Document::modifiedOnDisk, this, &GitDecorationsPlugin::annotateDocument);
-        annotateDocument(document);
+        m_trackedDocuments.insert(document, DocumentContext{.repoBasePath = *repoBasePath, .process = nullptr, .annotationNeedsUpdate = true});
+        connect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::invalidateAnnotations);
+        connect(document, &KTextEditor::Document::modifiedOnDisk, this, &GitDecorationsPlugin::invalidateAnnotations);
+        refreshAnnotations(document);
     }
 }
 
@@ -105,16 +142,19 @@ void GitDecorationsPlugin::trackRepository(const QString &repoBasePath)
 
     QString gitPath = QDir(repoBasePath).filePath(QStringLiteral(".git"));
     if (!repoContext->watcher.addPath(gitPath)) {
-        qCWarning(gitDecorationsLog()) << "Cannot add path to watcher: " << gitPath;
+        qCWarning(gitDecorationsLog) << "Cannot add path to watcher: " << gitPath;
         return;
     }
 
-    connect(&repoContext->watcher, &QFileSystemWatcher::directoryChanged, this, [repoContext]() {
-        repoContext->watcherTimer.start();
+    connect(&repoContext->watcher, &QFileSystemWatcher::directoryChanged, this, [this, repoBasePath]() {
+        const auto it = m_trackedRepositories.constFind(repoBasePath);
+        if (it != m_trackedRepositories.cend()) {
+            it.value()->watcherTimer.start();
+        }
     });
 
-    connect(&repoContext->watcherTimer, &QTimer::timeout, this, [this, repoContext]() {
-        refreshRepositoryHead(repoContext->repoBasePath);
+    connect(&repoContext->watcherTimer, &QTimer::timeout, this, [this, repoBasePath]() {
+        refreshRepositoryHead(repoBasePath);
     });
 
     m_trackedRepositories.insert(repoBasePath, repoContext);
@@ -182,7 +222,7 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
             if (!isFirstRun) {
                 for (auto it = m_trackedDocuments.cbegin(); it != m_trackedDocuments.cend(); ++it) {
                     if (it.value().repoBasePath == context->repoBasePath) {
-                        annotateDocument(it.key()); // TODO: Mark as dirty and annotate on view changed
+                        invalidateAnnotations(it.key());
                     }
                 }
             }
@@ -191,6 +231,7 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
         process->deleteLater();
     });
 
+    qCDebug(gitDecorationsLog) << "Starting git rev-parse HEAD process for: " << repoBasePath;
     process->start();
 }
 
@@ -229,7 +270,7 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
             return;
         }
 
-        const auto it = m_trackedDocuments.constFind(targetDocument);
+        const auto it = m_trackedDocuments.find(targetDocument);
         if (it == m_trackedDocuments.cend() || it->process != process) {
             process->deleteLater();
             return;
@@ -241,6 +282,7 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
         auto *model = new GitAnnotationModel(targetDocument);
         model->setDiff(diff);
 
+        it->annotationNeedsUpdate = false;
         targetDocument->setAnnotationModel(model);
         for (auto view : targetDocument->views()) {
             annotateView(view);
@@ -249,6 +291,7 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
         process->deleteLater();
     });
 
+    qCDebug(gitDecorationsLog) << "Starting git diff HEAD process for: " << document->url().toLocalFile();
     process->start();
 }
 
@@ -263,7 +306,8 @@ void GitDecorationsPlugin::annotateView(KTextEditor::View *view)
         return;
     }
 
-    if (dynamic_cast<GitAnnotationModel *>(view->document()->annotationModel())) {
+    if (m_trackedDocuments.contains(view->document())) {
+        refreshAnnotations(view->document(), view);
         view->setAnnotationBorderVisible(true);
         if (!dynamic_cast<GitAnnotationDelegate *>(view->annotationItemDelegate())) {
             view->setAnnotationItemDelegate(new GitAnnotationDelegate(view));
@@ -273,7 +317,6 @@ void GitDecorationsPlugin::annotateView(KTextEditor::View *view)
 
 GitDecorationsPluginView::GitDecorationsPluginView(GitDecorationsPlugin *plugin, KTextEditor::MainWindow *mainwindow)
     : KXMLGUIClient()
-    , m_mainWindow(mainwindow)
 {
     connect(mainwindow, &KTextEditor::MainWindow::viewChanged, plugin, &GitDecorationsPlugin::annotateView);
 }

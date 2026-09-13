@@ -6,8 +6,12 @@
 #pragma once
 
 #include <QFileSystemWatcher>
+#include <QHash>
 #include <QPointer>
 #include <QProcess>
+#include <QSharedPointer>
+#include <QString>
+#include <QTimer>
 
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
@@ -28,6 +32,8 @@ private:
     void annotateDocument(KTextEditor::Document *document);
     void trackDocument(KTextEditor::Document *document);
     void untrackDocument(KTextEditor::Document *document);
+    void invalidateAnnotations(KTextEditor::Document *document);
+    void refreshAnnotations(KTextEditor::Document *document, KTextEditor::View *view = nullptr);
     void trackRepository(const QString &repoBasePath);
     void untrackRepository(const QString &repoBasePath);
     void refreshRepositoryHead(const QString &repoBasePath);
@@ -36,6 +42,7 @@ private:
     struct DocumentContext {
         QString repoBasePath;
         QPointer<QProcess> process;
+        bool annotationNeedsUpdate;
     };
 
     struct RepositoryContext {
@@ -53,9 +60,7 @@ private:
 class GitDecorationsPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
+
 public:
     explicit GitDecorationsPluginView(GitDecorationsPlugin *plugin, KTextEditor::MainWindow *mainwindow);
-
-private:
-    KTextEditor::MainWindow *m_mainWindow = nullptr;
 };

@@ -96,6 +96,8 @@ private:
      */
     std::unique_ptr<QFile> m_ctagsIndexFile;
 
+    qint64 m_size;
+
     /**
      * handle to ctags file for querying, if possible
      */

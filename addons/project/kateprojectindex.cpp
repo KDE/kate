@@ -133,7 +133,7 @@ void KateProjectIndex::openCtags()
     /**
      * get size
      */
-    qint64 size = m_ctagsIndexFile->size();
+    qint64 size = m_size = m_ctagsIndexFile->size();
 
     /**
      * close again
@@ -169,6 +169,11 @@ void KateProjectIndex::findMatches(QStandardItemModel &model, const QString &sea
      * abort if no ctags index
      */
     if (!m_ctagsIndexHandle) {
+        return;
+    }
+
+    /* avoid tying down mainloop in expensive lookup */
+    if (m_size > 50 * 1024 * 1024 && type == CompletionMatches) {
         return;
     }
 

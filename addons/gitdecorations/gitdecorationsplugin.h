@@ -22,6 +22,7 @@
 class GitDecorationsPlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
+
 public:
     explicit GitDecorationsPlugin(QObject *parent);
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

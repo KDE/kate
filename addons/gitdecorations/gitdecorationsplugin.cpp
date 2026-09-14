@@ -113,8 +113,8 @@ void GitDecorationsPlugin::untrackDocument(KTextEditor::Document *document)
 
     auto context = it.value();
     m_trackedDocuments.erase(it);
-    disconnect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::annotateDocument);
-    disconnect(document, &KTextEditor::Document::modifiedOnDisk, this, &GitDecorationsPlugin::annotateDocument);
+    disconnect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::invalidateAnnotations);
+    disconnect(document, &KTextEditor::Document::modifiedOnDisk, this, &GitDecorationsPlugin::invalidateAnnotations);
     if (context.process && context.process->state() != QProcess::NotRunning) {
         context.process->kill();
     }

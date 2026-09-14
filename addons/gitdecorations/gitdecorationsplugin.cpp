@@ -26,7 +26,7 @@ Q_LOGGING_CATEGORY(gitDecorationsLog, "gitdecorations", QtWarningMsg)
 GitDecorationsPlugin::GitDecorationsPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
-    auto app = KTextEditor::Editor::instance()->application();
+    const auto app = KTextEditor::Editor::instance()->application();
     connect(app, &KTextEditor::Application::documentCreated, this, &GitDecorationsPlugin::registerDocument);
 }
 
@@ -60,7 +60,7 @@ void GitDecorationsPlugin::refreshAnnotations(KTextEditor::Document *document, K
         return;
     }
 
-    if (!it->annotationNeedsUpdate || it->process) {
+    if (!it->annotationNeedsUpdate || it->diffProcess) {
         return;
     }
 
@@ -93,7 +93,7 @@ void GitDecorationsPlugin::trackDocument(KTextEditor::Document *document)
 
     if (repoBasePath) {
         trackRepository(*repoBasePath);
-        m_trackedDocuments.insert(document, DocumentContext{.repoBasePath = *repoBasePath, .process = nullptr, .annotationNeedsUpdate = true});
+        m_trackedDocuments.insert(document, DocumentContext{.repoBasePath = *repoBasePath, .diffProcess = nullptr, .annotationNeedsUpdate = true});
         connect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::invalidateAnnotations);
         connect(document, &KTextEditor::Document::modifiedOnDisk, this, &GitDecorationsPlugin::invalidateAnnotations);
         refreshAnnotations(document);
@@ -115,8 +115,8 @@ void GitDecorationsPlugin::untrackDocument(KTextEditor::Document *document)
     m_trackedDocuments.erase(it);
     disconnect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::invalidateAnnotations);
     disconnect(document, &KTextEditor::Document::modifiedOnDisk, this, &GitDecorationsPlugin::invalidateAnnotations);
-    if (context.process && context.process->state() != QProcess::NotRunning) {
-        context.process->kill();
+    if (context.diffProcess && context.diffProcess->state() != QProcess::NotRunning) {
+        context.diffProcess->kill();
     }
 
     QString repoBasePath = context.repoBasePath;
@@ -190,16 +190,16 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
         context->headProcess->kill();
     }
 
-    auto *process = new QProcess(this);
-    if (!setupGitProcess(*process, repoBasePath, {QStringLiteral("rev-parse"), QStringLiteral("HEAD")})) {
-        process->deleteLater();
+    auto *headProcess = new QProcess(this);
+    if (!setupGitProcess(*headProcess, repoBasePath, {QStringLiteral("rev-parse"), QStringLiteral("HEAD")})) {
+        headProcess->deleteLater();
         return;
     }
 
-    context->headProcess = process;
-    connect(process, &QProcess::finished, this, [this, process, repoBasePath](int exitCode, QProcess::ExitStatus exitStatus) {
+    context->headProcess = headProcess;
+    connect(headProcess, &QProcess::finished, this, [this, headProcess, repoBasePath](int exitCode, QProcess::ExitStatus exitStatus) {
         if (exitStatus != QProcess::NormalExit || exitCode != 0) {
-            process->deleteLater();
+            headProcess->deleteLater();
             return;
         }
 
@@ -210,16 +210,16 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
         }
 
         const auto context = it.value();
-        if (context->headProcess != process) {
-            process->deleteLater();
+        if (context->headProcess != headProcess) {
+            headProcess->deleteLater();
             return;
         }
 
-        QString head = QString::fromUtf8(process->readAllStandardOutput());
-        if (!head.isEmpty() && head != context->head) {
-            bool isFirstRun = context->head.isEmpty();
-            context->head = head;
-            if (!isFirstRun) {
+        QString headCommit = QString::fromUtf8(headProcess->readAllStandardOutput());
+        if (!headCommit.isEmpty() && headCommit != context->headCommit) {
+            bool isFirstUpdate = context->headCommit.isEmpty();
+            context->headCommit = headCommit;
+            if (!isFirstUpdate) {
                 for (auto it = m_trackedDocuments.cbegin(); it != m_trackedDocuments.cend(); ++it) {
                     if (it.value().repoBasePath == context->repoBasePath) {
                         invalidateAnnotations(it.key());
@@ -228,11 +228,11 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
             }
         }
 
-        process->deleteLater();
+        headProcess->deleteLater();
     });
 
     qCDebug(gitDecorationsLog) << "Starting git rev-parse HEAD process for: " << repoBasePath;
-    process->start();
+    headProcess->start();
 }
 
 void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
@@ -243,41 +243,41 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
     }
 
     const auto context = it.value();
-    if (context.process && context.process->state() != QProcess::NotRunning) {
-        context.process->kill();
+    if (context.diffProcess && context.diffProcess->state() != QProcess::NotRunning) {
+        context.diffProcess->kill();
     }
 
-    auto *process = new QProcess(document);
+    auto *diffProcess = new QProcess(document);
     const QString relativePath = QDir(context.repoBasePath).relativeFilePath(document->url().toLocalFile());
-    if (!setupGitProcess(*process, context.repoBasePath, {QStringLiteral("diff"), QStringLiteral("HEAD"), QStringLiteral("--"), relativePath})) {
-        process->deleteLater();
+    if (!setupGitProcess(*diffProcess, context.repoBasePath, {QStringLiteral("diff"), QStringLiteral("HEAD"), QStringLiteral("--"), relativePath})) {
+        diffProcess->deleteLater();
         return;
     }
 
-    it->process = process;
+    it->diffProcess = diffProcess;
     QPointer<KTextEditor::Document> targetDocument = document;
     const QUrl targetUrl = document->url();
 
-    connect(process, &QProcess::finished, this, [this, process, targetDocument, targetUrl](int exitCode, QProcess::ExitStatus exitStatus) {
+    connect(diffProcess, &QProcess::finished, this, [this, diffProcess, targetDocument, targetUrl](int exitCode, QProcess::ExitStatus exitStatus) {
         if (exitStatus != QProcess::NormalExit || exitCode != 0) {
-            process->deleteLater();
+            diffProcess->deleteLater();
             return;
         }
 
         // Avoid using stale state
         if (!targetDocument || targetDocument->url() != targetUrl) {
-            process->deleteLater();
+            diffProcess->deleteLater();
             return;
         }
 
         const auto it = m_trackedDocuments.find(targetDocument);
-        if (it == m_trackedDocuments.cend() || it->process != process) {
-            process->deleteLater();
+        if (it == m_trackedDocuments.cend() || it->diffProcess != diffProcess) {
+            diffProcess->deleteLater();
             return;
         }
 
         VcsDiff diff;
-        diff.setDiff(QString::fromUtf8(process->readAllStandardOutput()));
+        diff.setDiff(QString::fromUtf8(diffProcess->readAllStandardOutput()));
 
         auto *model = new GitAnnotationModel(targetDocument);
         model->setDiff(diff);
@@ -288,11 +288,11 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
             annotateView(view);
         }
 
-        process->deleteLater();
+        diffProcess->deleteLater();
     });
 
     qCDebug(gitDecorationsLog) << "Starting git diff HEAD process for: " << document->url().toLocalFile();
-    process->start();
+    diffProcess->start();
 }
 
 QObject *GitDecorationsPlugin::createView(KTextEditor::MainWindow *mainWindow)

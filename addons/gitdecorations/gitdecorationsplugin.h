@@ -42,14 +42,14 @@ private:
 private:
     struct DocumentContext {
         QString repoBasePath;
-        QPointer<QProcess> process;
+        QPointer<QProcess> diffProcess;
         bool annotationNeedsUpdate;
     };
 
     struct RepositoryContext {
-        QString head;
-        QPointer<QProcess> headProcess;
         QString repoBasePath;
+        QString headCommit;
+        QPointer<QProcess> headProcess;
         QFileSystemWatcher watcher;
         QTimer watcherTimer;
     };

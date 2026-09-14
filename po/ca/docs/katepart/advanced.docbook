@@ -78,7 +78,7 @@
 >El component de la línia d'ordres de l'editor</title>
 
 <para
->El component editor de la &kappname; té una línia d'ordres interna, permetent-vos dur a terme diverses accions des d'una &IGU; mínima. La línia d'ordres és una entrada de text a la part inferior de l'àrea d'edició, i per a veure-la només haureu de seleccionar <menuchoice
+>El component editor de la &kappname; té una línia d'ordres interna, que permet dur a terme diverses accions des d'una &IGU; mínima. La línia d'ordres és una entrada de text a la part inferior de l'àrea d'edició, i per a veure-la només haureu de seleccionar <menuchoice
 ><guimenu
 >Visualitza</guimenu
 > <guimenuitem
@@ -109,7 +109,7 @@
 >.</para>
 
 <para
->La línia d'ordres té integrat un historial, de manera que podreu tornar a utilitzar les ordres ja teclejades. Per a navegar a través de l'historial, utilitzeu les tecles &Up; i &Down;. Quan es mostrin les ordres de l'historial, restarà seleccionada la part de l'argument, permetent-vos tornar a escriure-les amb facilitat.</para>
+>La línia d'ordres té integrat un historial, de manera que podreu tornar a utilitzar les ordres ja teclejades. Per a navegar a través de l'historial, utilitzeu les tecles &Up; i &Down;. Quan es mostrin les ordres de l'historial, restarà seleccionada la part de l'argument, cosa que permet tornar a escriure-les amb facilitat.</para>
 
 <sect2 id="advanced-editing-tools-commandline-commands">
 <title

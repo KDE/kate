@@ -1762,7 +1762,7 @@
 ><para
 >Cometes dobles (<userinput
 >"</userinput
->) anteriors per a les properes cometes dobles, incloses les marques de cometes</para
+>) anteriors per a les cometes dobles següents, incloses les marques de cometes</para
 ></entry>
 </row>
 <row
@@ -1776,7 +1776,7 @@
 ><para
 >Cometes dobles (<userinput
 >"</userinput
->) anteriors per a les properes cometes dobles, excloses les marques de cometes</para
+>) anteriors per a les cometes dobles següents, excloses les marques de cometes</para
 ></entry>
 </row>
 <row
@@ -1790,7 +1790,7 @@
 ><para
 >Cometes simples (<userinput
 >'</userinput
->) anteriors per a les properes cometes simples, incloses les marques de cometes</para
+>) anteriors per a les cometes simples següents, incloses les marques de cometes</para
 ></entry>
 </row>
 <row
@@ -1804,7 +1804,7 @@
 ><para
 >Cometes simples (<userinput
 >'</userinput
->) anteriors per a les properes cometes simples, excloses les marques de cometes</para
+>) anteriors per a les cometes simples següents, excloses les marques de cometes</para
 ></entry>
 </row>
 <row

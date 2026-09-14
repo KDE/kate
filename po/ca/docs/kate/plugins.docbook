@@ -2400,7 +2400,7 @@ folder if possible.</para
 <para
 >Si s'obren dos o més fitxers amb el mateix nom (ubicats en diferents carpetes) en el <guimenuitem
 >Mode de llista</guimenuitem
->, el nom del segon prendrà la forma «(2)» i així successivament. El consell d'eina per al fitxer mostrarà el seu nom complet incloent el camí, permetent-vos escollir el que vulgueu.</para
+>, el nom del segon prendrà la forma «(2)» i així successivament. El consell d'eina per al fitxer mostrarà el seu nom complet incloent el camí, cosa que permet escollir el que vulgueu.</para
 > <para
 >Per a mostrar un document en el marc actiu, feu clic al nom del document en la llista.</para>
 
@@ -4570,7 +4570,7 @@ exec myserver
 <para
 >Llavors, què passa com a resultat de l'anterior? Com s'ha esmentat, la part <literal
 >lspclient</literal
-> de l'anterior es fusiona a la configuració global, per tant es troba una secció <literal
+> de l'anterior es fusiona a la configuració global, per tant, es troba una secció <literal
 >exec</literal
 > (per a llenguatges especificats). Es realitza una cerca d'altre objecte (que especifica que coincideix amb <literal
 >hostname</literal
@@ -7549,7 +7549,7 @@ VALUES ("<replaceable
 ><para
 >Cal activar el <link linkend="kate-application-plugin-projects"
 >Connector de projecte</link
-> per a que això funcioni</para
+> perquè això funcioni</para
 ></note>
 
 <screen

@@ -67,7 +67,7 @@
 >La &kappname; compta amb un sistema de ressaltat de sintaxi flexible, configurable i capaç, la distribució estàndard proveeix definicions per a una gran varietat de llenguatges de programació, creació de scripts i de marques. A més podeu proveir les vostres pròpies definicions en simples fitxers &XML;.</para>
 
 <para
->La &kappname; detectarà automàticament les regles de la sintaxi correctes quan obriu un fitxer, basant-se en el tipus &MIME; del fitxer, determinat per la seva extensió, o, si no en té, pel seu contingut. Si l'elecció no és la correcta, podreu establir-la manualment des del menú <menuchoice
+>La &kappname; detectarà automàticament les regles de sintaxi correctes quan obriu un fitxer, basant-se en el tipus &MIME; del fitxer, determinat per la seva extensió, o, si no en té, pel seu contingut. Si l'elecció no és la correcta, podreu establir-la manualment des del menú <menuchoice
 ><guimenu
 >Eines</guimenu
 ><guisubmenu
@@ -97,7 +97,7 @@
 >El sistema de ressaltat de la sintaxi de la &kappname;</title>
 
 <para
->Aquesta secció tractarà sobre el mecanisme de ressaltat de la sintaxi de la &kappname; amb més detall. Recomanem la seva lectura si voleu aprendre sobre seu, o si voleu crear o canviar les definicions de la sintaxi.</para>
+>Aquesta secció tractarà sobre el mecanisme de ressaltat de la sintaxi de la &kappname; amb més detall. Recomanem la seva lectura si voleu aprendre sobre seu, o si voleu crear o canviar les definicions de sintaxi.</para>
 
 <sect3 id="katehighlight-howitworks">
 
@@ -111,7 +111,7 @@
 >Quan escriviu en el document, el text nou és analitzat i marcat al vol, de manera que si suprimiu un caràcter que marca el començament o el final d'un context, l'estil del text adjacent canviarà en conseqüència.</para>
 
 <para
->Les definicions de la sintaxi utilitzades per al sistema de ressaltat de la sintaxi de la &kappname; són fitxers &XML;, que contenen <itemizedlist>
+>Les definicions de sintaxi utilitzades per al sistema de ressaltat de sintaxi de la &kappname; són fitxers &XML;, que contenen <itemizedlist>
 <listitem
 ><para
 >Regles per a detectar el paper del text, organitzades en blocs segons el context</para
@@ -176,7 +176,7 @@
 
 <tip>
 <para
->Tots els estils de definició de la sintaxi utilitzen un dels estils predeterminats. Hi ha poques definicions de la sintaxi que utilitzin més estils dels que hi ha de manera predeterminada, així que, si empreu un format molt sovint, potser val la pena obrir el diàleg de configuració per a veure si alguns conceptes estan emprant el mateix estil. Per exemple, tan sols hi ha un estil predeterminat per a les cadenes, però com el llenguatge de programació Perl utilitza dos tipus de cadena, podeu millorar el ressaltat configurant ambdues de forma lleugerament diferent. Més endavant s'explicaran tots els <link linkend="kate-highlight-default-styles"
+>Tots els estils de definició de la sintaxi utilitzen un dels estils predeterminats. Hi ha poques definicions de sintaxi que utilitzin més estils dels que hi ha de manera predeterminada, així que, si empreu un format molt sovint, potser val la pena obrir el diàleg de configuració per a veure si alguns conceptes estan emprant el mateix estil. Per exemple, tan sols hi ha un estil predeterminat per a les cadenes, però com el llenguatge de programació Perl utilitza dos tipus de cadena, podeu millorar el ressaltat configurant ambdues de forma lleugerament diferent. Més endavant s'explicaran tots els <link linkend="kate-highlight-default-styles"
 >estils predeterminats disponibles</link
 >.</para>
 </tip>
@@ -886,7 +886,7 @@
 <para
 ><userinput
 >regexpr</userinput
-> defineix una expressió regular que es tractarà com una línia buida. De manera predeterminada, les línies buides no contenen cap caràcter, per tant, això afegirà línies buides addicionals, per exemple, si voleu que les línies amb espais també es consideren com a línies buides. No obstant això, en la majoria de les definicions de la sintaxi no caldrà establir aquest atribut.</para>
+> defineix una expressió regular que es tractarà com una línia buida. De manera predeterminada, les línies buides no contenen cap caràcter, per tant, això afegirà línies buides addicionals, per exemple, si voleu que les línies amb espais també es consideren com a línies buides. No obstant això, en la majoria de les definicions de sintaxi no caldrà establir aquest atribut.</para>
 </listitem>
 </varlistentry>
 

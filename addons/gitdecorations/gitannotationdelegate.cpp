@@ -17,45 +17,48 @@
 #include <QHelpEvent>
 #include <QPainter>
 
+namespace
+{
+
+QBrush createHatchBrush(const QColor &color)
+{
+    constexpr int hatchSize = 6;
+    constexpr int hatchWidth = 2;
+    QPixmap hatchPixmap(hatchSize, hatchSize);
+    hatchPixmap.fill(Qt::transparent);
+    QPainter hatchPainter(&hatchPixmap);
+    hatchPainter.setRenderHint(QPainter::Antialiasing, false);
+    QPen pen(color.lighter(170));
+    pen.setWidth(hatchWidth);
+    pen.setCapStyle(Qt::SquareCap);
+    hatchPainter.setPen(pen);
+    hatchPainter.drawLine(0, hatchSize, hatchSize, 0);
+    hatchPainter.drawLine(-hatchSize, hatchSize, 0, 0);
+    hatchPainter.drawLine(hatchSize, hatchSize, 2 * hatchSize, 0);
+    return QBrush(hatchPixmap);
+}
+
+}
+
 GitAnnotationDelegate::GitAnnotationDelegate(KTextEditor::View *parent)
     : KTextEditor::AbstractAnnotationItemDelegate(parent)
     , m_view(parent)
 {
-    auto createHatchBrush = [](QColor color) {
-        constexpr int hatchSize = 6;
-        constexpr int hatchWidth = 2;
-        QPixmap hatchPixmap(hatchSize, hatchSize);
-        hatchPixmap.fill(Qt::transparent);
-        QPainter hatchPainter(&hatchPixmap);
-        hatchPainter.setRenderHint(QPainter::Antialiasing, false);
-        QPen pen(color.lighter(170));
-        pen.setWidth(hatchWidth);
-        pen.setCapStyle(Qt::SquareCap);
-        hatchPainter.setPen(pen);
-        hatchPainter.drawLine(0, hatchSize, hatchSize, 0);
-        hatchPainter.drawLine(-hatchSize, hatchSize, 0, 0);
-        hatchPainter.drawLine(hatchSize, hatchSize, 2 * hatchSize, 0);
-        return QBrush(hatchPixmap);
-    };
-
-    auto initializeColors = [this, createHatchBrush]() {
-        const KColorScheme scheme(QPalette::Active, KColorScheme::View);
-        m_modifiedColor = scheme.foreground(KColorScheme::ActiveText).color();
-        m_modifiedColorOutOfSync = createHatchBrush(m_modifiedColor);
-        m_removedColor = scheme.foreground(KColorScheme::NegativeText).color();
-        m_removedColorOutOfSync = m_removedColor.lighter(150);
-    };
-
     initializeColors();
-    // TODO: Update colors when theme changes
+    m_view->installEventFilter(this);
+}
+
+void GitAnnotationDelegate::initializeColors()
+{
+    const KColorScheme scheme(QPalette::Active, KColorScheme::View);
+    m_modifiedColor = m_view->palette().highlight().color();
+    m_modifiedColorOutOfSync = createHatchBrush(m_modifiedColor);
+    m_removedColor = scheme.foreground(KColorScheme::NegativeText).color();
+    m_removedColorOutOfSync = m_removedColor.lighter(150);
 }
 
 void GitAnnotationDelegate::paint(QPainter *painter, const KTextEditor::StyleOptionAnnotationItem &option, KTextEditor::AnnotationModel *model, int line) const
 {
-    if (!painter || !model) {
-        return;
-    }
-
     const QVariant value = model->data(line, GitAnnotationModel::ChangeRole);
     if (!value.isValid()) {
         return;
@@ -106,4 +109,13 @@ bool GitAnnotationDelegate::helpEvent(QHelpEvent *, KTextEditor::View *, const K
 
 void GitAnnotationDelegate::hideTooltip(KTextEditor::View *)
 {
+}
+
+bool GitAnnotationDelegate::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == m_view && event->type() == QEvent::PaletteChange) {
+        initializeColors();
+    }
+
+    return QObject::eventFilter(watched, event);
 }

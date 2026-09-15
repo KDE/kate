@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:49+0000\n"
-"PO-Revision-Date: 2023-01-31 18:13+0100\n"
-"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
+"PO-Revision-Date: 2026-09-14 20:10+0200\n"
+"Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -127,49 +127,44 @@ msgid "Active branch: %1"
 msgstr "Aktívna vetva: %1"
 
 #: git/gitstatus.cpp:159
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid " ‣ Modified"
-msgstr "Zmenené"
+msgstr " ‣ Zmenené"
 
 #: git/gitstatus.cpp:161
-#, fuzzy, kde-format
-#| msgid "Untracked"
+#, kde-format
 msgid " ‣ Untracked"
-msgstr "Nesledované"
+msgstr " ‣ Nesledované"
 
 #: git/gitstatus.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Rename"
+#, kde-format
 msgid " ‣ Renamed"
-msgstr "Premenovať"
+msgstr " ‣ Premenované"
 
 #: git/gitstatus.cpp:166
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid " ‣ Deleted"
-msgstr "Vymazať"
+msgstr " ‣ Vymazané"
 
 #: git/gitstatus.cpp:169
 #, kde-format
 msgid " ‣ Added"
-msgstr ""
+msgstr " ‣ Pridané"
 
 #: git/gitstatus.cpp:171
 #, kde-format
 msgid " ‣ Copied"
-msgstr ""
+msgstr " ‣ Skopírované"
 
 #: git/gitstatus.cpp:173
 #, kde-format
 msgid " ‣ Ignored"
-msgstr ""
+msgstr " ‣ Ignorované"
 
 #: git/gitstatus.cpp:181
-#, fuzzy, kde-format
-#| msgid "Conflict"
+#, kde-format
 msgid " ‣ Conflicted"
-msgstr "Konflikt"
+msgstr " ‣ V konflikte"
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
@@ -1248,65 +1243,62 @@ msgstr "Zobrazenie úschovne zlyhalo. Chyba: "
 #: tools/clazy.h:25
 #, kde-format
 msgid "Clazy (Qt/C++)"
-msgstr ""
+msgstr "Clazy (Qt/C++)"
 
 #: tools/clazy.h:30
 #, kde-format
 msgid "Clazy is a static analysis tool for Qt/C++ code"
-msgstr ""
+msgstr "Clazy je nástroj na statickú analýzu kódu Qt/C++"
 
 #: tools/clazy.h:71
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'clazy'"
-msgstr "Prosím nainštalujte 'cppcheck'."
+msgstr "Nainštalujte, prosím, „clazy“"
 
 #: tools/clazycurrent.h:24
 #, kde-format
 msgid "Clazy - Current File"
-msgstr ""
+msgstr "Clazy – aktuálny súbor"
 
 #: tools/clazycurrent.h:29
 #, kde-format
 msgid "clang-tidy is a clang-based C++ “linter” tool"
-msgstr ""
+msgstr "clang-tidy je nástroj typu „linter“ pre C++ založený na clangu"
 
 #: tools/clippy.h:27
 #, kde-format
 msgid "Clippy (Rust)"
-msgstr ""
+msgstr "Clippy (Rust)"
 
 #: tools/clippy.h:32
 #, kde-format
 msgid "Clippy is a static analysis tool for Rust code"
-msgstr ""
+msgstr "Clippy je nástroj na statickú analýzu kódu v Ruste"
 
 #: tools/clippy.h:95
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'cargo'"
-msgstr "Prosím nainštalujte 'cppcheck'."
+msgstr "Nainštalujte, prosím, „cargo“"
 
 #: tools/cppcheck.h:26
 #, kde-format
 msgid "Cppcheck (C++)"
-msgstr ""
+msgstr "Cppcheck (C++)"
 
 #: tools/cppcheck.h:31
 #, kde-format
 msgid "Cppcheck is a static analysis tool for C/C++ code"
-msgstr ""
+msgstr "Cppcheck je nástroj na statickú analýzu kódu C/C++"
 
 #: tools/cppcheck.h:64
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'cppcheck'"
-msgstr "Prosím nainštalujte 'cppcheck'."
+msgstr "Nainštalujte, prosím, „cppcheck“"
 
 #: tools/eslint.h:23
 #, kde-format
 msgid "ESLint"
-msgstr ""
+msgstr "ESLint"
 
 #: tools/eslint.h:28
 #, kde-format
@@ -1314,38 +1306,38 @@ msgid ""
 "ESLint is a static analysis tool & style guide enforcer for JavaScript/"
 "Typescript code"
 msgstr ""
+"ESLint je nástroj na statickú analýzu a dodržiavanie štýlu pre kód v "
+"JavaScripte/TypeScripte"
 
 #: tools/eslint.h:67
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'eslint'"
-msgstr "Prosím nainštalujte 'cppcheck'."
+msgstr "Nainštalujte, prosím, „eslint“"
 
 #: tools/flake8.h:26
 #, kde-format
 msgid "Flake8 (Python)"
-msgstr ""
+msgstr "Flake8 (Python)"
 
 #: tools/flake8.h:31
 #, kde-format
 msgid "Flake8: Your Tool For Style Guide Enforcement for Python"
-msgstr ""
+msgstr "Flake8: váš nástroj na dodržiavanie štýlu pre Python"
 
 #: tools/flake8.h:77
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'flake8'"
-msgstr "Prosím nainštalujte 'cppcheck'."
+msgstr "Nainštalujte, prosím, „flake8“"
 
 #: tools/ruff.h:28
 #, kde-format
 msgid "Ruff (Python)"
-msgstr ""
+msgstr "Ruff (Python)"
 
 #: tools/ruff.h:33
 #, kde-format
 msgid "An extremely fast Python linter"
-msgstr ""
+msgstr "Mimoriadne rýchly linter pre Python"
 
 #: tools/ruff.h:64
 #, kde-format
@@ -1353,31 +1345,33 @@ msgid ""
 "Ruff is not installed. Please use your package manager to install it. See "
 "https://docs.astral.sh/ruff/installation/"
 msgstr ""
+"Ruff nie je nainštalovaný. Nainštalujte ho, prosím, správcom balíkov. Pozri "
+"https://docs.astral.sh/ruff/installation/"
 
 #: tools/shellcheck.h:24
 #, kde-format
 msgid "ShellCheck (sh/bash)"
-msgstr ""
+msgstr "ShellCheck (sh/bash)"
 
 #: tools/shellcheck.h:29
 #, kde-format
 msgid "ShellCheck is a static analysis and linting tool for sh/bash scripts"
-msgstr ""
+msgstr "ShellCheck je nástroj na statickú analýzu a kontrolu skriptov sh/bash"
 
 #: tools/shellcheck.h:73
 #, kde-format
 msgid "Please install ShellCheck (see https://www.shellcheck.net)"
-msgstr ""
+msgstr "Nainštalujte, prosím, ShellCheck (pozri https://www.shellcheck.net)"
 
 #: tools/tidy.h:24
 #, kde-format
 msgid "Html Tidy"
-msgstr ""
+msgstr "Html Tidy"
 
 #: tools/tidy.h:29
 #, kde-format
 msgid "Runs html tidy on current file"
-msgstr ""
+msgstr "Spustí html tidy na aktuálnom súbore"
 
 #: tools/tidy.h:64
 #, kde-format
@@ -1385,6 +1379,8 @@ msgid ""
 "Html tidy is not installed. Please use your package manager to install it. "
 "See https://www.html-tidy.org/"
 msgstr ""
+"Html tidy nie je nainštalovaný. Nainštalujte ho, prosím, správcom balíkov. "
+"Pozri https://www.html-tidy.org/"
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

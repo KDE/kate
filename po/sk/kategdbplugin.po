@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:49+0000\n"
-"PO-Revision-Date: 2023-02-07 18:19+0100\n"
-"Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
+"PO-Revision-Date: 2026-09-14 20:10+0200\n"
+"Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -184,7 +184,7 @@ msgstr "Pracovný adresár:"
 #: dap/client.cpp:208
 #, kde-format
 msgid "the incompatible server did not honor the specification"
-msgstr ""
+msgstr "nekompatibilný server nedodržal špecifikáciu"
 
 #: dapbackend.cpp:187
 #, kde-format

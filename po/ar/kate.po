@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-17 02:43+0000\n"
-"PO-Revision-Date: 2026-07-15 19:43+0400\n"
+"PO-Revision-Date: 2026-09-14 19:00+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -218,7 +218,7 @@ msgstr "خبّئ %1"
 #: lib/data/kateui.rc:6
 #, kde-format
 msgid "&File"
-msgstr "&ملفّ"
+msgstr "&ملف"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:31
@@ -230,7 +230,7 @@ msgstr "إجراءات ال&ملف"
 #: lib/data/kateui.rc:45
 #, kde-format
 msgid "&Edit"
-msgstr "ت&حرير"
+msgstr "&حرّر"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:56
@@ -248,13 +248,13 @@ msgstr "ا&ذهب"
 #: lib/data/kateui.rc:75
 #, kde-format
 msgid "&View"
-msgstr "من&ظور"
+msgstr "&عرض"
 
 #. i18n: ectx: Menu (view-split)
 #: lib/data/kateui.rc:77 lib/kateviewspace.cpp:152
 #, kde-format
 msgid "Split View"
-msgstr "اقسم المنظور"
+msgstr "اقسم العرض"
 
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:113 lib/diagnostics/ui.rc:6
@@ -755,7 +755,7 @@ msgstr "مطوّر"
 #: lib/kateapp.cpp:384
 #, kde-format
 msgid "Kåre Särs"
-msgstr "Kåre Särs"
+msgstr "كاري سارس"
 
 #: lib/kateapp.cpp:385
 #, kde-format
@@ -830,7 +830,7 @@ msgstr "مايكل ماكالوم"
 #: lib/kateapp.cpp:395
 #, kde-format
 msgid "Jochen Wilhemly"
-msgstr "Jochen Wilhemly"
+msgstr "يوخين فيلهيلمي"
 
 #: lib/kateapp.cpp:395
 #, kde-format
@@ -910,7 +910,7 @@ msgstr "ضمان الجودة والسّكربتة"
 #: lib/kateapp.cpp:409
 #, kde-format
 msgid "Tyson Tan"
-msgstr "Tyson Tan"
+msgstr "تايسون تان"
 
 #: lib/kateapp.cpp:410
 #, kde-format
@@ -1524,7 +1524,7 @@ msgstr "برا&مج أخرى..."
 #: lib/katemainwindow.cpp:306
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
-msgstr "استخدم هذا الأمر لإظهار أو إخفاء شريط حالة المنظور"
+msgstr "استخدم هذا الأمر لإظهار أو إخفاء شريط حالة العرض"
 
 #: lib/katemainwindow.cpp:312
 #, kde-format
@@ -1883,7 +1883,7 @@ msgstr "هل أغلق كلّ المستندات؟"
 #: lib/katemainwindow.cpp:751
 #, kde-format
 msgid "Close All"
-msgstr "أ&غلق الكلّ"
+msgstr "أ&غلق الكل"
 
 #: lib/katemainwindow.cpp:765
 #, kde-format
@@ -2300,7 +2300,7 @@ msgstr "اقسم &عموديًا"
 #: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Split the currently active view vertically into two views."
-msgstr "اقسم عموديًّا المنظور النشط حاليًّا إلى إثنين."
+msgstr "اقسم عموديًّا العرض النشط حاليًّا إلى إثنين."
 
 #: lib/kateviewmanager.cpp:158
 #, kde-format
@@ -2310,7 +2310,7 @@ msgstr "اقسم أف&قيًّا"
 #: lib/kateviewmanager.cpp:162
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
-msgstr "اقسم أفقيًّا المنظور النشط حاليًّا إلى إثنين."
+msgstr "اقسم أفقيًّا العرض النشط حاليًّا إلى إثنين."
 
 #: lib/kateviewmanager.cpp:166
 #, kde-format
@@ -2323,7 +2323,7 @@ msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
 msgstr ""
-"اقسم عموديًا المنظور النشط حاليًا إلى إثنين، وانقل المستند الحالي النشط إلى "
+"اقسم عموديًا العرض النشط حاليًا إلى إثنين، وانقل المستند الحالي النشط إلى "
 "القسم اليمين."
 
 #: lib/kateviewmanager.cpp:175
@@ -2337,18 +2337,18 @@ msgid ""
 "Split the currently active view horizontally into two views and move the "
 "currently active document to view below."
 msgstr ""
-"اقسم أفقيًا المنظور النشط حاليًا إلى إثنين، وانقل المستند الحالي النشط إلى "
-"القسم الأسفل."
+"اقسم أفقيًا العرض النشط حاليًا إلى إثنين، وانقل المستند الحالي النشط إلى القسم "
+"الأسفل."
 
 #: lib/kateviewmanager.cpp:184
 #, kde-format
 msgid "Cl&ose Current View"
-msgstr "أ&غلق المنظور الحاليّ"
+msgstr "أ&غلق العرض الحاليّ"
 
 #: lib/kateviewmanager.cpp:188
 #, kde-format
 msgid "Close the currently active split view"
-msgstr "أغلق المنظور المقسوم النّشط الحاليّ"
+msgstr "أغلق العرض المقسوم النّشط الحاليّ"
 
 #: lib/kateviewmanager.cpp:192
 #, kde-format
@@ -2378,67 +2378,67 @@ msgstr "بدّل الاتّجاه"
 #: lib/kateviewmanager.cpp:209
 #, kde-format
 msgid "Toggles the orientation of the current split view"
-msgstr "يبدّل اتّجاه المنظور المقسوم الحاليّ"
+msgstr "يبدّل اتّجاه العرض المقسوم الحاليّ"
 
 #: lib/kateviewmanager.cpp:212
 #, kde-format
 msgid "Next Split View"
-msgstr "المنظور المقسوم التّالي"
+msgstr "العرض المقسوم التّالي"
 
 #: lib/kateviewmanager.cpp:217
 #, kde-format
 msgid "Make the next split view the active one."
-msgstr "اجعل المنظور المقسوم التّالي هو النّشط."
+msgstr "اجعل العرض المقسوم التّالي هو النّشط."
 
 #: lib/kateviewmanager.cpp:220
 #, kde-format
 msgid "Previous Split View"
-msgstr "المنظور المقسوم السّابق"
+msgstr "العرض المقسوم السّابق"
 
 #: lib/kateviewmanager.cpp:225
 #, kde-format
 msgid "Make the previous split view the active one."
-msgstr "اجعل المنظور المقسوم السّابق هو النّشط."
+msgstr "اجعل العرض المقسوم السّابق هو النّشط."
 
 #: lib/kateviewmanager.cpp:228
 #, kde-format
 msgid "Left Split View"
-msgstr "المنظور المقسوم اليسار"
+msgstr "العرض المقسوم اليسار"
 
 #: lib/kateviewmanager.cpp:233
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr "اجعل المنظور المقسوم الذي في اليسار حدسًا هو النّشط."
+msgstr "اجعل العرض المقسوم الذي في اليسار حدسًا هو النّشط."
 
 #: lib/kateviewmanager.cpp:236
 #, kde-format
 msgid "Right Split View"
-msgstr "المنظور المقسوم اليمين"
+msgstr "العرض المقسوم اليمين"
 
 #: lib/kateviewmanager.cpp:241
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr "اجعل المنظور المقسوم الذي في اليمين حدسًا هو النّشط."
+msgstr "اجعل العرض المقسوم الذي في اليمين حدسًا هو النّشط."
 
 #: lib/kateviewmanager.cpp:244
 #, kde-format
 msgid "Upward Split View"
-msgstr "المنظور المقسوم الأعلى"
+msgstr "العرض المقسوم الأعلى"
 
 #: lib/kateviewmanager.cpp:249
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr "اجعل المنظور المقسوم الذي في الأعلى حدسًا هو النّشط."
+msgstr "اجعل العرض المقسوم الذي في الأعلى حدسًا هو النّشط."
 
 #: lib/kateviewmanager.cpp:252
 #, kde-format
 msgid "Downward Split View"
-msgstr "المنظور المقسوم الأسفل"
+msgstr "العرض المقسوم الأسفل"
 
 #: lib/kateviewmanager.cpp:257
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr "اجعل المنظور المقسوم الذي في الأسفل حدسًا هو النّشط."
+msgstr "اجعل العرض المقسوم الذي في الأسفل حدسًا هو النّشط."
 
 #: lib/kateviewmanager.cpp:260
 #, kde-format
@@ -2448,7 +2448,7 @@ msgstr "حرّك القاسِم يمينًا"
 #: lib/kateviewmanager.cpp:263
 #, kde-format
 msgid "Move the splitter of the current view to the right"
-msgstr "حرّك قاسم المنظور الحاليّ إلى اليمين"
+msgstr "حرّك قاسم العرض الحاليّ إلى اليمين"
 
 #: lib/kateviewmanager.cpp:266
 #, kde-format
@@ -2458,7 +2458,7 @@ msgstr "حرّك القاسِم يسارًا"
 #: lib/kateviewmanager.cpp:269
 #, kde-format
 msgid "Move the splitter of the current view to the left"
-msgstr "حرّك قاسم المنظور الحاليّ إلى اليسار"
+msgstr "حرّك قاسم العرض الحاليّ إلى اليسار"
 
 #: lib/kateviewmanager.cpp:272
 #, kde-format
@@ -2468,7 +2468,7 @@ msgstr "حرّك القاسِم لأعلى"
 #: lib/kateviewmanager.cpp:275
 #, kde-format
 msgid "Move the splitter of the current view up"
-msgstr "حرّك قاسم المنظور الحاليّ إلى أعلى"
+msgstr "حرّك قاسم العرض الحاليّ إلى أعلى"
 
 #: lib/kateviewmanager.cpp:278
 #, kde-format
@@ -2478,7 +2478,7 @@ msgstr "حرّك القاسِم لأسفل"
 #: lib/kateviewmanager.cpp:281
 #, kde-format
 msgid "Move the splitter of the current view down"
-msgstr "حرّك قاسم المنظور الحاليّ إلى أسفل"
+msgstr "حرّك قاسم العرض الحاليّ إلى أسفل"
 
 #: lib/kateviewmanager.cpp:284
 #, kde-format
@@ -2601,7 +2601,7 @@ msgstr "انقر هنا للتّبديل إلى منظور الفتح السّر
 #: lib/kateviewspace.cpp:153
 #, kde-format
 msgid "Control view space splitting"
-msgstr "تحكّم بتقسيم منطقة المنظور"
+msgstr "تحكّم بتقسيم منطقة العرض"
 
 #: lib/kateviewspace.cpp:270
 #, kde-format
@@ -2728,7 +2728,7 @@ msgstr "ابحث عن الملفات في المشروع الحالي (انقر 
 #: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
 msgid "All Projects"
-msgstr "كلّ المشاريع"
+msgstr "كل المشاريع"
 
 #: lib/quickopen/katequickopenlineedit.cpp:85
 #, kde-format

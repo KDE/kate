@@ -210,6 +210,10 @@ void KateApp::initPreApplicationCreation(bool detach)
     if (int fd = ::open(tty, O_RDONLY); fd >= 0) {
         insideTerminal = true;
         ::close(fd);
+    } else {
+        // it makes no sense to detach if we are not in a terminal
+        // will just confuse stuff like session restore & Co. see bug 525600
+        detach = false;
     }
 #endif
 

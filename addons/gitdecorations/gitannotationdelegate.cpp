@@ -51,7 +51,9 @@ GitAnnotationDelegate::GitAnnotationDelegate(KTextEditor::View *parent)
 void GitAnnotationDelegate::initializeColors()
 {
     const KColorScheme scheme(QPalette::Active, KColorScheme::View);
-    m_modifiedColor = m_view->palette().highlight().color();
+    const QPalette palette = m_view->palette();
+
+    m_modifiedColor = palette.brush(QPalette::Active, QPalette::Accent).color();
     m_modifiedColorOutOfSync = createHatchBrush(m_modifiedColor);
     m_removedColor = scheme.foreground(KColorScheme::NegativeText).color();
     m_removedColorOutOfSync = m_removedColor.lighter(150);

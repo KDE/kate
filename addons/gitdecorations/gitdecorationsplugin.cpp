@@ -142,7 +142,7 @@ void GitDecorationsPlugin::trackRepository(const QString &repoBasePath)
 
     QString gitPath = QDir(repoBasePath).filePath(QStringLiteral(".git"));
     if (!repoContext->watcher.addPath(gitPath)) {
-        qCWarning(gitDecorationsLog) << "Cannot add path to watcher: " << gitPath;
+        qCWarning(gitDecorationsLog, "Cannot add path to watcher: %ls", qUtf16Printable(gitPath));
         return;
     }
 
@@ -231,7 +231,7 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
         headProcess->deleteLater();
     });
 
-    qCDebug(gitDecorationsLog) << "Starting git rev-parse HEAD process for: " << repoBasePath;
+    qCDebug(gitDecorationsLog, "Starting git rev-parse HEAD process for: %ls", qUtf16Printable(repoBasePath));
     headProcess->start();
 }
 
@@ -291,7 +291,7 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
         diffProcess->deleteLater();
     });
 
-    qCDebug(gitDecorationsLog) << "Starting git diff HEAD process for: " << document->url().toLocalFile();
+    qCDebug(gitDecorationsLog, "Starting git diff HEAD process for: %ls", qUtf16Printable(document->url().toLocalFile()));
     diffProcess->start();
 }
 

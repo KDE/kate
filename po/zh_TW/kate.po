@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-16 00:49+0000\n"
-"PO-Revision-Date: 2026-08-04 07:28+0900\n"
+"PO-Revision-Date: 2026-09-17 01:00+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -2698,10 +2698,9 @@ msgid "Wildcard Filtering"
 msgstr "萬用字元過濾"
 
 #: lib/quickopen/katequickopenlineedit.cpp:128
-#, fuzzy, kde-format
-#| msgid "&Match Mode:"
+#, kde-format
 msgid "Match Folder Names"
-msgstr "尋找符合模式(&M)："
+msgstr "符合資料夾名稱"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format

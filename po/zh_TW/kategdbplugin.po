@@ -3,20 +3,20 @@
 #
 # Franklin Weng <franklin@goodhorse.idv.tw>, 2010, 2011, 2012, 2013, 2014.
 # Jeff Huang <s8321414@gmail.com>, 2020.
-# SPDX-FileCopyrightText: 2023, 2024, 2025, 2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023-2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:49+0000\n"
-"PO-Revision-Date: 2026-01-02 08:04+0900\n"
+"PO-Revision-Date: 2026-09-17 00:59+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.11.70\n"
+"X-Generator: Lokalize 26.11.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: backend.cpp:48 dapbackend.cpp:175
@@ -183,7 +183,7 @@ msgstr "選擇工作目錄"
 #: dap/client.cpp:208
 #, kde-format
 msgid "the incompatible server did not honor the specification"
-msgstr ""
+msgstr "該伺服器不相容且未遵從規格"
 
 #: dapbackend.cpp:187
 #, kde-format

@@ -9,11 +9,13 @@
 #include "gitdiff.h"
 #include "gitprocess.h"
 
-#include <KPluginFactory>
+#include <QDir>
+#include <QFileInfo>
 #include <QLoggingCategory>
 #include <QPointer>
 
 #include <KLocalizedString>
+#include <KPluginFactory>
 #include <KTextEditor/Application>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>

@@ -8,6 +8,7 @@
 
 #include <QBrush>
 #include <QColor>
+#include <QVariant>
 
 GitAnnotationModel::GitAnnotationModel(QObject *parent)
     : KTextEditor::AnnotationModel()

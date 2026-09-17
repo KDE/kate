@@ -66,9 +66,13 @@ void GitDecorationsPlugin::refreshAnnotations(KTextEditor::Document *document, K
         return;
     }
 
-    const bool hasViewToAnnotate = view != nullptr || std::any_of(document->views().cbegin(), document->views().cend(), [](KTextEditor::View *view) {
-                                       return view->isVisible();
-                                   });
+    bool hasViewToAnnotate = view != nullptr;
+    if (!hasViewToAnnotate) {
+        const auto views = document->views();
+        hasViewToAnnotate = std::any_of(views.cbegin(), views.cend(), [](KTextEditor::View *v) {
+            return v->isVisible();
+        });
+    }
 
     if (!hasViewToAnnotate) {
         return;
@@ -109,7 +113,7 @@ void GitDecorationsPlugin::untrackDocument(KTextEditor::Document *document)
     }
 
     const auto it = m_trackedDocuments.constFind(document);
-    if (it == m_trackedDocuments.end()) {
+    if (it == m_trackedDocuments.cend()) {
         return;
     }
 
@@ -166,7 +170,7 @@ void GitDecorationsPlugin::trackRepository(const QString &repoBasePath)
 void GitDecorationsPlugin::untrackRepository(const QString &repoBasePath)
 {
     auto it = m_trackedRepositories.constFind(repoBasePath);
-    if (it == m_trackedRepositories.end()) {
+    if (it == m_trackedRepositories.cend()) {
         return;
     }
 
@@ -183,7 +187,7 @@ void GitDecorationsPlugin::untrackRepository(const QString &repoBasePath)
 void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
 {
     auto it = m_trackedRepositories.constFind(repoBasePath);
-    if (it == m_trackedRepositories.end()) {
+    if (it == m_trackedRepositories.cend()) {
         return;
     }
 
@@ -273,7 +277,7 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
         }
 
         const auto it = m_trackedDocuments.find(targetDocument);
-        if (it == m_trackedDocuments.cend() || it->diffProcess != diffProcess) {
+        if (it == m_trackedDocuments.end() || it->diffProcess != diffProcess) {
             diffProcess->deleteLater();
             return;
         }
@@ -286,7 +290,9 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
 
         it->annotationNeedsUpdate = false;
         targetDocument->setAnnotationModel(model);
-        for (auto view : targetDocument->views()) {
+
+        const auto views = targetDocument->views();
+        for (auto *view : views) {
             annotateView(view);
         }
 

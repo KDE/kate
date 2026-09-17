@@ -36,7 +36,7 @@
             "name": "kio-extras",
             "buildsystem": "cmake-ninja",
             "config-opts": [
-                "-DBUILD_ACTIVITIES=OFF",
+                "-DBUILD_ACTIVITIES=OFF"
             ],
             "sources": [
                 {

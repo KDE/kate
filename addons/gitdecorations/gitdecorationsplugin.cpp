@@ -199,6 +199,7 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
 
     auto *headProcess = new QProcess(this);
     if (!setupGitProcess(*headProcess, repoBasePath, {QStringLiteral("rev-parse"), QStringLiteral("HEAD")})) {
+        qCWarning(gitDecorationsLog, "Git rev-parse process setup failed");
         headProcess->deleteLater();
         return;
     }
@@ -262,6 +263,7 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
     auto *diffProcess = new QProcess(document);
     const QString relativePath = QDir(context.repoBasePath).relativeFilePath(document->url().toLocalFile());
     if (!setupGitProcess(*diffProcess, context.repoBasePath, {QStringLiteral("diff"), QStringLiteral("HEAD"), QStringLiteral("--"), relativePath})) {
+        qCWarning(gitDecorationsLog, "Git diff process setup failed");
         diffProcess->deleteLater();
         return;
     }

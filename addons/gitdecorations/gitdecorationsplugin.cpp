@@ -8,6 +8,7 @@
 #include "gitannotationmodel.h"
 #include "gitdiff.h"
 #include "gitprocess.h"
+#include "hostprocess.h"
 
 #include <QDir>
 #include <QFileInfo>
@@ -243,7 +244,7 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
     });
 
     qCDebug(gitDecorationsLog, "Starting git rev-parse HEAD process for: %ls", qUtf16Printable(repoBasePath));
-    headProcess->start();
+    startHostProcess(*headProcess);
 }
 
 void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
@@ -310,7 +311,7 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
     });
 
     qCDebug(gitDecorationsLog, "Starting git diff HEAD process for: %ls", qUtf16Printable(document->url().toLocalFile()));
-    diffProcess->start();
+    startHostProcess(*diffProcess);
 }
 
 QObject *GitDecorationsPlugin::createView(KTextEditor::MainWindow *mainWindow)

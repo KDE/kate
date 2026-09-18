@@ -205,6 +205,11 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
     context->headProcess = headProcess;
     connect(headProcess, &QProcess::finished, this, [this, headProcess, repoBasePath](int exitCode, QProcess::ExitStatus exitStatus) {
         if (exitStatus != QProcess::NormalExit || exitCode != 0) {
+            qCWarning(gitDecorationsLog,
+                      "Git rev-parse process failed for %ls with exit code %d. %ls",
+                      qUtf16Printable(repoBasePath),
+                      exitCode,
+                      qUtf16Printable(headProcess->errorString()));
             headProcess->deleteLater();
             return;
         }
@@ -266,6 +271,11 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
 
     connect(diffProcess, &QProcess::finished, this, [this, diffProcess, targetDocument, targetUrl](int exitCode, QProcess::ExitStatus exitStatus) {
         if (exitStatus != QProcess::NormalExit || exitCode != 0) {
+            qCWarning(gitDecorationsLog,
+                      "Git diff process failed for %ls with exit code %d. %ls",
+                      qUtf16Printable(targetUrl.toLocalFile()),
+                      exitCode,
+                      qUtf16Printable(diffProcess->errorString()));
             diffProcess->deleteLater();
             return;
         }

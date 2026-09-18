@@ -19,15 +19,18 @@ GitAnnotationModel::GitAnnotationModel(QObject *parent)
 void GitAnnotationModel::setDiff(const VcsDiff &diff)
 {
     m_changes.clear();
-    const auto lines = diff.diff().split(u'\n');
+
+    const QString diffText = diff.diff();
+    const QStringTokenizer lines{diffText, u'\n'};
 
     int addedCount = 0;
     int removedCount = 0;
     int firstAddedLine = -1;
     int lastContextLine = -1;
 
-    for (int i = 0; i < lines.size(); ++i) {
-        const auto &line = lines.at(i);
+    int i = 0;
+    for (const auto &line : lines) {
+        const int lineIndex = i++;
 
         // TODO: handle conflict markers
 
@@ -47,7 +50,7 @@ void GitAnnotationModel::setDiff(const VcsDiff &diff)
             continue;
         }
 
-        const int targetLine = diff.diffLineToTargetLine(i);
+        const int targetLine = diff.diffLineToTargetLine(lineIndex);
 
         // Added line
         if (line.startsWith(u'+')) {

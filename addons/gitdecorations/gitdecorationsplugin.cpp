@@ -32,11 +32,40 @@ GitDecorationsPlugin::GitDecorationsPlugin(QObject *parent)
 {
     const auto app = KTextEditor::Editor::instance()->application();
     connect(app, &KTextEditor::Application::documentCreated, this, &GitDecorationsPlugin::registerDocument);
+
+    for (auto *document : app->documents()) {
+        registerDocument(document);
+    }
 }
 
 GitDecorationsPlugin::~GitDecorationsPlugin()
 {
-    // TODO: Clean up everything and untrack documents (eg: processes, annotation models and delegates)
+    // Cleanup processes
+    for (QObject *child : children()) {
+        if (auto *process = qobject_cast<QProcess *>(child)) {
+            disconnect(process, nullptr, nullptr, nullptr);
+        }
+    }
+
+    // Uninstall annotation models and view delegates
+    for (auto it = m_trackedDocuments.begin(); it != m_trackedDocuments.end(); ++it) {
+        auto *document = it.key();
+
+        if (!document) {
+            continue;
+        }
+
+        if (qobject_cast<GitAnnotationModel *>(document->annotationModel())) {
+            document->setAnnotationModel(nullptr);
+        }
+
+        for (auto *view : document->views()) {
+            if (qobject_cast<GitAnnotationDelegate *>(view->annotationItemDelegate())) {
+                view->setAnnotationBorderVisible(false);
+                view->setAnnotationItemDelegate(nullptr);
+            }
+        }
+    }
 }
 
 void GitDecorationsPlugin::registerDocument(KTextEditor::Document *document)
@@ -271,7 +300,7 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
         context.diffProcess->kill();
     }
 
-    auto *diffProcess = new QProcess(document);
+    auto *diffProcess = new QProcess(this);
     const QString relativePath = QDir(context.repoBasePath).relativeFilePath(document->url().toLocalFile());
     if (!setupGitProcess(*diffProcess, context.repoBasePath, {QStringLiteral("diff"), QStringLiteral("HEAD"), QStringLiteral("--"), relativePath})) {
         qCWarning(gitDecorationsLog, "Git diff process setup failed");

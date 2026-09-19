@@ -10,6 +10,8 @@
 
 class GitAnnotationDelegate : public KTextEditor::AbstractAnnotationItemDelegate
 {
+    Q_OBJECT
+
 public:
     explicit GitAnnotationDelegate(KTextEditor::View *parent = nullptr);
     void paint(QPainter *painter, const KTextEditor::StyleOptionAnnotationItem &option, KTextEditor::AnnotationModel *model, int line) const override;

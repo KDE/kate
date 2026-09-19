@@ -13,6 +13,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QLoggingCategory>
+#include <QObject>
 #include <QPointer>
 
 #include <KLocalizedString>
@@ -31,6 +32,11 @@ GitDecorationsPlugin::GitDecorationsPlugin(QObject *parent)
 {
     const auto app = KTextEditor::Editor::instance()->application();
     connect(app, &KTextEditor::Application::documentCreated, this, &GitDecorationsPlugin::registerDocument);
+}
+
+GitDecorationsPlugin::~GitDecorationsPlugin()
+{
+    // TODO: Clean up everything and untrack documents (eg: processes, annotation models and delegates)
 }
 
 void GitDecorationsPlugin::registerDocument(KTextEditor::Document *document)
@@ -99,6 +105,11 @@ void GitDecorationsPlugin::trackDocument(KTextEditor::Document *document)
     const auto repoBasePath = getRepoBasePath(fileDir);
 
     if (repoBasePath) {
+        // Install annotation model early so that we can check it before installing the delegate on the view
+        if (document->annotationModel() == nullptr) {
+            document->setAnnotationModel(new GitAnnotationModel(document));
+        }
+
         trackRepository(*repoBasePath);
         m_trackedDocuments.insert(document, DocumentContext{.repoBasePath = *repoBasePath, .diffProcess = nullptr, .annotationNeedsUpdate = true});
         connect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::invalidateAnnotations);
@@ -298,11 +309,24 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
         VcsDiff diff;
         diff.setDiff(QString::fromUtf8(diffProcess->readAllStandardOutput()));
 
-        auto *model = new GitAnnotationModel(targetDocument);
-        model->setDiff(diff);
+        auto *annotationModel = targetDocument->annotationModel();
+        auto *gitAnnotationModel = qobject_cast<GitAnnotationModel *>(annotationModel);
 
+        // Don't take over someone else's annotation model
+        if (annotationModel && !gitAnnotationModel) {
+            qCWarning(gitDecorationsLog, "Document has already an annotation model: %ls", qUtf16Printable(targetUrl.toLocalFile()));
+            diffProcess->deleteLater();
+            return;
+        }
+
+        // Reuse git annotation model or create a new one
+        if (gitAnnotationModel == nullptr) {
+            gitAnnotationModel = new GitAnnotationModel(targetDocument);
+            targetDocument->setAnnotationModel(gitAnnotationModel);
+        }
+
+        gitAnnotationModel->setDiff(diff);
         it->annotationNeedsUpdate = false;
-        targetDocument->setAnnotationModel(model);
 
         const auto views = targetDocument->views();
         for (auto *view : views) {
@@ -329,9 +353,12 @@ void GitDecorationsPlugin::annotateView(KTextEditor::View *view)
 
     if (m_trackedDocuments.contains(view->document())) {
         refreshAnnotations(view->document(), view);
-        view->setAnnotationBorderVisible(true);
-        if (!dynamic_cast<GitAnnotationDelegate *>(view->annotationItemDelegate())) {
-            view->setAnnotationItemDelegate(new GitAnnotationDelegate(view));
+        // Don't install the delegate if we don't own the annotation model
+        if (qobject_cast<GitAnnotationModel *>(view->document()->annotationModel()) && view->annotationModel() == nullptr) {
+            view->setAnnotationBorderVisible(true);
+            if (!qobject_cast<GitAnnotationDelegate *>(view->annotationItemDelegate())) {
+                view->setAnnotationItemDelegate(new GitAnnotationDelegate(view));
+            }
         }
     }
 }

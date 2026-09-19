@@ -13,6 +13,8 @@ class VcsDiff;
 
 class GitAnnotationModel : public KTextEditor::AnnotationModel
 {
+    Q_OBJECT
+
 public:
     enum class ChangeType {
         None = 0,
@@ -25,7 +27,7 @@ public:
 
     static constexpr Qt::ItemDataRole ChangeRole = static_cast<Qt::ItemDataRole>(Qt::UserRole + 1);
 
-    explicit GitAnnotationModel(QObject *parent = nullptr);
+    explicit GitAnnotationModel(QObject *parent);
     void setDiff(const VcsDiff &diff);
     QVariant data(int line, Qt::ItemDataRole role) const override;
 

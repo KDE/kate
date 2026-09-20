@@ -13,6 +13,7 @@
 #include <QStandardItemModel>
 #include <QStringList>
 #include <QTemporaryFile>
+#include <QThreadPool>
 
 #include <stop_token>
 
@@ -69,7 +70,8 @@ public:
      */
     void findMatches(QStandardItemModel &model, const QString &searchWord, MatchType type, int options = -1);
 
-    std::stop_source findMatchesAsync(const QObject *context,
+    std::stop_source findMatchesAsync(QThreadPool &tp,
+                                      const QObject *context,
                                       std::function<void(QStandardItemModel &&)> cb,
                                       const QString &searchWord,
                                       MatchType type,

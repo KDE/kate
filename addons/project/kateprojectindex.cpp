@@ -290,7 +290,8 @@ void KateProjectIndex::findMatches(QStandardItemModel &model, const QString &sea
     d->putHandle(th);
 }
 
-std::stop_source KateProjectIndex::findMatchesAsync(const QObject *context,
+std::stop_source KateProjectIndex::findMatchesAsync(QThreadPool &tp,
+                                                    const QObject *context,
                                                     std::function<void(QStandardItemModel &&)> cb,
                                                     const QString &searchWord,
                                                     MatchType type,
@@ -313,7 +314,7 @@ std::stop_source KateProjectIndex::findMatchesAsync(const QObject *context,
             cb(std::move(*model));
     };
 
-    return Utils::runAsyncJob(*QThreadPool::globalInstance(), match, context, done);
+    return Utils::runAsyncJob(tp, match, context, done);
 }
 
 // #include "kateprojectindex.moc"

@@ -169,6 +169,14 @@ public:
     }
 
     /**
+     * threadpool for various aysnc work
+     */
+    QThreadPool &threadPool()
+    {
+        return m_threadPool;
+    }
+
+    /**
      * Search for already loaded project for directory.
      * Avoids that we double-load stuff for same one.
      * @param dir director to check if we already have an open project for

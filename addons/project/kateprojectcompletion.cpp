@@ -193,8 +193,12 @@ void KateProjectCompletion::allMatches(KTextEditor::View *view, const KTextEdito
      */
     for (const auto project : std::as_const(projects)) {
         if (project->projectIndex()) {
-            auto token =
-                project->projectIndex()->findMatchesAsync(this, handler, view->document()->text(range), KateProjectIndex::CompletionMatches, m_automatic);
+            auto token = project->projectIndex()->findMatchesAsync(m_plugin->threadPool(),
+                                                                   this,
+                                                                   handler,
+                                                                   view->document()->text(range),
+                                                                   KateProjectIndex::CompletionMatches,
+                                                                   m_automatic);
             m_handles.push_back(token);
         }
     }

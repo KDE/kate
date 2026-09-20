@@ -14,6 +14,9 @@
 
 #include <QStandardItemModel>
 
+#include <stop_token>
+#include <vector>
+
 /**
  * Project wide completion support.
  */
@@ -60,6 +63,7 @@ public:
     KTextEditor::Range completionRange(KTextEditor::View *view, const KTextEditor::Cursor &position) override;
 
     void allMatches(KTextEditor::View *view, const KTextEditor::Range &range);
+    void aborted(KTextEditor::View *view) override;
 
 private:
     /**
@@ -76,4 +80,9 @@ private:
      * automatic invocation?
      */
     bool m_automatic = false;
+
+    /*
+     * completion lookup in progress
+     */
+    std::vector<std::stop_source> m_handles;
 };

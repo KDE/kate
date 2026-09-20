@@ -154,6 +154,9 @@ void KateProjectCompletion::completionInvoked(KTextEditor::View *view, const KTe
     }
     // otherwise always proceed
     m_matches.clear();
+    for (auto &h : m_handles)
+        h.request_stop();
+    m_handles.clear();
     allMatches(view, range);
 }
 
@@ -174,14 +177,38 @@ void KateProjectCompletion::allMatches(KTextEditor::View *view, const KTextEdito
         }
     }
 
+    auto handler = [this](QStandardItemModel &&model) {
+        if (!model.rowCount())
+            return;
+        beginResetModel();
+        while (model.rowCount()) {
+            m_matches.appendRow(model.takeRow(0));
+        }
+        setRowCount(m_matches.rowCount());
+        endResetModel();
+    };
+
     /**
      * let project index fill the completion for this document
      */
     for (const auto project : std::as_const(projects)) {
         if (project->projectIndex()) {
-            project->projectIndex()->findMatches(m_matches, view->document()->text(range), KateProjectIndex::CompletionMatches);
+            auto token =
+                project->projectIndex()->findMatchesAsync(this, handler, view->document()->text(range), KateProjectIndex::CompletionMatches, m_automatic);
+            m_handles.push_back(token);
         }
     }
+}
+
+void KateProjectCompletion::aborted(KTextEditor::View *view)
+{
+    Q_UNUSED(view);
+    beginResetModel();
+    m_matches.clear();
+    for (auto &h : m_handles)
+        h.request_stop();
+    m_handles.clear();
+    endResetModel();
 }
 
 KTextEditor::CodeCompletionModelControllerInterface::MatchReaction KateProjectCompletion::matchingItem(const QModelIndex & /*matched*/)

@@ -75,7 +75,7 @@ Quick document switching with <keycombo action="simul">&Alt;&Tab;</keycombo> beh
 <para><link linkend="kate-application-plugin-documents">Document Tree View</link> - Displays the open files in a file tree</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-gdb">&gdb;</link> - Provides a
+<para><link linkend="kate-application-plugin-debugger">&kate; Debugger Plugin</link> - Provides a
 simple &gdb; frontend</para>
 </listitem>
 <listitem>
@@ -1582,7 +1582,7 @@ for opened documents on hover.</para></listitem>
 
 </sect1>
 
-<sect1 id="kate-application-plugin-gdb">
+<sect1 id="kate-application-plugin-debugger">
 <!--https://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
 <sect1info>
 <authorgroup>
@@ -1590,12 +1590,12 @@ for opened documents on hover.</para></listitem>
 <author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
 </authorgroup>
 </sect1info>
-<title>&gdb; Plugin</title>
+<title>&kate; Debugger Plugin</title>
 
 <sect2 id="gdb-intro">
 <title>Introduction</title>
 
-<para>&kate;'s &gdb; plugin provides a simple frontend to any debugger that supports the
+<para>The &kate; Debugger plugin provides a simple frontend to any debugger that supports the
 <ulink url="https://microsoft.github.io/debug-adapter-protocol/">Debugger Adapter Protocol</ulink>.
 In particular, that includes the GNU Project Debugger, aka GDB, as
 <ulink url="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Debugger-Adapter-Protocol.html">outlined
@@ -1608,7 +1608,7 @@ information on using &gdb;, visit <ulink url="https://www.gnu.org/software/gdb/"
 &gdb; website</ulink>.</para>
 </important>
 
-<para>You can enable the &gdb; plugin in
+<para>You can enable the &kate; Debugger plugin in
 <link linkend="config-dialog-plugins">the Plugins section of &kate;'s
 configuration</link>.</para>
 
@@ -1754,7 +1754,7 @@ pointing to.</para></listitem>
 
 <varlistentry id="gdb-menus-toolbar">
 <term><menuchoice>
-<guimenu>Settings</guimenu><guisubmenu>Toolbars Shown</guisubmenu><guimenuitem>&gdb; Plugin</guimenuitem>
+<guimenu>Settings</guimenu><guisubmenu>Toolbars Shown</guisubmenu><guimenuitem>Debug Plugin</guimenuitem>
 </menuchoice></term>
 <listitem><para>Display the debugging toolbar.</para></listitem>
 </varlistentry>
@@ -1871,7 +1871,7 @@ backtrace returned from &gdb;.</para>
 <mediaobject>
 <imageobject><imagedata fileref="gdb-call-stack.png" format="PNG"/></imageobject>
 <textobject><phrase>The Call Stack tool view.</phrase></textobject>
-<caption><para>The &gdb; Plugin's <guilabel>Call Stack</guilabel> tool view.
+<caption><para>The &kate; Debugger plugin's <guilabel>Call Stack</guilabel> tool view.
 </para></caption>
 </mediaobject>
 </screenshot>
@@ -1884,7 +1884,7 @@ loaded variables from the program and their corresponding values.</para>
 <mediaobject>
 <imageobject><imagedata fileref="gdb-locals.png" format="PNG"/></imageobject>
 <textobject><phrase>The Locals tool view.</phrase></textobject>
-<caption><para>The &gdb; Plugin's <guilabel>Locals</guilabel> tool view.
+<caption><para>The &kate; Debugger plugin's <guilabel>Locals</guilabel> tool view.
 </para></caption>
 </mediaobject>
 </screenshot>

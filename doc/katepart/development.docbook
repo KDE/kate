@@ -1912,35 +1912,35 @@ For more information, see <xref linkend="kate-part-bookmarks"/>.</para>
 
 <varlistentry>
 <term><userinput>MarkBreakpointActive</userinput> (<guilabel>Active Breakpoint</guilabel>)</term>
-<listitem><para>This color is used by the GDB plugin to indicate an active
+<listitem><para>This color is used by the &kate; Debugger plugin to indicate an active
 breakpoint. Notice that this color has an opacity to the background.
-For more information, see <ulink url="help:/kate/kate-application-plugin-gdb.html">the
-GDB Plugin documentation</ulink>.</para></listitem>
+For more information, see <ulink url="help:/kate/kate-application-plugin-debugger.html">the
+&kate; Debugger plugin documentation</ulink>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput>MarkBreakpointReached</userinput> (<guilabel>Reached Breakpoint</guilabel>)</term>
-<listitem><para>This color is used by the GDB plugin to indicate a breakpoint
+<listitem><para>This color is used by the &kate; Debugger plugin to indicate a breakpoint
 you have reached while debugging. Notice that this color has an opacity
 to the background.
-For more information, see <ulink url="help:/kate/kate-application-plugin-gdb.html">the
-GDB Plugin documentation</ulink>.</para></listitem>
+For more information, see <ulink url="help:/kate/kate-application-plugin-debugger.html">the
+&kate; Debugger plugin documentation</ulink>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput>MarkBreakpointDisabled</userinput> (<guilabel>Disabled Breakpoint</guilabel>)</term>
-<listitem><para>This color is used by the GDB plugin to indicate an inactive
+<listitem><para>This color is used by the &kate; Debugger plugin to indicate an inactive
 breakpoint. Notice that this color has an opacity to the background.
-For more information, see <ulink url="help:/kate/kate-application-plugin-gdb.html">the
-GDB Plugin documentation</ulink>.</para></listitem>
+For more information, see <ulink url="help:/kate/kate-application-plugin-debugger.html">the
+&kate; Debugger plugin documentation</ulink>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><userinput>MarkExecution</userinput> (<guilabel>Execution</guilabel>)</term>
-<listitem><para>This color is used by the GDB plugin the line presently being
+<listitem><para>This color is used by the &kate; Debugger plugin the line presently being
 executed. Notice that this color has an opacity to the background.
-For more information, see <ulink url="help:/kate/kate-application-plugin-gdb.html">the
-GDB Plugin documentation</ulink>.</para></listitem>
+For more information, see <ulink url="help:/kate/kate-application-plugin-debugger.html">the
+&kate; Debugger plugin documentation</ulink>.</para></listitem>
 </varlistentry>
 
 <varlistentry>

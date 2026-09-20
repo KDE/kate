@@ -33,7 +33,8 @@ GitDecorationsPlugin::GitDecorationsPlugin(QObject *parent)
     const auto app = KTextEditor::Editor::instance()->application();
     connect(app, &KTextEditor::Application::documentCreated, this, &GitDecorationsPlugin::registerDocument);
 
-    for (auto *document : app->documents()) {
+    const auto documents = app->documents();
+    for (auto *document : documents) {
         registerDocument(document);
     }
 }
@@ -59,7 +60,8 @@ GitDecorationsPlugin::~GitDecorationsPlugin()
             document->setAnnotationModel(nullptr);
         }
 
-        for (auto *view : document->views()) {
+        const auto views = document->views();
+        for (auto *view : views) {
             if (qobject_cast<GitAnnotationDelegate *>(view->annotationItemDelegate())) {
                 view->setAnnotationBorderVisible(false);
                 view->setAnnotationItemDelegate(nullptr);

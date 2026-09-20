@@ -192,6 +192,8 @@ target_sources(
     jsonsettings.h
     jsonsettings.cpp
 
+    asyncjob.cpp
+
     exec_io_utils.cpp
     ${LIB_KATE_TIME_SOURCES}
     ${LIB_KATE_EXEC_SOURCES}

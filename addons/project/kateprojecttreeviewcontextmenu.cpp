@@ -12,6 +12,7 @@
 #include "kateproject.h"
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectitem.h"
+#include "kateprojectpluginview.h"
 #include "kateprojectviewtree.h"
 
 #include <KAuthorized>
@@ -190,6 +191,9 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             menu.addAction(a);
         }
     }
+
+    const int itemType = isRootDirectory ? KateProjectItem::Project : index.data(KateProjectItem::TypeRole).toInt();
+    Q_EMIT parent->m_pluginView->projectTreeContextMenuAboutToShow(&menu, QFileInfo(filename).absoluteFilePath(), parent->project()->baseDir(), itemType);
 
     /**
      * run menu and handle the triggered action

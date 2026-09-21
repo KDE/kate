@@ -17,6 +17,7 @@
 
 class QAction;
 class QDir;
+class QMenu;
 class KateProject;
 class KateProjectPlugin;
 class KateProjectInfoView;
@@ -268,6 +269,11 @@ Q_SIGNALS:
      * Emitted if projectMap was edited.
      */
     void projectMapEdited();
+
+    /**
+     * Emitted synchronously before a project tree context menu is shown.
+     */
+    void projectTreeContextMenuAboutToShow(QMenu *menu, const QString &path, const QString &projectBaseDir, int itemType);
 
 private Q_SLOTS:
     /**

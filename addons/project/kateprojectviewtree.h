@@ -23,6 +23,7 @@ class MainWindow;
 class KateProjectViewTree : public QTreeView
 {
     friend class KateProjectTreeDelegate;
+    friend class KateProjectTreeViewContextMenu;
 
 public:
     /**

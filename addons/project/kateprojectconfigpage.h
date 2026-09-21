@@ -12,6 +12,7 @@ class QWidget;
 class QCheckBox;
 class KUrlRequester;
 class QComboBox;
+class GitForgeConfigWidget;
 
 class KateProjectConfigPage : public KTextEditor::ConfigPage
 {
@@ -50,6 +51,7 @@ private:
     QCheckBox *m_cbShowHiddenFiles;
     QComboBox *m_cmbSingleClick;
     QComboBox *m_cmbDoubleClick;
+    GitForgeConfigWidget *m_gitForgeConfig;
     KateProjectPlugin *m_plugin;
     bool m_changed = false;
 };

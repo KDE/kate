@@ -81,6 +81,38 @@ const QStringList DefaultConfig()
 {
     return QStringList{GitConfig(), SubversionConfig(), MercurialConfig()};
 }
+
+QStringList serializedHostMappings(const QList<GitForge::HostMapping> &mappings)
+{
+    QStringList entries;
+    entries.reserve(mappings.size());
+    for (const GitForge::HostMapping &mapping : mappings) {
+        QString host = mapping.host.contains(u':') ? QStringLiteral("[%1]").arg(mapping.host) : mapping.host;
+        if (mapping.port != -1) {
+            host += QStringLiteral(":%1").arg(mapping.port);
+        }
+        entries.push_back(host + u'\t' + GitForge::providerName(mapping.provider) + u'\t' + mapping.webBaseUrl.toString(QUrl::FullyEncoded));
+    }
+    return entries;
+}
+
+QList<GitForge::HostMapping> hostMappingsFromConfig(const QStringList &entries)
+{
+    QList<GitForge::HostMapping> mappings;
+    for (const QString &entry : entries) {
+        const QStringList parts = entry.split(u'\t');
+        if (parts.size() != 3) {
+            continue;
+        }
+        const auto provider = GitForge::providerFromName(parts.at(1));
+        if (provider) {
+            if (const auto mapping = GitForge::hostMapping(parts.at(0), *provider, QUrl(parts.at(2), QUrl::StrictMode))) {
+                mappings.push_back(*mapping);
+            }
+        }
+    }
+    return mappings;
+}
 }
 
 KateProjectPlugin::KateProjectPlugin(QObject *parent)
@@ -560,6 +592,17 @@ ClickAction KateProjectPlugin::doubleClickAcion()
     return m_doubleClickAction;
 }
 
+void KateProjectPlugin::setGitHostMappings(const QList<GitForge::HostMapping> &mappings)
+{
+    m_gitHostMappings = mappings;
+    writeConfig();
+}
+
+const QList<GitForge::HostMapping> &KateProjectPlugin::gitHostMappings() const
+{
+    return m_gitHostMappings;
+}
+
 void KateProjectPlugin::setMultiProject(bool completion, bool gotoSymbol)
 {
     m_multiProjectCompletion = completion;
@@ -627,6 +670,7 @@ void KateProjectPlugin::readConfig()
 
     m_singleClickAction = (ClickAction)config.readEntry("gitStatusSingleClick", (int)ClickAction::NoAction);
     m_doubleClickAction = (ClickAction)config.readEntry("gitStatusDoubleClick", (int)ClickAction::StageUnstage);
+    m_gitHostMappings = hostMappingsFromConfig(config.readEntry("gitHostMappings", serializedHostMappings(GitForge::defaultHostMappings())));
 
     m_restoreProjectsForSession = config.readEntry("restoreProjectsForSessions", false);
 
@@ -669,6 +713,7 @@ void KateProjectPlugin::writeConfig()
 
     config.writeEntry("gitStatusSingleClick", (int)m_singleClickAction);
     config.writeEntry("gitStatusDoubleClick", (int)m_doubleClickAction);
+    config.writeEntry("gitHostMappings", serializedHostMappings(m_gitHostMappings));
 
     config.writeEntry("restoreProjectsForSessions", m_restoreProjectsForSession);
 

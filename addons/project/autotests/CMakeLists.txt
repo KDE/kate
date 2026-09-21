@@ -27,3 +27,14 @@ endif()
 
 add_test(NAME plugin-project_test COMMAND projectplugin_test ${OFFSCREEN_QPA})
 ecm_mark_as_test(projectplugin_test)
+
+add_executable(gitforgeurltest gitforgeurltest.cpp ../git/gitforgeurl.cpp)
+target_include_directories(gitforgeurltest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_link_libraries(gitforgeurltest PRIVATE Qt::Test Qt::Core)
+
+add_test(NAME plugin-gitforgeurltest COMMAND gitforgeurltest)
+ecm_mark_as_test(gitforgeurltest)
+
+if(ENABLE_PCH)
+    target_precompile_headers(gitforgeurltest REUSE_FROM katepch_tests)
+endif()

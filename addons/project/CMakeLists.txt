@@ -1,3 +1,5 @@
+find_package(Qt6Network ${QT_MIN_VERSION} CONFIG REQUIRED)
+
 kate_add_plugin(kateprojectplugin)
 target_compile_definitions(kateprojectplugin PRIVATE TRANSLATION_DOMAIN="kateproject")
 
@@ -9,6 +11,8 @@ target_link_libraries(
         KF6::GuiAddons
         KF6::I18n
         KF6::TextEditor
+        KF6::WidgetsAddons
+        Qt::Network
 )
 
 target_sources(
@@ -48,6 +52,9 @@ target_sources(
     tools/codeanalysisselector.cpp
     git/gitutils.cpp
     git/gitstatus.cpp
+    git/gitforgelink.cpp
+    git/gitforgeurl.cpp
+    git/gitforgeconfigwidget.cpp
 
     plugin.qrc
 )

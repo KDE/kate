@@ -7,12 +7,13 @@
 
 #include "kateprojecttreeviewcontextmenu.h"
 #include "filehistorywidget.h"
+#include "git/gitforgelink.h"
 #include "git/gitutils.h"
 #include "katefileactions.h"
 #include "kateproject.h"
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectitem.h"
-#include "kateprojectpluginview.h"
+#include "kateprojectplugin.h"
 #include "kateprojectviewtree.h"
 
 #include <KAuthorized>
@@ -29,15 +30,18 @@
 #include <QAction>
 #include <QApplication>
 #include <QClipboard>
+#include <QDesktopServices>
 #include <QDir>
 #include <QFileInfo>
 #include <QIcon>
+#include <QFutureWatcher>
 #include <QInputDialog>
 #include <QMenu>
 #include <QMessageBox>
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QStandardPaths>
+#include <QtConcurrentRun>
 
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
@@ -180,6 +184,34 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
         fileHistory->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
     }
 
+    if (QFileInfo(filename).isFile()) {
+        QMenu *hostingMenu = menu.addMenu(QIcon::fromTheme(QStringLiteral("vcs-branch")), i18n("Git Hosting"));
+        QAction *detectingAction = hostingMenu->addAction(i18n("Detecting Git hosting service…"));
+        detectingAction->setEnabled(false);
+
+        auto *watcher = new QFutureWatcher<std::optional<GitForge::Link>>(hostingMenu);
+        QObject::connect(watcher, &QFutureWatcher<std::optional<GitForge::Link>>::finished, hostingMenu, [hostingMenu, watcher]() {
+            const auto link = watcher->result();
+            watcher->deleteLater();
+            hostingMenu->clear();
+            if (!link) {
+                hostingMenu->menuAction()->setVisible(false);
+                return;
+            }
+            const QString provider = GitForge::providerName(link->provider);
+            hostingMenu->addAction(QIcon::fromTheme(QStringLiteral("internet-web-browser")), i18n("Open on %1", provider), hostingMenu, [url = link->url]() {
+                QDesktopServices::openUrl(url);
+            });
+            hostingMenu->addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy %1 Link", provider), hostingMenu, [url = link->url]() {
+                QApplication::clipboard()->setText(url.toString(QUrl::FullyEncoded));
+            });
+        });
+        const auto mappings = parent->project()->plugin()->gitHostMappings();
+        watcher->setFuture(QtConcurrent::run([filename, mappings]() {
+            return GitForge::linkForFile(filename, mappings);
+        }));
+    }
+
     auto externaltoolsplugin = parent->mainWindow()->pluginView(QStringLiteral("externaltoolsplugin"));
     auto view = parent->mainWindow()->activeView();
     auto doc = view ? view->document() : nullptr;
@@ -191,9 +223,6 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             menu.addAction(a);
         }
     }
-
-    const int itemType = isRootDirectory ? KateProjectItem::Project : index.data(KateProjectItem::TypeRole).toInt();
-    Q_EMIT parent->m_pluginView->projectTreeContextMenuAboutToShow(&menu, QFileInfo(filename).absoluteFilePath(), parent->project()->baseDir(), itemType);
 
     /**
      * run menu and handle the triggered action

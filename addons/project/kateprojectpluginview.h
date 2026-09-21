@@ -13,6 +13,8 @@
 #include <KTextEditor/View>
 #include <KXMLGUIClient>
 
+#include "git/gitforgelink.h"
+
 #include <memory>
 
 class QAction;
@@ -270,11 +272,6 @@ Q_SIGNALS:
      */
     void projectMapEdited();
 
-    /**
-     * Emitted synchronously before a project tree context menu is shown.
-     */
-    void projectTreeContextMenuAboutToShow(QMenu *menu, const QString &path, const QString &projectBaseDir, int itemType);
-
 private Q_SLOTS:
     /**
      * This slot is called whenever the active view changes in our main window.
@@ -327,6 +324,9 @@ private Q_SLOTS:
      * Enable/disable project actions
      */
     void updateActions();
+    void updateGitHostingActions();
+    void openGitHostingLink();
+    void copyGitHostingLink();
 
 private:
     /**
@@ -430,6 +430,11 @@ private:
     QAction *m_lookupAction;
     QAction *m_gotoSymbolAction;
     QAction *m_gotoSymbolActionAppMenu;
+    QMenu *m_gitHostingMenu = nullptr;
+    QAction *m_openGitHostingAction = nullptr;
+    QAction *m_copyGitHostingAction = nullptr;
+    std::optional<GitForge::Link> m_activeGitHostingLink;
+    quint64 m_gitHostingRequestGeneration = 0;
     QAction *m_projectTodosAction;
     QAction *m_projectPrevAction;
     QAction *m_projectNextAction;

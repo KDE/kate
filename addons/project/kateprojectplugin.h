@@ -18,6 +18,7 @@
 #include <KTextEditor/SessionConfigInterface>
 
 #include "kateprojectcompletion.h"
+#include "git/gitforgeurl.h"
 #include "project_commands.h"
 
 class KateProject;
@@ -149,6 +150,9 @@ public:
 
     void setDoubleClickAction(ClickAction cb);
     ClickAction doubleClickAcion();
+
+    void setGitHostMappings(const QList<GitForge::HostMapping> &mappings);
+    const QList<GitForge::HostMapping> &gitHostMappings() const;
 
     void setRestoreProjectsForSession(bool enabled);
     bool restoreProjectsForSession() const;
@@ -299,6 +303,7 @@ private:
     // git features
     ClickAction m_singleClickAction = ClickAction::ShowDiff;
     ClickAction m_doubleClickAction = ClickAction::StageUnstage;
+    QList<GitForge::HostMapping> m_gitHostMappings;
 
     /**
      * thread pool for our workers

@@ -1224,7 +1224,7 @@ void KateMainWindow::editKeys()
     const QList<KXMLGUIClient *> clients = guiFactory()->clients();
 
     for (KXMLGUIClient *client : clients) {
-        dlg.addCollection(client->actionCollection(), client->componentName());
+        dlg.addCollection(client->actionCollection());
     }
     dlg.configure();
 

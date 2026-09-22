@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:49+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2026-08-24 20:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -849,7 +849,7 @@ msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Kod Çözümlemesi — %1"
 
-#: kateprojectinfoviewcodeanalysis.cpp:99
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
@@ -858,7 +858,7 @@ msgstr ""
 "“%1“ sisteminizde kurulu değil, %2.<br/><br/>%3. Araç, şu dosya uzantıları "
 "listesiyle eşleşen tüm proje dosyaları üzerinde çalışacaktır:<br/><b>%4</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:109
+#: kateprojectinfoviewcodeanalysis.cpp:106
 #, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
@@ -868,14 +868,14 @@ msgstr ""
 "uzantıları listesiyle eşleşen tüm proje dosyaları üzerinde çalışacaktır:<br/"
 "><b>%4</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:151
-#: kateprojectinfoviewcodeanalysis.cpp:211
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:148
+#: kateprojectinfoviewcodeanalysis.cpp:208
+#: kateprojectinfoviewcodeanalysis.cpp:212
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "Kod Çözümlemesi"
 
-#: kateprojectinfoviewcodeanalysis.cpp:206
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -886,7 +886,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "[%1]%2 dosya üzerinde çözümleme tamamlandı."
 msgstr[1] "[%1]%2 dosya üzerinde çözümleme tamamlandı."
 
-#: kateprojectinfoviewcodeanalysis.cpp:214
+#: kateprojectinfoviewcodeanalysis.cpp:211
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Çözümleme, %1 çıkış kodunu döndürerek başarısız oldu; Hata: %2"
@@ -926,12 +926,12 @@ msgstr "İndeks oluşturulamadı. Lütfen “ctags”i kurun."
 msgid "Indexing is not enabled"
 msgstr "İndeksleme etkinleştirilmemiş"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "Error"
 msgstr "Hata"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "File name already exists"
 msgstr "Dosya adı hâlihazırda var"

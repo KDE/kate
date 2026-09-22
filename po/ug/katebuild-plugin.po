@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-22 00:48+0000\n"
-"PO-Revision-Date: 2026-05-30 16:54-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
-"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -193,7 +193,6 @@ msgstr "قۇرۇشقا ھۆججەت ياكى مۇندەرىجە بەلگىلەن
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
-"«%1» يەرلىك ھۆججەت ئەمەس، يەرلىك بولمىغان ھۆججەتنى تەرجىمە-تەھرىرلىيەلمەيدۇ."
 
 #: plugin_katebuild.cpp:846
 #, kde-format
@@ -217,7 +216,7 @@ msgstr "<b>%1</b> مۇندەرىجىنى قۇرالمىدى"
 #: plugin_katebuild.cpp:882
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "«%1» نى ئىجرا قىلالمىدى. چېكىنىش ھالىتى=%2"
+msgstr ""
 
 #: plugin_katebuild.cpp:898
 #, kde-format
@@ -240,8 +239,6 @@ msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"«%f» نىڭ ئورنىغا ئالماشتۇرالمايدۇ. ئوچۇق ھۆججەت يوق ياكى نۆۋەتتىكى ھۆججەت "
-"ئاتسىز!"
 
 #: plugin_katebuild.cpp:1040
 #, kde-format
@@ -249,8 +246,6 @@ msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"«%d» نىڭ ئورنىغا ئالماشتۇرالمايدۇ. ئوچۇق ھۆججەت يوق ياكى نۆۋەتتىكى ھۆججەت "
-"ئاتسىز!"
 
 #: plugin_katebuild.cpp:1044
 #, kde-format
@@ -258,13 +253,11 @@ msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"«%n» نىڭ ئورنىغا ئالماشتۇرالمايدۇ. ئوچۇق ھۆججەت يوق ياكى نۆۋەتتىكى ھۆججەت "
-"ئاتسىز!"
 
 #: plugin_katebuild.cpp:1055
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr "قۇرۇلۇشنىڭ ئورنىغا ئالماشتۇرالمايدۇ(%B). ئوچۇق قۇرۇلۇش يوق!"
+msgstr ""
 
 #: plugin_katebuild.cpp:1068
 #, kde-format
@@ -276,7 +269,7 @@ msgstr "قۇرۇۋاتىدۇ…"
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "ئىجرا قىلالمايدۇ: %1: %2 ھېچقانداق خىزمەت مۇندەرىجىسى تەڭشەلمىگەن."
+msgstr ""
 
 #: plugin_katebuild.cpp:1227
 #, kde-format
@@ -340,8 +333,6 @@ msgstr "<title>قۇرۇش تامام:</title>%1"
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"<b>%1: %2</b> نى قۇرۇش تامام. %3 خاتالىق، %4 ئاگاھلاندۇرۇش، %5 ئەسكەرتىش "
-"قايتۇردى"
 
 #: plugin_katebuild.cpp:1527
 #, kde-format
@@ -380,8 +371,6 @@ msgstr "قۇرۇش تاماملاندى، مەسىلە كۆرۈلمىدى."
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"<b>%1: %2</b> نى قۇرۇش بىكار قىلىندى. %3 خاتالىق، %4 ئاگاھلاندۇرۇش، %5 "
-"ئەسكەرتىش قايتۇردى"
 
 #: plugin_katebuild.cpp:1833
 #, kde-format
@@ -430,8 +419,6 @@ msgid ""
 "Leave empty to use the directory of the current document.\n"
 "Add search directories by adding paths separated by ';'"
 msgstr ""
-"بوش قالدۇرۇلسا نۆۋەتتىكى پۈتۈك تۇرۇشلۇق مۇندەرىجىنى ئىشلىتىدۇ.\n"
-"«;» بىلەن ئايرىش ئارقىلىق ئىزدەش مۇندەرىجىسى قوشقىلى بولىدۇ."
 
 #: TargetHtmlDelegate.cpp:102
 #, kde-format

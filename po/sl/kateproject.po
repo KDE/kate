@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:49+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2026-08-24 10:15+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -855,7 +855,7 @@ msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Analiza kode - %1"
 
-#: kateprojectinfoviewcodeanalysis.cpp:99
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
@@ -866,7 +866,7 @@ msgstr ""
 "><b>%4</b>\n"
 "​"
 
-#: kateprojectinfoviewcodeanalysis.cpp:109
+#: kateprojectinfoviewcodeanalysis.cpp:106
 #, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
@@ -876,14 +876,14 @@ msgstr ""
 "datotekah projekta, ki se ujemajo s tem seznamom končnic datotek:<br/><b>%4</"
 "b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:151
-#: kateprojectinfoviewcodeanalysis.cpp:211
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:148
+#: kateprojectinfoviewcodeanalysis.cpp:208
+#: kateprojectinfoviewcodeanalysis.cpp:212
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "Preučevanje kode"
 
-#: kateprojectinfoviewcodeanalysis.cpp:206
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -896,7 +896,7 @@ msgstr[1] "[%1]Analiza na %2 datotekah končana."
 msgstr[2] "[%1]Analiza na %2 datotekah končana."
 msgstr[3] "[%1]Analiza na %2 datotekah končana."
 
-#: kateprojectinfoviewcodeanalysis.cpp:214
+#: kateprojectinfoviewcodeanalysis.cpp:211
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Analiza je izpadla s kodo %1, Napaka: %2"
@@ -936,12 +936,12 @@ msgstr "Kazala ni bilo mogoče ustvariti. Namestite program »ctags«."
 msgid "Indexing is not enabled"
 msgstr "Indeksiranje ni omogočeno"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "Error"
 msgstr "Napaka"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "File name already exists"
 msgstr "Ime datoteke že obstaja"

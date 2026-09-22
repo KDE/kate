@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:49+0000\n"
-"PO-Revision-Date: 2026-05-30 16:57-0400\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr "تەكشۈرىدىغان شاخ تاللىنىدۇ. «Esc» بېسىلسا ۋاز كېچىدۇ."
+msgstr ""
 
 #: branchcheckoutdialog.cpp:62
 #, kde-format
@@ -36,12 +36,12 @@ msgstr "%1 شاخنى تەكشۈرەلمىدى، خاتالىق: %2"
 #: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr "يېڭى شاخ ئاتى كىرگۈزۈلىدۇ. «Esc» بېسىلسا ۋاز كېچىدۇ."
+msgstr ""
 
 #: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr "تەكشۈرىدىغان شاخ تاللىنىدۇ. «Esc» بېسىلسا ۋاز كېچىدۇ."
+msgstr ""
 
 #: branchcheckoutdialog.cpp:133
 #, kde-format
@@ -51,7 +51,7 @@ msgstr "يېڭى شاخقا تەكشۈرۈپ چىقتى: %1"
 #: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr "يېڭى شاخ قۇرالمىدى، خاتالىق: «%1»"
+msgstr ""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -87,7 +87,7 @@ msgstr "شاخ تاللا…"
 #: branchesdialog.cpp:108 gitwidget.cpp:551 kateprojectpluginview.cpp:72
 #, kde-format
 msgid "Git"
-msgstr "Git"
+msgstr ""
 
 #: branchesdialogmodel.cpp:102
 #, kde-format
@@ -123,28 +123,24 @@ msgid "Active branch: %1"
 msgstr "ئاكتىپ شاخ: %1"
 
 #: git/gitstatus.cpp:159
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid " ‣ Modified"
-msgstr "ئۆزگەرتىلگەن ۋاقتى"
+msgstr ""
 
 #: git/gitstatus.cpp:161
-#, fuzzy, kde-format
-#| msgid "Untracked"
+#, kde-format
 msgid " ‣ Untracked"
-msgstr "ئىزلانمىغان"
+msgstr ""
 
 #: git/gitstatus.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Rename"
+#, kde-format
 msgid " ‣ Renamed"
-msgstr "ئات ئۆزگەرت(&R)"
+msgstr ""
 
 #: git/gitstatus.cpp:166
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid " ‣ Deleted"
-msgstr "ئۆچۈر"
+msgstr ""
 
 #: git/gitstatus.cpp:169
 #, kde-format
@@ -162,10 +158,9 @@ msgid " ‣ Ignored"
 msgstr ""
 
 #: git/gitstatus.cpp:181
-#, fuzzy, kde-format
-#| msgid "Conflict"
+#, kde-format
 msgid " ‣ Conflicted"
-msgstr "توقۇنۇش"
+msgstr ""
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
@@ -217,13 +212,13 @@ msgstr "تاپشۇرۇلمىنى تۈزىتىۋاتىدۇ"
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr "%1 / 52"
+msgstr ""
 
 #: gitcommitdialog.cpp:211
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
-msgstr "<span style=\"color:%1;\">%2</span> / 52"
+msgstr ""
 
 #: gitstatusmodel.cpp:97
 #, kde-format
@@ -293,22 +288,22 @@ msgstr "«%1» مۇۋەپپەقىيەتلىك ئىجرا قىلىندى: %2"
 #: gitwidget.cpp:666
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr "باسقۇچلۇق ھۆججەتنى ۋاقىتلىق ساقلىيالمىدى، خاتالىق:"
+msgstr "Failed to stage file. خاتالىق:"
 
 #: gitwidget.cpp:679
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr "باسقۇچلۇق ھۆججەتنى ۋاقىتلىق ساقلاشنى بىكار قىلالمىدى، خاتالىق:"
+msgstr "Failed to unstage file. خاتالىق:"
 
 #: gitwidget.cpp:690
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr "ئۆزگىرىشنى تاشلىۋېتەلمىدى. خاتالىق:"
+msgstr "Failed to discard changes. خاتالىق:"
 
 #: gitwidget.cpp:701
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr "چىقىرىۋېتەلمىدى. خاتالىق:"
+msgstr "Failed to remove. خاتالىق:"
 
 #: gitwidget.cpp:717
 #, kde-format
@@ -334,7 +329,6 @@ msgstr "ئۆزگىرىش مۇۋەپپەقىيەتلىك تاپشۇرۇلدى."
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr ""
-"تاپشۇرىدىغان ھېچنېمە يوق. ئالدى بىلەن ئۆزگەرتىشىڭىزنى باسقۇچلۇق ساقلاڭ."
 
 #: gitwidget.cpp:848
 #, kde-format
@@ -623,27 +617,27 @@ msgstr ""
 #: kateprojectconfigpage.cpp:29
 #, kde-format
 msgid "&Git"
-msgstr "&Git"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:32
 #, kde-format
 msgid "&Subversion"
-msgstr "&Subversion"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:34
 #, kde-format
 msgid "&Mercurial"
-msgstr "&Mercurial"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:36
 #, kde-format
 msgid "&Fossil"
-msgstr "&Fossil"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr "&CMake"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -754,7 +748,7 @@ msgstr "قۇرۇلۇش ھالقىغان يۆتكىلىش بەلگىسى"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
-msgstr "Git"
+msgstr ""
 
 #: kateprojectconfigpage.cpp:108
 #, kde-format
@@ -842,32 +836,28 @@ msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "كود تەھلىلى - %1"
 
-#: kateprojectinfoviewcodeanalysis.cpp:99
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"سىستېمىغا «%1» ئورنىتىلمىغان، %2.<br/><br/>%3. قورال بۇ كېڭەيتىلگەن ئات "
-"تىزىمىغا ماس كېلىدىغان بارلىق قۇرۇلۇش ھۆججىتىنى ئىجرا قىلىدۇ: <br/><b>%4</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:109
+#: kateprojectinfoviewcodeanalysis.cpp:106
 #, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%2 غا %1 ئىشلىتىپ ئورناتقان.<br/><br/>%3. قورال بۇ كېڭەيتىلگەن ئات تىزىمىغا "
-"ماس كېلىدىغان بارلىق قۇرۇلۇش ھۆججىتىنى ئىجرا قىلىدۇ: <br/><b>%4</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:151
-#: kateprojectinfoviewcodeanalysis.cpp:211
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:148
+#: kateprojectinfoviewcodeanalysis.cpp:208
+#: kateprojectinfoviewcodeanalysis.cpp:212
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "كود تەھلىلى"
 
-#: kateprojectinfoviewcodeanalysis.cpp:206
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -877,7 +867,7 @@ msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "[%1] %2 دىكى ھۆججەت نى تەھلىل قىلىش تامام."
 
-#: kateprojectinfoviewcodeanalysis.cpp:214
+#: kateprojectinfoviewcodeanalysis.cpp:211
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "تەھلىل قىلىش مەغلۇپ بولدى، چېكىنىش كودى %1، خاتالىق: %2"
@@ -910,19 +900,19 @@ msgstr "ئىزدە"
 #: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
-msgstr "ئىندېكسنى قۇرغىلى بولمىدى. ‹ctags› نى ئورنىتىڭ."
+msgstr ""
 
 #: kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "ئىندېكسلاش قوزغىتىلمىغان"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "Error"
 msgstr "خاتالىق"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "File name already exists"
 msgstr "ھۆججەت ئاتى مەۋجۇت"
@@ -1149,9 +1139,6 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
-"%1 ئاساسىدىكى قۇرۇلۇشنى يۈكلىيەلمەيدۇ چۈنكى %1 ئورنىتىلمىغان ياكى PATH يەنى "
-"يول مۇھىت ئۆزگەرگۈچىسىنى تاپالمىدى. %1 نى ئورنىتىڭ ياكى قۇرۇلۇش تەڭشىكىدىن "
-"«خەزىنە ۋە قۇرۇش شېخىنى ئۆزلۈكىدىن يۈكلەيدۇ» تاللانمىسىنى چەكلەڭ."
 
 #: project_commands.cpp:35
 #, kde-format
@@ -1172,8 +1159,6 @@ msgstr "قۇرۇلۇش بۇيرۇقى"
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
-"يوشۇرۇپ ساقلاش ئۇچۇرى (تاللاشچان). Enter كۇنۇپكىسىدا جەزملەيدۇ، Esc "
-"كۇنۇپكىسىدا ئايرىلىدۇ."
 
 #: stashdialog.cpp:44
 #, kde-format
@@ -1195,22 +1180,22 @@ msgstr "ئۆزگىرىش مۇۋەپپەقىيەتلىك ھالدا يوشۇرۇ�
 #: stashdialog.cpp:168
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr "يوشۇرۇن ساقلاش تىزىمىغا ئېرىشەلمىدى. خاتالىق: "
+msgstr "Failed to get stash list. خاتالىق: "
 
 #: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr "يوشۇرۇن ساقلاشنى قوللىنالمىدى. خاتالىق: "
+msgstr "Failed to apply stash. خاتالىق: "
 
 #: stashdialog.cpp:186
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr "يوشۇرۇن ساقلاشنى تاشلىۋېتەلمىدى. خاتالىق: "
+msgstr "Failed to drop stash. خاتالىق: "
 
 #: stashdialog.cpp:188
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr "يوشۇرۇن ساقلاشنى قاڭقىتالمىدى. خاتالىق: "
+msgstr "Failed to pop stash. خاتالىق: "
 
 #: stashdialog.cpp:192
 #, kde-format
@@ -1230,7 +1215,7 @@ msgstr "يوشۇرۇن ساقلاشنى مۇۋەپپەقىيەتلىك قاڭق�
 #: stashdialog.cpp:225
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr "يوشۇرۇن ساقلاشنى كۆرسىتەلمىدى. خاتالىق: "
+msgstr "Show stash failed. خاتالىق: "
 
 #: tools/clazy.h:25
 #, kde-format
@@ -1243,10 +1228,9 @@ msgid "Clazy is a static analysis tool for Qt/C++ code"
 msgstr ""
 
 #: tools/clazy.h:71
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'clazy'"
-msgstr "‹cppcheck› نى ئورنىتىڭ."
+msgstr ""
 
 #: tools/clazycurrent.h:24
 #, kde-format
@@ -1269,10 +1253,9 @@ msgid "Clippy is a static analysis tool for Rust code"
 msgstr ""
 
 #: tools/clippy.h:95
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'cargo'"
-msgstr "‹cppcheck› نى ئورنىتىڭ."
+msgstr ""
 
 #: tools/cppcheck.h:26
 #, kde-format
@@ -1285,10 +1268,9 @@ msgid "Cppcheck is a static analysis tool for C/C++ code"
 msgstr ""
 
 #: tools/cppcheck.h:64
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'cppcheck'"
-msgstr "‹cppcheck› نى ئورنىتىڭ."
+msgstr ""
 
 #: tools/eslint.h:23
 #, kde-format
@@ -1303,10 +1285,9 @@ msgid ""
 msgstr ""
 
 #: tools/eslint.h:67
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'eslint'"
-msgstr "‹cppcheck› نى ئورنىتىڭ."
+msgstr ""
 
 #: tools/flake8.h:26
 #, kde-format
@@ -1319,10 +1300,9 @@ msgid "Flake8: Your Tool For Style Guide Enforcement for Python"
 msgstr ""
 
 #: tools/flake8.h:77
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'flake8'"
-msgstr "‹cppcheck› نى ئورنىتىڭ."
+msgstr ""
 
 #: tools/ruff.h:28
 #, kde-format

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: ۲۰۱۶-۰۸-۲۰ ۱۶:۴۹+0330\n"
 "Last-Translator: Mohi Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Persian <kde-i18n-fa@kde.org>\n"
@@ -49,17 +49,17 @@ msgstr ""
 msgid "Access Restrictions"
 msgstr "محدودیتهای دسترسی"
 
-#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:261
 #, kde-format
 msgid "Text Filter"
 msgstr "پالایه متن"
 
-#: plugin_katetextfilter.cpp:242
+#: plugin_katetextfilter.cpp:239
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "کاربرد: فرمان textfilter"
 
-#: plugin_katetextfilter.cpp:253
+#: plugin_katetextfilter.cpp:250
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -68,7 +68,7 @@ msgstr ""
 "<qt><p>کاربرد: <code>فرمان textfilter</code></p><p>گزینش را با خروجی فرمان "
 "پوسته مشخص‌شده جایگزین کنید.</p></qt>"
 
-#: plugin_katetextfilter.cpp:269
+#: plugin_katetextfilter.cpp:266
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr ""

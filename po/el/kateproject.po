@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:49+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -865,7 +865,7 @@ msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Ανάλυση κώδικα - %1"
 
-#: kateprojectinfoviewcodeanalysis.cpp:99
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, fuzzy, kde-format
 #| msgid ""
 #| "%1<br/><br/>The tool will be run on all project files which match this "
@@ -877,7 +877,7 @@ msgstr ""
 "%1<br/><br/>Το εργαλείο θα εκτελεστεί σε όλα τα αρχεία έργων που ταιριάζουν "
 "με αυτήν τη λίστα κατάληξης αρχείων:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:109
+#: kateprojectinfoviewcodeanalysis.cpp:106
 #, fuzzy, kde-format
 #| msgid ""
 #| "%1<br/><br/>The tool will be run on all project files which match this "
@@ -889,14 +889,14 @@ msgstr ""
 "%1<br/><br/>Το εργαλείο θα εκτελεστεί σε όλα τα αρχεία έργων που ταιριάζουν "
 "με αυτήν τη λίστα κατάληξης αρχείων:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:151
-#: kateprojectinfoviewcodeanalysis.cpp:211
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:148
+#: kateprojectinfoviewcodeanalysis.cpp:208
+#: kateprojectinfoviewcodeanalysis.cpp:212
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "ΑνάλυσηΚώδικα"
 
-#: kateprojectinfoviewcodeanalysis.cpp:206
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
@@ -909,7 +909,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "Η ανάλυση σε %1 αρχείο ολοκληρώθηκε."
 msgstr[1] "Η ανάλυση σε %1 αρχεία ολοκληρώθηκε."
 
-#: kateprojectinfoviewcodeanalysis.cpp:214
+#: kateprojectinfoviewcodeanalysis.cpp:211
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -951,12 +951,12 @@ msgstr "Αδυναμία δημιουργίας του ευρετηρίου. Ε�
 msgid "Indexing is not enabled"
 msgstr "Η δεικτοδότηση δεν είναι ενεργή"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "File name already exists"
 msgstr "Το όνομα αρχείου υπάρχει ήδη"

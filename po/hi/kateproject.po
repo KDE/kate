@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:49+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2024-12-15 15:57+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -832,28 +832,28 @@ msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr ""
 
-#: kateprojectinfoviewcodeanalysis.cpp:99
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
 
-#: kateprojectinfoviewcodeanalysis.cpp:109
+#: kateprojectinfoviewcodeanalysis.cpp:106
 #, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
 
-#: kateprojectinfoviewcodeanalysis.cpp:151
-#: kateprojectinfoviewcodeanalysis.cpp:211
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:148
+#: kateprojectinfoviewcodeanalysis.cpp:208
+#: kateprojectinfoviewcodeanalysis.cpp:212
 #, kde-format
 msgid "CodeAnalysis"
 msgstr ""
 
-#: kateprojectinfoviewcodeanalysis.cpp:206
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -864,7 +864,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] ""
 msgstr[1] ""
 
-#: kateprojectinfoviewcodeanalysis.cpp:214
+#: kateprojectinfoviewcodeanalysis.cpp:211
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr ""
@@ -904,12 +904,12 @@ msgstr ""
 msgid "Indexing is not enabled"
 msgstr ""
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "File name already exists"
 msgstr ""

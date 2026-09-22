@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2024-11-12 20:32+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -49,17 +49,17 @@ msgstr ""
 msgid "Access Restrictions"
 msgstr "Piekļuves ierobežojumi"
 
-#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:261
 #, kde-format
 msgid "Text Filter"
 msgstr "Teksta filtrs"
 
-#: plugin_katetextfilter.cpp:242
+#: plugin_katetextfilter.cpp:239
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Lietošana: „textfilter KOMANDA“"
 
-#: plugin_katetextfilter.cpp:253
+#: plugin_katetextfilter.cpp:250
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -68,7 +68,7 @@ msgstr ""
 "<qt><p>Lietošana: <code>textfilter KOMANDA</code></p><p>Aizstāj atlasīto "
 "tekstu ar norādītas komandas izvadu.</p></qt>"
 
-#: plugin_katetextfilter.cpp:269
+#: plugin_katetextfilter.cpp:266
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr "&Filtrēt caur komandu..."

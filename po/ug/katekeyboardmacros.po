@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-06 00:49+0000\n"
-"PO-Revision-Date: 2026-05-30 16:56-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
@@ -24,11 +24,10 @@ msgid "Could not open file ‘%1’."
 msgstr ""
 
 #: keyboardmacrosplugin.cpp:72
-#, fuzzy, kde-format
-#| msgid "Malformed JSON file '%1': %2"
+#, kde-format
 msgctxt "%2 is an error message"
 msgid "Malformed JSON file ‘%1’: %2"
-msgstr "پىچىمى خاتا JSON ھۆججەت «%1»: %2"
+msgstr ""
 
 #: keyboardmacrosplugin.cpp:80
 #, kde-format
@@ -54,23 +53,20 @@ msgid "Can’t save macro during recording. Please end recording first"
 msgstr ""
 
 #: keyboardmacrosplugin.cpp:241
-#, fuzzy, kde-format
-#| msgid "Recording…"
+#, kde-format
 msgctxt "@info:progress Macro is being recorded right now"
 msgid "Recording…"
 msgstr "خاتىرىلەۋاتىدۇ…"
 
 #: keyboardmacrosplugin.cpp:278
-#, fuzzy, kde-format
-#| msgid "Recording %1"
+#, kde-format
 msgid "Recording ended"
-msgstr "%1 نى خاتىرىلەۋاتىدۇ"
+msgstr ""
 
 #: keyboardmacrosplugin.cpp:279
-#, fuzzy, kde-format
-#| msgid "Recording %1"
+#, kde-format
 msgid "Recording canceled"
-msgstr "%1 نى خاتىرىلەۋاتىدۇ"
+msgstr ""
 
 #: keyboardmacrosplugin.cpp:330
 #, kde-format
@@ -145,10 +141,9 @@ msgid "Record and play keyboard macros."
 msgstr ""
 
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:163
-#, fuzzy, kde-format
-#| msgid "Keyboard Macros"
+#, kde-format
 msgid "&Record Macro…"
-msgstr "ھەرپتاختا ماكروسى"
+msgstr ""
 
 #: keyboardmacrospluginview.cpp:43
 #, kde-format

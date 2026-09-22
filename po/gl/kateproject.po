@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:49+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2025-03-19 13:16+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -858,7 +858,7 @@ msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Análise de código — %1"
 
-#: kateprojectinfoviewcodeanalysis.cpp:99
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
@@ -868,7 +868,7 @@ msgstr ""
 "executarase en todos os ficheiros de proxecto que coinciden con esta lista "
 "de extensións de ficheiros:<br/><b>%4</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:109
+#: kateprojectinfoviewcodeanalysis.cpp:106
 #, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
@@ -878,14 +878,14 @@ msgstr ""
 "os ficheiros de proxecto que coinciden con esta lista de extensións de "
 "ficheiros:<br/><b>%4</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:151
-#: kateprojectinfoviewcodeanalysis.cpp:211
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:148
+#: kateprojectinfoviewcodeanalysis.cpp:208
+#: kateprojectinfoviewcodeanalysis.cpp:212
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "Análise de código"
 
-#: kateprojectinfoviewcodeanalysis.cpp:206
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -896,7 +896,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "[%1] Rematou a análise de %2 ficheiro."
 msgstr[1] "[%1] Rematou a análise de %2 ficheiros."
 
-#: kateprojectinfoviewcodeanalysis.cpp:214
+#: kateprojectinfoviewcodeanalysis.cpp:211
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "A análise fallou co código de saída %1. Erro: %2"
@@ -936,12 +936,12 @@ msgstr "Non foi posíbel crear o índice. Instale «ctags»."
 msgid "Indexing is not enabled"
 msgstr "A indexación non está activada."
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "Error"
 msgstr "Erro"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "File name already exists"
 msgstr "Xa existe un ficheiro con ese nome."

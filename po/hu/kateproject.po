@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:49+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2026-06-18 21:48+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -879,7 +879,7 @@ msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Kódelemzés"
 
-#: kateprojectinfoviewcodeanalysis.cpp:99
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, fuzzy, kde-format
 #| msgid ""
 #| "%1<br/><br/>The tool will be run on all project files which match this "
@@ -891,7 +891,7 @@ msgstr ""
 "%1<br/><br/>Az eszköz az összes olyan projektfájlra futtatva lesz, ami "
 "illeszkedik erre a fájlkiterjesztés-listára:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:109
+#: kateprojectinfoviewcodeanalysis.cpp:106
 #, fuzzy, kde-format
 #| msgid ""
 #| "%1<br/><br/>The tool will be run on all project files which match this "
@@ -903,15 +903,15 @@ msgstr ""
 "%1<br/><br/>Az eszköz az összes olyan projektfájlra futtatva lesz, ami "
 "illeszkedik erre a fájlkiterjesztés-listára:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:151
-#: kateprojectinfoviewcodeanalysis.cpp:211
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:148
+#: kateprojectinfoviewcodeanalysis.cpp:208
+#: kateprojectinfoviewcodeanalysis.cpp:212
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "Kódelemzés"
 
-#: kateprojectinfoviewcodeanalysis.cpp:206
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
@@ -924,7 +924,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "%1 fájl elemzése befejeződött."
 msgstr[1] "%1 fájl elemzése befejeződött."
 
-#: kateprojectinfoviewcodeanalysis.cpp:214
+#: kateprojectinfoviewcodeanalysis.cpp:211
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -966,12 +966,12 @@ msgstr "Az index nem hozható létre. Telepítse a „ctags” csomagot."
 msgid "Indexing is not enabled"
 msgstr "Az indexelés nincs bekapcsolva"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "Error"
 msgstr "Hiba"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "File name already exists"
 msgstr "A fájlnév már létezik"

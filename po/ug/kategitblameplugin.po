@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-17 00:47+0000\n"
-"PO-Revision-Date: 2026-05-30 16:56-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
@@ -27,7 +27,7 @@ msgstr "تېخى تاپشۇرۇلمىدى"
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
-msgstr " %1: %2 "
+msgstr ""
 
 #: kategitblameplugin.cpp:98
 #, kde-format
@@ -53,7 +53,7 @@ msgstr ""
 #: kategitblameplugin.cpp:340
 #, kde-format
 msgid "Git"
-msgstr "Git"
+msgstr ""
 
 #: kategitblameplugin.cpp:403
 #, kde-format

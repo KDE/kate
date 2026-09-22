@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:49+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2019-12-18 18:06+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -856,7 +856,7 @@ msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Koodi analüüs"
 
-#: kateprojectinfoviewcodeanalysis.cpp:99
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, fuzzy, kde-format
 #| msgid ""
 #| "%1<br/><br/>The tool will be run on all project files which match this "
@@ -868,7 +868,7 @@ msgstr ""
 "%1<br/><br/>Tööriist käitleb kõiki projekti faile, mille faililaiendus "
 "vastab loendile:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:109
+#: kateprojectinfoviewcodeanalysis.cpp:106
 #, fuzzy, kde-format
 #| msgid ""
 #| "%1<br/><br/>The tool will be run on all project files which match this "
@@ -880,15 +880,15 @@ msgstr ""
 "%1<br/><br/>Tööriist käitleb kõiki projekti faile, mille faililaiendus "
 "vastab loendile:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:151
-#: kateprojectinfoviewcodeanalysis.cpp:211
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:148
+#: kateprojectinfoviewcodeanalysis.cpp:208
+#: kateprojectinfoviewcodeanalysis.cpp:212
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "Koodi analüüs"
 
-#: kateprojectinfoviewcodeanalysis.cpp:206
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
@@ -901,7 +901,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "%1 faili analüüs on lõpetatud."
 msgstr[1] "%1 faili analüüs on lõpetatud."
 
-#: kateprojectinfoviewcodeanalysis.cpp:214
+#: kateprojectinfoviewcodeanalysis.cpp:211
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -943,12 +943,12 @@ msgstr "Indeksi loomine nurjus. Palun paigalda \"ctags\"."
 msgid "Indexing is not enabled"
 msgstr ""
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "File name already exists"
 msgstr ""

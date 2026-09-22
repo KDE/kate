@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2026-06-12 12:18+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -49,17 +49,17 @@ msgstr ""
 msgid "Access Restrictions"
 msgstr "Omezení přístupu"
 
-#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:261
 #, kde-format
 msgid "Text Filter"
 msgstr "Textový filtr"
 
-#: plugin_katetextfilter.cpp:242
+#: plugin_katetextfilter.cpp:239
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Použití: textfilter PŘÍKAZ"
 
-#: plugin_katetextfilter.cpp:253
+#: plugin_katetextfilter.cpp:250
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -68,7 +68,7 @@ msgstr ""
 "<qt><p>Využití: <code>textfilter PŘÍKAZ</code></p><p>Nahradí výběr výstupem "
 "ze zadaného shellového příkazu.</p></qt>"
 
-#: plugin_katetextfilter.cpp:269
+#: plugin_katetextfilter.cpp:266
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr "&Filtrovat pomocí příkazu..."

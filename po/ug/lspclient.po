@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-19 00:50+0000\n"
-"PO-Revision-Date: 2026-05-30 17:01-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
@@ -270,7 +270,7 @@ msgstr ""
 #: lspclientpluginview.cpp:1984
 #, kde-format
 msgid "No results"
-msgstr ""
+msgstr "نەتىجە يوق"
 
 #: lspclientpluginview.cpp:1574
 #, kde-format
@@ -624,4 +624,4 @@ msgstr ""
 #: ui.rc:32
 #, kde-format
 msgid "More Options"
-msgstr ""
+msgstr "باشقا تاللانما"

@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-16 00:49+0000\n"
-"PO-Revision-Date: 2026-05-30 16:53-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
-"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgstr "sahranbay@gmail.com, gheyret@gmail.com"
 #: kate/main.cpp:120
 #, kde-format
 msgid "Kate"
-msgstr "Kate"
+msgstr ""
 
 #: kate/main.cpp:122
 #, kde-format
@@ -95,7 +95,7 @@ msgstr ""
 #: kate/main.cpp:194
 #, kde-format
 msgid "pid"
-msgstr "pid"
+msgstr ""
 
 #: kate/main.cpp:199 kwrite/main.cpp:102
 #, kde-format
@@ -158,7 +158,7 @@ msgstr "[تور ئادرېس…]"
 #: kwrite/main.cpp:47
 #, kde-format
 msgid "KWrite"
-msgstr "KWrite"
+msgstr ""
 
 #: kwrite/main.cpp:49
 #, kde-format
@@ -186,7 +186,7 @@ msgstr "ئورنىنى كۆچۈر"
 #: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
-msgstr "Git"
+msgstr ""
 
 #: lib/commitfilesview.cpp:625
 #, kde-format
@@ -322,8 +322,6 @@ msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
-"ئېنىقلاش يۇقىرى چېكىگە يەتتى. ئېنىقلاش يۇقىرى چېكىنى تەڭشەكتە سەپلىگىلى "
-"بولىدۇ."
 
 #: lib/diagnostics/diagnosticview.cpp:367
 #, kde-format
@@ -524,9 +522,6 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
-"<b>git</b> تېپىلمىدى. پۈتۈك پەرقىنى تەكشۈرۈشتە Git بولۇشى كېرەك. ئەگەر Git "
-"ئورنىتىلغان بولسا، يول ئۆزگەرگۈچى يەنى PATH قوشقانلىقىڭىزنى جەزملەڭ. "
-"تەپسىلاتىنى https://git-scm.com/downloads دىن كۆرۈڭ"
 
 #: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1278
 #: lib/kateconfigdialog.cpp:368
@@ -537,7 +532,7 @@ msgstr "پەرق"
 #: lib/diff/diffwidget.cpp:123
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr "پەرق %1 .. %2"
+msgstr ""
 
 #: lib/diff/diffwidget.cpp:153
 #, kde-format
@@ -614,18 +609,6 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
-"كۈندىلىك خاتىرىنى سۈزىدۇ.<ul><li><code>\"a:\"</code> ئالدى قوشۇلغۇچىنى "
-"ئىشلىتىپ يازغۇچىنىڭ ئاتى بويىچە سۈزىدۇ. مەسىلەن: <b>a:john doe</b></"
-"li><li><code>\"!a:\"</code> ئالدى قوشۇلغۇچىنى ئىشلىتىپ مەلۇم بىر يازغۇچىنى "
-"ئۆز ئىچىگە ئالمايدۇ. مەسىلەن، <b>!a:john doe</b></li><li><code>\"since:\"</"
-"code> ئالدى قوشۇلغۇچىنى ئىشلىتىپ بېرىلگەن چېسلادىن كېيىنكى تاپشۇرۇلمىنى "
-"كۆرسىتىدۇ. تاپشۇرۇلغان بارلىق يازمىنىڭ چېسلاسىنى تەكشۈرىدۇ. چېسلا پىچىمى "
-"yyyy-MM-dd. مەسىلەن: <b>since:2025-04-17</b></li><li><code>\"until:\"</code> "
-"ئالدى قوشۇلغۇچىنى ئىشلىتىپ بېرىلگەن چېسلادىن ئىلگىرىكى تاپشۇرۇلمىنى "
-"كۆرسىتىدۇ. چېسلا پىچىمى yyyy-MM-dd. مەسىلەن: <b>until:2025-04-17</b></"
-"li><li>ئۇچۇر سۈزۈشتە، پەقەت ئىزدەش شەرتى كىرگۈزۈلىدۇ. ئەگەر كۆپ شەرت "
-"كىرگۈزۈلگەن بولسا پەقەت ھەممە ئىزدەش شەرتىگە ماس كەلگەن ئۇچۇرنىلا كۆرسىتىدۇ."
-"</li></ul>سۈزگۈچنى قوزغىتىشتا <b>Enter</b> كۇنۇپكىسى بېسىلىدۇ."
 
 #: lib/filehistorywidget.cpp:537
 #, kde-format
@@ -698,10 +681,6 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"بۇ تەھرىرلىگۈچنى sudo ئارقىلىق ئىجرا قىلغاندا پىروگراممىدا خاتالىق كۆرۈلۈشى "
-"مۇمكىن، بىخەتەرلىك ئاجىزلىقىنى ئاشكارىلاپ قويۇشى مۇمكىن. پىروگراممىنى "
-"ئادەتتىكى ئۇسۇلدا ئىجرا قىلىڭ. ئەگەر ھۆججەتنى ساقلىغاندا ئىجازەتنى "
-"ئۆرلىتىشكە ئېھتىياجلىق بولغاندا پىروگرامما كىملىك دەلىللەشنى ئەسكەرتىدۇ."
 
 #: lib/kateapp.cpp:154
 msgid ""
@@ -709,15 +688,11 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
-"بۇ تەھرىرلىگۈچنى kdesu ئارقىلىق ئىجرا قىلغاندا پىروگراممىدا خاتالىق كۆرۈلۈشى "
-"مۇمكىن، بىخەتەرلىك ئاجىزلىقىنى ئاشكارىلاپ قويۇشى مۇمكىن. پىروگراممىنى "
-"ئادەتتىكى ئۇسۇلدا ئىجرا قىلىڭ. ئەگەر ھۆججەتنى ساقلىغاندا ئىجازەتنى "
-"ئۆرلىتىشكە ئېھتىياجلىق بولغاندا پىروگرامما كىملىك دەلىللەشنى ئەسكەرتىدۇ."
 
 #: lib/kateapp.cpp:385
 #, kde-format
 msgid "Christoph Cullmann"
-msgstr "Christoph Cullmann"
+msgstr ""
 
 #: lib/kateapp.cpp:385
 #, kde-format
@@ -727,7 +702,7 @@ msgstr "ئاسرىغۇچى"
 #: lib/kateapp.cpp:386
 #, kde-format
 msgid "Dominik Haumann"
-msgstr "Dominik Haumann"
+msgstr ""
 
 #: lib/kateapp.cpp:386 lib/kateapp.cpp:389 lib/kateapp.cpp:390
 #: lib/kateapp.cpp:391 lib/kateapp.cpp:392 lib/kateapp.cpp:398
@@ -738,7 +713,7 @@ msgstr "غوللۇق ئىجادىيەتچىلەر"
 #: lib/kateapp.cpp:387
 #, kde-format
 msgid "Sven Brauch"
-msgstr "Sven Brauch"
+msgstr ""
 
 #: lib/kateapp.cpp:387 lib/kateapp.cpp:388 lib/kateapp.cpp:393
 #, kde-format
@@ -748,37 +723,37 @@ msgstr "ئىجادكار"
 #: lib/kateapp.cpp:388
 #, kde-format
 msgid "Kåre Särs"
-msgstr "Kåre Särs"
+msgstr ""
 
 #: lib/kateapp.cpp:389
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr "Waqar Ahmed"
+msgstr ""
 
 #: lib/kateapp.cpp:390
 #, kde-format
 msgid "Anders Lund"
-msgstr "Anders Lund"
+msgstr ""
 
 #: lib/kateapp.cpp:391
 #, kde-format
 msgid "Joseph Wenninger"
-msgstr "Joseph Wenninger"
+msgstr ""
 
 #: lib/kateapp.cpp:392
 #, kde-format
 msgid "Hamish Rodda"
-msgstr "Hamish Rodda"
+msgstr ""
 
 #: lib/kateapp.cpp:393
 #, kde-format
 msgid "Alexander Neundorf"
-msgstr "Alexander Neundorf"
+msgstr ""
 
 #: lib/kateapp.cpp:394
 #, kde-format
 msgid "Waldo Bastian"
-msgstr "Waldo Bastian"
+msgstr ""
 
 #: lib/kateapp.cpp:394
 #, kde-format
@@ -788,7 +763,7 @@ msgstr "ياخشى يىغلەك سىستېمىسى"
 #: lib/kateapp.cpp:395
 #, kde-format
 msgid "Charles Samuels"
-msgstr "Charles Samuels"
+msgstr ""
 
 #: lib/kateapp.cpp:395
 #, kde-format
@@ -798,7 +773,7 @@ msgstr "تەھرىرلەش بۇيرۇقلىرى"
 #: lib/kateapp.cpp:396
 #, kde-format
 msgid "Matt Newell"
-msgstr "Matt Newell"
+msgstr ""
 
 #: lib/kateapp.cpp:396
 #, kde-format
@@ -808,7 +783,7 @@ msgstr "سىناش،…"
 #: lib/kateapp.cpp:397
 #, kde-format
 msgid "Michael Bartl"
-msgstr "Michael Bartl"
+msgstr ""
 
 #: lib/kateapp.cpp:397
 #, kde-format
@@ -818,12 +793,12 @@ msgstr "بۇرۇنقى غوللۇق ئىجادىيەتچىلەر"
 #: lib/kateapp.cpp:398
 #, kde-format
 msgid "Michael McCallum"
-msgstr "Michael McCallum"
+msgstr ""
 
 #: lib/kateapp.cpp:399
 #, kde-format
 msgid "Jochen Wilhemly"
-msgstr "Jochen Wilhemly"
+msgstr ""
 
 #: lib/kateapp.cpp:399
 #, kde-format
@@ -833,7 +808,7 @@ msgstr "KWrite يازغۇچىسى"
 #: lib/kateapp.cpp:400
 #, kde-format
 msgid "Michael Koch"
-msgstr "Michael Koch"
+msgstr ""
 
 #: lib/kateapp.cpp:400
 #, kde-format
@@ -843,17 +818,17 @@ msgstr "KWrite نى KParts قا يۆتكەش"
 #: lib/kateapp.cpp:401
 #, kde-format
 msgid "Christian Gebauer"
-msgstr "Christian Gebauer"
+msgstr ""
 
 #: lib/kateapp.cpp:402
 #, kde-format
 msgid "Simon Hausmann"
-msgstr "Simon Hausmann"
+msgstr ""
 
 #: lib/kateapp.cpp:403
 #, kde-format
 msgid "Glen Parker"
-msgstr "Glen Parker"
+msgstr ""
 
 #: lib/kateapp.cpp:403
 #, kde-format
@@ -863,7 +838,7 @@ msgstr "KWrite نىڭ يېنىۋېلىش ئىزى، Kspell يۈرۈشلەشتۈ�
 #: lib/kateapp.cpp:404
 #, kde-format
 msgid "Scott Manson"
-msgstr "Scott Manson"
+msgstr ""
 
 #: lib/kateapp.cpp:404
 #, kde-format
@@ -873,7 +848,7 @@ msgstr "KWrite نىڭ XML گىرامماتىكىلىق يورۇتۇشنى قول
 #: lib/kateapp.cpp:405
 #, kde-format
 msgid "John Firebaugh"
-msgstr "John Firebaugh"
+msgstr ""
 
 #: lib/kateapp.cpp:405
 #, kde-format
@@ -883,7 +858,7 @@ msgstr "ياماق ۋە باشقا"
 #: lib/kateapp.cpp:406
 #, kde-format
 msgid "Pablo Martín"
-msgstr "Pablo Martín"
+msgstr ""
 
 #: lib/kateapp.cpp:407
 #, kde-format
@@ -893,7 +868,7 @@ msgstr "Python قىستۇرما ئىجادكار"
 #: lib/kateapp.cpp:410
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
-msgstr "Gerald Senarclens de Grancy"
+msgstr ""
 
 #: lib/kateapp.cpp:410
 #, kde-format
@@ -903,7 +878,7 @@ msgstr "سوئال جاۋاب ۋە قوليازما"
 #: lib/kateapp.cpp:413
 #, kde-format
 msgid "Tyson Tan"
-msgstr "Tyson Tan"
+msgstr ""
 
 #: lib/kateapp.cpp:414
 #, kde-format
@@ -913,7 +888,7 @@ msgstr "Kate نىڭ قۇت ھايۋىنى «تور تۆمۈر تۇمشۇقى Kat
 #: lib/kateapp.cpp:417
 #, kde-format
 msgid "Matteo Merli"
-msgstr "Matteo Merli"
+msgstr ""
 
 #: lib/kateapp.cpp:417
 #, kde-format
@@ -923,7 +898,7 @@ msgstr "RPM Spec-Files، Perl، Diff ۋە باشقىلار ئۈچۈن يورۇت
 #: lib/kateapp.cpp:418
 #, kde-format
 msgid "Rocky Scaletta"
-msgstr "Rocky Scaletta"
+msgstr ""
 
 #: lib/kateapp.cpp:418
 #, kde-format
@@ -933,7 +908,7 @@ msgstr "VHDL ئۈچۈن يورۇتۇش"
 #: lib/kateapp.cpp:419
 #, kde-format
 msgid "Yury Lebedev"
-msgstr "Yury Lebedev"
+msgstr ""
 
 #: lib/kateapp.cpp:419
 #, kde-format
@@ -943,7 +918,7 @@ msgstr "SQL ئۈچۈن يورۇتۇش"
 #: lib/kateapp.cpp:420
 #, kde-format
 msgid "Chris Ross"
-msgstr "Chris Ross"
+msgstr ""
 
 #: lib/kateapp.cpp:420
 #, kde-format
@@ -953,7 +928,7 @@ msgstr "Ferite ئۈچۈن يورۇتۇش"
 #: lib/kateapp.cpp:421
 #, kde-format
 msgid "Nick Roux"
-msgstr "Nick Roux"
+msgstr ""
 
 #: lib/kateapp.cpp:421
 #, kde-format
@@ -963,7 +938,7 @@ msgstr "ILERPG ئۈچۈن"
 #: lib/kateapp.cpp:422
 #, kde-format
 msgid "Carsten Niehaus"
-msgstr "Carsten Niehaus"
+msgstr ""
 
 #: lib/kateapp.cpp:422
 #, kde-format
@@ -973,7 +948,7 @@ msgstr "LaTeX ئۈچۈن يورۇتۇش"
 #: lib/kateapp.cpp:423
 #, kde-format
 msgid "Per Wigren"
-msgstr "Per Wigren"
+msgstr ""
 
 #: lib/kateapp.cpp:423
 #, kde-format
@@ -983,7 +958,7 @@ msgstr "Makefiles، Python ئۈچۈن يورۇتۇش"
 #: lib/kateapp.cpp:424
 #, kde-format
 msgid "Jan Fritz"
-msgstr "Jan Fritz"
+msgstr ""
 
 #: lib/kateapp.cpp:424
 #, kde-format
@@ -993,12 +968,12 @@ msgstr "Python ئۈچۈن يورۇتۇش"
 #: lib/kateapp.cpp:425
 #, kde-format
 msgid "Daniel Naber"
-msgstr "Daniel Naber"
+msgstr ""
 
 #: lib/kateapp.cpp:426
 #, kde-format
 msgid "Roland Pabel"
-msgstr "Roland Pabel"
+msgstr ""
 
 #: lib/kateapp.cpp:426
 #, kde-format
@@ -1008,7 +983,7 @@ msgstr "Scheme ئۈچۈن يورۇتۇش"
 #: lib/kateapp.cpp:427
 #, kde-format
 msgid "Cristi Dumitrescu"
-msgstr "Cristi Dumitrescu"
+msgstr ""
 
 #: lib/kateapp.cpp:427
 #, kde-format
@@ -1018,7 +993,7 @@ msgstr "PHP ھالقىلىق سۆز/سانلىق مەلۇمات تۈرى تىز�
 #: lib/kateapp.cpp:428
 #, kde-format
 msgid "Carsten Pfeiffer"
-msgstr "Carsten Pfeiffer"
+msgstr ""
 
 #: lib/kateapp.cpp:428
 #, kde-format
@@ -1068,9 +1043,6 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
-"Kate پىروگراممىنى ئىجرا قىلىش ئۈچۈن ئىزدەيدىغان يول، ھەر قايسى مۇندەرىجە %1 "
-"بىلەن ئايرىلىدۇ. بۇ تىزىم PATH مۇھىم ئۆزگەرگۈچىسىنىڭ بېشىغا قوشۇلىدۇ. "
-"مەسىلەن: «home/USER/myapps/bin/:/home/USER/.local/bin»"
 
 #: lib/kateconfigdialog.cpp:144
 #, kde-format
@@ -1088,8 +1060,6 @@ msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
 "each document will be opened in a new tab in the current window."
 msgstr ""
-"ئەگەر قوزغىتىلسا، ھەر بىر پۈتۈك ئۆزىنىڭ ئايرىم كۆزنىكىدە ئېچىلىدۇ. ئەگەر "
-"قوزغىتىلمىسا، ھەر بىر پۈتۈك نۆۋەتتىكى كۆزنەكنىڭ يېڭى بەتكۈچىدە ئېچىلىدۇ."
 
 #: lib/kateconfigdialog.cpp:162
 #, kde-format
@@ -1134,9 +1104,6 @@ msgid ""
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
-"ئەگەر قوزغىتىلسا، ئۆزگەرتىلگەن ھۆججەتنىڭ ھەممىسىنى ئۇسلۇب سۆزلەشكۈدە "
-"كۆرسىتىدۇ. ئەگەر قوزغىتىلمىسا، پەقەت شۇ ھۆججەتنىڭ كۆرۈنۈشى فوكۇسلانغاندا، "
-"ئاندىن ئۆزگەرتىلگەن ھەر بىر ھۆججەتنى قانداق بىر تەرەپ قىلىشنى سورايدۇ."
 
 #: lib/kateconfigdialog.cpp:194
 #, kde-format
@@ -1167,8 +1134,6 @@ msgid ""
 "tabs.\n"
 "This option does not affect the bottom sidebar."
 msgstr ""
-"قوزغىتىلغاندا بۆلەك چوڭلۇقىنى بەتكۈچنىڭ ئورنى بەلگىلەيدۇ.\n"
-"بۇ تاللانما ئاستى يان بالداققا تەسىر كۆرسەتمەيدۇ."
 
 #: lib/kateconfigdialog.cpp:215
 #, kde-format
@@ -1196,9 +1161,6 @@ msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
-"چەكلەيدىغان قىممەت چوڭراق بولسا كۆزنەك چوڭلۇقىنى چوڭايتىدۇ، «بەتكۈچ سىيرىشقا "
-"يول قويىدۇ» تاللانمىنى قوزغىتىپ بۇ خىل ھادىسىنىڭ ئالدىنى ئالغىلى بولىدۇ. "
-"چەكسىز بەتكۈچ سانى ھەمىشە سىيرىشقا يول قويىدۇ."
 
 #: lib/kateconfigdialog.cpp:259
 #, kde-format
@@ -1438,7 +1400,6 @@ msgstr "يول «%1» مەۋجۇت ئەمەس"
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
 msgstr ""
-"تېخى ساقلىمىغان ئۆزگەرتىشىڭىز بار. ئۆزگىرىشنى قوللىنامسىز ياكى تاشلىۋېتەمسىز؟"
 
 #: lib/kateconfigplugindialogpage.cpp:78
 #, kde-format
@@ -1446,8 +1407,6 @@ msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
 "loaded, and will be loaded again the next time Kate is started."
 msgstr ""
-"بۇ يەردە Kate نىڭ بار قىستۇرمىلىرىنى كۆرەلەيسىز. توغرا بەلگىسى قويۇلغانلىرى "
-"يۈكلەنگەن بولۇپ، كېيىنكى قېتىم Kate قوزغىتىلغاندىمۇ يەنە يۈكلىنىدۇ."
 
 #: lib/kateconfigplugindialogpage.cpp:82
 #, kde-format
@@ -1872,7 +1831,7 @@ msgstr "كۆزنەك(&W)"
 #: lib/katemainwindow.cpp:749
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
-msgstr "ھەممە ئېچىلغان پۈتۈكنى ياپىدۇ. راستتىنلا داۋاملاشتۇرامدۇ؟"
+msgstr ""
 
 #: lib/katemainwindow.cpp:750
 #, kde-format
@@ -1890,8 +1849,6 @@ msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr ""
-"نۆۋەتتىكى پۈتۈكتىن باشقا ھەممە ئېچىلغان پۈتۈكنى ياپىدۇ. راستتىنلا "
-"داۋاملاشتۇرامدۇ؟"
 
 #: lib/katemainwindow.cpp:766
 #, kde-format
@@ -1918,8 +1875,6 @@ msgstr "يېپىش توختىتىلدى"
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
-"بۇ مەشغۇلات تىزىملىك بالداقنى پۈتۈنلەي يوشۇرىدۇ. %1 نى بېسىپ قايتا "
-"كۆرسىتەلەيسىز."
 
 #: lib/katemainwindow.cpp:1000
 #, kde-format
@@ -1932,8 +1887,6 @@ msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
-"«%1» قىسقۇچنى Kate كە سۆرەپ تاشلىدىڭىز. ئۇنىڭ ئىچىدىكى ھەممە ھۆججەتنى "
-"ئاچامسىز؟"
 
 #: lib/katemainwindow.cpp:1184
 #, kde-format
@@ -2066,11 +2019,6 @@ msgid ""
 "Sidebars</b> in the menu. It is still possible to show/hide the tool views "
 "with the assigned shortcuts.</qt>"
 msgstr ""
-"<qt>سىز يان بالداقنى يوشۇرماقچى. يان بالداق يوشۇرۇلسا چاشقىنەك بىلەن "
-"بىۋاسىتە قورال كۆرۈنۈشىنى زىيارەت قىلغىلى بولمايدۇ. ئەگەر يان بالداقنى قايتا "
-"زىيارەت قىلماقچى بولسىڭىز، تىزىملىكتىن <b>كۆرۈنۈش &lt; قورال كۆرۈنۈش &lt; "
-"يان بالداقنى كۆرسەت</b> نى چاقىرىڭ. تەقسىملەنگەن تېزلەتمە ئارقىلىق قورال "
-"كۆرۈنۈشىنى كۆرسىتىپ/يوشۇرالايسىز.</qt>"
 
 #: lib/katemwmodonhddialog.cpp:54
 #, kde-format
@@ -2175,8 +2123,6 @@ msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr ""
-"«diff» بۇيرۇقى مەغلۇپ بولدى. git ئورنىتىلغانمۇ ھەم ئۇ PATH نىڭ ئىچىدە بارمۇ "
-"تەكشۈرۈڭ."
 
 #: lib/katemwmodonhddialog.cpp:318
 #, kde-format
@@ -2252,7 +2198,7 @@ msgstr "پۈتۈك ياپ"
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
-msgstr "پۈتۈك %1 ئۆزگەرتىلدى. ئۆزگىرىشنى ساقلامسىز ياكى تاشلىۋېتەمسىز؟"
+msgstr ""
 
 #: lib/katesavemodifieddialog.cpp:161
 #, kde-format
@@ -2260,7 +2206,6 @@ msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
 "before closing?</qt>"
 msgstr ""
-"<qt>تۆۋەندىكى پۈتۈك ئۆزگەرتىلىپتۇ. يېپىشتىن بۇرۇن ساقلىغۇڭىز بارمۇ؟</qt>"
 
 #: lib/katesavemodifieddialog.cpp:170
 #, kde-format
@@ -2283,8 +2228,6 @@ msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
 "want to proceed."
 msgstr ""
-"ساقلاشنى تەلەپ قىلغان سانلىق مەلۇمات يېزىلمىدى. قانداق قىلىش كېرەكلىكىنى "
-"تاللاڭ."
 
 #: lib/kateurlbar.cpp:915
 #, kde-format
@@ -2564,8 +2507,6 @@ msgstr "قىسقۇچنى ئېچىشقا زۆرۈر قىستۇرما تېپىلم
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
-"قىسقۇچنى ئېچىشتا، چوقۇم <b>%1</b> قىستۇرما قوزغىتىلىشى كېرەك. ئۇنى "
-"قوزغىتامدۇ؟"
 
 #: lib/kateviewmanager.cpp:621
 #, kde-format
@@ -2606,7 +2547,7 @@ msgstr ""
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
-msgstr "+%1"
+msgstr ""
 
 #: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
 #, kde-format
@@ -2627,8 +2568,6 @@ msgid_plural ""
 "Currently, there are %1 more documents open. To see all open documents, "
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
-"نۆۋەتتە يەنە %1 پۈتۈك ئوچۇق. بارلىق ئوچۇق پۈتۈكنى كۆرۈشتە، بۇ جاي چېكىلسە "
-"تېز ئېچىش كۆرۈنۈشىگە ئالمىشىدۇ."
 
 #: lib/kateviewspace.cpp:1158
 #, kde-format
@@ -2686,14 +2625,11 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
-"«%1» ئاتلىق قورال كۆرۈنۈشىنى تاپالمىدى.  ئۇنىڭ قىستۇرمىسى چەكلەندىمۇ ياكى "
-"ئاتى خاتا يېزىلىپ قالدىمۇ؟"
 
 #: lib/mainwindow_commands.cpp:48
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
 msgstr ""
-"قوليازما خاتالىقى. قورال كۆرۈنۈش ئاتىنى كۈتكەن. ئىشلەتكىلى بولىدىغىنى: %1"
 
 #: lib/mainwindow_commands.cpp:56
 #, kde-format
@@ -2705,16 +2641,12 @@ msgstr "قوليازما"
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
-"«showtoolview $toolview_name». قورال كۆرۈنۈش كۆزنەكچىنى كۆرسىتىدۇ. "
-"ئىشلەتكىلى بولىدىغان كۆزنەكچە: %1"
 
 #: lib/mainwindow_commands.cpp:79
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
-"«showtoolview $toolview_name». قورال كۆرۈنۈش كۆزنەكچىنى يوشۇرىدۇ. ئىشلەتكىلى "
-"بولىدىغان كۆزنەكچە: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
@@ -2751,10 +2683,9 @@ msgid "Wildcard Filtering"
 msgstr "ئورتاق بەلگە سۈزگۈچ"
 
 #: lib/quickopen/katequickopenlineedit.cpp:128
-#, fuzzy, kde-format
-#| msgid "&Match Mode:"
+#, kde-format
 msgid "Match Folder Names"
-msgstr "كۆرۈش ھالىتى(&V):"
+msgstr ""
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format
@@ -2861,8 +2792,6 @@ msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
-"«%1» جەريانچاق باشقا بىر Kate ئەمەلىي مىسالىدا ئوچۇق. ئاشۇ ئەمەلىي مىسالغا "
-"ئالمىشامدۇ ياكى نۆۋەتتە ئەمەلىي مىسالدا قايتا ئاچامدۇ؟"
 
 #: lib/session/katesessionmanager.cpp:149
 #, kde-format
@@ -2879,7 +2808,7 @@ msgstr "قايتا ئاچ"
 #: lib/session/katesessionmanager.cpp:366
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
-msgstr "جەريانچاقنىڭ ئاتىنى «%1» غا ئۆزگەرتەلمىدى. «%2» غا يازالمىدى"
+msgstr ""
 
 #: lib/session/katesessionmanager.cpp:367
 #, kde-format
@@ -3012,9 +2941,6 @@ msgid ""
 "bookmarks, cursor position etc. When the session is loaded all elements are "
 "restored."
 msgstr ""
-"جەريانچاقتا ئوچۇق پۈتۈكنىڭ تىزىمى بار، يېقىندا ئاچقان ھۆججەت تىزىمى، خەتكۈش، "
-"نۇر بەلگە ئورنى قاتارلىق. جەريانچاق يۈكلەنگەندە بارلىق ئېلېمېنت ئەسلىگە "
-"قايتۇرۇلىدۇ."
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lib/ui/sessionconfigwidget.ui:136
@@ -3046,9 +2972,6 @@ msgid ""
 "be saved past editor sessions. The configuration will be restored if the "
 "document has not changed when reopened."
 msgstr ""
-"ئەگەر تەھرىرلىگۈچنىڭ ئوخشاش بولمىغان سۆزلەشكۈسىدە خەتكۈشكە ئوخشاش پۈتۈك "
-"سەپلىمىسىنى ساقلىماقچى بولسىڭىز بۇنى تاللاڭ. ئەگەر پۈتۈكنى قايتا ئاچقاندا "
-"ئۆزگەرمىگەن بولسا سەپلىمە ھۆججەت ئەسلىگە قايتۇرۇلىدۇ."
 
 #. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
 #: lib/ui/sessionconfigwidget.ui:180

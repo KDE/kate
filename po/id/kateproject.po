@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:49+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -880,7 +880,7 @@ msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Analisis Kode"
 
-#: kateprojectinfoviewcodeanalysis.cpp:99
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, fuzzy, kde-format
 #| msgid ""
 #| "%1<br/><br/>The tool will be run on all project files which match this "
@@ -892,7 +892,7 @@ msgstr ""
 "%1<br/><br/>Alat ini akan dijalankan pada semua file projek yang cocok "
 "dengan daftar ekstensi file ini:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:109
+#: kateprojectinfoviewcodeanalysis.cpp:106
 #, fuzzy, kde-format
 #| msgid ""
 #| "%1<br/><br/>The tool will be run on all project files which match this "
@@ -904,15 +904,15 @@ msgstr ""
 "%1<br/><br/>Alat ini akan dijalankan pada semua file projek yang cocok "
 "dengan daftar ekstensi file ini:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:151
-#: kateprojectinfoviewcodeanalysis.cpp:211
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:148
+#: kateprojectinfoviewcodeanalysis.cpp:208
+#: kateprojectinfoviewcodeanalysis.cpp:212
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "Analisis Kode"
 
-#: kateprojectinfoviewcodeanalysis.cpp:206
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
@@ -925,7 +925,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "Analisis pada %1 file, selesai."
 msgstr[1] "Analisis pada %1 file, selesai."
 
-#: kateprojectinfoviewcodeanalysis.cpp:214
+#: kateprojectinfoviewcodeanalysis.cpp:211
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -967,12 +967,12 @@ msgstr "Index tidak dapat diciptakan. Mohon instal 'ctag'."
 msgid "Indexing is not enabled"
 msgstr "Pengindeksan tidak difungsikan"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "Error"
 msgstr "Galat"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "File name already exists"
 msgstr "Nama file sudah ada"

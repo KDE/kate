@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2014-02-25 01:40+0100\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -46,18 +46,18 @@ msgstr ""
 msgid "Access Restrictions"
 msgstr "Togriep-Grenzen"
 
-#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:261
 #, fuzzy, kde-format
 #| msgid "Filter"
 msgid "Text Filter"
 msgstr "Filter"
 
-#: plugin_katetextfilter.cpp:242
+#: plugin_katetextfilter.cpp:239
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Bruuk: textfilter BEFEHL"
 
-#: plugin_katetextfilter.cpp:253
+#: plugin_katetextfilter.cpp:250
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -66,7 +66,7 @@ msgstr ""
 "<qt><p>Bruuk: <code>textfilter BEFEHL</code></p><p>De Köör dör de Utgaav vun "
 "den angeven Konsoolbefehl utwesseln.</p></qt>"
 
-#: plugin_katetextfilter.cpp:269
+#: plugin_katetextfilter.cpp:266
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr ""

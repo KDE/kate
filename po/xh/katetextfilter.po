@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2002-09-09 14:16+0200\n"
 "Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -46,25 +46,25 @@ msgstr ""
 msgid "Access Restrictions"
 msgstr ""
 
-#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:261
 #, fuzzy, kde-format
 #| msgid "Filter"
 msgid "Text Filter"
 msgstr "Icebo lokucoca ulwelo"
 
-#: plugin_katetextfilter.cpp:242
+#: plugin_katetextfilter.cpp:239
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr ""
 
-#: plugin_katetextfilter.cpp:253
+#: plugin_katetextfilter.cpp:250
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
 "with the output of the specified shell command.</p></qt>"
 msgstr ""
 
-#: plugin_katetextfilter.cpp:269
+#: plugin_katetextfilter.cpp:266
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr ""

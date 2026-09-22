@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2021-03-11 22:02+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -46,17 +46,17 @@ msgstr ""
 msgid "Access Restrictions"
 msgstr "Başlatmağa icazə verilmir"
 
-#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:261
 #, kde-format
 msgid "Text Filter"
 msgstr "Mətn süzgəci"
 
-#: plugin_katetextfilter.cpp:242
+#: plugin_katetextfilter.cpp:239
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "İstifadə olunur: textfilter ƏMRi"
 
-#: plugin_katetextfilter.cpp:253
+#: plugin_katetextfilter.cpp:250
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -65,7 +65,7 @@ msgstr ""
 "<qt><p>İstifadə olunur:<code>textfilter ƏMRİ</code></p>Seçilmişi verilmiş "
 "əmr üzlüyü çıxışı ilə əvəz edir.<p></p>"
 
-#: plugin_katetextfilter.cpp:269
+#: plugin_katetextfilter.cpp:266
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr "Əmr vasitəsi ilə &süzgəcləyin..."

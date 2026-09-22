@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2026-05-30 17:00-0400\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
-"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,25 +39,23 @@ msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
 "to be able to do this, contact your system administrator."
 msgstr ""
-"بۇ سىرتقى پىروگراممىنى ئىجرا قىلىشىڭىزغا يول قويۇلمىغان. ئەگەر بۇ چەكلىمىنى "
-"بىكار قىلماقچى بولسىڭىز، سىستېما باشقۇرغۇچىڭىز بىلەن ئالاقىلىشىڭ."
 
 #: plugin_katetextfilter.cpp:158
 #, kde-format
 msgid "Access Restrictions"
 msgstr "زىيارەت چەكلىمىسى"
 
-#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:261
 #, kde-format
 msgid "Text Filter"
 msgstr "تېكىست سۈزگۈچ"
 
-#: plugin_katetextfilter.cpp:242
+#: plugin_katetextfilter.cpp:239
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "ئىشلىتىش ئۇسۇلى: textfilter COMMAND"
 
-#: plugin_katetextfilter.cpp:253
+#: plugin_katetextfilter.cpp:250
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -66,7 +64,7 @@ msgstr ""
 "<qt><p>ئىشلىتىش ئۇسۇلى: <code>textfilter COMMAND</code></p><p>تاللانغان "
 "دائىرە بەلگىلەنگەن shell بۇيرۇقىغا ئالماشتۇرۇلىدۇ.</p></qt>"
 
-#: plugin_katetextfilter.cpp:269
+#: plugin_katetextfilter.cpp:266
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr "بۇيرۇق ئارقىلىق سۈز(&F)…"
@@ -111,9 +109,6 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
-"ئەگەر تاللانسا، STDOUT ۋە STDERR نىڭ چىقىرىشى بىرلەشتۈرۈلىدۇ ۋە خاتالىق "
-"مەلۇم قىلمايدۇ.\n"
-"تاللانمىسا، STDERR نى خاتالىق سۈپىتىدە كۆرسىتىدۇ."
 
 #. i18n: ectx: property (text), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:60

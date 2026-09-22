@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-13 00:48+0000\n"
-"PO-Revision-Date: 2026-05-30 16:56-0400\n"
+"PO-Revision-Date: 2026-09-22 18:03+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
-"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
 "Language: ug\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,7 +75,7 @@ msgstr "يېڭىدىن تېرمىنال بەتكۈچى(&N)"
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
-msgstr "Konsole ئورنىتىلمىغان. تېرمىنال ئىشلىتىش ئۈچۈن Konsole نى ئورنىتىڭ."
+msgstr ""
 
 #: kateconsole.cpp:439
 #, kde-format
@@ -83,9 +83,6 @@ msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
 "contained commands with your user rights."
 msgstr ""
-"سىز راستتىنلا بۇ تېكىست تۇرۇبىسىنى تىزگىن تاختىغا كىرگۈزەمسىز؟ بۇنداق "
-"بولغاندا ئىشلەتكۈچى ئىجازىتىڭىزدە مەۋجۇت ھەر قانداق بۇيرۇقنى ئىجرا قىلىشى "
-"مۇمكىن."
 
 #: kateconsole.cpp:440
 #, kde-format
@@ -110,10 +107,6 @@ msgid ""
 "with your user rights, in the terminal:\n"
 "'%1'"
 msgstr ""
-"پۈتۈكنى ھەقىقەتەن ئىجرا قىلامسىز؟\n"
-"بۇ مەشغۇلات تۆۋەندىكى بۇيرۇقنى ئىشلەتكۈچى ئىجازىتىڭىزدە تېرمىنالدا ئىجرا "
-"قىلىدۇ\n"
-"«%1»"
 
 #: kateconsole.cpp:549
 #, kde-format
@@ -223,9 +216,6 @@ msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
-"بۇ مەشغۇلات قىسمەن ESC كۇنۇپكىسىنى ئىشلىتىدىغان تېرمىنال پىروگراممىسىدا "
-"مەسىلە پەيدا قىلىشى مۇمكىن، مەسىلەن، vim. تۆۋەندىكى رامكىغا بۇ پىروگراممىنى "
-"كىرگۈزۈڭ (پەش بىلەن ئايرىلغان تىزىم)"
 
 #: kateconsole.cpp:801
 #, kde-format

@@ -7,7 +7,11 @@
 
 #pragma once
 
+#include <memory>
+
 #include <KTextEditor/Document>
+
+#include <QIcon>
 #include <QStandardItem>
 
 /**
@@ -42,11 +46,6 @@ public:
      * @param text text for this item
      */
     KateProjectItem(Type type, const QString &text, const QString &path);
-
-    /**
-     * deconstruct project
-     */
-    ~KateProjectItem() override;
 
     int type() const override
     {
@@ -85,9 +84,9 @@ private:
     QString m_path;
 
     /**
-     * cached icon
+     * cached icon, must be created in the main thread
      */
-    mutable QIcon *m_icon = nullptr;
+    mutable std::unique_ptr<QIcon> m_icon;
 
     /**
      * for document icons

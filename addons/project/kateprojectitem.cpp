@@ -29,25 +29,18 @@ KateProjectItem::KateProjectItem(Type type, const QString &text, const QString &
 {
 }
 
-KateProjectItem::~KateProjectItem()
-{
-    delete m_icon;
-}
-
 void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc)
 {
-    if (m_icon) {
-        delete m_icon;
-        m_icon = nullptr;
-    }
+    m_icon.reset();
 
     if (doc && doc->isModified()) {
         if (m_emblem.isEmpty()) {
-            m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("document-save")));
+            m_icon.reset(new QIcon(QIcon::fromTheme(QStringLiteral("document-save"))));
         } else {
-            m_icon = new QIcon(KIconUtils::addOverlay(QIcon::fromTheme(QStringLiteral("document-save")), QIcon(m_emblem), Qt::TopLeftCorner));
+            m_icon.reset(new QIcon(KIconUtils::addOverlay(QIcon::fromTheme(QStringLiteral("document-save")), QIcon(m_emblem), Qt::TopLeftCorner)));
         }
     }
+
     emitDataChanged();
 }
 
@@ -56,16 +49,13 @@ void KateProjectItem::slotModifiedOnDisk(KTextEditor::Document *document, bool i
     Q_UNUSED(document)
     Q_UNUSED(isModified)
 
-    if (m_icon) {
-        delete m_icon;
-        m_icon = nullptr;
-    }
-
+    m_icon.reset();
     m_emblem.clear();
 
     if (reason != KTextEditor::Document::OnDiskUnmodified) {
         m_emblem = QStringLiteral("emblem-important");
     }
+
     emitDataChanged();
 }
 
@@ -108,17 +98,17 @@ bool KateProjectItem::operator<(const QStandardItem &other) const
 QIcon *KateProjectItem::icon() const
 {
     if (m_icon) {
-        return m_icon;
+        return m_icon.get();
     }
 
     switch (m_type) {
     case LinkedProject:
     case Project:
-        m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("folder-documents")));
+        m_icon.reset(new QIcon(QIcon::fromTheme(QStringLiteral("folder-documents"))));
         break;
 
     case Directory:
-        m_icon = new QIcon(QIcon::fromTheme(QStringLiteral("folder")));
+        m_icon.reset(new QIcon(QIcon::fromTheme(QStringLiteral("folder"))));
         break;
 
     case File: {
@@ -128,15 +118,15 @@ QIcon *KateProjectItem::icon() const
             icon = QIcon::fromTheme(QStringLiteral("unknown"));
         }
         if (!m_emblem.isEmpty()) {
-            m_icon = new QIcon(KIconUtils::addOverlay(icon, QIcon(m_emblem), Qt::TopLeftCorner));
+            m_icon.reset(new QIcon(KIconUtils::addOverlay(icon, QIcon(m_emblem), Qt::TopLeftCorner)));
         } else {
-            m_icon = new QIcon(icon);
+            m_icon.reset(new QIcon(icon));
         }
         break;
     }
     }
 
-    return m_icon;
+    return m_icon.get();
 }
 
 void KateProjectItem::setData(const QVariant &value, int role)

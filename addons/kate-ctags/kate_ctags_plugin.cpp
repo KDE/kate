@@ -85,7 +85,7 @@ KateCTagsConfigPage::KateCTagsConfigPage(QWidget *parent)
     connect(m_confUi.addButton, &QPushButton::clicked, this, &KateCTagsConfigPage::addGlobalTagTarget);
     connect(m_confUi.delButton, &QPushButton::clicked, this, &KateCTagsConfigPage::delGlobalTagTarget);
 
-    connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateCTagsConfigPage::updateDone);
+    connect(&m_proc, &QProcess::finished, this, &KateCTagsConfigPage::updateDone);
     connect(&m_proc, &QProcess::readyReadStandardError, this, [this]() {
         QString error = QString::fromLocal8Bit(m_proc.readAllStandardError());
         KMessageBox::error(nullptr, error);

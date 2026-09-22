@@ -166,7 +166,7 @@ void KateConfigDialog::addBehaviorPage()
         label->setBuddy(m_messageTypes);
         m_messageTypes->addItems({i18n("Never"), i18n("Error"), i18n("Warning"), i18n("Info"), i18n("Log")});
         m_messageTypes->setCurrentIndex(cgGeneral.readEntry("Show output view for message type", 1));
-        connect(m_messageTypes, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+        connect(m_messageTypes, &QComboBox::currentIndexChanged, this, &KateConfigDialog::slotChanged);
         vbox->addLayout(hlayout);
 
         hlayout = new QHBoxLayout;
@@ -178,7 +178,7 @@ void KateConfigDialog::addBehaviorPage()
         m_outputHistoryLimit->setRange(-1, 10000);
         m_outputHistoryLimit->setSpecialValueText(i18n("Unlimited"));
         m_outputHistoryLimit->setValue(cgGeneral.readEntry("Output History Limit", 100));
-        connect(m_outputHistoryLimit, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
+        connect(m_outputHistoryLimit, &QSpinBox::valueChanged, this, &KateConfigDialog::slotChanged);
         vbox->addLayout(hlayout);
     }
 
@@ -249,7 +249,7 @@ void KateConfigDialog::addBehaviorPage()
     m_tabLimit->setRange(0, 256);
     m_tabLimit->setSpecialValueText(i18n("Unlimited"));
     m_tabLimit->setValue(cgGeneral.readEntry("Tabbar Tab Limit", 0));
-    connect(m_tabLimit, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
+    connect(m_tabLimit, &QSpinBox::valueChanged, this, &KateConfigDialog::slotChanged);
     vbox->addLayout(hlayout);
     label =
         new QLabel(i18n("A high limit can increase the window size, please enable 'Allow tab scrolling' to prevent it. Unlimited tabs are always scrollable."));
@@ -348,7 +348,7 @@ void KateConfigDialog::addBehaviorPage()
     label->setBuddy(m_mouseBackActions);
     m_mouseBackActions->addItems({i18n("Previous tab"), i18n("History back")});
     m_mouseBackActions->setCurrentIndex(cgGeneral.readEntry("Mouse back button action", 0));
-    connect(m_mouseBackActions, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+    connect(m_mouseBackActions, &QComboBox::currentIndexChanged, this, &KateConfigDialog::slotChanged);
     vbox->addLayout(hlayout);
 
     hlayout = new QHBoxLayout;
@@ -359,7 +359,7 @@ void KateConfigDialog::addBehaviorPage()
     label->setBuddy(m_mouseForwardActions);
     m_mouseForwardActions->addItems({i18n("Next tab"), i18n("History forward")});
     m_mouseForwardActions->setCurrentIndex(cgGeneral.readEntry("Mouse forward button action", 0));
-    connect(m_mouseForwardActions, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+    connect(m_mouseForwardActions, &QComboBox::currentIndexChanged, this, &KateConfigDialog::slotChanged);
     vbox->addLayout(hlayout);
 
     buttonGroup->setLayout(vbox);
@@ -379,7 +379,7 @@ void KateConfigDialog::addBehaviorPage()
     hlayout->addWidget(label);
     hlayout->addWidget(m_diffStyle);
     m_diffStyle->setCurrentIndex(cgGeneral.readEntry("Diff Show Style", 0));
-    connect(m_diffStyle, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateConfigDialog::slotChanged);
+    connect(m_diffStyle, &QComboBox::currentIndexChanged, this, &KateConfigDialog::slotChanged);
 
     buttonGroup = new QGroupBox(i18n("Navigation Bar"), generalFrame);
     vbox = new QVBoxLayout(buttonGroup);
@@ -405,7 +405,7 @@ void KateConfigDialog::addBehaviorPage()
     label->setBuddy(m_diagnosticsLimit);
     hlayout->addWidget(label);
     hlayout->addWidget(m_diagnosticsLimit);
-    connect(m_diagnosticsLimit, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &KateConfigDialog::slotChanged);
+    connect(m_diagnosticsLimit, &QSpinBox::valueChanged, this, &KateConfigDialog::slotChanged);
 
     buttonGroup = new QGroupBox(i18n("Context"), generalFrame);
     vbox = new QVBoxLayout(buttonGroup);

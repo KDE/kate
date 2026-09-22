@@ -154,7 +154,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     refreshUI();
 
     connect(m_targetCombo, &QComboBox::editTextChanged, this, &ConfigView::slotTargetEdited);
-    connect(m_targetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ConfigView::slotTargetSelected);
+    connect(m_targetCombo, &QComboBox::currentIndexChanged, this, &ConfigView::slotTargetSelected);
     connect(m_addTarget, &QToolButton::clicked, this, &ConfigView::slotAddTarget);
     connect(m_copyTarget, &QToolButton::clicked, this, &ConfigView::slotCopyTarget);
     connect(m_deleteTarget, &QToolButton::clicked, this, &ConfigView::slotDeleteTarget);

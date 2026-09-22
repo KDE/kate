@@ -208,7 +208,7 @@ bool KatePluginManager::loadPlugin(KatePluginInfo *item)
     /**
      * try to load the plugin
      */
-    item->plugin = KPluginFactory::instantiatePlugin<KTextEditor::Plugin>(item->metaData, KateApp::self(), QVariantList() << item->saveName()).plugin;
+    item->plugin = KPluginFactory::instantiatePlugin<KTextEditor::Plugin>(item->metaData, KateApp::self(), {item->saveName()}).plugin;
     item->load = item->plugin != nullptr;
 
     /**

@@ -136,7 +136,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(m_ctagsUi.delButton, &QPushButton::clicked, this, &KateCTagsView::delTagTarget);
     connect(m_ctagsUi.updateButton, &QPushButton::clicked, this, &KateCTagsView::updateSessionDB);
     connect(m_ctagsUi.updateButton2, &QPushButton::clicked, this, &KateCTagsView::updateSessionDB);
-    connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateCTagsView::updateDone);
+    connect(&m_proc, &QProcess::finished, this, &KateCTagsView::updateDone);
     connect(&m_proc, &QProcess::readyReadStandardError, this, [this]() {
         QString error = QString::fromLocal8Bit(m_proc.readAllStandardError());
         Utils::showMessage(error, QIcon(), i18n("CTags"), MessageType::Error);

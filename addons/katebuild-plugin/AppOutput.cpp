@@ -120,7 +120,7 @@ AppOutput::AppOutput(QWidget *parent)
         d->outputArea->setPalette(p);
 
         d->process.setOutputChannelMode(KProcess::SeparateChannels);
-        connect(&d->process, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &AppOutput::runningChanged);
+        connect(&d->process, &QProcess::finished, this, &AppOutput::runningChanged);
         connect(&d->process, &KProcess::readyReadStandardError, this, [this]() {
             d->addOutputText(QString::fromUtf8(d->process.readAllStandardError()));
         });

@@ -216,10 +216,7 @@ void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filte
 
         connect(m_pFilterProcess, &KProcess::readyReadStandardError, this, &PluginKateTextFilter::slotFilterReceivedStderr);
 
-        connect(m_pFilterProcess,
-                static_cast<void (KProcess::*)(int, KProcess::ExitStatus)>(&KProcess::finished),
-                this,
-                &PluginKateTextFilter::slotFilterProcessExited);
+        connect(m_pFilterProcess, &KProcess::finished, this, &PluginKateTextFilter::slotFilterProcessExited);
     }
     m_pFilterProcess->setOutputChannelMode(mergeOutput ? KProcess::MergedChannels : KProcess::SeparateChannels);
 

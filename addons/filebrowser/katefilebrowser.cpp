@@ -91,7 +91,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
 
     setFocusProxy(m_dirOperator);
     connect(m_dirOperator, &KDirOperator::viewChanged, this, &KateFileBrowser::selectorViewChanged);
-    connect(m_urlNavigator, &KUrlNavigator::returnPressed, m_dirOperator, static_cast<void (KDirOperator::*)()>(&KDirOperator::setFocus));
+    connect(m_urlNavigator, &KUrlNavigator::returnPressed, m_dirOperator, qOverload<>(&KDirOperator::setFocus));
 
     // now all actions exist in dir operator and we can use them in the toolbar
     setupActions();
@@ -105,15 +105,12 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
     mainLayout->addWidget(m_filter);
 
     connect(m_filter, &KHistoryComboBox::editTextChanged, this, &KateFileBrowser::slotFilterChange);
-    connect(m_filter, static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::returnPressed), m_filter, &KHistoryComboBox::addToHistory);
-    connect(m_filter,
-            static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::returnPressed),
-            m_dirOperator,
-            static_cast<void (KDirOperator::*)()>(&KDirOperator::setFocus));
+    connect(m_filter, &KHistoryComboBox::returnPressed, m_filter, &KHistoryComboBox::addToHistory);
+    connect(m_filter, &KHistoryComboBox::returnPressed, m_dirOperator, qOverload<>(&KDirOperator::setFocus));
     connect(m_dirOperator, &KDirOperator::urlEntered, this, &KateFileBrowser::updateUrlNavigator);
 
     // Connect the bookmark handler
-    connect(m_bookmarkHandler, &KateBookmarkHandler::openUrl, this, static_cast<void (KateFileBrowser::*)(const QString &)>(&KateFileBrowser::setDir));
+    connect(m_bookmarkHandler, &KateBookmarkHandler::openUrl, this, qOverload<const QString &>(&KateFileBrowser::setDir));
 
     m_filter->setWhatsThis(i18n("Enter a name filter to limit which files are displayed."));
 

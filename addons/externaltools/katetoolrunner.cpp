@@ -64,12 +64,9 @@ void KateToolRunner::run()
     connect(m_process.get(), &QProcess::readyReadStandardError, this, [this]() {
         m_stderr += m_process->readAllStandardError();
     });
-    connect(m_process.get(),
-            static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
-            this,
-            [this](int exitCode, QProcess::ExitStatus exitStatus) {
-                Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit);
-            });
+    connect(m_process.get(), &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus exitStatus) {
+        Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit);
+    });
 
     // Write stdin to process, if applicable, then close write channel
     connect(m_process.get(), &QProcess::started, this, [this]() {

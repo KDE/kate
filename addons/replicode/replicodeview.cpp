@@ -150,8 +150,8 @@ void ReplicodeView::runReplicode()
     m_executor->setWorkingDirectory(sourceFile.canonicalPath());
     connect(m_executor, &QProcess::readyReadStandardError, this, &ReplicodeView::gotStderr);
     connect(m_executor, &QProcess::readyReadStandardOutput, this, &ReplicodeView::gotStdout);
-    connect(m_executor, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &ReplicodeView::replicodeFinished);
-    connect(m_executor, static_cast<void (QProcess::*)(QProcess::ProcessError)>(&QProcess::errorOccurred), this, &ReplicodeView::runErrored);
+    connect(m_executor, &QProcess::finished, this, &ReplicodeView::replicodeFinished);
+    connect(m_executor, &QProcess::errorOccurred, this, &ReplicodeView::runErrored);
     qDebug("executorPath: %ls, sourceFile: %ls", qUtf16Printable(executorPath), qUtf16Printable(sourceFile.canonicalPath()));
     m_completed = false;
     startHostProcess(*m_executor, executorPath, {}, QProcess::ReadOnly);

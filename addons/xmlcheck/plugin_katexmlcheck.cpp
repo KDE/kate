@@ -98,7 +98,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(KTextEditor::Plugin *, KTextEdito
     //(void)  new KAction ( i18n("Indent XML"), KShortcut(), this,
     //	SLOT(slotIndent()), actionCollection(), "xml_indent" );
 
-    connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &PluginKateXMLCheckView::slotProcExited);
+    connect(&m_proc, &QProcess::finished, this, &PluginKateXMLCheckView::slotProcExited);
     // we currently only want errors:
     m_proc.setProcessChannelMode(QProcess::SeparateChannels);
     // m_proc.setProcessChannelMode(QProcess::ForwardedChannels); // For Debugging. Do not use this.

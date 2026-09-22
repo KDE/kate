@@ -110,7 +110,7 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     // view for testing the snippet
     m_testView = createView(m_ui->testWidget);
     // splitter default size ratio
-    m_ui->splitter->setSizes(QList<int>() << 400 << 150);
+    m_ui->splitter->setSizes({400, 150});
     connect(m_ui->dotest_button, &QPushButton::clicked, this, &EditSnippet::test);
 
     // modified notification stuff

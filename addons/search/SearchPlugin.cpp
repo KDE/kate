@@ -424,8 +424,8 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(m_ui.currentFolderButton, &QToolButton::clicked, this, &KatePluginSearchView::setCurrentFolder);
     connect(m_ui.expandResults, &QToolButton::clicked, this, &KatePluginSearchView::expandResults);
 
-    connect(m_ui.searchCombo, &QComboBox::editTextChanged, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
-    connect(m_ui.matchCase, &QToolButton::toggled, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
+    connect(m_ui.searchCombo, &QComboBox::editTextChanged, &m_changeTimer, qOverload<>(&QTimer::start));
+    connect(m_ui.matchCase, &QToolButton::toggled, &m_changeTimer, qOverload<>(&QTimer::start));
     connect(m_ui.matchCase, &QToolButton::toggled, this, [this] {
         Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
         if (res) {
@@ -436,12 +436,12 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(m_ui.searchCombo->lineEdit(), &QLineEdit::returnPressed, this, &KatePluginSearchView::startSearch);
     // connecting to returnPressed() of the folderRequester doesn't work, I haven't found out why yet. But connecting to the linedit works:
     connect(m_ui.folderRequester->comboBox()->lineEdit(), &QLineEdit::returnPressed, this, &KatePluginSearchView::startSearch);
-    connect(m_ui.filterCombo, static_cast<void (KComboBox::*)(const QString &)>(&KComboBox::returnPressed), this, &KatePluginSearchView::startSearch);
-    connect(m_ui.excludeCombo, static_cast<void (KComboBox::*)(const QString &)>(&KComboBox::returnPressed), this, &KatePluginSearchView::startSearch);
+    connect(m_ui.filterCombo, &KComboBox::returnPressed, this, &KatePluginSearchView::startSearch);
+    connect(m_ui.excludeCombo, &KComboBox::returnPressed, this, &KatePluginSearchView::startSearch);
     connect(m_ui.searchButton, &QPushButton::clicked, this, &KatePluginSearchView::startSearch);
 
     connect(m_ui.displayOptions, &QToolButton::toggled, this, &KatePluginSearchView::toggleOptions);
-    connect(m_ui.searchPlaceCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KatePluginSearchView::searchPlaceChanged);
+    connect(m_ui.searchPlaceCombo, &QComboBox::currentIndexChanged, this, &KatePluginSearchView::searchPlaceChanged);
 
     connect(m_ui.stopButton, &QPushButton::clicked, this, &KatePluginSearchView::stopClicked);
 
@@ -535,7 +535,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
         regexHelperActOnAction(action, actionList, m_ui.replaceCombo->lineEdit());
     });
 
-    connect(m_ui.useRegExp, &QToolButton::toggled, &m_changeTimer, static_cast<void (QTimer::*)()>(&QTimer::start));
+    connect(m_ui.useRegExp, &QToolButton::toggled, &m_changeTimer, qOverload<>(&QTimer::start));
     auto onRegexToggleChanged = [this, searchComboActionForInsertRegexButton, replaceComboActionForInsertRegexButton] {
         Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
         if (res) {

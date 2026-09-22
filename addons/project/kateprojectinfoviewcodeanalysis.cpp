@@ -48,10 +48,7 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
      * Connect selection change callback
      * and attach model to code analysis selector
      */
-    connect(m_toolSelector,
-            static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            this,
-            &KateProjectInfoViewCodeAnalysis::slotToolSelectionChanged);
+    connect(m_toolSelector, &QComboBox::currentIndexChanged, this, &KateProjectInfoViewCodeAnalysis::slotToolSelectionChanged);
     m_toolSelector->setModel(KateProjectCodeAnalysisSelector::model(this));
     m_toolSelector->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
@@ -138,7 +135,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked()
     m_analyzer->setProcessChannelMode(QProcess::MergedChannels);
 
     connect(m_analyzer, &QProcess::readyRead, this, &KateProjectInfoViewCodeAnalysis::slotReadyRead);
-    connect(m_analyzer, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateProjectInfoViewCodeAnalysis::finished);
+    connect(m_analyzer, &QProcess::finished, this, &KateProjectInfoViewCodeAnalysis::finished);
 
     // ensure we only run the code analyzer from PATH
     const QString fullExecutable = safeExecutableName(m_analysisTool->path());

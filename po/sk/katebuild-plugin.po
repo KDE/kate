@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-06 00:48+0000\n"
+"POT-Creation-Date: 2026-09-22 00:48+0000\n"
 "PO-Revision-Date: 2023-02-07 18:21+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -108,7 +108,7 @@ msgid "Allowed && Blocked Commands"
 msgstr "Povolené && blokované príkazy"
 
 #: plugin_katebuild.cpp:268 plugin_katebuild.cpp:275 plugin_katebuild.cpp:759
-#: plugin_katebuild.cpp:1000 plugin_katebuild.cpp:1013
+#: plugin_katebuild.cpp:1005 plugin_katebuild.cpp:1018
 #, kde-format
 msgid "Build"
 msgstr "Zostavenie"
@@ -192,12 +192,12 @@ msgid ""
 msgstr ""
 "Súbor \"%1\" nie je miestny súbor. Nemiestne súbory nie je možné kompilovať."
 
-#: plugin_katebuild.cpp:841
+#: plugin_katebuild.cpp:846
 #, kde-format
 msgid "Create directory"
 msgstr "Vytvoriť priečinok"
 
-#: plugin_katebuild.cpp:844
+#: plugin_katebuild.cpp:849
 #, kde-format
 msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
@@ -206,32 +206,32 @@ msgstr ""
 "Nakonfigurovaný pracovný priečinok <b>%1</b> pre sadu cieľov <b>%2</b> "
 "neexistuje.<br><br>Vytvoriť priečinok?"
 
-#: plugin_katebuild.cpp:852
+#: plugin_katebuild.cpp:857
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
 msgstr "Nepodarilo sa vytvoriť priečinok <b>%1</b>"
 
-#: plugin_katebuild.cpp:877
+#: plugin_katebuild.cpp:882
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Nepodarilo sa spustiť \"%1\". exitStatus = %2"
 
-#: plugin_katebuild.cpp:893
+#: plugin_katebuild.cpp:898
 #, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
 msgstr "Building <b>%1: %2</b> cancelled"
 
-#: plugin_katebuild.cpp:999
+#: plugin_katebuild.cpp:1004
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
 msgstr "Nenašiel sa súbor compile_commands.json pre súbor \"%1\". "
 
-#: plugin_katebuild.cpp:1012
+#: plugin_katebuild.cpp:1017
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "Nenašiel sa príkaz kompilácie pre súbor \"%1\" v \"%2\". "
 
-#: plugin_katebuild.cpp:1031
+#: plugin_katebuild.cpp:1036
 #, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
@@ -240,7 +240,7 @@ msgstr ""
 "Nie je možné vykonať substitúciu \"%f\". Žiadny otvorený súbor alebo "
 "aktuálny súbor nemá názov!"
 
-#: plugin_katebuild.cpp:1035
+#: plugin_katebuild.cpp:1040
 #, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
@@ -249,7 +249,7 @@ msgstr ""
 "Nie je možné vykonať substitúciu \"%d\". Žiadny otvorený súbor alebo "
 "aktuálny súbor nemá názov!"
 
-#: plugin_katebuild.cpp:1039
+#: plugin_katebuild.cpp:1044
 #, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
@@ -258,18 +258,18 @@ msgstr ""
 "Nie je možné vykonať substitúciu \"%n\". Žiadny otvorený súbor alebo "
 "aktuálny súbor nemá názov!"
 
-#: plugin_katebuild.cpp:1050
+#: plugin_katebuild.cpp:1055
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr ""
 "Nie je možné vykonať projektovú substitúciu (%B). Žiadny otvorený projekt!"
 
-#: plugin_katebuild.cpp:1063
+#: plugin_katebuild.cpp:1068
 #, kde-format
 msgid "Already building..."
 msgstr "Už sa zostavuje..."
 
-#: plugin_katebuild.cpp:1101
+#: plugin_katebuild.cpp:1106
 #, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
@@ -278,12 +278,12 @@ msgstr ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "Existuje no local file or directory specified for building."
 
-#: plugin_katebuild.cpp:1222
+#: plugin_katebuild.cpp:1227
 #, kde-format
 msgid "Building target <b>%1: %2</b> ..."
 msgstr "Building target <b>%1: %2</b> ..."
 
-#: plugin_katebuild.cpp:1259
+#: plugin_katebuild.cpp:1264
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -291,18 +291,18 @@ msgid ""
 msgstr ""
 "Nie je možné načítať ciele, súbor %1 neobsahuje správny záznam CMAKE_COMMAND!"
 
-#: plugin_katebuild.cpp:1272
+#: plugin_katebuild.cpp:1277
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 "Nepodarilo sa zapísať súbory dopytov CMake File API pre adresár zostavy %1!"
 
-#: plugin_katebuild.cpp:1278
+#: plugin_katebuild.cpp:1283
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "Nepodarilo sa spustiť CMake (%2) pre adresár zostavy %1 !"
 
-#: plugin_katebuild.cpp:1287
+#: plugin_katebuild.cpp:1292
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
@@ -311,12 +311,12 @@ msgstr ""
 "Generovanie súborov odpovedí CMake File API pre adresár zostavy %1 zlyhalo "
 "(používa sa %2) !"
 
-#: plugin_katebuild.cpp:1412
+#: plugin_katebuild.cpp:1417
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "Zásuvný modul zostavy chce spustiť program"
 
-#: plugin_katebuild.cpp:1415
+#: plugin_katebuild.cpp:1420
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -329,19 +329,19 @@ msgstr ""
 "b><br><br>Pokračovať a povoliť spustenie tohto príkazu?<br><br>Voľbu je "
 "možné zmeniť na konfiguračnej stránke zásuvného modulu."
 
-#: plugin_katebuild.cpp:1447
+#: plugin_katebuild.cpp:1452
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Výsledky Make:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1510
+#: plugin_katebuild.cpp:1515
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
 "Zostava <b>%1: %2</b> dokončená. Počet chýb: %3, varovaní: %4, poznámok: %5"
 
-#: plugin_katebuild.cpp:1522
+#: plugin_katebuild.cpp:1527
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -349,7 +349,7 @@ msgstr[0] "Nájdená jedna chyba."
 msgstr[1] "Nájdené %1 chyby."
 msgstr[2] "Nájdených %1 chýb."
 
-#: plugin_katebuild.cpp:1526
+#: plugin_katebuild.cpp:1531
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -357,7 +357,7 @@ msgstr[0] "Nájdené jedno upozornenie."
 msgstr[1] "Nájdené %1 upozornenia."
 msgstr[2] "Nájdených %1 upozornení."
 
-#: plugin_katebuild.cpp:1529
+#: plugin_katebuild.cpp:1534
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
@@ -365,52 +365,52 @@ msgstr[0] "Nájdená jedna chyba."
 msgstr[1] "Nájdené %1 chyby."
 msgstr[2] "Nájdených %1 chýb."
 
-#: plugin_katebuild.cpp:1533
+#: plugin_katebuild.cpp:1538
 #, kde-format
 msgid "Build canceled."
 msgstr "Vybudovanie zlyhalo."
 
-#: plugin_katebuild.cpp:1537
+#: plugin_katebuild.cpp:1542
 #, kde-format
 msgid "Build failed."
 msgstr "Vybudovanie zlyhalo."
 
-#: plugin_katebuild.cpp:1539
+#: plugin_katebuild.cpp:1544
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Vybudovanie ukončené bez problémov."
 
-#: plugin_katebuild.cpp:1543
+#: plugin_katebuild.cpp:1548
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
 "Zostava <b>%1: %2 zrušená</b>. Počet chýb: %3, varovaní: %4, poznámok: %5"
 
-#: plugin_katebuild.cpp:1828
+#: plugin_katebuild.cpp:1833
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "chyba"
 
-#: plugin_katebuild.cpp:1831
+#: plugin_katebuild.cpp:1836
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "upozornenie"
 
-#: plugin_katebuild.cpp:1834
+#: plugin_katebuild.cpp:1839
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "poznámka|info"
 
-#: plugin_katebuild.cpp:1837
+#: plugin_katebuild.cpp:1842
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "nedefinovaná referencia"
 
-#: plugin_katebuild.cpp:2141
+#: plugin_katebuild.cpp:2146
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Nie je možné uložiť ciele zostavy v: %1"

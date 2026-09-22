@@ -1,21 +1,21 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2012-2016, 2019-2026 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-24 00:49+0000\n"
-"PO-Revision-Date: 2026-05-25 19:05+0200\n"
-"Last-Translator: Shinjo Park <kde@peremen.name>\n"
-"Language-Team: Korean <kde-kr@kde.org>\n"
+"PO-Revision-Date: 2026-09-21 23:47+0200\n"
+"Last-Translator: Shinjo Park <peremen@gmail.com>\n"
+"Language-Team: Korean\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -122,49 +122,44 @@ msgid "Active branch: %1"
 msgstr "활성 브랜치: %1"
 
 #: git/gitstatus.cpp:159
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid " ‣ Modified"
-msgstr "수정됨"
+msgstr " ‣ 수정됨"
 
 #: git/gitstatus.cpp:161
-#, fuzzy, kde-format
-#| msgid "Untracked"
+#, kde-format
 msgid " ‣ Untracked"
-msgstr "추적하지 않음"
+msgstr " ‣ 추적하지 않음"
 
 #: git/gitstatus.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Rename"
+#, kde-format
 msgid " ‣ Renamed"
-msgstr "이름 바꾸기(&R)"
+msgstr " ‣ 이름 변경됨"
 
 #: git/gitstatus.cpp:166
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid " ‣ Deleted"
-msgstr "삭제"
+msgstr " ‣ 삭제됨"
 
 #: git/gitstatus.cpp:169
 #, kde-format
 msgid " ‣ Added"
-msgstr ""
+msgstr " ‣ 추가됨"
 
 #: git/gitstatus.cpp:171
 #, kde-format
 msgid " ‣ Copied"
-msgstr ""
+msgstr " ‣ 복사됨"
 
 #: git/gitstatus.cpp:173
 #, kde-format
 msgid " ‣ Ignored"
-msgstr ""
+msgstr " ‣ 무시됨"
 
 #: git/gitstatus.cpp:181
-#, fuzzy, kde-format
-#| msgid "Conflict"
+#, kde-format
 msgid " ‣ Conflicted"
-msgstr "충돌"
+msgstr " ‣ 충돌함"
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
@@ -1244,65 +1239,62 @@ msgstr "스태시를 표시할 수 없습니다. 오류: "
 #: tools/clazy.h:25
 #, kde-format
 msgid "Clazy (Qt/C++)"
-msgstr ""
+msgstr "Clazy(Qt/C++)"
 
 #: tools/clazy.h:30
 #, kde-format
 msgid "Clazy is a static analysis tool for Qt/C++ code"
-msgstr ""
+msgstr "Clazy는 Qt C/C++ 코드에 대한 정적 분석 도구입니다"
 
 #: tools/clazy.h:71
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'clazy'"
-msgstr "'cppcheck'를 설치하십시오."
+msgstr "'clazy'를 설치하십시오"
 
 #: tools/clazycurrent.h:24
 #, kde-format
 msgid "Clazy - Current File"
-msgstr ""
+msgstr "Clazy - 현재 파일"
 
 #: tools/clazycurrent.h:29
 #, kde-format
 msgid "clang-tidy is a clang-based C++ “linter” tool"
-msgstr ""
+msgstr "clang-tidy는 clang 기반 C++ “linter” 도구임"
 
 #: tools/clippy.h:27
 #, kde-format
 msgid "Clippy (Rust)"
-msgstr ""
+msgstr "Clippy(Rust)"
 
 #: tools/clippy.h:32
 #, kde-format
 msgid "Clippy is a static analysis tool for Rust code"
-msgstr ""
+msgstr "Clippy는 Rust 코드에 대한 정적 분석 도구입니다"
 
 #: tools/clippy.h:95
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'cargo'"
-msgstr "'cppcheck'를 설치하십시오."
+msgstr "'cargo'를 설치하십시오"
 
 #: tools/cppcheck.h:26
 #, kde-format
 msgid "Cppcheck (C++)"
-msgstr ""
+msgstr "Cppcheck(C++)"
 
 #: tools/cppcheck.h:31
 #, kde-format
 msgid "Cppcheck is a static analysis tool for C/C++ code"
-msgstr ""
+msgstr "Cppcheck는 C/C++에 대한 정적 분석 도구입니다"
 
 #: tools/cppcheck.h:64
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'cppcheck'"
-msgstr "'cppcheck'를 설치하십시오."
+msgstr "'cppcheck'를 설치하십시오"
 
 #: tools/eslint.h:23
 #, kde-format
 msgid "ESLint"
-msgstr ""
+msgstr "ESLint"
 
 #: tools/eslint.h:28
 #, kde-format
@@ -1310,38 +1302,38 @@ msgid ""
 "ESLint is a static analysis tool & style guide enforcer for JavaScript/"
 "Typescript code"
 msgstr ""
+"ESLint는 자바스크립트/타입스크립트 코드에 대한 정적 분석 도구 및 스타일 가이"
+"드 준수 도구입니다"
 
 #: tools/eslint.h:67
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'eslint'"
-msgstr "'cppcheck'를 설치하십시오."
+msgstr "'eslint'를 설치하십시오"
 
 #: tools/flake8.h:26
 #, kde-format
 msgid "Flake8 (Python)"
-msgstr ""
+msgstr "Flake8(Python)"
 
 #: tools/flake8.h:31
 #, kde-format
 msgid "Flake8: Your Tool For Style Guide Enforcement for Python"
-msgstr ""
+msgstr "Flake8: 파이썬을 위한 스타일 가이드 준수 도구"
 
 #: tools/flake8.h:77
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'flake8'"
-msgstr "'cppcheck'를 설치하십시오."
+msgstr "'flake8'을 설치하십시오"
 
 #: tools/ruff.h:28
 #, kde-format
 msgid "Ruff (Python)"
-msgstr ""
+msgstr "Ruff(Python)"
 
 #: tools/ruff.h:33
 #, kde-format
 msgid "An extremely fast Python linter"
-msgstr ""
+msgstr "매우 빠른 파이썬 linter"
 
 #: tools/ruff.h:64
 #, kde-format
@@ -1349,31 +1341,33 @@ msgid ""
 "Ruff is not installed. Please use your package manager to install it. See "
 "https://docs.astral.sh/ruff/installation/"
 msgstr ""
+"Ruff가 설치되어 있지 않습니다. 패키지 관리자를 통해서 설치하십시오. 참조: "
+"https://docs.astral.sh/ruff/installation/"
 
 #: tools/shellcheck.h:24
 #, kde-format
 msgid "ShellCheck (sh/bash)"
-msgstr ""
+msgstr "ShellCheck(sh/bash)"
 
 #: tools/shellcheck.h:29
 #, kde-format
 msgid "ShellCheck is a static analysis and linting tool for sh/bash scripts"
-msgstr ""
+msgstr "ShellCheck는 sh/bash 스크립트에 대한 정적 분석 및 lint 도구입니다"
 
 #: tools/shellcheck.h:73
 #, kde-format
 msgid "Please install ShellCheck (see https://www.shellcheck.net)"
-msgstr ""
+msgstr "ShellCheck를 설치하십시오(참조: https://www.shellcheck.net)"
 
 #: tools/tidy.h:24
 #, kde-format
 msgid "Html Tidy"
-msgstr ""
+msgstr "HTML Tidy"
 
 #: tools/tidy.h:29
 #, kde-format
 msgid "Runs html tidy on current file"
-msgstr ""
+msgstr "현재 파일에 HTML Tidy 실행"
 
 #: tools/tidy.h:64
 #, kde-format
@@ -1381,6 +1375,8 @@ msgid ""
 "Html tidy is not installed. Please use your package manager to install it. "
 "See https://www.html-tidy.org/"
 msgstr ""
+"HTML Tidy가 설치되어 있지 않습니다. 패키지 관리자를 통해서 설치하십시오. 참"
+"조: https://www.html-tidy.org/"
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

@@ -13,13 +13,22 @@
 #include <QComboBox>
 #include <QGroupBox>
 #include <QLabel>
+#include <QTabWidget>
 #include <QVBoxLayout>
 
 KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin *plugin)
     : KTextEditor::ConfigPage(parent)
     , m_plugin(plugin)
 {
-    auto *layout = new QVBoxLayout(this);
+    auto *rootLayout = new QVBoxLayout(this);
+    auto *tabs = new QTabWidget(this);
+    auto *generalTab = new QWidget(tabs);
+    auto *gitTab = new QWidget(tabs);
+    tabs->addTab(generalTab, i18n("General"));
+    tabs->addTab(gitTab, i18n("Git"));
+    rootLayout->addWidget(tabs);
+
+    auto *layout = new QVBoxLayout(generalTab);
 
     auto *vbox = new QVBoxLayout;
     auto *group = new QGroupBox(i18nc("Groupbox title", "Autoload Repositories && Build Trees"), this);
@@ -101,7 +110,10 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     group->setLayout(vbox);
     layout->addWidget(group);
 
+    layout->addStretch(1);
+
     /** Git specific **/
+    layout = new QVBoxLayout(gitTab);
     vbox = new QVBoxLayout;
     group = new QGroupBox(i18nc("Groupbox title", "Git"), this);
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:49+0000\n"
+"POT-Creation-Date: 2026-09-22 16:04+0000\n"
 "PO-Revision-Date: 2024-08-04 10:42+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@nuug.no>\n"
@@ -126,25 +126,21 @@ msgstr ""
 
 #: git/gitstatus.cpp:159
 #, fuzzy, kde-format
-#| msgid "Modified"
 msgid " ‣ Modified"
 msgstr "Endra"
 
 #: git/gitstatus.cpp:161
 #, fuzzy, kde-format
-#| msgid "<untracked>"
 msgid " ‣ Untracked"
 msgstr "<ikkje spora>"
 
 #: git/gitstatus.cpp:163
 #, fuzzy, kde-format
-#| msgid "&Rename"
 msgid " ‣ Renamed"
 msgstr "&Endra namn"
 
 #: git/gitstatus.cpp:166
 #, fuzzy, kde-format
-#| msgid "Delete"
 msgid " ‣ Deleted"
 msgstr "Slett"
 
@@ -165,7 +161,6 @@ msgstr ""
 
 #: git/gitstatus.cpp:181
 #, fuzzy, kde-format
-#| msgid "Conflict"
 msgid " ‣ Conflicted"
 msgstr "Konflikt"
 
@@ -575,7 +570,6 @@ msgstr ""
 
 #: kateproject.cpp:233
 #, fuzzy, kde-format
-#| msgid "Modified"
 msgid "(Modified)"
 msgstr "Endra"
 
@@ -844,7 +838,7 @@ msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr ""
 
-#: kateprojectinfoviewcodeanalysis.cpp:99
+#: kateprojectinfoviewcodeanalysis.cpp:96
 #, fuzzy, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
@@ -853,7 +847,7 @@ msgstr ""
 "%1<br/><br/>Verktøyet vert køyrt på alle prosjektfiler som har eit "
 "filetternamna i denne lista:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:109
+#: kateprojectinfoviewcodeanalysis.cpp:106
 #, fuzzy, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
@@ -862,14 +856,14 @@ msgstr ""
 "%1<br/><br/>Verktøyet vert køyrt på alle prosjektfiler som har eit "
 "filetternamna i denne lista:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:151
-#: kateprojectinfoviewcodeanalysis.cpp:211
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:148
+#: kateprojectinfoviewcodeanalysis.cpp:208
+#: kateprojectinfoviewcodeanalysis.cpp:212
 #, kde-format
 msgid "CodeAnalysis"
 msgstr ""
 
-#: kateprojectinfoviewcodeanalysis.cpp:206
+#: kateprojectinfoviewcodeanalysis.cpp:203
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -880,7 +874,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] ""
 msgstr[1] ""
 
-#: kateprojectinfoviewcodeanalysis.cpp:214
+#: kateprojectinfoviewcodeanalysis.cpp:211
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr ""
@@ -920,12 +914,12 @@ msgstr "Klarte ikkje byggja indeks. Installer «ctags»."
 msgid "Indexing is not enabled"
 msgstr "Indeksering er ikkje påslått"
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: kateprojectitem.cpp:181
+#: kateprojectitem.cpp:171
 #, kde-format
 msgid "File name already exists"
 msgstr ""
@@ -1027,7 +1021,6 @@ msgstr ""
 
 #: kateprojectpluginview.cpp:219
 #, fuzzy, kde-format
-#| msgid "Close All Projects"
 msgid "Reload All Projects"
 msgstr "Lukk alle prosjekt"
 
@@ -1375,6 +1368,5 @@ msgstr "&Prosjekt"
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:29
 #, fuzzy, kde-format
-#| msgid "Project Completion"
 msgid "Project Plugin"
 msgstr "Prosjektfullføring"

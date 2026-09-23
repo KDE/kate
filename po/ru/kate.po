@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-16 00:49+0000\n"
-"PO-Revision-Date: 2026-06-25 11:50+0200\n"
+"PO-Revision-Date: 2026-09-22 22:31+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -167,6 +167,8 @@ msgid ""
 "Starts the application in self-test mode for some basic functions checks and "
 "quits afterwards"
 msgstr ""
+"Запуск приложения в режиме самопроверки для тестирования основных функций с "
+"последующим выходом"
 
 #: kate/main.cpp:225 kwrite/main.cpp:127
 #, kde-format
@@ -2794,10 +2796,9 @@ msgid "Wildcard Filtering"
 msgstr "Фильтрация по подстановочным знакам"
 
 #: lib/quickopen/katequickopenlineedit.cpp:128
-#, fuzzy, kde-format
-#| msgid "Search folders"
+#, kde-format
 msgid "Match Folder Names"
-msgstr "Сканируемые папки"
+msgstr "Искать по именам папок"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format

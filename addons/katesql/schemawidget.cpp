@@ -48,6 +48,7 @@ SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
     setDragDropMode(QAbstractItemView::DragOnly);
     setDragEnabled(true);
     setAcceptDrops(false);
+    setProperty("_breeze_borders_sides", QVariant::fromValue(0));
 
     connect(this, &SchemaWidget::customContextMenuRequested, this, &SchemaWidget::slotCustomContextMenuRequested);
     connect(this, &SchemaWidget::itemExpanded, this, &SchemaWidget::slotItemExpanded);

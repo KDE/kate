@@ -261,6 +261,7 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
         // Avoid using stale state
         auto it = m_trackedRepositories.constFind(repoBasePath);
         if (it == m_trackedRepositories.constEnd()) {
+            headProcess->deleteLater();
             return;
         }
 

@@ -16,6 +16,7 @@
 
 namespace GitForge {
 enum class Provider {
+    Forgejo,
     GitHub,
     GitLab,
 };

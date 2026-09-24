@@ -139,7 +139,7 @@ std::optional<GitForge::Repository> GitForge::resolveRepository(const Remote &re
         if (!basePath.isEmpty() && repositoryPath.startsWith(basePath + u'/')) {
             repositoryPath.remove(0, basePath.size() + 1);
         }
-        if (wildcardPortMapping->provider == Provider::GitHub && repositoryPath.count(u'/') != 1) {
+        if (wildcardPortMapping->provider != Provider::GitLab && repositoryPath.count(u'/') != 1) {
             return std::nullopt;
         }
         return Repository{ wildcardPortMapping->provider, wildcardPortMapping->webBaseUrl, repositoryPath };
@@ -165,7 +165,12 @@ std::optional<QUrl> GitForge::blobUrl(const Repository &repository, const QStrin
     }
     url += '/';
     url += *repositoryPath;
-    url += repository.provider == Provider::GitHub ? "/blob/" : "/-/blob/";
+    if (repository.provider == Provider::Forgejo) {
+        static const QRegularExpression commitPattern(QStringLiteral("^[0-9a-fA-F]{40,64}$"));
+        url += commitPattern.match(ref).hasMatch() ? "/src/commit/" : "/src/branch/";
+    } else {
+        url += repository.provider == Provider::GitHub ? "/blob/" : "/-/blob/";
+    }
     url += QUrl::toPercentEncoding(ref, "/");
     url += '/';
     url += *encodedFilePath;
@@ -173,7 +178,7 @@ std::optional<QUrl> GitForge::blobUrl(const Repository &repository, const QStrin
     if (lines) {
         url += "#L" + QByteArray::number(lines->first);
         if (lines->last != lines->first) {
-            url += repository.provider == Provider::GitHub ? "-L" : "-";
+            url += repository.provider == Provider::GitLab ? "-" : "-L";
             url += QByteArray::number(lines->last);
         }
     }
@@ -190,10 +195,24 @@ GitForge::LineRange GitForge::selectedLineRange(int startLine, int endLine, int 
     return LineRange{ startLine + 1, endLine + 1 };
 }
 
-QString GitForge::providerName(Provider provider) { return provider == Provider::GitHub ? QStringLiteral("GitHub") : QStringLiteral("GitLab"); }
+QString GitForge::providerName(Provider provider)
+{
+    switch (provider) {
+    case Provider::Forgejo:
+        return QStringLiteral("Forgejo");
+    case Provider::GitHub:
+        return QStringLiteral("GitHub");
+    case Provider::GitLab:
+        return QStringLiteral("GitLab");
+    }
+    Q_UNREACHABLE();
+}
 
 std::optional<GitForge::Provider> GitForge::providerFromName(const QString &name)
 {
+    if (name.compare(QLatin1String("Forgejo"), Qt::CaseInsensitive) == 0) {
+        return Provider::Forgejo;
+    }
     if (name.compare(QLatin1String("GitHub"), Qt::CaseInsensitive) == 0) {
         return Provider::GitHub;
     }
@@ -230,6 +249,8 @@ QList<QPair<GitForge::Provider, QUrl>> GitForge::providerApiUrls(const QUrl &web
         basePath.chop(1);
     }
 
+    QUrl forgejoUrl = webBaseUrl;
+    forgejoUrl.setPath(basePath + QStringLiteral("/api/v1/version"));
     QUrl gitLabUrl = webBaseUrl;
     gitLabUrl.setPath(basePath + QStringLiteral("/api/v4/projects"));
     QUrlQuery gitLabQuery;
@@ -238,12 +259,15 @@ QList<QPair<GitForge::Provider, QUrl>> GitForge::providerApiUrls(const QUrl &web
     gitLabUrl.setQuery(gitLabQuery);
     QUrl gitHubUrl = webBaseUrl;
     gitHubUrl.setPath(basePath + QStringLiteral("/api/v3"));
-    return { { Provider::GitLab, gitLabUrl }, { Provider::GitHub, gitHubUrl } };
+    return { { Provider::Forgejo, forgejoUrl }, { Provider::GitLab, gitLabUrl }, { Provider::GitHub, gitHubUrl } };
 }
 
 bool GitForge::isProviderApiResponse(Provider provider, int statusCode, const QByteArray &body)
 {
     const QJsonDocument document = QJsonDocument::fromJson(body);
+    if (provider == Provider::Forgejo) {
+        return statusCode >= 200 && statusCode < 300 && document.object().value(QStringLiteral("version")).isString();
+    }
     if (provider == Provider::GitLab) {
         return (statusCode >= 200 && statusCode < 300 && document.isArray())
             || (statusCode == 401 && document.object().value(QStringLiteral("message")) == QLatin1String("401 Unauthorized"));
@@ -258,6 +282,7 @@ bool GitForge::isProviderApiResponse(Provider provider, int statusCode, const QB
 QList<GitForge::HostMapping> GitForge::defaultHostMappings()
 {
     return {
+        { QStringLiteral("codeberg.org"), -1, Provider::Forgejo, QUrl(QStringLiteral("https://codeberg.org")) },
         { QStringLiteral("github.com"), -1, Provider::GitHub, QUrl(QStringLiteral("https://github.com")) },
         { QStringLiteral("gitlab.com"), -1, Provider::GitLab, QUrl(QStringLiteral("https://gitlab.com")) },
         { QStringLiteral("invent.kde.org"), -1, Provider::GitLab, QUrl(QStringLiteral("https://invent.kde.org")) },

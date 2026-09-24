@@ -78,6 +78,12 @@ void GitForgeUrlTest::resolveRepository()
     const auto github = GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@github.com:owner/repo.git")), GitForge::defaultHostMappings());
     QVERIFY(github);
     QCOMPARE(github->provider, GitForge::Provider::GitHub);
+    const auto codeberg = GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@codeberg.org:owner/repo.git")), GitForge::defaultHostMappings());
+    QVERIFY(codeberg);
+    QCOMPARE(codeberg->provider, GitForge::Provider::Forgejo);
+    QVERIFY(!GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@codeberg.org:owner/group/repo.git")), GitForge::defaultHostMappings()));
+    QCOMPARE(GitForge::providerName(GitForge::Provider::Forgejo), QStringLiteral("Forgejo"));
+    QCOMPARE(GitForge::providerFromName(QStringLiteral("forgejo")), std::optional(GitForge::Provider::Forgejo));
     QVERIFY(!GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@github.com:owner/repo.git")), {}));
 
     const auto mapping
@@ -127,6 +133,12 @@ void GitForgeUrlTest::buildUrl_data()
                                  << QStringLiteral("a file.cpp") << 4 << 4
                                  << QByteArray("https://gitlab.example/git/owner/repo/-/blob/feature/"
                                                "topic/a%20file.cpp#L4");
+    QTest::newRow("forgejo-branch") << GitForge::Provider::Forgejo << QStringLiteral("https://codeberg.org") << QStringLiteral("feature/topic")
+                                    << QStringLiteral("src/file.cpp") << 10 << 18
+                                    << QByteArray("https://codeberg.org/owner/repo/src/branch/feature/topic/src/file.cpp#L10-L18");
+    QTest::newRow("forgejo-commit") << GitForge::Provider::Forgejo << QStringLiteral("https://codeberg.org")
+                                    << QStringLiteral("676fb7e0a74e801cc5e5eedd6af37c16f56aa63f") << QStringLiteral("README.md") << 1 << 1
+                                    << QByteArray("https://codeberg.org/owner/repo/src/commit/676fb7e0a74e801cc5e5eedd6af37c16f56aa63f/README.md#L1");
 }
 
 void GitForgeUrlTest::buildUrl()
@@ -172,13 +184,16 @@ void GitForgeUrlTest::lineRange()
 void GitForgeUrlTest::providerApiUrls()
 {
     const auto urls = GitForge::providerApiUrls(QUrl(QStringLiteral("https://code.example.com/gitlab/")));
-    QCOMPARE(urls.size(), 2);
-    QCOMPARE(urls.at(0).first, GitForge::Provider::GitLab);
+    QCOMPARE(urls.size(), 3);
+    QCOMPARE(urls.at(0).first, GitForge::Provider::Forgejo);
     QCOMPARE(urls.at(0).second,
+        QUrl(QStringLiteral("https://code.example.com/gitlab/api/v1/version")));
+    QCOMPARE(urls.at(1).first, GitForge::Provider::GitLab);
+    QCOMPARE(urls.at(1).second,
         QUrl(QStringLiteral("https://code.example.com/gitlab/api/v4/"
                             "projects?simple=true&per_page=1")));
-    QCOMPARE(urls.at(1).first, GitForge::Provider::GitHub);
-    QCOMPARE(urls.at(1).second, QUrl(QStringLiteral("https://code.example.com/gitlab/api/v3")));
+    QCOMPARE(urls.at(2).first, GitForge::Provider::GitHub);
+    QCOMPARE(urls.at(2).second, QUrl(QStringLiteral("https://code.example.com/gitlab/api/v3")));
 
     QVERIFY(GitForge::providerApiUrls(QUrl(QStringLiteral("file:///tmp/gitlab"))).isEmpty());
     QVERIFY(GitForge::providerApiUrls(QUrl(QStringLiteral("https://code.example.com/?query=invalid"))).isEmpty());
@@ -189,11 +204,14 @@ void GitForgeUrlTest::providerApiResponse()
     const QByteArray gitLab = R"([{"id":1,"name":"public-project"}])";
     const QByteArray privateGitLab = R"({"message":"401 Unauthorized"})";
     const QByteArray gitHub = R"({"current_user_url":"https://api.example/user","repository_url":"https://api.example/repos/{owner}/{repo}"})";
+    const QByteArray forgejo = R"({"version":"11.0.0+gitea-1.22.0"})";
 
+    QVERIFY(GitForge::isProviderApiResponse(GitForge::Provider::Forgejo, 200, forgejo));
     QVERIFY(GitForge::isProviderApiResponse(GitForge::Provider::GitLab, 200, gitLab));
     QVERIFY(GitForge::isProviderApiResponse(GitForge::Provider::GitLab, 401, privateGitLab));
     QVERIFY(GitForge::isProviderApiResponse(GitForge::Provider::GitHub, 200, gitHub));
     QVERIFY(!GitForge::isProviderApiResponse(GitForge::Provider::GitHub, 200, gitLab));
+    QVERIFY(!GitForge::isProviderApiResponse(GitForge::Provider::Forgejo, 200, gitHub));
     QVERIFY(!GitForge::isProviderApiResponse(GitForge::Provider::GitLab, 401, gitLab));
     QVERIFY(!GitForge::isProviderApiResponse(GitForge::Provider::GitLab, 200, QByteArrayLiteral("not json")));
 }

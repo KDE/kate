@@ -241,8 +241,10 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_lookupAction = popup->menu()->addAction(i18n("Lookup: %1", QString()), this, &KateProjectPluginView::slotProjectIndex);
     m_gotoSymbolAction = popup->menu()->addAction(i18n("Goto: %1", QString()), this, &KateProjectPluginView::slotGotoSymbol);
 
-    popup->menu()->addSeparator();
-    m_gitHostingMenu = popup->menu()->addMenu(QIcon::fromTheme(QStringLiteral("vcs-branch")), i18n("Git Hosting"));
+    auto gitHosting = new KActionMenu(i18n("Git Hosting"), this);
+    gitHosting->setIcon(QIcon::fromTheme(QStringLiteral("vcs-branch")));
+    actionCollection()->addAction(QStringLiteral("popup_git_hosting"), gitHosting);
+    m_gitHostingMenu = gitHosting->menu();
     m_openGitHostingAction = m_gitHostingMenu->addAction(QIcon::fromTheme(QStringLiteral("internet-web-browser")), i18n("Open on Git Hosting Service"));
     m_copyGitHostingAction = m_gitHostingMenu->addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18n("Copy Git Hosting Link"));
 
@@ -1043,6 +1045,7 @@ void KateProjectPluginView::updateActions()
     m_projectGotoIndexAction->setVisible(hasIndex);
     m_gotoSymbolActionAppMenu->setVisible(hasIndex);
     actionCollection()->action(QStringLiteral("popup_project"))->setVisible(hasIndex);
+    actionCollection()->action(QStringLiteral("popup_git_hosting"))->setVisible(projectActive);
 }
 
 void KateProjectPluginView::slotActivateProject(KateProject *project)

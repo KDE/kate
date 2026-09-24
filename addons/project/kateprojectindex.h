@@ -107,7 +107,7 @@ private:
      */
     std::unique_ptr<QFile> m_ctagsIndexFile;
 
-    qint64 m_size;
+    qint64 m_size = 0;
 
     class KateProjectIndexPrivate;
     std::shared_ptr<KateProjectIndexPrivate> d;

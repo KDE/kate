@@ -154,8 +154,9 @@ void KateProjectCompletion::completionInvoked(KTextEditor::View *view, const KTe
     }
     // otherwise always proceed
     m_matches.clear();
-    for (auto &h : m_handles)
+    for (auto &h : m_handles) {
         h.request_stop();
+    }
     m_handles.clear();
     allMatches(view, range);
 }
@@ -178,8 +179,9 @@ void KateProjectCompletion::allMatches(KTextEditor::View *view, const KTextEdito
     }
 
     auto handler = [this](QStandardItemModel &&model) {
-        if (!model.rowCount())
+        if (!model.rowCount()) {
             return;
+        }
         beginResetModel();
         while (model.rowCount()) {
             m_matches.appendRow(model.takeRow(0));
@@ -209,8 +211,9 @@ void KateProjectCompletion::aborted(KTextEditor::View *view)
     Q_UNUSED(view);
     beginResetModel();
     m_matches.clear();
-    for (auto &h : m_handles)
+    for (auto &h : m_handles) {
         h.request_stop();
+    }
     m_handles.clear();
     endResetModel();
 }

@@ -13,6 +13,7 @@
 #include <QComboBox>
 #include <QGroupBox>
 #include <QLabel>
+#include <QTabBar>
 #include <QTabWidget>
 #include <QVBoxLayout>
 
@@ -22,6 +23,8 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
 {
     auto *rootLayout = new QVBoxLayout(this);
     auto *tabs = new QTabWidget(this);
+    tabs->setDocumentMode(true);
+    tabs->tabBar()->setExpanding(true);
     auto *generalTab = new QWidget(tabs);
     auto *gitTab = new QWidget(tabs);
     tabs->addTab(generalTab, i18n("General"));

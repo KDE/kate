@@ -143,6 +143,7 @@ void GitForgeConfigWidget::addRow(const QString &host, const QString &provider, 
     auto *providerBox = new QComboBox(m_table);
     providerBox->addItems({ QStringLiteral("Forgejo"), QStringLiteral("GitHub"), QStringLiteral("GitLab") });
     providerBox->setCurrentText(provider);
+    providerBox->setFrame(false);
     connect(providerBox, &QComboBox::currentTextChanged, this, &GitForgeConfigWidget::hostMappingsChanged);
     connect(providerBox, &QComboBox::currentTextChanged, this, [this]() {
         if (!m_detecting) {

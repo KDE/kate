@@ -206,7 +206,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
                 QApplication::clipboard()->setText(url.toString(QUrl::FullyEncoded));
             });
         });
-        const auto mappings = parent->project()->plugin()->gitHostMappings();
+        const auto mappings = GitForge::effectiveHostMappings(parent->project()->plugin()->gitHostMappings(), parent->project()->projectMap());
         watcher->setFuture(QtConcurrent::run([filename, mappings]() {
             return GitForge::linkForFile(filename, mappings);
         }));

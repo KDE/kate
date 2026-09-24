@@ -884,7 +884,7 @@ void KateProjectPluginView::updateGitHostingActions()
     }
 
     const QString path = view->document()->url().toLocalFile();
-    const auto mappings = m_plugin->gitHostMappings();
+    const auto mappings = GitForge::effectiveHostMappings(m_plugin->gitHostMappings(), m_plugin->projectMapForDocument(view->document()));
     auto *watcher = new QFutureWatcher<std::optional<GitForge::Link>>(this);
     connect(watcher, &QFutureWatcher<std::optional<GitForge::Link>>::finished, this, [this, watcher, generation]() {
         const auto link = watcher->result();

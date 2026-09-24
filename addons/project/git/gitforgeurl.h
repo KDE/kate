@@ -11,6 +11,7 @@
 #include <QPair>
 #include <QString>
 #include <QUrl>
+#include <QVariantMap>
 
 #include <optional>
 
@@ -53,6 +54,7 @@ LineRange selectedLineRange(int startLine, int endLine, int endColumn);
 QString providerName(Provider provider);
 std::optional<Provider> providerFromName(const QString &name);
 std::optional<HostMapping> hostMapping(const QString &host, Provider provider, const QUrl &webBaseUrl);
+QList<HostMapping> effectiveHostMappings(const QList<HostMapping> &globalMappings, const QVariantMap &projectMap);
 QList<QPair<Provider, QUrl>> providerApiUrls(const QUrl &webBaseUrl);
 bool isProviderApiResponse(Provider provider, int statusCode, const QByteArray &body);
 QList<HostMapping> defaultHostMappings();

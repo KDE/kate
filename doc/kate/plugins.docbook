@@ -2286,6 +2286,37 @@ to exclude folders and files from the project tree. In this example, All files
 and folders in a directory <filename>build</filename> from the root will be excluded.
 </para>
 
+<para>
+Git hosting mappings can also be configured for a project. A project mapping overrides a global
+mapping with the same host and port, while mappings for other hosts remain available as fallbacks:
+</para>
+
+<screen>
+{
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "git": {
+    "hostMappings": [
+      {
+        "host": "git.example.com:2222",
+        "provider": "Forgejo",
+        "webBaseUrl": "https://code.example.com"
+      }
+    ]
+  }
+}
+</screen>
+
+<para>
+The <code>"provider"</code> value must be <code>"Forgejo"</code>, <code>"GitHub"</code>, or
+<code>"GitLab"</code>. The <code>"host"</code> may include the SSH port used by the Git remote,
+and <code>"webBaseUrl"</code> is the HTTP or HTTPS address used to open repository links.
+</para>
+
 <para id="projects-build-support">If you want to add support for the building, you can write a
 <filename>.kateproject</filename> like this:</para>
 

@@ -87,6 +87,15 @@ struct
 
    };
 
+   /// The "git" structure is optional. Project host mappings override global mappings
+   /// with the same host and port; other global mappings remain available as fallbacks.
+   struct git
+   {
+      /// Maps a Git remote host, optionally followed by its SSH port, to its website.
+      /// "provider" must be "Forgejo", "GitHub", or "GitLab".
+      vector< {string host, string provider, string webBaseUrl} > hostMappings;
+   };
+
    /// The "ctags" structure is optional.
    /// If set, it may contain extra options for ctags command used to populate the auto completion popup in Kate.
    struct ctags
@@ -135,6 +144,21 @@ A project for a custom language named Swine whose source files have a suffix .sw
          "--langmap=swine:.swn",
          "--regex-swine=/^def[ \t]*([a-zA-Z0-9_]+)/\\1/d,definition/"
       ]
+   }
+}
+
+
+A project with a project-specific Git hosting mapping:
+
+{
+   "name": "MyProject",
+   "files": [ { "git": 1 } ],
+   "git": {
+      "hostMappings": [ {
+         "host": "git.example.com:2222",
+         "provider": "Forgejo",
+         "webBaseUrl": "https://code.example.com"
+      } ]
    }
 }
 

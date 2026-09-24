@@ -23,6 +23,7 @@ private Q_SLOTS:
     void buildUrl();
     void lineRange_data();
     void lineRange();
+    void projectHostMappings();
     void providerApiUrls();
     void providerApiResponse();
 };
@@ -179,6 +180,41 @@ void GitForgeUrlTest::lineRange()
     const auto range = GitForge::selectedLineRange(startLine, endLine, endColumn);
     QCOMPARE(range.first, first);
     QCOMPARE(range.last, last);
+}
+
+void GitForgeUrlTest::projectHostMappings()
+{
+    const auto globalMapping
+        = GitForge::hostMapping(QStringLiteral("git.example.com"), GitForge::Provider::GitLab, QUrl(QStringLiteral("https://global.example.com")));
+    QVERIFY(globalMapping);
+    const QVariantMap projectMap{
+        { QStringLiteral("git"),
+            QVariantMap{ { QStringLiteral("hostMappings"),
+                QVariantList{
+                    QVariantMap{
+                        { QStringLiteral("host"), QStringLiteral("git.example.com") },
+                        { QStringLiteral("provider"), QStringLiteral("Forgejo") },
+                        { QStringLiteral("webBaseUrl"), QStringLiteral("https://project.example.com") },
+                    },
+                    QVariantMap{
+                        { QStringLiteral("host"), QStringLiteral("invalid.example.com") },
+                        { QStringLiteral("provider"), QStringLiteral("unknown") },
+                        { QStringLiteral("webBaseUrl"), QStringLiteral("https://invalid.example.com") },
+                    },
+                } } } },
+    };
+
+    const auto mappings = GitForge::effectiveHostMappings({ *globalMapping, GitForge::defaultHostMappings().constFirst() }, projectMap);
+    QCOMPARE(mappings.size(), 2);
+    QCOMPARE(mappings.at(0).provider, GitForge::Provider::Forgejo);
+    QCOMPARE(mappings.at(0).webBaseUrl, QUrl(QStringLiteral("https://project.example.com")));
+    QCOMPARE(mappings.at(1).host, QStringLiteral("codeberg.org"));
+
+    const auto repository
+        = GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@git.example.com:owner/repo.git")), mappings);
+    QVERIFY(repository);
+    QCOMPARE(repository->provider, GitForge::Provider::Forgejo);
+    QCOMPARE(GitForge::effectiveHostMappings({ *globalMapping }, {}).size(), 1);
 }
 
 void GitForgeUrlTest::providerApiUrls()

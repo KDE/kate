@@ -11,6 +11,8 @@
 #include <QRegularExpression>
 #include <QUrlQuery>
 
+#include <algorithm>
+
 namespace {
 std::optional<QString> normalizedPath(QString path)
 {
@@ -236,6 +238,33 @@ std::optional<GitForge::HostMapping> GitForge::hostMapping(const QString &hostAn
         return std::nullopt;
     }
     return HostMapping{ host, authority.port(-1), provider, webBaseUrl };
+}
+
+QList<GitForge::HostMapping> GitForge::effectiveHostMappings(const QList<HostMapping> &globalMappings, const QVariantMap &projectMap)
+{
+    QList<HostMapping> mappings;
+    const QVariantList entries = projectMap.value(QStringLiteral("git")).toMap().value(QStringLiteral("hostMappings")).toList();
+    for (const QVariant &entry : entries) {
+        const QVariantMap values = entry.toMap();
+        const auto provider = providerFromName(values.value(QStringLiteral("provider")).toString());
+        if (provider) {
+            if (const auto mapping = hostMapping(values.value(QStringLiteral("host")).toString(),
+                    *provider,
+                    QUrl(values.value(QStringLiteral("webBaseUrl")).toString(), QUrl::StrictMode))) {
+                mappings.push_back(*mapping);
+            }
+        }
+    }
+
+    for (const HostMapping &globalMapping : globalMappings) {
+        const auto overridden = std::ranges::find_if(mappings, [&globalMapping](const HostMapping &mapping) {
+            return mapping.host == globalMapping.host && mapping.port == globalMapping.port;
+        });
+        if (overridden == mappings.end()) {
+            mappings.push_back(globalMapping);
+        }
+    }
+    return mappings;
 }
 
 QList<QPair<GitForge::Provider, QUrl>> GitForge::providerApiUrls(const QUrl &webBaseUrl)

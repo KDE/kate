@@ -30,7 +30,7 @@ public:
     void run() override
     {
         m_run();
-        done();
+        Q_EMIT done();
     }
 
     Q_SIGNAL void done();

@@ -22,6 +22,7 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     , m_plugin(plugin)
 {
     auto *rootLayout = new QVBoxLayout(this);
+    rootLayout->setContentsMargins(0, 0, 0, 0);
     auto *tabs = new QTabWidget(this);
     tabs->setDocumentMode(true);
     tabs->tabBar()->setExpanding(true);

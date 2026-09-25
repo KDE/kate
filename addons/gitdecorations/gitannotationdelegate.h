@@ -14,6 +14,8 @@ class GitAnnotationDelegate : public KTextEditor::AbstractAnnotationItemDelegate
 
 public:
     explicit GitAnnotationDelegate(KTextEditor::View *parent = nullptr);
+    ~GitAnnotationDelegate() override;
+
     void paint(QPainter *painter, const KTextEditor::StyleOptionAnnotationItem &option, KTextEditor::AnnotationModel *model, int line) const override;
     QSize sizeHint(const KTextEditor::StyleOptionAnnotationItem &option, KTextEditor::AnnotationModel *model, int line) const override;
     bool helpEvent(QHelpEvent *event,

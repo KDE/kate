@@ -1142,7 +1142,7 @@ msgstr "Событие журнала"
 #: lib/kateconfigdialog.cpp:173
 #, kde-format
 msgid "&Limit output view history:"
-msgstr "&Ограничить "
+msgstr "&Ограничить журнал панели вывода:"
 
 #: lib/kateconfigdialog.cpp:179 lib/kateconfigdialog.cpp:250
 #: lib/kateconfigdialog.cpp:402

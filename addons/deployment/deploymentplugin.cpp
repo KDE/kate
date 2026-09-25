@@ -662,7 +662,8 @@ void DeploymentView::queueFiles(const QStringList &files) {
                        info.absoluteFilePath()));
         return;
       }
-      pendingFiles.enqueue(PendingUpload{info.absoluteFilePath(), *remoteUrl});
+      pendingFiles.enqueue(PendingUpload{info.absoluteFilePath(), *remoteUrl,
+                                         m_config.remoteBaseUrl()});
     }
   }
   m_pendingFiles = std::move(pendingFiles);
@@ -694,17 +695,19 @@ void DeploymentView::startNextUpload() {
     finishUpload(i18n("The remote file is open in Kate."));
     return;
   }
-  startUpload(upload.localPath, upload.remoteUrl);
+  startUpload(upload.localPath, upload.remoteUrl, upload.remoteBaseUrl);
 }
 
 void DeploymentView::startUpload(const QString &localPath,
-                                 const QUrl &remoteUrl) {
+                                  const QUrl &remoteUrl,
+                                  const QUrl &remoteBaseUrl) {
   m_activeRemoteUrl = remoteUrl;
   appendLog(i18n("Uploading %1 to %2", localPath, displayUrl(remoteUrl)));
 
   const QUrl parentUrl =
       remoteUrl.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash);
-  auto *mkdirJob = KIO::mkpath(parentUrl, {}, KIO::HideProgressInfo);
+  auto *mkdirJob =
+      KIO::mkpath(parentUrl, remoteBaseUrl, KIO::HideProgressInfo);
   setActiveJob(mkdirJob);
   connect(
       mkdirJob, &KJob::result, this,

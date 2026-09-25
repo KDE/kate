@@ -170,6 +170,10 @@ void DeploymentConfigTest::symlinkEscape() {
   if (!QFile::link(outside.path(), link)) {
     QSKIP("Creating directory symlinks is not supported");
   }
+  const QFileInfo linkInfo(link);
+  if (!linkInfo.isSymLink() || !linkInfo.isDir()) {
+    QSKIP("QFile::link did not create a directory symlink");
+  }
 
   const auto config = configFor(project.path());
   QVERIFY(config.valid);

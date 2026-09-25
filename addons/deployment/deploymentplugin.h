@@ -53,6 +53,7 @@ private:
   struct PendingUpload {
     QString localPath;
     QUrl remoteUrl;
+    QUrl remoteBaseUrl;
   };
 
   struct ProjectContext {
@@ -75,7 +76,8 @@ private:
   void uploadProject();
   void queueFiles(const QStringList &files);
   void startNextUpload();
-  void startUpload(const QString &localPath, const QUrl &remoteUrl);
+  void startUpload(const QString &localPath, const QUrl &remoteUrl,
+                   const QUrl &remoteBaseUrl);
   void finishUpload(const QString &error = {});
   void cancelTransfers();
   void setActiveJob(KJob *job);

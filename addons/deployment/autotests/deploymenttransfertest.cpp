@@ -42,8 +42,9 @@ void DeploymentTransferTest::uploadThroughTemporaryFile()
     QCOMPARE(source.write("deployed content"), 16);
     source.close();
 
+    const QUrl destinationRoot = QUrl::fromLocalFile(destinationDir.path());
     const QUrl parentUrl = QUrl::fromLocalFile(destinationDir.filePath(QStringLiteral("missing/nested")));
-    QVERIFY(waitForJob(KIO::mkpath(parentUrl, {}, KIO::HideProgressInfo)));
+    QVERIFY(waitForJob(KIO::mkpath(parentUrl, destinationRoot, KIO::HideProgressInfo)));
 
     const QUrl temporaryUrl = QUrl::fromLocalFile(destinationDir.filePath(QStringLiteral("missing/nested/.target.txt.kate-upload")));
     const QUrl finalUrl = QUrl::fromLocalFile(destinationDir.filePath(QStringLiteral("missing/nested/target.txt")));

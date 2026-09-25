@@ -161,7 +161,6 @@ void GitDecorationsPlugin::untrackDocument(KTextEditor::Document *document)
     }
 
     const auto &context = it.value();
-    m_trackedDocuments.erase(it);
     disconnect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::invalidateAnnotations);
     disconnect(document, &KTextEditor::Document::modifiedOnDisk, this, &GitDecorationsPlugin::invalidateAnnotations);
     if (context.diffProcess && context.diffProcess->state() != QProcess::NotRunning) {
@@ -176,6 +175,8 @@ void GitDecorationsPlugin::untrackDocument(KTextEditor::Document *document)
     if (!repoHasTrackedDocuments) {
         untrackRepository(repoBasePath);
     }
+
+    m_trackedDocuments.erase(it);
 }
 
 void GitDecorationsPlugin::trackRepository(const QString &repoBasePath)

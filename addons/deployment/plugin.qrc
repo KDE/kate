@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/kxmlgui5/katedeployment">
+        <file>ui.rc</file>
+    </qresource>
+</RCC>

@@ -37,3 +37,4 @@ ecm_optional_add_subdirectory(openlink)
 ecm_optional_add_subdirectory(rbql)
 ecm_optional_add_subdirectory(bookmarks)
 ecm_optional_add_subdirectory(kategpgplugin) # Adds transparent editing of GPG encrypted files.
+ecm_optional_add_subdirectory(deployment) # Upload local project files and browse a remote SFTP host.

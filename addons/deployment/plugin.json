@@ -1,0 +1,6 @@
+{
+    "KPlugin": {
+        "Description": "Upload project files over SFTP and browse the remote host",
+        "Name": "Deployment"
+    }
+}

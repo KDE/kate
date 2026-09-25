@@ -82,6 +82,9 @@ simple &gdb; frontend</para>
 <para><link linkend="kate-application-plugin-projects">Project Plugin</link> - Integration with &git; and other source control systems</para>
 </listitem>
 <listitem>
+<para><link linkend="kate-application-plugin-deployment">Deployment Plugin</link> - Upload project files and browse a remote SFTP host</para>
+</listitem>
+<listitem>
 <para>Replicode - Constructivist AI language and runtime</para>
 </listitem>
 <listitem>
@@ -2483,6 +2486,115 @@ currently open projects.  It is displayed by the Project plugin.</para>
 <!--
 context menu Project->Lookup:xxx
 -->
+
+</sect1>
+
+<sect1 id="kate-application-plugin-deployment">
+<title>Deployment Plugin</title>
+
+<para>The Deployment plugin uploads files from the active project to an SFTP
+server. It also provides a <guilabel>Remote Host</guilabel> tool view for
+browsing the configured destination and opening remote files directly in
+&kate;. The <link linkend="kate-application-plugin-projects">Project
+plugin</link> must be enabled.</para>
+
+<sect2 id="deployment-configuration">
+<title>Project Configuration</title>
+
+<para>Add a <literal>deployment</literal> object to the project's
+<filename>.kateproject</filename> file:</para>
+
+<screen>
+{
+  "name": "Example",
+  "files": [ { "git": 1 } ],
+  "deployment": {
+    "host": "example.org",
+    "port": 22,
+    "user": "deploy",
+    "localRoot": ".",
+    "remoteRoot": "/var/www/example",
+    "exclude": [
+      ".git",
+      ".kateproject*",
+      "build",
+      "*.tmp"
+    ]
+  }
+}
+</screen>
+
+<variablelist>
+<varlistentry>
+<term><literal>host</literal></term>
+<listitem><para>The required server hostname or IP address. Do not include an
+<literal>sftp://</literal> scheme or user name.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>port</literal></term>
+<listitem><para>The SSH port, from 1 through 65535. If omitted, it defaults to
+22.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>user</literal></term>
+<listitem><para>The SSH user name. If omitted, KIO uses its normal default for
+the host.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>localRoot</literal></term>
+<listitem><para>The local directory whose contents are mapped to
+<literal>remoteRoot</literal>. A relative path is resolved from the project
+base directory. The default is the project base directory. The directory must
+exist and must be inside the project.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>remoteRoot</literal></term>
+<listitem><para>The required absolute destination directory on the server.
+Parent-directory traversal components are not allowed.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><literal>exclude</literal></term>
+<listitem><para>An optional array of project-relative wildcard patterns. A
+pattern without a slash matches any path component, so
+<literal>build</literal> excludes directories or files with that name at any
+depth. Patterns containing a slash match paths relative to
+<literal>localRoot</literal>.</para></listitem>
+</varlistentry>
+</variablelist>
+
+<para>Passwords and private keys are not stored in the project configuration.
+Authentication, host-key verification, and wallet integration are handled by
+KIO.</para>
+
+<para>Shared settings can be committed in
+<filename>.kateproject</filename>. To keep machine-specific server paths or
+accounts out of version control, put a complete <literal>deployment</literal>
+object in <filename>.kateproject.local</filename>. The local object takes
+precedence over the one in <filename>.kateproject</filename>. The
+<guimenuitem>Configure Deployment...</guimenuitem> action writes this local
+override while preserving unrelated project settings.</para>
+</sect2>
+
+<sect2 id="deployment-usage">
+<title>Uploading and Browsing</title>
+
+<para><guimenuitem>Upload Current File</guimenuitem> uploads the active local
+file and has the default shortcut
+<keycombo action="simul">&Ctrl;&Alt;<keycap>S</keycap></keycombo>.
+<guimenuitem>Upload Project</guimenuitem> uploads all non-excluded files known
+to the active project. Missing remote directories are created automatically.</para>
+
+<para>The <guilabel>Remote Host</guilabel> tool view browses the configured
+remote root. Opening a remote file edits its <literal>sftp://</literal> URL
+directly. Its context menu can open or upload the corresponding local file when
+one exists. Transfer progress and errors are shown in the
+<guilabel>File Transfer</guilabel> tool view.</para>
+</sect2>
 
 </sect1>
 

@@ -87,6 +87,32 @@ struct
 
    };
 
+   /// The "deployment" structure is optional. It maps local project files to an
+   /// SFTP destination. Authentication is handled by KIO and is not stored here.
+   struct deployment
+   {
+      /// Required server hostname or IP address, without a URL scheme.
+      string host;
+
+      /// Optional SSH port. Defaults to 22.
+      int port = 22;
+
+      /// Optional SSH user. If omitted, KIO uses its normal default.
+      string user;
+
+      /// Optional local directory. Relative paths are resolved from the project
+      /// base directory. Defaults to the project base directory and must remain
+      /// inside it.
+      string localRoot;
+
+      /// Required absolute destination directory on the server.
+      string remoteRoot;
+
+      /// Optional project-relative wildcard patterns. Patterns without a slash
+      /// match any path component, for example "build" or "*.tmp".
+      vector< string > exclude;
+   };
+
    /// The "git" structure is optional. Project host mappings override global mappings
    /// with the same host and port; other global mappings remain available as fallbacks.
    struct git

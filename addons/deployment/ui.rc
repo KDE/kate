@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="katedeployment" library="katedeploymentplugin" version="1" translationDomain="katedeployment">
+    <MenuBar>
+        <Menu name="tools">
+            <Menu name="deployment">
+                <text>&amp;Deployment</text>
+                <Action name="deployment_upload_current"/>
+                <Action name="deployment_upload_project"/>
+                <Action name="deployment_cancel"/>
+                <Separator/>
+                <Action name="deployment_browse_remote"/>
+                <Action name="deployment_configure"/>
+            </Menu>
+        </Menu>
+    </MenuBar>
+    <Menu name="ktexteditor_popup" noMerge="1">
+        <Action name="deployment_upload_current"/>
+    </Menu>
+</gui>

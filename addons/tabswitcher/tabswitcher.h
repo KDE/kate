@@ -136,6 +136,7 @@ protected:
 private:
     void registerItem(DocOrWidget docOrWidget);
     void unregisterItem(DocOrWidget docOrWidget);
+    void onWidgetDeleted(QObject *o);
 
     TabSwitcherPlugin *m_plugin;
     KTextEditor::MainWindow *m_mainWindow;

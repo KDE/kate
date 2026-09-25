@@ -137,6 +137,11 @@ void TabSwitcherPluginView::setupModel()
 
 void TabSwitcherPluginView::registerItem(DocOrWidget docOrWidget)
 {
+    if (m_documents.contains(docOrWidget)) {
+        qWarning("tabswitcher: Trying to register an item that is already known");
+        return;
+    }
+
     // insert into hash
     m_documents.insert(docOrWidget);
 
@@ -164,9 +169,15 @@ void TabSwitcherPluginView::unregisterItem(DocOrWidget docOrWidget)
     m_model->removeDocument(docOrWidget);
 }
 
+void TabSwitcherPluginView::onWidgetDeleted(QObject *o)
+{
+    onWidgetRemoved(static_cast<QWidget *>(o));
+}
+
 void TabSwitcherPluginView::onWidgetCreated(QWidget *widget)
 {
     registerItem(widget);
+    connect(widget, &QObject::destroyed, this, &TabSwitcherPluginView::onWidgetDeleted, Qt::UniqueConnection);
 }
 
 void TabSwitcherPluginView::onWidgetRemoved(QWidget *widget)

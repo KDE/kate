@@ -398,6 +398,7 @@ void GitDecorationsPlugin::annotateView(KTextEditor::View *view)
 GitDecorationsPluginView::GitDecorationsPluginView(GitDecorationsPlugin *plugin, KTextEditor::MainWindow *mainwindow)
     : KXMLGUIClient()
 {
+    setComponentName(QStringLiteral("gitdecorations"), i18n("Git Decorations"));
     connect(mainwindow, &KTextEditor::MainWindow::viewChanged, plugin, &GitDecorationsPlugin::annotateView);
 }
 

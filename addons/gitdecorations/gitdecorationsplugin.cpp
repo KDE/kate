@@ -160,7 +160,7 @@ void GitDecorationsPlugin::untrackDocument(KTextEditor::Document *document)
         return;
     }
 
-    auto context = it.value();
+    const auto &context = it.value();
     m_trackedDocuments.erase(it);
     disconnect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::invalidateAnnotations);
     disconnect(document, &KTextEditor::Document::modifiedOnDisk, this, &GitDecorationsPlugin::invalidateAnnotations);
@@ -217,7 +217,7 @@ void GitDecorationsPlugin::untrackRepository(const QString &repoBasePath)
         return;
     }
 
-    const auto context = it.value();
+    const auto &context = it.value();
     context->watcherTimer.stop();
     context->watcher.removePaths(context->watcher.directories());
     if (context->headProcess && context->headProcess->state() != QProcess::NotRunning) {
@@ -234,7 +234,7 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
         return;
     }
 
-    const auto context = it.value();
+    const auto &context = it.value();
     if (context->headProcess && context->headProcess->state() != QProcess::NotRunning) {
         context->headProcess->kill();
     }
@@ -265,7 +265,7 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
             return;
         }
 
-        const auto context = it.value();
+        const auto &context = it.value();
         if (context->headProcess != headProcess) {
             headProcess->deleteLater();
             return;
@@ -298,7 +298,7 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
         return;
     }
 
-    const auto context = it.value();
+    const auto &context = it.value();
     if (context.diffProcess && context.diffProcess->state() != QProcess::NotRunning) {
         context.diffProcess->kill();
     }

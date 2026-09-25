@@ -404,3 +404,4 @@ GitDecorationsPluginView::GitDecorationsPluginView(GitDecorationsPlugin *plugin,
 }
 
 #include "gitdecorationsplugin.moc"
+#include "moc_gitdecorationsplugin.cpp"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-07 00:46+0000\n"
+"POT-Creation-Date: 2026-09-25 00:49+0000\n"
 "PO-Revision-Date: 2024-09-10 15:37+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -602,57 +602,57 @@ msgctxt "@title:column"
 msgid "Database schema"
 msgstr "ဒေတာဘေ့စ် စကင်းမား"
 
-#: schemawidget.cpp:137
+#: schemawidget.cpp:138
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "တေဘယ်များ"
 
-#: schemawidget.cpp:142
+#: schemawidget.cpp:143
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "မြင်ကွင်းများ"
 
-#: schemawidget.cpp:156
+#: schemawidget.cpp:157
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "စစ်စတမ် တေဘယ်များ"
 
-#: schemawidget.cpp:356
+#: schemawidget.cpp:357
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "ဒေတာရွေး"
 
-#: schemawidget.cpp:360
+#: schemawidget.cpp:361
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "ထုတ်လုပ်မည်"
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:362
 #, kde-format
 msgid "SELECT"
 msgstr "ရွေးချယ်"
 
-#: schemawidget.cpp:362
+#: schemawidget.cpp:363
 #, kde-format
 msgid "UPDATE"
 msgstr "အပ်ဒိတ်"
 
-#: schemawidget.cpp:363
+#: schemawidget.cpp:364
 #, kde-format
 msgid "INSERT"
 msgstr "ထည့်သွင်"
 
-#: schemawidget.cpp:364
+#: schemawidget.cpp:365
 #, kde-format
 msgid "DELETE"
 msgstr "ဖျက်"
 
-#: schemawidget.cpp:368
+#: schemawidget.cpp:369
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

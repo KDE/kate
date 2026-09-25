@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-07 00:46+0000\n"
+"POT-Creation-Date: 2026-09-25 00:49+0000\n"
 "PO-Revision-Date: 2026-06-06 12:13+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -593,57 +593,57 @@ msgctxt "@title:column"
 msgid "Database schema"
 msgstr "데이터베이스 스키마"
 
-#: schemawidget.cpp:137
+#: schemawidget.cpp:138
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "테이블"
 
-#: schemawidget.cpp:142
+#: schemawidget.cpp:143
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "보기"
 
-#: schemawidget.cpp:156
+#: schemawidget.cpp:157
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "시스템 테이블"
 
-#: schemawidget.cpp:356
+#: schemawidget.cpp:357
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "데이터 선택"
 
-#: schemawidget.cpp:360
+#: schemawidget.cpp:361
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "생성"
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:362
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:362
+#: schemawidget.cpp:363
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:363
+#: schemawidget.cpp:364
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:364
+#: schemawidget.cpp:365
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:368
+#: schemawidget.cpp:369
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

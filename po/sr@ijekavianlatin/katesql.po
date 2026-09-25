@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-07 00:46+0000\n"
+"POT-Creation-Date: 2026-09-25 00:49+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -627,61 +627,61 @@ msgctxt "@title:column"
 msgid "Database schema"
 msgstr "šema baze"
 
-#: schemawidget.cpp:137
+#: schemawidget.cpp:138
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "Tabele"
 
-#: schemawidget.cpp:142
+#: schemawidget.cpp:143
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "Pogledi"
 
-#: schemawidget.cpp:156
+#: schemawidget.cpp:157
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "Sistemske tabele"
 
-#: schemawidget.cpp:356
+#: schemawidget.cpp:357
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr ""
 
-#: schemawidget.cpp:360
+#: schemawidget.cpp:361
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "Generiši"
 
 # >> SQL statement
-#: schemawidget.cpp:361
+#: schemawidget.cpp:362
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
 # >> SQL statement
-#: schemawidget.cpp:362
+#: schemawidget.cpp:363
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
 # >> SQL statement
-#: schemawidget.cpp:363
+#: schemawidget.cpp:364
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
 # >> SQL statement
-#: schemawidget.cpp:364
+#: schemawidget.cpp:365
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:368
+#: schemawidget.cpp:369
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

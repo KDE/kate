@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-22 16:04+0000\n"
+"POT-Creation-Date: 2026-09-25 00:49+0000\n"
 "PO-Revision-Date: 2026-08-25 01:16+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -70,7 +70,7 @@ msgstr "Última actividad"
 msgid "Last Commit"
 msgstr "Última confirmación"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:133
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:138
 #, kde-format
 msgid "Delete"
 msgstr "Borrar"
@@ -87,7 +87,8 @@ msgstr[1] "¿Seguro que desea borrar las ramas seleccionadas?"
 msgid "Select Branch..."
 msgstr "Seleccionar rama…"
 
-#: branchesdialog.cpp:108 gitwidget.cpp:551 kateprojectpluginview.cpp:72
+#: branchesdialog.cpp:108 gitwidget.cpp:551 kateprojectconfigpage.cpp:32
+#: kateprojectpluginview.cpp:77
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -124,6 +125,119 @@ msgstr "HEAD está en esta etiqueta %1"
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
 msgstr "Rama activa: %1"
+
+#: git/gitforgeconfigwidget.cpp:32
+#, kde-format
+msgid "Detect Service"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:37
+#, kde-format
+msgid ""
+"Map Git remote hosts to their Forgejo, GitHub, or GitLab website. The remote "
+"host is taken from the clone URL; the website URL is used to open repository "
+"links in a browser."
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:45
+#, kde-format
+msgid "Git Remote Host"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:45
+#, kde-format
+msgid "Hosting Service"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:45
+#, kde-format
+msgid "Website URL"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:46
+#, kde-format
+msgid "Host from the Git clone URL, optionally followed by its SSH port"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:47
+#, kde-format
+msgid "Forgejo, GitHub, or GitLab software running on the server"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:48
+#, kde-format
+msgid "HTTP or HTTPS address used to open repository links in a web browser"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:56
+#, kde-format
+msgid "Add Mapping"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:57
+#, fuzzy, kde-format
+#| msgid "Remove Selected Files"
+msgid "Remove Selected Mapping"
+msgstr "Eliminar los archivos seleccionados"
+
+#: git/gitforgeconfigwidget.cpp:60
+#, kde-format
+msgid ""
+"Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
+"website URL"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:106
+#, kde-format
+msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
+msgid "The hosting service in row %1 is invalid."
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:111
+#, kde-format
+msgid "The Git remote host or website URL in row %1 is invalid."
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:138
+#, kde-format
+msgid "git.example.com or git.example.com:2222"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:156
+#, kde-format
+msgid "https://git.example.com"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:173
+#, kde-format
+msgid "Select a mapping to detect its hosting service."
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:180
+#, kde-format
+msgid ""
+"Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:191
+#, kde-format
+msgid "Detecting…"
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:237
+#, kde-format
+msgid "Detected %1."
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:239
+#, kde-format
+msgid "The mapping changed; the detection result was ignored."
+msgstr ""
+
+#: git/gitforgeconfigwidget.cpp:241
+#, kde-format
+msgid "Service could not be detected; select it manually."
+msgstr ""
 
 #: git/gitstatus.cpp:159
 #, kde-format
@@ -471,7 +585,7 @@ msgid "Open .gitignore"
 msgstr "Abrir .gitignore"
 
 #: gitwidget.cpp:1246 gitwidget.cpp:1295 gitwidget.cpp:1346
-#: kateprojectconfigpage.cpp:111 kateprojectconfigpage.cpp:123
+#: kateprojectconfigpage.cpp:128 kateprojectconfigpage.cpp:140
 #, kde-format
 msgid "Show Diff"
 msgstr "Mostrar diferencias"
@@ -586,8 +700,8 @@ msgstr "(Añadido)"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Archivo JSON mal formado «%1»: %2"
 
-#: kateproject.cpp:422 kateprojectplugin.cpp:826 kateprojectpluginview.cpp:77
-#: kateprojectpluginview.cpp:233 kateprojectviewtree.cpp:368
+#: kateproject.cpp:422 kateprojectplugin.cpp:871 kateprojectpluginview.cpp:82
+#: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:368
 #: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
 #: kateprojectviewtree.cpp:416
 #, kde-format
@@ -604,13 +718,18 @@ msgstr "<no seguido>"
 msgid "Project Completion"
 msgstr "Completación del proyecto"
 
-#: kateprojectconfigpage.cpp:24
+#: kateprojectconfigpage.cpp:31
+#, kde-format
+msgid "General"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:38
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
 msgstr "Cargar repositorios automáticamente y árboles de compilación"
 
-#: kateprojectconfigpage.cpp:26
+#: kateprojectconfigpage.cpp:40
 #, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
@@ -620,38 +739,38 @@ msgstr ""
 "trabajo de los repositorios y los árboles de compilación en el caso de que "
 "aún no se haya definido un archivo .kateproject"
 
-#: kateprojectconfigpage.cpp:29
+#: kateprojectconfigpage.cpp:43
 #, kde-format
 msgid "&Git"
 msgstr "&Git"
 
-#: kateprojectconfigpage.cpp:32
+#: kateprojectconfigpage.cpp:46
 #, kde-format
 msgid "&Subversion"
 msgstr "&Subversion"
 
-#: kateprojectconfigpage.cpp:34
+#: kateprojectconfigpage.cpp:48
 #, kde-format
 msgid "&Mercurial"
 msgstr "&Mercurial"
 
-#: kateprojectconfigpage.cpp:36
+#: kateprojectconfigpage.cpp:50
 #, kde-format
 msgid "&Fossil"
 msgstr "&Fossil"
 
-#: kateprojectconfigpage.cpp:38
+#: kateprojectconfigpage.cpp:52
 #, kde-format
 msgid "&CMake"
 msgstr "&CMake"
 
-#: kateprojectconfigpage.cpp:47
+#: kateprojectconfigpage.cpp:61
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Directory Listing"
 msgstr "Listado del directorio"
 
-#: kateprojectconfigpage.cpp:49
+#: kateprojectconfigpage.cpp:63
 #, kde-format
 msgid ""
 "When directory listing is enabled, autoloaded repository projects show all "
@@ -661,12 +780,12 @@ msgstr ""
 "cargados automáticamente muestran todos los archivos en lugar de solo los "
 "archivos seguidos por el VCS."
 
-#: kateprojectconfigpage.cpp:52
+#: kateprojectconfigpage.cpp:66
 #, kde-format
 msgid "Include files untracked by repository"
 msgstr "Incluir archivos no seguidos por el repositorio"
 
-#: kateprojectconfigpage.cpp:54
+#: kateprojectconfigpage.cpp:68
 #, kde-format
 msgid ""
 "Show all files in the project directory including files not tracked by the "
@@ -676,12 +795,12 @@ msgstr ""
 "archivos no seguidos por el sistema de control de versiones, como los que se "
 "excluyen mediante .gitignore."
 
-#: kateprojectconfigpage.cpp:58
+#: kateprojectconfigpage.cpp:72
 #, kde-format
 msgid "Show hidden files in non-VCS projects"
 msgstr "Mostrar archivos ocultos en proyectos no VCS"
 
-#: kateprojectconfigpage.cpp:59
+#: kateprojectconfigpage.cpp:73
 #, kde-format
 msgid ""
 "Show hidden files (dotfiles) in the project file tree for projects not "
@@ -691,44 +810,44 @@ msgstr ""
 "de archivos del proyecto en los proyectos no cargados con control de "
 "versiones."
 
-#: kateprojectconfigpage.cpp:68
+#: kateprojectconfigpage.cpp:82
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
 msgstr "Comportamiento de la sesión"
 
-#: kateprojectconfigpage.cpp:69
+#: kateprojectconfigpage.cpp:83
 #, kde-format
 msgid "Session settings for projects"
 msgstr "Preferencias de sesiones de proyectos"
 
-#: kateprojectconfigpage.cpp:70
+#: kateprojectconfigpage.cpp:84
 #, kde-format
 msgid "Restore Open Projects"
 msgstr "Restaurar los proyectos abiertos"
 
-#: kateprojectconfigpage.cpp:77
+#: kateprojectconfigpage.cpp:91
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
 msgstr "Índice del proyecto"
 
-#: kateprojectconfigpage.cpp:78
+#: kateprojectconfigpage.cpp:92
 #, kde-format
 msgid "Project ctags index settings"
 msgstr "Preferencias del índice de ctags del proyecto"
 
-#: kateprojectconfigpage.cpp:79 kateprojectinfoviewindex.cpp:208
+#: kateprojectconfigpage.cpp:93 kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Enable indexing"
 msgstr "Activar indexación"
 
-#: kateprojectconfigpage.cpp:82
+#: kateprojectconfigpage.cpp:96
 #, kde-format
 msgid "Directory for index files"
 msgstr "Directorio de archivos de índice"
 
-#: kateprojectconfigpage.cpp:86
+#: kateprojectconfigpage.cpp:100
 #, kde-format
 msgid ""
 "The system temporary directory is used if not specified, which may overflow "
@@ -737,13 +856,13 @@ msgstr ""
 "Se usa el directorio de archivos temporales del sistema si no se indica "
 "otro, que podría desbordarse para repositorios muy grandes"
 
-#: kateprojectconfigpage.cpp:93
+#: kateprojectconfigpage.cpp:107
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
 msgstr "Funcionalidad multiproyecto"
 
-#: kateprojectconfigpage.cpp:94
+#: kateprojectconfigpage.cpp:108
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
@@ -751,53 +870,59 @@ msgstr ""
 "El complemento de proyecto puede realizar algunas operaciones en varios "
 "proyectos"
 
-#: kateprojectconfigpage.cpp:95
+#: kateprojectconfigpage.cpp:109
 #, kde-format
 msgid "Cross-Project Completion"
 msgstr "Completación multiproyecto"
 
-#: kateprojectconfigpage.cpp:97
+#: kateprojectconfigpage.cpp:111
 #, kde-format
 msgid "Cross-Project Goto Symbol"
 msgstr "Símbolo «Ir a» multiproyecto"
 
-#: kateprojectconfigpage.cpp:105
+#: kateprojectconfigpage.cpp:122
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:108
+#: kateprojectconfigpage.cpp:125
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "Acción de clic sencillo en la vista de estado de git"
 
-#: kateprojectconfigpage.cpp:110 kateprojectconfigpage.cpp:122
+#: kateprojectconfigpage.cpp:127 kateprojectconfigpage.cpp:139
 #, kde-format
 msgid "No Action"
 msgstr "Ninguna acción"
 
-#: kateprojectconfigpage.cpp:112 kateprojectconfigpage.cpp:124
+#: kateprojectconfigpage.cpp:129 kateprojectconfigpage.cpp:141
 #, kde-format
 msgid "Open file"
 msgstr "Abrir archivo"
 
-#: kateprojectconfigpage.cpp:113 kateprojectconfigpage.cpp:125
+#: kateprojectconfigpage.cpp:130 kateprojectconfigpage.cpp:142
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "Añadir / quitar"
 
-#: kateprojectconfigpage.cpp:120
+#: kateprojectconfigpage.cpp:137
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "Acción de doble clic en la vista de estado de git"
 
-#: kateprojectconfigpage.cpp:165 kateprojectpluginview.cpp:71
+#: kateprojectconfigpage.cpp:153
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Git Hosting"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
 #, kde-format
 msgid "Projects"
 msgstr "Proyectos"
 
-#: kateprojectconfigpage.cpp:170
+#: kateprojectconfigpage.cpp:195
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
@@ -940,23 +1065,23 @@ msgstr "Error"
 msgid "File name already exists"
 msgstr "El nombre del archivo ya existe"
 
-#: kateprojectplugin.cpp:270
+#: kateprojectplugin.cpp:302
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Confirmar el cierre del proyecto: %1"
 
-#: kateprojectplugin.cpp:271
+#: kateprojectplugin.cpp:303
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "¿Desea cerrar el proyecto %1 y los %2 documentos abiertos relacionados?"
 
-#: kateprojectplugin.cpp:691
+#: kateprojectplugin.cpp:736
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Ruta completa al proyecto actual, excluyendo el nombre de archivo."
 
-#: kateprojectplugin.cpp:708
+#: kateprojectplugin.cpp:753
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -965,167 +1090,199 @@ msgstr ""
 "Ruta completa al proyecto actual, excluyendo el nombre de archivo y con "
 "separadores de ruta nativos (barra inversa en Windows)."
 
-#: kateprojectpluginview.cpp:61
+#: kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Project Manager"
 msgstr "Gestor de proyectos"
 
-#: kateprojectpluginview.cpp:82
+#: kateprojectpluginview.cpp:87
 #, kde-format
 msgid "Current Project"
 msgstr "Proyecto actual"
 
-#: kateprojectpluginview.cpp:84
+#: kateprojectpluginview.cpp:89
 #, kde-format
 msgid "Open projects list"
 msgstr "Lista de proyectos abiertos"
 
-#: kateprojectpluginview.cpp:92
+#: kateprojectpluginview.cpp:97
 #, kde-format
 msgid "Reload project"
 msgstr "Volver a cargar el proyecto"
 
-#: kateprojectpluginview.cpp:95
+#: kateprojectpluginview.cpp:100
 #, kde-format
 msgid "Close project"
 msgstr "Cerrar proyecto"
 
-#: kateprojectpluginview.cpp:171
+#: kateprojectpluginview.cpp:176
 #, kde-format
 msgid "Open &Folder..."
 msgstr "A&brir carpeta…"
 
-#: kateprojectpluginview.cpp:177
+#: kateprojectpluginview.cpp:182
 #, kde-format
 msgid "Project TODOs"
 msgstr "Archivos TODO del proyecto"
 
-#: kateprojectpluginview.cpp:182
+#: kateprojectpluginview.cpp:187
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Activar el proyecto anterior"
 
-#: kateprojectpluginview.cpp:188
+#: kateprojectpluginview.cpp:193
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Activar el proyecto siguiente"
 
-#: kateprojectpluginview.cpp:194
+#: kateprojectpluginview.cpp:199
 #, kde-format
 msgid "Lookup"
 msgstr "Buscar"
 
-#: kateprojectpluginview.cpp:199
+#: kateprojectpluginview.cpp:204
 #, kde-format
 msgid "Close Project"
 msgstr "Cerrar proyecto"
 
-#: kateprojectpluginview.cpp:204
+#: kateprojectpluginview.cpp:209
 #, kde-format
 msgid "Close All Projects"
 msgstr "Cerrar todos los proyectos"
 
-#: kateprojectpluginview.cpp:209
+#: kateprojectpluginview.cpp:214
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Cerrar los proyectos huérfanos"
 
-#: kateprojectpluginview.cpp:214
+#: kateprojectpluginview.cpp:219
 #, kde-format
 msgid "Reload Project"
 msgstr "Volver a cargar el proyecto"
 
-#: kateprojectpluginview.cpp:219
+#: kateprojectpluginview.cpp:224
 #, kde-format
 msgid "Reload All Projects"
 msgstr "Volver a cargar todos los proyectos"
 
-#: kateprojectpluginview.cpp:230
+#: kateprojectpluginview.cpp:235
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Cambiar a rama de Git"
 
-#: kateprojectpluginview.cpp:236 kateprojectpluginview.cpp:845
+#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:860
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Buscar: %1"
 
-#: kateprojectpluginview.cpp:237 kateprojectpluginview.cpp:846
+#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:861
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ir a: %1"
 
-#: kateprojectpluginview.cpp:316
+#: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:188
+#, kde-format
+msgid "Git Hosting"
+msgstr ""
+
+#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:875
+#: kateprojectpluginview.cpp:905
+#, kde-format
+msgid "Open on Git Hosting Service"
+msgstr ""
+
+#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:871
+#, kde-format
+msgid "Copy Git Hosting Link"
+msgstr ""
+
+#: kateprojectpluginview.cpp:331
 #, kde-format
 msgid "Projects Index"
 msgstr "Índice de proyectos"
 
-#: kateprojectpluginview.cpp:890
+#: kateprojectpluginview.cpp:870 kateprojecttreeviewcontextmenu.cpp:189
+#, kde-format
+msgid "Detecting Git hosting service…"
+msgstr ""
+
+#: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
+#, kde-format
+msgid "Open on %1"
+msgstr ""
+
+#: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
+#, fuzzy, kde-format
+#| msgid "Copy Location"
+msgid "Copy %1 Link"
+msgstr "Copiar ubicación"
+
+#: kateprojectpluginview.cpp:968
 #, kde-format
 msgid "Choose a directory"
 msgstr "Escoja un directorio"
 
-#: kateprojecttreeviewcontextmenu.cpp:48
+#: kateprojecttreeviewcontextmenu.cpp:53
 #, kde-format
 msgid "Enter name:"
 msgstr "Introduzca el nombre:"
 
-#: kateprojecttreeviewcontextmenu.cpp:113
+#: kateprojecttreeviewcontextmenu.cpp:118
 #, kde-format
 msgid "Copy Location"
 msgstr "Copiar ubicación"
 
-#: kateprojecttreeviewcontextmenu.cpp:120
+#: kateprojecttreeviewcontextmenu.cpp:125
 #, kde-format
 msgid "New File…"
 msgstr "Nuevo archivo…"
 
-#: kateprojecttreeviewcontextmenu.cpp:121
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "New Folder…"
 msgstr "Nueva carpeta…"
 
-#: kateprojecttreeviewcontextmenu.cpp:128
+#: kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "&Rename"
 msgstr "Cambia&r nombre"
 
-#: kateprojecttreeviewcontextmenu.cpp:139
+#: kateprojecttreeviewcontextmenu.cpp:144
 #, kde-format
 msgid "Properties"
 msgstr "Propiedades"
 
-#: kateprojecttreeviewcontextmenu.cpp:143
+#: kateprojecttreeviewcontextmenu.cpp:148
 #, kde-format
 msgid "Open With"
 msgstr "Abrir con"
 
-#: kateprojecttreeviewcontextmenu.cpp:151
+#: kateprojecttreeviewcontextmenu.cpp:156
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Abrir terminal interno aquí"
 
-#: kateprojecttreeviewcontextmenu.cpp:163
+#: kateprojecttreeviewcontextmenu.cpp:168
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Usar terminal externo aquí"
 
-#: kateprojecttreeviewcontextmenu.cpp:169
+#: kateprojecttreeviewcontextmenu.cpp:174
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "Abrir la carpeta que lo c&ontiene"
 
-#: kateprojecttreeviewcontextmenu.cpp:178
+#: kateprojecttreeviewcontextmenu.cpp:183
 #, kde-format
 msgid "Show Git History"
 msgstr "Mostrar el historial Git"
 
-#: kateprojecttreeviewcontextmenu.cpp:242
+#: kateprojecttreeviewcontextmenu.cpp:275
 #, kde-format
 msgid "New File"
 msgstr "Nuevo archivo"
 
-#: kateprojecttreeviewcontextmenu.cpp:247
+#: kateprojecttreeviewcontextmenu.cpp:280
 #, kde-format
 msgid "New Folder"
 msgstr "Nueva carpeta"
@@ -1396,7 +1553,7 @@ msgid "&Projects"
 msgstr "&Proyectos"
 
 #. i18n: ectx: ToolBar (projectplugin)
-#: ui.rc:29
+#: ui.rc:30
 #, kde-format
 msgid "Project Plugin"
 msgstr "Complemento de proyectos"

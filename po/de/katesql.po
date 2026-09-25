@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-07 00:46+0000\n"
+"POT-Creation-Date: 2026-09-25 00:49+0000\n"
 "PO-Revision-Date: 2026-09-07 11:11+0200\n"
 "Last-Translator: Ewald Müller <EMuede@netscape.net>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -601,57 +601,57 @@ msgctxt "@title:column"
 msgid "Database schema"
 msgstr "Datenbankschema"
 
-#: schemawidget.cpp:137
+#: schemawidget.cpp:138
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "Tabellen"
 
-#: schemawidget.cpp:142
+#: schemawidget.cpp:143
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "Ansichten"
 
-#: schemawidget.cpp:156
+#: schemawidget.cpp:157
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "System-Tabellen"
 
-#: schemawidget.cpp:356
+#: schemawidget.cpp:357
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "Daten auswählen"
 
-#: schemawidget.cpp:360
+#: schemawidget.cpp:361
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "Erzeugen"
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:362
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:362
+#: schemawidget.cpp:363
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:363
+#: schemawidget.cpp:364
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:364
+#: schemawidget.cpp:365
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:368
+#: schemawidget.cpp:369
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

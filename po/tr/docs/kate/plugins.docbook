@@ -3597,6 +3597,44 @@ kate /klasöre/olan/yol
 >build</filename
 > klasöründeki tüm dosyalar ve klasörler dışlanacaktır. </para>
 
+<para
+>Git hosting mappings can also be configured for a project. A project mapping overrides a global mapping with the same host and port, while mappings for other hosts remain available as fallbacks: </para>
+
+<screen
+>{
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "git": {
+    "hostMappings": [
+      {
+        "host": "git.example.com:2222",
+        "provider": "Forgejo",
+        "webBaseUrl": "https://code.example.com"
+      }
+    ]
+  }
+}
+</screen>
+
+<para
+>The <code
+>"provider"</code
+> value must be <code
+>"Forgejo"</code
+>, <code
+>"GitHub"</code
+>, or <code
+>"GitLab"</code
+>. The <code
+>"host"</code
+> may include the SSH port used by the Git remote, and <code
+>"webBaseUrl"</code
+> is the HTTP or HTTPS address used to open repository links. </para>
+
 <para id="projects-build-support"
 >Yapım desteği eklemek istiyorsanız <filename
 >.kateproject</filename

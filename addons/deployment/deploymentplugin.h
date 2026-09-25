@@ -45,6 +45,9 @@ public:
 
 private Q_SLOTS:
   void updateContext();
+  void projectTreeContextMenuAboutToShow(QMenu *menu, const QString &path,
+                                         const QString &projectBaseDir,
+                                         int itemType);
 
 private:
   struct PendingUpload {
@@ -66,6 +69,9 @@ private:
 
   void configure();
   void uploadCurrentFile();
+  void uploadLocalFile(const QString &path);
+  void uploadLocalFolder(const QString &path);
+  void uploadLocalFiles(const QStringList &paths);
   void uploadProject();
   void queueFiles(const QStringList &files);
   void startNextUpload();

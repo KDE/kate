@@ -39,6 +39,7 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDir>
+#include <QDirIterator>
 #include <QFile>
 #include <QFileInfo>
 #include <QFormLayout>
@@ -52,6 +53,7 @@
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include <QSaveFile>
+#include <QSet>
 #include <QSignalBlocker>
 #include <QSizePolicy>
 #include <QSpinBox>
@@ -330,6 +332,13 @@ DeploymentView::DeploymentView(DeploymentPlugin *plugin,
                       SLOT(updateContext()), Qt::UniqueConnection);
               connect(projectView, SIGNAL(projectFilesChanged()), this,
                       SLOT(updateContext()), Qt::UniqueConnection);
+              connect(projectView,
+                      SIGNAL(projectTreeContextMenuAboutToShow(
+                          QMenu *, QString, QString, int)),
+                      this,
+                      SLOT(projectTreeContextMenuAboutToShow(
+                          QMenu *, QString, QString, int)),
+                      Qt::UniqueConnection);
               updateContext();
             }
           });
@@ -381,6 +390,13 @@ DeploymentView::DeploymentView(DeploymentPlugin *plugin,
             SLOT(updateContext()), Qt::UniqueConnection);
     connect(projectView, SIGNAL(projectFilesChanged()), this,
             SLOT(updateContext()), Qt::UniqueConnection);
+    connect(projectView,
+            SIGNAL(projectTreeContextMenuAboutToShow(QMenu *, QString, QString,
+                                                     int)),
+            this,
+            SLOT(projectTreeContextMenuAboutToShow(QMenu *, QString, QString,
+                                                   int)),
+            Qt::UniqueConnection);
   }
 
   m_mainWindow->guiFactory()->addClient(this);
@@ -427,6 +443,57 @@ DeploymentView::ProjectContext DeploymentView::currentProjectContext() const {
 
 void DeploymentView::updateContext() {
   applyContext(currentProjectContext());
+}
+
+void DeploymentView::projectTreeContextMenuAboutToShow(
+    QMenu *menu, const QString &path, const QString &projectBaseDir,
+    int itemType) {
+  Q_UNUSED(itemType)
+  const QFileInfo info(path);
+  if (!menu || (!info.isFile() && !info.isDir())) {
+    return;
+  }
+
+  QObject *projectView =
+      m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
+  if (!projectView ||
+      projectView->property("projectBaseDir").toString() != projectBaseDir) {
+    return;
+  }
+
+  ProjectContext context;
+  context.baseDir = projectBaseDir;
+  context.projectFileName =
+      projectView->property("projectFileName").toString();
+  context.projectLocalConfigFileName =
+      projectView->property("projectLocalConfigFileName").toString();
+  context.projectMap = projectView->property("projectMap").toMap();
+  context.files = projectView->property("projectFiles").toStringList();
+
+  const auto config =
+      Deployment::Config::fromProjectMap(context.projectMap, context.baseDir);
+  if (!config.enabled || !config.valid || config.isExcluded(path) ||
+      !config.remoteUrlForLocalPath(path)) {
+    return;
+  }
+
+  menu->addSeparator();
+  auto *upload = menu->addAction(
+      QIcon::fromTheme(QStringLiteral("document-send")),
+      info.isDir()
+          ? i18nc("@action:inmenu", "Upload Folder to Remote Host")
+          : i18nc("@action:inmenu", "Upload to Remote Host"));
+  upload->setEnabled(!m_activeJob && m_pendingFiles.isEmpty());
+  connect(upload, &QAction::triggered, this,
+          [this, context = std::move(context), path,
+           isDirectory = info.isDir()]() mutable {
+            applyContext(std::move(context));
+            if (isDirectory) {
+              uploadLocalFolder(path);
+            } else {
+              uploadLocalFile(path);
+            }
+          });
 }
 
 void DeploymentView::applyContext(ProjectContext context) {
@@ -527,27 +594,49 @@ void DeploymentView::uploadCurrentFile() {
     showError(i18n("The current document is not a local file."));
     return;
   }
-  if (view->document()->isModified() && !view->document()->save()) {
-    showError(i18n("The current document could not be saved before upload."));
-    return;
+  uploadLocalFile(view->document()->url().toLocalFile());
+}
+
+void DeploymentView::uploadLocalFile(const QString &path) {
+  uploadLocalFiles({path});
+}
+
+void DeploymentView::uploadLocalFolder(const QString &path) {
+  QStringList files;
+  QDirIterator iterator(path, QDir::Files | QDir::Hidden | QDir::NoDotAndDotDot,
+                        QDirIterator::Subdirectories);
+  while (iterator.hasNext()) {
+    files.push_back(iterator.next());
   }
-  queueFiles({view->document()->url().toLocalFile()});
+  uploadLocalFiles(files);
+}
+
+void DeploymentView::uploadLocalFiles(const QStringList &paths) {
+  QSet<QString> canonicalPaths;
+  for (const QString &path : paths) {
+    const QString canonicalPath = QFileInfo(path).canonicalFilePath();
+    if (!canonicalPath.isEmpty()) {
+      canonicalPaths.insert(canonicalPath);
+    }
+  }
+
+  const auto documents =
+      KTextEditor::Editor::instance()->application()->documents();
+  for (KTextEditor::Document *document : documents) {
+    if (document->url().isLocalFile() && document->isModified() &&
+        canonicalPaths.contains(
+            QFileInfo(document->url().toLocalFile()).canonicalFilePath()) &&
+        !document->save()) {
+      showError(i18n("The file could not be saved before upload."));
+      return;
+    }
+  }
+  queueFiles(paths);
 }
 
 void DeploymentView::uploadProject() {
   updateContext();
-  const auto documents =
-      KTextEditor::Editor::instance()->application()->documents();
-  for (KTextEditor::Document *document : documents) {
-    if (document->isModified() && document->url().isLocalFile() &&
-        m_config.remoteUrlForLocalPath(document->url().toLocalFile()) &&
-        !document->save()) {
-      showError(i18n("A modified project document could not be saved. The "
-                     "project upload was cancelled."));
-      return;
-    }
-  }
-  queueFiles(m_context.files);
+  uploadLocalFiles(m_context.files);
 }
 
 void DeploymentView::queueFiles(const QStringList &files) {

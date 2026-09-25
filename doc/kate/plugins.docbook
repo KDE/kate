@@ -2587,7 +2587,10 @@ override while preserving unrelated project settings.</para>
 file and has the default shortcut
 <keycombo action="simul">&Ctrl;&Alt;<keycap>S</keycap></keycombo>.
 <guimenuitem>Upload Project</guimenuitem> uploads all non-excluded files known
-to the active project. Missing remote directories are created automatically.</para>
+to the active project. A project file's context menu provides
+<guimenuitem>Upload to Remote Host</guimenuitem>, while a folder's context menu
+provides <guimenuitem>Upload Folder to Remote Host</guimenuitem> to upload its
+contents recursively. Missing remote directories are created automatically.</para>
 
 <para>The <guilabel>Remote Host</guilabel> tool view browses the configured
 remote root. Opening a remote file edits its <literal>sftp://</literal> URL

@@ -3590,6 +3590,44 @@ kate /шлях/до/теки
 >build</filename
 > кореневого каталогу. </para>
 
+<para
+>Для проєкту також можна налаштувати прив'язку до сховища зберігання коду Git. Прив'язка на рівні проєкту має пріоритет над загальною прив'язкою для того самого вузла й порту, тоді як прив'язки для інших вузлів залишаються доступними як резервні варіанти: </para>
+
+<screen
+>{
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "git": {
+    "hostMappings": [
+      {
+        "host": "git.example.com:2222",
+        "provider": "Forgejo",
+        "webBaseUrl": "https://code.example.com"
+      }
+    ]
+  }
+}
+</screen>
+
+<para
+>Значенням <code
+>"provider"</code
+> має бути <code
+>"Forgejo"</code
+>, <code
+>"GitHub"</code
+> або <code
+>"GitLab"</code
+>. До запису <code
+>"host"</code
+> можна включати порт SSH, яким користується віддалений вузол Git, а значенням <code
+>"webBaseUrl"</code
+> є адреса HTTP або HTTPS, яку буде використано для відкриття посилань у сховищі. </para>
+
 <para id="projects-build-support"
 >Якщо вам потрібно додати підтримку збирання, ви можете вписати до файла <filename
 >.kateproject</filename

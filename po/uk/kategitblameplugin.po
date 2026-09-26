@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategitblameplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-17 00:47+0000\n"
+"POT-Creation-Date: 2026-09-26 00:48+0000\n"
 "PO-Revision-Date: 2022-05-04 08:23+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -37,7 +37,7 @@ msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
 msgstr " %1: %2: %3 "
 
-#: kategitblameplugin.cpp:187
+#: kategitblameplugin.cpp:187 kategitblameplugin.cpp:340
 #, kde-format
 msgid "Git Blame"
 msgstr "Git Blame"
@@ -52,12 +52,13 @@ msgstr "Показ подробиць Git Blame"
 msgid "Toggle Git Blame Details"
 msgstr "Перемкнути показ подробиць Git Blame"
 
-#: kategitblameplugin.cpp:340
+#: kategitblameplugin.cpp:350
 #, kde-format
-msgid "Git"
-msgstr "Git"
+msgctxt "@info %1 is a git error"
+msgid "Git Blame plugin error: %1"
+msgstr ""
 
-#: kategitblameplugin.cpp:403
+#: kategitblameplugin.cpp:407
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Ідентифікація внеску (blame) git, не вдалося показати внесок."
@@ -67,6 +68,9 @@ msgstr "Ідентифікація внеску (blame) git, не вдалося
 #, kde-format
 msgid "&Tools"
 msgstr "І&нструменти"
+
+#~ msgid "Git"
+#~ msgstr "Git"
 
 #~ msgid "Close"
 #~ msgstr "Закрити"

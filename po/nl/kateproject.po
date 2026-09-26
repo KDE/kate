@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-25 00:49+0000\n"
-"PO-Revision-Date: 2026-08-24 11:10+0200\n"
+"PO-Revision-Date: 2026-09-25 18:12+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.04.3\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -129,7 +129,7 @@ msgstr "Actieve branch: %1"
 #: git/gitforgeconfigwidget.cpp:32
 #, kde-format
 msgid "Detect Service"
-msgstr ""
+msgstr "Apparaat detecteren"
 
 #: git/gitforgeconfigwidget.cpp:37
 #, kde-format
@@ -138,47 +138,51 @@ msgid ""
 "host is taken from the clone URL; the website URL is used to open repository "
 "links in a browser."
 msgstr ""
+"Koppel externe Git-hosts aan hun bijbehorende Forgejo-, GitHub- of GitLab-"
+"website. De externe host wordt afgeleid van de clone-URL; de website-URL "
+"wordt gebruikt om koppelingen naar opslagruimten in een browser te openen."
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Git Remote Host"
-msgstr ""
+msgstr "Externe Git-host"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Hosting Service"
-msgstr ""
+msgstr "Hosting-service"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Website URL"
-msgstr ""
+msgstr "Website-URL"
 
 #: git/gitforgeconfigwidget.cpp:46
 #, kde-format
 msgid "Host from the Git clone URL, optionally followed by its SSH port"
-msgstr ""
+msgstr "Host van de Git-clone-URL, optioneel gevolgd door zijn SSH-poort"
 
 #: git/gitforgeconfigwidget.cpp:47
 #, kde-format
 msgid "Forgejo, GitHub, or GitLab software running on the server"
-msgstr ""
+msgstr "Forgejo-, GitHub- of GitLab-software die op de server draait"
 
 #: git/gitforgeconfigwidget.cpp:48
 #, kde-format
 msgid "HTTP or HTTPS address used to open repository links in a web browser"
 msgstr ""
+"HTTP- of HTTPS-adres dat wordt gebruikt om opslagruimten-koppelingen in een "
+"webbrowser te openen"
 
 #: git/gitforgeconfigwidget.cpp:56
 #, kde-format
 msgid "Add Mapping"
-msgstr ""
+msgstr "Mapping toevoegen"
 
 #: git/gitforgeconfigwidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Remove Selected Files"
+#, kde-format
 msgid "Remove Selected Mapping"
-msgstr "Geselecteerde bestanden verwijderen"
+msgstr "Geselecteerde mapping verwijderen"
 
 #: git/gitforgeconfigwidget.cpp:60
 #, kde-format
@@ -186,58 +190,63 @@ msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
 msgstr ""
+"Probeer Forgejo, GitHub of GitLab te identificeren aan de hand van de "
+"website-URL van de geselecteerde mapping."
 
 #: git/gitforgeconfigwidget.cpp:106
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
-msgstr ""
+msgstr "De hosting-service in rij %1 is ongeldig."
 
 #: git/gitforgeconfigwidget.cpp:111
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
-msgstr ""
+msgstr "De externe Git-host of website-URL in rij %1 is ongeldig."
 
 #: git/gitforgeconfigwidget.cpp:138
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
-msgstr ""
+msgstr "git.example.com of git.example.com:2222"
 
 #: git/gitforgeconfigwidget.cpp:156
 #, kde-format
 msgid "https://git.example.com"
-msgstr ""
+msgstr "https://git.example.com"
 
 #: git/gitforgeconfigwidget.cpp:173
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
 msgstr ""
+"Selecteer een mapping om de bijbehorende hosting-service te detecteren."
 
 #: git/gitforgeconfigwidget.cpp:180
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
 msgstr ""
+"Voer een geldige HTTP- of HTTPS-website-URL in voordat u de hosting-service "
+"detecteert."
 
 #: git/gitforgeconfigwidget.cpp:191
 #, kde-format
 msgid "Detecting…"
-msgstr ""
+msgstr "Detecteren…"
 
 #: git/gitforgeconfigwidget.cpp:237
 #, kde-format
 msgid "Detected %1."
-msgstr ""
+msgstr "%1 gevonden."
 
 #: git/gitforgeconfigwidget.cpp:239
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
-msgstr ""
+msgstr "De mapping veranderde; het detectieresultaat werd genegeerd."
 
 #: git/gitforgeconfigwidget.cpp:241
 #, kde-format
 msgid "Service could not be detected; select it manually."
-msgstr ""
+msgstr "Service kon niet worden gedetecteerd; selecteer deze handmatig."
 
 #: git/gitstatus.cpp:159
 #, kde-format
@@ -720,7 +729,7 @@ msgstr "Automatische woordaanvulling"
 #: kateprojectconfigpage.cpp:31
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
@@ -910,11 +919,10 @@ msgid "Double click action in the git status view"
 msgstr "Actie met een dubbelklik in de git statusweergave"
 
 #: kateprojectconfigpage.cpp:153
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
-msgstr "Git-hulpmiddelen"
+msgstr "Git-hosting"
 
 #: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
 #, kde-format
@@ -1181,21 +1189,20 @@ msgid "Goto: %1"
 msgstr "Ga-naar: %1"
 
 #: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#, kde-format
 msgid "Git Hosting"
-msgstr "Git-hulpmiddelen"
+msgstr "Git-hosting"
 
 #: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:875
 #: kateprojectpluginview.cpp:905
 #, kde-format
 msgid "Open on Git Hosting Service"
-msgstr ""
+msgstr "Openen op Git-hosting-service"
 
 #: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:871
 #, kde-format
 msgid "Copy Git Hosting Link"
-msgstr ""
+msgstr "Git-hosting-koppeling kopiëren"
 
 #: kateprojectpluginview.cpp:331
 #, kde-format
@@ -1205,18 +1212,17 @@ msgstr "Project-index"
 #: kateprojectpluginview.cpp:870 kateprojecttreeviewcontextmenu.cpp:189
 #, kde-format
 msgid "Detecting Git hosting service…"
-msgstr ""
+msgstr "Git-hosting-service detecteren…"
 
 #: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
 #, kde-format
 msgid "Open on %1"
-msgstr ""
+msgstr "Openen op %1"
 
 #: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy %1 Link"
-msgstr "Locatie kopiëren"
+msgstr "Koppeling %1 kopiëren"
 
 #: kateprojectpluginview.cpp:968
 #, kde-format

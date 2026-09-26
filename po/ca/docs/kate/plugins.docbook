@@ -3561,6 +3561,44 @@ kate /path/to/folder
 >build</filename
 > des de l'arrel. </para>
 
+<para
+>Els mapatges d'allotjament de Git també es poden configurar per a un projecte. Un mapatge de projecte substitueix un mapatge global amb el mateix servidor i port, mentre que els mapatges per a altres servidors romanen disponibles com a alternativa: </para>
+
+<screen
+>{
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "git": {
+    "hostMappings": [
+      {
+        "host": "git.example.com:2222",
+        "provider": "Forgejo",
+        "webBaseUrl": "https://code.example.com"
+      }
+    ]
+  }
+}
+</screen>
+
+<para
+>El valor del <code
+>"provider"</code
+> cal que sigui <code
+>"Forgejo"</code
+>, <code
+>"GitHub"</code
+> o <code
+>"GitLab"</code
+>. El <code
+>"host"</code
+> pot incloure un port SSH utilitzat pel Git remot i <code
+>"webBaseUrl"</code
+> és l'adreça HTTP o HTTPS utilitzada per obrir les enllaços al repositori. </para>
+
 <para id="projects-build-support"
 >Si voleu afegir implementació per a la construcció, podeu escriure un <filename
 >.kateproject</filename

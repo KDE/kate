@@ -3597,6 +3597,44 @@ kate /path/to/folder
 >build</filename
 > корневого каталога. </para>
 
+<para
+>Сопоставление хостингов Git можно настроить и для проекта. Сопоставление проекта заменяет глобальное с тем же узлом и портом, а глобальные сопоставления для других узлов по-прежнему действуют как запасные: </para>
+
+<screen
+>{
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "git": {
+    "hostMappings": [
+      {
+        "host": "git.example.com:2222",
+        "provider": "Forgejo",
+        "webBaseUrl": "https://code.example.com"
+      }
+    ]
+  }
+}
+</screen>
+
+<para
+>Значением <code
+>"provider"</code
+> может быть <code
+>"Forgejo"</code
+>, <code
+>"GitHub"</code
+> или <code
+>"GitLab"</code
+>. В <code
+>"host"</code
+> можно указать порт SSH, который используется удалённым репозиторием Git, а <code
+>"webBaseUrl"</code
+> — это адрес HTTP или HTTPS, по которому открываются ссылки на репозиторий. </para>
+
 <para id="projects-build-support"
 >Если требуется добавить поддержку сборки, можно создать такой файл <filename
 >.kateproject</filename

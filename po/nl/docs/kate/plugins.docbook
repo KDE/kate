@@ -3569,6 +3569,44 @@ kate /pad/naar/map/
 >build</filename
 > in de hoofdmap uitgesloten worden. </para>
 
+<para
+>Voor een project kunnen ook Git-hostingmappings worden geconfigureerd. Een projectmapping overschrijft een globale mapping met dezelfde host en poort, terwijl mappings voor andere hosts als fallback beschikbaar blijven: </para>
+
+<screen
+>{
+  "name": "Kate",
+  "bestanden": [
+    {
+      "git": 1
+    }
+  ],
+  "git": {
+    "hostMappings": [
+      {
+        "host": "git.example.com:2222",
+        "leverancier": "Forgejo",
+        "webBaseUrl": "https://code.example.com"
+      }
+    ]
+  }
+}
+</screen>
+
+<para
+>De waarde van <code
+>"leverancier"</code
+> moet <code
+>"Forgejo"</code
+>, <code
+>"GitHub"</code
+> of <code
+>"GitLab"</code
+> zijn. De <code
+>"host"</code
+> kan de SSH-poort bevatten die door de externe Git-opslagruimte wordt gebruikt, en <code
+>"webBaseUrl"</code
+> is het HTTP- of HTTPS-adres dat wordt gebruikt om koppelingen naar de opslagruimte te openen. </para>
+
 <para id="projects-build-support"
 >Als u ondersteuning voor bouwen wilt toevoegen, dan kunt u een <filename
 >.kateproject</filename
@@ -7466,6 +7504,12 @@ VALUES ("<replaceable
 ><para
 >Godot-script - <command
 >gdformat</command
+></para
+></listitem>
+<listitem
+><para
+>Perl - <command
+>perltidy</command
 ></para
 ></listitem>
 

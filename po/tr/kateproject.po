@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-25 00:49+0000\n"
-"PO-Revision-Date: 2026-08-24 20:05+0300\n"
+"PO-Revision-Date: 2026-09-25 19:44+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.04.2\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -130,7 +130,7 @@ msgstr "Etkin dal: %1"
 #: git/gitforgeconfigwidget.cpp:32
 #, kde-format
 msgid "Detect Service"
-msgstr ""
+msgstr "Hizmeti Algıla"
 
 #: git/gitforgeconfigwidget.cpp:37
 #, kde-format
@@ -139,47 +139,53 @@ msgid ""
 "host is taken from the clone URL; the website URL is used to open repository "
 "links in a browser."
 msgstr ""
+"Git uzak makinelerini onların Forgejo, Github veya GitLab web sitelerine "
+"eşlemleyin. Uzak makine, klonlama URL’sinden çıkarılır; depo bağlantılarını "
+"tarayıcıda açmak içinse web sitesi URL’si kullanılır."
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Git Remote Host"
-msgstr ""
+msgstr "Git Uzak Makinesi"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Hosting Service"
-msgstr ""
+msgstr "Barındırma Hizmeti"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Website URL"
-msgstr ""
+msgstr "Web Sitesi URL’si"
 
 #: git/gitforgeconfigwidget.cpp:46
 #, kde-format
 msgid "Host from the Git clone URL, optionally followed by its SSH port"
 msgstr ""
+"Git klonlama URl’sinden alınan makine adı; isteğe bağlı olarak onun SSH "
+"kapısı da ekli olabilir."
 
 #: git/gitforgeconfigwidget.cpp:47
 #, kde-format
 msgid "Forgejo, GitHub, or GitLab software running on the server"
-msgstr ""
+msgstr "Sunucuda çalışan Forgejo, Github veya GitLab yazılımı"
 
 #: git/gitforgeconfigwidget.cpp:48
 #, kde-format
 msgid "HTTP or HTTPS address used to open repository links in a web browser"
 msgstr ""
+"Depo bağlantılarını web tarayıcısı ile açmada kullanılan HTTP veya HTTPS "
+"adresi"
 
 #: git/gitforgeconfigwidget.cpp:56
 #, kde-format
 msgid "Add Mapping"
-msgstr ""
+msgstr "Eşlem Ekle"
 
 #: git/gitforgeconfigwidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Remove Selected Files"
+#, kde-format
 msgid "Remove Selected Mapping"
-msgstr "Seçili Dosyaları Kaldır"
+msgstr "Seçili Eşlemi Kaldır"
 
 #: git/gitforgeconfigwidget.cpp:60
 #, kde-format
@@ -187,58 +193,62 @@ msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
 msgstr ""
+"Forgejo, Github veya GitLab hizmetlerini seçili eşlemlerin web sitesi "
+"URL’sinden algılamaya çalış"
 
 #: git/gitforgeconfigwidget.cpp:106
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
-msgstr ""
+msgstr "%1. satırdaki barındırma hizmeti geçersiz"
 
 #: git/gitforgeconfigwidget.cpp:111
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
-msgstr ""
+msgstr "%1. satırdaki Git uzak makinesi veya web sitesi URL’si geçersiz"
 
 #: git/gitforgeconfigwidget.cpp:138
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
-msgstr ""
+msgstr "git.örnek.com veya git.örnek.com:2222"
 
 #: git/gitforgeconfigwidget.cpp:156
 #, kde-format
 msgid "https://git.example.com"
-msgstr ""
+msgstr "https://git.örnek.com"
 
 #: git/gitforgeconfigwidget.cpp:173
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
-msgstr ""
+msgstr "Barındırma hizmetini algılamak için bir eşlem seçin."
 
 #: git/gitforgeconfigwidget.cpp:180
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
 msgstr ""
+"Barındırma hizmetini algılama öncesi geçerli bir HTTP veya HTTPS web sitesi "
+"URL’si girin."
 
 #: git/gitforgeconfigwidget.cpp:191
 #, kde-format
 msgid "Detecting…"
-msgstr ""
+msgstr "Algılanıyor…"
 
 #: git/gitforgeconfigwidget.cpp:237
 #, kde-format
 msgid "Detected %1."
-msgstr ""
+msgstr "%1 algılandı."
 
 #: git/gitforgeconfigwidget.cpp:239
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
-msgstr ""
+msgstr "Eşlem değişti; algılama sonucu yok sayılıyor."
 
 #: git/gitforgeconfigwidget.cpp:241
 #, kde-format
 msgid "Service could not be detected; select it manually."
-msgstr ""
+msgstr "Hizmet algılanamadı; lütfen hizmeti elle seçin."
 
 #: git/gitstatus.cpp:159
 #, kde-format
@@ -720,7 +730,7 @@ msgstr "Proje Tamamlama"
 #: kateprojectconfigpage.cpp:31
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Genel"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
@@ -911,7 +921,7 @@ msgstr "git durum görünümünde çift tıklamalı eylem"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
-msgstr ""
+msgstr "Git Barındırma"
 
 #: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
 #, kde-format
@@ -1178,18 +1188,18 @@ msgstr "Git: %1"
 #: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:188
 #, kde-format
 msgid "Git Hosting"
-msgstr ""
+msgstr "Git Barındırma"
 
 #: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:875
 #: kateprojectpluginview.cpp:905
 #, kde-format
 msgid "Open on Git Hosting Service"
-msgstr ""
+msgstr "Git Barındırma Hizmetinde Aç"
 
 #: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:871
 #, kde-format
 msgid "Copy Git Hosting Link"
-msgstr ""
+msgstr "Git Barındırma Bağlantısını Kopyala"
 
 #: kateprojectpluginview.cpp:331
 #, kde-format
@@ -1199,18 +1209,17 @@ msgstr "Projeler İndeksi"
 #: kateprojectpluginview.cpp:870 kateprojecttreeviewcontextmenu.cpp:189
 #, kde-format
 msgid "Detecting Git hosting service…"
-msgstr ""
+msgstr "Git barındırma hizmeti algılanıyor…"
 
 #: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
 #, kde-format
 msgid "Open on %1"
-msgstr ""
+msgstr "%1 Üzerinde Aç"
 
 #: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy %1 Link"
-msgstr "Konumu Kopyala"
+msgstr "%1 Bağlantısını Kopyala"
 
 #: kateprojectpluginview.cpp:968
 #, kde-format

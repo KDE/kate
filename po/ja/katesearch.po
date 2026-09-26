@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-22 00:49+0000\n"
-"PO-Revision-Date: 2026-08-31 22:05+0900\n"
+"PO-Revision-Date: 2026-09-09 20:05+0900\n"
 "Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
@@ -100,28 +100,28 @@ msgstr[0] "%1 件チェック済み"
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
-msgstr[0] "<b><i>%1 件マッチ (%2) しました | 現在のファイル内</i></b>"
+msgstr[0] "<b><i>%1 件マッチ (%2) | 現在のファイル内</i></b>"
 
 # 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:590
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
-msgstr[0] "<b><i>%1 件マッチ (%2) しました | 開いているファイル内</i></b>"
+msgstr[0] "<b><i>%1 件マッチ (%2) | 開いているファイル内</i></b>"
 
 # 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:593
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
-msgstr[0] "<b><i>%1 件マッチ (%3) しました | %2 内</i></b>"
+msgstr[0] "<b><i>%1 件マッチ (%3) | %2 内</i></b>"
 
 # 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:600
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
-msgstr[0] "<b><i>%1 件マッチ (%4) しました | プロジェクト %2 (%3) 内</i></b>"
+msgstr[0] "<b><i>%1 件マッチ (%4) | プロジェクト %2 (%3) 内</i></b>"
 
 # 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:609
@@ -131,8 +131,8 @@ msgid ""
 msgid_plural ""
 "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
 msgstr[0] ""
-"<b><i>%1 件マッチ (%3) しました | 開いているすべてのプロジェクト (共通の親: "
-"%2) 内 </i></b>"
+"<b><i>%1 件マッチ (%3) | 開いているすべてのプロジェクト (共通の親: %2) 内 </"
+"i></b>"
 
 #: MatchModel.cpp:723 MatchModel.cpp:725
 #, kde-format
@@ -158,36 +158,35 @@ msgstr[0] "%1 件マッチしました | 検索中: %2"
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
-msgstr[0] "%1 件マッチ (%2) しました | 現在のファイル内"
+msgstr[0] "%1 件マッチ (%2) | 現在のファイル内"
 
 # 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:745
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
-msgstr[0] "%1 件マッチ (%2) しました | 開いているファイル内"
+msgstr[0] "%1 件マッチ (%2) | 開いているファイル内"
 
 # 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:748
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
-msgstr[0] "%1 件マッチ (%3) しました | %2 内"
+msgstr[0] "%1 件マッチ (%3) | %2 内"
 
 # 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:751
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
-msgstr[0] "%1 件マッチ (%4) しました | プロジェクト %2 (%3) 内"
+msgstr[0] "%1 件マッチ (%4) | プロジェクト %2 (%3) 内"
 
 # 件数を前に、対象を後にするため文構造を変更
 #: MatchModel.cpp:760
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
-msgstr[0] ""
-"%1 件マッチ (%3) しました | 開いているすべてのプロジェクト (共通の親: %2) 内"
+msgstr[0] "%1 件マッチ (%3) | 開いているすべてのプロジェクト (共通の親: %2) 内"
 
 #: Results.cpp:32
 #, kde-format
@@ -412,7 +411,7 @@ msgstr "0 回以上の繰り返し"
 #: SearchPlugin.cpp:100
 #, kde-format
 msgid "Zero or one occurrences"
-msgstr "0 回または 1 回の出現"
+msgstr "0 回または 1 回の繰り返し"
 
 #: SearchPlugin.cpp:102
 #, kde-format

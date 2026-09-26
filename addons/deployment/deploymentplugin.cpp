@@ -91,7 +91,8 @@ ConfigFields fieldsFromMap(const QVariantMap &projectMap) {
   if (exclude.metaType().id() == QMetaType::QStringList) {
     fields.exclude = exclude.toStringList();
   } else {
-    for (const QVariant &pattern : exclude.toList()) {
+    const auto patterns = exclude.toList();
+    for (const QVariant &pattern : patterns) {
       fields.exclude.push_back(pattern.toString());
     }
   }

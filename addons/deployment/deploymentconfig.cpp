@@ -113,6 +113,7 @@ Deployment::Config::fromProjectMap(const QVariantMap &projectMap,
   config.user = values.value(QStringLiteral("user")).toString();
   config.remoteRoot =
       slashPath(values.value(QStringLiteral("remoteRoot")).toString());
+  static const QRegularExpression whitespace(QStringLiteral("\\s"));
 
   auto fail = [&config](const QString &message) {
     config.error = message;
@@ -123,7 +124,7 @@ Deployment::Config::fromProjectMap(const QVariantMap &projectMap,
     return fail(QStringLiteral("deployment host must not be empty"));
   }
   if (config.host.contains(u'/') || config.host.contains(u'@') ||
-      config.host.contains(QRegularExpression(QStringLiteral("\\s")))) {
+      config.host.contains(whitespace)) {
     return fail(QStringLiteral("deployment host is invalid"));
   }
   if (config.host.startsWith(u'[') && config.host.endsWith(u']')) {
@@ -182,7 +183,8 @@ Deployment::Config::fromProjectMap(const QVariantMap &projectMap,
     if (excludeValue.metaType().id() == QMetaType::QStringList) {
       config.excludePatterns = excludeValue.toStringList();
     } else if (excludeValue.metaType().id() == QMetaType::QVariantList) {
-      for (const QVariant &pattern : excludeValue.toList()) {
+      const auto patterns = excludeValue.toList();
+      for (const QVariant &pattern : patterns) {
         if (pattern.metaType().id() != QMetaType::QString) {
           return fail(
               QStringLiteral("deployment exclude entries must be strings"));

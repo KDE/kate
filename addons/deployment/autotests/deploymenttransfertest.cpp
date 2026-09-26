@@ -8,6 +8,7 @@
 #include <KIO/MkpathJob>
 #include <KIO/SimpleJob>
 
+#include <QDir>
 #include <QEventLoop>
 #include <QFile>
 #include <QTemporaryDir>
@@ -42,9 +43,14 @@ void DeploymentTransferTest::uploadThroughTemporaryFile()
     QCOMPARE(source.write("deployed content"), 16);
     source.close();
 
-    const QUrl destinationRoot = QUrl::fromLocalFile(destinationDir.path());
     const QUrl parentUrl = QUrl::fromLocalFile(destinationDir.filePath(QStringLiteral("missing/nested")));
+#ifdef Q_OS_WIN
+    // KIO::mkpath cannot construct local paths with drive letters on Windows.
+    QVERIFY(QDir().mkpath(parentUrl.toLocalFile()));
+#else
+    const QUrl destinationRoot = QUrl::fromLocalFile(destinationDir.path());
     QVERIFY(waitForJob(KIO::mkpath(parentUrl, destinationRoot, KIO::HideProgressInfo)));
+#endif
 
     const QUrl temporaryUrl = QUrl::fromLocalFile(destinationDir.filePath(QStringLiteral("missing/nested/.target.txt.kate-upload")));
     const QUrl finalUrl = QUrl::fromLocalFile(destinationDir.filePath(QStringLiteral("missing/nested/target.txt")));

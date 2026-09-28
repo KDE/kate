@@ -153,7 +153,7 @@ void KateSQLView::setupActions()
 
     action = collection->addAction(QStringLiteral("connection_edit"));
     action->setText(i18nc("@action:inmenu", "Edit Connection..."));
-    action->setIcon(QIcon::fromTheme(QStringLiteral("configure"))); // TODO better Icon from QIcon::ThemeIcon::...
+    action->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentProperties));
     connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionEdit);
 
     action = collection->addAction(QStringLiteral("connection_reconnect"));

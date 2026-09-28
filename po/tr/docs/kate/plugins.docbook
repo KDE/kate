@@ -3598,7 +3598,7 @@ kate /klasöre/olan/yol
 > klasöründeki tüm dosyalar ve klasörler dışlanacaktır. </para>
 
 <para
->Git hosting mappings can also be configured for a project. A project mapping overrides a global mapping with the same host and port, while mappings for other hosts remain available as fallbacks: </para>
+>Git barındırma eşlemleri, herhangi bir proje için yapılandırılabilir. Projeye özel bir eşlem, aynı makineye ve kapıya iye bir global eşlemi geçersiz kılarken, başka bir makine bilgisine sahip diğerleri yedek olarak tutulur. </para>
 
 <screen
 >{
@@ -3611,9 +3611,9 @@ kate /klasöre/olan/yol
   "git": {
     "hostMappings": [
       {
-        "host": "git.example.com:2222",
+        "host": "git.örnek.com:2222",
         "provider": "Forgejo",
-        "webBaseUrl": "https://code.example.com"
+        "webBaseUrl": "https://kod.örnek.com"
       }
     ]
   }
@@ -3621,19 +3621,19 @@ kate /klasöre/olan/yol
 </screen>
 
 <para
->The <code
->"provider"</code
-> value must be <code
->"Forgejo"</code
+><code
+>“provider”</code
+> değeri; <code
+>“Forgejo”</code
 >, <code
->"GitHub"</code
->, or <code
->"GitLab"</code
->. The <code
->"host"</code
-> may include the SSH port used by the Git remote, and <code
->"webBaseUrl"</code
-> is the HTTP or HTTPS address used to open repository links. </para>
+>“GitHub”</code
+> veya <code
+>“GitLab”</code
+> olmalıdır. <code
+>“host”</code
+>, Git uzak konumu tarafından kullanılan SSH kapısını içerebilir ve <code
+>“webBaseUrl”</code
+> ise depo bağlantılarını açmak için kullanılan HTTP veya HTTPS adresidir. </para>
 
 <para id="projects-build-support"
 >Yapım desteği eklemek istiyorsanız <filename

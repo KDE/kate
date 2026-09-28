@@ -3,22 +3,22 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2021, 2022.
+# SPDX-FileCopyrightText: 2021, 2022, 2026 Yuri Chornoivan <yurchor@ukr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kategitblameplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-26 00:48+0000\n"
-"PO-Revision-Date: 2022-05-04 08:23+0300\n"
+"POT-Creation-Date: 2026-09-28 00:49+0000\n"
+"PO-Revision-Date: 2026-09-26 12:46+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #: kategitblameplugin.cpp:88
 #, kde-format
@@ -52,13 +52,13 @@ msgstr "Показ подробиць Git Blame"
 msgid "Toggle Git Blame Details"
 msgstr "Перемкнути показ подробиць Git Blame"
 
-#: kategitblameplugin.cpp:350
+#: kategitblameplugin.cpp:351
 #, kde-format
 msgctxt "@info %1 is a git error"
 msgid "Git Blame plugin error: %1"
-msgstr ""
+msgstr "Помилка додатка Git Blame: %1"
 
-#: kategitblameplugin.cpp:407
+#: kategitblameplugin.cpp:408
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Ідентифікація внеску (blame) git, не вдалося показати внесок."

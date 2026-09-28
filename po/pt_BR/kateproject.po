@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-25 00:49+0000\n"
+"POT-Creation-Date: 2026-09-27 00:49+0000\n"
 "PO-Revision-Date: 2026-09-25 06:20-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -728,7 +728,7 @@ msgstr "Projeto"
 msgid "<untracked>"
 msgstr "<não seguido>"
 
-#: kateprojectcompletion.cpp:52
+#: kateprojectcompletion.cpp:46
 #, kde-format
 msgid "Project Completion"
 msgstr "Complementação do projeto"

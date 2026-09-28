@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-25 00:49+0000\n"
+"POT-Creation-Date: 2026-09-27 00:49+0000\n"
 "PO-Revision-Date: 2026-09-25 11:31+0200\n"
 "Last-Translator: Libor Filipek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -728,7 +728,7 @@ msgstr "Projekt"
 msgid "<untracked>"
 msgstr "<nesledováno>"
 
-#: kateprojectcompletion.cpp:52
+#: kateprojectcompletion.cpp:46
 #, kde-format
 msgid "Project Completion"
 msgstr "Doplňování projektu"

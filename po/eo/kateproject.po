@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-25 00:49+0000\n"
+"POT-Creation-Date: 2026-09-27 00:49+0000\n"
 "PO-Revision-Date: 2025-03-22 22:36+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -719,7 +719,7 @@ msgstr "Projekto"
 msgid "<untracked>"
 msgstr "<nespurita>"
 
-#: kateprojectcompletion.cpp:52
+#: kateprojectcompletion.cpp:46
 #, kde-format
 msgid "Project Completion"
 msgstr "Projekto Fino"

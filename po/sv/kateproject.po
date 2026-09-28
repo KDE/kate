@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-27 00:49+0000\n"
-"PO-Revision-Date: 2026-08-24 22:03+0200\n"
+"PO-Revision-Date: 2026-09-27 20:32+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -126,7 +126,7 @@ msgstr "Aktiv gren: %1"
 #: git/gitforgeconfigwidget.cpp:32
 #, kde-format
 msgid "Detect Service"
-msgstr ""
+msgstr "Detektera tjänst"
 
 #: git/gitforgeconfigwidget.cpp:37
 #, kde-format
@@ -135,47 +135,50 @@ msgid ""
 "host is taken from the clone URL; the website URL is used to open repository "
 "links in a browser."
 msgstr ""
+"Avbilda Git-fjärrvärddatorer till sina Forgejo, GitHub eller GitLab "
+"webbplatser. Fjärrvärddatorn tas från den klonade webbadressen. Webbplatsens "
+"adress används för att öppna arkivlänkar i en webbläsare."
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Git Remote Host"
-msgstr ""
+msgstr "Git-fjärrvärddator"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Hosting Service"
-msgstr ""
+msgstr "Värddatortjänst"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Website URL"
-msgstr ""
+msgstr "Webbplatsadress"
 
 #: git/gitforgeconfigwidget.cpp:46
 #, kde-format
 msgid "Host from the Git clone URL, optionally followed by its SSH port"
-msgstr ""
+msgstr "Värddator från Git klonens webbadress, valfritt följd av dess SSH-port"
 
 #: git/gitforgeconfigwidget.cpp:47
 #, kde-format
 msgid "Forgejo, GitHub, or GitLab software running on the server"
-msgstr ""
+msgstr "Forgejo-, GitHub- eller GitLab-programvara som kör på servern"
 
 #: git/gitforgeconfigwidget.cpp:48
 #, kde-format
 msgid "HTTP or HTTPS address used to open repository links in a web browser"
 msgstr ""
+"HTTP- eller HTTPS-adress använd för att öppna arkivlänkar i en webbläsare"
 
 #: git/gitforgeconfigwidget.cpp:56
 #, kde-format
 msgid "Add Mapping"
-msgstr ""
+msgstr "Lägg till avbildning"
 
 #: git/gitforgeconfigwidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Remove Selected Files"
+#, kde-format
 msgid "Remove Selected Mapping"
-msgstr "Ta bort markerade filer"
+msgstr "Ta bort markerade avbildning"
 
 #: git/gitforgeconfigwidget.cpp:60
 #, kde-format
@@ -183,58 +186,62 @@ msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
 msgstr ""
+"Försök att identifiera Forgejo, GitHub eller GitLab från adressen för den "
+"valda avbildningens webbplats"
 
 #: git/gitforgeconfigwidget.cpp:106
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
-msgstr ""
+msgstr "Värddatortjänsten på rad %1 är ogiltig."
 
 #: git/gitforgeconfigwidget.cpp:111
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
-msgstr ""
+msgstr "Git-fjärrvärddatorn eller webbplatsens adress på rad %1 är ogiltig."
 
 #: git/gitforgeconfigwidget.cpp:138
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
-msgstr ""
+msgstr "git.exempel.com eller git.exempel.com:2222"
 
 #: git/gitforgeconfigwidget.cpp:156
 #, kde-format
 msgid "https://git.example.com"
-msgstr ""
+msgstr "https://git.exempel.com"
 
 #: git/gitforgeconfigwidget.cpp:173
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
-msgstr ""
+msgstr "Välj en avbildning för att detektera dess värddatortjänst."
 
 #: git/gitforgeconfigwidget.cpp:180
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
 msgstr ""
+"Ange en giltig HTTP- eller HTTPS-webbplatsadress innan värddatortjänsten "
+"detekteras."
 
 #: git/gitforgeconfigwidget.cpp:191
 #, kde-format
 msgid "Detecting…"
-msgstr ""
+msgstr "Detekterar…"
 
 #: git/gitforgeconfigwidget.cpp:237
 #, kde-format
 msgid "Detected %1."
-msgstr ""
+msgstr "Detekterade %1."
 
 #: git/gitforgeconfigwidget.cpp:239
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
-msgstr ""
+msgstr "Avbildningen ändrades. Detekteringsresultatet ignorerades."
 
 #: git/gitforgeconfigwidget.cpp:241
 #, kde-format
 msgid "Service could not be detected; select it manually."
-msgstr ""
+msgstr "Tjänsten kunde inte detekteras. Välj den manuellt."
 
 #: git/gitstatus.cpp:159
 #, kde-format
@@ -718,7 +725,7 @@ msgstr "Projektkomplettering"
 #: kateprojectconfigpage.cpp:31
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Allmänt"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
@@ -905,11 +912,10 @@ msgid "Double click action in the git status view"
 msgstr "Åtgärd vid dubbelklick i Git statusvy"
 
 #: kateprojectconfigpage.cpp:153
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
-msgstr "Git-verktyg"
+msgstr "Git-värddator"
 
 #: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
 #, kde-format
@@ -1174,21 +1180,20 @@ msgid "Goto: %1"
 msgstr "Gå till: %1"
 
 #: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#, kde-format
 msgid "Git Hosting"
-msgstr "Git-verktyg"
+msgstr "Git-värddator"
 
 #: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:875
 #: kateprojectpluginview.cpp:905
 #, kde-format
 msgid "Open on Git Hosting Service"
-msgstr ""
+msgstr "Öppna på Git-värddatortjänst"
 
 #: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:871
 #, kde-format
 msgid "Copy Git Hosting Link"
-msgstr ""
+msgstr "Kopiera Git-värddatorlänk"
 
 #: kateprojectpluginview.cpp:331
 #, kde-format
@@ -1198,18 +1203,17 @@ msgstr "Projektindex"
 #: kateprojectpluginview.cpp:870 kateprojecttreeviewcontextmenu.cpp:189
 #, kde-format
 msgid "Detecting Git hosting service…"
-msgstr ""
+msgstr "Detekterar Git-värddatortjänst…"
 
 #: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
 #, kde-format
 msgid "Open on %1"
-msgstr ""
+msgstr "Öppna på %1"
 
 #: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy %1 Link"
-msgstr "Kopiera plats"
+msgstr "Kopiera länk till %1"
 
 #: kateprojectpluginview.cpp:968
 #, kde-format

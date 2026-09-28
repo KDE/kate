@@ -100,7 +100,7 @@
 
 <note>
 <para
->Sözdizim vurgulama, doğru metnin okunabilirliğini artırmak için vardır; ancak metninizi doğrulamak için ona güvenemezsiniz. Kullandığınız biçime bağlı olarak metni sözdizimi için işaretlemek zordur ve bazı durumlarda sözdizim kurallarının yazarları metnin %​98’i doğru şekilde oluşturulursa gurur duyacaktır; ancak çoğunlukla yanlış %​2’yi görmek için nadir bir biçeme gereksiniminiz vardır.</para>
+>Sözdizim vurgulama, doğru metnin okunabilirliğini artırmak için vardır; ancak metninizi doğrulamak için ona güvenemezsiniz. Kullandığınız biçime bağlı olarak metni sözdizimi için işaretlemek zordur ve bazı durumlarda sözdizimi kurallarının yazarları metnin %98’i doğru şekilde oluşturulursa gurur duyacaktır; ancak çoğunlukla yanlış %2’yi görmek için nadir bir biçeme gereksiniminiz vardır.</para>
 </note>
 
 </sect2>
@@ -3557,7 +3557,7 @@
 <para
 ><userinput
 >Attribute</userinput
->: Bilgi notları veya işlevlerin veya nesnelerin öznitelikleri için metin biçemi; örneğin, Java’daki <userinput
+>: Ek açıklamalar veya işlevlerin veya nesnelerin öznitelikleri için metin biçemi; örneğin, Java’daki <userinput
 >@override</userinput
 > veya C++’daki <userinput
 >__declspec(…)</userinput
@@ -3713,7 +3713,7 @@
 <para
 ><userinput
 >Annotation</userinput
->: Yorumlardaki bilgi notları veya belgelendirme komutları için metin biçemi; örneğin, Doxygen veya JavaDoc için <userinput
+>: Yorumlardaki ek açıklamalar veya belgelendirme komutları için metin biçemi; örneğin, Doxygen veya JavaDoc için <userinput
 >@param</userinput
 >.</para>
 

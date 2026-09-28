@@ -720,7 +720,8 @@ current context (<userinput>#stay</userinput>), or to pop back to a
 previous context used in the string (<userinput>#pop</userinput>).
 An empty or absent context is equivalent to <userinput>#stay</userinput>.</para>
 <para>To go back more steps, the #pop keyword can be repeated:
-<userinput>#pop#pop#pop</userinput></para>
+<userinput>#pop#pop#pop</userinput> or followed by a number in parentheses:
+<userinput>#pop(3)</userinput>.</para>
 </listitem>
 <listitem>
 <para>An <emphasis>order</emphasis> followed by an exclamation mark

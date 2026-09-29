@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-27 00:49+0000\n"
-"PO-Revision-Date: 2026-09-09 18:07+0200\n"
+"PO-Revision-Date: 2026-09-28 17:22+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -126,12 +126,12 @@ msgid "Active branch: %1"
 msgstr "Активен клон: %1"
 
 #: git/gitforgeconfigwidget.cpp:32
-#, fuzzy, kde-format
+#, kde-format
 msgid "Detect Service"
 msgstr "Откриване на услуга"
 
 #: git/gitforgeconfigwidget.cpp:37
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Map Git remote hosts to their Forgejo, GitHub, or GitLab website. The remote "
 "host is taken from the clone URL; the website URL is used to open repository "
@@ -143,87 +143,86 @@ msgstr ""
 "браузъра."
 
 #: git/gitforgeconfigwidget.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "Git Remote Host"
-msgstr "Дистанционен хост на Git"
+msgstr "Отдалечен хост на Git"
 
 #: git/gitforgeconfigwidget.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "Hosting Service"
 msgstr "Хостинг услуга"
 
 #: git/gitforgeconfigwidget.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "Website URL"
 msgstr "URL адрес на уебсайта"
 
 #: git/gitforgeconfigwidget.cpp:46
-#, fuzzy, kde-format
+#, kde-format
 msgid "Host from the Git clone URL, optionally followed by its SSH port"
 msgstr ""
 "Хост от URL адреса за клониране на Git, опционално последван от неговия SSH "
 "порт"
 
 #: git/gitforgeconfigwidget.cpp:47
-#, fuzzy, kde-format
+#, kde-format
 msgid "Forgejo, GitHub, or GitLab software running on the server"
 msgstr "Софтуер Forgejo, GitHub или GitLab, работещ на сървъра"
 
 #: git/gitforgeconfigwidget.cpp:48
-#, fuzzy, kde-format
+#, kde-format
 msgid "HTTP or HTTPS address used to open repository links in a web browser"
 msgstr ""
 "HTTP или HTTPS адрес, използван за отваряне на връзки към хранилището в уеб "
 "браузър"
 
 #: git/gitforgeconfigwidget.cpp:56
-#, fuzzy, kde-format
+#, kde-format
 msgid "Add Mapping"
-msgstr "Добавяне на съпоставяне"
+msgstr "Добавяне на съответствие"
 
 #: git/gitforgeconfigwidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Remove Selected Files"
+#, kde-format
 msgid "Remove Selected Mapping"
-msgstr "Премахване на избраното съпоставяне"
+msgstr "Премахване на избраното съответствие"
 
 #: git/gitforgeconfigwidget.cpp:60
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
 msgstr ""
-"Опит за идентифициране на Forgejo, GitHub или GitLab чрез URL адреса на "
-"уебсайта на избраното изобразяване"
+"Опит за разпознаване на Forgejo, GitHub или GitLab от уеб адреса (URL) на "
+"избраното съответствие"
 
 #: git/gitforgeconfigwidget.cpp:106
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
 msgstr "Хостинг услугата в ред %1 е невалидна."
 
 #: git/gitforgeconfigwidget.cpp:111
-#, fuzzy, kde-format
+#, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
 msgstr "URL адресът на отдалечения Git хост или уебсайта в ред %1 е невалиден."
 
 #: git/gitforgeconfigwidget.cpp:138
-#, fuzzy, kde-format
+#, kde-format
 msgid "git.example.com or git.example.com:2222"
 msgstr "git.example.com или git.example.com:2222"
 
 #: git/gitforgeconfigwidget.cpp:156
-#, fuzzy, kde-format
+#, kde-format
 msgid "https://git.example.com"
 msgstr "https://git.example.com"
 
 #: git/gitforgeconfigwidget.cpp:173
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select a mapping to detect its hosting service."
 msgstr "Избор на съответствие за разпознаване на хостинг услугата."
 
 #: git/gitforgeconfigwidget.cpp:180
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
 msgstr ""
@@ -231,22 +230,23 @@ msgstr ""
 "хостинг услугата."
 
 #: git/gitforgeconfigwidget.cpp:191
-#, fuzzy, kde-format
+#, kde-format
 msgid "Detecting…"
 msgstr "Откриване…"
 
 #: git/gitforgeconfigwidget.cpp:237
-#, fuzzy, kde-format
+#, kde-format
 msgid "Detected %1."
 msgstr "Открит е %1."
 
 #: git/gitforgeconfigwidget.cpp:239
-#, fuzzy, kde-format
+#, kde-format
 msgid "The mapping changed; the detection result was ignored."
-msgstr "Картирането е променено; резултатът от откриването бе игнориран."
+msgstr ""
+"Съответствието на адреса е променено; резултатът от откриването е игнориран."
 
 #: git/gitforgeconfigwidget.cpp:241
-#, fuzzy, kde-format
+#, kde-format
 msgid "Service could not be detected; select it manually."
 msgstr "Услугата не можа да бъде разпозната; ръчен избор."
 
@@ -732,7 +732,7 @@ msgid "Project Completion"
 msgstr "Завършване на проект"
 
 #: kateprojectconfigpage.cpp:31
-#, fuzzy, kde-format
+#, kde-format
 msgid "General"
 msgstr "Общи"
 
@@ -921,7 +921,7 @@ msgid "Double click action in the git status view"
 msgstr "Действие при двойно кликване в изгледа на Git статуса"
 
 #: kateprojectconfigpage.cpp:153
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
 msgstr "Хостинг на Git"
@@ -1191,18 +1191,18 @@ msgid "Goto: %1"
 msgstr "Отиване до: %1"
 
 #: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
+#, kde-format
 msgid "Git Hosting"
 msgstr "Хостинг на Git"
 
 #: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:875
 #: kateprojectpluginview.cpp:905
-#, fuzzy, kde-format
+#, kde-format
 msgid "Open on Git Hosting Service"
 msgstr "Отваряне в хостинг услуга за Git"
 
 #: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:871
-#, fuzzy, kde-format
+#, kde-format
 msgid "Copy Git Hosting Link"
 msgstr "Копиране на връзка към Git хостинг"
 
@@ -1212,18 +1212,17 @@ msgid "Projects Index"
 msgstr "Индекс на проект"
 
 #: kateprojectpluginview.cpp:870 kateprojecttreeviewcontextmenu.cpp:189
-#, fuzzy, kde-format
+#, kde-format
 msgid "Detecting Git hosting service…"
 msgstr "Откриване на Git хостинг услуга…"
 
 #: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
-#, fuzzy, kde-format
+#, kde-format
 msgid "Open on %1"
 msgstr "Отваряне в %1"
 
 #: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy %1 Link"
 msgstr "Копиране на връзка %1"
 

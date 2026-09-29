@@ -358,7 +358,6 @@ msgstr "Показать дополнительные условия поиск�
 msgid "Add new search tab"
 msgstr "Добавить вкладку поиска"
 
-# BUGME: add colon --aspotashev
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
 #: search.ui:350
 #, kde-format
@@ -371,7 +370,6 @@ msgstr "Папка:"
 msgid "Go one folder up."
 msgstr "Перейти в родительскую папку"
 
-# BUGME: add colon --aspotashev
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
 #: search.ui:377
 #, kde-format

@@ -3031,7 +3031,7 @@
 >)</term>
 <listitem
 ><para
->Aquest color s'utilitza per a indicar els punts. Cal recordar que aquest color té una opacitat del 22% (i del 33% per a la línia actual) pel que fa al fons. Per a més informació, vegeu <xref linkend="kate-part-bookmarks"/>.</para>
+>Aquest color s'utilitza per a indicar els punts. Cal recordar que aquest color té una opacitat del 22% (i del 33% per a la línia actual) respecte al fons. Per a més informació, vegeu <xref linkend="kate-part-bookmarks"/>.</para>
 <mediaobject>
 <imageobject
 ><imagedata format="PNG" fileref="editor-colors-MarkBookmark.png"/></imageobject>
@@ -3112,7 +3112,7 @@
 >)</term>
 <listitem
 ><para
->El connector de compilació utilitza aquest color per a indicar una línia que ha provocat un avís del compilador. Cal tenir en compte que aquest color té una opacitat del fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-build.html"
+>El connector de compilació utilitza aquest color per a indicar una línia que ha provocat un avís del compilador. Cal tenir en compte que aquest color té una opacitat respecte al fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-build.html"
 >la documentació del connector de construcció</ulink
 >.</para
 ></listitem>
@@ -3127,7 +3127,7 @@
 >)</term>
 <listitem
 ><para
->El connector de construcció utilitza aquest color per a indicar una línia que ha provocat un error de compilació. Cal tenir en compte que aquest color té una opacitat del fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-build.html"
+>El connector de construcció utilitza aquest color per a indicar una línia que ha provocat un error de compilació. Cal tenir en compte que aquest color té una opacitat respecte al fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-build.html"
 >la documentació del connector de construcció</ulink
 >.</para
 ></listitem>

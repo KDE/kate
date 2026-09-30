@@ -151,8 +151,8 @@
 </listitem>
 <listitem>
 <para
-><link linkend="kate-application-plugin-gdb"
->&gdb;</link
+><link linkend="kate-application-plugin-debugger"
+>Отладчик &kate;</link
 > — простой интерфейс к отладчику &gdb;</para>
 </listitem>
 <listitem>
@@ -2647,7 +2647,7 @@ folder if possible.</para
 
 </sect1>
 
-<sect1 id="kate-application-plugin-gdb">
+<sect1 id="kate-application-plugin-debugger">
 <!--https://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
 <sect1info>
 <authorgroup>
@@ -2662,14 +2662,14 @@ folder if possible.</para
 </authorgroup>
 </sect1info>
 <title
->Модуль &gdb;</title>
+>Модуль «Отладчик &kate;»</title>
 
 <sect2 id="gdb-intro">
 <title
 >Введение</title>
 
 <para
->Модуль &gdb; &kate; предоставляет простой интерфейс к любому отладчику, который поддерживает <ulink url="https://microsoft.github.io/debug-adapter-protocol/"
+>Модуль «Отладчик &kate;» предоставляет простой интерфейс к любому отладчику, который поддерживает <ulink url="https://microsoft.github.io/debug-adapter-protocol/"
 >протокол DAP (Debugger Adapter Protocol)</ulink
 >. В частности, этот модуль обеспечивает работу с отладчиком GDB (GNU Project Debugger); подробное описание доступно <ulink url="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Debugger-Adapter-Protocol.html"
 >здесь</ulink
@@ -2683,7 +2683,7 @@ folder if possible.</para
 </important>
 
 <para
->Модуль &gdb; подключается в разделе <link linkend="config-dialog-plugins"
+>Модуль «Отладчик &kate;» подключается в разделе <link linkend="config-dialog-plugins"
 >«Модули» диалога настройки &kate;</link
 >.</para>
 
@@ -2947,7 +2947,7 @@ folder if possible.</para
 ><guisubmenu
 >Видимые панели инструментов</guisubmenu
 ><guimenuitem
->Модуль &gdb;</guimenuitem
+>Модуль отладки</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -3151,7 +3151,7 @@ folder if possible.</para
 ><para
 >Панель <guilabel
 >Стек</guilabel
-> модуля &gdb;. </para
+> модуля «Отладчик &kate;». </para
 ></caption>
 </mediaobject>
 </screenshot>
@@ -3175,7 +3175,7 @@ folder if possible.</para
 ><para
 >Панель <guilabel
 >Локальные переменные</guilabel
-> модуля &gdb;. </para
+> модуля «Отладчик &kate;». </para
 ></caption>
 </mediaobject>
 </screenshot>

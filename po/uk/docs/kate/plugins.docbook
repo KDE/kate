@@ -123,8 +123,8 @@
 </listitem>
 <listitem>
 <para
-><link linkend="kate-application-plugin-gdb"
->&gdb;</link
+><link linkend="kate-application-plugin-debugger"
+>Додаток діагностики &kate;</link
 > — надає доступ до простої графічної оболонки до &gdb;</para>
 </listitem>
 <listitem>
@@ -2631,7 +2631,7 @@ folder if possible.</para
 
 </sect1>
 
-<sect1 id="kate-application-plugin-gdb">
+<sect1 id="kate-application-plugin-debugger">
 <!--https://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
 <sect1info>
 <authorgroup>
@@ -2646,14 +2646,14 @@ folder if possible.</para
 </authorgroup>
 </sect1info>
 <title
->Додаток &gdb;</title>
+>Додаток діагностики &kate;</title>
 
 <sect2 id="gdb-intro">
 <title
 >Вступ</title>
 
 <para
->Додаток &gdb; до &kate; є простою оболонкою для будь-якого засобу діагностики, у якому передбачено підтримку <ulink url="https://microsoft.github.io/debug-adapter-protocol/"
+>Додаток діагностики &kate; є простою оболонкою для будь-якого засобу діагностики, у якому передбачено підтримку <ulink url="https://microsoft.github.io/debug-adapter-protocol/"
 >Debugger Adapter Protocol</ulink
 >. Це, зокрема, GNU Project Debugger або GDB, як це <ulink url="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Debugger-Adapter-Protocol.html"
 >описано тут</ulink
@@ -2667,7 +2667,7 @@ folder if possible.</para
 </important>
 
 <para
->Увімкнути додаток &gdb; можна за допомогою <link linkend="config-dialog-plugins"
+>Увімкнути додаток діагностики &kate; можна за допомогою <link linkend="config-dialog-plugins"
 >розділу «Додатки» діалогового вікна налаштувань &kate;</link
 >.</para>
 
@@ -2931,7 +2931,7 @@ folder if possible.</para
 > <guisubmenu
 >Показані панелі</guisubmenu
 > <guimenuitem
->Додаток &gdb;</guimenuitem
+>Додаток діагностики</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -3135,7 +3135,7 @@ folder if possible.</para
 ><para
 >Панель інструмента <guilabel
 >Стек викликів</guilabel
-> додатка &gdb;. </para
+> додатка діагностики &kate;. </para
 ></caption>
 </mediaobject>
 </screenshot>
@@ -3159,7 +3159,7 @@ folder if possible.</para
 ><para
 >Панель інструмента <guilabel
 >Локальні змінні</guilabel
-> додатка &gdb;. </para
+> додатка діагностики &kate;. </para
 ></caption>
 </mediaobject>
 </screenshot>

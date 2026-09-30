@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-27 00:49+0000\n"
-"PO-Revision-Date: 2026-08-24 17:48+0200\n"
+"PO-Revision-Date: 2026-09-28 18:19+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.04.3\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -128,7 +128,7 @@ msgstr "Ramo attivo: %1"
 #: git/gitforgeconfigwidget.cpp:32
 #, kde-format
 msgid "Detect Service"
-msgstr ""
+msgstr "Rileva servizio"
 
 #: git/gitforgeconfigwidget.cpp:37
 #, kde-format
@@ -137,21 +137,24 @@ msgid ""
 "host is taken from the clone URL; the website URL is used to open repository "
 "links in a browser."
 msgstr ""
+"Mappa gli host remoti Git al relativo sito web Forgejo, GitHub o GitLab. "
+"L'host remoto viene ricavato dall'URL del clone; l'URL del sito web viene "
+"utilizzato per aprire collegamenti al repository in un browser."
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Git Remote Host"
-msgstr ""
+msgstr "Host remoto Git"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Hosting Service"
-msgstr ""
+msgstr "Servizio di hosting"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Website URL"
-msgstr ""
+msgstr "URL del sito web"
 
 #: git/gitforgeconfigwidget.cpp:46
 #, kde-format
@@ -161,23 +164,24 @@ msgstr ""
 #: git/gitforgeconfigwidget.cpp:47
 #, kde-format
 msgid "Forgejo, GitHub, or GitLab software running on the server"
-msgstr ""
+msgstr "Software Forgejo, GitHub o GitLab in esecuzione sul server"
 
 #: git/gitforgeconfigwidget.cpp:48
 #, kde-format
 msgid "HTTP or HTTPS address used to open repository links in a web browser"
 msgstr ""
+"Indirizzo HTTP o HTTPS utilizzato per aprire i collegamenti al deposito in "
+"un browser web"
 
 #: git/gitforgeconfigwidget.cpp:56
 #, kde-format
 msgid "Add Mapping"
-msgstr ""
+msgstr "Aggiungi mappatura"
 
 #: git/gitforgeconfigwidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Remove Selected Files"
+#, kde-format
 msgid "Remove Selected Mapping"
-msgstr "Rimuovi i file selezionati"
+msgstr "Rimuovi la mappatura selezionata"
 
 #: git/gitforgeconfigwidget.cpp:60
 #, kde-format
@@ -185,32 +189,34 @@ msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
 msgstr ""
+"Prova a identificare Forgejo, GitHub o GitLab dall’URL del sito web della "
+"mappatura selezionata"
 
 #: git/gitforgeconfigwidget.cpp:106
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
-msgstr ""
+msgstr "Il servizio di hosting alla riga %1 non è valido."
 
 #: git/gitforgeconfigwidget.cpp:111
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
-msgstr ""
+msgstr "L'host remoto Git o l'URL del sito web alla riga %1 non sono validi."
 
 #: git/gitforgeconfigwidget.cpp:138
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
-msgstr ""
+msgstr "git.example.com o git.example.com:2222"
 
 #: git/gitforgeconfigwidget.cpp:156
 #, kde-format
 msgid "https://git.example.com"
-msgstr ""
+msgstr "https://git.example.com"
 
 #: git/gitforgeconfigwidget.cpp:173
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
-msgstr ""
+msgstr "Seleziona una mappatura per rilevare il servizio di hosting."
 
 #: git/gitforgeconfigwidget.cpp:180
 #, kde-format
@@ -221,22 +227,24 @@ msgstr ""
 #: git/gitforgeconfigwidget.cpp:191
 #, kde-format
 msgid "Detecting…"
-msgstr ""
+msgstr "Rilevamento..."
 
 #: git/gitforgeconfigwidget.cpp:237
 #, kde-format
 msgid "Detected %1."
-msgstr ""
+msgstr "Rilevato %1"
 
 #: git/gitforgeconfigwidget.cpp:239
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
 msgstr ""
+"La mappatura è stata modificata, il risultato del rilevamento è stato "
+"ignorato."
 
 #: git/gitforgeconfigwidget.cpp:241
 #, kde-format
 msgid "Service could not be detected; select it manually."
-msgstr ""
+msgstr "Impossibile rilevare il servizio; selezionalo manualmente."
 
 #: git/gitstatus.cpp:159
 #, kde-format
@@ -720,7 +728,7 @@ msgstr "Progetto completamento"
 #: kateprojectconfigpage.cpp:31
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Generale"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
@@ -1208,13 +1216,12 @@ msgstr ""
 #: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
 #, kde-format
 msgid "Open on %1"
-msgstr ""
+msgstr "Apri in %1"
 
 #: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy %1 Link"
-msgstr "Copia posizione"
+msgstr "Copia collegamento %1"
 
 #: kateprojectpluginview.cpp:968
 #, kde-format

@@ -3031,7 +3031,7 @@
 >)</term>
 <listitem
 ><para
->Aquest color s'utilitza per a indicar els punts. Cal recordar que aquest color té una opacitat del 22% (i del 33% per a la línia actual) pel que fa al fons. Per a més informació, vegeu <xref linkend="kate-part-bookmarks"/>.</para>
+>Aquest color s'utilitza per a indicar els punts. Cal recordar que aquest color té una opacitat del 22% (i del 33% per a la línia actual) respecte al fons. Per a més informació, vegeu <xref linkend="kate-part-bookmarks"/>.</para>
 <mediaobject>
 <imageobject
 ><imagedata format="PNG" fileref="editor-colors-MarkBookmark.png"/></imageobject>
@@ -3052,8 +3052,8 @@
 >)</term>
 <listitem
 ><para
->El connector GDB utilitza aquest color per a indicar un punt d'interrupció actiu. Cal tenir en compte que aquest color té una opacitat del fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-gdb.html"
->la documentació del connector GDB</ulink
+>El connector depurador del &kate; utilitza aquest color per a indicar un punt d'interrupció actiu. Cal tenir en compte que aquest color té una opacitat respecte al fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>la documentació del connector depurador del &kate;</ulink
 >.</para
 ></listitem>
 </varlistentry>
@@ -3067,8 +3067,8 @@
 >)</term>
 <listitem
 ><para
->El connector GDB utilitza aquest color per a indicar un punt d'interrupció que heu assolit durant la depuració. Cal tenir en compte que aquest color té una opacitat del fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-gdb.html"
->la documentació del connector GDB</ulink
+>El connector depurador del &kate; utilitza aquest color per a indicar un punt d'interrupció que heu assolit durant la depuració. Cal tenir en compte que aquest color té una opacitat respecte al fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>la documentació del connector depurador del &kate;</ulink
 >.</para
 ></listitem>
 </varlistentry>
@@ -3082,8 +3082,8 @@
 >)</term>
 <listitem
 ><para
->El connector GDB utilitza aquest color per a indicar un punt d'interrupció inactiu. Cal tenir en compte que aquest color té una opacitat del fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-gdb.html"
->la documentació del connector GDB</ulink
+>El connector depurador del &kate; utilitza aquest color per a indicar un punt d'interrupció inactiu. Cal tenir en compte que aquest color té una opacitat respecte al fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>la documentació del connector depurador del &kate;</ulink
 >.</para
 ></listitem>
 </varlistentry>
@@ -3097,8 +3097,8 @@
 >)</term>
 <listitem
 ><para
->Aquest color és utilitzat pel connector GDB en la línia que s'està executant. Cal tenir en compte que aquest color té una opacitat del fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-gdb.html"
->la documentació del connector GDB</ulink
+>Aquest color és utilitzat pel connector depurador del &kate; en la línia que s'està executant. Cal tenir en compte que aquest color té una opacitat respecte al fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>la documentació del connector depurador del &kate;</ulink
 >.</para
 ></listitem>
 </varlistentry>
@@ -3112,7 +3112,7 @@
 >)</term>
 <listitem
 ><para
->El connector de compilació utilitza aquest color per a indicar una línia que ha provocat un avís del compilador. Cal tenir en compte que aquest color té una opacitat del fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-build.html"
+>El connector de compilació utilitza aquest color per a indicar una línia que ha provocat un avís del compilador. Cal tenir en compte que aquest color té una opacitat respecte al fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-build.html"
 >la documentació del connector de construcció</ulink
 >.</para
 ></listitem>
@@ -3127,7 +3127,7 @@
 >)</term>
 <listitem
 ><para
->El connector de construcció utilitza aquest color per a indicar una línia que ha provocat un error de compilació. Cal tenir en compte que aquest color té una opacitat del fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-build.html"
+>El connector de construcció utilitza aquest color per a indicar una línia que ha provocat un error de compilació. Cal tenir en compte que aquest color té una opacitat respecte al fons. Per a més informació, vegeu <ulink url="help:/kate/kate-application-plugin-build.html"
 >la documentació del connector de construcció</ulink
 >.</para
 ></listitem>

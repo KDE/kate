@@ -3086,8 +3086,8 @@
 >)</term>
 <listitem
 ><para
->Deze kleur wordt gebruikt door de GDB-plug-in om een actief breekpunt aan te geven. Merk op dat de kleur een mindere dekking heeft ten opzichte van de achtergrond. Voor meer informatie, zie <ulink url="help:/kate/kate-application-plugin-gdb.html"
->de documentatie van de GDB-plug-in</ulink
+>Deze kleur wordt gebruikt door de &kate;-debug-plug-in om een actief breekpunt aan te geven. Merk op dat de kleur een mindere dekking heeft ten opzichte van de achtergrond. Voor meer informatie, zie <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>de documentatie van de &kate;-debug-plug-in</ulink
 >.</para
 ></listitem>
 </varlistentry>
@@ -3101,8 +3101,8 @@
 >)</term>
 <listitem
 ><para
->Deze kleur wordt gebruikt door de GDB-plug-in om een actief breekpunt aan te geven dat is bereikt tijdens debuggen. Merk op dat de kleur een mindere dekking heeft ten opzichte van de achtergrond. Voor meer informatie, zie <ulink url="help:/kate/kate-application-plugin-gdb.html"
->de documentatie van de GDB-plug-in</ulink
+>Deze kleur wordt gebruikt door de &kate;-debug-plug-in om een actief breekpunt aan te geven dat is bereikt tijdens debuggen. Merk op dat de kleur een mindere dekking heeft ten opzichte van de achtergrond. Voor meer informatie, zie <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>de documentatie van de &kate;-debug-plug-in</ulink
 >.</para
 ></listitem>
 </varlistentry>
@@ -3116,8 +3116,8 @@
 >)</term>
 <listitem
 ><para
->Deze kleur wordt gebruikt door de GDB-plug-in om een inactief breekpunt aan te geven. Merk op dat de kleur een mindere dekking heeft ten opzichte van de achtergrond. Voor meer informatie, zie <ulink url="help:/kate/kate-application-plugin-gdb.html"
->de documentatie van de GDB-plug-in</ulink
+>Deze kleur wordt gebruikt door de &kate;-debug-plug-in om een inactief breekpunt aan te geven. Merk op dat de kleur een mindere dekking heeft ten opzichte van de achtergrond. Voor meer informatie, zie <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>de documentatie van de &kate;-debug-plug-in</ulink
 >.</para
 ></listitem>
 </varlistentry>
@@ -3131,8 +3131,8 @@
 >)</term>
 <listitem
 ><para
->Deze kleur wordt gebruikt door de GDB-plug-in om een regel aan te geven die wordt uitgevoerd. Merk op dat de kleur een mindere dekking heeft ten opzichte van de achtergrond. Voor meer informatie, zie <ulink url="help:/kate/kate-application-plugin-gdb.html"
->de documentatie van de GDB-plug-in</ulink
+>Deze kleur wordt gebruikt door de &kate;-debug-plug-in om een regel aan te geven die wordt uitgevoerd. Merk op dat de kleur een mindere dekking heeft ten opzichte van de achtergrond. Voor meer informatie, zie <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>de documentatie van de &kate;-debug-plug-in</ulink
 >.</para
 ></listitem>
 </varlistentry>

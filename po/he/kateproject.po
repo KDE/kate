@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-27 00:49+0000\n"
-"PO-Revision-Date: 2026-08-26 09:02+0300\n"
+"PO-Revision-Date: 2026-09-27 10:03+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 26.04.3\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr "נא לבחור ענף לשליפה. לחיצה על ‚Esc’ תבטל."
+msgstr "נא לבחור ענף לשליפה. לחיצה על ‚Esc’ לביטול."
 
 #: branchcheckoutdialog.cpp:62
 #, kde-format
@@ -131,7 +131,7 @@ msgstr "ענף פעיל: %1"
 #: git/gitforgeconfigwidget.cpp:32
 #, kde-format
 msgid "Detect Service"
-msgstr ""
+msgstr "זיהוי שירות"
 
 #: git/gitforgeconfigwidget.cpp:37
 #, kde-format
@@ -140,106 +140,107 @@ msgid ""
 "host is taken from the clone URL; the website URL is used to open repository "
 "links in a browser."
 msgstr ""
+"מיפוי מארחי Git מרוחקים לאתר ה־Forgejo,‏ GitHub או GitLab שלהם. המארח המרוחק "
+"נגזר מכתובת השיבוט, כתוב האתר משמשת לפתיחת קישורי המאגר בדפדפן."
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Git Remote Host"
-msgstr ""
+msgstr "מארח Git מרוחק"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Hosting Service"
-msgstr ""
+msgstr "שירות אירוח"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Website URL"
-msgstr ""
+msgstr "כתובת אתר"
 
 #: git/gitforgeconfigwidget.cpp:46
 #, kde-format
 msgid "Host from the Git clone URL, optionally followed by its SSH port"
-msgstr ""
+msgstr "מארח מכתובת שיבוט ה־Git, בדרך כלל עם פתחת ה־SSH כרשות"
 
 #: git/gitforgeconfigwidget.cpp:47
 #, kde-format
 msgid "Forgejo, GitHub, or GitLab software running on the server"
-msgstr ""
+msgstr "תוכנות Forgejo,‏ GitHub או GitLab רצות על השרת"
 
 #: git/gitforgeconfigwidget.cpp:48
 #, kde-format
 msgid "HTTP or HTTPS address used to open repository links in a web browser"
-msgstr ""
+msgstr "כתובת HTTP או HTTPS שמשמשת לפתיחת קישורי מאגרים בדפדפן"
 
 #: git/gitforgeconfigwidget.cpp:56
 #, kde-format
 msgid "Add Mapping"
-msgstr ""
+msgstr "הוספת מיפוי"
 
 #: git/gitforgeconfigwidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Remove Selected Files"
+#, kde-format
 msgid "Remove Selected Mapping"
-msgstr "הסרת הקבצים הנבחרים"
+msgstr "הסרת המיפוי הנבחר"
 
 #: git/gitforgeconfigwidget.cpp:60
 #, kde-format
 msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
-msgstr ""
+msgstr "לנסות לזהות את Forgejo,‏ GitHub או GitLab מכתובת אתר המיפוי הנבחרת"
 
 #: git/gitforgeconfigwidget.cpp:106
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
-msgstr ""
+msgstr "שירות האירוח בשורה %1 שגוי."
 
 #: git/gitforgeconfigwidget.cpp:111
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
-msgstr ""
+msgstr "כתובת האתר או מארח ה־Git המרוחק בשורה %1 שגויה."
 
 #: git/gitforgeconfigwidget.cpp:138
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
-msgstr ""
+msgstr "git.example.com או git.example.com:2222"
 
 #: git/gitforgeconfigwidget.cpp:156
 #, kde-format
 msgid "https://git.example.com"
-msgstr ""
+msgstr "https://git.example.com"
 
 #: git/gitforgeconfigwidget.cpp:173
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
-msgstr ""
+msgstr "נא לבחור מיפוי כדי לזהות את שירות האירוח שלו."
 
 #: git/gitforgeconfigwidget.cpp:180
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
-msgstr ""
+msgstr "נא למלא כתובת HTTP או HTTPS תקפה בטרם זיהוי שירות האירוח."
 
 #: git/gitforgeconfigwidget.cpp:191
 #, kde-format
 msgid "Detecting…"
-msgstr ""
+msgstr "מזוהה…"
 
 #: git/gitforgeconfigwidget.cpp:237
 #, kde-format
 msgid "Detected %1."
-msgstr ""
+msgstr "זוהה %1."
 
 #: git/gitforgeconfigwidget.cpp:239
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
-msgstr ""
+msgstr "המיפוי השתנה, תוצאת הזיהוי נפסחה."
 
 #: git/gitforgeconfigwidget.cpp:241
 #, kde-format
 msgid "Service could not be detected; select it manually."
-msgstr ""
+msgstr "לא ניתן לזהות את השירות, נא לבחור אותו ידנית."
 
 #: git/gitstatus.cpp:159
 #, kde-format
@@ -721,7 +722,7 @@ msgstr "השלמת מיזם"
 #: kateprojectconfigpage.cpp:31
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "כללי"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
@@ -909,7 +910,7 @@ msgstr "פעולה לחיצה כפולה בתצוגת מצב ה־git"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
-msgstr ""
+msgstr "אירוח Git"
 
 #: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
 #, kde-format
@@ -1177,18 +1178,18 @@ msgstr "מעבר אל: %1"
 #: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:188
 #, kde-format
 msgid "Git Hosting"
-msgstr ""
+msgstr "אירוח Git"
 
 #: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:875
 #: kateprojectpluginview.cpp:905
 #, kde-format
 msgid "Open on Git Hosting Service"
-msgstr ""
+msgstr "פתיחה בשירות אירוח Git"
 
 #: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:871
 #, kde-format
 msgid "Copy Git Hosting Link"
-msgstr ""
+msgstr "העתקת קישור אירוח Git"
 
 #: kateprojectpluginview.cpp:331
 #, kde-format
@@ -1198,18 +1199,17 @@ msgstr "מפתח מיזמים"
 #: kateprojectpluginview.cpp:870 kateprojecttreeviewcontextmenu.cpp:189
 #, kde-format
 msgid "Detecting Git hosting service…"
-msgstr ""
+msgstr "שירות אירוח ה־Git מזוהה…"
 
 #: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
 #, kde-format
 msgid "Open on %1"
-msgstr ""
+msgstr "פתיחה ב־%1"
 
 #: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy %1 Link"
-msgstr "העתקת מקום"
+msgstr "העתקת קישור %1"
 
 #: kateprojectpluginview.cpp:968
 #, kde-format

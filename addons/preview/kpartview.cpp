@@ -198,11 +198,10 @@ void KPartView::updatePreview()
     m_part->setArguments(arguments);
 
     // try to stream the data to avoid filesystem I/O
-    // create url unique for this document
-    // TODO: encode existing url instead, and for yet-to-be-stored docs some other unique id
-    const QUrl streamUrl(QStringLiteral("ktexteditorpreview:/object/%1").arg(reinterpret_cast<quintptr>(m_document), 0, 16));
-    if (m_part->openStream(mimeType, streamUrl)) {
-        qCDebug(KTEPREVIEW, "Pushing data via streaming API, url: %ls", qUtf16Printable(streamUrl.url()));
+    // pass the document's url into openStream to allow the part to resolve relative paths
+    // e.g. to display embedded images in markdown
+    if (m_part->openStream(mimeType, m_document->url())) {
+        qCDebug(KTEPREVIEW, "Pushing data via streaming API, url: %ls", qUtf16Printable(m_document->url().toString()));
         m_part->writeStream(m_document->text().toUtf8());
         m_part->closeStream();
 

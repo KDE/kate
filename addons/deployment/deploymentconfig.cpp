@@ -6,6 +6,8 @@
 
 #include "deploymentconfig.h"
 
+#include <KLocalizedString>
+
 #include <QDir>
 #include <QFileInfo>
 #include <QMetaType>
@@ -75,20 +77,12 @@ bool validRemotePath(const QString &path) {
 }
 
 std::optional<QString> decodedUrlPath(const QUrl &url) {
-  const QString encodedPath = url.path(QUrl::FullyEncoded);
-  QStringList decodedParts;
-  const QStringList parts = encodedPath.split(u'/', Qt::KeepEmptyParts);
-  for (const QString &part : parts) {
-    const QString decoded = QUrl::fromPercentEncoding(part.toUtf8());
-    if (decoded == QLatin1String(".") || decoded == QLatin1String("..") ||
-        decoded.contains(u'/') || decoded.contains(u'\\')) {
-      return std::nullopt;
-    }
-    decodedParts.push_back(decoded);
+  // decode first, so encoded traversal like %2e%2e or %2F is caught below
+  const QString path = url.path(QUrl::FullyDecoded);
+  if (!validRemotePath(path) || path.contains(u'\\')) {
+    return std::nullopt;
   }
-  const QString path = decodedParts.join(u'/');
-  return validRemotePath(path) ? std::optional<QString>(QDir::cleanPath(path))
-                               : std::nullopt;
+  return QDir::cleanPath(path);
 }
 } // namespace
 
@@ -105,7 +99,7 @@ Deployment::Config::fromProjectMap(const QVariantMap &projectMap,
   const QVariant deploymentValue =
       projectMap.value(QStringLiteral("deployment"));
   if (deploymentValue.metaType().id() != QMetaType::QVariantMap) {
-    config.error = QStringLiteral("deployment must be an object");
+    config.error = i18n("deployment must be an object");
     return config;
   }
   const QVariantMap values = deploymentValue.toMap();
@@ -121,15 +115,15 @@ Deployment::Config::fromProjectMap(const QVariantMap &projectMap,
   };
 
   if (config.host.isEmpty()) {
-    return fail(QStringLiteral("deployment host must not be empty"));
+    return fail(i18n("deployment host must not be empty"));
   }
   if (config.host.contains(u'/') || config.host.contains(u'@') ||
       config.host.contains(whitespace)) {
-    return fail(QStringLiteral("deployment host is invalid"));
+    return fail(i18n("deployment host is invalid"));
   }
   if (config.host.startsWith(u'[') && config.host.endsWith(u']')) {
     if (!config.host.contains(u':')) {
-      return fail(QStringLiteral("deployment host is invalid"));
+      return fail(i18n("deployment host is invalid"));
     }
     config.host = config.host.sliced(1, config.host.size() - 2);
   }
@@ -139,19 +133,19 @@ Deployment::Config::fromProjectMap(const QVariantMap &projectMap,
     const int parsedPort = values.value(QStringLiteral("port")).toInt(&ok);
     if (!ok || parsedPort < 1 || parsedPort > 65535) {
       return fail(
-          QStringLiteral("deployment port must be between 1 and 65535"));
+          i18n("deployment port must be between 1 and 65535"));
     }
     config.port = parsedPort;
   }
 
   if (projectBase.trimmed().isEmpty()) {
-    return fail(QStringLiteral("project base must not be empty"));
+    return fail(i18n("project base must not be empty"));
   }
   const QFileInfo projectInfo(projectBase);
   const QString canonicalProjectBase =
       slashPath(projectInfo.canonicalFilePath());
   if (!projectInfo.isDir() || canonicalProjectBase.isEmpty()) {
-    return fail(QStringLiteral("project base must be an existing directory"));
+    return fail(i18n("project base must be an existing directory"));
   }
 
   QString configuredLocalRoot =
@@ -160,7 +154,7 @@ Deployment::Config::fromProjectMap(const QVariantMap &projectMap,
     configuredLocalRoot = canonicalProjectBase;
   } else if (hasTraversal(configuredLocalRoot)) {
     return fail(
-        QStringLiteral("deployment localRoot must not contain traversal"));
+        i18n("deployment localRoot must not contain traversal"));
   } else if (QDir::isRelativePath(configuredLocalRoot)) {
     configuredLocalRoot = canonicalProjectBase + u'/' + configuredLocalRoot;
   }
@@ -168,13 +162,13 @@ Deployment::Config::fromProjectMap(const QVariantMap &projectMap,
   config.localRoot = slashPath(localInfo.canonicalFilePath());
   if (!localInfo.isDir() || config.localRoot.isEmpty() ||
       !isWithin(config.localRoot, canonicalProjectBase)) {
-    return fail(QStringLiteral("deployment localRoot must be an existing "
-                               "directory inside the project base"));
+    return fail(i18n("deployment localRoot must be an existing "
+                     "directory inside the project base"));
   }
 
   if (!validRemotePath(config.remoteRoot)) {
-    return fail(QStringLiteral(
-        "deployment remoteRoot must be an absolute path without traversal"));
+    return fail(
+        i18n("deployment remoteRoot must be an absolute path without traversal"));
   }
   config.remoteRoot = QDir::cleanPath(config.remoteRoot);
 
@@ -187,19 +181,19 @@ Deployment::Config::fromProjectMap(const QVariantMap &projectMap,
       for (const QVariant &pattern : patterns) {
         if (pattern.metaType().id() != QMetaType::QString) {
           return fail(
-              QStringLiteral("deployment exclude entries must be strings"));
+              i18n("deployment exclude entries must be strings"));
         }
         config.excludePatterns.push_back(pattern.toString());
       }
     } else {
       return fail(
-          QStringLiteral("deployment exclude must be a list of strings"));
+          i18n("deployment exclude must be a list of strings"));
     }
   }
 
   const QUrl baseUrl = config.remoteBaseUrl();
   if (!baseUrl.isValid() || baseUrl.host().isEmpty()) {
-    return fail(QStringLiteral("deployment host is invalid"));
+    return fail(i18n("deployment host is invalid"));
   }
   config.host = baseUrl.host();
 

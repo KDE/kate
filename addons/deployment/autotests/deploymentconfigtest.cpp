@@ -78,8 +78,10 @@ void DeploymentConfigTest::invalidConfig() {
   QVERIFY(outside.isValid());
   QVERIFY(QDir(project.path()).mkdir(QStringLiteral("src")));
 
-  QVERIFY(
-      !configFor(project.path(), {{QStringLiteral("host"), QString()}}).valid);
+  const auto noHost =
+      configFor(project.path(), {{QStringLiteral("host"), QString()}});
+  QVERIFY(!noHost.valid);
+  QVERIFY(!noHost.error.isEmpty());
   QVERIFY(!configFor(project.path(), {{QStringLiteral("port"), 70000}}).valid);
   QVERIFY(!configFor(project.path(), {{QStringLiteral("remoteRoot"),
                                        QStringLiteral("relative")}})
@@ -156,6 +158,14 @@ void DeploymentConfigTest::rejectOutsideAndTraversal() {
       "sftp://kate@files.example.org:22/srv/project2/file.cpp"))));
   QVERIFY(!config.localPathForRemoteUrl(QUrl(QStringLiteral(
       "sftp://kate@files.example.org:22/srv/project/%2e%2e/secret"))));
+  QVERIFY(!config.localPathForRemoteUrl(QUrl(QStringLiteral(
+      "sftp://kate@files.example.org:22/srv/project/%2E%2E/secret"))));
+  QVERIFY(!config.localPathForRemoteUrl(QUrl(QStringLiteral(
+      "sftp://kate@files.example.org:22/srv/project/a%2F..%2F..%2Fsecret"))));
+  QVERIFY(!config.localPathForRemoteUrl(QUrl(QStringLiteral(
+      "sftp://kate@files.example.org:22/srv/project/a%5C..%5Csecret"))));
+  QVERIFY(!config.localPathForRemoteUrl(QUrl(QStringLiteral(
+      "sftp://kate@files.example.org:22/srv/project/file%5Cname.cpp"))));
   QVERIFY(!config.localPathForRemoteUrl(QUrl(QStringLiteral(
       "sftp://other@files.example.org:22/srv/project/file.cpp"))));
 }

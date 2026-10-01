@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-27 00:49+0000\n"
-"PO-Revision-Date: 2026-09-17 00:59+0900\n"
+"PO-Revision-Date: 2026-10-01 02:36+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -128,7 +128,7 @@ msgstr "作用中分支：%1"
 #: git/gitforgeconfigwidget.cpp:32
 #, kde-format
 msgid "Detect Service"
-msgstr ""
+msgstr "偵測服務"
 
 #: git/gitforgeconfigwidget.cpp:37
 #, kde-format
@@ -137,106 +137,107 @@ msgid ""
 "host is taken from the clone URL; the website URL is used to open repository "
 "links in a browser."
 msgstr ""
+"將 Git 遠端對應到其 Forgejo、GitHub 或 GitLab 網站。遠端主機由仿製 URL 取得；"
+"網站 URL 用來在瀏覽器裡開啟版本庫連結。"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Git Remote Host"
-msgstr ""
+msgstr "Git 遠端主機"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Hosting Service"
-msgstr ""
+msgstr "託管服務"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Website URL"
-msgstr ""
+msgstr "網站 URL"
 
 #: git/gitforgeconfigwidget.cpp:46
 #, kde-format
 msgid "Host from the Git clone URL, optionally followed by its SSH port"
-msgstr ""
+msgstr "來自 Git 仿製 URL 的主機，可以包含它的 SSH 連接埠"
 
 #: git/gitforgeconfigwidget.cpp:47
 #, kde-format
 msgid "Forgejo, GitHub, or GitLab software running on the server"
-msgstr ""
+msgstr "伺服器上執行的 Forgejo、GitHub 或 GitLab 軟體"
 
 #: git/gitforgeconfigwidget.cpp:48
 #, kde-format
 msgid "HTTP or HTTPS address used to open repository links in a web browser"
-msgstr ""
+msgstr "用來在網頁瀏覽器開啟版本庫連結的 HTTP 或 HTTPS 位址"
 
 #: git/gitforgeconfigwidget.cpp:56
 #, kde-format
 msgid "Add Mapping"
-msgstr ""
+msgstr "新增對應"
 
 #: git/gitforgeconfigwidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Remove Selected Files"
+#, kde-format
 msgid "Remove Selected Mapping"
-msgstr "移除已選的檔案"
+msgstr "移除已選的對應"
 
 #: git/gitforgeconfigwidget.cpp:60
 #, kde-format
 msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
-msgstr ""
+msgstr "試著從已選對應的網站 URL 辨別 Forgejo、GitHub 或 GitLab"
 
 #: git/gitforgeconfigwidget.cpp:106
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
-msgstr ""
+msgstr "第 %1 列的託管服務是無效的。"
 
 #: git/gitforgeconfigwidget.cpp:111
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
-msgstr ""
+msgstr "第 %1 列的 Git 遠端主機或網站 URL 是無效的。"
 
 #: git/gitforgeconfigwidget.cpp:138
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
-msgstr ""
+msgstr "git.example.com 或 git.example.com:2222"
 
 #: git/gitforgeconfigwidget.cpp:156
 #, kde-format
 msgid "https://git.example.com"
-msgstr ""
+msgstr "https://git.example.com"
 
 #: git/gitforgeconfigwidget.cpp:173
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
-msgstr ""
+msgstr "選擇對應來偵測它的託管服務。"
 
 #: git/gitforgeconfigwidget.cpp:180
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
-msgstr ""
+msgstr "偵測託管服務前請先輸入有效的 HTTP 或 HTTPS 網站 URL。"
 
 #: git/gitforgeconfigwidget.cpp:191
 #, kde-format
 msgid "Detecting…"
-msgstr ""
+msgstr "偵測中…"
 
 #: git/gitforgeconfigwidget.cpp:237
 #, kde-format
 msgid "Detected %1."
-msgstr ""
+msgstr "已偵測到 %1。"
 
 #: git/gitforgeconfigwidget.cpp:239
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
-msgstr ""
+msgstr "對應已變更；偵測結果已忽略。"
 
 #: git/gitforgeconfigwidget.cpp:241
 #, kde-format
 msgid "Service could not be detected; select it manually."
-msgstr ""
+msgstr "無法偵測到服務；請手動選取。"
 
 #: git/gitstatus.cpp:159
 #, kde-format
@@ -718,7 +719,7 @@ msgstr "專案補完"
 #: kateprojectconfigpage.cpp:31
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
@@ -904,7 +905,7 @@ msgstr "git status 檢視中的雙擊動作"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
-msgstr ""
+msgstr "Git 託管"
 
 #: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
 #, kde-format
@@ -1169,18 +1170,18 @@ msgstr "前往：%1"
 #: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:188
 #, kde-format
 msgid "Git Hosting"
-msgstr ""
+msgstr "Git 託管"
 
 #: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:875
 #: kateprojectpluginview.cpp:905
 #, kde-format
 msgid "Open on Git Hosting Service"
-msgstr ""
+msgstr "在 Git 託管服務上開啟"
 
 #: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:871
 #, kde-format
 msgid "Copy Git Hosting Link"
-msgstr ""
+msgstr "複製 Git 託管服務連結"
 
 #: kateprojectpluginview.cpp:331
 #, kde-format
@@ -1190,18 +1191,17 @@ msgstr "專案索引"
 #: kateprojectpluginview.cpp:870 kateprojecttreeviewcontextmenu.cpp:189
 #, kde-format
 msgid "Detecting Git hosting service…"
-msgstr ""
+msgstr "正在偵測 Git 託管服務…"
 
 #: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
 #, kde-format
 msgid "Open on %1"
-msgstr ""
+msgstr "在 %1 開啟"
 
 #: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy %1 Link"
-msgstr "複製位置"
+msgstr "複製 %1 連結"
 
 #: kateprojectpluginview.cpp:968
 #, kde-format

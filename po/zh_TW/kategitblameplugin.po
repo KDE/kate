@@ -4,13 +4,13 @@
 # This file is distributed under the same license as the kate package.
 #
 # Automatically generated, 2022.
-# Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
+# SPDX-FileCopyrightText: 2023, 2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-28 00:49+0000\n"
-"PO-Revision-Date: 2023-12-22 05:21+0900\n"
+"PO-Revision-Date: 2026-10-01 02:38+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.01.80\n"
+"X-Generator: Lokalize 26.11.70\n"
 
 #: kategitblameplugin.cpp:88
 #, kde-format
@@ -56,7 +56,7 @@ msgstr "切換 Git Blame 詳細資料"
 #, kde-format
 msgctxt "@info %1 is a git error"
 msgid "Git Blame plugin error: %1"
-msgstr ""
+msgstr "Git Blame 外掛程式錯誤：%1"
 
 #: kategitblameplugin.cpp:408
 #, kde-format

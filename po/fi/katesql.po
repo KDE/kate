@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the kdebase package.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011-2012.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2013, 2014.
-# SPDX-FileCopyrightText: 2020, 2022, 2023, 2025 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2020, 2022, 2023, 2025, 2026 Tommi Nieminen <translator@legisign.org>
 #
 # KDE Finnish translation sprint participants:
 # Author: Artnay
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-24 01:27+0000\n"
-"PO-Revision-Date: 2025-02-15 19:39+0200\n"
+"PO-Revision-Date: 2026-09-05 10:56+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -162,12 +162,10 @@ msgid "SQL"
 msgstr "SQL"
 
 #: dataoutputwidget.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
-msgstr "Päivitä"
+msgstr "Virkistä"
 
 #: dataoutputwidget.cpp:128
 #, kde-format
@@ -209,49 +207,49 @@ msgstr "Käytä järjestelmän alueasetuksia"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "Liitä"
 
 #: dataoutputwidget.cpp:191
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "Aseta tyhjäksi"
 
 #: dataoutputwidget.cpp:201
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "Lisää rivi"
 
 #: dataoutputwidget.cpp:211
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "Poista valitut rivit"
 
 #: dataoutputwidget.cpp:221
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "Monista valitut rivit"
 
 #: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "Kumoa"
 
 #: dataoutputwidget.cpp:241
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "Tallenna"
 
 #: dataoutputwidget.cpp:251
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "Tee tästä sarakkeesta esityskelpoinen relaatiotaulukoille"
 
 #: dataoutputwidget.cpp:254
 #, kde-format
@@ -260,24 +258,27 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Varoitus! Sarakkeille, joilla ei ole ainutkertaisuusrajoitusta, ei voida "
+"taata oikeaa kopiointia ja liittämistä (kun näytetään sarake vieraan avaimen "
+"sijaan)"
 
 #: dataoutputwidget.cpp:265
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "Missä:"
 
 #: dataoutputwidget.cpp:273
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "Lisää tietojen suodattamiseksi SQL:n WHERE-lauseke"
 
 #: dataoutputwidget.cpp:730
 #, kde-kuit-format
@@ -286,12 +287,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "Ei kyetä avaamaan tiedostoa <filename>%1</filename>"
 
 #: dataoutputwidget.cpp:750
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "Ei kyetä yhdistämään tietokantaan.<nl/><message>%1</message>"
+msgstr "Muutosten tallentaminen epäonnistui: <message>%1</message>"
 
 #: exportwizard.cpp:27
 #, kde-format
@@ -414,43 +413,43 @@ msgstr "Tallenna ja palauta yhteydet Kate-istunnossa"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Salli muokattava taulukko tietojen selauksessa"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "Salli muokattavat relaatiotaulukot"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "Kokeellinen"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@option:check"
 msgid "Allow running queries in non-SQL files"
-msgstr ""
+msgstr "Salli kyselyjen suorittaminen ei-SQL-tiedostoille"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable auto query selection"
-msgstr ""
+msgstr "Käytä automaattista kyselyn valintaa"
 
 #: katesqlconfigpage.cpp:41
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "Käsittele tyhjää riviä lauseen rajana"
 
 #: katesqlconfigpage.cpp:42
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show query selector popup"
-msgstr ""
+msgstr "Näytä aina kyselyvalitsimen ponnahdusikkuna"
 
 #: katesqlconfigpage.cpp:44
 #, kde-format
@@ -459,18 +458,16 @@ msgid "Output Customization"
 msgstr "Oma tuloste"
 
 #: katesqlconfigpage.cpp:51
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Käytä järjestelmän alueasetuksia"
+msgstr "Käytä järjestelmän oletuksia"
 
 #: katesqlconfigpage.cpp:52
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Palauta järjestelmän oletukset"
 
 #: katesqlconfigpage.cpp:113
 #, kde-format
@@ -551,20 +548,16 @@ msgid "Background Color"
 msgstr "Taustaväri"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "Tekstiväri"
+msgstr "Muutettu tekstiväri"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "Taustaväri"
+msgstr "Muutettu taustaväri"
 
 #: outputstylewidget.cpp:49
 #, kde-format
@@ -617,7 +610,7 @@ msgstr "SQL-tietotuloste"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "Suodata taulukkoja ja näkymiä…"
 
 #: schemawidget.cpp:45
 #, kde-format

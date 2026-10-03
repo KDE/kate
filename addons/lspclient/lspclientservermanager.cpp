@@ -974,12 +974,20 @@ private:
                 showMessage(message, KTextEditor::Message::Warning);
             } else {
                 showMessage(i18n("Started server %2: %1", cmdline.join(u' '), serverDescription(server.get())), KTextEditor::Message::Positive);
-                using namespace std::placeholders;
-                connect(server.get(), &LSPClientServer::logMessage, this, std::bind(&self_type::onMessage, this, true, _1));
-                connect(server.get(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
+                connect(server.get(), &LSPClientServer::logMessage, this, [this](const LSPLogMessageParams &params) {
+                    onMessage(true, params);
+                });
+                connect(server.get(), &LSPClientServer::showMessage, this, [this](const LSPShowMessageParams &params) {
+                    onMessage(false, params);
+                });
                 connect(server.get(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
                 connect(server.get(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
-                connect(server.get(), &LSPClientServer::configuration, this, std::bind(&self_type::onConfiguration, this, root, langId, _1, _2, _3));
+                connect(server.get(),
+                        &LSPClientServer::configuration,
+                        this,
+                        [this, root, langId](const LSPConfigurationParams &params, const ConfigurationReplyHandler &h, bool &handled) {
+                            onConfiguration(root, langId, params, h, handled);
+                        });
                 connect(server.get(), &LSPClientServer::showDocument, this, &self_type::showDocument);
                 connect(server.get(), &LSPClientServer::showMessageRequest, this, &self_type::showMessageRequest);
             }

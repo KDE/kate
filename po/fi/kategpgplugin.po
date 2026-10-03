@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2025 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2025, 2026 Tommi Nieminen <translator@legisign.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-06-07 00:48+0000\n"
-"PO-Revision-Date: 2025-10-31 20:35+0200\n"
+"PO-Revision-Date: 2026-08-26 13:33+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -115,13 +115,12 @@ msgstr "Piilota vanhentuneet avaimet"
 #: kategpgplugin.cpp:223
 #, kde-format
 msgid "  Decrypted  "
-msgstr ""
+msgstr "  Purettu  "
 
 #: kategpgplugin.cpp:229
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "  Encrypted  "
-msgstr "Salaus epäonnistui: "
+msgstr "  Salattu  "
 
 #: kategpgplugin.cpp:320 kategpgplugin.cpp:451
 #, kde-format
@@ -192,15 +191,14 @@ msgstr ""
 "käytöstä…"
 
 #: kategpgplugin.cpp:528
-#, fuzzy, kde-format
-#| msgid "Encryption Failed: "
+#, kde-format
 msgid "Save Encrypted File As"
-msgstr "Salaus epäonnistui: "
+msgstr "Tallenna salattu tiedosto nimellä"
 
 #: kategpgplugin.cpp:530
 #, kde-format
 msgid "GPG Files (*.gpg *.asc)"
-msgstr ""
+msgstr "GPG-tiedostot (*.gpg *.asc)"
 
 #: kategpgplugin.cpp:619
 #, kde-format

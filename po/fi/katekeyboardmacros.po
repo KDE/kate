@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2022, 2024 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2022, 2024, 2026 Tommi Nieminen <translator@legisign.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-06 00:49+0000\n"
-"PO-Revision-Date: 2024-12-01 14:41+0200\n"
+"PO-Revision-Date: 2026-08-26 13:35+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -15,24 +15,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
-#, fuzzy, kde-format
-#| msgid "Could not open file '%1'."
+#, kde-format
 msgid "Could not open file ‘%1’."
 msgstr "Ei voitu avata tiedostoa ”%1”."
 
 #: keyboardmacrosplugin.cpp:72
-#, fuzzy, kde-format
-#| msgid "Malformed JSON file '%1': %2"
+#, kde-format
 msgctxt "%2 is an error message"
 msgid "Malformed JSON file ‘%1’: %2"
 msgstr "Virheellinen JSON-tiedosto ”%1”: %2"
 
 #: keyboardmacrosplugin.cpp:80
-#, fuzzy, kde-format
-#| msgid "Could not load '%1': malformed macro; wiping it."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Could not load ‘%1’: malformed macro; wiping it."
 msgstr "Ei voitu ladata: ”%1”: virheellinen makro, pyyhitään se."
@@ -50,50 +47,43 @@ msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Näppäinmakrot:</b> %1"
 
 #: keyboardmacrosplugin.cpp:170
-#, fuzzy, kde-format
-#| msgid "Can't save macro during recording. Please end recoding first"
+#, kde-format
 msgid "Can’t save macro during recording. Please end recording first"
 msgstr "Makroa ei sitä nauhoitettaessa voi tallentaa. Lopeta nauhoitus ensin"
 
 #: keyboardmacrosplugin.cpp:241
-#, fuzzy, kde-format
-#| msgid "Recording…"
+#, kde-format
 msgctxt "@info:progress Macro is being recorded right now"
 msgid "Recording…"
 msgstr "Nauhoitetaan…"
 
 #: keyboardmacrosplugin.cpp:278
-#, fuzzy, kde-format
-#| msgid "Recording %1"
+#, kde-format
 msgid "Recording ended"
-msgstr "nauhoitetaan %1"
+msgstr "Nauhoitus päättyi"
 
 #: keyboardmacrosplugin.cpp:279
-#, fuzzy, kde-format
-#| msgid "Recording %1"
+#, kde-format
 msgid "Recording canceled"
-msgstr "nauhoitetaan %1"
+msgstr "Nauhoitus peruttiin"
 
 #: keyboardmacrosplugin.cpp:330
-#, fuzzy, kde-format
-#| msgid "Saved '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Saved ‘%1’"
-msgstr "Tallennettu: ”%1”"
+msgstr "Tallennettiin ”%1”"
 
 #: keyboardmacrosplugin.cpp:350
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Loaded ‘%1’"
-msgstr "Ladattu: ”%1”"
+msgstr "Ladattiin ”%1”"
 
 #: keyboardmacrosplugin.cpp:368
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wiped ‘%1’"
-msgstr "Pyyhitty: ”%1”"
+msgstr "Pyyhittiin ”%1”"
 
 #: keyboardmacrosplugincommands.cpp:27
 #, kde-format
@@ -158,8 +148,7 @@ msgid "Record and play keyboard macros."
 msgstr "Nauhoita ja toista näppäinmakroja."
 
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Record Macro..."
+#, kde-format
 msgid "&Record Macro…"
 msgstr "&Nauhoita makro…"
 
@@ -204,10 +193,9 @@ msgid "Give a name to the current macro and persistently save it."
 msgstr "Anna nykyiselle makrolle nimi ja tallenna se pysyväksi."
 
 #: keyboardmacrospluginview.cpp:90
-#, fuzzy, kde-format
-#| msgid "&Load Named Macro..."
+#, kde-format
 msgid "&Load Named Macro…"
-msgstr "&Lataa nimetty makro…"
+msgstr "Lataa &nimetty makro…"
 
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
@@ -215,10 +203,9 @@ msgid "Load a named macro as the current one."
 msgstr "Lataa nimetty makro nykyiseksi."
 
 #: keyboardmacrospluginview.cpp:98
-#, fuzzy, kde-format
-#| msgid "&Play Named Macro..."
+#, kde-format
 msgid "&Play Named Macro…"
-msgstr "To&ista nimetty makro…"
+msgstr "T&oista nimetty makro…"
 
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
@@ -226,8 +213,7 @@ msgid "Play a named macro without loading it."
 msgstr "Toista nimetty makro lataamatta sitä."
 
 #: keyboardmacrospluginview.cpp:106
-#, fuzzy, kde-format
-#| msgid "&Wipe Named Macro..."
+#, kde-format
 msgid "&Wipe Named Macro…"
 msgstr "P&yyhi nimetty makro…"
 
@@ -242,43 +228,37 @@ msgid "End Macro &Recording"
 msgstr "&Lopeta makron nauhoitus"
 
 #: keyboardmacrospluginview.cpp:180
-#, fuzzy, kde-format
-#| msgid "Load %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Load %1"
 msgstr "Lataa %1"
 
 #: keyboardmacrospluginview.cpp:181
-#, fuzzy, kde-format
-#| msgid "Load the '%1' macro as the current one."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Load the ‘%1’ macro as the current one."
 msgstr "Lataa makro ”%1” nykyiseksi."
 
 #: keyboardmacrospluginview.cpp:193
-#, fuzzy, kde-format
-#| msgid "Play %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Play %1"
 msgstr "Toista %1"
 
 #: keyboardmacrospluginview.cpp:194
-#, fuzzy, kde-format
-#| msgid "Play the '%1' macro without loading it."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Play the ‘%1’ macro without loading it."
 msgstr "Toista makro ”%1” lataamatta sitä."
 
 #: keyboardmacrospluginview.cpp:208
-#, fuzzy, kde-format
-#| msgid "Wipe %1"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe %1"
 msgstr "Pyyhi %1"
 
 #: keyboardmacrospluginview.cpp:209
-#, fuzzy, kde-format
-#| msgid "Wipe the '%1' macro."
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe the ‘%1’ macro."
 msgstr "Pyyhi makro ”%1”."
@@ -289,8 +269,7 @@ msgid "Save current macro as?"
 msgstr "Tallennetaanko nykyinen makro?"
 
 #: keyboardmacrospluginview.cpp:323
-#, fuzzy, kde-format
-#| msgid "Wipe the '%1' macro?"
+#, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wipe the ‘%1’ macro?"
 msgstr "Pyyhitäänkö makro ”%1”?"

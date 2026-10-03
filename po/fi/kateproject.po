@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-27 00:49+0000\n"
-"PO-Revision-Date: 2026-01-10 20:49+0200\n"
+"PO-Revision-Date: 2026-08-26 13:42+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -241,49 +241,44 @@ msgid "Service could not be detected; select it manually."
 msgstr ""
 
 #: git/gitstatus.cpp:159
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid " ‣ Modified"
-msgstr "Muutettu"
+msgstr " ‣ Muutettu"
 
 #: git/gitstatus.cpp:161
-#, fuzzy, kde-format
-#| msgid "Untracked"
+#, kde-format
 msgid " ‣ Untracked"
-msgstr "Ei jäljitetty"
+msgstr " ‣ Ei seurattu"
 
 #: git/gitstatus.cpp:163
-#, fuzzy, kde-format
-#| msgid "&Rename"
+#, kde-format
 msgid " ‣ Renamed"
-msgstr "M&uuta nimeä"
+msgstr " ‣ Nimi muutettu"
 
 #: git/gitstatus.cpp:166
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid " ‣ Deleted"
-msgstr "Poista"
+msgstr " ‣ Poistettu"
 
 #: git/gitstatus.cpp:169
 #, kde-format
 msgid " ‣ Added"
-msgstr ""
+msgstr " ‣ Lisätty"
 
 #: git/gitstatus.cpp:171
 #, kde-format
 msgid " ‣ Copied"
-msgstr ""
+msgstr " ‣ Kopioitu"
 
 #: git/gitstatus.cpp:173
 #, kde-format
 msgid " ‣ Ignored"
-msgstr ""
+msgstr " ‣ Sivuutettu"
 
 #: git/gitstatus.cpp:181
-#, fuzzy, kde-format
-#| msgid "Conflict"
+#, kde-format
 msgid " ‣ Conflicted"
-msgstr "Ristiriita"
+msgstr " ‣ Ristiriita"
 
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
@@ -559,16 +554,14 @@ msgid "Drop Stash"
 msgstr "Hylkää jemma"
 
 #: gitwidget.cpp:1198
-#, fuzzy, kde-format
-#| msgid "Pop Stash"
+#, kde-format
 msgid "Show Stash"
-msgstr "Palauta jemma"
+msgstr "Näytä kätkö"
 
 #: gitwidget.cpp:1202
-#, fuzzy, kde-format
-#| msgid "Show raw diff"
+#, kde-format
 msgid "Show Stash Diff"
-msgstr "Näytä raaka diff"
+msgstr "Näytä kätkön diff"
 
 #: gitwidget.cpp:1240
 #, kde-format
@@ -692,16 +685,14 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Haluatko varmasti poistaa nämä ei-jäljitetyt muutokset?"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "Muutettu"
+msgstr "(Muutettu)"
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "Vaiheistettu"
+msgstr "(Vaiheistettu)"
 
 #: kateproject.cpp:355
 #, kde-format
@@ -775,7 +766,7 @@ msgstr "&CMake"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Directory Listing"
-msgstr ""
+msgstr "Kansioiden luettelu"
 
 #: kateprojectconfigpage.cpp:63
 #, kde-format
@@ -783,11 +774,13 @@ msgid ""
 "When directory listing is enabled, autoloaded repository projects show all "
 "files instead of only VCS-tracked files."
 msgstr ""
+"Kun kansioiden luettelu on käytössä, automaattisesti ladatut "
+"tietovarastoprojektit näyttävät kaikki tiedostot vain VCS-seurattujen sijaan."
 
 #: kateprojectconfigpage.cpp:66
 #, kde-format
 msgid "Include files untracked by repository"
-msgstr ""
+msgstr "Sisällytä tiedostot, joita tietovarasta ei seuraa"
 
 #: kateprojectconfigpage.cpp:68
 #, kde-format
@@ -795,11 +788,13 @@ msgid ""
 "Show all files in the project directory including files not tracked by the "
 "version control system, such as those excluded via .gitignore."
 msgstr ""
+"Näytä kaikki projektikansion tiedostot, myös ne, joita "
+"versionhallintajärjestelmä ei seuraa, esim. .gitignore-tiedostossa annetut."
 
 #: kateprojectconfigpage.cpp:72
 #, kde-format
 msgid "Show hidden files in non-VCS projects"
-msgstr ""
+msgstr "Näytä ei-VCS-projekteilta piilotiedostot"
 
 #: kateprojectconfigpage.cpp:73
 #, kde-format
@@ -807,6 +802,8 @@ msgid ""
 "Show hidden files (dotfiles) in the project file tree for projects not "
 "loaded using version control."
 msgstr ""
+"Näytä piilotiedostot projektitiedostopuussa projekteille, joita ei ole "
+"ladattu versionhallinnalla."
 
 #: kateprojectconfigpage.cpp:82
 #, kde-format
@@ -1092,10 +1089,9 @@ msgid "Project Manager"
 msgstr "Projektinhallinta"
 
 #: kateprojectpluginview.cpp:87
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Current Project"
-msgstr "Sulje projekti"
+msgstr "Nykyinen projekti"
 
 #: kateprojectpluginview.cpp:89
 #, kde-format
@@ -1158,10 +1154,9 @@ msgid "Reload Project"
 msgstr "Virkistä projekti"
 
 #: kateprojectpluginview.cpp:224
-#, fuzzy, kde-format
-#| msgid "Reload Project"
+#, kde-format
 msgid "Reload All Projects"
-msgstr "Virkistä projekti"
+msgstr "Virkistä kaikki projektit"
 
 #: kateprojectpluginview.cpp:235
 #, kde-format
@@ -1402,65 +1397,62 @@ msgstr "Jemman näyttäminen epäonnistui. Virhe: "
 #: tools/clazy.h:25
 #, kde-format
 msgid "Clazy (Qt/C++)"
-msgstr ""
+msgstr "Clazy (Qt/C++)"
 
 #: tools/clazy.h:30
 #, kde-format
 msgid "Clazy is a static analysis tool for Qt/C++ code"
-msgstr ""
+msgstr "Clazy on Qt/C++-koodin staattinen analyysityökalu."
 
 #: tools/clazy.h:71
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'clazy'"
-msgstr "Asenna ”cppcheck”."
+msgstr "Asenna ”clazy”"
 
 #: tools/clazycurrent.h:24
 #, kde-format
 msgid "Clazy - Current File"
-msgstr ""
+msgstr "Clazy – nykyinen tiedosto"
 
 #: tools/clazycurrent.h:29
 #, kde-format
 msgid "clang-tidy is a clang-based C++ “linter” tool"
-msgstr ""
+msgstr "clang-tidy on clang-pohjainen C++:n ”linter”-työkalu"
 
 #: tools/clippy.h:27
 #, kde-format
 msgid "Clippy (Rust)"
-msgstr ""
+msgstr "Clippy (Rust)"
 
 #: tools/clippy.h:32
 #, kde-format
 msgid "Clippy is a static analysis tool for Rust code"
-msgstr ""
+msgstr "Clippy on Rust-koodin staattinen analyysityökalu"
 
 #: tools/clippy.h:95
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'cargo'"
-msgstr "Asenna ”cppcheck”."
+msgstr "Asenna ”cargo”"
 
 #: tools/cppcheck.h:26
 #, kde-format
 msgid "Cppcheck (C++)"
-msgstr ""
+msgstr "Cppcheck (C++)"
 
 #: tools/cppcheck.h:31
 #, kde-format
 msgid "Cppcheck is a static analysis tool for C/C++ code"
-msgstr ""
+msgstr "Cppcheck on C/C++-koodin staattinen analyysityökalu"
 
 #: tools/cppcheck.h:64
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'cppcheck'"
-msgstr "Asenna ”cppcheck”."
+msgstr "Asenna ”cppcheck”"
 
 #: tools/eslint.h:23
 #, kde-format
 msgid "ESLint"
-msgstr ""
+msgstr "ESLint"
 
 #: tools/eslint.h:28
 #, kde-format
@@ -1468,38 +1460,38 @@ msgid ""
 "ESLint is a static analysis tool & style guide enforcer for JavaScript/"
 "Typescript code"
 msgstr ""
+"ESLint on JavaScript/Typescript-koodin staattinen analyysityökalu ja "
+"tyylimuotoilija"
 
 #: tools/eslint.h:67
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'eslint'"
-msgstr "Asenna ”cppcheck”."
+msgstr "Asenna ”eslint”"
 
 #: tools/flake8.h:26
 #, kde-format
 msgid "Flake8 (Python)"
-msgstr ""
+msgstr "Flake8 (Python)"
 
 #: tools/flake8.h:31
 #, kde-format
 msgid "Flake8: Your Tool For Style Guide Enforcement for Python"
-msgstr ""
+msgstr "Flake8: työkalusi Pythonin tyylimuotoilun pakottamiseen"
 
 #: tools/flake8.h:77
-#, fuzzy, kde-format
-#| msgid "Please install 'cppcheck'."
+#, kde-format
 msgid "Please install 'flake8'"
-msgstr "Asenna ”cppcheck”."
+msgstr "Asenna ”flake8”"
 
 #: tools/ruff.h:28
 #, kde-format
 msgid "Ruff (Python)"
-msgstr ""
+msgstr "Ruff (Python)"
 
 #: tools/ruff.h:33
 #, kde-format
 msgid "An extremely fast Python linter"
-msgstr ""
+msgstr "Erittäin nopea Python-linter"
 
 #: tools/ruff.h:64
 #, kde-format
@@ -1507,31 +1499,33 @@ msgid ""
 "Ruff is not installed. Please use your package manager to install it. See "
 "https://docs.astral.sh/ruff/installation/"
 msgstr ""
+"Ruffia ei ole asennettu. Asenna se paketinhallinnassa. Ks. https://docs."
+"astral.sh/ruff/installation/"
 
 #: tools/shellcheck.h:24
 #, kde-format
 msgid "ShellCheck (sh/bash)"
-msgstr ""
+msgstr "ShellCheck (sh/bash)"
 
 #: tools/shellcheck.h:29
 #, kde-format
 msgid "ShellCheck is a static analysis and linting tool for sh/bash scripts"
-msgstr ""
+msgstr "ShellCheck on sh/bash-skriptien staattinen analyysi- ja linter-työkalu"
 
 #: tools/shellcheck.h:73
 #, kde-format
 msgid "Please install ShellCheck (see https://www.shellcheck.net)"
-msgstr ""
+msgstr "Asenna ShellCheck (ks. https://www.shellcheck.net/)"
 
 #: tools/tidy.h:24
 #, kde-format
 msgid "Html Tidy"
-msgstr ""
+msgstr "Html Tidy"
 
 #: tools/tidy.h:29
 #, kde-format
 msgid "Runs html tidy on current file"
-msgstr ""
+msgstr "Suorittaa Html Tidyn nykyiselle tiedostolle"
 
 #: tools/tidy.h:64
 #, kde-format
@@ -1539,6 +1533,8 @@ msgid ""
 "Html tidy is not installed. Please use your package manager to install it. "
 "See https://www.html-tidy.org/"
 msgstr ""
+"Html Tidyä ei ole asennettu. Asenna se paketinhallinnalla. Ks. https://www."
+"html-tidy.org/"
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9
@@ -1548,10 +1544,9 @@ msgstr "&Projektit"
 
 #. i18n: ectx: ToolBar (projectplugin)
 #: ui.rc:30
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Plugin"
-msgstr "Projektikohtainen täydennys"
+msgstr "Projektiliitännäinen"
 
 #~ msgid "Show Stash Content"
 #~ msgstr "Näytä jemman sisältö"

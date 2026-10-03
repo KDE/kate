@@ -399,6 +399,12 @@ void KateProjectPluginView::viewForProject(KateProject *project)
             }
         }
     });
+    connect(project, &KateProject::modelChanged, this, [this, project] {
+        auto *widget = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
+        if (widget && widget->project() == project) {
+            Q_EMIT projectFilesChanged();
+        }
+    });
 
     /*
      * inform onward
@@ -419,6 +425,16 @@ QString KateProjectPluginView::projectFileName() const
     }
 
     return static_cast<KateProjectView *>(active)->project()->fileName();
+}
+
+QString KateProjectPluginView::projectLocalConfigFileName() const
+{
+    QWidget *active = m_stackedProjectViews->currentWidget();
+    if (!active) {
+        return {};
+    }
+
+    return static_cast<KateProjectView *>(active)->project()->projectLocalConfigFileName();
 }
 
 QString KateProjectPluginView::projectName() const
@@ -604,6 +620,7 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     // project file name might have changed
     Q_EMIT projectFileNameChanged();
     Q_EMIT projectMapChanged();
+    Q_EMIT projectFilesChanged();
 
     if (auto widget = gitWidget()) {
         widget->updateGitProjectFolder();

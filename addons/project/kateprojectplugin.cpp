@@ -166,6 +166,16 @@ QObject *KateProjectPlugin::createView(KTextEditor::MainWindow *mainWindow)
     return new KateProjectPluginView(this, mainWindow);
 }
 
+void KateProjectPlugin::reloadProjectForBaseDir(const QString &baseDir)
+{
+    for (KateProject *project : std::as_const(m_projects)) {
+        if (project->baseDir() == baseDir) {
+            project->reload(true);
+            return;
+        }
+    }
+}
+
 int KateProjectPlugin::configPages() const
 {
     return 1;

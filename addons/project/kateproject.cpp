@@ -385,7 +385,8 @@ QVariantMap KateProject::readProjectFile() const
 
         // if there are local settings (.kateproject.local), override values
         {
-            const auto localSettings = readJSONFile(projectLocalFileName(QStringLiteral("local")));
+            // don't use projectLocalFileName(), m_baseDir changes on reload for projects with "directory"
+            const auto localSettings = readJSONFile(projectLocalConfigFileName());
             if (!localSettings.isNull() && localSettings.isObject()) {
                 object = json::merge(object, localSettings.object());
             }
@@ -535,6 +536,14 @@ QString KateProject::projectLocalFileName(const QString &suffix) const
      * compute full file name
      */
     return QDir(m_baseDir).filePath(QStringLiteral(".kateproject.") + suffix);
+}
+
+QString KateProject::projectLocalConfigFileName() const
+{
+    if (m_fileName.isEmpty()) {
+        return {};
+    }
+    return QFileInfo(m_fileName).dir().filePath(QStringLiteral(".kateproject.local"));
 }
 
 QTextDocument *KateProject::notesDocument()

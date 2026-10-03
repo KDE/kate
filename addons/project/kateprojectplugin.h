@@ -94,6 +94,10 @@ public:
      */
     QList<QObject *> projectsObjects() const;
 
+    /** Reload the project with the given base directory after an external
+     *  project-local configuration change. */
+    Q_INVOKABLE void reloadProjectForBaseDir(const QString &baseDir);
+
     /**
      * Has the given project open documents?
      * @param project project to check open document for

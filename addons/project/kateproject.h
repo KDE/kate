@@ -254,6 +254,14 @@ public:
     QString projectLocalFileName(const QString &suffix) const;
 
     /**
+     * Full path of the per-user project configuration (.kateproject.local).
+     * It always lives next to the .kateproject file, even if the project
+     * uses "directory" to point to an out-of-source base directory.
+     * @return full path for the local configuration, on error => empty string
+     */
+    QString projectLocalConfigFileName() const;
+
+    /**
      * Document with project local notes.
      * Will be stored in a projectLocalFile "notes.txt".
      * @return notes document

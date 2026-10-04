@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-04 00:51+0000\n"
 "PO-Revision-Date: 2026-02-19 15:25+0000\n"
 "Last-Translator: charlotte <altronic25@protonmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -407,18 +407,18 @@ msgstr "Theip ar thosú freastalaí '%1' don teanga '%2'"
 msgid "Started server %2: %1"
 msgstr "Freastalaí %2 tosaithe: %1"
 
-#: lspclientservermanager.cpp:1015
+#: lspclientservermanager.cpp:1023
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Theip ar chumraíocht an fhreastalaí '%1' a pharsáil: níl aon réad JSON ann"
 
-#: lspclientservermanager.cpp:1018
+#: lspclientservermanager.cpp:1026
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Theip ar chumraíocht an fhreastalaí '%1' a pharsáil: %2"
 
-#: lspclientservermanager.cpp:1022
+#: lspclientservermanager.cpp:1030
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Theip ar chumraíocht an fhreastalaí a léamh: %1"

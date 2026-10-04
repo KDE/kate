@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-04 00:51+0000\n"
 "PO-Revision-Date: 2023-01-08 08:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -414,18 +414,18 @@ msgstr "Khởi động trình chủ thất bại: %1"
 msgid "Started server %2: %1"
 msgstr "Đã khởi động trình chủ %2: %1"
 
-#: lspclientservermanager.cpp:1015
+#: lspclientservermanager.cpp:1023
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Phân tách cấu hình trình chủ '%1' thất bại: không có đối tượng JSON nào"
 
-#: lspclientservermanager.cpp:1018
+#: lspclientservermanager.cpp:1026
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Phân tách cấu hình trình chủ '%1' thất bại: %2"
 
-#: lspclientservermanager.cpp:1022
+#: lspclientservermanager.cpp:1030
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Đọc cấu hình trình chủ thất bại: %1"

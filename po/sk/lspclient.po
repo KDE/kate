@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-04 00:51+0000\n"
 "PO-Revision-Date: 2023-02-05 17:53+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -407,17 +407,17 @@ msgstr "Nepodarilo sa start server '%1' for language '%2'"
 msgid "Started server %2: %1"
 msgstr "Spustil sa server %2: %1"
 
-#: lspclientservermanager.cpp:1015
+#: lspclientservermanager.cpp:1023
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Nepodarilo sa analyzovať konfiguráciu servera '%1': žiadny objekt JSON"
 
-#: lspclientservermanager.cpp:1018
+#: lspclientservermanager.cpp:1026
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Nepodarilo sa spracovať nastavenia serveru '%1': %2"
 
-#: lspclientservermanager.cpp:1022
+#: lspclientservermanager.cpp:1030
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Nepodarilo sa prečítať nastavenia serveru: %1"

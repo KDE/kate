@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-27 00:49+0000\n"
-"PO-Revision-Date: 2026-09-21 23:47+0200\n"
-"Last-Translator: Shinjo Park <peremen@gmail.com>\n"
-"Language-Team: Korean\n"
+"POT-Creation-Date: 2026-10-04 00:51+0000\n"
+"PO-Revision-Date: 2026-10-03 23:15+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -67,7 +67,7 @@ msgstr "마지막 활동"
 msgid "Last Commit"
 msgstr "마지막 커밋"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:138
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:139
 #, kde-format
 msgid "Delete"
 msgstr "삭제"
@@ -125,7 +125,7 @@ msgstr "활성 브랜치: %1"
 #: git/gitforgeconfigwidget.cpp:32
 #, kde-format
 msgid "Detect Service"
-msgstr ""
+msgstr "서비스 감지"
 
 #: git/gitforgeconfigwidget.cpp:37
 #, kde-format
@@ -134,106 +134,110 @@ msgid ""
 "host is taken from the clone URL; the website URL is used to open repository "
 "links in a browser."
 msgstr ""
+"Git 원격 호스트를 Forgejo, GitHub, GitLab 웹사이트와 대응합니다. 원격 호스트"
+"는 클론 URL에서 처리되며, 웹사이트 URL은 브라우저에서 저장소 링크를 열 때 사"
+"용됩니다."
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Git Remote Host"
-msgstr ""
+msgstr "Git 원격 호스트"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Hosting Service"
-msgstr ""
+msgstr "호스팅 서비스"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Website URL"
-msgstr ""
+msgstr "웹사이트 URL"
 
 #: git/gitforgeconfigwidget.cpp:46
 #, kde-format
 msgid "Host from the Git clone URL, optionally followed by its SSH port"
-msgstr ""
+msgstr "Git 클론 URL의 호스트, 선택 사항으로 SSH 포트 지정"
 
 #: git/gitforgeconfigwidget.cpp:47
 #, kde-format
 msgid "Forgejo, GitHub, or GitLab software running on the server"
-msgstr ""
+msgstr "서버에서 실행 중인 Forgejo, GitHub, GitLab 소프트웨어"
 
 #: git/gitforgeconfigwidget.cpp:48
 #, kde-format
 msgid "HTTP or HTTPS address used to open repository links in a web browser"
-msgstr ""
+msgstr "웹 브라우저에서 저장소 링크를 열 때 사용할 HTTP나 HTTPS 주소"
 
 #: git/gitforgeconfigwidget.cpp:56
 #, kde-format
 msgid "Add Mapping"
-msgstr ""
+msgstr "대응 추가"
 
 #: git/gitforgeconfigwidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Remove Selected Files"
+#, kde-format
 msgid "Remove Selected Mapping"
-msgstr "선택한 파일 삭제"
+msgstr "선택한 대응 삭제"
 
 #: git/gitforgeconfigwidget.cpp:60
 #, kde-format
 msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
-msgstr ""
+msgstr "선택한 대응의 웹사이트 URL에서 Forgejo, GitHub, GitLab 식별 시도"
 
 #: git/gitforgeconfigwidget.cpp:106
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
-msgstr ""
+msgstr "%1번째 줄에 있는 호스팅 서비스가 잘못되었습니다."
 
 #: git/gitforgeconfigwidget.cpp:111
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
-msgstr ""
+msgstr "%1번째 줄에 있는 Git 원격 호스트나 웹사이트 URL이 잘못되었습니다."
 
 #: git/gitforgeconfigwidget.cpp:138
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
-msgstr ""
+msgstr "git.example.com 또는 git.example.com:2222"
 
 #: git/gitforgeconfigwidget.cpp:156
 #, kde-format
 msgid "https://git.example.com"
-msgstr ""
+msgstr "https://git.example.com"
 
 #: git/gitforgeconfigwidget.cpp:173
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
-msgstr ""
+msgstr "호스팅 서비스를 감지하는 대응을 선택하십시오."
 
 #: git/gitforgeconfigwidget.cpp:180
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
 msgstr ""
+"호스팅 서비스를 감지하기 전에 올바른 HTTP나 HTTPS 웹사이트 URL을 입력하십시"
+"오."
 
 #: git/gitforgeconfigwidget.cpp:191
 #, kde-format
 msgid "Detecting…"
-msgstr ""
+msgstr "감지 중…"
 
 #: git/gitforgeconfigwidget.cpp:237
 #, kde-format
 msgid "Detected %1."
-msgstr ""
+msgstr "%1을(를) 감지했습니다."
 
 #: git/gitforgeconfigwidget.cpp:239
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
-msgstr ""
+msgstr "대응이 변경되었습니다. 감지 결과가 무시됩니다."
 
 #: git/gitforgeconfigwidget.cpp:241
 #, kde-format
 msgid "Service could not be detected; select it manually."
-msgstr ""
+msgstr "서비스를 감지할 수 없습니다. 수동으로 선택하십시오."
 
 #: git/gitstatus.cpp:159
 #, kde-format
@@ -695,7 +699,7 @@ msgstr "(스테이지됨)"
 msgid "Malformed JSON file '%1': %2"
 msgstr "잘못된 JSON 파일 '%1': %2"
 
-#: kateproject.cpp:422 kateprojectplugin.cpp:871 kateprojectpluginview.cpp:82
+#: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:368
 #: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
 #: kateprojectviewtree.cpp:416
@@ -703,7 +707,7 @@ msgstr "잘못된 JSON 파일 '%1': %2"
 msgid "Project"
 msgstr "프로젝트"
 
-#: kateproject.cpp:723
+#: kateproject.cpp:732
 #, kde-format
 msgid "<untracked>"
 msgstr "<추적 안 됨>"
@@ -716,7 +720,7 @@ msgstr "프로젝트 완성"
 #: kateprojectconfigpage.cpp:31
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "일반"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
@@ -903,11 +907,10 @@ msgid "Double click action in the git status view"
 msgstr "git 상태 보기에서 두 번 클릭했을 때 동작"
 
 #: kateprojectconfigpage.cpp:153
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
-msgstr "Git 도구"
+msgstr "Git 호스팅"
 
 #: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
 #, kde-format
@@ -1057,22 +1060,22 @@ msgstr "오류"
 msgid "File name already exists"
 msgstr "파일 이름이 이미 존재함"
 
-#: kateprojectplugin.cpp:302
+#: kateprojectplugin.cpp:312
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "프로젝트 닫기 확인: %1"
 
-#: kateprojectplugin.cpp:303
+#: kateprojectplugin.cpp:313
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "프로젝트 %1 및 열린 문서 %2개를 닫으시겠습니까?"
 
-#: kateprojectplugin.cpp:736
+#: kateprojectplugin.cpp:746
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "파일 이름을 제외한 현재 프로젝트의 전체 경로입니다."
 
-#: kateprojectplugin.cpp:753
+#: kateprojectplugin.cpp:763
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1161,120 +1164,118 @@ msgstr "모든 프로젝트 새로 고침"
 msgid "Checkout Git Branch"
 msgstr "Git 브랜치 체크아웃"
 
-#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:860
+#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:877
 #, kde-format
 msgid "Lookup: %1"
 msgstr "찾아보기: %1"
 
-#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:861
+#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:878
 #, kde-format
 msgid "Goto: %1"
 msgstr "이동: %1"
 
-#: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:188
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:189
+#, kde-format
 msgid "Git Hosting"
-msgstr "Git 도구"
+msgstr "Git 호스팅"
 
-#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:875
-#: kateprojectpluginview.cpp:905
+#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
+#: kateprojectpluginview.cpp:922
 #, kde-format
 msgid "Open on Git Hosting Service"
-msgstr ""
+msgstr "Git 호스팅 서비스에서 열기"
 
-#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:871
+#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
 #, kde-format
 msgid "Copy Git Hosting Link"
-msgstr ""
+msgstr "Git 호스팅 링크 복사"
 
 #: kateprojectpluginview.cpp:331
 #, kde-format
 msgid "Projects Index"
 msgstr "프로젝트 색인"
 
-#: kateprojectpluginview.cpp:870 kateprojecttreeviewcontextmenu.cpp:189
+#: kateprojectpluginview.cpp:887 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
-msgstr ""
+msgstr "Git 호스팅 서비스 감지 중…"
 
-#: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
+#: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
 msgid "Open on %1"
-msgstr ""
+msgstr "%1에서 열기"
 
-#: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#: kateprojectpluginview.cpp:920 kateprojecttreeviewcontextmenu.cpp:206
+#, kde-format
 msgid "Copy %1 Link"
-msgstr "위치 복사"
+msgstr "%1 링크 복사"
 
-#: kateprojectpluginview.cpp:968
+#: kateprojectpluginview.cpp:985
 #, kde-format
 msgid "Choose a directory"
 msgstr "디렉터리 선택"
 
-#: kateprojecttreeviewcontextmenu.cpp:53
+#: kateprojecttreeviewcontextmenu.cpp:54
 #, kde-format
 msgid "Enter name:"
 msgstr "이름 입력:"
 
-#: kateprojecttreeviewcontextmenu.cpp:118
+#: kateprojecttreeviewcontextmenu.cpp:119
 #, kde-format
 msgid "Copy Location"
 msgstr "위치 복사"
 
-#: kateprojecttreeviewcontextmenu.cpp:125
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "New File…"
 msgstr "새 파일…"
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:127
 #, kde-format
 msgid "New Folder…"
 msgstr "새 폴더…"
 
-#: kateprojecttreeviewcontextmenu.cpp:133
+#: kateprojecttreeviewcontextmenu.cpp:134
 #, kde-format
 msgid "&Rename"
 msgstr "이름 바꾸기(&R)"
 
-#: kateprojecttreeviewcontextmenu.cpp:144
+#: kateprojecttreeviewcontextmenu.cpp:145
 #, kde-format
 msgid "Properties"
 msgstr "속성"
 
-#: kateprojecttreeviewcontextmenu.cpp:148
+#: kateprojecttreeviewcontextmenu.cpp:149
 #, kde-format
 msgid "Open With"
 msgstr "다음으로 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:156
+#: kateprojecttreeviewcontextmenu.cpp:157
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "여기에서 내부 터미널 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:168
+#: kateprojecttreeviewcontextmenu.cpp:169
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "여기에서 외부 터미널 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:174
+#: kateprojecttreeviewcontextmenu.cpp:175
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "포함하는 폴더 열기(&O)"
 
-#: kateprojecttreeviewcontextmenu.cpp:183
+#: kateprojecttreeviewcontextmenu.cpp:184
 #, kde-format
 msgid "Show Git History"
 msgstr "Git 기록 표시"
 
-#: kateprojecttreeviewcontextmenu.cpp:275
+#: kateprojecttreeviewcontextmenu.cpp:280
 #, kde-format
 msgid "New File"
 msgstr "새 파일"
 
-#: kateprojecttreeviewcontextmenu.cpp:280
+#: kateprojecttreeviewcontextmenu.cpp:285
 #, kde-format
 msgid "New Folder"
 msgstr "새 폴더"

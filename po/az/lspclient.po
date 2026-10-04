@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-04 00:51+0000\n"
 "PO-Revision-Date: 2023-06-30 14:00+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -412,17 +412,17 @@ msgstr "Server başladıla bilmədi: %1"
 msgid "Started server %2: %1"
 msgstr "Başladılan server %2: %1"
 
-#: lspclientservermanager.cpp:1015
+#: lspclientservermanager.cpp:1023
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "\"%1\" server tənzimləməsi təhlil edilə bilmədi: JSON obyekti yoxdur"
 
-#: lspclientservermanager.cpp:1018
+#: lspclientservermanager.cpp:1026
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "\"%1\" server tənzimləməsi təhlil edilə bilmədi: %2"
 
-#: lspclientservermanager.cpp:1022
+#: lspclientservermanager.cpp:1030
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Server tənzimləmələri oxuna bilmədi: %1"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-04 00:51+0000\n"
 "PO-Revision-Date: 2025-12-30 08:51+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -413,19 +413,19 @@ msgstr "Ha fallat en iniciar el llenguatge «%2» al servidor «%1»"
 msgid "Started server %2: %1"
 msgstr "S'ha iniciat el servidor %2: %1"
 
-#: lspclientservermanager.cpp:1015
+#: lspclientservermanager.cpp:1023
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Ha fallat en analitzar la configuració del servidor «%1»: no és un objecte "
 "JSON"
 
-#: lspclientservermanager.cpp:1018
+#: lspclientservermanager.cpp:1026
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Ha fallat en analitzar la configuració del servidor «%1»: %2"
 
-#: lspclientservermanager.cpp:1022
+#: lspclientservermanager.cpp:1030
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Ha fallat en llegir la configuració del servidor: %1"

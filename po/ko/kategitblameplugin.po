@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Shinjo Park <kde@peremen.name>, 2021, 2022.
+# SPDX-FileCopyrightText: 2021, 2022, 2026 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-28 00:49+0000\n"
-"PO-Revision-Date: 2022-05-06 00:22+0200\n"
+"PO-Revision-Date: 2026-10-03 23:12+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: kategitblameplugin.cpp:88
 #, kde-format
@@ -53,7 +53,7 @@ msgstr "Git Blame 자세한 정보 전환"
 #, kde-format
 msgctxt "@info %1 is a git error"
 msgid "Git Blame plugin error: %1"
-msgstr ""
+msgstr "Git Blame 플러그인 오류: %1"
 
 #: kategitblameplugin.cpp:408
 #, kde-format

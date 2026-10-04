@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-27 00:49+0000\n"
+"POT-Creation-Date: 2026-10-04 00:51+0000\n"
 "PO-Revision-Date: 2026-09-27 10:03+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -70,7 +70,7 @@ msgstr "פעילות אחרונה"
 msgid "Last Commit"
 msgstr "הגשה אחרונה"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:138
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:139
 #, kde-format
 msgid "Delete"
 msgstr "מחיקה"
@@ -701,7 +701,7 @@ msgstr "(בימוי)"
 msgid "Malformed JSON file '%1': %2"
 msgstr "קובץ ה־JSON‏ ‚%1’ פגום: %2"
 
-#: kateproject.cpp:422 kateprojectplugin.cpp:871 kateprojectpluginview.cpp:82
+#: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:368
 #: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
 #: kateprojectviewtree.cpp:416
@@ -709,7 +709,7 @@ msgstr "קובץ ה־JSON‏ ‚%1’ פגום: %2"
 msgid "Project"
 msgstr "מיזם"
 
-#: kateproject.cpp:723
+#: kateproject.cpp:732
 #, kde-format
 msgid "<untracked>"
 msgstr "<לא במעקב>"
@@ -1061,22 +1061,22 @@ msgstr "שגיאה"
 msgid "File name already exists"
 msgstr "שם הקובץ כבר קיים"
 
-#: kateprojectplugin.cpp:302
+#: kateprojectplugin.cpp:312
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "אישור סגירת מיזם: %1"
 
-#: kateprojectplugin.cpp:303
+#: kateprojectplugin.cpp:313
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "לסגור את המיזם %1 ואת %2 המסמכים הקשורים?"
 
-#: kateprojectplugin.cpp:736
+#: kateprojectplugin.cpp:746
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "נתיב מלא למיזם הנוכחי ללא שם הקובץ."
 
-#: kateprojectplugin.cpp:753
+#: kateprojectplugin.cpp:763
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1165,28 +1165,28 @@ msgstr "ריענון כל המיזמים"
 msgid "Checkout Git Branch"
 msgstr "משיכת ענף Git"
 
-#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:860
+#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:877
 #, kde-format
 msgid "Lookup: %1"
 msgstr "איתור: %1"
 
-#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:861
+#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:878
 #, kde-format
 msgid "Goto: %1"
 msgstr "מעבר אל: %1"
 
-#: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:188
+#: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:189
 #, kde-format
 msgid "Git Hosting"
 msgstr "אירוח Git"
 
-#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:875
-#: kateprojectpluginview.cpp:905
+#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
+#: kateprojectpluginview.cpp:922
 #, kde-format
 msgid "Open on Git Hosting Service"
 msgstr "פתיחה בשירות אירוח Git"
 
-#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:871
+#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
 #, kde-format
 msgid "Copy Git Hosting Link"
 msgstr "העתקת קישור אירוח Git"
@@ -1196,87 +1196,87 @@ msgstr "העתקת קישור אירוח Git"
 msgid "Projects Index"
 msgstr "מפתח מיזמים"
 
-#: kateprojectpluginview.cpp:870 kateprojecttreeviewcontextmenu.cpp:189
+#: kateprojectpluginview.cpp:887 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
 msgstr "שירות אירוח ה־Git מזוהה…"
 
-#: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
+#: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
 msgid "Open on %1"
 msgstr "פתיחה ב־%1"
 
-#: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
+#: kateprojectpluginview.cpp:920 kateprojecttreeviewcontextmenu.cpp:206
 #, kde-format
 msgid "Copy %1 Link"
 msgstr "העתקת קישור %1"
 
-#: kateprojectpluginview.cpp:968
+#: kateprojectpluginview.cpp:985
 #, kde-format
 msgid "Choose a directory"
 msgstr "בחירת תיקייה"
 
-#: kateprojecttreeviewcontextmenu.cpp:53
+#: kateprojecttreeviewcontextmenu.cpp:54
 #, kde-format
 msgid "Enter name:"
 msgstr "נא למלא שם:"
 
-#: kateprojecttreeviewcontextmenu.cpp:118
+#: kateprojecttreeviewcontextmenu.cpp:119
 #, kde-format
 msgid "Copy Location"
 msgstr "העתקת מקום"
 
-#: kateprojecttreeviewcontextmenu.cpp:125
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "New File…"
 msgstr "קובץ חדש…"
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:127
 #, kde-format
 msgid "New Folder…"
 msgstr "תיקייה חדשה…"
 
-#: kateprojecttreeviewcontextmenu.cpp:133
+#: kateprojecttreeviewcontextmenu.cpp:134
 #, kde-format
 msgid "&Rename"
 msgstr "&שינוי שם"
 
-#: kateprojecttreeviewcontextmenu.cpp:144
+#: kateprojecttreeviewcontextmenu.cpp:145
 #, kde-format
 msgid "Properties"
 msgstr "מאפיינים"
 
-#: kateprojecttreeviewcontextmenu.cpp:148
+#: kateprojecttreeviewcontextmenu.cpp:149
 #, kde-format
 msgid "Open With"
 msgstr "פתיחה באמצעות"
 
-#: kateprojecttreeviewcontextmenu.cpp:156
+#: kateprojecttreeviewcontextmenu.cpp:157
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "פתיחת מסוף פנימי כאן"
 
-#: kateprojecttreeviewcontextmenu.cpp:168
+#: kateprojecttreeviewcontextmenu.cpp:169
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "פתיחת מסוף חיצוני כאן"
 
-#: kateprojecttreeviewcontextmenu.cpp:174
+#: kateprojecttreeviewcontextmenu.cpp:175
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&פתיחת התיקייה המכילה"
 
-#: kateprojecttreeviewcontextmenu.cpp:183
+#: kateprojecttreeviewcontextmenu.cpp:184
 #, kde-format
 msgid "Show Git History"
 msgstr "הצגת היסטוריית Git"
 
-#: kateprojecttreeviewcontextmenu.cpp:275
+#: kateprojecttreeviewcontextmenu.cpp:280
 #, kde-format
 msgid "New File"
 msgstr "קובץ חדש"
 
-#: kateprojecttreeviewcontextmenu.cpp:280
+#: kateprojecttreeviewcontextmenu.cpp:285
 #, kde-format
 msgid "New Folder"
 msgstr "תיקייה חדשה"

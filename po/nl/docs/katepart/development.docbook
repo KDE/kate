@@ -1136,7 +1136,9 @@
 <para
 >Om meer stappen terug te gaan kan het #pop commando worden herhaald: <userinput
 >#pop#pop#pop</userinput
-></para>
+> of gevolgd door een getal tussen haakjes: <userinput
+>#pop(3)</userinput
+>.</para>
 </listitem>
 <listitem>
 <para
@@ -1154,7 +1156,7 @@
 >!</emphasis
 >) te herhalen, gevolgd door een <emphasis
 >identifier</emphasis
->`, bijvoorbeeld: <userinput
+>, bijvoorbeeld: <userinput
 >ContextA!ContextB!ContextC</userinput
 >. De laatste context in de lijst is direct actief; de andere contexten worden benaderd met `#pop`.</para>
 </listitem>

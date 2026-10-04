@@ -1190,7 +1190,9 @@
 <para
 >Чтобы вернуться на несколько уровней контекста назад, ключевое слово #pop возможно повторить несколько раз: <userinput
 >#pop#pop#pop</userinput
-></para>
+> или указать после него число в скобках: <userinput
+>#pop(3)</userinput
+>.</para>
 </listitem>
 <listitem>
 <para
@@ -1208,9 +1210,9 @@
 >!</emphasis
 >) и <emphasis
 >идентификатор</emphasis
->`, например <userinput
+>, например <userinput
 >ContextA!ContextB!ContextC</userinput
->. Последний контекст в списке активен сразу, а к остальным можно обратиться с помощью `#pop`.</para>
+>. Последний контекст в списке активен сразу, а к остальным можно обратиться с помощью #pop.</para>
 </listitem>
 <listitem>
 <para

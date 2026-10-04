@@ -1146,7 +1146,9 @@
 <para
 >Per a retrocedir més passos, es pot repetir la paraula clau #pop: <userinput
 >#pop#pop#pop</userinput
-></para>
+> o anar seguida d'un nombre entre parèntesis: <userinput
+>#pop(3)</userinput
+>.</para>
 </listitem>
 <listitem>
 <para
@@ -1164,9 +1166,9 @@
 >!</emphasis
 >) i un <emphasis
 >identificador</emphasis
->`, p. ex. <userinput
+>, p. ex. <userinput
 >ContextA!ContextB!ContextC</userinput
->. L'últim context de la llista és actiu immediatament; els altres seran accessibles fent servir `#pop`.</para>
+>. L'últim context de la llista és actiu immediatament; els altres seran accessibles fent servir #pop.</para>
 </listitem>
 <listitem>
 <para

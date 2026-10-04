@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-27 00:49+0000\n"
+"POT-Creation-Date: 2026-10-04 00:51+0000\n"
 "PO-Revision-Date: 2026-10-01 02:36+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -70,7 +70,7 @@ msgstr "最後活動"
 msgid "Last Commit"
 msgstr "最新提交"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:138
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:139
 #, kde-format
 msgid "Delete"
 msgstr "刪除"
@@ -698,7 +698,7 @@ msgstr "(已暫存)"
 msgid "Malformed JSON file '%1': %2"
 msgstr "格式不正確的 JSON 檔案 '%1'：%2"
 
-#: kateproject.cpp:422 kateprojectplugin.cpp:871 kateprojectpluginview.cpp:82
+#: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:368
 #: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
 #: kateprojectviewtree.cpp:416
@@ -706,7 +706,7 @@ msgstr "格式不正確的 JSON 檔案 '%1'：%2"
 msgid "Project"
 msgstr "專案"
 
-#: kateproject.cpp:723
+#: kateproject.cpp:732
 #, kde-format
 msgid "<untracked>"
 msgstr "<未追蹤>"
@@ -1053,22 +1053,22 @@ msgstr "錯誤"
 msgid "File name already exists"
 msgstr "檔案名稱已存在"
 
-#: kateprojectplugin.cpp:302
+#: kateprojectplugin.cpp:312
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "確認關閉專案：%1"
 
-#: kateprojectplugin.cpp:303
+#: kateprojectplugin.cpp:313
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "您確定要關閉專案 %1 和它相關的 %2 個開啟中的文件嗎？"
 
-#: kateprojectplugin.cpp:736
+#: kateprojectplugin.cpp:746
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "指向目前專案的完整路徑 (不含檔名)。"
 
-#: kateprojectplugin.cpp:753
+#: kateprojectplugin.cpp:763
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1157,28 +1157,28 @@ msgstr "重新載入所有專案"
 msgid "Checkout Git Branch"
 msgstr "簽出 Git 分支"
 
-#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:860
+#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:877
 #, kde-format
 msgid "Lookup: %1"
 msgstr "尋找：%1"
 
-#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:861
+#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:878
 #, kde-format
 msgid "Goto: %1"
 msgstr "前往：%1"
 
-#: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:188
+#: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:189
 #, kde-format
 msgid "Git Hosting"
 msgstr "Git 託管"
 
-#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:875
-#: kateprojectpluginview.cpp:905
+#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
+#: kateprojectpluginview.cpp:922
 #, kde-format
 msgid "Open on Git Hosting Service"
 msgstr "在 Git 託管服務上開啟"
 
-#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:871
+#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
 #, kde-format
 msgid "Copy Git Hosting Link"
 msgstr "複製 Git 託管服務連結"
@@ -1188,87 +1188,87 @@ msgstr "複製 Git 託管服務連結"
 msgid "Projects Index"
 msgstr "專案索引"
 
-#: kateprojectpluginview.cpp:870 kateprojecttreeviewcontextmenu.cpp:189
+#: kateprojectpluginview.cpp:887 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
 msgstr "正在偵測 Git 託管服務…"
 
-#: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
+#: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
 msgid "Open on %1"
 msgstr "在 %1 開啟"
 
-#: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
+#: kateprojectpluginview.cpp:920 kateprojecttreeviewcontextmenu.cpp:206
 #, kde-format
 msgid "Copy %1 Link"
 msgstr "複製 %1 連結"
 
-#: kateprojectpluginview.cpp:968
+#: kateprojectpluginview.cpp:985
 #, kde-format
 msgid "Choose a directory"
 msgstr "選擇目錄"
 
-#: kateprojecttreeviewcontextmenu.cpp:53
+#: kateprojecttreeviewcontextmenu.cpp:54
 #, kde-format
 msgid "Enter name:"
 msgstr "輸入名稱："
 
-#: kateprojecttreeviewcontextmenu.cpp:118
+#: kateprojecttreeviewcontextmenu.cpp:119
 #, kde-format
 msgid "Copy Location"
 msgstr "複製位置"
 
-#: kateprojecttreeviewcontextmenu.cpp:125
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "New File…"
 msgstr "新增檔案…"
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:127
 #, kde-format
 msgid "New Folder…"
 msgstr "新增資料夾…"
 
-#: kateprojecttreeviewcontextmenu.cpp:133
+#: kateprojecttreeviewcontextmenu.cpp:134
 #, kde-format
 msgid "&Rename"
 msgstr "重新命名(&R)"
 
-#: kateprojecttreeviewcontextmenu.cpp:144
+#: kateprojecttreeviewcontextmenu.cpp:145
 #, kde-format
 msgid "Properties"
 msgstr "屬性"
 
-#: kateprojecttreeviewcontextmenu.cpp:148
+#: kateprojecttreeviewcontextmenu.cpp:149
 #, kde-format
 msgid "Open With"
 msgstr "開啟方式"
 
-#: kateprojecttreeviewcontextmenu.cpp:156
+#: kateprojecttreeviewcontextmenu.cpp:157
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "在此開啟內部終端機"
 
-#: kateprojecttreeviewcontextmenu.cpp:168
+#: kateprojecttreeviewcontextmenu.cpp:169
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "在此開啟外部終端機"
 
-#: kateprojecttreeviewcontextmenu.cpp:174
+#: kateprojecttreeviewcontextmenu.cpp:175
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "開啟包含資料夾(&O)"
 
-#: kateprojecttreeviewcontextmenu.cpp:183
+#: kateprojecttreeviewcontextmenu.cpp:184
 #, kde-format
 msgid "Show Git History"
 msgstr "顯示 Git 歷史紀錄"
 
-#: kateprojecttreeviewcontextmenu.cpp:275
+#: kateprojecttreeviewcontextmenu.cpp:280
 #, kde-format
 msgid "New File"
 msgstr "新檔案"
 
-#: kateprojecttreeviewcontextmenu.cpp:280
+#: kateprojecttreeviewcontextmenu.cpp:285
 #, kde-format
 msgid "New Folder"
 msgstr "新資料夾"

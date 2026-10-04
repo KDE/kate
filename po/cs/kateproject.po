@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-27 00:49+0000\n"
+"POT-Creation-Date: 2026-10-04 00:51+0000\n"
 "PO-Revision-Date: 2026-09-25 11:31+0200\n"
 "Last-Translator: Libor Filipek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -73,7 +73,7 @@ msgstr "Poslední aktivita"
 msgid "Last Commit"
 msgstr "Poslední commit"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:138
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:139
 #, kde-format
 msgid "Delete"
 msgstr "Smazat"
@@ -715,7 +715,7 @@ msgstr "(Uschováno)"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Neplatný soubor JSON '%1': %2"
 
-#: kateproject.cpp:422 kateprojectplugin.cpp:871 kateprojectpluginview.cpp:82
+#: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:368
 #: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
 #: kateprojectviewtree.cpp:416
@@ -723,7 +723,7 @@ msgstr "Neplatný soubor JSON '%1': %2"
 msgid "Project"
 msgstr "Projekt"
 
-#: kateproject.cpp:723
+#: kateproject.cpp:732
 #, kde-format
 msgid "<untracked>"
 msgstr "<nesledováno>"
@@ -1077,22 +1077,22 @@ msgstr "Chyba"
 msgid "File name already exists"
 msgstr "Název souboru již existuje"
 
-#: kateprojectplugin.cpp:302
+#: kateprojectplugin.cpp:312
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Potvrdit uzavření projektu: %1"
 
-#: kateprojectplugin.cpp:303
+#: kateprojectplugin.cpp:313
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Chcete uzavřít projekt %1 a související %2 otevřené dokumenty?"
 
-#: kateprojectplugin.cpp:736
+#: kateprojectplugin.cpp:746
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Úplná cesta k aktuálnímu projektu bez názvu souboru."
 
-#: kateprojectplugin.cpp:753
+#: kateprojectplugin.cpp:763
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1181,28 +1181,28 @@ msgstr "Znovu načíst všechny projekty"
 msgid "Checkout Git Branch"
 msgstr "Přepnout větev Gitu"
 
-#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:860
+#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:877
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Vyhledat: %1"
 
-#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:861
+#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:878
 #, kde-format
 msgid "Goto: %1"
 msgstr "Přejít na: %1"
 
-#: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:188
+#: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:189
 #, kde-format
 msgid "Git Hosting"
 msgstr "Hosting Git"
 
-#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:875
-#: kateprojectpluginview.cpp:905
+#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
+#: kateprojectpluginview.cpp:922
 #, kde-format
 msgid "Open on Git Hosting Service"
 msgstr "Otevřít na hostitelské službě Git"
 
-#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:871
+#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
 #, kde-format
 msgid "Copy Git Hosting Link"
 msgstr "Zkopírovat odkaz na hosting Git"
@@ -1212,87 +1212,87 @@ msgstr "Zkopírovat odkaz na hosting Git"
 msgid "Projects Index"
 msgstr "Index projektu"
 
-#: kateprojectpluginview.cpp:870 kateprojecttreeviewcontextmenu.cpp:189
+#: kateprojectpluginview.cpp:887 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
 msgstr "Vyhledávání služby pro hosting Git…"
 
-#: kateprojectpluginview.cpp:902 kateprojecttreeviewcontextmenu.cpp:202
+#: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
 msgid "Open on %1"
 msgstr "Otevřít v %1"
 
-#: kateprojectpluginview.cpp:903 kateprojecttreeviewcontextmenu.cpp:205
+#: kateprojectpluginview.cpp:920 kateprojecttreeviewcontextmenu.cpp:206
 #, kde-format
 msgid "Copy %1 Link"
 msgstr "Zkopírovat odkaz %1"
 
-#: kateprojectpluginview.cpp:968
+#: kateprojectpluginview.cpp:985
 #, kde-format
 msgid "Choose a directory"
 msgstr "Vyberte adresář"
 
-#: kateprojecttreeviewcontextmenu.cpp:53
+#: kateprojecttreeviewcontextmenu.cpp:54
 #, kde-format
 msgid "Enter name:"
 msgstr "Zadejte název:"
 
-#: kateprojecttreeviewcontextmenu.cpp:118
+#: kateprojecttreeviewcontextmenu.cpp:119
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopírovat umístění"
 
-#: kateprojecttreeviewcontextmenu.cpp:125
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "New File…"
 msgstr "Nový soubor…"
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:127
 #, kde-format
 msgid "New Folder…"
 msgstr "Nová složka…"
 
-#: kateprojecttreeviewcontextmenu.cpp:133
+#: kateprojecttreeviewcontextmenu.cpp:134
 #, kde-format
 msgid "&Rename"
 msgstr "&Přejmenovat"
 
-#: kateprojecttreeviewcontextmenu.cpp:144
+#: kateprojecttreeviewcontextmenu.cpp:145
 #, kde-format
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: kateprojecttreeviewcontextmenu.cpp:148
+#: kateprojecttreeviewcontextmenu.cpp:149
 #, kde-format
 msgid "Open With"
 msgstr "Otevřít pomocí"
 
-#: kateprojecttreeviewcontextmenu.cpp:156
+#: kateprojecttreeviewcontextmenu.cpp:157
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Otevřít interní terminál zde"
 
-#: kateprojecttreeviewcontextmenu.cpp:168
+#: kateprojecttreeviewcontextmenu.cpp:169
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Otevřít externí terminál zde"
 
-#: kateprojecttreeviewcontextmenu.cpp:174
+#: kateprojecttreeviewcontextmenu.cpp:175
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Otevřít odpovídající složku"
 
-#: kateprojecttreeviewcontextmenu.cpp:183
+#: kateprojecttreeviewcontextmenu.cpp:184
 #, kde-format
 msgid "Show Git History"
 msgstr "Zobrazit historii Gitu"
 
-#: kateprojecttreeviewcontextmenu.cpp:275
+#: kateprojecttreeviewcontextmenu.cpp:280
 #, kde-format
 msgid "New File"
 msgstr "Nový soubor"
 
-#: kateprojecttreeviewcontextmenu.cpp:280
+#: kateprojecttreeviewcontextmenu.cpp:285
 #, kde-format
 msgid "New Folder"
 msgstr "Nová složka"

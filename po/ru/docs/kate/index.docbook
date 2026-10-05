@@ -182,7 +182,7 @@
 >Введение</title>
 
 <para
->Добро пожаловать в &kate; — улучшенный текстовый редактор для программистов, который работает в среде &kde;. Настраиваемая подсветка синтаксических конструкций для широкого диапазона языков программирования (начиная от C, C++ и &HTML; и заканчивая сценариями bash), возможность создавать и разрабатывать проекты, многодокументный интерфейс (<acronym
+>Добро пожаловать в &kate; — текстовый редактор для программистов от &kde;. Настраиваемая подсветка синтаксических конструкций для широкого диапазона языков программирования (начиная от C, C++ и &HTML; и заканчивая сценариями bash), возможность создавать и разрабатывать проекты, многодокументный интерфейс (<acronym
 >MDI</acronym
 >), встроенный эмулятор терминала — вот лишь небольшая часть возможностей &kate;. </para>
 
@@ -195,7 +195,7 @@
 ><imagedata format="PNG" fileref="kate.png"/></imageobject>
 <caption
 ><para
->Редактирование этого руководства...</para
+>Редактирование этого руководства…</para
 ></caption>
 </mediaobject>
 </para>
@@ -208,7 +208,7 @@
 <title
 >Работа с редактором &kate;</title>
 <para
->Более подробные сведения об основах работы с компонентом редактирования &kate; доступны в разделе <ulink url="help:/katepart/kate-part.html"
+>Более подробные сведения об основах работы с компонентом редактора, на котором основан &kate;, доступны в разделе <ulink url="help:/katepart/kate-part.html"
 >«Работа с редактором &katepart;» руководства пользователя &katepart;</ulink
 >.</para>
 </chapter>
@@ -255,7 +255,7 @@
 >&Christoph.Cullmann; &Christoph.Cullmann.mail;</term>
 <listitem
 ><para
->Координатор проекта и ключевой разработчик</para
+>Координатор проекта и ведущий разработчик</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -263,7 +263,7 @@
 >&Anders.Lund; &Anders.Lund.mail;</term>
 <listitem
 ><para
->Ключевой разработчик, подсветка синтаксиса для языка Perl, документация</para
+>Ведущий разработчик, подсветка синтаксиса для языка Perl, документация</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -271,7 +271,7 @@
 >&Joseph.Wenninger; &Joseph.Wenninger.mail;</term>
 <listitem
 ><para
->Ключевой разработчик, подсветка синтаксиса</para
+>Ведущий разработчик, подсветка синтаксиса</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -281,7 +281,7 @@
 ></term>
 <listitem
 ><para
->Ключевой разработчик</para
+>Ведущий разработчик</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -309,7 +309,7 @@
 ></term>
 <listitem
 ><para
->Тестирование...</para
+>Тестирование…</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -319,7 +319,7 @@
 ></term>
 <listitem
 ><para
->Ключевой разработчик</para
+>Ведущий разработчик</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -464,7 +464,7 @@
 >Per Wigren</term>
 <listitem
 ><para
->Подсветка файлов сборки, а также для Python</para
+>Подсветка для Makefile и Python</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -492,23 +492,23 @@
 >Авторские права на документацию: &copy; &Anders.Lund; &Anders.Lund.mail;, 2002, 2003, 2005</para>
 
 <para
->Перевод на русский язык: Андрей Балагута <email
+>Перевод на русский язык: Андрей Балагута, <email
 >uj2@mail.ru</email
 ></para
 ><para
->Редакция и обновление перевода: Николай Шафоростов <email
+>Редакция и обновление перевода: Николай Шафоростов, <email
 >shafff@ukr.net</email
 ></para
 ><para
->Обновление перевода: Алексей Опарин <email
+>Обновление перевода: Алексей Опарин, <email
 >opaleksej@yandex.ru</email
 ></para
 > <para
->Обновление перевода: Мария Шикунова<email
+>Обновление перевода: Мария Шикунова, <email
 >translation-team@basealt.ru</email
 ></para
 ><para
->Редактирование перевода: Олеся Герасименко<email
+>Редактирование перевода: Олеся Герасименко, <email
 >translation-team@basealt.ru</email
 ></para
 > &underFDL; &underGPL; </chapter>

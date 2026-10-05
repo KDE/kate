@@ -116,7 +116,7 @@ msgstr "класс"
 #: ctagskinds.cpp:41
 msgctxt "Tag Type"
 msgid "enumerator"
-msgstr "счётчик"
+msgstr "элемент перечисления"
 
 #: ctagskinds.cpp:43
 msgctxt "Tag Type"
@@ -257,7 +257,7 @@ msgstr "mixin"
 #: ctagskinds.cpp:103
 msgctxt "Tag Type"
 msgid "set"
-msgstr "указать"
+msgstr "множество"
 
 #: gotosymbolmodel.cpp:67
 #, kde-format
@@ -285,7 +285,7 @@ msgstr ""
 #: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
-msgstr "Файл для '%1' не найден"
+msgstr "Файл для «%1» не найден."
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:36
@@ -352,12 +352,12 @@ msgstr "..."
 #: kate_ctags_plugin.cpp:75 kate_ctags_view.cpp:117
 #, kde-format
 msgid "Add a directory to index."
-msgstr "Добавить каталог в индекс"
+msgstr "Добавить папку в индекс"
 
 #: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:120
 #, kde-format
 msgid "Remove a directory."
-msgstr "Удалить каталог из индекса"
+msgstr "Удалить папку из индекса"
 
 #: kate_ctags_plugin.cpp:81
 #, kde-format
@@ -399,7 +399,7 @@ msgstr "Перейти на шаг назад"
 #: kate_ctags_view.cpp:69
 #, kde-format
 msgid "Go to Declaration"
-msgstr "Перейти к декларации"
+msgstr "Перейти к объявлению"
 
 #: kate_ctags_view.cpp:73
 #, kde-format
@@ -415,7 +415,7 @@ msgstr "Поиск текущего текста"
 #: kate_ctags_view.cpp:81
 #, kde-format
 msgid "Configure ..."
-msgstr "Настроить..."
+msgstr "Настроить…"
 
 #: kate_ctags_view.cpp:96
 #, kde-format
@@ -426,7 +426,7 @@ msgstr "Настройка модуля CTags"
 #: kate_ctags_view.cpp:107 kate_ctags_view.cpp:196
 #, kde-format
 msgid "Go to Declaration: %1"
-msgstr "Перейти к декларации: %1"
+msgstr "Перейти к объявлению: %1"
 
 #: kate_ctags_view.cpp:108 kate_ctags_view.cpp:197
 #, kde-format

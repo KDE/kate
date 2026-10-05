@@ -179,7 +179,7 @@ msgstr "KWrite"
 #: kwrite/main.cpp:48
 #, kde-format
 msgid "KWrite - Text Editor"
-msgstr "KWrite - Текстовый редактор KDE"
+msgstr "KWrite — текстовый редактор"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
 #: lib/filehistorywidget.cpp:467 lib/kateconfigplugindialogpage.cpp:109
@@ -229,7 +229,7 @@ msgstr "Фиксация %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr "Временная панель %1"
+msgstr "Запасник %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -241,7 +241,7 @@ msgstr "&Файл"
 #: lib/data/kateui.rc:31
 #, kde-format
 msgid "File Act&ions"
-msgstr "Действия c &файлами"
+msgstr "Действия с &файлами"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:45
@@ -684,7 +684,7 @@ msgstr "Журнал — %1"
 #: lib/jsonsettings.cpp:30
 #, kde-format
 msgid "User Settings"
-msgstr "Настройки пользователя"
+msgstr "Параметры пользователя"
 
 #: lib/jsonsettings.cpp:39
 #, kde-format
@@ -724,7 +724,7 @@ msgid ""
 msgstr ""
 "Запуск этого редактора с правами суперпользователя может привести к "
 "появлению ошибок и уязвимостей. Рекомендуется использовать редактор в "
-"обычном режиме; в случае необходимости программа предложит включить режим "
+"обычном режиме; в случае необходимости редактор предложит включить режим "
 "суперпользователя при сохранении документов."
 
 #: lib/kateapp.cpp:154
@@ -735,7 +735,7 @@ msgid ""
 msgstr ""
 "Запуск этого редактора с помощью kdesu может привести к появлению ошибок и "
 "уязвимостей. Рекомендуется использовать редактор в обычном режиме; в случае "
-"необходимости программа предложит включить режим суперпользователя при "
+"необходимости редактор предложит включить режим суперпользователя при "
 "сохранении документов."
 
 #: lib/kateapp.cpp:385
@@ -1095,8 +1095,8 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
-"Список из %1 отдельных каталогов, в которых Kate будет выполнять поиск "
-"программ для запуска. Этот список будет добавлен в начало переменной "
+"Список каталогов, разделённых символом «%1», в которых Kate будет выполнять "
+"поиск программ для запуска. Этот список будет добавлен в начало переменной "
 "окружения PATH. Например: «/home/USER/myapps/bin/:/home/USER/.local/bin»"
 
 #: lib/kateconfigdialog.cpp:144
@@ -1107,7 +1107,7 @@ msgstr "&Поведение"
 #: lib/kateconfigdialog.cpp:149
 #, kde-format
 msgid "Open each document in its own window"
-msgstr "Открыть каждый документ в отдельном окне"
+msgstr "Открывать каждый документ в отдельном окне"
 
 #: lib/kateconfigdialog.cpp:152
 #, kde-format
@@ -1254,7 +1254,7 @@ msgstr "Показывать кнопки закрытия на вкладках
 #: lib/kateconfigdialog.cpp:271
 #, kde-format
 msgid "&Expand tabs"
-msgstr "&Расширить вкладки"
+msgstr "&Растягивать вкладки"
 
 #: lib/kateconfigdialog.cpp:273
 #, kde-format
@@ -1264,7 +1264,7 @@ msgstr "Использовать максимально возможную ши�
 #: lib/kateconfigdialog.cpp:277
 #, kde-format
 msgid "&Double click opens a new document"
-msgstr "&Создать новый документ двойным щелчком"
+msgstr "&Создавать новый документ двойным щелчком"
 
 #: lib/kateconfigdialog.cpp:279
 #, kde-format
@@ -1274,7 +1274,7 @@ msgstr "Создавать новый документ двойным щелчк
 #: lib/kateconfigdialog.cpp:283
 #, kde-format
 msgid "&Middle click closes a document"
-msgstr "Закрытие документа средней кнопкой мыши"
+msgstr "&Закрывать документ щелчком средней кнопки мыши"
 
 #: lib/kateconfigdialog.cpp:285
 #, kde-format
@@ -1306,7 +1306,7 @@ msgstr "Текст вкладок может быть сокращён, если
 #: lib/kateconfigdialog.cpp:301
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr "Открывать новые вкладки справа от текущей."
+msgstr "Открывать новые вкладки справа от текущей"
 
 #: lib/kateconfigdialog.cpp:303
 #, kde-format
@@ -1382,7 +1382,7 @@ msgstr "Показывать текущий символ на панели на�
 #: lib/kateconfigdialog.cpp:399
 #, kde-format
 msgid "Diagnostics limit:"
-msgstr "Ограничение сведений диагностки:"
+msgstr "Ограничение сведений диагностики:"
 
 #: lib/kateconfigdialog.cpp:404
 #, kde-format
@@ -1479,8 +1479,8 @@ msgid ""
 "Here you can see all available Kate plugins. Those with a check mark are "
 "loaded, and will be loaded again the next time Kate is started."
 msgstr ""
-"Здесь показаны все доступные модули Kate. После включении флажка у "
-"соответствующего модуля он будет загружен при следующем запуске Kate."
+"Здесь показаны все доступные модули Kate. Модули, отмеченные флажком, "
+"загружены и будут загружены снова при следующем запуске Kate."
 
 #: lib/kateconfigplugindialogpage.cpp:82
 #, kde-format
@@ -1500,7 +1500,7 @@ msgstr "Запуск"
 #: lib/katedocmanager.cpp:353
 #, kde-format
 msgid "Reopening files from the last session..."
-msgstr "Открываются файлы последнего сеанса..."
+msgstr "Открываются файлы последнего сеанса…"
 
 #: lib/katedocmanager.cpp:528
 #, kde-format
@@ -1675,13 +1675,13 @@ msgstr "Копировать имя файла"
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr "&Открыть содержащую папку"
+msgstr "&Открыть папку с файлом"
 
 #: lib/katemainwindow.cpp:491
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Переименовать..."
+msgstr "Переименовать…"
 
 #: lib/katemainwindow.cpp:496
 #, kde-format
@@ -1718,7 +1718,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:521
 #, kde-format
 msgid "Shows a hint how to compare documents."
-msgstr "Показывать подсказку как сравнить два документа."
+msgstr "Показать подсказку о том, как сравнить документы."
 
 #: lib/katemainwindow.cpp:524
 #, kde-format
@@ -1772,7 +1772,7 @@ msgstr "Снова открыть документ или документы, к
 #: lib/katemainwindow.cpp:550
 #, kde-format
 msgid "Close &Window"
-msgstr "Закрыть окно"
+msgstr "Закрыть о&кно"
 
 #: lib/katemainwindow.cpp:554
 #, kde-format
@@ -1797,7 +1797,7 @@ msgstr "Создать окно."
 #: lib/katemainwindow.cpp:577
 #, kde-format
 msgid "Open W&ith"
-msgstr "Открыть &в"
+msgstr "Открыть с &помощью"
 
 #: lib/katemainwindow.cpp:579
 #, kde-format
@@ -1811,7 +1811,7 @@ msgstr ""
 #: lib/katemainwindow.cpp:587
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
-msgstr "Настройка привязок «горячих» клавиш."
+msgstr "Настройка комбинаций клавиш приложения."
 
 #: lib/katemainwindow.cpp:590
 #, kde-format
@@ -1822,7 +1822,7 @@ msgstr "Выбор элементов для размещения на пане�
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
-msgstr "Настройка различных параметров программы."
+msgstr "Настройка различных параметров приложения и компонента редактирования."
 
 #: lib/katemainwindow.cpp:597
 #, kde-format
@@ -1837,7 +1837,7 @@ msgstr "Вывести справочную информацию по досту
 #: lib/katemainwindow.cpp:620
 #, kde-format
 msgid "Sess&ions"
-msgstr "Се&анс"
+msgstr "Се&ансы"
 
 #: lib/katemainwindow.cpp:626
 #, kde-format
@@ -1858,7 +1858,7 @@ msgstr "&Все сеансы"
 #: lib/katemainwindow.cpp:643
 #, kde-format
 msgid "&Manage Sessions..."
-msgstr "&Управление сеансами..."
+msgstr "&Управление сеансами…"
 
 #: lib/katemainwindow.cpp:652
 #, kde-format
@@ -1868,7 +1868,7 @@ msgstr "&Сохранить сеанс"
 #: lib/katemainwindow.cpp:658
 #, kde-format
 msgid "Save Session &As..."
-msgstr "Сохранить сеанс &как..."
+msgstr "Сохранить сеанс &как…"
 
 #: lib/katemainwindow.cpp:666
 #, kde-format
@@ -1960,7 +1960,7 @@ msgstr "Скрытие строки меню"
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
-msgstr "Открыть все файлы из каталога «%1»?"
+msgstr "Открыть все файлы из папки «%1»?"
 
 #: lib/katemainwindow.cpp:1184
 #, kde-format
@@ -1982,7 +1982,7 @@ msgstr " [только для чтения]"
 #: lib/katemdi.cpp:83
 #, kde-format
 msgid "Toolview Manager"
-msgstr "Управление модулями"
+msgstr "Управление боковыми панелями"
 
 #: lib/katemdi.cpp:101
 #, kde-format
@@ -1992,7 +1992,7 @@ msgstr "Кнопки боковой панели"
 #: lib/katemdi.cpp:104
 #, kde-format
 msgid "Focus Toolview"
-msgstr "Быстрый переход"
+msgstr "Перейти в боковую панель"
 
 #: lib/katemdi.cpp:107
 #, kde-format
@@ -2095,7 +2095,7 @@ msgid ""
 msgstr ""
 "<qt>Вы скрыли боковые панели. Получить прямой доступ к скрытым панелям с "
 "помощью мыши теперь невозможно. Чтобы вернуть их, воспользуйтесь пунктом "
-"меню <b>Вид &gt; Боковые панели &gt; Показывать боковые панели</b>. Кроме "
+"меню <b>Вид &gt; Боковые панели &gt; Показать боковые панели</b>. Кроме "
 "того, можно получить доступ к разным боковым панелям с помощью "
 "предварительно заданных комбинаций клавиш.</qt>"
 
@@ -2142,7 +2142,7 @@ msgstr "Удалён"
 #: lib/katemwmodonhddialog.cpp:107
 #, kde-format
 msgid "&View Difference"
-msgstr "&Просмотреть различие"
+msgstr "&Просмотреть различия"
 
 #: lib/katemwmodonhddialog.cpp:108
 #, kde-format
@@ -2166,7 +2166,7 @@ msgstr "Удалить метку «Изменён» для выбранных �
 #: lib/katemwmodonhddialog.cpp:123
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
-msgstr "Переписать выбранные документы, отклонить изменения на диске."
+msgstr "Перезаписать выбранные документы, отменив изменения на диске."
 
 #: lib/katemwmodonhddialog.cpp:127
 #, kde-format
@@ -2309,7 +2309,7 @@ msgstr "&Выбрать все"
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
 "want to proceed."
-msgstr "Не удаётся сохранить данные."
+msgstr "Не удаётся сохранить данные. Выберите дальнейшее действие."
 
 #: lib/kateurlbar.cpp:915
 #, kde-format
@@ -2337,7 +2337,7 @@ msgstr "Разделить по &вертикали"
 #: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Split the currently active view vertically into two views."
-msgstr "Разделить текущую створку окна на две вертикальных"
+msgstr "Разделить текущую створку окна на две вертикальные"
 
 #: lib/kateviewmanager.cpp:158
 #, kde-format
@@ -2347,7 +2347,7 @@ msgstr "Разделить по &горизонтали"
 #: lib/kateviewmanager.cpp:162
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
-msgstr "Разделить текущую створку окна на две горизонтальных"
+msgstr "Разделить текущую створку окна на две горизонтальные"
 
 #: lib/kateviewmanager.cpp:166
 #, kde-format
@@ -2360,7 +2360,7 @@ msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
 msgstr ""
-"Разделить текущую створку окна на две вертикальных и расположить активный "
+"Разделить текущую створку окна на две вертикальные и расположить активный "
 "документ в правой части"
 
 #: lib/kateviewmanager.cpp:175
@@ -2374,7 +2374,7 @@ msgid ""
 "Split the currently active view horizontally into two views and move the "
 "currently active document to view below."
 msgstr ""
-"Разделить текущую створку окна на две горизонтальных и расположить активный "
+"Разделить текущую створку окна на две горизонтальные и расположить активный "
 "документ в нижней части"
 
 #: lib/kateviewmanager.cpp:184
@@ -2440,42 +2440,42 @@ msgstr "Перейти в предыдущую створку окна"
 #: lib/kateviewmanager.cpp:228
 #, kde-format
 msgid "Left Split View"
-msgstr "Открыть створку слева"
+msgstr "Створка слева"
 
 #: lib/kateviewmanager.cpp:233
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr "Разделить область просмотра, открыв створку слева от активного окна"
+msgstr "Перейти в створку слева от активной"
 
 #: lib/kateviewmanager.cpp:236
 #, kde-format
 msgid "Right Split View"
-msgstr "Открыть створку справа"
+msgstr "Створка справа"
 
 #: lib/kateviewmanager.cpp:241
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr "Разделить область просмотра, открыв створку справа от активного окна"
+msgstr "Перейти в створку справа от активной"
 
 #: lib/kateviewmanager.cpp:244
 #, kde-format
 msgid "Upward Split View"
-msgstr "Открыть створку сверху"
+msgstr "Створка сверху"
 
 #: lib/kateviewmanager.cpp:249
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr "Разделить область просмотра, открыв створку сверху от активного окна"
+msgstr "Перейти в створку сверху от активной"
 
 #: lib/kateviewmanager.cpp:252
 #, kde-format
 msgid "Downward Split View"
-msgstr "Открыть створку снизу"
+msgstr "Створка снизу"
 
 #: lib/kateviewmanager.cpp:257
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr "Разделить область просмотра, открыв створку снизу от активного окна"
+msgstr "Перейти в створку снизу от активной"
 
 #: lib/kateviewmanager.cpp:260
 #, kde-format
@@ -2485,7 +2485,7 @@ msgstr "Переместить разделитель вправо"
 #: lib/kateviewmanager.cpp:263
 #, kde-format
 msgid "Move the splitter of the current view to the right"
-msgstr "Переместить разделитель текущего документа вправо"
+msgstr "Переместить разделитель текущей створки вправо"
 
 #: lib/kateviewmanager.cpp:266
 #, kde-format
@@ -2495,7 +2495,7 @@ msgstr "Переместить разделитель влево"
 #: lib/kateviewmanager.cpp:269
 #, kde-format
 msgid "Move the splitter of the current view to the left"
-msgstr "Переместить разделитель текущего документа влево"
+msgstr "Переместить разделитель текущей створки влево"
 
 #: lib/kateviewmanager.cpp:272
 #, kde-format
@@ -2505,7 +2505,7 @@ msgstr "Переместить разделитель вверх"
 #: lib/kateviewmanager.cpp:275
 #, kde-format
 msgid "Move the splitter of the current view up"
-msgstr "Переместить разделитель текущего документа вверх"
+msgstr "Переместить разделитель текущей створки вверх"
 
 #: lib/kateviewmanager.cpp:278
 #, kde-format
@@ -2515,7 +2515,7 @@ msgstr "Переместить разделитель вниз"
 #: lib/kateviewmanager.cpp:281
 #, kde-format
 msgid "Move the splitter of the current view down"
-msgstr "Переместить разделитель текущего документа вниз"
+msgstr "Переместить разделитель текущей створки вниз"
 
 #: lib/kateviewmanager.cpp:284
 #, kde-format
@@ -2590,7 +2590,7 @@ msgstr "Не найден подключаемый модуль для откр�
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
-"Для открытия папок необходимо включить подключаемый модуль<b>%1</b>. "
+"Для открытия папок необходимо включить подключаемый модуль <b>%1</b>. "
 "Включить его?"
 
 #: lib/kateviewmanager.cpp:621
@@ -2624,7 +2624,9 @@ msgstr "Синхронизировать прокрутку"
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
-msgstr "Синхронизировать прокрутку панелей разделённого экрана"
+msgstr ""
+"Синхронизировать прокрутку этой створки с другими синхронизированными "
+"створками"
 
 #: lib/kateviewspace.cpp:131
 #, kde-format
@@ -2681,7 +2683,7 @@ msgstr "Закрыть &все вкладки"
 #: lib/kateviewspace.cpp:1189
 #, kde-format
 msgid "D&etach Document"
-msgstr "Открыть в новом окне"
+msgstr "Открыть в новом &окне"
 
 #: lib/kateviewspace.cpp:1194
 #, kde-format
@@ -2809,7 +2811,7 @@ msgstr "Восстановить"
 #: lib/session/katesessionmanagedialog.cpp:316
 #, kde-format
 msgid "Session will be deleted on dialog close"
-msgstr "При закрытии диалога сеансы будут удалены"
+msgstr "При закрытии диалога сеанс будет удалён"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
 #: lib/session/katesessionmanagedialog.ui:30
@@ -2865,13 +2867,13 @@ msgstr "Больше не спрашивать"
 #: lib/session/katesessionmanagedialog.ui:134
 #, kde-format
 msgid "Duplicate..."
-msgstr "Создать копию..."
+msgstr "Создать копию…"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
 #: lib/session/katesessionmanagedialog.ui:141
 #, kde-format
 msgid "&Rename..."
-msgstr "&Переименовать..."
+msgstr "&Переименовать…"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
 #: lib/session/katesessionmanagedialog.ui:161
@@ -2914,7 +2916,7 @@ msgstr "Не удалось переименовать сеанс в «%1»: о�
 #: lib/session/katesessionmanager.cpp:367
 #, kde-format
 msgid "Session Renaming"
-msgstr "Переименовании сеанса"
+msgstr "Переименование сеанса"
 
 #: lib/session/katesessionmanager.cpp:535
 #, kde-format
@@ -2933,7 +2935,7 @@ msgstr ""
 #: lib/session/katesessionmanager.cpp:539
 #, kde-format
 msgid "To save a session, you must specify a name."
-msgstr "Для сохранения сеанса вы должны указать имя сеанса."
+msgstr "Для сохранения сеанса необходимо указать имя сеанса."
 
 #: lib/session/katesessionmanager.cpp:566
 #, kde-format
@@ -3015,20 +3017,20 @@ msgid ""
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
 "При включении этого параметра после закрытия последнего открытого файла "
-"будет выполнен выход из программы. В противоположном случае программа "
-"откроет пустой документ и продолжит работу."
+"будет выполнен выход из приложения. В противном случае приложение откроет "
+"пустой документ и продолжит работу."
 
 #. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:101
 #, kde-format
 msgid "Close the application entirely when the last file is closed"
-msgstr "Закрывать программу после закрытия всех открытых файлов"
+msgstr "Закрывать приложение после закрытия всех открытых файлов"
 
 #. i18n: ectx: property (text), widget (QCheckBox, winClosesDocuments)
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr "Закрывать все документы в окне"
+msgstr "Закрывать документы вместе с их окном"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
@@ -3062,7 +3064,7 @@ msgid ""
 "the application."
 msgstr ""
 "Включите этот параметр, чтобы восстанавливать расположение элементов "
-"интерфейса при запуске программы."
+"интерфейса при запуске приложения."
 
 #. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:167
@@ -3078,9 +3080,9 @@ msgid ""
 "be saved past editor sessions. The configuration will be restored if the "
 "document has not changed when reopened."
 msgstr ""
-"Включите эту опцию, чтобы сохранять параметры сеанса, такие как "
-"установленные отметки. Эти параметры настройки будут восстановлены, если "
-"документ не изменится с момента последнего редактирования."
+"Включите этот параметр, чтобы сохранять параметры документа, например "
+"закладки. Эти параметры настройки будут восстановлены, если документ не "
+"изменится с момента последнего редактирования."
 
 #. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
 #: lib/ui/sessionconfigwidget.ui:180
@@ -3112,12 +3114,12 @@ msgstr "Последние документы"
 #: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents or projects"
-msgstr "Нет ни одного последнего документа или проекта"
+msgstr "Нет недавних документов и проектов"
 
 #: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents"
-msgstr "Нет ни одного последнего документа"
+msgstr "Нет недавних документов"
 
 #: lib/welcomeview/welcomeview.cpp:118
 #, kde-format

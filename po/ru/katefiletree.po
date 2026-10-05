@@ -76,7 +76,7 @@ msgstr "Развернуть рекурсивно"
 #: katefiletree.cpp:324
 #, kde-format
 msgid "Expand the file list sub tree recursively."
-msgstr "Развернуть рекурсивно поддерево с списке документов."
+msgstr "Развернуть рекурсивно поддерево в списке документов."
 
 #: katefiletree.cpp:326
 #, kde-format
@@ -87,7 +87,7 @@ msgstr "Свернуть рекурсивно"
 #: katefiletree.cpp:328
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
-msgstr "Свернуть рекурсивно поддерево с списке документов."
+msgstr "Свернуть рекурсивно поддерево в списке документов."
 
 #: katefiletree.cpp:330
 #, kde-format
@@ -104,7 +104,7 @@ msgstr "Закрыть остальные открытые документы в
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
-msgstr "Открыть содержащую папку"
+msgstr "Открыть папку с файлом"
 
 #: katefiletree.cpp:337
 #, kde-format
@@ -120,13 +120,13 @@ msgstr "Копировать расположение"
 #: katefiletree.cpp:341
 #, kde-format
 msgid "Copy path and filename to the clipboard."
-msgstr "Копировать путь к файлу и его имя буфер обмена."
+msgstr "Копировать путь к файлу и его имя в буфер обмена."
 
 #: katefiletree.cpp:343
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Переименовать..."
+msgstr "Переименовать…"
 
 #: katefiletree.cpp:345
 #, kde-format
@@ -136,7 +136,7 @@ msgstr "Переименовать выбранный файл."
 #: katefiletree.cpp:348
 #, kde-format
 msgid "Print selected document."
-msgstr "Напечатанный выбранный документ."
+msgstr "Напечатать выбранный документ."
 
 #: katefiletree.cpp:351
 #, kde-format
@@ -229,7 +229,7 @@ msgstr "Сбросить историю открытия файлов и пер�
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
-msgstr "Открыть с помощью..."
+msgstr "Открыть с помощью"
 
 #: katefiletree.cpp:433
 #, kde-format
@@ -326,7 +326,7 @@ msgstr "Показывать кнопку закрытия при наведен
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr "Нажатие средней кнопки мыши для закрытия документов"
+msgstr "Закрывать документы щелчком средней кнопки мыши"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -336,8 +336,8 @@ msgid ""
 "recent documents have the strongest shade."
 msgstr ""
 "При включении подсветки фона документы, просмотренные или изменённые в "
-"текущем сеансе, будут иметь затенённый фон. Последние документы будут "
-"выделены этим цветом."
+"текущем сеансе, будут иметь затенённый фон. Чем позже открыт документ, тем "
+"ярче подсветка."
 
 #: katefiletreeconfigpage.cpp:108
 #, kde-format
@@ -351,7 +351,8 @@ msgid ""
 "for viewed files. The most recently edited documents get most of this color."
 msgstr ""
 "Задать цвет для изменённых документов. Этот цвет будет смешиваться с цветом "
-"просматриваемых файлов. Последние документы будут выделены этим цветом."
+"просматриваемых файлов. Чем позже изменён документ, тем больше доля этого "
+"цвета."
 
 #: katefiletreeconfigpage.cpp:115
 #, kde-format
@@ -380,7 +381,7 @@ msgstr "Документы"
 #: katefiletreeconfigpage.cpp:159
 #, kde-format
 msgid "Configure Documents"
-msgstr "Управление документами"
+msgstr "Параметры панели документов"
 
 #: katefiletreemodel.cpp:498
 #, kde-format

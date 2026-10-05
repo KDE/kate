@@ -83,7 +83,7 @@ msgstr "Параметры выбора цвета"
 #: katecolorpickerplugin.cpp:255
 #, kde-format
 msgid "Select Color (Hex output)"
-msgstr "Выбор цвета (вывод в шестнадцатеричном системе)"
+msgstr "Выбор цвета (вывод в шестнадцатеричном виде)"
 
 #: katecolorpickerplugin.cpp:258
 #, kde-format

@@ -80,7 +80,7 @@ msgstr "Закрыть только"
 #: close_except_plugin.cpp:78
 #, kde-format
 msgid "Close Except/Like Plugin"
-msgstr "Закрыть кроме/только..."
+msgstr "Закрыть кроме/только…"
 
 #: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
@@ -92,7 +92,7 @@ msgstr "Ошибка"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
-msgstr "Закрывать нечего..."
+msgstr "Закрывать нечего…"
 
 #: close_except_plugin.cpp:260
 #, kde-format

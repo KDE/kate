@@ -35,7 +35,7 @@ msgstr "Использование: newGrep [шаблон для поиска в
 #: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
-msgstr "Использование: grep [шаблон для поиска в открытых файлах]"
+msgstr "Использование: search [шаблон для поиска в открытых файлах]"
 
 #: KateSearchCommand.cpp:100
 #, kde-format
@@ -51,7 +51,7 @@ msgstr "Использование: newPGrep [шаблон для поиска �
 #, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
 msgstr ""
-"Использование: pgrep [шаблон регулярного выражения для поиска в текущем "
+"Использование: preg [шаблон регулярного выражения для поиска в текущем "
 "проекте]"
 
 #: MatchExportDialog.cpp:20
@@ -83,7 +83,7 @@ msgstr "Результат"
 #: MatchModel.cpp:562 MatchModel.cpp:564
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
-msgstr "<b><i>Создание списка файлов: %1</i></b>"
+msgstr "<b><i>Создание списка файлов: …%1</i></b>"
 
 #: MatchModel.cpp:572
 #, kde-format
@@ -299,8 +299,9 @@ msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
 "by using the buttons in the search and replace text fields.</p></body></html>"
 msgstr ""
-"<html><head/><body>Использовать регулярные выражения. Для получения справки "
-"по синтаксису регулярых выражений используйте кнопки в текстовых полях  по"
+"<html><head/><body><p>Использовать регулярные выражения. Для получения "
+"справки по синтаксису регулярных выражений используйте кнопки в полях поиска "
+"и замены.</p></body></html>"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
 #: search.ui:163
@@ -668,7 +669,7 @@ msgstr "Поиск"
 #: SearchPlugin.cpp:1174
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
-msgstr "Поиск не был начат, так как указанный каталог «%1» не существует."
+msgstr "Поиск не был начат, так как указанная папка «%1» не существует."
 
 #: SearchPlugin.cpp:1347
 #, kde-format
@@ -684,7 +685,7 @@ msgstr "Совпадения поиска"
 #: SearchPlugin.cpp:1857 SearchPlugin.cpp:1933
 #, kde-format
 msgid "Next from cursor"
-msgstr "Начать справа от курсора"
+msgstr "Начать от курсора"
 
 #: SearchPlugin.cpp:1874
 #, kde-format
@@ -756,7 +757,7 @@ msgstr "Очистить журнал"
 #: SearchPlugin.cpp:2413 SearchPlugin.cpp:2454
 #, kde-format
 msgid "Add..."
-msgstr "Добавить..."
+msgstr "Добавить…"
 
 #: SearchPlugin.cpp:2425
 #, kde-format

@@ -47,7 +47,7 @@ msgstr "Отвязать предварительный просмотр от д
 #: previewwidget.cpp:53
 #, kde-format
 msgid "Automatically Update Preview"
-msgstr "Автоматическое обновление окна"
+msgstr "Автоматически обновлять предварительный просмотр"
 
 #: previewwidget.cpp:54
 #, kde-format
@@ -59,7 +59,7 @@ msgstr ""
 #: previewwidget.cpp:55
 #, kde-format
 msgid "Manually Update Preview"
-msgstr "Ручное обновление окна"
+msgstr "Обновлять предварительный просмотр вручную"
 
 #: previewwidget.cpp:57
 #, kde-format
@@ -72,7 +72,7 @@ msgstr ""
 #: previewwidget.cpp:62
 #, kde-format
 msgid "Update Preview"
-msgstr "Обновить окно"
+msgstr "Обновить предварительный просмотр"
 
 #: previewwidget.cpp:63
 #, kde-format

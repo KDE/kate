@@ -34,7 +34,7 @@ msgstr "Поиск"
 #: katefilebrowser.cpp:118
 #, kde-format
 msgid "Enter a name filter to limit which files are displayed."
-msgstr "Введите имя фильтра для ограничения количества отображаемых файлов."
+msgstr "Введите имя фильтра для ограничения количества показываемых файлов."
 
 #: katefilebrowser.cpp:297
 #, kde-format
@@ -110,7 +110,7 @@ msgstr "Просмотр файловой системы"
 #: katefilebrowserconfig.cpp:89
 #, kde-format
 msgid "Filesystem Browser Settings"
-msgstr "Просмотр файловой системы"
+msgstr "Параметры просмотра файловой системы"
 
 #: katefilebrowserplugin.cpp:66
 #, kde-format

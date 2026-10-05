@@ -77,7 +77,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
-msgstr "Применить заданный командой &фильтр..."
+msgstr "Применить заданный командой &фильтр…"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, TextFilterWidget)
 #: textfilterwidget.ui:14

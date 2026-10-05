@@ -40,7 +40,7 @@
 ></term>
 <listitem>
 <para
->Создаёт новое окно с текущим документом. Все изменения документа, выполненные в одном из окон, также отображаются и в другом.</para>
+>Создаёт новое окно с текущим документом. Все изменения документа, выполненные в одном из окон, также отражаются и в другом.</para>
 </listitem>
 </varlistentry>
 
@@ -56,7 +56,7 @@
 > <guimenu
 >Файл</guimenu
 > <guimenuitem
->Открыть...</guimenuitem
+>Открыть…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -117,7 +117,7 @@
 > <guimenu
 >Файл</guimenu
 > <guimenuitem
->Сохранить как...</guimenuitem
+>Сохранить как…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -134,7 +134,7 @@
 ><guimenu
 >Файл</guimenu
 > <guimenuitem
->Сохранить в другой кодировке...</guimenuitem
+>Сохранить в другой кодировке…</guimenuitem
 > </menuchoice>
 </term
 ><listitem>
@@ -149,12 +149,12 @@
 ><guimenu
 >Файл</guimenu
 > <guimenuitem
->Сохранить копию как...</guimenuitem
+>Сохранить копию как…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
->Сохраняет документ в другой файл; возможно продолжить редактировать оригинальный документ.</para>
+>Сохраняет документ в другой файл; редактирование исходного документа продолжается.</para>
 </listitem>
 </varlistentry>
 
@@ -191,12 +191,12 @@
 > <guimenu
 >Файл</guimenu
 ><guimenuitem
->Печать...</guimenuitem
+>Печать…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
->Открывает диалог распечатки текущего документа, позволяющий пользователю указать параметры печати. </para>
+>Открывает диалог печати текущего документа, позволяющий пользователю указать параметры печати. </para>
 </listitem>
 </varlistentry>
 
@@ -208,7 +208,7 @@
 ><guimenu
 >Файл</guimenu
 > <guimenuitem
->Экспорт в HTML...</guimenuitem
+>Экспорт в HTML…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -293,7 +293,7 @@
 >Отменяет последнюю команду редактирования (ввод, копирование, вырезание и так далее).</para>
 <note
 ><para
->Если включён режим группировки отмены, эта команда отменяет несколько однотипных команд вроде ввода символов.</para
+>Может отменить сразу несколько однотипных команд, например ввод символов.</para
 ></note>
 </listitem>
 </varlistentry>
@@ -357,7 +357,7 @@
 ></term>
 <listitem>
 <para
->Копирует текущий выбранный текст в буфер обмена, чтобы его было возможно вставить в другое место. Буфер обмена работает незаметно и позволяет передавать данные между приложениями.</para>
+>Копирует текущий выделенный текст в буфер обмена, чтобы его было можно вставить в другое место. Буфер обмена работает незаметно и позволяет передавать данные между приложениями.</para>
 </listitem>
 </varlistentry>
 
@@ -372,7 +372,7 @@
 ></term>
 <listitem>
 <para
->Сохраняет текущий документ в качестве файла &HTML;, отформатированного согласно текущим параметрам подсветки синтаксиса и цветовой схемы.</para>
+>Копирует выделенный фрагмент в формате &HTML; с оформлением согласно текущим параметрам подсветки синтаксиса и цветовой схемы.</para>
 </listitem>
 </varlistentry>
 
@@ -416,7 +416,7 @@
 ></term>
 <listitem>
 <para
->Будет вставлено содержимое ранее выбранного <ulink url="https://ru.wikipedia.org/wiki/Буфер_обмена#Просмотр_содержимого_буфера_обмена_в_ОС_Windows"
+>Будет вставлено содержимое ранее выбранного <ulink url="https://en.wikipedia.org/wiki/Clipboard_(computing)#X_Window_System"
 >выделения мышью</ulink
 >. Выделите какой-либо текст указателем мыши, чтобы вставить его в текущий открытый файл с помощью этого пункта меню.</para>
 </listitem>
@@ -428,12 +428,12 @@
 ><guimenu
 >Правка</guimenu
 > <guimenuitem
->Вставить с заменой буфера обмена выделением</guimenuitem
+>Обменять с содержимым буфера обмена</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
->Выделенный текст будет заменён содержимым <ulink url="https://ru.wikipedia.org/wiki/Буфер_обмена#Просмотр_содержимого_буфера_обмена_в_ОС_Windows"
+>Меняет местами выделенный текст и содержимое <ulink url="https://en.wikipedia.org/wiki/Clipboard_(computing)#X_Window_System"
 >буфера обмена</ulink
 >.</para>
 </listitem>
@@ -465,10 +465,10 @@
 ></term>
 <listitem>
 <para
->Переключает между обычным режимом ввода и режимом Vi. В режиме ввода Vi поддерживаются наиболее часто используемые команды и движения из обычного и визуального режима vim и отображается дополнительная строка состояния режима Vi. Строка состояния показывает команды во время их ввода, вывод команд и текущий режим. Поведение этого режима возможно настроить на вкладке <link linkend="pref-edit-vi-input-mode"
+>Переключает между обычным режимом ввода и режимом Vi. В режиме ввода Vi поддерживаются наиболее часто используемые команды и движения из обычного и визуального режима vim и показывается дополнительная строка состояния режима Vi. Строка состояния показывает команды во время их ввода, вывод команд и текущий режим. Поведение этого режима можно настроить на вкладке <link linkend="pref-edit-vi-input-mode"
 >«Режим ввода Vi»</link
 > страницы <guilabel
->«Редактирование»</guilabel
+>Редактирование</guilabel
 > диалога настройки этого приложения.</para>
 </listitem>
 </varlistentry>
@@ -527,9 +527,9 @@
 ></keycombo
 > </shortcut
 > <guimenu
-> Правка</guimenu
+>Правка</guimenu
 > <guimenuitem
->Найти...</guimenuitem
+>Найти…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -550,7 +550,7 @@
 <para
 >Обнаруженные в документе совпадения останутся выделенными даже после закрытия панели поиска. Чтобы снять это выделение, нажмите клавишу &Esc;.</para>
 <para
->Возможно указать, следует ли учитывать регистр при поиске. Если кнопка <inlinemediaobject
+>Можно указать, следует ли учитывать регистр при поиске. Если кнопка <inlinemediaobject
 ><imageobject
 ><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
@@ -668,14 +668,14 @@
 > <guimenu
 >Правка</guimenu
 > <guimenuitem
->Заменить...</guimenuitem
+>Заменить…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
 >Открывает панель расширенного поиска и замены. Слева от поля ввода текста расположена кнопка закрытия панели.</para>
 <para
->Режимом поиска возможно управлять с помощью следующих параметров, которые доступны в раскрывающемся списке: <guilabel
+>Режимом поиска можно управлять с помощью следующих параметров, которые доступны в раскрывающемся списке: <guilabel
 >Обычный текст</guilabel
 >, <guilabel
 >Только полные слова</guilabel
@@ -685,13 +685,13 @@
 >Регулярное выражение</guilabel
 >. </para>
 <para
->Если выбрана опция <guilabel
+>Если выбран режим <guilabel
 >Управляющие последовательности</guilabel
 > или <guilabel
 >Регулярное выражение</guilabel
 >, в конце контекстного меню поля ввода текста будет доступен пункт <guibutton
->Добавить...</guibutton
->. С его помощью к шаблону поиска или замены возможно добавить управляющие последовательности или регулярные выражения из предустановленных списков.</para>
+>Добавить…</guibutton
+>. С его помощью к шаблону поиска или замены можно добавить управляющие последовательности или регулярные выражения из предустановленных списков.</para>
 <para
 >Кнопки <inlinemediaobject
 ><imageobject
@@ -707,15 +707,15 @@
 >Заменить на</guilabel
 > и нажмите кнопку <guibutton
 >Заменить</guibutton
-> (будет заменено только текущее выделенное вхождение) <guibutton
+> (будет заменено только текущее выделенное вхождение) или <guibutton
 >Заменить все</guibutton
 > (будут заменены все вхождения в документе). </para>
 <para
->Чтобы изменить поведение функции поиска и замены, возможно выбрать другие параметры (они доступны в нижней части панели). Если кнопка <inlinemediaobject
+>Чтобы изменить поведение функции поиска и замены, можно выбрать другие параметры (они доступны в нижней части панели). Если кнопка <inlinemediaobject
 ><imageobject
 ><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
-> нажата, будет выполняться поиск только тех записей, которые соответствуют указанному регистру (верхнему или нижнему) всех символов шаблона поиска. Чтобы поиск и замена выполнялись только в пределах текущего выбранного фрагмента, должна быть нажата кнопка <inlinemediaobject
+> нажата, будет выполняться поиск только тех записей, которые соответствуют указанному регистру (верхнему или нижнему) всех символов шаблона поиска. Чтобы поиск и замена выполнялись только в пределах текущего выделенного фрагмента, должна быть нажата кнопка <inlinemediaobject
 ><imageobject
 ><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
@@ -802,7 +802,7 @@
 <para
 >Переключает режим выделения. Когда установлен режим <guilabel
 >Блок</guilabel
-> (он обозначается тестом «[Блок]» в строке состояния), возможно выполнять вертикальное выделение, например, выделить столбцы с пятого по десятый в строках 9-15.</para>
+> (он обозначается текстом «[Блок]» в строке состояния), можно выполнять вертикальное выделение, например, выделить столбцы с пятого по десятый в строках 9–15.</para>
 </listitem>
 </varlistentry>
 
@@ -937,7 +937,7 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem
 ><para
->Переводит заглавные буквы выделенного текста в верхний регистр.</para
+>Делает первую букву каждого слова выделенного текста (или текущего слова) прописной.</para
 ></listitem>
 </varlistentry>
 
@@ -1024,7 +1024,7 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem>
 <para
->Эта команда выравнивает строки в выбранном блоке или всём документе по позиции, которая указана регулярным выражением (программа выведет запрос на его ввод).</para>
+>Эта команда выравнивает строки в выделенном блоке или всём документе по позиции, которая указана регулярным выражением (его будет предложено ввести).</para>
 <para
 >Если указать пустой шаблон, выравнивание по умолчанию будет выполняться по первому непустому символу.</para>
 <para
@@ -1055,13 +1055,13 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem
 ><para
->Включает статический перенос строк в документе. Символ новой строки будет вставлен автоматически, когда текущая строка достигнет длины, указанной на вкладке <guilabel
+>Включает статический перенос строк в документе. Символ новой строки будет вставлен автоматически, когда текущая строка достигнет длины, указанной параметром <guilabel
 >Переносить слова на новую строку после</guilabel
-> (<menuchoice
+> на вкладке «Редактирование» (<menuchoice
 > <guimenu
 >Настройка</guimenu
 ><guimenuitem
->Настроить редактор...</guimenuitem
+>Настроить редактор…</guimenuitem
 ></menuchoice
 >).</para
 ></listitem>
@@ -1138,12 +1138,12 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Выделение</guimenu
 > <guimenuitem
->Найти и выбрать следующее вхождение</guimenuitem
+>Найти и выделить следующее вхождение</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Находит следующее вхождение текущего слова под курсором, выбирает его и добавляет курсор. </para
+>Находит следующее вхождение текущего слова под курсором, выделяет его и добавляет курсор. </para
 ></listitem>
 </varlistentry>
 
@@ -1159,12 +1159,12 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Выделение</guimenu
 > <guimenuitem
->Найти и выбрать все вхождения</guimenuitem
+>Найти и выделить все вхождения</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Находит все вхождения текущего слова под курсором, выбирает их и добавляет курсор для каждого из них. </para
+>Находит все вхождения текущего слова под курсором, выделяет их и добавляет курсор для каждого из них. </para
 ></listitem>
 </varlistentry>
 
@@ -1196,7 +1196,7 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem
 ><para
->Увеличивает размер шрифта текста документа</para
+>Увеличивает размер шрифта текста документа.</para
 ></listitem>
 </varlistentry>
 
@@ -1240,7 +1240,7 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem
 ><para
->Включает или отключает динамический перенос строк текущего документа. При динамическом переносе текст в окне возможно просматривать без горизонтального прокручивания, то есть строка, непрерывная на самом деле, для удобства делится на несколько.</para>
+>Включает или отключает динамический перенос строк текущего документа. При динамическом переносе текст в окне можно просматривать без горизонтального прокручивания, то есть строка, непрерывная на самом деле, для удобства делится на несколько.</para>
 </listitem>
 </varlistentry>
 
@@ -1280,7 +1280,7 @@ depends on the <link linkend="pref-edit-indent"
 ><guimenu
 >Настройка</guimenu
 ><guimenuitem
->Настроить редактор...</guimenuitem
+>Настроить редактор…</guimenuitem
 > </menuchoice
 > на вкладке «Редактирование»). Обратите внимание, маркер будет виден только в том случае, если используется моноширинный шрифт.</para>
 </listitem>
@@ -1300,12 +1300,12 @@ depends on the <link linkend="pref-edit-indent"
 > <guisubmenu
 >Границы</guisubmenu
 > <guimenuitem
->Полоса закладок</guimenuitem
+>Полоса отметок</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
->Это переключаемый элемент. Если флажок установлен, в левой части активной области редактирования будет показана полоса закладок, которая обозначает позиции отмеченных в редакторе строк.</para>
+>Это переключаемый элемент. Если флажок установлен, в левой части активной области редактирования будет показана полоса отметок, которая обозначает позиции отмеченных в редакторе строк.</para>
 </listitem>
 </varlistentry>
 
@@ -1346,7 +1346,7 @@ depends on the <link linkend="pref-edit-indent"
 <listitem>
 <para
 >Если флажок установлен, то на полосе вертикальной прокрутки текущего окна будут видны маркеры. Эти маркеры соответствуют маркерам на <link linkend="view-show-icon-border"
->полосе закладок</link
+>полосе отметок</link
 >.</para>
 </listitem>
 </varlistentry>
@@ -1399,7 +1399,7 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem
 ><para
->Позволяет включать и отключать отображение полосы сворачивания блоков в левой части области просмотра.</para
+>Позволяет включать и отключать показ полосы сворачивания блоков в левой части области просмотра.</para
 ></listitem>
 </varlistentry>
 
@@ -1522,12 +1522,12 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Переход</guimenu
 > <guimenuitem
->Перейти на строку...</guimenuitem
+>Перейти к строке…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
->Открывает панель строки перехода в нижней части окна и переводит курсор на указанный пользователем номер строки в документе. Номер строки возможно ввести вручную или выбрать с помощью стрелок в правой части поля ввода. Маленькая стрелка вверх увеличивает число, маленькая стрелка вниз — уменьшает. Чтобы закрыть панель, нажмите на кнопку, расположенную в её левой части. </para>
+>Открывает панель строки перехода в нижней части окна и переводит курсор на указанный пользователем номер строки в документе. Номер строки можно ввести вручную или выбрать с помощью стрелок в правой части поля ввода. Маленькая стрелка вверх увеличивает число, маленькая стрелка вниз — уменьшает. Чтобы закрыть панель, нажмите на кнопку, расположенную в её левой части. </para>
 </listitem>
 </varlistentry>
 
@@ -1640,7 +1640,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Переход</guimenu
 > <guimenuitem
->Выделить до открывающей/закрывающей скобки</guimenuitem
+>Выделить до парной скобки</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -1778,9 +1778,9 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Настройка</guimenu
 > <guimenuitem
->Настроить редактор...</guimenuitem
+>Настроить редактор…</guimenuitem
 ></menuchoice
-> на вкладке «Типы файлов», но только для текущего документа.</para>
+> на вкладке «Режимы и типы файлов», но только для текущего документа.</para>
 </listitem>
 </varlistentry>
 
@@ -1789,8 +1789,8 @@ depends on the <link linkend="pref-edit-indent"
 ><menuchoice
 ><guimenu
 >Сервис</guimenu
-> <guimenuitem
->Подсветка</guimenuitem
+> <guisubmenu
+>Подсветка</guisubmenu
 > </menuchoice
 ></term>
 <listitem>
@@ -1799,7 +1799,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Настройка</guimenu
 > <guimenuitem
->Настроить редактор...</guimenuitem
+>Настроить редактор…</guimenuitem
 > </menuchoice
 >, но только для текущего документа.</para>
 </listitem>
@@ -1810,17 +1810,17 @@ depends on the <link linkend="pref-edit-indent"
 ><menuchoice
 ><guimenu
 >Сервис</guimenu
-> <guimenuitem
->Расстановка отступов</guimenuitem
+> <guisubmenu
+>Расстановка отступов</guisubmenu
 > </menuchoice
 ></term>
 <listitem>
 <para
->Позволяет выбрать  режим отступов для текущего документа. Переопределяет глобальный режим отступов, указанный с помощью пункта меню <menuchoice
+>Позволяет выбрать режим отступов для текущего документа. Переопределяет глобальный режим отступов, указанный с помощью пункта меню <menuchoice
 > <guimenu
 >Настройка</guimenu
 > <guimenuitem
->Настроить редактор...</guimenuitem
+>Настроить редактор…</guimenuitem
 > </menuchoice
 >, но только для текущего документа.</para>
 </listitem>
@@ -1831,8 +1831,8 @@ depends on the <link linkend="pref-edit-indent"
 ><menuchoice
 ><guimenu
 >Сервис</guimenu
-> <guimenuitem
->Кодировка</guimenuitem
+> <guisubmenu
+>Кодировка</guisubmenu
 > </menuchoice
 ></term>
 <listitem>
@@ -1841,7 +1841,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Настройка</guimenu
 > <guimenuitem
->Настроить редактор...</guimenuitem
+>Настроить редактор…</guimenuitem
 ></menuchoice
 > на вкладке <guilabel
 >Открытие и сохранение</guilabel
@@ -1871,8 +1871,8 @@ depends on the <link linkend="pref-edit-indent"
 ><menuchoice
 ><guimenu
 >Сервис</guimenu
-> <guimenuitem
->Конец строки</guimenuitem
+> <guisubmenu
+>Конец строки</guisubmenu
 > </menuchoice
 ></term>
 <listitem>
@@ -1881,7 +1881,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Настройка</guimenu
 > <guimenuitem
->Настроить редактор...</guimenuitem
+>Настроить редактор…</guimenuitem
 > </menuchoice
 >, но только для текущего документа.</para>
 </listitem>
@@ -1898,9 +1898,9 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem>
 <para
->Это вложенное меню содержит список сценариев. Возможно также <link linkend="dev-scripting-command-line"
+>Это вложенное меню содержит список сценариев. Можно также <link linkend="dev-scripting-command-line"
 >написать собственные сценарии</link
->. Это позволяет расширить функционал &katepart; инструментами, определёнными пользователем. </para>
+>. Это позволяет расширить функциональность &katepart; инструментами, определёнными пользователем. </para>
 
 <variablelist>
 
@@ -2114,7 +2114,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Кодирует выделенный текст таким образом, чтобы его было возможно использовать как часть строки запроса URL-адреса. Выделенный текст заменяется закодированным. </para
+>Кодирует выделенный текст таким образом, чтобы его было можно использовать как часть строки запроса URL-адреса. Выделенный текст заменяется закодированным. </para
 ></listitem>
 </varlistentry>
 
@@ -2170,7 +2170,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Преобразует выделенный текст в пару открывающих и закрывающих тегов &HTML; или &XML;. Например, если выбрано <userinput
+>Преобразует выделенный текст в пару открывающих и закрывающих тегов &HTML; или &XML;. Например, если выделено <userinput
 >div</userinput
 >, этот элемент будет заменён на <computeroutput
 >&lt;div&gt;&lt;/div&gt;</computeroutput
@@ -2233,7 +2233,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Если курсор находится внутри пары тегов &HTML;/&XML;, выделение также будет включать и содержимое этих тегов &HTML;/&XML; (не включая сами теги). </para
+>Если курсор находится внутри пары тегов &HTML;/&XML;, выделение будет охватывать содержимое этих тегов &HTML;/&XML; без самих тегов. </para
 ></listitem>
 </varlistentry>
 
@@ -2252,7 +2252,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Если курсор находится внутри пары тегов &HTML;/&XML;, выделение также будет включать и содержимое этих тегов &HTML;/&XML; (включая сами теги). </para
+>Если курсор находится внутри пары тегов &HTML;/&XML;, выделение будет охватывать содержимое этих тегов &HTML;/&XML; вместе с самими тегами. </para
 ></listitem>
 </varlistentry>
 
@@ -2460,7 +2460,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem>
 <para
->Отображает командную строку &katepart; в нижней части окна. Чтобы получить справочную информацию, введите <userinput
+>Показывает командную строку &katepart; в нижней части окна. Чтобы получить справочную информацию, введите <userinput
 >help</userinput
 >, а чтобы получить список команд — <userinput
 >help list</userinput
@@ -2553,7 +2553,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 > <guisubmenu
 >Орфография</guisubmenu
 > <guimenuitem
->Проверка орфографии...</guimenuitem
+>Проверка орфографии…</guimenuitem
 > </menuchoice
 ></term>
 
@@ -2568,7 +2568,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 <listitem
 ><para
 ><action
->Запускает программу проверки орфографии, которая позволяет пользователю найти и исправить орфографические ошибки.</action
+>Запускает средство проверки орфографии, которая позволяет пользователю найти и исправить орфографические ошибки.</action
 > При выборе этого пункта меню будет запущена проверка и открыт диалог управления её ходом. В этом диалоге присутствуют следующие параметры:</para>
 
 <variablelist>
@@ -2591,7 +2591,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 ></term>
 <listitem
 ><para
->Если в словаре есть слова, похожие на ошибочное, здесь будет показано первое из совпадений. Возможно принять исправление, ввести свой вариант или выбрать из списка другой вариант.</para
+>Если в словаре есть слова, похожие на ошибочное, здесь будет показано первое из совпадений. Можно принять исправление, ввести свой вариант или выбрать из списка другой вариант.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -2601,7 +2601,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 ></term>
 <listitem
 ><para
->Если установлено несколько словарей, здесь возможно выбрать, какой из них следует использовать.</para
+>Если установлено несколько словарей, здесь можно выбрать, какой из них следует использовать.</para
 ></listitem>
 </varlistentry>
 </variablelist>
@@ -2747,12 +2747,12 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 > <guisubmenu
 >Орфография</guisubmenu
 > <guimenuitem
->Проверка орфографии от курсора...</guimenuitem
+>Проверка орфографии от курсора…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
->Запускает программу проверки орфографии, но начинает проверку с позиции курсора (а не с начала документа).</para>
+>Запускает средство проверки орфографии, но начинает проверку с позиции курсора (а не с начала документа).</para>
 </listitem>
 </varlistentry>
 
@@ -2764,7 +2764,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 > <guisubmenu
 >Орфография</guisubmenu
 > <guimenuitem
->Проверка орфографии в выделенном фрагменте...</guimenuitem
+>Проверка орфографии в выделенном фрагменте…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -2781,12 +2781,12 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 > <guisubmenu
 >Орфография</guisubmenu
 > <guimenuitem
->Выбрать словарь...</guimenuitem
+>Выбрать словарь…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
->Отображает в нижней части окна редактора поле с раскрывающимся списком всех доступных словарей для проверки орфографии. Это поле позволяет легко переключаться между орфографическими словарями, например, для автоматической проверки орфографии в тексте на разных языках.</para>
+>Показывает в нижней части окна редактора поле с раскрывающимся списком всех доступных словарей для проверки орфографии. Это поле позволяет легко переключаться между орфографическими словарями, например, для автоматической проверки орфографии в тексте на разных языках.</para>
 </listitem>
 </varlistentry>
 
@@ -2809,7 +2809,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 ></term>
 <listitem
 ><para
->Это меню содержит доступные схемы. Здесь возможно изменить схему для текущего документа. Чтобы изменить схему по умолчанию, откройте <ulink url="help:/katepart/config-dialog-editor.html#prefcolors"
+>Это меню содержит доступные схемы. Здесь можно изменить схему для текущего документа. Чтобы изменить схему по умолчанию, откройте <ulink url="help:/katepart/config-dialog-editor.html#prefcolors"
 >страницу «Шрифты и цвета»</ulink
 > диалога настройки.</para>
 </listitem>
@@ -2817,15 +2817,15 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 </variablelist>
 
 <para
->В приложении &katepart; присутствуют стандартные меню &kde;: <guimenu
+>В &katepart; есть стандартные меню &kde; <guimenu
 >Настройка</guimenu
 > и <guimenu
 >Справка</guimenu
->. Дополнительные сведения доступны в разделе справки «Основы &kde;» (подразделы <ulink url="help:/fundamentals/menus.html#menus-settings"
->Меню «Настройка»</ulink
+>, описанные в разделах <ulink url="help:/fundamentals/menus.html#menus-settings"
+>«Меню „Настройка“»</ulink
 > и <ulink url="help:/fundamentals/menus.html#menus-help"
->Меню «Справка»</ulink
->). </para>
+>«Меню „Справка“»</ulink
+> «Основ &kde;». </para>
 
 </sect1>
 </chapter>

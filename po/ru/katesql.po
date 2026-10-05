@@ -100,7 +100,7 @@ msgstr "Название базы данных:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
-msgstr "Параметры подключения"
+msgstr "Параметры подключения:"
 
 #: connectionwizard.cpp:153
 #, kde-format
@@ -160,7 +160,7 @@ msgstr "Название подключения:"
 #: dataoutputwidget.cpp:93 katesqlview.cpp:52
 #, kde-format
 msgid "SQL"
-msgstr "SQ"
+msgstr "SQL"
 
 #: dataoutputwidget.cpp:117
 #, kde-format
@@ -184,7 +184,7 @@ msgstr "Подогнать размеры строк"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
-msgstr "Экспорт..."
+msgstr "Экспорт…"
 
 #: dataoutputwidget.cpp:147
 #, kde-format
@@ -260,7 +260,7 @@ msgid ""
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
 "Внимание! Для столбцов без ограничения уникальности не гарантируется "
-"корректное копирование и вставка (если отображается столбец, а не внешний "
+"корректное копирование и вставка (если показывается столбец, а не внешний "
 "ключ)."
 
 #: dataoutputwidget.cpp:265
@@ -273,7 +273,7 @@ msgstr "Условие отбора:"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr "идентификатор > 0"
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:274
 #, kde-format
@@ -327,7 +327,7 @@ msgstr "Буфер обмена"
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
-msgstr "Файл:"
+msgstr "Файл"
 
 #: exportwizard.cpp:54
 #, kde-format
@@ -402,7 +402,7 @@ msgstr "Разделители"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"
-msgstr "Разделитель полей"
+msgstr "Разделитель полей:"
 
 #: katesqlconfigpage.cpp:28
 #, kde-format
@@ -462,7 +462,7 @@ msgstr "Внешний вид вывода"
 #, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Использовать системные настройки по умолчанию"
+msgstr "Использовать системные значения по умолчанию"
 
 #: katesqlconfigpage.cpp:52
 #, kde-format
@@ -504,7 +504,7 @@ msgstr "Добавить подключение…"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
-msgstr "Переименовать подключение"
+msgstr "Удалить подключение"
 
 #: katesqlview.cpp:169
 #, kde-format

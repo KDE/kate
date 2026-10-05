@@ -94,7 +94,7 @@ msgstr[3] "Удалить выбранную ветвь?"
 #: branchesdialog.cpp:96
 #, kde-format
 msgid "Select Branch..."
-msgstr "Выберите ветвь…"
+msgstr "Выбрать ветвь…"
 
 #: branchesdialog.cpp:108 gitwidget.cpp:551 kateprojectpluginview.cpp:72
 #, kde-format
@@ -246,7 +246,7 @@ msgstr "Фильтр…"
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
-"Не удалось найти каталог .git для «%1», программа может работать неправильно"
+"Не удалось найти каталог .git для «%1», модуль может работать неправильно"
 
 #: gitwidget.cpp:640
 #, kde-format
@@ -524,7 +524,7 @@ msgstr "Применить промежуточное сохранение вы�
 #: gitwidget.cpp:1413
 #, kde-format
 msgid "Discard Selected Files"
-msgstr "Отменить выбранные файлы"
+msgstr "Отменить изменения в выбранных файлах"
 
 #: gitwidget.cpp:1417
 #, kde-format
@@ -572,7 +572,7 @@ msgstr "<неотслеживаемые>"
 #: kateprojectcompletion.cpp:52
 #, kde-format
 msgid "Project Completion"
-msgstr "Завершение проекта"
+msgstr "Автодополнение по проекту"
 
 #: kateprojectconfigpage.cpp:24
 #, kde-format
@@ -626,14 +626,14 @@ msgid ""
 "When directory listing is enabled, autoloaded repository projects show all "
 "files instead of only VCS-tracked files."
 msgstr ""
-"При включённом отображении содержимого каталогов в автозагружаемых проектах "
+"При включённом показе содержимого каталогов в автозагружаемых проектах "
 "репозиториев показываются все файлы, а не только отслеживаемые системой "
 "контроля версий."
 
 #: kateprojectconfigpage.cpp:52
 #, kde-format
 msgid "Include files untracked by repository"
-msgstr "Включить неотслеживаемые репозиторием файлы"
+msgstr "Включать неотслеживаемые репозиторием файлы"
 
 #: kateprojectconfigpage.cpp:54
 #, kde-format
@@ -722,12 +722,12 @@ msgstr ""
 #: kateprojectconfigpage.cpp:95
 #, kde-format
 msgid "Cross-Project Completion"
-msgstr "Межпроектное завершение"
+msgstr "Межпроектное автодополнение"
 
 #: kateprojectconfigpage.cpp:97
 #, kde-format
 msgid "Cross-Project Goto Symbol"
-msgstr "Символ перехода между проектами"
+msgstr "Переход к символу в других проектах"
 
 #: kateprojectconfigpage.cpp:105
 #, kde-format
@@ -827,7 +827,7 @@ msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"Программа «%1» не установлена, %2. <br/><br/>%3 Инструмент будет применён ко "
+"Программа «%1» не установлена, %2.<br/><br/>%3. Инструмент будет применён ко "
 "всем файлам проекта, расширения которых присутствуют в списке:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:109
@@ -999,7 +999,7 @@ msgstr "Закрыть все проекты"
 #: kateprojectpluginview.cpp:209
 #, kde-format
 msgid "Close Orphaned Projects"
-msgstr "Закрыть потерянные проекты"
+msgstr "Закрыть недоступные проекты"
 
 #: kateprojectpluginview.cpp:214
 #, kde-format
@@ -1029,12 +1029,12 @@ msgstr "Переход: %1"
 #: kateprojectpluginview.cpp:316
 #, kde-format
 msgid "Projects Index"
-msgstr "Индекс проекта"
+msgstr "Индекс проектов"
 
 #: kateprojectpluginview.cpp:890
 #, kde-format
 msgid "Choose a directory"
-msgstr "Выбор каталога"
+msgstr "Выбор папки"
 
 #: kateprojecttreeviewcontextmenu.cpp:48
 #, kde-format
@@ -1069,7 +1069,7 @@ msgstr "Свойства"
 #: kateprojecttreeviewcontextmenu.cpp:143
 #, kde-format
 msgid "Open With"
-msgstr "Открыть с помощью..."
+msgstr "Открыть с помощью"
 
 #: kateprojecttreeviewcontextmenu.cpp:151
 #, kde-format
@@ -1084,7 +1084,7 @@ msgstr "Открыть внешний терминал в этой папке"
 #: kateprojecttreeviewcontextmenu.cpp:169
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr "&Открыть содержащую папку"
+msgstr "&Открыть папку с файлом"
 
 #: kateprojecttreeviewcontextmenu.cpp:178
 #, kde-format
@@ -1114,17 +1114,17 @@ msgstr "Не удалось создать файл: %1. Ошибка: %2"
 #: kateprojectviewtree.cpp:408
 #, kde-format
 msgid "The directory already exists"
-msgstr "Каталог уже существует"
+msgstr "Папка уже существует"
 
 #: kateprojectviewtree.cpp:415
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr "Не удалось создать каталог: %1"
+msgstr "Не удалось создать папку: %1"
 
 #: kateprojectworker.cpp:215
 #, kde-format
 msgid "Unable to find directory: %1"
-msgstr "Не удалось найти каталог: %1"
+msgstr "Не удалось найти папку: %1"
 
 #: kateprojectworker.cpp:753
 #, kde-format
@@ -1137,7 +1137,7 @@ msgstr ""
 "Не удалось загрузить проект на основе %1; либо не выполнена установка %1, "
 "либо программа не найдена в переменной среды PATH. Выполните установку %1 "
 "или отключите параметр «Автоматическая загрузка репозиториев и деревьев "
-"сборки» в разделе настройки проекта."
+"сборки» в параметрах проекта."
 
 #: project_commands.cpp:35
 #, kde-format

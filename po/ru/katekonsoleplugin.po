@@ -40,7 +40,7 @@ msgstr "&Перенаправить в терминал"
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
-msgstr "Синхронизировать терминал с текущим документом"
+msgstr "Син&хронизировать терминал с текущим документом"
 
 #: kateconsole.cpp:172
 #, kde-format
@@ -91,8 +91,8 @@ msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
 "contained commands with your user rights."
 msgstr ""
-"Перенаправить текст в консоль? Для этого будут запущены соответствующие "
-"команды (от вашего имени)."
+"Перенаправить текст в консоль? Все содержащиеся в нём команды будут "
+"выполнены с правами вашего пользователя."
 
 #: kateconsole.cpp:440
 #, kde-format
@@ -142,7 +142,7 @@ msgstr "&Скрыть панель терминала"
 #: kateconsole.cpp:589
 #, kde-format
 msgid "Defocus Terminal Panel"
-msgstr "Деактивировать панель терминала"
+msgstr "Перенести фокус ввода с панели терминала"
 
 #: kateconsole.cpp:590 kateconsole.cpp:591
 #, kde-format
@@ -174,8 +174,8 @@ msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr ""
-"&Автоматически создавать вкладку терминала для каталога с текущим документом "
-"и переходить на неё"
+"&Автоматически создавать вкладку терминала для папки с текущим документом и "
+"переходить на неё"
 
 #: kateconsole.cpp:719 kateconsole.cpp:740
 #, kde-format
@@ -195,7 +195,7 @@ msgstr "Префикс:"
 #: kateconsole.cpp:734
 #, kde-format
 msgid "&Show warning next time"
-msgstr "&Показать предупреждение в следующий раз"
+msgstr "&Показывать предупреждение в следующий раз"
 
 #: kateconsole.cpp:736
 #, kde-format
@@ -233,7 +233,7 @@ msgid ""
 msgstr ""
 "Может вызвать неудобства с консольными программами, обрабатывающими нажатие "
 "клавиши «Esc», например vim. Введите названия этих программ в поле, "
-"расположенном ниже, разделяя из запятой."
+"расположенном ниже, разделяя их запятыми."
 
 #: kateconsole.cpp:800
 #, kde-format

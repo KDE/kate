@@ -27,7 +27,8 @@ msgstr ""
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
-msgstr "Предстоит сеанс отладки. Перезапустите или остановите текущий сеанс."
+msgstr ""
+"Сеанс отладки уже выполняется. Перезапустите или остановите текущий сеанс."
 
 #: breakpointview.cpp:354
 #, kde-format
@@ -97,7 +98,7 @@ msgstr "Имя функции:"
 #: configview.cpp:92
 #, kde-format
 msgid "Add new target"
-msgstr "Добавить цель по сборке исполняемого файла"
+msgstr "Добавить цель"
 
 #: configview.cpp:96
 #, kde-format
@@ -188,7 +189,7 @@ msgstr "Выбор рабочего каталога"
 #: dapbackend.cpp:187
 #, kde-format
 msgid "DAP backend '%1' failed"
-msgstr "Ошибка внутренней службы DAP «%1»"
+msgstr "Ошибка модуля DAP «%1»"
 
 #: dapbackend.cpp:238
 #, kde-format
@@ -213,7 +214,7 @@ msgstr "запрос выключения"
 #: dapbackend.cpp:294
 #, kde-format
 msgid "DAP backend: %1"
-msgstr "Внутренняя служба DAP: %1"
+msgstr "Модуль DAP: %1"
 
 #: dapbackend.cpp:303
 #, kde-format
@@ -308,7 +309,7 @@ msgstr "точка останова задана"
 #: dapbackend.cpp:611
 #, kde-format
 msgid "(%1) breakpoint"
-msgstr "точка остановка (%1)"
+msgstr "точка останова (%1)"
 
 #: dapbackend.cpp:629
 #, kde-format

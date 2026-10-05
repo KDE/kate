@@ -60,7 +60,7 @@ msgstr ""
 #: tabswitcher.cpp:118
 #, kde-format
 msgid "Close View"
-msgstr "Закрыть панель"
+msgstr "Закрыть документ"
 
 #: tabswitcher.cpp:121 tabswitcher.cpp:122
 #, kde-format

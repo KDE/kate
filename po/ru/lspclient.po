@@ -64,7 +64,7 @@ msgid ""
 "the plugin."
 msgstr ""
 "Запустить сервер LSP?<br><br>Полная строка команды:<br><br><b>%1</"
-"b><br><br>Выбор возможно изменить с помощью страницы настройки модуля."
+"b><br><br>Выбор можно изменить с помощью страницы настройки модуля."
 
 #: lspclientplugin.cpp:253
 #, kde-format
@@ -88,7 +88,7 @@ msgstr "Перейти к определению"
 #: lspclientpluginview.cpp:485
 #, kde-format
 msgid "Go to Declaration"
-msgstr "Перейти к декларации"
+msgstr "Перейти к объявлению"
 
 #: lspclientpluginview.cpp:487
 #, kde-format
@@ -113,7 +113,7 @@ msgstr "Подсветка"
 #: lspclientpluginview.cpp:496
 #, kde-format
 msgid "Symbol Info"
-msgstr "Информация о"
+msgstr "Сведения об идентификаторе"
 
 #: lspclientpluginview.cpp:498
 #, kde-format
@@ -143,7 +143,7 @@ msgstr "Уменьшить выделение"
 #: lspclientpluginview.cpp:515
 #, kde-format
 msgid "Switch Source Header"
-msgstr "Переключить заголовок источника"
+msgstr "Переключиться между исходным и заголовочным файлом"
 
 #: lspclientpluginview.cpp:518
 #, kde-format
@@ -163,7 +163,7 @@ msgstr "Показать дополнения LSP"
 #: lspclientpluginview.cpp:538
 #, kde-format
 msgid "Show selected completion documentation"
-msgstr "Показывать документацию о дополнении указанного "
+msgstr "Показывать документацию для выбранного варианта дополнения"
 
 #: lspclientpluginview.cpp:541
 #, kde-format
@@ -210,7 +210,7 @@ msgstr "Показывать контекстные подсказки"
 #: lspclientpluginview.cpp:572
 #, kde-format
 msgid "Show Diagnostics Notifications"
-msgstr "Показывать уведомления данных диагностики"
+msgstr "Показывать уведомления диагностики"
 
 #: lspclientpluginview.cpp:577
 #, kde-format
@@ -340,7 +340,7 @@ msgstr "Переименование"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
-msgstr "Новое название (внимание: не все ссылки возможно заменить)"
+msgstr "Новое название (внимание: не все ссылки удастся заменить)"
 
 #: lspclientpluginview.cpp:1842
 #, kde-format
@@ -350,7 +350,7 @@ msgstr "Недостаточно результатов"
 #: lspclientpluginview.cpp:1911
 #, kde-format
 msgid "Corresponding Header/Source not found"
-msgstr "Соответствующий заголовок или источник не найден"
+msgstr "Соответствующий заголовочный или исходный файл не найден"
 
 #: lspclientpluginview.cpp:2109 lspclientpluginview.cpp:2152
 #, kde-format
@@ -517,19 +517,19 @@ msgstr "Показывать дополнения"
 #: lspconfigwidget.ui:117
 #, kde-format
 msgid "Show inline docs for selected completion"
-msgstr "Показывать встроенные документы для выбранного дополнения"
+msgstr "Показывать встроенную документацию для выбранного дополнения"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSignatureHelp)
 #: lspconfigwidget.ui:124
 #, kde-format
 msgid "Show function signature when typing a function call"
-msgstr "Показывать подпись функции при наборе вызова функции"
+msgstr "Показывать сигнатуру функции при наборе вызова функции"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
 #: lspconfigwidget.ui:138
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
-msgstr "Добавлять импортированное автоматически, если требуется при дополнении"
+msgstr "Автоматически добавлять импорт при дополнении, если требуется"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: lspconfigwidget.ui:145

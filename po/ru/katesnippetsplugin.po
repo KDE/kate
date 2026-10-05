@@ -37,7 +37,7 @@ msgstr "aspotashev@gmail.com,morozov@gmail.com,translation-team@basealt.ru"
 #: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
-msgstr "Комплект фрагментов текста %1"
+msgstr "Изменение комплекта фрагментов текста %1"
 
 #: editrepository.cpp:82
 #, kde-format
@@ -139,13 +139,13 @@ msgstr ""
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
-"Необязательное описание для показа во всплывающих подсказках. Возможно "
+"Необязательное описание для показа во всплывающих подсказках. Можно "
 "использовать базовое форматирование HTML."
 
 #: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
-msgstr "Фрагмент текста %1 из %2"
+msgstr "Изменение фрагмента текста %1 из %2"
 
 #: editsnippet.cpp:138
 #, kde-format
@@ -265,8 +265,8 @@ msgid ""
 "directory; as such, a copy of the original file has been created within your "
 "personal data directory."
 msgstr ""
-"Вы редактировали файл комплекта фрагментов текста, находящийся не в вашем "
-"домашнем каталоге. Теперь в нём создана копия исходного файла."
+"Изменённый файл комплекта фрагментов текста находится вне вашей личной "
+"папки, поэтому копия исходного файла создана в папке ваших личных данных."
 
 #: snippetrepository.cpp:238
 #, kde-format
@@ -374,7 +374,7 @@ msgstr "Введите здесь строку для поиска"
 #: snippetview.ui:38
 #, kde-format
 msgid "Filter..."
-msgstr "Фильтр..."
+msgstr "Фильтр…"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

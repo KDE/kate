@@ -104,3 +104,5 @@ QVariant GitAnnotationModel::data(int line, Qt::ItemDataRole role) const
 
     return {};
 }
+
+#include "moc_gitannotationmodel.cpp"

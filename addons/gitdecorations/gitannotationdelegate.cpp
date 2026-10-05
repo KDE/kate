@@ -126,3 +126,5 @@ GitAnnotationDelegate::~GitAnnotationDelegate()
 {
     m_view->removeEventFilter(this);
 }
+
+#include "moc_gitannotationdelegate.cpp"

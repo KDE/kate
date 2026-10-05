@@ -24,6 +24,17 @@
 #include <KTextEditor/View>
 #include <KXMLGUIFactory>
 
+namespace
+{
+void killProcess(QPointer<QProcess> &process)
+{
+    QObject::disconnect(process, nullptr, nullptr, nullptr);
+    process->kill();
+    process->deleteLater();
+    process = nullptr;
+}
+}
+
 K_PLUGIN_FACTORY_WITH_JSON(GitDecorationsPluginFactory, "gitdecorationsplugin.json", registerPlugin<GitDecorationsPlugin>();)
 Q_LOGGING_CATEGORY(gitDecorationsLog, "gitdecorations", QtWarningMsg)
 
@@ -155,8 +166,8 @@ void GitDecorationsPlugin::untrackDocument(KTextEditor::Document *document)
         return;
     }
 
-    const auto it = m_trackedDocuments.constFind(document);
-    if (it == m_trackedDocuments.cend()) {
+    const auto it = m_trackedDocuments.find(document);
+    if (it == m_trackedDocuments.end()) {
         return;
     }
 
@@ -164,7 +175,7 @@ void GitDecorationsPlugin::untrackDocument(KTextEditor::Document *document)
     disconnect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &GitDecorationsPlugin::invalidateAnnotations);
     disconnect(document, &KTextEditor::Document::modifiedOnDisk, this, &GitDecorationsPlugin::invalidateAnnotations);
     if (context.diffProcess && context.diffProcess->state() != QProcess::NotRunning) {
-        context.diffProcess->kill();
+        killProcess(it->diffProcess);
     }
 
     QString repoBasePath = context.repoBasePath;
@@ -222,7 +233,7 @@ void GitDecorationsPlugin::untrackRepository(const QString &repoBasePath)
     context->watcherTimer.stop();
     context->watcher.removePaths(context->watcher.directories());
     if (context->headProcess && context->headProcess->state() != QProcess::NotRunning) {
-        context->headProcess->kill();
+        killProcess(context->headProcess);
     }
 
     m_trackedRepositories.erase(it);
@@ -237,7 +248,7 @@ void GitDecorationsPlugin::refreshRepositoryHead(const QString &repoBasePath)
 
     const auto &context = it.value();
     if (context->headProcess && context->headProcess->state() != QProcess::NotRunning) {
-        context->headProcess->kill();
+        killProcess(context->headProcess);
     }
 
     auto *headProcess = new QProcess(this);
@@ -301,7 +312,7 @@ void GitDecorationsPlugin::annotateDocument(KTextEditor::Document *document)
 
     const auto &context = it.value();
     if (context.diffProcess && context.diffProcess->state() != QProcess::NotRunning) {
-        context.diffProcess->kill();
+        killProcess(it->diffProcess);
     }
 
     auto *diffProcess = new QProcess(this);

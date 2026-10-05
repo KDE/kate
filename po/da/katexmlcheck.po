@@ -2,26 +2,26 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Martin Schlander <mschlander@opensuse.org>, 2017.
+# SPDX-FileCopyrightText: 2026 Peter Noesgaard Andreasen <noesgaard@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-18 00:46+0000\n"
-"PO-Revision-Date: 2017-03-22 17:14+0100\n"
-"Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
+"PO-Revision-Date: 2026-09-28 14:50+0200\n"
+"Last-Translator: Peter Noesgaard Andreasen <noesgaard@gmail.com>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #: plugin_katexmlcheck.cpp:90
-#, fuzzy, kde-format
-#| msgid "XML Checker Output"
+#, kde-format
 msgid "XML Check"
-msgstr "Output fra XML-tjekker"
+msgstr "XML Tjek"
 
 #: plugin_katexmlcheck.cpp:95
 #, kde-format
@@ -31,26 +31,25 @@ msgstr "Validér XML"
 #: plugin_katexmlcheck.cpp:125
 #, kde-format
 msgid "Validate process crashed"
-msgstr ""
+msgstr "Validerings-processen brød sammen"
 
 #: plugin_katexmlcheck.cpp:125 plugin_katexmlcheck.cpp:143
 #: plugin_katexmlcheck.cpp:203 plugin_katexmlcheck.cpp:228
 #: plugin_katexmlcheck.cpp:248 plugin_katexmlcheck.cpp:331
-#, fuzzy, kde-format
-#| msgid "XML Checker Output"
+#, kde-format
 msgid "XMLCheck"
-msgstr "Output fra XML-tjekker"
+msgstr "XMLCheck"
 
 #: plugin_katexmlcheck.cpp:139
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
-msgstr ""
+msgstr "Ingen DOCTYPE fundet, tjekker kun om formatet er korrekt."
 
 #: plugin_katexmlcheck.cpp:141
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
-msgstr ""
+msgstr "'%1' ikke fundet, tjekker kun om formatet er korrekt."
 
 #: plugin_katexmlcheck.cpp:227
 #, kde-format
@@ -58,10 +57,7 @@ msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Fejl:</b> Kunne ikke oprette den midlertidige fil \"%1\"."
 
 #: plugin_katexmlcheck.cpp:246
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
-#| "installed. It is part of libxml2."
+#, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."

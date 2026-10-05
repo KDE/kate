@@ -3,19 +3,20 @@
 #
 # Anders Lund <anders@alweb.dk>, 2008.
 # Martin Schlander <mschlander@opensuse.org>, 2009, 2010, 2011, 2014, 2015, 2016.
+# SPDX-FileCopyrightText: 2026 Peter Noesgaard Andreasen <noesgaard@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2016-05-28 16:15+0100\n"
-"Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
+"PO-Revision-Date: 2026-09-28 09:40+0200\n"
+"Last-Translator: Peter Noesgaard Andreasen <noesgaard@gmail.com>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
@@ -249,33 +250,31 @@ msgid "set"
 msgstr "set"
 
 #: gotosymbolmodel.cpp:67
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "CTags executable not found."
-msgstr "Den kørbare fil CTags brød sammen."
+msgstr "Kunne ikke finde CTags-programmet."
 
 #: gotosymbolmodel.cpp:80
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "CTags executable failed to execute."
-msgstr "Den kørbare fil CTags brød sammen."
+msgstr "CTags-programmet kunne ikke startes."
 
 #: gotosymbolmodel.cpp:148
-#, fuzzy, kde-format
-#| msgid "CTags database file"
+#, kde-format
 msgid "CTags was unable to parse this file."
-msgstr "CTags-database-fil"
+msgstr "CTags-kunne ikke læse denne fil."
 
 #: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
 msgstr ""
+"Tags-filen findes ikke. Lav den manuelt, eller ved hjælp af CTags-plugin."
 
 #: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
-msgstr ""
+msgstr "Filen til '%1' ikke fundet."
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:36
@@ -366,10 +365,9 @@ msgid "CTags Settings"
 msgstr "Indstillinger for CTags"
 
 #: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:561
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "Kunne ikke køre \"%1\". Exitstatus = %2"
+msgstr "Kunne ikke køre. Fejl: %1,.exitstatus = %2"
 
 #: kate_ctags_plugin.cpp:239
 #, kde-format
@@ -404,14 +402,13 @@ msgstr "Slå den aktuelle tekst op"
 #: kate_ctags_view.cpp:81
 #, kde-format
 msgid "Configure ..."
-msgstr ""
+msgstr "Indstil ..."
 
 #: kate_ctags_view.cpp:96
-#, fuzzy, kde-format
-#| msgid "CTags Plugin"
+#, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
-msgstr "Plugin til CTags"
+msgstr "Indstil Plugin til CTags"
 
 #: kate_ctags_view.cpp:107 kate_ctags_view.cpp:196
 #, kde-format
@@ -441,12 +438,12 @@ msgstr "Vælg en ny eller eksisterende database-fil."
 #: kate_ctags_view.cpp:147
 #, kde-format
 msgid "Go To Local Symbol"
-msgstr ""
+msgstr "Gå til lokalt symbol"
 
 #: kate_ctags_view.cpp:152
 #, kde-format
 msgid "Go To Global Symbol"
-msgstr ""
+msgstr "Gå til globalt symbol"
 
 #: kate_ctags_view.cpp:325 kate_ctags_view.cpp:358
 #, kde-format
@@ -459,16 +456,14 @@ msgid "No folders or files to index"
 msgstr "Ingen mapper eller filer at indeksere"
 
 #: kate_ctags_view.cpp:576
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "The CTags executable crashed"
-msgstr "Den kørbare fil CTags brød sammen."
+msgstr "Den kørbare fil CTags brød sammen"
 
 #: kate_ctags_view.cpp:578
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1: %2"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "Programmet CTags afsluttede med kode %1: %2"
+msgstr "Programmet CTags afsluttede med kode %2: %1"
 
 #~ msgid "Failed to run \"%1\". exitStatus = %2"
 #~ msgstr "Kunne ikke køre \"%1\". Exitstatus = %2"

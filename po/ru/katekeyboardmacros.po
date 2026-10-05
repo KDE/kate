@@ -274,7 +274,7 @@ msgstr "Стереть макрос «%1»."
 #: keyboardmacrospluginview.cpp:289
 #, kde-format
 msgid "Save current macro as?"
-msgstr "Сохранить текущий макрос под другим именем?"
+msgstr "Под каким именем сохранить текущий макрос?"
 
 #: keyboardmacrospluginview.cpp:323
 #, kde-format

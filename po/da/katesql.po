@@ -2,20 +2,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Martin Schlander <mschlander@opensuse.org>, 2010, 2011, 2012, 2014.
+# SPDX-FileCopyrightText: 2026 Peter Noesgaard Andreasen <noesgaard@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-25 00:49+0000\n"
-"PO-Revision-Date: 2014-09-20 20:39+0200\n"
-"Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
+"PO-Revision-Date: 2026-09-30 15:26+0200\n"
+"Last-Translator: Peter Noesgaard Andreasen <noesgaard@gmail.com>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #: connectionwizard.cpp:30
 #, kde-format
@@ -151,16 +152,12 @@ msgid "Connection name:"
 msgstr "Forbindelsesnavn:"
 
 #: dataoutputwidget.cpp:93 katesqlview.cpp:47
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgid "SQL"
 msgstr "SQL"
 
 #: dataoutputwidget.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Genopfrisk"
@@ -205,49 +202,49 @@ msgstr "Brug systemets lokalitetsindstillinger"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "Indsæt"
 
 #: dataoutputwidget.cpp:191
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "Sæt null"
 
 #: dataoutputwidget.cpp:201
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "Indsæt række"
 
 #: dataoutputwidget.cpp:211
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "Fjern markerede rækker"
 
 #: dataoutputwidget.cpp:221
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "Dupliker markerede rækker"
 
 #: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "Fortryd"
 
 #: dataoutputwidget.cpp:241
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "Gem"
 
 #: dataoutputwidget.cpp:251
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "Gør denne kolonne præsentabel for relaterede tabeller"
 
 #: dataoutputwidget.cpp:254
 #, kde-format
@@ -256,24 +253,27 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Advarsel! For kolonner uden en unik begrænsning kan vi ikke garantere en "
+"korrekt kopiering og indsættelse (når kolonnen vises i stedet for "
+"fremmednøglen)"
 
 #: dataoutputwidget.cpp:265
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "Hvor:"
 
 #: dataoutputwidget.cpp:273
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "Indtast SQL WHERE sætning for at filtrere data"
 
 #: dataoutputwidget.cpp:730
 #, kde-kuit-format
@@ -282,12 +282,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "Kan ikke åbne filen <filename>%1</filename>"
 
 #: dataoutputwidget.cpp:750
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "Kan ikke forbinde til databasen.<nl/><message>%1</message>"
+msgstr "Kunne ikke gemme ændringer: <message>%1</message>"
 
 #: exportwizard.cpp:27
 #, kde-format
@@ -326,14 +324,9 @@ msgid "File"
 msgstr "Fil"
 
 #: exportwizard.cpp:54
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|Kommaseparerede værdier\n"
-"*|Alle filer"
+msgstr "Kommaseparerede værdier"
 
 #: exportwizard.cpp:96
 #, kde-format
@@ -415,25 +408,25 @@ msgstr "Gem og gendan forbindelser i Kate-sessionen"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Aktivér redigerbar tabel for Gennemse data"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "Aktivér redigerbare relationelle tabeller"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "Eksperimentel"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "Behandl en blank linje som et sætningsskift"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
@@ -442,18 +435,16 @@ msgid "Output Customization"
 msgstr "Brugertilpasning af output"
 
 #: katesqlconfigpage.cpp:47
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Brug systemets lokalitetsindstillinger"
+msgstr "Brug systemets standardindstillinger"
 
 #: katesqlconfigpage.cpp:48
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Nulstil til systemets standardindstillinger"
 
 #: katesqlconfigpage.cpp:86
 #, kde-format
@@ -468,41 +459,31 @@ msgid "SQL ConfigPage Settings"
 msgstr "Indstillinger for SQL ConfigPage"
 
 #: katesqlview.cpp:54
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
 #: katesqlview.cpp:60
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "SQL Schema Browser"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
-msgstr "SQL-skemabrowser"
+msgstr "SQL-Schema"
 
 #: katesqlview.cpp:145
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Tilføj forbindelse..."
 
 #: katesqlview.cpp:150
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove connection"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Fjern forbindelse"
 
 #: katesqlview.cpp:155
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Edit connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Redigér forbindelse..."
@@ -520,9 +501,7 @@ msgid "Connection"
 msgstr "Forbindelse"
 
 #: katesqlview.cpp:170
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run query"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "Kør forespørgsel"
@@ -546,20 +525,16 @@ msgid "Background Color"
 msgstr "Baggrundsfarve"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "Tekstfarve"
+msgstr "Ændret tekstfarve"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "Baggrundsfarve"
+msgstr "Ændret baggrundsfarve"
 
 #: outputstylewidget.cpp:49
 #, kde-format
@@ -612,7 +587,7 @@ msgstr "SQL-dataoutput"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "Filtrér tabeller og visninger..."
 
 #: schemawidget.cpp:45
 #, kde-format
@@ -642,7 +617,7 @@ msgstr "Systemtabeller"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr ""
+msgstr "Vælg data"
 
 #: schemawidget.cpp:361
 #, kde-format
@@ -679,7 +654,7 @@ msgstr "Genopfrisk"
 #: sqlmanager.cpp:320
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Fejl ved forberedelse af SQL-sætning"
 
 #: sqlmanager.cpp:321
 #, kde-format
@@ -687,6 +662,8 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>Forberedelse af forespørgslen mislykkedes med følgende fejl: %1</p> "
+"<p>Vil du fortsætte uden at forberede forespørgslen?</p>"
 
 #: sqlmanager.cpp:351
 #, kde-format

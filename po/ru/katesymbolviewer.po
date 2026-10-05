@@ -238,7 +238,7 @@ msgstr "&Настройка"
 #: xml_parser.cpp:25
 #, kde-format
 msgid "Show Tags"
-msgstr "Показывать теги"
+msgstr "Показать теги"
 
 #: xslt_parser.cpp:22
 #, kde-format

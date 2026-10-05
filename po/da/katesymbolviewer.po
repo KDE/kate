@@ -4,19 +4,20 @@
 #
 # Erik Kjær Pedersen <erik@binghamton.edu>, 2003, 2004, 2005.
 # Martin Schlander <mschlander@opensuse.org>, 2008, 2009, 2010, 2013.
+# SPDX-FileCopyrightText: 2026 Peter Noesgaard Andreasen <noesgaard@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2013-11-06 18:57+0100\n"
-"Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
-"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"PO-Revision-Date: 2026-09-28 15:30+0200\n"
+"Last-Translator: Peter Noesgaard Andreasen <noesgaard@gmail.com>\n"
+"Language-Team: Danish <kde-i18n-doc@kde.org>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 26.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
@@ -114,27 +115,24 @@ msgid "SymbolViewer"
 msgstr "Symbolfremviser"
 
 #: plugin_katesymbolviewer.cpp:75
-#, fuzzy, kde-format
-#| msgid "List/Tree Mode"
+#, kde-format
 msgid "Tree Mode"
-msgstr "Liste/Træ-tilstand"
+msgstr "Træ-visning"
 
 #: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Expand Tree"
-msgstr ""
+msgstr "Udvid træ"
 
 #: plugin_katesymbolviewer.cpp:79
-#, fuzzy, kde-format
-#| msgid "Show Structures"
+#, kde-format
 msgid "Show Sorted"
-msgstr "Vis strukturer"
+msgstr "Vis sorteret"
 
 #: plugin_katesymbolviewer.cpp:88
-#, fuzzy, kde-format
-#| msgid "Show Params"
+#, kde-format
 msgid "Show Parameters"
-msgstr "Vis paramer"
+msgstr "Vis parametre"
 
 #: plugin_katesymbolviewer.cpp:114
 #, kde-format
@@ -144,7 +142,7 @@ msgstr "Symbolliste"
 #: plugin_katesymbolviewer.cpp:133
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "Filter..."
 
 #: plugin_katesymbolviewer.cpp:143
 #, kde-format
@@ -159,15 +157,14 @@ msgid "Position"
 msgstr "Position"
 
 #: plugin_katesymbolviewer.cpp:361
-#, fuzzy, kde-format
-#| msgid "Sorry. Language not supported yet"
+#, kde-format
 msgid "Sorry, not supported yet!"
-msgstr "Beklager. Sproget er endnu ikke understøttet"
+msgstr "Beklager. understøttes ikke endnu!"
 
 #: plugin_katesymbolviewer.cpp:365
 #, kde-format
 msgid "File type: %1"
-msgstr ""
+msgstr "Filtype: %1"
 
 #: plugin_katesymbolviewer.cpp:476
 #, kde-format
@@ -226,10 +223,9 @@ msgid "&Settings"
 msgstr "&Indstillinger"
 
 #: xml_parser.cpp:25
-#, fuzzy, kde-format
-#| msgid "Show Pragmas"
+#, kde-format
 msgid "Show Tags"
-msgstr "Vis pragmaer"
+msgstr "Vis tags"
 
 #: xslt_parser.cpp:22
 #, kde-format

@@ -337,7 +337,7 @@ msgstr "Активный документ не найден"
 #: replicodeview.cpp:100
 #, kde-format
 msgid "Could not find an active document to run."
-msgstr "Не удалось найти открытый документ для запуска."
+msgstr "Не удалось найти активный документ для запуска."
 
 #: replicodeview.cpp:105
 #, kde-format

@@ -72,7 +72,7 @@ msgstr "Форматировать при сохранении"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
 "Отключить форматирование при сохранении без сохранения этого поведения в "
-"настройках"
+"параметрах"
 
 #: Formatters.cpp:129
 #, kde-format
@@ -84,7 +84,7 @@ msgstr "Неожиданная пустая команда: %1"
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr ""
-"Не установлен модуль %1, необходимый для форматирования этого документа"
+"Не установлена программа %1, необходимая для форматирования этого документа"
 
 #: Formatters.cpp:271
 #, kde-format

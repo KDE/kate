@@ -65,7 +65,7 @@ public:
          * this will make test:50 to test with line 50
          */
         static const QRegularExpression re(QStringLiteral(":(\\d+)(?::(\\d+))?:?$"));
-        if (const auto match = re.match(path); match.isValid()) {
+        if (const auto match = re.match(path); match.hasMatch()) {
             /**
              * cut away the line/column specification from the path
              */

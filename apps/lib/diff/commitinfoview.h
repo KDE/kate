@@ -97,7 +97,7 @@ public:
             viewport()->unsetCursor();
         }
 
-        QPlainTextEdit::mousePressEvent(e);
+        QPlainTextEdit::mouseMoveEvent(e);
     }
 
     static QString urlForText(const QString &text)

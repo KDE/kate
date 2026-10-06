@@ -116,7 +116,7 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
     bool checksumOk = true;
     if (url.isValid()) {
         const QByteArray sum = kconfig.readEntry("checksum").toUtf8();
-        checksumOk = sum != doc->checksum();
+        checksumOk = sum == doc->checksum();
     }
 
     if (checksumOk) {

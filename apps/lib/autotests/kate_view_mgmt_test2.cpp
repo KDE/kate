@@ -41,6 +41,7 @@ private Q_SLOTS:
     void testViewCursorPositionIsRestored();
     void testTabsKeepOrderOnRestore();
     void testNewlyCreatedUnsavedFilesStashed();
+    void testUnsavedChangesInFilesStashed();
     void testMultipleViewCursorPositionIsRestored();
     void testTabsKeepOrderOnRestore2();
     void testTabsKeepOrderOnRestore3();
@@ -181,6 +182,65 @@ void KateViewManagementTest2::testNewlyCreatedUnsavedFilesStashed()
     QCOMPARE(docs[1].doc()->text(), QStringLiteral("B\n"));
 
     cgGeneral.writeEntry("Stash new unsaved files", oldValue);
+}
+
+void KateViewManagementTest2::testUnsavedChangesInFilesStashed()
+{
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+    const bool oldStashUnsaved = cgGeneral.readEntry("Stash unsaved file changes", false);
+    cgGeneral.writeEntry("Stash unsaved file changes", true);
+    KateApp::self()->stashManager()->stashUnsavedChanges = true;
+
+    auto _ = qScopeGuard([&cgGeneral, oldStashUnsaved] {
+        cgGeneral.writeEntry("Stash unsaved file changes", oldStashUnsaved);
+        if (KateApp::self() && KateApp::self()->stashManager()) {
+            KateApp::self()->stashManager()->stashUnsavedChanges = oldStashUnsaved;
+        }
+    });
+
+    // Create a temporary file outside QDir::tempPath() so willStashDoc does not reject it as temp
+    QTemporaryDir testDir(QDir::currentPath() + QStringLiteral("/kate_stash_test_XXXXXX"));
+    QVERIFY(testDir.isValid());
+
+    const QString filePath = testDir.filePath(QStringLiteral("testfile.txt"));
+    QFile file(filePath);
+    QVERIFY(file.open(QIODevice::WriteOnly | QIODevice::Text));
+    file.write("Original file content\n");
+    file.close();
+
+    const QString sessionName = QStringLiteral("testUnsavedChangesInFilesStashed");
+    app->sessionManager()->activateSession(sessionName, false, true);
+    KateMainWindow *mw = app->activeKateMainWindow();
+
+    auto v = mw->openUrl(QUrl::fromLocalFile(filePath));
+    QVERIFY(v);
+    QCOMPARE(v->document()->text(), QStringLiteral("Original file content\n"));
+
+    // Modify document in memory without saving to disk
+    v->document()->setText(QStringLiteral("Modified unsaved content\n"));
+    QVERIFY(v->document()->isModified());
+
+    QVERIFY(app->sessionManager()->saveActiveSession());
+
+    // Switch to a new empty session
+    app->sessionManager()->sessionNew();
+    mw = app->activeKateMainWindow();
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 1);
+
+    // Modify the file on disk externally while Kate session is closed
+    QVERIFY(file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate));
+    file.write("Externally changed on disk\n");
+    file.close();
+
+    // Switch back to our session and restore stashed changes
+    app->sessionManager()->activateSession(sessionName);
+    mw = app->activeKateMainWindow();
+
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 1);
+    auto docs = mw->viewManager()->activeViewSpace()->documentList();
+    // Since the file changed on disk externally, the stash must not overwrite it.
+    QCOMPARE(docs[0].doc()->text(), QStringLiteral("Externally changed on disk\n"));
 }
 
 void KateViewManagementTest2::testMultipleViewCursorPositionIsRestored()

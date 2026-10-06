@@ -7,20 +7,10 @@
 
 #include "diagnostic_suppression.h"
 #include "diagnostic_types.h"
+#include "diagnosticmodelrole.h"
 #include "diagnosticview.h"
 
 #include <QStandardItem>
-
-namespace DiagnosticModelRole
-{
-enum {
-    // preserve UserRole for generic use where needed
-    FileUrlRole = Qt::UserRole + 1,
-    RangeRole,
-    KindRole,
-    ProviderRole,
-};
-}
 
 enum {
     DiagnosticItem_File = QStandardItem::UserType + 1,

@@ -5,6 +5,7 @@
 */
 #pragma once
 
+#include "diagnosticmodelrole.h"
 #include "ktexteditor_utils.h"
 
 #include <QJsonArray>
@@ -76,7 +77,7 @@ public:
             if (s.diag.match(item.text()).hasMatch()) {
                 // retrieve and check code text if we need to match the content as well
                 if (doc && !s.code.pattern().isEmpty()) {
-                    auto range = item.data(/*RangeData::RangeRole*/).value<KTextEditor::Range>();
+                    auto range = item.data(DiagnosticModelRole::RangeRole).value<KTextEditor::Range>();
                     auto code = doc->text(range);
                     if (!s.code.match(code).hasMatch()) {
                         continue;

@@ -12,7 +12,7 @@
 namespace json
 {
 // local helper;
-// recursively merge top json top onto bottom json
+// recursively merge top json onto bottom json
 inline QJsonObject merge(const QJsonObject &bottom, const QJsonObject &top)
 {
     QJsonObject result;

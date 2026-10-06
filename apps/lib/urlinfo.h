@@ -132,7 +132,7 @@ public:
 
     /**
      * Parse +xyz line number to cursor
-     * @param args argumests to check for +xyz as first argument, will be removed from args
+     * @param args arguments to check for +xyz as first argument, will be removed from args
      */
     static KTextEditor::Cursor parseLineNumberArgumentAndRemoveIt(QStringList &args)
     {

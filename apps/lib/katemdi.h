@@ -80,7 +80,7 @@ class ToolView : public QFrame
 protected:
     /**
      * ToolView
-     * Objects of this clas represent a toolview in the mainwindow
+     * Objects of this class represent a toolview in the mainwindow
      * you should only add one widget as child to this toolview, it will
      * be automatically set to be the focus proxy of the toolview
      * @param mainwin main window for this toolview
@@ -274,7 +274,7 @@ public:
 
     /**
      * Will the sidebar expand when some tool has to be visible in any section,
-     * or calling collapseSidebar() if non such tool is found
+     * or calling collapseSidebar() if no such tool is found
      */
     void updateSidebar();
     void collapseSidebar();

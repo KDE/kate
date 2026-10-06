@@ -611,7 +611,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
     connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateViewSpace::updateDocumentName);
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateViewSpace::updateDocumentUrl);
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateViewSpace::updateDocumentIcon);
-    // needed to get mime-type udate right, see bug 489452
+    // needed to get mime-type update right, see bug 489452
     connect(doc, &KTextEditor::Document::reloaded, this, &KateViewSpace::updateDocumentIcon);
 
     /**

@@ -92,7 +92,7 @@ KateSession::Ptr KateSession::createAnonymousFrom(const KateSession::Ptr &sessio
 
 bool KateSession::compareByName(const KateSession::Ptr &s1, const KateSession::Ptr &s2)
 {
-    return QCollator().compare(s1->name(), s2->name()) == -1;
+    return QCollator().compare(s1->name(), s2->name()) < 0;
 }
 
 bool KateSession::compareByTimeDesc(const KateSession::Ptr &s1, const KateSession::Ptr &s2)

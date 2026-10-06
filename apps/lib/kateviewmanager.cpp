@@ -1914,7 +1914,8 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
 
 void KateViewManager::hideWelcomeView(KateViewSpace *vs)
 {
-    if (auto welcomeView = qobject_cast<WelcomeView *>(vs ? vs : activeViewSpace()->currentWidget())) {
+    auto *targetWidget = vs ? vs->currentWidget() : (activeViewSpace() ? activeViewSpace()->currentWidget() : nullptr);
+    if (auto welcomeView = qobject_cast<WelcomeView *>(targetWidget)) {
         QTimer::singleShot(0, welcomeView, [this, welcomeView]() {
             mainWindow()->removeWidget(welcomeView);
         });

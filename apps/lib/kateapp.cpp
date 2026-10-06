@@ -237,7 +237,7 @@ void KateApp::initPreApplicationCreation(bool detach)
         QByteArray p = qgetenv("PATH");
         qDebug("Adding '%s' to existing PATH: %s", path.constData(), p.constData());
         path.append(':').append(p);
-        qputenv("PATH", p);
+        qputenv("PATH", path);
     }
 #endif
 }

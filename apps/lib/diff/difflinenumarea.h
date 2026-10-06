@@ -76,15 +76,7 @@ private:
             mouseOverTriangle = false;
         }
 
-        bool operator==(const HoverData &r) const
-        {
-            return mouseOverTriangle != r.mouseOverTriangle && mouseOverBlockNumber != r.mouseOverBlockNumber;
-        }
-
-        bool operator!=(const HoverData &r) const
-        {
-            return !(*this == r);
-        }
+        bool operator==(const HoverData &r) const = default;
     };
 
     class DiffEditor *const textEdit;

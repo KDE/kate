@@ -249,8 +249,10 @@ bool KateDocManager::closeAllDocuments(bool closeUrl)
 {
     /**
      * just close all documents
+     * pass a copy as m_docList will be modified
      */
-    return closeDocuments(m_docList, closeUrl);
+    auto copy = m_docList;
+    return closeDocuments(copy, closeUrl);
 }
 
 bool KateDocManager::closeOtherDocuments(KTextEditor::Document *doc)

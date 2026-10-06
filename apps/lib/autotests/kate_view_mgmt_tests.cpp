@@ -4,6 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "kate_view_mgmt_tests.h"
+#include "katedocmanager.h"
 #include "ktexteditor_utils.h"
 
 #include <KLocalizedString>
@@ -976,6 +977,55 @@ void KateViewManagementTests::testTabbarMiddleClick()
 
         QTRY_COMPARE(tabbar->count(), test.expectedTabCountAfterMiddleClick);
     }
+}
+
+void KateViewManagementTests::testCloseAllDocumentsWithMultipleDocs()
+{
+    app->sessionManager()->sessionNew();
+    QCOMPARE(app->mainWindowsCount(), 1);
+    KateDocManager *docMan = app->documentManager();
+
+    const QDir d = QDir::current();
+    const QUrl file1 = QUrl::fromLocalFile(d.absoluteFilePath(QStringLiteral("CloseAllFile1")));
+    const QUrl file2 = QUrl::fromLocalFile(d.absoluteFilePath(QStringLiteral("CloseAllFile2")));
+    const QUrl file3 = QUrl::fromLocalFile(d.absoluteFilePath(QStringLiteral("CloseAllFile3")));
+    const QUrl file4 = QUrl::fromLocalFile(d.absoluteFilePath(QStringLiteral("CloseAllFile4")));
+
+    auto doc1 = docMan->openUrl(file1);
+    auto doc2 = docMan->openUrl(file2);
+    auto doc3 = docMan->openUrl(file3);
+    auto doc4 = docMan->openUrl(file4);
+
+    QPointer<KTextEditor::Document> p1 = doc1;
+    QPointer<KTextEditor::Document> p2 = doc2;
+    QPointer<KTextEditor::Document> p3 = doc3;
+    QPointer<KTextEditor::Document> p4 = doc4;
+
+    QVERIFY(doc1 && doc2 && doc3 && doc4);
+    QCOMPARE(docMan->documentList().size(), 4);
+
+    QSignalSpy spyDeleted(docMan, &KateDocManager::documentDeleted);
+    QSignalSpy spyAllDeleted(docMan, &KateDocManager::documentsDeleted);
+
+    // TODO: If a listener triggers a close of another document during documentWillBeDeleted we crash
+    // bool slotRan = false;
+    // auto conn = connect(docMan, &KateDocManager::documentWillBeDeleted, this, [docMan, doc3, &slotRan](KTextEditor::Document *d) {
+    //     if (!slotRan && d != doc3) {
+    //         slotRan = true;
+    //         docMan->closeDocument(doc3);
+    //     }
+    // });
+
+    const bool closed = docMan->closeAllDocuments();
+    QVERIFY(closed);
+    QCOMPARE(docMan->documentList().size(), 0);
+    QCOMPARE(spyDeleted.count(), 4);
+    QCOMPARE(spyAllDeleted.count(), 1);
+
+    QVERIFY(!p1);
+    QVERIFY(!p2);
+    QVERIFY(!p3);
+    QVERIFY(!p4);
 }
 
 #include "moc_kate_view_mgmt_tests.cpp"

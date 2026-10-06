@@ -80,6 +80,7 @@ private Q_SLOTS:
     void testTabbarContextMenu();
     void testTabbarContextMenu2();
     void testTabbarMiddleClick();
+    void testCloseAllDocumentsWithMultipleDocs();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;

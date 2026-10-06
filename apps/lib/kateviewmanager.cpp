@@ -1695,7 +1695,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
 
     // finally, make the correct view from the last session active
     size_t lastViewSpace = config.readEntry("Active ViewSpace", 0);
-    if (lastViewSpace > m_viewSpaceList.size()) {
+    if (lastViewSpace >= m_viewSpaceList.size()) {
         lastViewSpace = 0;
     }
     if (lastViewSpace < m_viewSpaceList.size()) {

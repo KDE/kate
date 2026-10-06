@@ -7,6 +7,7 @@
 #pragma once
 
 #include <KTextEditor/Document>
+#include <QHash>
 #include <QWidget>
 
 // Just a helper class which we use internally to manage widgets/docs
@@ -106,6 +107,11 @@ public:
         m_type = Type::None;
         m_doc = nullptr;
     }
+
+    friend size_t qHash(const DocOrWidget &d, size_t seed = 0) noexcept
+    {
+        return qHashMulti(seed, d.qobject(), static_cast<int>(d.m_type));
+    }
 };
 
 namespace std
@@ -114,8 +120,7 @@ template<>
 struct hash<DocOrWidget> {
     std::size_t operator()(DocOrWidget const &s) const noexcept
     {
-        std::size_t const h1(std::hash<void *>{}(s.qobject()));
-        return h1;
+        return qHash(s);
     }
 };
 }

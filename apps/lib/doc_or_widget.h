@@ -112,11 +112,9 @@ namespace std
 {
 template<>
 struct hash<DocOrWidget> {
-    typedef DocOrWidget argument_type;
-    typedef std::size_t result_type;
-    result_type operator()(argument_type const &s) const noexcept
+    std::size_t operator()(DocOrWidget const &s) const noexcept
     {
-        result_type const h1(std::hash<void *>{}(s.qobject()));
+        std::size_t const h1(std::hash<void *>{}(s.qobject()));
         return h1;
     }
 };

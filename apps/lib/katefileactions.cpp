@@ -35,6 +35,7 @@
 #include <QMenu>
 #include <QMimeDatabase>
 #include <QMimeType>
+#include <QPointer>
 #include <QProcess>
 #include <QStandardPaths>
 #include <QUrl>
@@ -104,7 +105,11 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
     // is window-modal by default
     KJobWidgets::setWindow(job, parent);
 
-    QWidget::connect(job, &KJob::result, parent, [parent, doc, oldFileUrl](KJob *finishedJob) {
+    QWidget::connect(job, &KJob::result, parent, [parent, doc = QPointer<KTextEditor::Document>(doc), oldFileUrl](KJob *finishedJob) {
+        if (!doc) {
+            return;
+        }
+
         auto *copyJob = static_cast<KIO::CopyJob *>(finishedJob);
         if (!copyJob->error()) {
             // use Utils::absoluteUrl to have same normalization as via the KateDocManager

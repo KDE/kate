@@ -872,7 +872,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
             }
             auto tgtFilenameMatch = DIFF_FILENAME_RE.match(text.at(i + 1));
 
-            if (tgtFilenameMatch.hasMatch() || text.at(i + 1) == QLatin1String("--- /dev/null")) {
+            if (tgtFilenameMatch.hasMatch() || text.at(i + 1) == QLatin1String("+++ /dev/null")) {
                 tgtFile = tgtFilenameMatch.hasMatch() ? tgtFilenameMatch.captured(1) : QString();
                 if (!tgtFile.isEmpty()) {
                     fileExtensions.insert(QFileInfo(tgtFile).suffix());

@@ -121,6 +121,12 @@
 </listitem>
 <listitem>
 <para
+><link linkend="kate-application-plugin-deployment"
+>Connector de desplegament</link
+>: Puja fitxers de projecte i navega per un servidor SFTP remot</para>
+</listitem>
+<listitem>
+<para
 >Replicode: Llenguatge constructivista i entorn d'execució d'IA</para>
 </listitem>
 <listitem>
@@ -3838,6 +3844,172 @@ kate /path/to/folder
 <!--
 context menu Project->Lookup:xxx
 -->
+
+</sect1>
+
+<sect1 id="kate-application-plugin-deployment">
+<title
+>Connector de desplegament</title>
+
+<para
+>El connector de desplegament puja fitxers del projecte actiu a un servidor SFTP. També proporciona una vista d'eina <guilabel
+>Servidor remot</guilabel
+> per navegar per la destinació configurada i obrir fitxers remots directament al &kate;. El <link linkend="kate-application-plugin-projects"
+>connector de projecte</link
+> ha d'estar activat.</para>
+
+<sect2 id="deployment-configuration">
+<title
+>Configuració del projecte</title>
+
+<para
+>Afegeix un objecte <literal
+>deployment</literal
+> al fitxer <filename
+>.kateproject</filename
+> del projecte:</para>
+
+<screen
+>{
+  "name": "Exemple",
+  "files": [ { "git": 1 } ],
+  "deployment": {
+    "host": "exaorg",
+    "port": 22,
+    "user": "deploy",
+    "localRoot": ".",
+    "remoteRoot": "/var/www/example",
+    "exclude": [
+      ".git",
+      ".kateproject*",
+      "build",
+      "*.tmp"
+    ]
+  }
+}
+</screen>
+
+<variablelist>
+<varlistentry>
+<term
+><literal
+>servidor</literal
+></term>
+<listitem
+><para
+>El nom o l'adreça IP del servidor requerit. No inclogueu cap esquema <literal
+>sftp://</literal
+> o nom d'usuari.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>port</literal
+></term>
+<listitem
+><para
+>El port SSH, de l'1 al 65535. Si s'omet, de manera predeterminada és 22.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>user</literal
+></term>
+<listitem
+><para
+>El nom d'usuari SSH. Si s'omet, el KIO utilitza el seu valor predeterminat normal del servidor.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>localRoot</literal
+></term>
+<listitem
+><para
+>El directori local el contingut del qual està assignat a <literal
+>remoteRoot</literal
+>. Es resol un camí relatiu des del directori base del projecte. De manera predeterminada és el directori base del projecte. El directori ha d'existir i ha d'estar dins del projecte.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>remoteRoot</literal
+></term>
+<listitem
+><para
+>El directori de destinació absolut requerit al servidor. No es permeten els components de travessada de directori pare.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>exclude</literal
+></term>
+<listitem
+><para
+>Una matriu opcional de patrons de comodí relatius al projecte. Un patró sense barra coincideix amb qualsevol component de camí, de manera que <literal
+>build</literal
+> exclou directoris o fitxers amb aquest nom a qualsevol profunditat. Els patrons que contenen una barra coincideixen amb els camins relatius a <literal
+>localRoot</literal
+>.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<para
+>Les contrasenyes i les claus privades no s'emmagatzemen a la configuració del projecte. KIO gestiona l'autenticació, la verificació de la clau del servidor i la integració de la cartera.</para>
+
+<para
+>Els paràmetres compartits es poden publicar a <filename
+>.kateproject</filename
+>. Per mantenir camins de servidor o comptes específics d'una màquina fora del control de versions, poseu un objecte <literal
+>deployment</literal
+> complet a <filename
+>.kateproject.local</filename
+>. L'objecte local té prioritat sobre el del projecte <filename
+>.kate</filename
+>. L'acció <guimenuitem
+>Configura el desplegament...</guimenuitem
+> escriu aquesta substitució local mentre conserva la configuració de projecte no relacionada.</para>
+</sect2>
+
+<sect2 id="deployment-usage">
+<title
+>Pujada i navegació</title>
+
+<para
+><guimenuitem
+>Puja el fitxer actual</guimenuitem
+> puja el fitxer local actiu i té la drecera predeterminada <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>S</keycap
+></keycombo
+>. <guimenuitem
+>Puja el projecte</guimenuitem
+> puja tots els fitxers no exclosos coneguts del projecte actiu. El menú contextual d'un fitxer de projecte proporciona <guimenuitem
+>Puja al servidor remot</guimenuitem
+>, mentre que el menú contextual d'una carpeta proporciona <guimenuitem
+>Puja la carpeta al servidor remot</guimenuitem
+> per pujar el seu contingut de forma recursiva. Els directoris remots que falten es creen automàticament.</para>
+
+<para
+>La vista d'eina <guilabel
+>Servidor remot</guilabel
+> navega per l'arrel remota configurada. L'obertura d'un fitxer remot edita directament el seu URL <literal
+>sftp://</literal
+>. El seu menú contextual pot obrir o pujar el fitxer local corresponent quan n'hi hagi. El progrés de la transferència i els errors es mostren a la vista d'eina <guilabel
+>Transferència de fitxers</guilabel
+>.</para>
+</sect2>
 
 </sect1>
 

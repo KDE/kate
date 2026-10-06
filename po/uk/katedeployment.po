@@ -1,0 +1,385 @@
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2026 Yuri Chornoivan <yurchor@ukr.net>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-10-05 00:50+0000\n"
+"PO-Revision-Date: 2026-10-05 21:50+0300\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 25.12.1\n"
+
+#: deploymentconfig.cpp:102
+#, kde-format
+msgid "deployment must be an object"
+msgstr "розгортання має бути об'єктом"
+
+#: deploymentconfig.cpp:118
+#, kde-format
+msgid "deployment host must not be empty"
+msgstr "вузол розгортання має бути непорожнім"
+
+#: deploymentconfig.cpp:122 deploymentconfig.cpp:126 deploymentconfig.cpp:196
+#, kde-format
+msgid "deployment host is invalid"
+msgstr "некоректний вузол розгортання"
+
+#: deploymentconfig.cpp:136
+#, kde-format
+msgid "deployment port must be between 1 and 65535"
+msgstr "порт розгортання має бути числом від 1 до 65535"
+
+#: deploymentconfig.cpp:142
+#, kde-format
+msgid "project base must not be empty"
+msgstr "основа проєкту має бути непорожньою"
+
+#: deploymentconfig.cpp:148
+#, kde-format
+msgid "project base must be an existing directory"
+msgstr "основа проєкту має бути наявним каталогом"
+
+#: deploymentconfig.cpp:157
+#, kde-format
+msgid "deployment localRoot must not contain traversal"
+msgstr ""
+"localRoot розгортання не повинна містити шляхи з переходом на вищі рівні"
+
+#: deploymentconfig.cpp:165
+#, kde-format
+msgid ""
+"deployment localRoot must be an existing directory inside the project base"
+msgstr ""
+"параметр розгортання localRoot має вказувати на наявний каталог у межах "
+"основи проєкту"
+
+#: deploymentconfig.cpp:171
+#, kde-format
+msgid "deployment remoteRoot must be an absolute path without traversal"
+msgstr ""
+"remoteRoot розгортання має бути абсолютним шляхом без переходу на вищі рівні"
+
+#: deploymentconfig.cpp:184
+#, kde-format
+msgid "deployment exclude entries must be strings"
+msgstr "записи виключення розгортання мають бути рядками"
+
+#: deploymentconfig.cpp:190
+#, kde-format
+msgid "deployment exclude must be a list of strings"
+msgstr "виключення розгортання має бути списком рядків"
+
+#: deploymentplugin.cpp:116
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure Deployment"
+msgstr "Налаштовування розгортання"
+
+#: deploymentplugin.cpp:121
+#, kde-format
+msgid ""
+"Configure the SFTP destination for <filename>%1</filename>. Authentication "
+"is handled by KIO."
+msgstr ""
+"Налаштувати призначення SFTP для <filename>%1</filename>. Обробку "
+"розпізнавання виконуватиме KIO."
+
+#: deploymentplugin.cpp:138
+#, kde-format
+msgid "One project-relative glob per line"
+msgstr "Один замінник шляху відносно проєкту на рядок"
+
+#: deploymentplugin.cpp:140
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Host:"
+msgstr "Вузол:"
+
+#: deploymentplugin.cpp:141
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Port:"
+msgstr "Порт:"
+
+#: deploymentplugin.cpp:142
+#, kde-format
+msgctxt "@label:textbox"
+msgid "User:"
+msgstr "Користувач:"
+
+#: deploymentplugin.cpp:143
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Local root:"
+msgstr "Локальний корінь:"
+
+#: deploymentplugin.cpp:144
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Remote root:"
+msgstr "Віддалений корінь:"
+
+#: deploymentplugin.cpp:145
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Exclude:"
+msgstr "Виключити:"
+
+#: deploymentplugin.cpp:179
+#, kde-format
+msgctxt "@title:window"
+msgid "Invalid Deployment Configuration"
+msgstr "Некоректні налаштування розгортання"
+
+#: deploymentplugin.cpp:214 deploymentplugin.cpp:949
+#, kde-format
+msgid "Deployment"
+msgstr "Розгортання"
+
+#: deploymentplugin.cpp:220
+#, kde-format
+msgctxt "@action"
+msgid "Upload Current File"
+msgstr "Вивантажити поточний файл"
+
+#: deploymentplugin.cpp:230
+#, kde-format
+msgctxt "@action"
+msgid "Upload Project"
+msgstr "Вивантажити проєкт"
+
+#: deploymentplugin.cpp:237 deploymentplugin.cpp:749
+#, kde-format
+msgctxt "@action"
+msgid "Cancel Deployment Transfers"
+msgstr "Скасувати передавання розгортання"
+
+#: deploymentplugin.cpp:242
+#, kde-format
+msgctxt "@action"
+msgid "Configure Deployment..."
+msgstr "Налаштувати розгортання…"
+
+#: deploymentplugin.cpp:247
+#, kde-format
+msgctxt "@action"
+msgid "Browse Remote Host"
+msgstr "Навігація віддаленим вузлом"
+
+#: deploymentplugin.cpp:254
+#, kde-format
+msgid "Remote Host"
+msgstr "Віддалений вузол"
+
+#: deploymentplugin.cpp:280
+#, kde-format
+msgctxt "@action"
+msgid "Deployment Root"
+msgstr "Корінь розгортання"
+
+#: deploymentplugin.cpp:293
+#, kde-format
+msgid "File Transfer"
+msgstr "Перенесення файлів"
+
+#: deploymentplugin.cpp:301
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: deploymentplugin.cpp:304
+#, kde-format
+msgctxt "@action:button"
+msgid "Clear"
+msgstr "Спорожнити"
+
+#: deploymentplugin.cpp:361
+#, kde-format
+msgid "Loading %1..."
+msgstr "Завантаження %1…"
+
+#: deploymentplugin.cpp:368
+#, kde-format
+msgid "Connected to %1"
+msgstr "З'єднано з %1"
+
+#: deploymentplugin.cpp:377
+#, kde-format
+msgid "Failed to list %1 (KIO error %2): %3"
+msgstr "Не вдалося побудувати список %1 (помилка KIO %2): %3"
+
+#: deploymentplugin.cpp:485
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload Folder to Remote Host"
+msgstr "Вивантажити теку на віддалений вузол"
+
+#: deploymentplugin.cpp:486
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload to Remote Host"
+msgstr "Вивантажити на віддалений вузол"
+
+#: deploymentplugin.cpp:533
+#, kde-format
+msgid "Open or select a Kate project before configuring deployment."
+msgstr "Відкрийте або виберіть проєкт Kate до налаштовування розгортання."
+
+#: deploymentplugin.cpp:537
+#, kde-format
+msgid ""
+"Deployment configuration requires a file-backed <filename>.kateproject</"
+"filename>."
+msgstr ""
+"Налаштовування розгортання потребує базового файла <filename>.kateproject</"
+"filename>."
+
+#: deploymentplugin.cpp:553
+#, kde-format
+msgid "Could not read <filename>%1</filename>."
+msgstr "Не вдалося прочитати <filename>%1</filename>."
+
+#: deploymentplugin.cpp:561
+#, kde-format
+msgid "Could not update malformed JSON in <filename>%1</filename>: %2"
+msgstr ""
+"Не вдалося оновити помилково форматований JSON у <filename>%1</filename>: %2"
+
+#: deploymentplugin.cpp:574
+#, kde-format
+msgid "Could not write <filename>%1</filename>."
+msgstr "Не вдалося записати <filename>%1</filename>."
+
+#: deploymentplugin.cpp:581
+#, kde-format
+msgid "Saved deployment configuration to %1"
+msgstr "Збережено налаштування розгортання до %1"
+
+#: deploymentplugin.cpp:595
+#, kde-format
+msgid "The current document is not a local file."
+msgstr "Поточний документ не є локальним файлом."
+
+#: deploymentplugin.cpp:631
+#, kde-format
+msgid "The file could not be saved before upload."
+msgstr "Не вдалося зберегти файл до вивантаження."
+
+#: deploymentplugin.cpp:646
+#, kde-format
+msgid "Deployment is not configured for this project."
+msgstr "Для цього проєкту не налаштовано розгортання."
+
+#: deploymentplugin.cpp:651
+#, kde-format
+msgid "A deployment transfer is already running."
+msgstr "Передавання розгортання вже виконується."
+
+#: deploymentplugin.cpp:661
+#, kde-format
+msgid "Cannot upload %1 because its remote version is open in Kate."
+msgstr ""
+"Не вдалося вивантажити %1, оскільки його віддалену версію відкрито у Kate."
+
+#: deploymentplugin.cpp:672
+#, kde-format
+msgid "No deployable files were selected."
+msgstr "Не вибрано жодного придатного до розгортання файла."
+
+#: deploymentplugin.cpp:678
+#, kde-format
+msgid "Queued one file for upload."
+msgid_plural "Queued %1 files for upload."
+msgstr[0] "Заплановано %1 файл для вивантаження."
+msgstr[1] "Заплановано %1 файли для вивантаження."
+msgstr[2] "Заплановано %1 файлів для вивантаження."
+msgstr[3] "Заплановано %1 файл для вивантаження."
+
+#: deploymentplugin.cpp:696 deploymentplugin.cpp:762
+#, kde-format
+msgid "The remote file is open in Kate."
+msgstr "Віддалений файл відкрито у Kate."
+
+#: deploymentplugin.cpp:706
+#, kde-format
+msgid "Uploading %1 to %2"
+msgstr "Вивантаження %1 на %2"
+
+#: deploymentplugin.cpp:744
+#, kde-format
+msgctxt "@action"
+msgid "Cancel Deployment Transfers (%1%)"
+msgstr "Скасувати передавання розгортання (%1%)"
+
+#: deploymentplugin.cpp:785
+#, kde-format
+msgid "Failed to upload %1: %2"
+msgstr "Не вдалося вивантажити %1: %2"
+
+#: deploymentplugin.cpp:787
+#, kde-format
+msgid "Uploaded %1"
+msgstr "Вивантажено %1"
+
+#: deploymentplugin.cpp:807
+#, kde-format
+msgid "Cancelled deployment transfers."
+msgstr "Скасовано передавання розгортання."
+
+#: deploymentplugin.cpp:839
+#, kde-format
+msgid "Not connected"
+msgstr "Не з'єднано"
+
+#: deploymentplugin.cpp:856
+#, kde-format
+msgid ""
+"The SFTP KIO worker is not installed or does not support directory listing."
+msgstr ""
+"Обробник SFTP KIO не встановлено або у ньому не передбачено побудови списку "
+"вмісту каталогу."
+
+#: deploymentplugin.cpp:887
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Remote File"
+msgstr "Відкрити віддалений файл"
+
+#: deploymentplugin.cpp:898
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Mapped Local File"
+msgstr "Відкрити пов'язаний локальний файл"
+
+#: deploymentplugin.cpp:905
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload Mapped Local File"
+msgstr "Вивантажити пов'язаний локальний файл"
+
+#: deploymentplugin.cpp:915
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Remote URL"
+msgstr "Скопіювати віддалену адресу"
+
+#: deploymentplugin.cpp:922
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Remote Path"
+msgstr "Скопіювати віддалений шлях"
+
+#: deploymentplugin.cpp:932
+#, kde-format
+msgid "No mapped local file exists for %1."
+msgstr "Немає пов'язаного локального файла для %1."

@@ -1,0 +1,373 @@
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2026 Shinjo Park <kde@peremen.name>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-10-05 00:50+0000\n"
+"PO-Revision-Date: 2026-10-05 22:44+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 25.12.3\n"
+
+#: deploymentconfig.cpp:102
+#, kde-format
+msgid "deployment must be an object"
+msgstr "배포는 객체여야 함"
+
+#: deploymentconfig.cpp:118
+#, kde-format
+msgid "deployment host must not be empty"
+msgstr "배포 호스트가 비어 있으면 안 됨"
+
+#: deploymentconfig.cpp:122 deploymentconfig.cpp:126 deploymentconfig.cpp:196
+#, kde-format
+msgid "deployment host is invalid"
+msgstr "배포 호스트가 잘못됨"
+
+#: deploymentconfig.cpp:136
+#, kde-format
+msgid "deployment port must be between 1 and 65535"
+msgstr "배포 포트가 1에서 65535 사이에 있어야 함"
+
+#: deploymentconfig.cpp:142
+#, kde-format
+msgid "project base must not be empty"
+msgstr "프로젝트 기반 위치가 비어 있으면 안 됨"
+
+#: deploymentconfig.cpp:148
+#, kde-format
+msgid "project base must be an existing directory"
+msgstr "프로젝트 기반 위치는 존재하는 디렉터리여야 함"
+
+#: deploymentconfig.cpp:157
+#, kde-format
+msgid "deployment localRoot must not contain traversal"
+msgstr "배포 localRoot는 상위 디렉터리로 전환하면 안 됨"
+
+#: deploymentconfig.cpp:165
+#, kde-format
+msgid ""
+"deployment localRoot must be an existing directory inside the project base"
+msgstr "배포 localRoot는 프로젝트 기반 위치 내에 있는 존재하는 디렉터리여야 함"
+
+#: deploymentconfig.cpp:171
+#, kde-format
+msgid "deployment remoteRoot must be an absolute path without traversal"
+msgstr "배포 remoteRoot는 상위 디렉터리 전환이 없는 절대 경로여야 함"
+
+#: deploymentconfig.cpp:184
+#, kde-format
+msgid "deployment exclude entries must be strings"
+msgstr "배포에서 제외된 항목은 문자열이어야 함"
+
+#: deploymentconfig.cpp:190
+#, kde-format
+msgid "deployment exclude must be a list of strings"
+msgstr "배포에서 제외된 항목 목록은 문자열의 목록이어야 함"
+
+#: deploymentplugin.cpp:116
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure Deployment"
+msgstr "배포 설정"
+
+#: deploymentplugin.cpp:121
+#, kde-format
+msgid ""
+"Configure the SFTP destination for <filename>%1</filename>. Authentication "
+"is handled by KIO."
+msgstr ""
+"<filename>%1</filename>에 대한 SFTP 대상을 설정합니다. 인증은 KIO에서 처리합"
+"니다."
+
+#: deploymentplugin.cpp:138
+#, kde-format
+msgid "One project-relative glob per line"
+msgstr "매 줄마다 프로젝트 상대 경로를 포함하는 glob"
+
+#: deploymentplugin.cpp:140
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Host:"
+msgstr "호스트:"
+
+#: deploymentplugin.cpp:141
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Port:"
+msgstr "포트:"
+
+#: deploymentplugin.cpp:142
+#, kde-format
+msgctxt "@label:textbox"
+msgid "User:"
+msgstr "사용자:"
+
+#: deploymentplugin.cpp:143
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Local root:"
+msgstr "로컬 루트:"
+
+#: deploymentplugin.cpp:144
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Remote root:"
+msgstr "원격 루트:"
+
+#: deploymentplugin.cpp:145
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Exclude:"
+msgstr "제외:"
+
+#: deploymentplugin.cpp:179
+#, kde-format
+msgctxt "@title:window"
+msgid "Invalid Deployment Configuration"
+msgstr "잘못된 배포 설정"
+
+#: deploymentplugin.cpp:214 deploymentplugin.cpp:949
+#, kde-format
+msgid "Deployment"
+msgstr "배포"
+
+#: deploymentplugin.cpp:220
+#, kde-format
+msgctxt "@action"
+msgid "Upload Current File"
+msgstr "현재 파일 업로드"
+
+#: deploymentplugin.cpp:230
+#, kde-format
+msgctxt "@action"
+msgid "Upload Project"
+msgstr "프로젝트 업로드"
+
+#: deploymentplugin.cpp:237 deploymentplugin.cpp:749
+#, kde-format
+msgctxt "@action"
+msgid "Cancel Deployment Transfers"
+msgstr "배포 전송 취소"
+
+#: deploymentplugin.cpp:242
+#, kde-format
+msgctxt "@action"
+msgid "Configure Deployment..."
+msgstr "배포 설정..."
+
+#: deploymentplugin.cpp:247
+#, kde-format
+msgctxt "@action"
+msgid "Browse Remote Host"
+msgstr "원격 호스트 탐색"
+
+#: deploymentplugin.cpp:254
+#, kde-format
+msgid "Remote Host"
+msgstr "원격 호스트"
+
+#: deploymentplugin.cpp:280
+#, kde-format
+msgctxt "@action"
+msgid "Deployment Root"
+msgstr "배포 루트"
+
+#: deploymentplugin.cpp:293
+#, kde-format
+msgid "File Transfer"
+msgstr "파일 전송"
+
+#: deploymentplugin.cpp:301
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "취소"
+
+#: deploymentplugin.cpp:304
+#, kde-format
+msgctxt "@action:button"
+msgid "Clear"
+msgstr "지우기"
+
+#: deploymentplugin.cpp:361
+#, kde-format
+msgid "Loading %1..."
+msgstr "%1 불러오는 중..."
+
+#: deploymentplugin.cpp:368
+#, kde-format
+msgid "Connected to %1"
+msgstr "%1에 연결됨"
+
+#: deploymentplugin.cpp:377
+#, kde-format
+msgid "Failed to list %1 (KIO error %2): %3"
+msgstr "%1의 목록을 가져올 수 없음(KIO 오류 %2): %3"
+
+#: deploymentplugin.cpp:485
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload Folder to Remote Host"
+msgstr "원격 호스트에 폴더 업로드"
+
+#: deploymentplugin.cpp:486
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload to Remote Host"
+msgstr "원격 호스트에 업로드"
+
+#: deploymentplugin.cpp:533
+#, kde-format
+msgid "Open or select a Kate project before configuring deployment."
+msgstr "배포를 설정하기 전에 Kate 프로젝트를 열거나 선택하십시오."
+
+#: deploymentplugin.cpp:537
+#, kde-format
+msgid ""
+"Deployment configuration requires a file-backed <filename>.kateproject</"
+"filename>."
+msgstr ""
+"배포를 설정하려면 파일 기반 <filename>.kateproject</filename>가 필요합니다."
+
+#: deploymentplugin.cpp:553
+#, kde-format
+msgid "Could not read <filename>%1</filename>."
+msgstr "<filename>%1</filename>을(를) 읽을 수 없습니다."
+
+#: deploymentplugin.cpp:561
+#, kde-format
+msgid "Could not update malformed JSON in <filename>%1</filename>: %2"
+msgstr "<filename>%1</filename>에 있는 잘못된 JSON을 업데이트할 수 없음: %2"
+
+#: deploymentplugin.cpp:574
+#, kde-format
+msgid "Could not write <filename>%1</filename>."
+msgstr "<filename>%1</filename>에 쓸 수 없습니다."
+
+#: deploymentplugin.cpp:581
+#, kde-format
+msgid "Saved deployment configuration to %1"
+msgstr "배포 설정을 %1(으)로 저장함"
+
+#: deploymentplugin.cpp:595
+#, kde-format
+msgid "The current document is not a local file."
+msgstr "현재 문서는 로컬 파일이 아닙니다."
+
+#: deploymentplugin.cpp:631
+#, kde-format
+msgid "The file could not be saved before upload."
+msgstr "현재 파일을 업로드 전에 저장할 수 없습니다."
+
+#: deploymentplugin.cpp:646
+#, kde-format
+msgid "Deployment is not configured for this project."
+msgstr "이 프로젝트에 배포가 설정되어 있지 않습니다."
+
+#: deploymentplugin.cpp:651
+#, kde-format
+msgid "A deployment transfer is already running."
+msgstr "배포 전송이 이미 진행 중입니다."
+
+#: deploymentplugin.cpp:661
+#, kde-format
+msgid "Cannot upload %1 because its remote version is open in Kate."
+msgstr "Kate에 원격 버전이 열려 있어서 %1을(를) 업로드할 수 없습니다."
+
+#: deploymentplugin.cpp:672
+#, kde-format
+msgid "No deployable files were selected."
+msgstr "배포 가능한 파일을 선택하지 않았습니다."
+
+#: deploymentplugin.cpp:678
+#, kde-format
+msgid "Queued one file for upload."
+msgid_plural "Queued %1 files for upload."
+msgstr[0] "파일 %1개의 업로드가 대기열에 추가되었습니다."
+
+#: deploymentplugin.cpp:696 deploymentplugin.cpp:762
+#, kde-format
+msgid "The remote file is open in Kate."
+msgstr "원격 파일이 Kate에 열려 있습니다."
+
+#: deploymentplugin.cpp:706
+#, kde-format
+msgid "Uploading %1 to %2"
+msgstr "%1을(를) %2에 업로드 중"
+
+#: deploymentplugin.cpp:744
+#, kde-format
+msgctxt "@action"
+msgid "Cancel Deployment Transfers (%1%)"
+msgstr "배포 전송 취소(%1%)"
+
+#: deploymentplugin.cpp:785
+#, kde-format
+msgid "Failed to upload %1: %2"
+msgstr "%1을(를) 업로드할 수 없음: %2"
+
+#: deploymentplugin.cpp:787
+#, kde-format
+msgid "Uploaded %1"
+msgstr "%1 업로드됨"
+
+#: deploymentplugin.cpp:807
+#, kde-format
+msgid "Cancelled deployment transfers."
+msgstr "배포 전송을 취소했습니다."
+
+#: deploymentplugin.cpp:839
+#, kde-format
+msgid "Not connected"
+msgstr "연결되지 않음"
+
+#: deploymentplugin.cpp:856
+#, kde-format
+msgid ""
+"The SFTP KIO worker is not installed or does not support directory listing."
+msgstr ""
+"SFTP KIO 워커가 설치되어 있지 않거나 디렉터리 목록 표시를 지원하지 않습니다."
+
+#: deploymentplugin.cpp:887
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Remote File"
+msgstr "원격 파일 열기"
+
+#: deploymentplugin.cpp:898
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Mapped Local File"
+msgstr "대응되는 로컬 파일 열기"
+
+#: deploymentplugin.cpp:905
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload Mapped Local File"
+msgstr "대응되는 로컬 파일 업로드"
+
+#: deploymentplugin.cpp:915
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Remote URL"
+msgstr "원격 URL 복사"
+
+#: deploymentplugin.cpp:922
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Remote Path"
+msgstr "원격 경로 복사"
+
+#: deploymentplugin.cpp:932
+#, kde-format
+msgid "No mapped local file exists for %1."
+msgstr "%1에 대응되는 로컬 파일이 없습니다."

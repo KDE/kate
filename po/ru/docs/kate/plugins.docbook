@@ -164,8 +164,8 @@
 <listitem>
 <para
 ><link linkend="kate-application-plugin-deployment"
->Deployment Plugin</link
-> - Upload project files and browse a remote SFTP host</para>
+>Развёртывание</link
+> — отправка файлов проекта и просмотр удалённого узла SFTP</para>
 </listitem>
 <listitem>
 <para
@@ -3885,25 +3885,25 @@ context menu Project->Lookup:xxx
 
 <sect1 id="kate-application-plugin-deployment">
 <title
->Deployment Plugin</title>
+>Модуль развёртывания</title>
 
 <para
->The Deployment plugin uploads files from the active project to an SFTP server. It also provides a <guilabel
->Remote Host</guilabel
-> tool view for browsing the configured destination and opening remote files directly in &kate;. The <link linkend="kate-application-plugin-projects"
->Project plugin</link
-> must be enabled.</para>
+>Модуль развёртывания отправляет файлы активного проекта на сервер SFTP. Он также добавляет панель <guilabel
+>Удалённый узел</guilabel
+>, которая позволяет просматривать настроенное место назначения и открывать удалённые файлы непосредственно в &kate;. Для работы модуля должен быть включён <link linkend="kate-application-plugin-projects"
+>модуль проектов</link
+>.</para>
 
 <sect2 id="deployment-configuration">
 <title
->Project Configuration</title>
+>Настройка проекта</title>
 
 <para
->Add a <literal
+>Добавьте объект <literal
 >deployment</literal
-> object to the project's <filename
+> в файл проекта <filename
 >.kateproject</filename
-> file:</para>
+>:</para>
 
 <screen
 >{
@@ -3933,9 +3933,9 @@ context menu Project->Lookup:xxx
 ></term>
 <listitem
 ><para
->The required server hostname or IP address. Do not include an <literal
+>Обязательный параметр: имя узла или IP-адрес сервера. Схему <literal
 >sftp://</literal
-> scheme or user name.</para
+> и имя пользователя указывать не следует.</para
 ></listitem>
 </varlistentry>
 
@@ -3946,7 +3946,7 @@ context menu Project->Lookup:xxx
 ></term>
 <listitem
 ><para
->The SSH port, from 1 through 65535. If omitted, it defaults to 22.</para
+>Порт SSH, от 1 до 65535. Если параметр не указан, используется порт 22.</para
 ></listitem>
 </varlistentry>
 
@@ -3957,7 +3957,7 @@ context menu Project->Lookup:xxx
 ></term>
 <listitem
 ><para
->The SSH user name. If omitted, KIO uses its normal default for the host.</para
+>Имя пользователя SSH. Если параметр не указан, KIO использует имя, которое обычно выбирает для этого узла.</para
 ></listitem>
 </varlistentry>
 
@@ -3968,9 +3968,9 @@ context menu Project->Lookup:xxx
 ></term>
 <listitem
 ><para
->The local directory whose contents are mapped to <literal
+>Локальный каталог, содержимое которого сопоставляется с <literal
 >remoteRoot</literal
->. A relative path is resolved from the project base directory. The default is the project base directory. The directory must exist and must be inside the project.</para
+>. Относительный путь отсчитывается от базового каталога проекта; он же используется по умолчанию. Каталог должен существовать и находиться внутри проекта.</para
 ></listitem>
 </varlistentry>
 
@@ -3981,7 +3981,7 @@ context menu Project->Lookup:xxx
 ></term>
 <listitem
 ><para
->The required absolute destination directory on the server. Parent-directory traversal components are not allowed.</para
+>Обязательный параметр: абсолютный путь к каталогу назначения на сервере. Переходы в родительский каталог в пути не допускаются.</para
 ></listitem>
 </varlistentry>
 
@@ -3992,9 +3992,9 @@ context menu Project->Lookup:xxx
 ></term>
 <listitem
 ><para
->An optional array of project-relative wildcard patterns. A pattern without a slash matches any path component, so <literal
+>Необязательный массив шаблонов подстановки относительно проекта. Шаблон без косой черты совпадает с любым компонентом пути, поэтому <literal
 >build</literal
-> excludes directories or files with that name at any depth. Patterns containing a slash match paths relative to <literal
+> исключает каталоги и файлы с таким именем на любом уровне вложенности. Шаблоны с косой чертой сопоставляются с путями относительно <literal
 >localRoot</literal
 >.</para
 ></listitem>
@@ -4002,49 +4002,49 @@ context menu Project->Lookup:xxx
 </variablelist>
 
 <para
->Passwords and private keys are not stored in the project configuration. Authentication, host-key verification, and wallet integration are handled by KIO.</para>
+>Пароли и закрытые ключи в конфигурации проекта не хранятся. Аутентификацию, проверку ключа узла и работу с бумажником обеспечивает KIO.</para>
 
 <para
->Shared settings can be committed in <filename
+>Общие параметры можно хранить в системе управления версиями в файле <filename
 >.kateproject</filename
->. To keep machine-specific server paths or accounts out of version control, put a complete <literal
+>. Чтобы пути на сервере и учётные записи, относящиеся к конкретному компьютеру, не попадали в систему управления версиями, поместите полный объект <literal
 >deployment</literal
-> object in <filename
+> в файл <filename
 >.kateproject.local</filename
->. The local object takes precedence over the one in <filename
+>. Локальный объект имеет приоритет над объектом из <filename
 >.kateproject</filename
->. The <guimenuitem
->Configure Deployment...</guimenuitem
-> action writes this local override while preserving unrelated project settings.</para>
+>. Действие <guimenuitem
+>Настроить развёртывание…</guimenuitem
+> записывает такое локальное переопределение, сохраняя остальные параметры проекта.</para>
 </sect2>
 
 <sect2 id="deployment-usage">
 <title
->Uploading and Browsing</title>
+>Отправка и просмотр</title>
 
 <para
-><guimenuitem
->Upload Current File</guimenuitem
-> uploads the active local file and has the default shortcut <keycombo action="simul"
+>Действие <guimenuitem
+>Отправить текущий файл</guimenuitem
+> отправляет активный локальный файл; комбинация клавиш по умолчанию — <keycombo action="simul"
 >&Ctrl;&Alt;<keycap
 >S</keycap
 ></keycombo
->. <guimenuitem
->Upload Project</guimenuitem
-> uploads all non-excluded files known to the active project. A project file's context menu provides <guimenuitem
->Upload to Remote Host</guimenuitem
->, while a folder's context menu provides <guimenuitem
->Upload Folder to Remote Host</guimenuitem
-> to upload its contents recursively. Missing remote directories are created automatically.</para>
+>. Действие <guimenuitem
+>Отправить проект</guimenuitem
+> отправляет все известные активному проекту файлы, кроме исключённых. В контекстном меню файла проекта доступен пункт <guimenuitem
+>Отправить на удалённый узел</guimenuitem
+>, а в контекстном меню папки — пункт <guimenuitem
+>Отправить папку на удалённый узел</guimenuitem
+>, который рекурсивно отправляет её содержимое. Отсутствующие каталоги на сервере создаются автоматически.</para>
 
 <para
->The <guilabel
->Remote Host</guilabel
-> tool view browses the configured remote root. Opening a remote file edits its <literal
+>Панель <guilabel
+>Удалённый узел</guilabel
+> показывает содержимое настроенного удалённого корневого каталога. Открытый удалённый файл редактируется непосредственно по его адресу <literal
 >sftp://</literal
-> URL directly. Its context menu can open or upload the corresponding local file when one exists. Transfer progress and errors are shown in the <guilabel
->File Transfer</guilabel
-> tool view.</para>
+>. Контекстное меню панели позволяет открыть или отправить соответствующий локальный файл, если он существует. Ход передачи и ошибки показываются на панели <guilabel
+>Передача файлов</guilabel
+>.</para>
 </sect2>
 
 </sect1>

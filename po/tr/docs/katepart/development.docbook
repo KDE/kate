@@ -1162,7 +1162,9 @@
 <para
 >Daha çok adım geri gitmek için #pop anahtar sözcüğü yinelenebilir: <userinput
 >#pop#pop#pop</userinput
-></para>
+> veya parantez içinde bir sayı argümanı verilebilir: <userinput
+>#pop(3)</userinput
+>.</para>
 </listitem>
 <listitem>
 <para
@@ -1182,7 +1184,7 @@
 >tanımlayıcıyı</emphasis
 >`; örneğin, <userinput
 >ContextA!ContextB!ContextC</userinput
-> yineleyerek, birden çok bağlamı üst üste yığabilirsiniz. Listedeki en son bağlam hemen etkin olur, diğerlerine `#pop` kullanarak erişebilirsiniz.</para>
+> yineleyerek, birden çok bağlamı üst üste yığabilirsiniz. Listedeki en son bağlam hemen etkin olur, diğerlerine #pop kullanarak erişebilirsiniz.</para>
 </listitem>
 <listitem>
 <para
@@ -3112,9 +3114,9 @@
 >)</term>
 <listitem
 ><para
->Bu renk, GDB eklentisi tarafından etkin bir kesme noktasını belirtmek için kullanılır. Bu rengin arka planının mat olduğuna dikkat edin. Daha fazla bilgi için <ulink url="help:/kate/kate-application-plugin-gdb.html"
->GDB eklentisi belgelendirmesine</ulink
-> bakın.</para
+>Bu renk, &kate; Hata Ayıklayıcı Eklentisi tarafından etkin bir kesme noktasını belirtmek için kullanılır. Bu rengin arka planının mat olduğuna dikkat edin. Daha fazla bilgi için <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>&kate; Hata Ayıklayıcı Eklentisi</ulink
+> belgelendirmesine bakın.</para
 ></listitem>
 </varlistentry>
 
@@ -3127,9 +3129,9 @@
 >)</term>
 <listitem
 ><para
->Bu renk GDB eklentisi tarafından hata ayıklama sırasında ulaştığınız bir kesme noktasını belirtmek için kullanılır. Bu rengin arka planının mat olduğuna dikkat edin. Daha fazla bilgi için <ulink url="help:/kate/kate-application-plugin-gdb.html"
->GDB eklentisi belgelendirmesine</ulink
-> bakın.</para
+>Bu renk, &kate; Hata Ayıklayıcı Eklentisi tarafından hata ayıklama sırasında ulaştığınız bir kesme noktasını belirtmek için kullanılır. Bu rengin arka planının mat olduğuna dikkat edin. Daha fazla bilgi için <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>&kate; Hata Ayıklayıcı Eklentisi</ulink
+> belgelendirmesine bakın.</para
 ></listitem>
 </varlistentry>
 
@@ -3142,9 +3144,9 @@
 >)</term>
 <listitem
 ><para
->Bu renk, GDB eklentisi tarafından etkin olmayan bir kesme noktasını belirtmek için kullanılır. Bu rengin arka planının mat olduğuna dikkat edin. Daha fazla bilgi için <ulink url="help:/kate/kate-application-plugin-gdb.html"
->GDB eklentisi belgelendirmesine</ulink
-> bakın.</para
+>Bu renk, &kate; Hata Ayıklayıcı Eklentisi tarafından etkin olmayan bir kesme noktasını belirtmek için kullanılır. Bu rengin arka planının mat olduğuna dikkat edin. Daha fazla bilgi için <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>&kate; Hata Ayıklayıcı Eklentisi</ulink
+> belgelendirmesine bakın.</para
 ></listitem>
 </varlistentry>
 
@@ -3157,9 +3159,9 @@
 >)</term>
 <listitem
 ><para
->Bu renk, şu anda yürütülen satırdaki GDB eklentisi tarafından kullanılır. Bu rengin arka planının mat olduğuna dikkat edin. Daha fazla bilgi için <ulink url="help:/kate/kate-application-plugin-gdb.html"
->GDB eklentisi belgelendirmesine</ulink
-> bakın.</para
+>Bu renk, şu anda yürütülen satırdaki GDB eklentisi tarafından kullanılır. Bu rengin arka planının mat olduğuna dikkat edin. Daha fazla bilgi için <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>&kate; Hata Ayıklayıcı Eklentisi</ulink
+> belgelendirmesine bakın.</para
 ></listitem>
 </varlistentry>
 

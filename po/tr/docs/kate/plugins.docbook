@@ -71,7 +71,7 @@
 <para
 ><link linkend="kate-application-plugin-external-tools"
 >Dış Araçlar</link
-> — Dış araçlar ve uygulamalar çalıştırın</para>
+> — Dış araçlar ve uygulamalar çalıştırın.</para>
 </listitem>
 <listitem>
 <para
@@ -83,19 +83,19 @@
 <para
 ><link linkend="kate-application-plugin-build"
 >Yapı Eklentisi</link
-> — Derle/Yap ve hata iletilerini ayrıştırın</para>
+> — Derle/Yap ve hata iletilerini ayrıştırın.</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-closeexceptlike"
 >Dışındakini/Benzerini Kapat</link
-> — Ortak bir yol veya dosya uzantısı temelli bir belge grubunu kapatın</para>
+> — Ortak bir yol veya dosya uzantısı temelli bir belge grubunu kapatın.</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-colorpicker"
 >Renk Seçicisi</link
-> — Bilinen renkler için önizlemeyi göster</para>
+> — Bilinen renkler için önizlemeyi gösterin.</para>
 </listitem>
 <listitem>
 <para
@@ -107,13 +107,13 @@
 <para
 ><link linkend="kate-application-plugin-ctags"
 >CTags</link
-> — Tanımları/Beyanları CTags ile arayın</para>
+> — Tanımları/Beyanları CTags ile arayın.</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-preview"
 >Belge Önizlemesi</link
-> — Belgeyi hedef biçimde önizleyin</para>
+> — Belgeyi hedef biçimde önizleyin.</para>
 </listitem>
 <listitem>
 <para
@@ -133,19 +133,25 @@
 <para
 ><link linkend="kate-application-plugin-documents"
 >Belge Ağacı Görünümü</link
-> — Açık belgeleri bir dosya ağacında görüntüler</para>
+> — Açık belgeleri bir dosya ağacında görüntüler.</para>
 </listitem>
 <listitem>
 <para
-><link linkend="kate-application-plugin-gdb"
->&gdb;</link
-> — Bir temel &gdb; ön ucu sağlar</para>
+><link linkend="kate-application-plugin-debugger"
+>&kate; Hata Ayıklayıcı Eklentisi</link
+> — Temel bir &gdb; ön ucu sağlar.</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-projects"
 >Proje Eklentisi</link
 > — &git; ve diğer kaynak denetim sistemleriyle tümleştirme</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-deployment"
+>Konuşlandırma Eklentisi</link
+> — Proje dosyalarını bir SFTP makinesine yükleyin veya makinedeki dosyalara göz atın.</para>
 </listitem>
 <listitem>
 <para
@@ -161,55 +167,55 @@
 <para
 ><link linkend="kate-application-plugin-searchinfiles"
 >Ara ve Değiştir</link
-> — Belgelerde, klasörlerde ve projelerde arayın ve değiştirin</para>
+> — Belgelerde, klasörlerde ve projelerde arayın ve değiştirin.</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-snippets"
 >Betikler ve Parçacıklar araç görünümü</link
-> — Kod parçacıkları ve düzenleyici betikleri oluşturun veya indirin</para>
+> — Kod parçacıkları ve düzenleyici betikleri oluşturun veya indirin.</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-keyboardmacros"
 >Klavye Makroları</link
-> — Klavye makroları kaydedin ve oynatın (örn., klavye eylem sıralamaları)</para>
+> — Klavye makroları kaydedin ve oynatın (örn., klavye eylem sıralamaları).</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-sql"
 >SQL Eklentisi</link
-> — SQL veritabanlarında sorgular yürütün</para>
+> — SQL veritabanlarında sorgular yürütün.</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-symbolviewer"
 >Sembol Görüntüleyicisi</link
-> — Kaynaktan başvuru sembollerini çıkarın ve gösterin</para>
+> — Kaynaktan başvuru sembollerini çıkarın ve gösterin.</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-konsole"
 >Uçbirim Araç Görünümü</link
-> — &kde;’nin &konsole; araç takımını kullanarak elinizin altında bir uçbirim bulundurun</para>
+> — &kde;’nin &konsole; araç takımını kullanarak elinizin altında bir uçbirim bulundurun.</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-textfilter"
 >Metin Süzgeci</link
-> — Uçbirim komutları kullanarak metin işleyin</para>
+> — Uçbirim komutları kullanarak metin işleyin.</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-xmltools"
 >&XML; Tamamlama</link
-> — DTD tarafından izin verilen &XML; ögelerini, özniteliklerini, öznitelik değerlerini ve varlıklarını listeler</para>
+> — DTD tarafından izin verilen &XML; ögelerini, özniteliklerini, öznitelik değerlerini ve varlıklarını listeler.</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-xmlcheck"
 >&XML; Doğrulama</link
-> — &XML; dosyalarını xmllint kullanarak doğrular</para>
+> — &XML; dosyalarını xmllint kullanarak doğrular.</para>
 </listitem>
 <listitem>
 <para
@@ -275,11 +281,11 @@
 <para
 ><userinput
 >Ad</userinput
->, daha sonra menüde görünecek olan aracın adı.</para>
+>, daha sonra menüde görünecek olan aracın adı</para>
 <para
 ><userinput
 >Simge</userinput
->, menüde görünen isteğe bağlı simge.</para>
+>, menüde görünen isteğe bağlı simge</para>
 <para
 ><userinput
 >Yürütülebilir</userinput
@@ -293,7 +299,7 @@
 <para
 ><userinput
 >Girdi</userinput
->, stdin aracılığıyla işleme aktarılan isteğe bağlı girdi.</para>
+>, stdin aracılığıyla işleme aktarılan isteğe bağlı girdi</para>
 <para
 ><userinput
 >Çalışma dizini</userinput
@@ -359,7 +365,7 @@
 >Düzenleyici komutu</userinput
 >, yerleşik <ulink url="help:/katepart/advanced.html#advanced-editing-tools-commandline"
 >komut satırı ile </ulink
-> dış aracı çağırmak için kullanılabilecek isteğe bağlı komut.</para>
+> dış aracı çağırmak için kullanılabilecek isteğe bağlı komut</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -444,75 +450,75 @@
 <para
 ><userinput
 >Document:FileBaseName</userinput
->: Geçerli belgenin yolu ve son eki olmadan dosya tabanı adı.</para>
+>: Geçerli belgenin yolu ve son eki olmadan dosya tabanı adı</para>
 <para
 ><userinput
 >Document:FileExtension</userinput
->: Geçerli belgenin dosya uzantısı.</para>
+>: Geçerli belgenin dosya uzantısı</para>
 <para
 ><userinput
 >Document:FileName</userinput
->: Geçerli belgenin yol olmadan dosya adı.</para>
+>: Geçerli belgenin yol olmadan dosya adı</para>
 <para
 ><userinput
 >Document:FilePath</userinput
->: Geçerli belgenin dosya adı da içerilmek üzere tam yolu.</para>
+>: Geçerli belgenin dosya adı da içerilmek üzere tam yolu</para>
 <para
 ><userinput
 >Document:Text</userinput
->: Geçerli belgenin içeriği.</para>
+>: Geçerli belgenin içeriği</para>
 <para
 ><userinput
 >Document:Path</userinput
->: Geçerli belgenin dosya adı dışında tam yolu.</para>
+>: Geçerli belgenin dosya adı dışında tam yolu</para>
 <para
 ><userinput
 >Document:NativeFilePath</userinput
->: Yerel yol ayırıcıyla birlikte (Windows’ta ters eğik çizgi) dosya adı da içerilen tam belge yolu.</para>
+>: Yerel yol ayırıcıyla birlikte (Windows’ta ters eğik çizgi) dosya adı da içerilen tam belge yolu</para>
 <para
 ><userinput
 >Document:NativePath</userinput
->: Yerel yol ayırıcıyla birlikte (Windows’ta ters eğik çizgi) dosya adı dışında tam belge yolu.</para>
+>: Yerel yol ayırıcıyla birlikte (Windows’ta ters eğik çizgi) dosya adı dışında tam belge yolu</para>
 <para
 ><userinput
 >Document:Cursor:Line</userinput
->: Geçerli belgedeki metin imleci konumunun satır numarası (0 ile başlar).</para>
+>: Geçerli belgedeki metin imleci konumunun satır numarası (0 ile başlar)</para>
 <para
 ><userinput
 >Document:Cursor:Column</userinput
->: Geçerli belgedeki metin imleci konumunun sütun numarası (0 ile başlar).</para>
+>: Geçerli belgedeki metin imleci konumunun sütun numarası (0 ile başlar)</para>
 <para
 ><userinput
 >Document:Cursor:XPos</userinput
->: İmleç konumunun genel ekran koordinatlarındaki X bileşeni.</para>
+>: İmleç konumunun genel ekran koordinatlarındaki X bileşeni</para>
 <para
 ><userinput
 >Document:Cursor:YPos</userinput
->: İmleç konumunun genel ekran koordinatlarındaki Y bileşeni.</para>
+>: İmleç konumunun genel ekran koordinatlarındaki Y bileşeni</para>
 <para
 ><userinput
 >Document:Selection:Text</userinput
->: Geçerli belgenin metin seçimi.</para>
+>: Geçerli belgenin metin seçimi</para>
 <para
 ><userinput
 >Document:Selection:StartLine</userinput
->: Geçerli belgenin seçili metninin başlangıç satırı.</para>
+>: Geçerli belgenin seçili metninin başlangıç satırı</para>
 <para
 ><userinput
 >Document:Selection:StartColumn</userinput
->: Geçerli belgenin seçili metninin başlangıç sütunu.</para>
+>: Geçerli belgenin seçili metninin başlangıç sütunu</para>
 <para
 ><userinput
 >Document:Selection:EndLine</userinput
->: Geçerli belgenin seçili metninin bitiş satırı.</para>
+>: Geçerli belgenin seçili metninin bitiş satırı</para>
 <para
 ><userinput
 >Document:Selection:EndColumn</userinput
->: Geçerli belgenin seçili metninin bitiş sütunu.</para>
+>: Geçerli belgenin seçili metninin bitiş sütunu</para>
 <para
 ><userinput
 >Document:RowCount</userinput
->: Geçerli belgenin satır sayısı.</para>
+>: Geçerli belgenin satır sayısı</para>
 <para
 ><userinput
 >Document:Variable:&lt;variable&gt;</userinput
@@ -522,43 +528,43 @@
 <para
 ><userinput
 >Date:Locale</userinput
->: Geçerli yerel ayar biçimindeki geçerli tarih.</para>
+>: Geçerli yerel ayar biçimindeki geçerli tarih</para>
 <para
 ><userinput
 >Date:ISO</userinput
->: Geçerli tarih (ISO).</para>
+>: Geçerli tarih (ISO)</para>
 <para
 ><userinput
 >Date:&lt;value&gt;</userinput
 >: Geçerli tarih (<ulink url="https://doc.qt.io/qt-5/qdate.html#toString"
 >QDate biçim dizisi</ulink
->).</para>
+>)</para>
 <para
 ><userinput
 >Time:Locale</userinput
->: Geçerli yerel ayar biçimindeki geçerli zaman.</para>
+>: Geçerli yerel ayar biçimindeki geçerli zaman</para>
 <para
 ><userinput
 >Time:ISO</userinput
->: Geçerli zaman (ISO).</para>
+>: Geçerli zaman (ISO)</para>
 <para
 ><userinput
 >Time:&lt;value&gt;</userinput
 >: Geçerli zaman (<ulink url="https://doc.qt.io/qt-5/qtime.html#toString"
 >QTime biçim dizisi</ulink
->).</para>
+>)</para>
 <para
 ><userinput
 >ENV:&lt;value&gt;</userinput
->: Çevre değişkenlerine erişim.</para>
+>: Çevre değişkenlerine erişim</para>
 <para
 ><userinput
 >JS:&lt;expression&gt;</userinput
->: Basit JavaScript ifadelerini değerlendirin.</para>
+>: Basit JavaScript ifadelerini değerlendirin</para>
 <para
 ><userinput
 >PercentEncoded:&lt;text&gt;</userinput
->: Yüzde kodlamalı metin.</para>
+>: Yüzde kodlamalı metin</para>
 <para
 ><userinput
 >UUID</userinput
@@ -2641,7 +2647,7 @@ folder if possible.</para
 
 </sect1>
 
-<sect1 id="kate-application-plugin-gdb">
+<sect1 id="kate-application-plugin-debugger">
 <!--https://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
 <sect1info>
 <authorgroup>
@@ -2656,14 +2662,14 @@ folder if possible.</para
 </authorgroup>
 </sect1info>
 <title
->&gdb; Eklentisi</title>
+>&kate; Hata Ayıklayıcı Eklentisi</title>
 
 <sect2 id="gdb-intro">
 <title
 >Giriş</title>
 
 <para
->&kate;’in &gdb; eklentisi, <ulink url="https://microsoft.github.io/debug-adapter-protocol/"
+>&kate; Hata Ayıklayıcı Eklentisi, <ulink url="https://microsoft.github.io/debug-adapter-protocol/"
 >Debugger Adapter Protocol</ulink
 > protokolünü destekleyen tüm hata ayıklayıcılar için basit bir ön yüz sunar. Bu, <ulink url="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Debugger-Adapter-Protocol.html"
 >burada açıklandığı üzere</ulink
@@ -2677,7 +2683,7 @@ folder if possible.</para
 </important>
 
 <para
->&gdb; eklentisini, &kate; yapılandırmasının <link linkend="config-dialog-plugins"
+>&kate; Hata Ayıklayıcı Eklentisi’ni, &kate; yapılandırmasının <link linkend="config-dialog-plugins"
 >Eklentiler</link
 > bölümünden etkinleştirebilirsiniz.</para>
 
@@ -3143,9 +3149,9 @@ folder if possible.</para
 ></textobject>
 <caption
 ><para
->&gdb; eklentisinin <guilabel
+>&kate; Hata Ayıklama Eklentisi’nin <guilabel
 >Çağrı Yığını</guilabel
-> araç görünümü. </para
+> araç görünümü </para
 ></caption>
 </mediaobject>
 </screenshot>
@@ -3167,9 +3173,9 @@ folder if possible.</para
 ></textobject>
 <caption
 ><para
->&gdb; eklentisinin <guilabel
+>&kate; Hata Ayıklama Eklentisi’nin <guilabel
 >Yereller</guilabel
-> araç görünümü. </para
+> araç görünümü </para
 ></caption>
 </mediaobject>
 </screenshot>
@@ -3874,6 +3880,172 @@ kate /klasöre/olan/yol
 <!--
 context menu Project->Lookup:xxx
 -->
+
+</sect1>
+
+<sect1 id="kate-application-plugin-deployment">
+<title
+>Konuşlandırma Eklentisi</title>
+
+<para
+>Konuşlandırma eklentisi, etkin projedeki dosyaların bir SFTP sunucusuna yükler. Ayrıca, yapılandırılmış hedef konumdaki dosyalara göz atmak ve dosyaları doğrudan &kate; içinde açmak için bir <guilabel
+>Uzak Makine</guilabel
+> aracı da sağlar. <link linkend="kate-application-plugin-projects"
+>Proje eklentisinin</link
+> etkileştirilmiş olması gerekir.</para>
+
+<sect2 id="deployment-configuration">
+<title
+>Proje Yapılandırma</title>
+
+<para
+>Projenin <filename
+>.kateproject</filename
+> dosyasına bir <literal
+>deployment</literal
+> nesnesi ekleyin:</para>
+
+<screen
+>{
+  "name": "Örnek",
+  "files": [ { "git": 1 } ],
+  "deployment": {
+    "host": "örnek.org",
+    "port": 22,
+    "user": "deploy",
+    "localRoot": ".",
+    "remoteRoot": "/var/www/örnek",
+    "exclude": [
+      ".git",
+      ".kateproject*",
+      "build",
+      "*.tmp"
+    ]
+  }
+}
+</screen>
+
+<variablelist>
+<varlistentry>
+<term
+><literal
+>host</literal
+></term>
+<listitem
+><para
+>Gerekli sunucu makine adı veya IP adresi. <literal
+>sftp://</literal
+> şemasını veya bir kullanıcı adını içermeyin.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>port</literal
+></term>
+<listitem
+><para
+>1 ila 65535 arasındaki SSH kapısı. Boş bırakılırsa 22 olduğu varsayılır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>user</literal
+></term>
+<listitem
+><para
+>SSH kullanıcı adı. Boş bırakılırsa KIO kendi öntanımlı değerini kullanır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>localRoot</literal
+></term>
+<listitem
+><para
+>Yerel dizin içeriği <literal
+>remoteRoot</literal
+> konumuna eşlemlenir. Göreceli bir yol, proje ana dizininden çözümlenir. Öntanımlı değer proje ana dizinidir. Dizin var olmalı ve projenin içinde yer almalıdır.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>remoteRoot</literal
+></term>
+<listitem
+><para
+>Sunucudaki gereken mutlak konum dizini. Üst dizinden teker teker aşağı inmeli bileşenlere izin verilmez.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>exclude</literal
+></term>
+<listitem
+><para
+>Projeyle ilgili joker dizgileri içeren isteğe bağlı bir diziliş. Eğik çizgi içermeyen bir dizgi herhangi bir yol bileşeniyle eşleşir; bundan dolayı <literal
+>build</literal
+>, o adlı herhangi bir derinlikteki dizinleri veya dosyaları dışlar. Bir eğik çizgi içeren dizgiler, <literal
+>localRoot</literal
+> ile göreceli konumlarla eşleşir.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<para
+>Parolalar ve özel anahtarlar proje yapılandırmasında depolanmazlar. Kimlik doğrulama, makine ve anahtar doğrulaması ve cüzdan tümleştirmesi ise KIO tarafından halledilir.</para>
+
+<para
+>Paylaşılan ayarlar <filename
+>.kateproject</filename
+> dosyasına işlenebilirler. Makineye özel sunucu yollarını veya hesapları sunum denetiminin dışında tutmak isterseniz <filename
+>.kateproject.local</filename
+> dosyasına tam bir <literal
+>deployment</literal
+> nesnesi koyun. Yerel nesne, <filename
+>.kateproject</filename
+> dosyasındakine göre öncelik alır. <guimenuitem
+>Konuşlandırmayı Yapılandır…</guimenuitem
+> eylemi, bu yerel geçersiz kılmayı yazarken, ilgili olmayan proje ayarlarını korur.</para>
+</sect2>
+
+<sect2 id="deployment-usage">
+<title
+>Yükleme ve Göz Atma</title>
+
+<para
+><guimenuitem
+>Geçerli Dosyayı Yükle</guimenuitem
+>, geçerli etkin yerel dosyayı karşıya yükler ve <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>S</keycap
+></keycombo
+> öntanımlı kısayoluna sahiptir. <guimenuitem
+>Projeyi Yükle</guimenuitem
+>, etkin projedeki tüm dışlanmamış dosyaları karşıya yükler. Proje dosyasının bağam menüsünde bir <guimenuitem
+>Uzak Makineye Yükle</guimenuitem
+> eylemi bulunurken, bir klasörün bağlam menüsü ise tüm dosyaları özyineli olarak karşıya yüklemek üzere <guimenuitem
+>Klasörü Uzak Makineye Yükle</guimenuitem
+> seçeneğini sunar. Eksik olan uzak dizinler kendiliğinden oluşturulurlar.</para>
+
+<para
+><guilabel
+>Uzak Makine</guilabel
+> aracı, yapılandırılmış uzak köke göz atmanıza olanak tanır. Bir uzak dosyayı açmak, onun <literal
+>sftp://</literal
+> URL’sini doğrudan düzenlemek anlamına gelir. Bağlam menüsü, eğer varsa yerel dosyayı açmak veya karşıya yüklemek için seçenekler sunar. Aktarım ilerlemesi ve hataları ise <guilabel
+>Dosya Aktarımı</guilabel
+> araç görünümünde gösterilir.</para>
+</sect2>
 
 </sect1>
 

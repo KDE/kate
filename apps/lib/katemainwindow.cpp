@@ -475,7 +475,7 @@ void KateMainWindow::setupActions()
             KateFileActions::copyFileNameToClipboard(view->document());
         }
     });
-    a->setWhatsThis(i18n("Copies the file path of the current file to clipboard."));
+    a->setWhatsThis(i18n("Copies the file name of the current file to clipboard."));
 
     a = ac->addAction(QStringLiteral("file_open_containing_folder"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-open-folder")));
@@ -484,7 +484,7 @@ void KateMainWindow::setupActions()
         if (auto view = viewManager()->activeView())
             KateFileActions::openContainingFolder(view->document());
     });
-    a->setWhatsThis(i18n("Copies the file path of the current file to clipboard."));
+    a->setWhatsThis(i18n("Opens containing folder of the current file."));
 
     a = ac->addAction(QStringLiteral("file_rename"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));

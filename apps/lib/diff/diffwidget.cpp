@@ -505,7 +505,7 @@ void DiffWidget::handleStageUnstage_sideBySide(DiffEditor *e, int startLine, int
 
 void DiffWidget::handleStageUnstage_raw(int startLine, int endLine, int actionType, DiffParams::Flag flags)
 {
-    doStageUnStage(startLine, endLine + (endLine - startLine), actionType, flags);
+    doStageUnStage(startLine, endLine, actionType, flags);
 }
 
 void DiffWidget::doStageUnStage(int startLine, int endLine, int actionType, DiffParams::Flag flags)

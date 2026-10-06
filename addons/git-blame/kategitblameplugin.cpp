@@ -346,11 +346,13 @@ void KateGitBlamePluginView::commandFinished(int exitCode, QProcess::ExitStatus 
     // switching to english is no good idea either, as the user will likely not understand it then anyways
     // Git returns error code 1 if IgnoreRevsFile is not found, so we ignore the error for it
     if (m_currentCommand != Command::IgnoreRevsFile && (exitCode != 0 || exitStatus != QProcess::NormalExit)) {
+#if 0 // has issues with files not in the Git and similar, see bug 451699 & utilities/kate!2197
         if (m_currentCommand == Command::Blame) {
             KateGitBlamePluginView::sendMessage(
                 i18nc("@info %1 is a git error", "Git Blame plugin error: %1", QString::fromUtf8(m_blameInfoProc.readAllStandardError())),
                 true);
         }
+#endif
         return;
     }
 

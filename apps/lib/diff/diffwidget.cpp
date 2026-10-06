@@ -317,17 +317,17 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     }
 
     // Connect both left and right editors to open line requests
-    connect(m_left, &DiffEditor::openLineNumARequested, this, [this, p](int line, int columnNumber) {
-        Q_EMIT openFileRequested(p.srcFile, line, columnNumber);
+    connect(m_left, &DiffEditor::openLineNumARequested, this, [this](int line, int columnNumber) {
+        Q_EMIT openFileRequested(m_params.srcFile, line, columnNumber);
     });
-    connect(m_left, &DiffEditor::openLineNumBRequested, this, [this, p](int line, int columnNumber) {
-        Q_EMIT openFileRequested(!p.destFile.isEmpty() ? p.destFile : p.srcFile, line, columnNumber);
+    connect(m_left, &DiffEditor::openLineNumBRequested, this, [this](int line, int columnNumber) {
+        Q_EMIT openFileRequested(!m_params.destFile.isEmpty() ? m_params.destFile : m_params.srcFile, line, columnNumber);
     });
-    connect(m_right, &DiffEditor::openLineNumARequested, this, [this, p](int line, int columnNumber) {
-        Q_EMIT openFileRequested(!p.destFile.isEmpty() ? p.destFile : p.srcFile, line, columnNumber);
+    connect(m_right, &DiffEditor::openLineNumARequested, this, [this](int line, int columnNumber) {
+        Q_EMIT openFileRequested(!m_params.destFile.isEmpty() ? m_params.destFile : m_params.srcFile, line, columnNumber);
     });
-    connect(m_right, &DiffEditor::openLineNumBRequested, this, [this, p](int line, int columnNumber) {
-        Q_EMIT openFileRequested(!p.destFile.isEmpty() ? p.destFile : p.srcFile, line, columnNumber);
+    connect(m_right, &DiffEditor::openLineNumBRequested, this, [this](int line, int columnNumber) {
+        Q_EMIT openFileRequested(!m_params.destFile.isEmpty() ? m_params.destFile : m_params.srcFile, line, columnNumber);
     });
 
     m_commitInfo->hide();

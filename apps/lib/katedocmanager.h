@@ -189,6 +189,7 @@ private:
     KConfig m_metaInfos;
     bool m_saveMetaInfos;
     int m_daysMetaInfos;
+    bool m_closingDocuments = false;
 
     QList<QUrl> m_recentlyClosedUrls;
     QList<QUrl> m_pinnedDocuments;

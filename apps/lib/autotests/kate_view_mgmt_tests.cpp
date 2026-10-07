@@ -1007,20 +1007,21 @@ void KateViewManagementTests::testCloseAllDocumentsWithMultipleDocs()
     QSignalSpy spyDeleted(docMan, &KateDocManager::documentDeleted);
     QSignalSpy spyAllDeleted(docMan, &KateDocManager::documentsDeleted);
 
-    // TODO: If a listener triggers a close of another document during documentWillBeDeleted we crash
-    // bool slotRan = false;
-    // auto conn = connect(docMan, &KateDocManager::documentWillBeDeleted, this, [docMan, doc3, &slotRan](KTextEditor::Document *d) {
-    //     if (!slotRan && d != doc3) {
-    //         slotRan = true;
-    //         docMan->closeDocument(doc3);
-    //     }
-    // });
+    bool slotRan = false;
+    auto conn = connect(docMan, &KateDocManager::documentWillBeDeleted, this, [docMan, doc3, &slotRan](KTextEditor::Document *d) {
+        if (!slotRan && d != doc3) {
+            slotRan = true;
+            // this should fail if we do it when documents are being closed already
+            QVERIFY(!docMan->closeDocument(doc3));
+        }
+    });
 
     const bool closed = docMan->closeAllDocuments();
     QVERIFY(closed);
     QCOMPARE(docMan->documentList().size(), 0);
     QCOMPARE(spyDeleted.count(), 4);
     QCOMPARE(spyAllDeleted.count(), 1);
+    QVERIFY(slotRan);
 
     QVERIFY(!p1);
     QVERIFY(!p2);

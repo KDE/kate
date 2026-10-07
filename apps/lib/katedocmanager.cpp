@@ -21,6 +21,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSharedConfig>
+#include <QScopedValueRollback>
 
 #include <QProgressDialog>
 
@@ -179,6 +180,13 @@ bool KateDocManager::closeDocuments(std::span<KTextEditor::Document *const> docu
     if (documents.empty()) {
         return true;
     }
+
+    // We are already closing documents
+    if (m_closingDocuments) {
+        return false;
+    }
+
+    const QScopedValueRollback deletingDocs(m_closingDocuments, true);
 
     m_recentlyClosedUrls.clear();
     for (const auto document : documents) {

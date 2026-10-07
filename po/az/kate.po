@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-16 00:49+0000\n"
+"POT-Creation-Date: 2026-10-07 00:52+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -43,16 +43,16 @@ msgstr "Kate - Təkmilləşdirilmiş Mətn Redaktoru"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2022 Kate müəllifləri"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:220
-#: lib/autotests/kate_view_mgmt_test2.cpp:522
-#: lib/autotests/kate_view_mgmt_test2.cpp:558
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:280
+#: lib/autotests/kate_view_mgmt_test2.cpp:582
+#: lib/autotests/kate_view_mgmt_test2.cpp:618
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Kate-i verilmiş sesiya ilə başlatmaq."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:221
-#: lib/autotests/kate_view_mgmt_test2.cpp:523
-#: lib/autotests/kate_view_mgmt_test2.cpp:559
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:281
+#: lib/autotests/kate_view_mgmt_test2.cpp:583
+#: lib/autotests/kate_view_mgmt_test2.cpp:619
 #, kde-format
 msgid "session"
 msgstr "sesiya"
@@ -306,7 +306,7 @@ msgstr "Qat-qat menyu alətlər paneli"
 msgid "&Status Bar Items"
 msgstr "&Vəziyyət paneli elementləri"
 
-#: lib/diagnostics/diagnostic_suppression.h:37
+#: lib/diagnostics/diagnostic_suppression.h:38
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1472,59 +1472,59 @@ msgstr "Adı"
 msgid "Description"
 msgstr "Təsviri"
 
-#: lib/katedocmanager.cpp:352
+#: lib/katedocmanager.cpp:354
 #, kde-format
 msgid "Starting Up"
 msgstr "Başladılır"
 
-#: lib/katedocmanager.cpp:353
+#: lib/katedocmanager.cpp:355
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Sonuncu sesiyadan faylları açmaq..."
 
-#: lib/katedocmanager.cpp:528
+#: lib/katedocmanager.cpp:530
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin untitled documents."
 msgstr "Yeni sənəd yaradın"
 
-#: lib/katedocmanager.cpp:533
+#: lib/katedocmanager.cpp:535
 #, fuzzy, kde-format
 #| msgid "Shows a hint how to compare documents."
 msgid "Cannot pin non local documents."
 msgstr "Necə tutuşdurmaq haqqında məsləhətləri göstərir."
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, kde-format
 msgid "Rename file"
 msgstr "Faylın adını dəyişmək"
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, kde-format
 msgid "New file name"
 msgstr "Yeni fayl adı"
 
-#: lib/katefileactions.cpp:116
+#: lib/katefileactions.cpp:121
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "\"%1\" faylı \"%2\" üzərinə köçürülə bilmədi"
 
-#: lib/katefileactions.cpp:137
+#: lib/katefileactions.cpp:142
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "\"%1\" faylını silmək istədiyinizə əminsiniz?"
 
-#: lib/katefileactions.cpp:138
+#: lib/katefileactions.cpp:143
 #, kde-format
 msgid "Delete file"
 msgstr "Fayl silinsin"
 
-#: lib/katefileactions.cpp:161
+#: lib/katefileactions.cpp:166
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "\"%1\" faylı silinə bilmədi."
 
-#: lib/katefileactions.cpp:220
+#: lib/katefileactions.cpp:225
 #, kde-format
 msgid "&Other Application..."
 msgstr "&Digər tətbiq..."
@@ -1651,8 +1651,7 @@ msgstr "Hamısını &yenidən yükləmək"
 msgid "Reload all open documents."
 msgstr "bütün açılmış sənədləri yenidən yükləmək."
 
-#: lib/katemainwindow.cpp:468 lib/katemainwindow.cpp:478
-#: lib/katemainwindow.cpp:487
+#: lib/katemainwindow.cpp:468
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Cari faylın fayl yolunu mübadilə yaddaşına kopyalayır."
@@ -1663,10 +1662,22 @@ msgstr "Cari faylın fayl yolunu mübadilə yaddaşına kopyalayır."
 msgid "Copy Filename"
 msgstr "Fayl adı"
 
+#: lib/katemainwindow.cpp:478
+#, fuzzy, kde-format
+#| msgid "Copies the file path of the current file to clipboard."
+msgid "Copies the file name of the current file to clipboard."
+msgstr "Cari faylın fayl yolunu mübadilə yaddaşına kopyalayır."
+
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Fayldan ibarət qovluğu açmaq"
+
+#: lib/katemainwindow.cpp:487
+#, fuzzy, kde-format
+#| msgid "Open new tab to the right of current tab."
+msgid "Opens containing folder of the current file."
+msgstr "Yeni vərəqi cari vərəqin sağında açmaq"
 
 #: lib/katemainwindow.cpp:491
 #, kde-format
@@ -2272,22 +2283,22 @@ msgctxt "@info"
 msgid "Log"
 msgstr "Jurnal"
 
-#: lib/katesavemodifieddialog.cpp:81
+#: lib/katesavemodifieddialog.cpp:80
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Belə Saxlayın (%1)"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Save Documents"
 msgstr "Sənədləri saxlamaq"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Close Document"
 msgstr "Sənədi bağlamaq"
 
-#: lib/katesavemodifieddialog.cpp:157
+#: lib/katesavemodifieddialog.cpp:156
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
@@ -2296,7 +2307,7 @@ msgstr ""
 "\"%1\" sənədi dəyişdirilib. Dəyişiklikləri saxlamaq yoxsa ləğv etmək "
 "istəyirsiniz?"
 
-#: lib/katesavemodifieddialog.cpp:161
+#: lib/katesavemodifieddialog.cpp:160
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2305,22 +2316,22 @@ msgstr ""
 "<qt>Aşağıdakı sənədlər dəyişdirildi. Bağlamadan öncə onları saxlamaq "
 "istəyirsiniz?</qt>"
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Documents"
 msgstr "Sənədlər"
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Location"
 msgstr "Məkan"
 
-#: lib/katesavemodifieddialog.cpp:180
+#: lib/katesavemodifieddialog.cpp:179
 #, kde-format
 msgid "Se&lect All"
 msgstr "&Hamısını seçmək"
 
-#: lib/katesavemodifieddialog.cpp:258
+#: lib/katesavemodifieddialog.cpp:257
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

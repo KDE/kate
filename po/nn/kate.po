@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-16 00:49+0000\n"
+"POT-Creation-Date: 2026-10-07 00:52+0000\n"
 "PO-Revision-Date: 2024-08-31 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@nuug.no>\n"
@@ -46,16 +46,16 @@ msgstr "Kate – avansert skriveprogram frå KDE"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000–2024 Kate-utviklarane"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:220
-#: lib/autotests/kate_view_mgmt_test2.cpp:522
-#: lib/autotests/kate_view_mgmt_test2.cpp:558
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:280
+#: lib/autotests/kate_view_mgmt_test2.cpp:582
+#: lib/autotests/kate_view_mgmt_test2.cpp:618
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Start Kate med ei vald økt."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:221
-#: lib/autotests/kate_view_mgmt_test2.cpp:523
-#: lib/autotests/kate_view_mgmt_test2.cpp:559
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:281
+#: lib/autotests/kate_view_mgmt_test2.cpp:583
+#: lib/autotests/kate_view_mgmt_test2.cpp:619
 #, kde-format
 msgid "session"
 msgstr "økt"
@@ -305,7 +305,7 @@ msgstr "Hamburgarmeny-verktøylinje"
 msgid "&Status Bar Items"
 msgstr "&Statuslinjeelement"
 
-#: lib/diagnostics/diagnostic_suppression.h:37
+#: lib/diagnostics/diagnostic_suppression.h:38
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1466,59 +1466,59 @@ msgstr "Namn"
 msgid "Description"
 msgstr "Skildring"
 
-#: lib/katedocmanager.cpp:352
+#: lib/katedocmanager.cpp:354
 #, kde-format
 msgid "Starting Up"
 msgstr "Startar"
 
-#: lib/katedocmanager.cpp:353
+#: lib/katedocmanager.cpp:355
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Opnar filer frå førre økt …"
 
-#: lib/katedocmanager.cpp:528
+#: lib/katedocmanager.cpp:530
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin untitled documents."
 msgstr "Lag eit nytt dokument"
 
-#: lib/katedocmanager.cpp:533
+#: lib/katedocmanager.cpp:535
 #, fuzzy, kde-format
 #| msgid "Shows a hint how to compare documents."
 msgid "Cannot pin non local documents."
 msgstr "Vis hint om samanlikning av dokument."
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, kde-format
 msgid "Rename file"
 msgstr "Endra namn på fil"
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, kde-format
 msgid "New file name"
 msgstr "Nytt filnamn"
 
-#: lib/katefileactions.cpp:116
+#: lib/katefileactions.cpp:121
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "Klarte ikkje flytta fila «%1» til «%2»."
 
-#: lib/katefileactions.cpp:137
+#: lib/katefileactions.cpp:142
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "Er du sikker på at du vil sletta fila «%1»?"
 
-#: lib/katefileactions.cpp:138
+#: lib/katefileactions.cpp:143
 #, kde-format
 msgid "Delete file"
 msgstr "Sletta fil"
 
-#: lib/katefileactions.cpp:161
+#: lib/katefileactions.cpp:166
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "Klarte ikkje sletta fila «%1»."
 
-#: lib/katefileactions.cpp:220
+#: lib/katefileactions.cpp:225
 #, kde-format
 msgid "&Other Application..."
 msgstr "&Anna program …"
@@ -1638,8 +1638,7 @@ msgstr "Last alle o&m att"
 msgid "Reload all open documents."
 msgstr "Last om att alle opne dokument."
 
-#: lib/katemainwindow.cpp:468 lib/katemainwindow.cpp:478
-#: lib/katemainwindow.cpp:487
+#: lib/katemainwindow.cpp:468
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Kopierer adressa til gjeldande fil til utklippstavla."
@@ -1651,10 +1650,22 @@ msgstr "Kopierer adressa til gjeldande fil til utklippstavla."
 msgid "Copy Filename"
 msgstr "Kopier filnamnet"
 
+#: lib/katemainwindow.cpp:478
+#, fuzzy, kde-format
+#| msgid "Copies the file path of the current file to clipboard."
+msgid "Copies the file name of the current file to clipboard."
+msgstr "Kopierer adressa til gjeldande fil til utklippstavla."
+
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Opna foreldermappa"
+
+#: lib/katemainwindow.cpp:487
+#, fuzzy, kde-format
+#| msgid "Open new tabs to the right of the current tab"
+msgid "Opens containing folder of the current file."
+msgstr "Opna nye faner til høgre for den gjeldande fana"
 
 #: lib/katemainwindow.cpp:491
 #, kde-format
@@ -2244,22 +2255,22 @@ msgctxt "@info"
 msgid "Log"
 msgstr "Logg"
 
-#: lib/katesavemodifieddialog.cpp:81
+#: lib/katesavemodifieddialog.cpp:80
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Lagra som (%1)"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Save Documents"
 msgstr "Lagra dokument"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Close Document"
 msgstr "Lukk dokument"
 
-#: lib/katesavemodifieddialog.cpp:157
+#: lib/katesavemodifieddialog.cpp:156
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
@@ -2267,7 +2278,7 @@ msgid ""
 msgstr "Dokumentet «%1» er endra. Vil du lagra eller forkasta endringane?"
 
 # Det er hakket meir naturleg å snakka om «dokumenta nedanfor» enn «dei følgjande dokumenta». (Dei vert viste i ei liste nedanfor teksten.)
-#: lib/katesavemodifieddialog.cpp:161
+#: lib/katesavemodifieddialog.cpp:160
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2275,22 +2286,22 @@ msgid ""
 msgstr ""
 "<qt>Dokumenta nedanfor er endra. Vil du lagra dei før du avsluttar?</qt>"
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Documents"
 msgstr "Dokument"
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Location"
 msgstr "Plassering"
 
-#: lib/katesavemodifieddialog.cpp:180
+#: lib/katesavemodifieddialog.cpp:179
 #, kde-format
 msgid "Se&lect All"
 msgstr "&Vel alle"
 
-#: lib/katesavemodifieddialog.cpp:258
+#: lib/katesavemodifieddialog.cpp:257
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

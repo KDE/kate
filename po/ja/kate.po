@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-16 00:49+0000\n"
+"POT-Creation-Date: 2026-10-07 00:52+0000\n"
 "PO-Revision-Date: 2026-09-09 19:13+0900\n"
 "Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -58,16 +58,16 @@ msgstr "Kate - 高機能なテキストエディタ"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 The Kate Authors"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:220
-#: lib/autotests/kate_view_mgmt_test2.cpp:522
-#: lib/autotests/kate_view_mgmt_test2.cpp:558
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:280
+#: lib/autotests/kate_view_mgmt_test2.cpp:582
+#: lib/autotests/kate_view_mgmt_test2.cpp:618
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "指定されたセッションで Kate を起動します。"
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:221
-#: lib/autotests/kate_view_mgmt_test2.cpp:523
-#: lib/autotests/kate_view_mgmt_test2.cpp:559
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:281
+#: lib/autotests/kate_view_mgmt_test2.cpp:583
+#: lib/autotests/kate_view_mgmt_test2.cpp:619
 #, kde-format
 msgid "session"
 msgstr "セッション"
@@ -317,7 +317,7 @@ msgstr "ハンバーガーメニューバー"
 msgid "&Status Bar Items"
 msgstr "ステータスバーのアイテム(&S)"
 
-#: lib/diagnostics/diagnostic_suppression.h:37
+#: lib/diagnostics/diagnostic_suppression.h:38
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1479,57 +1479,57 @@ msgstr "名前"
 msgid "Description"
 msgstr "説明"
 
-#: lib/katedocmanager.cpp:352
+#: lib/katedocmanager.cpp:354
 #, kde-format
 msgid "Starting Up"
 msgstr "起動時"
 
-#: lib/katedocmanager.cpp:353
+#: lib/katedocmanager.cpp:355
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "最後のセッションのファイルを再読み込み中..."
 
-#: lib/katedocmanager.cpp:528
+#: lib/katedocmanager.cpp:530
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "無題のドキュメントは固定できません。"
 
-#: lib/katedocmanager.cpp:533
+#: lib/katedocmanager.cpp:535
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "ローカル以外のドキュメントは固定できません。"
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, kde-format
 msgid "Rename file"
 msgstr "ファイル名を変更"
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, kde-format
 msgid "New file name"
 msgstr "新しいファイル名"
 
-#: lib/katefileactions.cpp:116
+#: lib/katefileactions.cpp:121
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "ファイル \"%1\" を \"%2\" に移動できませんでした。"
 
-#: lib/katefileactions.cpp:137
+#: lib/katefileactions.cpp:142
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "本当にファイル \"%1\" を削除しますか？"
 
-#: lib/katefileactions.cpp:138
+#: lib/katefileactions.cpp:143
 #, kde-format
 msgid "Delete file"
 msgstr "ファイルを削除"
 
-#: lib/katefileactions.cpp:161
+#: lib/katefileactions.cpp:166
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "ファイル \"%1\" を削除できませんでした。"
 
-#: lib/katefileactions.cpp:220
+#: lib/katefileactions.cpp:225
 #, kde-format
 msgid "&Other Application..."
 msgstr "その他のアプリケーション(&O)..."
@@ -1649,8 +1649,7 @@ msgstr "すべて再読み込み(&L)"
 msgid "Reload all open documents."
 msgstr "開いているすべてのドキュメントを再読み込みします。"
 
-#: lib/katemainwindow.cpp:468 lib/katemainwindow.cpp:478
-#: lib/katemainwindow.cpp:487
+#: lib/katemainwindow.cpp:468
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "現在のファイルのパスをクリップボードにコピーします。"
@@ -1660,10 +1659,22 @@ msgstr "現在のファイルのパスをクリップボードにコピーしま
 msgid "Copy Filename"
 msgstr "ファイル名をコピー"
 
+#: lib/katemainwindow.cpp:478
+#, fuzzy, kde-format
+#| msgid "Copies the file path of the current file to clipboard."
+msgid "Copies the file name of the current file to clipboard."
+msgstr "現在のファイルのパスをクリップボードにコピーします。"
+
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "保存フォルダを開く(&O)"
+
+#: lib/katemainwindow.cpp:487
+#, fuzzy, kde-format
+#| msgid "Open new tabs to the right of the current tab"
+msgid "Opens containing folder of the current file."
+msgstr "現在のタブの右側に新しいタブを開く"
 
 #: lib/katemainwindow.cpp:491
 #, kde-format
@@ -2256,22 +2267,22 @@ msgctxt "@info"
 msgid "Log"
 msgstr "ログ"
 
-#: lib/katesavemodifieddialog.cpp:81
+#: lib/katesavemodifieddialog.cpp:80
 #, kde-format
 msgid "Save As (%1)"
 msgstr "名前を付けて保存 (%1)"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Save Documents"
 msgstr "ドキュメントを保存"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Close Document"
 msgstr "ドキュメントを閉じる"
 
-#: lib/katesavemodifieddialog.cpp:157
+#: lib/katesavemodifieddialog.cpp:156
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
@@ -2280,7 +2291,7 @@ msgstr ""
 "ドキュメント “%1” は変更されています。変更を保存しますか？それとも破棄します"
 "か？"
 
-#: lib/katesavemodifieddialog.cpp:161
+#: lib/katesavemodifieddialog.cpp:160
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2288,22 +2299,22 @@ msgid ""
 msgstr ""
 "<qt>以下のドキュメントは変更されています。閉じる前に保存しますか？</qt>"
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Documents"
 msgstr "ドキュメント"
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Location"
 msgstr "場所"
 
-#: lib/katesavemodifieddialog.cpp:180
+#: lib/katesavemodifieddialog.cpp:179
 #, kde-format
 msgid "Se&lect All"
 msgstr "すべて選択(&L)"
 
-#: lib/katesavemodifieddialog.cpp:258
+#: lib/katesavemodifieddialog.cpp:257
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

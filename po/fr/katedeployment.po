@@ -1,88 +1,78 @@
-# Translation of katedeployment.po to Catalan
-# Copyright (C) 2026 This_file_is_part_of_KDE
-# This file is distributed under the license LGPL version 2.1 or
-# version 3 or later versions approved by the membership of KDE e.V.
-#
-# SPDX-FileCopyrightText: 2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-05 00:50+0000\n"
-"PO-Revision-Date: 2026-10-05 09:39+0200\n"
-"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
-"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
-"Language: ca\n"
+"PO-Revision-Date: 2026-10-06 02:01+0000\n"
+"Last-Translator: KDE Francophone <kde-francophone@kde.org>\n"
+"Language-Team: KDE Francophone <kde-francophone@kde.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.04.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: deploymentconfig.cpp:102
 #, kde-format
 msgid "deployment must be an object"
-msgstr "el desplegament ha de ser un objecte"
+msgstr ""
 
 #: deploymentconfig.cpp:118
 #, kde-format
 msgid "deployment host must not be empty"
-msgstr "el servidor de desplegament no pot estar buit"
+msgstr ""
 
 #: deploymentconfig.cpp:122 deploymentconfig.cpp:126 deploymentconfig.cpp:196
 #, kde-format
 msgid "deployment host is invalid"
-msgstr "el servidor de desplegament no és vàlid"
+msgstr ""
 
 #: deploymentconfig.cpp:136
 #, kde-format
 msgid "deployment port must be between 1 and 65535"
-msgstr "el port de desplegament ha d'estar entre l'1 i el 65535"
+msgstr ""
 
 #: deploymentconfig.cpp:142
 #, kde-format
 msgid "project base must not be empty"
-msgstr "la base del projecte no pot estar buida"
+msgstr ""
 
 #: deploymentconfig.cpp:148
 #, kde-format
 msgid "project base must be an existing directory"
-msgstr "la base del projecte ha de ser un directori existent"
+msgstr ""
 
 #: deploymentconfig.cpp:157
 #, kde-format
 msgid "deployment localRoot must not contain traversal"
-msgstr "el «localRoot» de desplegament no ha de contenir travessada"
+msgstr ""
 
 #: deploymentconfig.cpp:165
 #, kde-format
 msgid ""
 "deployment localRoot must be an existing directory inside the project base"
 msgstr ""
-"el «localRoot» de desplegament ha de ser un directori existent dins de la "
-"base del projecte"
 
 #: deploymentconfig.cpp:171
 #, kde-format
 msgid "deployment remoteRoot must be an absolute path without traversal"
 msgstr ""
-"el «remoteRoot» de desplegament ha de ser un camí absolut sense travessada"
 
 #: deploymentconfig.cpp:184
 #, kde-format
 msgid "deployment exclude entries must be strings"
-msgstr "les entrades d'exclusió de desplegament han de ser cadenes"
+msgstr ""
 
 #: deploymentconfig.cpp:190
 #, kde-format
 msgid "deployment exclude must be a list of strings"
-msgstr "l'exclusió de desplegament ha de ser una llista de cadenes"
+msgstr ""
 
 #: deploymentplugin.cpp:116
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Deployment"
-msgstr "Configuració de desplegament"
+msgstr ""
 
 #: deploymentplugin.cpp:121
 #, kde-format
@@ -90,151 +80,148 @@ msgid ""
 "Configure the SFTP destination for <filename>%1</filename>. Authentication "
 "is handled by KIO."
 msgstr ""
-"Configura la destinació SFTP per a <filename>%1</filename>. KIO gestiona "
-"l'autenticació."
 
 #: deploymentplugin.cpp:138
 #, kde-format
 msgid "One project-relative glob per line"
-msgstr "Un «glob» relatiu al projecte per línia"
+msgstr ""
 
 #: deploymentplugin.cpp:140
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Host:"
-msgstr "Servidor:"
+msgstr ""
 
 #: deploymentplugin.cpp:141
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Port:"
-msgstr "Port:"
+msgstr ""
 
 #: deploymentplugin.cpp:142
 #, kde-format
 msgctxt "@label:textbox"
 msgid "User:"
-msgstr "Usuari:"
+msgstr ""
 
 #: deploymentplugin.cpp:143
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Local root:"
-msgstr "Arrel local:"
+msgstr ""
 
 #: deploymentplugin.cpp:144
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Remote root:"
-msgstr "Arrel remota:"
+msgstr ""
 
 #: deploymentplugin.cpp:145
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Exclude:"
-msgstr "Exclou:"
+msgstr ""
 
 #: deploymentplugin.cpp:179
 #, kde-format
 msgctxt "@title:window"
 msgid "Invalid Deployment Configuration"
-msgstr "Configuració de desplegament no vàlida"
+msgstr ""
 
 #: deploymentplugin.cpp:214 deploymentplugin.cpp:949
 #, kde-format
 msgid "Deployment"
-msgstr "Desplegament"
+msgstr ""
 
 #: deploymentplugin.cpp:220
 #, kde-format
 msgctxt "@action"
 msgid "Upload Current File"
-msgstr "Puja el fitxer actual"
+msgstr ""
 
 #: deploymentplugin.cpp:230
 #, kde-format
 msgctxt "@action"
 msgid "Upload Project"
-msgstr "Puja el projecte"
+msgstr ""
 
 #: deploymentplugin.cpp:237 deploymentplugin.cpp:749
 #, kde-format
 msgctxt "@action"
 msgid "Cancel Deployment Transfers"
-msgstr "Cancel·la les transferències de desplegament"
+msgstr ""
 
 #: deploymentplugin.cpp:242
 #, kde-format
 msgctxt "@action"
 msgid "Configure Deployment..."
-msgstr "Configura el desplegament..."
+msgstr ""
 
 #: deploymentplugin.cpp:247
 #, kde-format
 msgctxt "@action"
 msgid "Browse Remote Host"
-msgstr "Navega pel servidor remot"
+msgstr ""
 
 #: deploymentplugin.cpp:254
 #, kde-format
 msgid "Remote Host"
-msgstr "Servidor remot"
+msgstr ""
 
 #: deploymentplugin.cpp:280
 #, kde-format
 msgctxt "@action"
 msgid "Deployment Root"
-msgstr "Arrel de desplegament"
+msgstr ""
 
 #: deploymentplugin.cpp:293
 #, kde-format
 msgid "File Transfer"
-msgstr "Transferència de fitxers"
+msgstr ""
 
 #: deploymentplugin.cpp:301
 #, kde-format
 msgctxt "@action:button"
 msgid "Cancel"
-msgstr "Cancel·la"
+msgstr ""
 
 #: deploymentplugin.cpp:304
 #, kde-format
 msgctxt "@action:button"
 msgid "Clear"
-msgstr "Neteja"
+msgstr ""
 
 #: deploymentplugin.cpp:361
 #, kde-format
 msgid "Loading %1..."
-msgstr "S'està carregant %1..."
+msgstr ""
 
 #: deploymentplugin.cpp:368
 #, kde-format
 msgid "Connected to %1"
-msgstr "Connectat a %1"
+msgstr ""
 
 #: deploymentplugin.cpp:377
 #, kde-format
 msgid "Failed to list %1 (KIO error %2): %3"
-msgstr "Ha fallat en llistar %1 (error %2 del KIO): %3"
+msgstr ""
 
 #: deploymentplugin.cpp:485
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Upload Folder to Remote Host"
-msgstr "Puja la carpeta al servidor remot"
+msgstr ""
 
 #: deploymentplugin.cpp:486
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Upload to Remote Host"
-msgstr "Puja al servidor remot"
+msgstr ""
 
 #: deploymentplugin.cpp:533
 #, kde-format
 msgid "Open or select a Kate project before configuring deployment."
 msgstr ""
-"Obriu o seleccioneu un projecte del Kate abans de configurar el desplegament."
 
 #: deploymentplugin.cpp:537
 #, kde-format
@@ -242,144 +229,137 @@ msgid ""
 "Deployment configuration requires a file-backed <filename>.kateproject</"
 "filename>."
 msgstr ""
-"La configuració de desplegament requereix un fitxer <filename>.kateproject</"
-"filename>."
 
 #: deploymentplugin.cpp:553
 #, kde-format
 msgid "Could not read <filename>%1</filename>."
-msgstr "No s'ha pogut llegir <filename>%1</filename>."
+msgstr ""
 
 #: deploymentplugin.cpp:561
 #, kde-format
 msgid "Could not update malformed JSON in <filename>%1</filename>: %2"
 msgstr ""
-"No s'ha pogut actualitzar el JSON amb format incorrecte a <filename>%1</"
-"filename>: %2"
 
 #: deploymentplugin.cpp:574
 #, kde-format
 msgid "Could not write <filename>%1</filename>."
-msgstr "No s'ha pogut escriure a <filename>%1</filename>."
+msgstr ""
 
 #: deploymentplugin.cpp:581
 #, kde-format
 msgid "Saved deployment configuration to %1"
-msgstr "S'ha desat la configuració de desplegament a %1"
+msgstr ""
 
 #: deploymentplugin.cpp:595
 #, kde-format
 msgid "The current document is not a local file."
-msgstr "El document actual no és un fitxer local."
+msgstr ""
 
 #: deploymentplugin.cpp:631
 #, kde-format
 msgid "The file could not be saved before upload."
-msgstr "No s'ha pogut desar el fitxer abans de pujar-lo."
+msgstr ""
 
 #: deploymentplugin.cpp:646
 #, kde-format
 msgid "Deployment is not configured for this project."
-msgstr "El desplegament no està configurat per a aquest projecte."
+msgstr ""
 
 #: deploymentplugin.cpp:651
 #, kde-format
 msgid "A deployment transfer is already running."
-msgstr "Ja s'està executant una transferència de desplegament."
+msgstr ""
 
 #: deploymentplugin.cpp:661
 #, kde-format
 msgid "Cannot upload %1 because its remote version is open in Kate."
 msgstr ""
-"No s'ha pogut pujar %1 perquè la seva versió remota està oberta al Kate."
 
 #: deploymentplugin.cpp:672
 #, kde-format
 msgid "No deployable files were selected."
-msgstr "No s'ha seleccionat cap fitxer desplegable."
+msgstr ""
 
 #: deploymentplugin.cpp:678
 #, kde-format
 msgid "Queued one file for upload."
 msgid_plural "Queued %1 files for upload."
-msgstr[0] "S'ha enviat un fitxer a la cua per pujar-lo."
-msgstr[1] "S'han enviat %1 fitxers a la cua per pujar-los."
+msgstr[0] ""
+msgstr[1] ""
 
 #: deploymentplugin.cpp:696 deploymentplugin.cpp:762
 #, kde-format
 msgid "The remote file is open in Kate."
-msgstr "El fitxer remot està obert al Kate."
+msgstr ""
 
 #: deploymentplugin.cpp:706
 #, kde-format
 msgid "Uploading %1 to %2"
-msgstr "S'està pujant %1 a %2"
+msgstr ""
 
 #: deploymentplugin.cpp:744
 #, kde-format
 msgctxt "@action"
 msgid "Cancel Deployment Transfers (%1%)"
-msgstr "Cancel·la les transferències de desplegament (%1%)"
+msgstr ""
 
 #: deploymentplugin.cpp:785
 #, kde-format
 msgid "Failed to upload %1: %2"
-msgstr "Ha fallat en pujar %1: %2"
+msgstr ""
 
 #: deploymentplugin.cpp:787
 #, kde-format
 msgid "Uploaded %1"
-msgstr "S'ha pujat %1"
+msgstr ""
 
 #: deploymentplugin.cpp:807
 #, kde-format
 msgid "Cancelled deployment transfers."
-msgstr "Transferències de desplegament cancel·lades."
+msgstr ""
 
 #: deploymentplugin.cpp:839
 #, kde-format
 msgid "Not connected"
-msgstr "No connectat"
+msgstr ""
 
 #: deploymentplugin.cpp:856
 #, kde-format
 msgid ""
 "The SFTP KIO worker is not installed or does not support directory listing."
 msgstr ""
-"El procés de treball KIO SFTP no està instal·lat o no permet el llistat de "
-"directoris."
 
 #: deploymentplugin.cpp:887
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Remote File"
-msgstr "Obre un fitxer remot"
+msgstr ""
 
 #: deploymentplugin.cpp:898
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Mapped Local File"
-msgstr "Obre un fitxer local mapat"
+msgstr ""
 
 #: deploymentplugin.cpp:905
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Upload Mapped Local File"
-msgstr "Puja un fitxer local mapat"
+msgstr ""
 
 #: deploymentplugin.cpp:915
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Remote URL"
-msgstr "Copia l'URL remot"
+msgstr ""
 
 #: deploymentplugin.cpp:922
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Remote Path"
-msgstr "Copia el camí remot"
+msgstr ""
 
 #: deploymentplugin.cpp:932
 #, kde-format
 msgid "No mapped local file exists for %1."
-msgstr "No hi ha cap fitxer local mapat per a %1."
+msgstr ""

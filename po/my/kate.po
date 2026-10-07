@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-16 00:49+0000\n"
+"POT-Creation-Date: 2026-10-07 00:52+0000\n"
 "PO-Revision-Date: 2025-09-16 15:43+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -43,16 +43,16 @@ msgstr "ကိတ် - အဆင့်မြင့်စာသားတည်း
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) ၂၀၀၀-၂၀၂၄ ကိတ် ရေးသားသူများ"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:220
-#: lib/autotests/kate_view_mgmt_test2.cpp:522
-#: lib/autotests/kate_view_mgmt_test2.cpp:558
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:280
+#: lib/autotests/kate_view_mgmt_test2.cpp:582
+#: lib/autotests/kate_view_mgmt_test2.cpp:618
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "ရွေးချယ်ထားသောဆက်ရှင်ဖြင့် ကိတ်စတင်မည်"
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:221
-#: lib/autotests/kate_view_mgmt_test2.cpp:523
-#: lib/autotests/kate_view_mgmt_test2.cpp:559
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:281
+#: lib/autotests/kate_view_mgmt_test2.cpp:583
+#: lib/autotests/kate_view_mgmt_test2.cpp:619
 #, kde-format
 msgid "session"
 msgstr "ဆက်ရှင်"
@@ -292,7 +292,7 @@ msgstr "ဟမ်ဘာဂါမီနူးကိရိယာတန်း"
 msgid "&Status Bar Items"
 msgstr "&အခြေအနေပြတန်းရှိအိုင်တမ်များ"
 
-#: lib/diagnostics/diagnostic_suppression.h:37
+#: lib/diagnostics/diagnostic_suppression.h:38
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1413,57 +1413,57 @@ msgstr "အမည်"
 msgid "Description"
 msgstr "ဖော်ပြချက်"
 
-#: lib/katedocmanager.cpp:352
+#: lib/katedocmanager.cpp:354
 #, kde-format
 msgid "Starting Up"
 msgstr "စတင်နေသည်"
 
-#: lib/katedocmanager.cpp:353
+#: lib/katedocmanager.cpp:355
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "နောက်ဆုံးဆက်ရှင်မှဖိုင်များပြန်ဖွင့်နေသည်…"
 
-#: lib/katedocmanager.cpp:528
+#: lib/katedocmanager.cpp:530
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "ခေါင်းစဉ်မဲ့မှတ်တမ်းစာအုပ်များကို မတွဲနိုင်ပါ"
 
-#: lib/katedocmanager.cpp:533
+#: lib/katedocmanager.cpp:535
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "စက်တွင်းမဟုတ်သောဖိုင်များကိုမတွဲနိုင်ပါ"
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, kde-format
 msgid "Rename file"
 msgstr "ဖိုင်အမည်ပြောင်း"
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, kde-format
 msgid "New file name"
 msgstr "ဖိုင်အမည်သစ်"
 
-#: lib/katefileactions.cpp:116
+#: lib/katefileactions.cpp:121
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "\"%1\"ဖိုင်ကို \"%2\"သို့ မရွှေ့နိုင်ခဲ့ပါ"
 
-#: lib/katefileactions.cpp:137
+#: lib/katefileactions.cpp:142
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "ဖိုင် \"%1\" ကို ဖျက်မှာ သေချာပါသလား"
 
-#: lib/katefileactions.cpp:138
+#: lib/katefileactions.cpp:143
 #, kde-format
 msgid "Delete file"
 msgstr "ဖျက်"
 
-#: lib/katefileactions.cpp:161
+#: lib/katefileactions.cpp:166
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "\"%1\"ဖိုင်ကို မဖျက်နိုင်ခဲ့ပါ"
 
-#: lib/katefileactions.cpp:220
+#: lib/katefileactions.cpp:225
 #, kde-format
 msgid "&Other Application..."
 msgstr "&အခြားအပ္ပလီကေးရှင်း…"
@@ -1581,8 +1581,7 @@ msgstr "အ&ကုန်ပြန်တွန်းတင်"
 msgid "Reload all open documents."
 msgstr "ဖွင့်ထားသောမှတ်တမ်းစာအုပ်အားလုံးပြန်တွန်းတင်မည်"
 
-#: lib/katemainwindow.cpp:468 lib/katemainwindow.cpp:478
-#: lib/katemainwindow.cpp:487
+#: lib/katemainwindow.cpp:468
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "လက်ရှိဖိုင်၏နေရာကို ကလစ်ဘုတ်သို့ကူးယူမည်"
@@ -1592,10 +1591,22 @@ msgstr "လက်ရှိဖိုင်၏နေရာကို ကလစ်�
 msgid "Copy Filename"
 msgstr "ဖိုင်အမည်ကူး"
 
+#: lib/katemainwindow.cpp:478
+#, fuzzy, kde-format
+#| msgid "Copies the file path of the current file to clipboard."
+msgid "Copies the file name of the current file to clipboard."
+msgstr "လက်ရှိဖိုင်၏နေရာကို ကလစ်ဘုတ်သို့ကူးယူမည်"
+
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "ဖိုင်ရှိသောဖိုင်တွဲ&ဖွင့်မည်"
+
+#: lib/katemainwindow.cpp:487
+#, fuzzy, kde-format
+#| msgid "Open new tabs to the right of the current tab"
+msgid "Opens containing folder of the current file."
+msgstr "လက်ရှိတပ်ဘ်၏ညာဘက်တွင်အသစ်ဖွင့်"
 
 #: lib/katemainwindow.cpp:491
 #, kde-format
@@ -2166,51 +2177,51 @@ msgctxt "@info"
 msgid "Log"
 msgstr "မှတ်တမ်း"
 
-#: lib/katesavemodifieddialog.cpp:81
+#: lib/katesavemodifieddialog.cpp:80
 #, kde-format
 msgid "Save As (%1)"
 msgstr "(%1)အဖြစ်သိမ်းမည်"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Save Documents"
 msgstr "မှတ်တမ်းစာအုပ်များသိမ်းဆည်းမည်"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Close Document"
 msgstr "ပိတ်မည်"
 
-#: lib/katesavemodifieddialog.cpp:157
+#: lib/katesavemodifieddialog.cpp:156
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr "\"%1\"မှတ်တမ်းစာအုပ်၏ပြောင်းလဲမှုများကို သိမ်းမှာလား၊ ပစ်မှာလား။"
 
-#: lib/katesavemodifieddialog.cpp:161
+#: lib/katesavemodifieddialog.cpp:160
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
 "before closing?</qt>"
 msgstr ""
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Documents"
 msgstr "မှတ်တမ်းစာအုပ်များ"
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Location"
 msgstr "တည်နေရာ"
 
-#: lib/katesavemodifieddialog.cpp:180
+#: lib/katesavemodifieddialog.cpp:179
 #, kde-format
 msgid "Se&lect All"
 msgstr "အား&လုံးရွေး"
 
-#: lib/katesavemodifieddialog.cpp:258
+#: lib/katesavemodifieddialog.cpp:257
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

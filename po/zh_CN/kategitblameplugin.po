@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-28 00:49+0000\n"
+"POT-Creation-Date: 2026-10-07 00:52+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -49,13 +49,13 @@ msgstr "显示 Git Blame 详情"
 msgid "Toggle Git Blame Details"
 msgstr "切换 Git Blame 详情"
 
-#: kategitblameplugin.cpp:351
+#: kategitblameplugin.cpp:352
 #, kde-format
 msgctxt "@info %1 is a git error"
 msgid "Git Blame plugin error: %1"
 msgstr ""
 
-#: kategitblameplugin.cpp:408
+#: kategitblameplugin.cpp:410
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git blame，显示提交失败。"

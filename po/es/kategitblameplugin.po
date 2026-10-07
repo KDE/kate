@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategitblameplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-28 00:49+0000\n"
+"POT-Creation-Date: 2026-10-07 00:52+0000\n"
 "PO-Revision-Date: 2026-09-26 16:29+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -51,13 +51,13 @@ msgstr "Mostrar detalles de Git Blame"
 msgid "Toggle Git Blame Details"
 msgstr "Conmutar los detalles de Git Blame"
 
-#: kategitblameplugin.cpp:351
+#: kategitblameplugin.cpp:352
 #, kde-format
 msgctxt "@info %1 is a git error"
 msgid "Git Blame plugin error: %1"
 msgstr "Error del complemento Git Blame: %1"
 
-#: kategitblameplugin.cpp:408
+#: kategitblameplugin.cpp:410
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git blame, no se puede mostrar el envío."

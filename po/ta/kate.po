@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-16 00:49+0000\n"
+"POT-Creation-Date: 2026-10-07 00:52+0000\n"
 "PO-Revision-Date: 2026-01-04 15:30+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -49,16 +49,16 @@ msgstr "கேட் - மேம்பட்ட உரைத்திருத�
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 கேட் நிரலாளர்கள்"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:220
-#: lib/autotests/kate_view_mgmt_test2.cpp:522
-#: lib/autotests/kate_view_mgmt_test2.cpp:558
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:280
+#: lib/autotests/kate_view_mgmt_test2.cpp:582
+#: lib/autotests/kate_view_mgmt_test2.cpp:618
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "குறிப்பிட்ட அமர்வுடன் கேட்டை துவக்கு."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:221
-#: lib/autotests/kate_view_mgmt_test2.cpp:523
-#: lib/autotests/kate_view_mgmt_test2.cpp:559
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:281
+#: lib/autotests/kate_view_mgmt_test2.cpp:583
+#: lib/autotests/kate_view_mgmt_test2.cpp:619
 #, kde-format
 msgid "session"
 msgstr "அமர்வு"
@@ -306,7 +306,7 @@ msgstr "ஹாம்பர்கர் பட்டி கருவிப்ப�
 msgid "&Status Bar Items"
 msgstr "&நிலைப்பட்டை உருப்படிகள்"
 
-#: lib/diagnostics/diagnostic_suppression.h:37
+#: lib/diagnostics/diagnostic_suppression.h:38
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1477,57 +1477,57 @@ msgstr "பெயர்"
 msgid "Description"
 msgstr "விவரணம்"
 
-#: lib/katedocmanager.cpp:352
+#: lib/katedocmanager.cpp:354
 #, kde-format
 msgid "Starting Up"
 msgstr "துவங்குகிறது"
 
-#: lib/katedocmanager.cpp:353
+#: lib/katedocmanager.cpp:355
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "சென்ற அமர்விலிருந்த கோப்புகள் திறக்கப்படுகின்றன..."
 
-#: lib/katedocmanager.cpp:528
+#: lib/katedocmanager.cpp:530
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "தலைப்பற்ற ஆவணத்தை தக்கவைக்க முடியாது"
 
-#: lib/katedocmanager.cpp:533
+#: lib/katedocmanager.cpp:535
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "தொலை ஆவணத்தை தக்கவைக்க முடியாது"
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, kde-format
 msgid "Rename file"
 msgstr "கோப்பின் பெயரை மாற்று"
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, kde-format
 msgid "New file name"
 msgstr "கோப்பின் புதிய பெயர்"
 
-#: lib/katefileactions.cpp:116
+#: lib/katefileactions.cpp:121
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "\"%1\" என்ற கோப்பை \"%2\" என்ற இடத்திற்கு நகர்த்த முடியவில்லை"
 
-#: lib/katefileactions.cpp:137
+#: lib/katefileactions.cpp:142
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "\"%1\" என்ற கோப்பை உறுதியாக நீக்க வேண்டுமா?"
 
-#: lib/katefileactions.cpp:138
+#: lib/katefileactions.cpp:143
 #, kde-format
 msgid "Delete file"
 msgstr "கோப்பை நீக்குதல்"
 
-#: lib/katefileactions.cpp:161
+#: lib/katefileactions.cpp:166
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "\"%1\" என்ற கோப்பை நீக்க முடியவில்லை."
 
-#: lib/katefileactions.cpp:220
+#: lib/katefileactions.cpp:225
 #, kde-format
 msgid "&Other Application..."
 msgstr "&வேறு செயலி..."
@@ -1646,8 +1646,7 @@ msgstr "அ&னைத்தையும் மீளேற்று"
 msgid "Reload all open documents."
 msgstr "திறந்துள்ள அனைத்து ஆவணங்களையும் மீளேற்றும்."
 
-#: lib/katemainwindow.cpp:468 lib/katemainwindow.cpp:478
-#: lib/katemainwindow.cpp:487
+#: lib/katemainwindow.cpp:468
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "தற்போதைய கோப்பின் பாதையை பிடிப்புப்பலகைக்கு நகலெடுக்கும்."
@@ -1657,10 +1656,22 @@ msgstr "தற்போதைய கோப்பின் பாதையை ப
 msgid "Copy Filename"
 msgstr "கோப்புப்பெயரை நகலெடு"
 
+#: lib/katemainwindow.cpp:478
+#, fuzzy, kde-format
+#| msgid "Copies the file path of the current file to clipboard."
+msgid "Copies the file name of the current file to clipboard."
+msgstr "தற்போதைய கோப்பின் பாதையை பிடிப்புப்பலகைக்கு நகலெடுக்கும்."
+
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&கொண்டுள்ள அடைவை திற"
+
+#: lib/katemainwindow.cpp:487
+#, fuzzy, kde-format
+#| msgid "Open new tabs to the right of the current tab"
+msgid "Opens containing folder of the current file."
+msgstr "புதிய கீற்றுகளை தற்போதையதன் வலதில் திற"
 
 #: lib/katemainwindow.cpp:491
 #, kde-format
@@ -2246,22 +2257,22 @@ msgctxt "@info"
 msgid "Log"
 msgstr "பதிவு"
 
-#: lib/katesavemodifieddialog.cpp:81
+#: lib/katesavemodifieddialog.cpp:80
 #, kde-format
 msgid "Save As (%1)"
 msgstr "இவ்வாறு சேமி (%1)"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Save Documents"
 msgstr "ஆவணங்களை சேமி"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Close Document"
 msgstr "ஆவணத்தை மூடு"
 
-#: lib/katesavemodifieddialog.cpp:157
+#: lib/katesavemodifieddialog.cpp:156
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
@@ -2269,29 +2280,29 @@ msgid ""
 msgstr ""
 "'%1' என்ற ஆவணம் மாற்றப்பட்டுள்ளது. மாற்றங்களை சேமிக்க வேண்டுமா அல்லது கைவிட வேண்டுமா?"
 
-#: lib/katesavemodifieddialog.cpp:161
+#: lib/katesavemodifieddialog.cpp:160
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
 "before closing?</qt>"
 msgstr "<qt>பின்வரும் ஆவணங்கள் மாற்றப்பட்டன. அவற்றை மூடுவதற்கு முன் சேமிக்கவேண்டுமா?</qt>"
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Documents"
 msgstr "ஆவணங்கள்"
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Location"
 msgstr "இடம்"
 
-#: lib/katesavemodifieddialog.cpp:180
+#: lib/katesavemodifieddialog.cpp:179
 #, kde-format
 msgid "Se&lect All"
 msgstr "&அனைத்தையும் தேர்ந்தெடு"
 
-#: lib/katesavemodifieddialog.cpp:258
+#: lib/katesavemodifieddialog.cpp:257
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-16 00:49+0000\n"
+"POT-Creation-Date: 2026-10-07 00:52+0000\n"
 "PO-Revision-Date: 2022-10-28 19:12+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
@@ -44,16 +44,16 @@ msgstr "Kate - Redactor avansat de textus"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2022 Li autores de Kate"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:220
-#: lib/autotests/kate_view_mgmt_test2.cpp:522
-#: lib/autotests/kate_view_mgmt_test2.cpp:558
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:280
+#: lib/autotests/kate_view_mgmt_test2.cpp:582
+#: lib/autotests/kate_view_mgmt_test2.cpp:618
 #, fuzzy, kde-format
 msgid "Start Kate with a given session."
 msgstr "Aperter un existent session."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:221
-#: lib/autotests/kate_view_mgmt_test2.cpp:523
-#: lib/autotests/kate_view_mgmt_test2.cpp:559
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:281
+#: lib/autotests/kate_view_mgmt_test2.cpp:583
+#: lib/autotests/kate_view_mgmt_test2.cpp:619
 #, kde-format
 msgid "session"
 msgstr "session"
@@ -295,7 +295,7 @@ msgstr "Menú"
 msgid "&Status Bar Items"
 msgstr "Pa_nel del statu"
 
-#: lib/diagnostics/diagnostic_suppression.h:37
+#: lib/diagnostics/diagnostic_suppression.h:38
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -1421,60 +1421,60 @@ msgstr "Nómine"
 msgid "Description"
 msgstr "Descrition"
 
-#: lib/katedocmanager.cpp:352
+#: lib/katedocmanager.cpp:354
 #, fuzzy, kde-format
 msgid "Starting Up"
 msgstr "Startante"
 
-#: lib/katedocmanager.cpp:353
+#: lib/katedocmanager.cpp:355
 #, fuzzy, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Cargar files del ultim session"
 
-#: lib/katedocmanager.cpp:528
+#: lib/katedocmanager.cpp:530
 #, fuzzy, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "Crear un nov document"
 
-#: lib/katedocmanager.cpp:533
+#: lib/katedocmanager.cpp:535
 #, fuzzy, kde-format
 #| msgid "Close all open documents."
 msgid "Cannot pin non local documents."
 msgstr "Cluder omni apertet documentes."
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, kde-format
 msgid "Rename file"
 msgstr "Renominar li file"
 
-#: lib/katefileactions.cpp:80
+#: lib/katefileactions.cpp:81
 #, fuzzy, kde-format
 msgid "New file name"
 msgstr "_Nov nómine del file:"
 
-#: lib/katefileactions.cpp:116
+#: lib/katefileactions.cpp:121
 #, fuzzy, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "Ne successat trovar li nómine %1 in %2."
 
-#: lib/katefileactions.cpp:137
+#: lib/katefileactions.cpp:142
 #, fuzzy, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr ""
 "Ne successat mover un file in li Paper-corb, esque vu vole deleter it "
 "permanentmen?"
 
-#: lib/katefileactions.cpp:138
+#: lib/katefileactions.cpp:143
 #, kde-format
 msgid "Delete file"
 msgstr "Deleter li file"
 
-#: lib/katefileactions.cpp:161
+#: lib/katefileactions.cpp:166
 #, fuzzy, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "Li file ne posset esser deletet"
 
-#: lib/katefileactions.cpp:220
+#: lib/katefileactions.cpp:225
 #, fuzzy, kde-format
 #| msgid "&Other..."
 msgid "&Other Application..."
@@ -1593,8 +1593,7 @@ msgstr "Recargar omni parametres"
 msgid "Reload all open documents."
 msgstr "Aperter omni documentes %s per:"
 
-#: lib/katemainwindow.cpp:468 lib/katemainwindow.cpp:478
-#: lib/katemainwindow.cpp:487
+#: lib/katemainwindow.cpp:468
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr ""
@@ -1605,10 +1604,20 @@ msgstr ""
 msgid "Copy Filename"
 msgstr "Nómine de file"
 
+#: lib/katemainwindow.cpp:478
+#, fuzzy, kde-format
+msgid "Copies the file name of the current file to clipboard."
+msgstr "Mover li actual carte a levul"
+
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, fuzzy, kde-format
 msgid "&Open Containing Folder"
 msgstr "Aperter li contenent fólder"
+
+#: lib/katemainwindow.cpp:487
+#, kde-format
+msgid "Opens containing folder of the current file."
+msgstr ""
 
 #: lib/katemainwindow.cpp:491
 #, kde-format
@@ -2187,51 +2196,51 @@ msgctxt "@info"
 msgid "Log"
 msgstr "Diarium"
 
-#: lib/katesavemodifieddialog.cpp:81
+#: lib/katesavemodifieddialog.cpp:80
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Gardar quam (%1)"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Save Documents"
 msgstr "Gardar li documentes"
 
-#: lib/katesavemodifieddialog.cpp:133
+#: lib/katesavemodifieddialog.cpp:132
 #, kde-format
 msgid "Close Document"
 msgstr "Cluder li document"
 
-#: lib/katesavemodifieddialog.cpp:157
+#: lib/katesavemodifieddialog.cpp:156
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
 
-#: lib/katesavemodifieddialog.cpp:161
+#: lib/katesavemodifieddialog.cpp:160
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
 "before closing?</qt>"
 msgstr ""
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Documents"
 msgstr "Documentes"
 
-#: lib/katesavemodifieddialog.cpp:170
+#: lib/katesavemodifieddialog.cpp:169
 #, kde-format
 msgid "Location"
 msgstr "Localisation"
 
-#: lib/katesavemodifieddialog.cpp:180
+#: lib/katesavemodifieddialog.cpp:179
 #, kde-format
 msgid "Se&lect All"
 msgstr "Se&lecter omni"
 
-#: lib/katesavemodifieddialog.cpp:258
+#: lib/katesavemodifieddialog.cpp:257
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

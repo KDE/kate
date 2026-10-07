@@ -1,6 +1,30 @@
 {
     "KPlugin": {
         "Description": "Upload project files over SFTP and browse the remote host",
-        "Name": "Deployment"
+        "Description[ca@valencia]": "Puja els fitxers del projecte a través de SFTP i navega per l'amfitrió remot",
+        "Description[ca]": "Puja els fitxers del projecte a través de SFTP i navega pel servidor remot",
+        "Description[cs]": "Nahrát soubory projektu přes SFTP a procházet vzdáleného hostitele",
+        "Description[es]": "Enviar los archivos del proyecto usando SFTP y explorar la máquina remota",
+        "Description[ka]": "ატვირთეთ პროექტის ფაილები SFTP-ით და დაათვალიერეთ დაშორებული ჰოსტი",
+        "Description[ko]": "SFTP로 프로젝트 파일을 업로드하고 원격 호스트 탐색",
+        "Description[nl]": "Projectbestanden uploaden over SFTP en op de externe host bladeren",
+        "Description[pt_BR]": "Envia arquivos de projeto via SFTP e navega pelo host remoto",
+        "Description[ru]": "Отправка файлов проекта по SFTP и просмотр удалённого узла",
+        "Description[sl]": "Prenesite tja projektne datoteke prek protokola SFTP in brskajte po oddaljenem gostitelju",
+        "Description[tr]": "Proje dosyalarını SFTP üzerinden karşıya yükleyin ve uzak makineye göz atın",
+        "Description[uk]": "Вивантаження файлів проєкту за допомогою SFTP і навігація віддаленим вузлом",
+        "Name": "Deployment",
+        "Name[ca@valencia]": "Desplegament",
+        "Name[ca]": "Desplegament",
+        "Name[cs]": "Nasazení",
+        "Name[es]": "Despliegue",
+        "Name[ka]": "განლაგება",
+        "Name[ko]": "배포",
+        "Name[nl]": "Deployment",
+        "Name[pt_BR]": "Implantação",
+        "Name[ru]": "Развёртывание",
+        "Name[sl]": "Uvedba",
+        "Name[tr]": "Konuşlandırma",
+        "Name[uk]": "Розгортання"
     }
 }

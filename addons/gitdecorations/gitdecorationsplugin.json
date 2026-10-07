@@ -1,8 +1,6 @@
 {
     "KPlugin": {
         "Description": "Displays Git change indicators in the editor margins",
-        "Description[it]": "Mostra gli indicatori delle modifiche Git ai margini dell'editor",
-        "Name": "Git Decorations",
-        "Name[it]": "Indicatori Git"
+        "Name": "Git Decorations"
     }
 }

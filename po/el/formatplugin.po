@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-08-16 00:48+0000\n"
-"PO-Revision-Date: 2026-04-15 22:20+0300\n"
+"PO-Revision-Date: 2026-10-07 18:31+0300\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
 #: FormatPlugin.cpp:245 Formatters.cpp:271 Formatters.cpp:291
@@ -30,10 +30,9 @@ msgid "Failed to write a temp file"
 msgstr "Αποτυχία εγγραφής προσωρινού αρχείου"
 
 #: FormatApply.h:33
-#, fuzzy, kde-format
-#| msgid "Failed to run git diff: %1"
+#, kde-format
 msgid "Failed to run git diff: git not installed"
-msgstr "Αποτυχία εκτέλεσης git diff: %1"
+msgstr "Αποτυχία εκτέλεσης git diff: το git δεν είναι εγκατεστημένο"
 
 #: FormatApply.h:38
 #, kde-format

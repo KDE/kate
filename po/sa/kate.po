@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
+"POT-Creation-Date: 2026-10-08 00:49+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1458,23 +1458,23 @@ msgstr "नामः"
 msgid "Description"
 msgstr "वर्णनम्‌"
 
-#: lib/katedocmanager.cpp:354
+#: lib/katedocmanager.cpp:362
 #, kde-format
 msgid "Starting Up"
 msgstr "Starting Up इति"
 
-#: lib/katedocmanager.cpp:355
+#: lib/katedocmanager.cpp:363
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "अन्तिमसत्रात् सञ्चिकाः पुनः उद्घाटयति..."
 
-#: lib/katedocmanager.cpp:530
+#: lib/katedocmanager.cpp:538
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin untitled documents."
 msgstr "नूतनं दस्तावेजं रचयन्तु"
 
-#: lib/katedocmanager.cpp:535
+#: lib/katedocmanager.cpp:543
 #, fuzzy, kde-format
 #| msgid "Shows a hint how to compare documents."
 msgid "Cannot pin non local documents."

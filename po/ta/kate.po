@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
+"POT-Creation-Date: 2026-10-08 00:49+0000\n"
 "PO-Revision-Date: 2026-01-04 15:30+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -1477,22 +1477,22 @@ msgstr "பெயர்"
 msgid "Description"
 msgstr "விவரணம்"
 
-#: lib/katedocmanager.cpp:354
+#: lib/katedocmanager.cpp:362
 #, kde-format
 msgid "Starting Up"
 msgstr "துவங்குகிறது"
 
-#: lib/katedocmanager.cpp:355
+#: lib/katedocmanager.cpp:363
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "சென்ற அமர்விலிருந்த கோப்புகள் திறக்கப்படுகின்றன..."
 
-#: lib/katedocmanager.cpp:530
+#: lib/katedocmanager.cpp:538
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "தலைப்பற்ற ஆவணத்தை தக்கவைக்க முடியாது"
 
-#: lib/katedocmanager.cpp:535
+#: lib/katedocmanager.cpp:543
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "தொலை ஆவணத்தை தக்கவைக்க முடியாது"

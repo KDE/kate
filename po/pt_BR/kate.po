@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
-"PO-Revision-Date: 2026-09-09 08:09-0300\n"
+"POT-Creation-Date: 2026-10-08 00:49+0000\n"
+"PO-Revision-Date: 2026-10-07 07:54-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1490,22 +1490,22 @@ msgstr "Nome"
 msgid "Description"
 msgstr "Descrição"
 
-#: lib/katedocmanager.cpp:354
+#: lib/katedocmanager.cpp:362
 #, kde-format
 msgid "Starting Up"
 msgstr "Iniciando"
 
-#: lib/katedocmanager.cpp:355
+#: lib/katedocmanager.cpp:363
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Reabrindo arquivos da última sessão..."
 
-#: lib/katedocmanager.cpp:530
+#: lib/katedocmanager.cpp:538
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "Não é possível fixar documentos sem um nome"
 
-#: lib/katedocmanager.cpp:535
+#: lib/katedocmanager.cpp:543
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "Não é possível fixar documentos que não estão salvos localmente"
@@ -1671,10 +1671,9 @@ msgid "Copy Filename"
 msgstr "Copiar nome do arquivo"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "Copia o caminho do arquivo atual para a área de transferência."
+msgstr "Copia o nome do arquivo atual para a área de transferência."
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1682,10 +1681,9 @@ msgid "&Open Containing Folder"
 msgstr "Abrir pasta que co&ntém"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "Abra uma nova aba à direita da aba atual"
+msgstr "Abre a pasta que contém o arquivo atual."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
+"POT-Creation-Date: 2026-10-08 00:49+0000\n"
 "PO-Revision-Date: 2024-06-01 17:50\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian\n"
@@ -1439,23 +1439,23 @@ msgstr "Назва"
 msgid "Description"
 msgstr "Апісанне"
 
-#: lib/katedocmanager.cpp:354
+#: lib/katedocmanager.cpp:362
 #, kde-format
 msgid "Starting Up"
 msgstr "Запуск"
 
-#: lib/katedocmanager.cpp:355
+#: lib/katedocmanager.cpp:363
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Адкрыццё файлаў з апошняга сеанса..."
 
-#: lib/katedocmanager.cpp:530
+#: lib/katedocmanager.cpp:538
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin untitled documents."
 msgstr "Стварыць новы дакумент"
 
-#: lib/katedocmanager.cpp:535
+#: lib/katedocmanager.cpp:543
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin non local documents."

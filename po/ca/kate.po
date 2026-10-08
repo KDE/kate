@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
-"PO-Revision-Date: 2026-09-09 10:07+0200\n"
+"POT-Creation-Date: 2026-10-08 00:49+0000\n"
+"PO-Revision-Date: 2026-10-07 09:32+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -1484,22 +1484,22 @@ msgstr "Nom"
 msgid "Description"
 msgstr "Descripció"
 
-#: lib/katedocmanager.cpp:354
+#: lib/katedocmanager.cpp:362
 #, kde-format
 msgid "Starting Up"
 msgstr "S'està engegant"
 
-#: lib/katedocmanager.cpp:355
+#: lib/katedocmanager.cpp:363
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "S'estan reobrint els fitxers de l'última sessió..."
 
-#: lib/katedocmanager.cpp:530
+#: lib/katedocmanager.cpp:538
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "No es poden fixar documents sense títol."
 
-#: lib/katedocmanager.cpp:535
+#: lib/katedocmanager.cpp:543
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "No es poden fixar documents no locals."
@@ -1665,10 +1665,9 @@ msgid "Copy Filename"
 msgstr "Copia el nom del fitxer"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "Copia el camí del fitxer del fitxer actual al porta-retalls."
+msgstr "Copia el nom del fitxer del fitxer actual al porta-retalls."
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1676,10 +1675,9 @@ msgid "&Open Containing Folder"
 msgstr "&Obre la carpeta contenidora"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "Obre les pestanyes noves a la dreta de l'actual"
+msgstr "Obre la carpeta contenidora del fitxer actual."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format

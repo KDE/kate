@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
-"PO-Revision-Date: 2026-09-09 12:32+0200\n"
+"POT-Creation-Date: 2026-10-08 00:49+0000\n"
+"PO-Revision-Date: 2026-10-07 12:06+0200\n"
 "Last-Translator: Libor Filipek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1484,22 +1484,22 @@ msgstr "Název"
 msgid "Description"
 msgstr "Popis"
 
-#: lib/katedocmanager.cpp:354
+#: lib/katedocmanager.cpp:362
 #, kde-format
 msgid "Starting Up"
 msgstr "Spouští se"
 
-#: lib/katedocmanager.cpp:355
+#: lib/katedocmanager.cpp:363
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Otevírám soubory z posledního sezení..."
 
-#: lib/katedocmanager.cpp:530
+#: lib/katedocmanager.cpp:538
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "Dokumenty bez názvu nelze připnout."
 
-#: lib/katedocmanager.cpp:535
+#: lib/katedocmanager.cpp:543
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "Nelze připnout dokumenty, které nejsou uloženy lokálně."
@@ -1665,10 +1665,9 @@ msgid "Copy Filename"
 msgstr "Kopírovat název souboru"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "Zkopíruje cestu k současnému souboru do schránky."
+msgstr "Zkopíruje název aktuálního souboru do schránky."
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1676,10 +1675,9 @@ msgid "&Open Containing Folder"
 msgstr "&Otevřít odpovídající složku"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "Otevřít nové karty napravo od současné"
+msgstr "Otevře složku, ve které se nachází aktuální soubor."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format

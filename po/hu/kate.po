@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
+"POT-Creation-Date: 2026-10-08 00:49+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1462,23 +1462,23 @@ msgstr "Név"
 msgid "Description"
 msgstr "Leírás"
 
-#: lib/katedocmanager.cpp:354
+#: lib/katedocmanager.cpp:362
 #, kde-format
 msgid "Starting Up"
 msgstr "Indulás"
 
-#: lib/katedocmanager.cpp:355
+#: lib/katedocmanager.cpp:363
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "A legutóbb nyitva hagyott fájlok megnyitása…"
 
-#: lib/katedocmanager.cpp:530
+#: lib/katedocmanager.cpp:538
 #, fuzzy, kde-format
 #| msgid "Cannot go to the document"
 msgid "Cannot pin untitled documents."
 msgstr "Nem lehet a dokumentumra ugorni"
 
-#: lib/katedocmanager.cpp:535
+#: lib/katedocmanager.cpp:543
 #, fuzzy, kde-format
 #| msgid "Cannot go to the document"
 msgid "Cannot pin non local documents."

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
-"PO-Revision-Date: 2026-09-09 12:34+0100\n"
+"POT-Creation-Date: 2026-10-08 00:49+0000\n"
+"PO-Revision-Date: 2026-10-07 17:25+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -1497,22 +1497,22 @@ msgstr "Nombre"
 msgid "Description"
 msgstr "Descripción"
 
-#: lib/katedocmanager.cpp:354
+#: lib/katedocmanager.cpp:362
 #, kde-format
 msgid "Starting Up"
 msgstr "Iniciando"
 
-#: lib/katedocmanager.cpp:355
+#: lib/katedocmanager.cpp:363
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Reabriendo archivos de la última sesión…"
 
-#: lib/katedocmanager.cpp:530
+#: lib/katedocmanager.cpp:538
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "No se puede fijar un documento sin título."
 
-#: lib/katedocmanager.cpp:535
+#: lib/katedocmanager.cpp:543
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "No se puede fijar un documento que no sea local."
@@ -1678,10 +1678,9 @@ msgid "Copy Filename"
 msgstr "Copiar nombre de archivo"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "Copia la ruta del archivo actual en el portapapeles."
+msgstr "Copia el nombre del archivo actual en el portapapeles."
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1689,10 +1688,9 @@ msgid "&Open Containing Folder"
 msgstr "A&brir la carpeta contenedora"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "Abrir pestañas nuevas a la derecha de la pestaña actual"
+msgstr "Abre la carpeta contenedora del archivo actual."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format

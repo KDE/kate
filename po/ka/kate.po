@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
-"PO-Revision-Date: 2026-09-09 09:05+0200\n"
+"POT-Creation-Date: 2026-10-08 00:49+0000\n"
+"PO-Revision-Date: 2026-10-07 04:07+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1470,22 +1470,22 @@ msgstr "სახელი"
 msgid "Description"
 msgstr "აღწერა"
 
-#: lib/katedocmanager.cpp:354
+#: lib/katedocmanager.cpp:362
 #, kde-format
 msgid "Starting Up"
 msgstr "გაშვება"
 
-#: lib/katedocmanager.cpp:355
+#: lib/katedocmanager.cpp:363
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "წინა სესიის ფაილების თავიდან გახსნა..."
 
-#: lib/katedocmanager.cpp:530
+#: lib/katedocmanager.cpp:538
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "უსახელო დოკუმენტების ამაგრება შეუძლებელია."
 
-#: lib/katedocmanager.cpp:535
+#: lib/katedocmanager.cpp:543
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "არალოკალური დოკუმენტების ამაგრება შეუძლებელია."
@@ -1651,10 +1651,9 @@ msgid "Copy Filename"
 msgstr "ფაილის სახელის კოპირება"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "მიმდინარე ფაილის ბილიკის ბუფერში კოპირება."
+msgstr "აკოპირებს მიმდინარე ფაილის სახელს ბუფერში."
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1662,10 +1661,9 @@ msgid "&Open Containing Folder"
 msgstr "შემცველი საქაღალდის &გახსნა"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "ახალი ჩანართის გახსნა მიმდინარე ჩანართის მარჯვნივ"
+msgstr "გახსნის მიმდინარე ფაილის შემცველ საქაღალდეს."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format

@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
-"PO-Revision-Date: 2026-09-09 08:50+0300\n"
+"POT-Creation-Date: 2026-10-08 00:49+0000\n"
+"PO-Revision-Date: 2026-10-07 18:32+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1481,22 +1481,22 @@ msgstr "Ad"
 msgid "Description"
 msgstr "Tanım"
 
-#: lib/katedocmanager.cpp:354
+#: lib/katedocmanager.cpp:362
 #, kde-format
 msgid "Starting Up"
 msgstr "Başlatılıyor"
 
-#: lib/katedocmanager.cpp:355
+#: lib/katedocmanager.cpp:363
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Son oturumdaki dosyalar açılıyor…"
 
-#: lib/katedocmanager.cpp:530
+#: lib/katedocmanager.cpp:538
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "Adsız belgeler sabitlenemez."
 
-#: lib/katedocmanager.cpp:535
+#: lib/katedocmanager.cpp:543
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "Yerel olmayan belgeler sabitlenemez."
@@ -1662,10 +1662,9 @@ msgid "Copy Filename"
 msgstr "Dosya Adını Kopyala"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "Geçerli dosyanın dosya yolunu panoya kopyalar."
+msgstr "Geçerli dosyanın dosya adını panoya kopyalar."
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1673,10 +1672,9 @@ msgid "&Open Containing Folder"
 msgstr "İçeren K&lasörü Aç"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "Yeni sekmeleri geçerli sekmenin sağına aç"
+msgstr "Geçerli dosyanın içinde bulunduğu klasörü açar."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format

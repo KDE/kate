@@ -1369,7 +1369,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
                     // iterate on copy
                     const std::vector<ProxyItem *> children = m_root->children();
                     for (ProxyItem *node : children) {
-                        if (node == irdir || !root->flag(ProxyItem::Dir)) {
+                        if (node == irdir || !node->flag(ProxyItem::Dir)) {
                             continue;
                         }
 

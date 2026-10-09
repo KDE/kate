@@ -615,7 +615,12 @@ void KateFileTree::slotCollapseRecursive()
 
 void KateFileTree::slotDocumentCloseOther()
 {
-    QList<KTextEditor::Document *> closingDocuments = m_proxyModel->docTreeFromIndex(m_indexContextMenu.parent());
+    QList<KTextEditor::Document *> closingDocuments;
+    if (m_indexContextMenu.parent().isValid()) {
+        closingDocuments = m_proxyModel->docTreeFromIndex(m_indexContextMenu.parent());
+    } else {
+        closingDocuments = KTextEditor::Editor::instance()->application()->documents();
+    }
     KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_indexContextMenu);
     closingDocuments.removeOne(doc);
     closeDocs(closingDocuments);

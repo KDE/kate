@@ -1136,6 +1136,7 @@ void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
         m_brushes.erase(toRemove);
         m_viewHistory.erase(std::remove(m_viewHistory.begin(), m_viewHistory.end(), toRemove), m_viewHistory.end());
         m_editHistory.erase(std::remove(m_editHistory.begin(), m_editHistory.end(), toRemove), m_editHistory.end());
+        updateBackgrounds();
     }
 
     ProxyItem *node = it.value();

@@ -149,15 +149,23 @@ void KateFileTree::setModel(QAbstractItemModel *model)
     connect(m_proxyModel->sourceModel(), &QAbstractItemModel::rowsMoved, this, &KateFileTree::onRowsMoved);
 }
 
-void KateFileTree::onRowsMoved(const QModelIndex &, int, int, const QModelIndex &destination, int row)
+void KateFileTree::onRowsMoved(const QModelIndex &sourceParent, int sourceStart, int sourceEnd, const QModelIndex &destination, int destRow)
 {
-    QModelIndex movedIndex = m_proxyModel->mapFromSource(m_sourceModel->index(row, 0, destination));
-    // We moved stuff, make sure if child was expanded, we expand all parents too.
-    if (movedIndex.isValid() && isExpanded(movedIndex) && !isExpanded(movedIndex.parent())) {
-        QModelIndex movedParent = movedIndex.parent();
-        while (movedParent.isValid() && !isExpanded(movedParent)) {
-            expand(movedParent);
-            movedParent = movedParent.parent();
+    const int count = sourceEnd - sourceStart + 1;
+    // Moving down within the same parent: rows land *before* destRow
+    const bool movedDown = (sourceParent == destination) && (destRow > sourceEnd);
+    const int first = movedDown ? destRow - count : destRow;
+
+    for (int r = first; r < first + count; ++r) {
+        const QModelIndex idx = m_proxyModel->mapFromSource(m_sourceModel->index(r, 0, destination));
+        if (!idx.isValid() || !isExpanded(idx)) {
+            continue;
+        }
+        // Make every ancestor visible, not just up to the first expanded one
+        for (QModelIndex p = idx.parent(); p.isValid(); p = p.parent()) {
+            if (!isExpanded(p)) {
+                expand(p);
+            }
         }
     }
 }

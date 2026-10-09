@@ -4,6 +4,7 @@
 */
 #pragma once
 
+#include <QDir>
 #include <QFileInfo>
 #include <QRegularExpression>
 
@@ -104,22 +105,94 @@ static KTextEditor::Cursor parseLineCol(QStringView &link)
     return KTextEditor::Cursor(line, col);
 }
 
-static void pushLink(int s, int e, QStringView line, std::vector<OpenLinkRange> *outColumnRanges)
+static void pushLink(int s, int e, QStringView line, std::vector<OpenLinkRange> *outColumnRanges, const QString &baseDir = QString())
 {
     QStringView linkView(QStringView(line).mid(s, e - s));
     KTextEditor::Cursor c = parseLineCol(linkView);
     QString link = linkView.toString();
-    if (QFileInfo(link).isFile()) {
+    // empty baseDir => relative to the current working directory
+    const QFileInfo info = baseDir.isEmpty() ? QFileInfo(link) : QFileInfo(QDir(baseDir), link);
+    if (info.isFile()) {
         outColumnRanges->push_back({.start = s, .end = e, .link = link, .startPos = c, .type = FileLink});
     }
 }
 
-static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outColumnRanges)
+static bool isPrevCharAcceptable(QChar c)
 {
-    const auto isPrevCharAcceptable = [](QChar c) {
-        return c == u' ' || c == u'"' || c == u'(' || c == u')' || c == u'=';
-    };
+    return c == u' ' || c == u'"' || c == u'(' || c == u')' || c == u'=';
+}
 
+static bool isPathSeparator(QChar c)
+{
+#ifdef Q_OS_WIN
+    return c == u'/' || c == u'\\';
+#else
+    return c == u'/';
+#endif
+}
+
+// true if "./" or "../" (".\" / "..\" on Windows) starts at p
+static bool isRelativePrefixAt(const QString &line, int p)
+{
+    if (p >= line.size() || line[p] != u'.') {
+        return false;
+    }
+    int i = p + 1;
+    if (i < line.size() && line[i] == u'.') {
+        ++i;
+    }
+    return i < line.size() && isPathSeparator(line[i]);
+}
+
+// End (exclusive) of a relative link starting at s, or -1 if a quoted link is unterminated
+static int findRelativeLinkEnd(const QString &line, int s)
+{
+    if (s > 0 && line[s - 1] == u'"') {
+        return line.indexOf(u'"', s);
+    }
+    int e = line.indexOf(u' ', s);
+    e = e == -1 ? line.size() : e;
+    while (e > s) {
+        const QChar c = line[e - 1];
+        if (c == u',' || c == u'.') {
+            e--;
+        } else if (c == u')' && line.mid(s, e - s).count(u')') > line.mid(s, e - s).count(u'(')) {
+            e--; // e.g. "(../file.cpp:12)"
+        } else {
+            break;
+        }
+    }
+    return e;
+}
+
+static void matchRelativeFilePaths(const QString &line, const QString &baseDir, std::vector<OpenLinkRange> *out)
+{
+    int s = 0;
+    while (true) {
+        s = line.indexOf(u'.', s);
+        if (s == -1) {
+            break;
+        }
+        if (!isRelativePrefixAt(line, s) || (s != 0 && !isPrevCharAcceptable(line[s - 1]))) {
+            s++;
+            continue;
+        }
+        const int e = findRelativeLinkEnd(line, s);
+        if (e == -1) {
+            break;
+        }
+        const bool overlaps = std::any_of(out->begin(), out->end(), [&](const OpenLinkRange &r) {
+            return s < r.end && e > r.start;
+        });
+        if (!overlaps) {
+            pushLink(s, e, line, out, baseDir);
+        }
+        s = e;
+    }
+}
+
+static void matchAbsoluteFilePaths(const QString &line, std::vector<OpenLinkRange> *outColumnRanges)
+{
 #ifdef Q_OS_WIN
     const auto isValidDriveLetter = [](QChar letter) {
         return (letter.isLetter() && letter.toUpper() >= u'A' && letter.toUpper() <= u'Z');
@@ -134,14 +207,11 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
             break;
         }
 
+        // relative paths ("./", "../") are handled by matchRelativeFilePaths()
         const bool isAbsoloutePath = s >= 2 && line[s - 1] == u':' && isValidDriveLetter(line[s - 2]);
-        const bool isRelativePath = s > 1 && line[s - 1] == u'.';
-        if (isAbsoloutePath || isRelativePath) {
-            const bool isDotDotRelativePath = isRelativePath && s > 2 && line[s - 2] == u'.';
-            // move s back to actual start position
+        if (isAbsoloutePath) {
             const int orignalS = s;
-            s = isAbsoloutePath ? s - 2 : s - 1;
-            s = isDotDotRelativePath ? s - 1 : s;
+            s = s - 2; // move s back to actual start position
 
             // must be preceded by a space or a symbol
             if (s != 0 && !isPrevCharAcceptable(line[s - 1])) {
@@ -166,12 +236,6 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
                 }
             }
 
-            if (isRelativePath) {
-                // TODO support relative paths
-                s = e;
-                continue;
-            }
-
             if (e != -1) {
                 pushLink(s, e, line, outColumnRanges);
             }
@@ -179,7 +243,6 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
         } else {
             s++;
         }
-        // try find relative path
     }
 #else
     int s = 0;
@@ -218,7 +281,18 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
 #endif
 }
 
-[[maybe_unused]] static void matchLine(const QString &line, std::vector<OpenLinkRange> *outColumnRanges)
+static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *out, const QString &baseDir)
+{
+    const auto firstFile = static_cast<std::ptrdiff_t>(out->size());
+    matchAbsoluteFilePaths(line, out);
+    matchRelativeFilePaths(line, baseDir, out);
+    // keep file links in left-to-right order
+    std::stable_sort(out->begin() + firstFile, out->end(), [](const OpenLinkRange &a, const OpenLinkRange &b) {
+        return a.start < b.start;
+    });
+}
+
+[[maybe_unused]] static void matchLine(const QString &line, std::vector<OpenLinkRange> *outColumnRanges, const QString &baseDir = QString())
 {
     outColumnRanges->clear();
     if (line.contains(QLatin1String("http://")) || line.contains(QLatin1String("https://"))) {
@@ -236,5 +310,5 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
         }
     }
 
-    matchFilePaths(line, outColumnRanges);
+    matchFilePaths(line, outColumnRanges, baseDir);
 }

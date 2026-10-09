@@ -14,6 +14,7 @@
 #include <KXMLGUIFactory>
 
 #include <QDesktopServices>
+#include <QDir>
 #include <QEvent>
 #include <QFileInfo>
 #include <QMouseEvent>
@@ -200,12 +201,21 @@ void OpenLinkPluginView::clear(KTextEditor::Document *doc)
 
 void OpenLinkPluginView::gotoLink()
 {
-    const QUrl u = QUrl::fromUserInput(m_ctrlHoverFeedback->link);
+    QUrl u = QUrl::fromUserInput(m_ctrlHoverFeedback->link);
     if (m_ctrlHoverFeedback->linkType == HttpLink) {
         if (u.isValid()) {
             QDesktopServices::openUrl(u);
         }
     } else if (m_ctrlHoverFeedback->linkType == FileLink) {
+        if (!u.isValid()) {
+            auto doc = m_activeView->document();
+            QDir baseDir;
+            if (doc->url().isLocalFile()) {
+                baseDir = QFileInfo(doc->url().toLocalFile()).absoluteDir();
+            }
+            u = QUrl::fromUserInput(baseDir.absoluteFilePath(m_ctrlHoverFeedback->link));
+        }
+
         if (auto v = m_mainWindow->openUrl(u)) {
             if (m_ctrlHoverFeedback->startPos.isValid()) {
                 auto pos = m_ctrlHoverFeedback->startPos;
@@ -233,8 +243,13 @@ void OpenLinkPluginView::highlightIfLink(KTextEditor::Cursor c, QWidget *viewInt
         return;
     }
 
+    QString baseDir;
+    if (doc->url().isLocalFile()) {
+        baseDir = QFileInfo(doc->url().toLocalFile()).absolutePath();
+    }
+
     std::vector<OpenLinkRange> matchedRanges;
-    matchLine(line, &matchedRanges);
+    matchLine(line, &matchedRanges, baseDir);
     for (const auto &[start, end, link, startPos, type] : matchedRanges) {
         if (start <= c.column() && c.column() <= end) {
             m_ctrlHoverFeedback->link = link;
@@ -301,6 +316,12 @@ void OpenLinkPluginView::highlightLinks(KTextEditor::Range range)
     } else {
         ranges.clear();
     }
+
+    QString baseDir;
+    if (doc->url().isLocalFile()) {
+        baseDir = QFileInfo(doc->url().toLocalFile()).absolutePath();
+    }
+
     // Loop over visible lines and highlight links
     int linesChecked = 0;
     std::vector<OpenLinkRange> matchedRanges;
@@ -310,7 +331,7 @@ void OpenLinkPluginView::highlightLinks(KTextEditor::Range range)
             break;
         }
         const QString line = doc->line(i);
-        matchLine(line, &matchedRanges);
+        matchLine(line, &matchedRanges, baseDir);
         for (const auto &[startCol, endCol, link, startCursor, _] : matchedRanges) {
             Q_UNUSED(startCursor)
             Q_UNUSED(link)

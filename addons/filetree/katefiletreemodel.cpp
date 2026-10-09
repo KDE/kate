@@ -894,6 +894,11 @@ void KateFileTreeModel::setListMode(bool lm)
 
 void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
 {
+    if (m_docmap.contains(doc)) {
+        qWarning() << "Document already present in tree" << doc->documentName();
+        return;
+    }
+
     auto *item = new ProxyItem(QString());
     item->setDoc(doc);
 

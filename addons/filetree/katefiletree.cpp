@@ -179,6 +179,10 @@ void KateFileTree::setShowCloseButton(bool show)
 
 void KateFileTree::setMiddleClickToClose(bool value)
 {
+    if (m_middleClickToClose == value) {
+        return;
+    }
+
     m_middleClickToClose = value;
     if (value) {
         viewport()->installEventFilter(this);

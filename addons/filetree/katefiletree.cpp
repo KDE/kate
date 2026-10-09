@@ -652,23 +652,6 @@ void KateFileTree::slotRenameFile()
     KateFileActions::renameDocumentFile(this, m_proxyModel->docFromIndex(m_indexContextMenu));
 }
 
-void KateFileTree::slotDocumentFirst()
-{
-    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_proxyModel->index(0, 0));
-    if (doc) {
-        m_mainWindow->activateView(doc);
-    }
-}
-
-void KateFileTree::slotDocumentLast()
-{
-    int count = m_proxyModel->rowCount(m_proxyModel->parent(currentIndex()));
-    KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_proxyModel->index(count - 1, 0));
-    if (doc) {
-        m_mainWindow->activateView(doc);
-    }
-}
-
 void KateFileTree::slotDocumentPrev()
 {
     QModelIndex current_index = currentIndex();

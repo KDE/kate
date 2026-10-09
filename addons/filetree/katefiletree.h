@@ -42,8 +42,6 @@ public Q_SLOTS:
     void slotOpenContainingFolder();
     void slotCopyFilename();
     void slotCurrentChanged(const QModelIndex &current, const QModelIndex &previous);
-    void slotDocumentFirst();
-    void slotDocumentLast();
     void slotDocumentNext();
     void slotDocumentPrev();
     void slotPrintDocument();

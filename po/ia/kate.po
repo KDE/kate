@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-08 00:49+0000\n"
-"PO-Revision-Date: 2026-09-14 18:17+0200\n"
+"PO-Revision-Date: 2026-10-09 16:06+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1660,10 +1660,9 @@ msgid "Copy Filename"
 msgstr "Copia nomine de file"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "Copia le percurso de file currente in le tabula de transferentia."
+msgstr "Copia le nomine de file currente in le tabula de transferentia."
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1671,10 +1670,9 @@ msgid "&Open Containing Folder"
 msgstr "&Aperi dossier continente"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "Aperi nove schedas a dextera del scheda currente"
+msgstr "Aperi le dossier continente del file actual."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format

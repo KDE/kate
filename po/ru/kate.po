@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-08 00:49+0000\n"
-"PO-Revision-Date: 2026-10-07 08:07+0200\n"
+"PO-Revision-Date: 2026-10-09 15:24+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -1449,7 +1449,8 @@ msgstr[3] "%v день"
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
-msgstr "При закрытии окна будут закрыты все документы, открытые в этом окне"
+msgstr ""
+"При закрытии окна будут закрыты и документы, открытые только в этом окне."
 
 #: lib/kateconfigdialog.cpp:513
 #, kde-format
@@ -1824,7 +1825,7 @@ msgid ""
 "type, or an application of your choice."
 msgstr ""
 "Открывает текущий документ в другом приложении, зарегистрированном для этого "
-"типа файлов, или в приложении, которые вы укажете вручную."
+"типа файлов, или в приложении, которое вы укажете вручную."
 
 #: lib/katemainwindow.cpp:587
 #, kde-format

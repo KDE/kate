@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2008 Ignacio Poggi <ignaciop.3@gmail.com>
-# SPDX-FileCopyrightText: 2009, 2010, 2014, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2009-2010, 2014, 2018-2026 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2011, 2012 Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>
 # SPDX-FileCopyrightText: 2012, 2013, 2014, 2015 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-22 00:48+0000\n"
-"PO-Revision-Date: 2025-08-27 00:16+0100\n"
+"PO-Revision-Date: 2026-10-09 16:33+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -97,8 +97,8 @@ msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
 msgstr ""
-"Si las líneas de salida empiezan con [ # / ## ] o [ ## % ], mostrar lo "
-"último como mensaje."
+"Si las líneas de salida empiezan con [ # / ## ] o [ ## % ], mostrar la "
+"última como mensaje."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
@@ -118,7 +118,7 @@ msgstr "Órdenes permitidas y bloqueadas"
 #: plugin_katebuild.cpp:1005 plugin_katebuild.cpp:1018
 #, kde-format
 msgid "Build"
-msgstr "Construir"
+msgstr "Compilación"
 
 #: plugin_katebuild.cpp:278
 #, kde-format
@@ -154,7 +154,7 @@ msgstr "Detener"
 #: plugin_katebuild.cpp:304
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr "Cargar objetivos del directorio de construcción de CMake"
+msgstr "Cargar objetivos del directorio de compilación de CMake"
 
 #: plugin_katebuild.cpp:308
 #, kde-format
@@ -309,13 +309,13 @@ msgstr ""
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 "No se han podido escribir archivos de peticiones de la API de archivos de "
-"CMake para el directorio de construcción %1."
+"CMake para el directorio de compilación %1"
 
 #: plugin_katebuild.cpp:1283
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr ""
-"No se ha podido ejecutar CMake (%2) para el directorio de construcción %1."
+"No se ha podido ejecutar CMake (%2) para el directorio de compilación %1"
 
 #: plugin_katebuild.cpp:1292
 #, kde-format
@@ -324,7 +324,7 @@ msgid ""
 "%2) !"
 msgstr ""
 "Ha fallado la generación de archivos de respuesta de la API de archivos de "
-"CMake para el directorio de construcción %1 (se usa %2)."
+"CMake para el directorio de compilación %1 (se usa %2)."
 
 #: plugin_katebuild.cpp:1417
 #, kde-format
@@ -340,10 +340,10 @@ msgid ""
 "altered via the config page of the plugin."
 msgstr ""
 "El complemento de compilación de Kate necesita ejecutar una orden externa "
-"para leer los objetivos del árbol de construcción.<br><br>La línea de "
-"órdenes completa es:<br><br><b>%1</b><br><br>¿Continuar y permitir la "
-"ejecución de esta orden?<br><br>La elección se puede modificar usando la "
-"página de configuración del complemento."
+"para leer los objetivos del árbol de compilación.<br><br>La línea de órdenes "
+"completa es:<br><br><b>%1</b><br><br>¿Continuar y permitir la ejecución de "
+"esta orden?<br><br>La elección se puede modificar usando la página de "
+"configuración del complemento."
 
 #: plugin_katebuild.cpp:1452
 #, kde-kuit-format

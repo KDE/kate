@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-16 02:46+0000\n"
-"PO-Revision-Date: 2026-04-23 16:31+0200\n"
+"PO-Revision-Date: 2026-10-09 15:33+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1648,7 +1648,7 @@ msgstr "Ricarica tutti i documenti aperti."
 #: lib/katemainwindow.cpp:487
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
-msgstr "Copia negli appunti il percorso del file corrente."
+msgstr "Copia il percorso del file corrente negli appunti."
 
 #: lib/katemainwindow.cpp:472
 #, kde-format

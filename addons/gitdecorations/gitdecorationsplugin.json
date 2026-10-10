@@ -1,6 +1,8 @@
 {
     "KPlugin": {
         "Description": "Displays Git change indicators in the editor margins",
+        "Description[bg]": "Визуализиране на индикатори за промени в Git в полетата на редактора",
+        "Description[ca@valencia]": "Mostra els indicadors de canvis de Git als marges de l'editor",
         "Description[ca]": "Mostra els indicadors de canvis del Git als marges de l'editor",
         "Description[cs]": "Zobrazuje indikátory změn v systému Git na okrajích editoru",
         "Description[es]": "Muestra indicadores de cambios de Git en los márgenes del editor",
@@ -12,6 +14,8 @@
         "Description[tr]": "Düzenleyici kenar boşluklarında Git değişiklik göstergelerini gösterin",
         "Description[uk]": "Показує індикатори змін у Git на полях редактора",
         "Name": "Git Decorations",
+        "Name[bg]": "Декорации на Git",
+        "Name[ca@valencia]": "Decoracions de Git",
         "Name[ca]": "Decoracions del Git",
         "Name[cs]": "Git dekorace",
         "Name[es]": "Decoraciones de Git",

@@ -1836,6 +1836,10 @@ private:
                                                 {QLatin1String("completionItem"), QJsonObject{
                                                     {QLatin1String("snippetSupport"), m_config.caps.snippetSupport},
                                                     {QLatin1String("labelDetailsSupport"), true},
+                                                    {QLatin1String("documentationFormat"), QJsonArray{
+                                                        QLatin1String("markdown"),
+                                                        QLatin1String("plaintext"),
+                                                    }},
                                                     {QLatin1String("resolveSupport"), QJsonObject{
                                                         {QLatin1String("properties"), QJsonArray{
                                                             QLatin1String("additionalTextEdits"),

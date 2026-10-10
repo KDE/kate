@@ -23,6 +23,8 @@
 
 #include <drawing_utils.h>
 
+#include <QTextDocument>
+
 static KTextEditor::CodeCompletionModel::CompletionProperty kind_property(LSPCompletionItemKind kind)
 {
     using CompletionProperty = KTextEditor::CodeCompletionModel::CompletionProperty;
@@ -55,6 +57,19 @@ static KTextEditor::CodeCompletionModel::CompletionProperty kind_property(LSPCom
         break;
     }
     return p;
+}
+
+static QString formatDocumentation(const LSPMarkupContent &doc)
+{
+    if (doc.value.isEmpty()) {
+        return {};
+    }
+    if (doc.kind == LSPMarkupKind::MarkDown) {
+        QTextDocument textDoc;
+        textDoc.setMarkdown(doc.value);
+        return textDoc.toHtml();
+    }
+    return doc.value;
 }
 
 struct LSPClientCompletionItem : public LSPCompletionItem {
@@ -293,13 +308,10 @@ public:
                 auto self = const_cast<LSPClientCompletionImpl *>(this);
                 self->m_matches[index.row()].m_docResolved = true;
             }
-
-            // probably plaintext, but let's show markdown as-is for now
-            // FIXME better presentation of markdown
-            return match.documentation.value;
+            return formatDocumentation(match.documentation);
         } else if (role == KTextEditor::CodeCompletionModel::ItemSelected && !match.argumentHintDepth && !match.documentation.value.isEmpty()
                    && m_selectedDocumentation) {
-            return match.documentation.value;
+            return formatDocumentation(match.documentation);
         } else if (role == KTextEditor::CodeCompletionModel::CustomHighlight && match.argumentHintDepth > 0) {
             if (index.column() != Name || match.len == 0) {
                 return {};

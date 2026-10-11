@@ -327,8 +327,9 @@
         },
         "vala": {
             "command": ["vala-language-server"],
-            "url": "https://github.com/Prince781/vala-language-server",
-            "highlightingModeRegex": "^Vala$"
+            "url": "https://github.com/vala-lang/vala-language-server",
+            "highlightingModeRegex": "^Vala$",
+            "rootIndicationFileNames": ["meson.build"]
         },
         "vhdl": {
             "command": ["vhdl_ls"],

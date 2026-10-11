@@ -36,14 +36,7 @@ public:
         return *this;
     }
 
-    bool operator!=(const ResultNode &other) const
-    {
-        return !(*this == other);
-    }
-    bool operator==(const ResultNode &other) const
-    {
-        return (other.name == name) && (other.dir == dir) && (other.children == children);
-    }
+    bool operator==(const ResultNode &other) const = default;
 
     friend QDebug operator<<(QDebug s, const ResultNode &node)
     {

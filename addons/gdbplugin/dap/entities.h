@@ -115,7 +115,7 @@ struct Checksum {
 
     Checksum() = default;
     Checksum(const QJsonObject &body);
-    bool operator==(const Checksum &r) const;
+    bool operator==(const Checksum &r) const = default;
 
     QJsonObject toJson() const;
 };
@@ -137,7 +137,7 @@ struct Source {
     Source() = default;
     Source(const QJsonObject &body, MessageContext &);
     Source(const QUrl &path);
-    bool operator==(const Source &r) const;
+    bool operator==(const Source &r) const = default;
 
     QJsonObject toJson(MessageContext &ctx) const;
 };
@@ -223,7 +223,7 @@ struct Breakpoint {
     Breakpoint(const QJsonObject &body, MessageContext &);
     Breakpoint(const int line);
 
-    bool operator==(const dap::Breakpoint &r) const;
+    bool operator==(const dap::Breakpoint &r) const = default;
 };
 
 struct FunctionBreakpoint {

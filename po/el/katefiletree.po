@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-17 00:47+0000\n"
+"POT-Creation-Date: 2026-10-11 00:55+0000\n"
 "PO-Revision-Date: 2023-01-05 10:48+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -18,230 +18,230 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 21.12.3\n"
 
-#: katefiletree.cpp:303
+#: katefiletree.cpp:315
 #, kde-format
 msgid "Open..."
 msgstr ""
 
-#: katefiletree.cpp:307
+#: katefiletree.cpp:319
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open With"
 msgid "Open File"
 msgstr "Άνοιγμα με"
 
-#: katefiletree.cpp:314
+#: katefiletree.cpp:326
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
 msgstr "&Επαναφόρτωση"
 
-#: katefiletree.cpp:316
+#: katefiletree.cpp:328
 #, kde-format
 msgid "Reload selected document(s) from disk."
 msgstr "Επαναφόρτωση των επιλεγμένων εγγράφων από τον δίσκο."
 
-#: katefiletree.cpp:318
+#: katefiletree.cpp:330
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: katefiletree.cpp:320
+#: katefiletree.cpp:332
 #, kde-format
 msgid "Close the current document."
 msgstr "Κλείσιμο του τρέχοντος εγγράφου."
 
-#: katefiletree.cpp:322
+#: katefiletree.cpp:334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Ανάπτυξη αναδρομικά"
 
-#: katefiletree.cpp:324
+#: katefiletree.cpp:336
 #, kde-format
 msgid "Expand the file list sub tree recursively."
 msgstr "Ανάπτυξη του υπο-δέντρου της λίστας αρχείων αναδρομικά."
 
-#: katefiletree.cpp:326
+#: katefiletree.cpp:338
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Σύμπτυξη αναδρομικά"
 
-#: katefiletree.cpp:328
+#: katefiletree.cpp:340
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
 msgstr "Σύμπτυξη του υπο-δέντρου της λίστας αρχείων αναδρομικά."
 
-#: katefiletree.cpp:330
+#: katefiletree.cpp:342
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
 msgstr "Κλείσιμο των άλλων"
 
-#: katefiletree.cpp:332
+#: katefiletree.cpp:344
 #, kde-format
 msgid "Close other documents in this folder."
 msgstr "Κλείσιμο των άλλων εγγράφων σε αυτόν τον φάκελο."
 
-#: katefiletree.cpp:335
+#: katefiletree.cpp:347
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
 msgstr "Άνοιγμα περιέχοντος φακέλου"
 
-#: katefiletree.cpp:337
+#: katefiletree.cpp:349
 #, kde-format
 msgid "Open the folder this file is located in."
 msgstr "Άνοιγμα του φακέλου στον οποίο βρίσκεται αυτό το αρχείο."
 
-#: katefiletree.cpp:339
+#: katefiletree.cpp:351
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
 msgstr "Αντιγραφή τοποθεσίας"
 
-#: katefiletree.cpp:341
+#: katefiletree.cpp:353
 #, kde-format
 msgid "Copy path and filename to the clipboard."
 msgstr "Αντιγραφή διαδρομής και ονόματος αρχείου στο πρόχειρο."
 
-#: katefiletree.cpp:343
+#: katefiletree.cpp:355
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Μετονομασία..."
 
-#: katefiletree.cpp:345
+#: katefiletree.cpp:357
 #, kde-format
 msgid "Rename the selected file."
 msgstr "Μετονομασία του επιλεγμένου αρχείου."
 
-#: katefiletree.cpp:348
+#: katefiletree.cpp:360
 #, kde-format
 msgid "Print selected document."
 msgstr "Εκτύπωση επιλεγμένου εγγράφου."
 
-#: katefiletree.cpp:351
+#: katefiletree.cpp:363
 #, kde-format
 msgid "Show print preview of current document"
 msgstr "Εμφάνιση προεπισκόπησης εκτύπωσης του τρέχοντος εγγράφου"
 
-#: katefiletree.cpp:353
+#: katefiletree.cpp:365
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: katefiletree.cpp:355
+#: katefiletree.cpp:367
 #, kde-format
 msgid "Close and delete selected file from storage."
 msgstr ""
 "Κλείσιμο και διαγραφή του επιλεγμένου αρχείου από τον χώρο αποθήκευσης."
 
-#: katefiletree.cpp:363
+#: katefiletree.cpp:375
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "Λειτουργία δέντρου"
 
-#: katefiletree.cpp:364
+#: katefiletree.cpp:376
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "Ορισμός του στιλ προβολής σε λειτουργία δέντρου"
 
-#: katefiletree.cpp:370
+#: katefiletree.cpp:382
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "Λειτουργία λίστας"
 
-#: katefiletree.cpp:371
+#: katefiletree.cpp:383
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "Ορισμός του στιλ προβολής σε λειτουργία λίστας"
 
-#: katefiletree.cpp:378
+#: katefiletree.cpp:390
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "Όνομα εγγράφου"
 
-#: katefiletree.cpp:379
+#: katefiletree.cpp:391
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "Ταξινόμηση κατά όνομα εγγράφου"
 
-#: katefiletree.cpp:384
+#: katefiletree.cpp:396
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "Διαδρομή εγγράφου"
 
-#: katefiletree.cpp:384
+#: katefiletree.cpp:396
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "Ταξινόμηση κατά διαδρομή εγγράφου"
 
-#: katefiletree.cpp:388
+#: katefiletree.cpp:400
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "Σειρά ανοίγματος"
 
-#: katefiletree.cpp:389
+#: katefiletree.cpp:401
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "Ταξινόμηση κατά σειρά ανοίγματος"
 
-#: katefiletree.cpp:392 katefiletreeconfigpage.cpp:72
+#: katefiletree.cpp:404 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr "Προσαρμοσμένη ταξινόμηση"
 
-#: katefiletree.cpp:409
+#: katefiletree.cpp:421
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear History"
 msgstr "Καθαρισμός ιστορικού"
 
-#: katefiletree.cpp:411
+#: katefiletree.cpp:423
 #, kde-format
 msgid "Clear edit/view history."
 msgstr "Καθαρισμός ιστορικού επεξεργασίας/προβολής."
 
-#: katefiletree.cpp:416
+#: katefiletree.cpp:428
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Άνοιγμα με"
 
-#: katefiletree.cpp:433
+#: katefiletree.cpp:445
 #, fuzzy, kde-format
 #| msgid "Show File Git History"
 msgid "Show Git History"
 msgstr "Εμφάνιση του ιστορικού git του αρχείου"
 
-#: katefiletree.cpp:445
+#: katefiletree.cpp:457
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Unpin Document"
 msgstr "Έγγραφα"
 
-#: katefiletree.cpp:447
+#: katefiletree.cpp:459
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
 msgstr "Έγγραφα"
 
-#: katefiletree.cpp:495
+#: katefiletree.cpp:507
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Λειτουργία προβολής"
 
-#: katefiletree.cpp:499
+#: katefiletree.cpp:511
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-04 00:51+0000\n"
-"PO-Revision-Date: 2026-08-29 19:40+0200\n"
+"PO-Revision-Date: 2026-10-08 13:33+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 "X-Text-Markup: kde4\n"
 
 #: branchcheckoutdialog.cpp:29
@@ -141,7 +141,7 @@ msgstr "Branche active : %1"
 #: git/gitforgeconfigwidget.cpp:32
 #, kde-format
 msgid "Detect Service"
-msgstr ""
+msgstr "Service de détection"
 
 #: git/gitforgeconfigwidget.cpp:37
 #, kde-format
@@ -154,17 +154,17 @@ msgstr ""
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Git Remote Host"
-msgstr ""
+msgstr "Hôte distant de Git"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Hosting Service"
-msgstr ""
+msgstr "Service d'hébergement"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Website URL"
-msgstr ""
+msgstr "URL du site Internet"
 
 #: git/gitforgeconfigwidget.cpp:46
 #, kde-format
@@ -184,13 +184,12 @@ msgstr ""
 #: git/gitforgeconfigwidget.cpp:56
 #, kde-format
 msgid "Add Mapping"
-msgstr ""
+msgstr "Ajouter une table de correspondance"
 
 #: git/gitforgeconfigwidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Remove Selected Files"
+#, kde-format
 msgid "Remove Selected Mapping"
-msgstr "Supprimer les fichiers sélectionnés."
+msgstr "Supprimer la table de correspondance sélectionnée"
 
 #: git/gitforgeconfigwidget.cpp:60
 #, kde-format
@@ -218,7 +217,7 @@ msgstr ""
 #: git/gitforgeconfigwidget.cpp:156
 #, kde-format
 msgid "https://git.example.com"
-msgstr ""
+msgstr "https://git.exemple.com"
 
 #: git/gitforgeconfigwidget.cpp:173
 #, kde-format
@@ -234,12 +233,12 @@ msgstr ""
 #: git/gitforgeconfigwidget.cpp:191
 #, kde-format
 msgid "Detecting…"
-msgstr ""
+msgstr "Détection en cours..."
 
 #: git/gitforgeconfigwidget.cpp:237
 #, kde-format
 msgid "Detected %1."
-msgstr ""
+msgstr "%1 détecté."
 
 #: git/gitforgeconfigwidget.cpp:239
 #, kde-format
@@ -735,7 +734,7 @@ msgstr "Achèvement du projet"
 #: kateprojectconfigpage.cpp:31
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
@@ -928,11 +927,10 @@ msgid "Double click action in the git status view"
 msgstr "Action sur un double clic dans l'affichage des états de git"
 
 #: kateprojectconfigpage.cpp:153
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
-msgstr "Outils Git"
+msgstr "Hébergement de Git"
 
 #: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
 #, kde-format
@@ -1200,21 +1198,20 @@ msgid "Goto: %1"
 msgstr "Aller : %1"
 
 #: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:189
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#, kde-format
 msgid "Git Hosting"
-msgstr "Outils Git"
+msgstr "Hébergement de Git"
 
 #: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
 #: kateprojectpluginview.cpp:922
 #, kde-format
 msgid "Open on Git Hosting Service"
-msgstr ""
+msgstr "Ouvrir sur le service d'hébergement de Git"
 
 #: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
 #, kde-format
 msgid "Copy Git Hosting Link"
-msgstr ""
+msgstr "Copier le lien d'hébergement de Git"
 
 #: kateprojectpluginview.cpp:331
 #, kde-format
@@ -1229,13 +1226,12 @@ msgstr ""
 #: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
 msgid "Open on %1"
-msgstr ""
+msgstr "Ouvert le %1"
 
 #: kateprojectpluginview.cpp:920 kateprojecttreeviewcontextmenu.cpp:206
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy %1 Link"
-msgstr "Copier un emplacement"
+msgstr "Copier le lien %1"
 
 #: kateprojectpluginview.cpp:985
 #, kde-format

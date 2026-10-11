@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-08 00:49+0000\n"
-"PO-Revision-Date: 2026-09-11 09:05+0200\n"
+"PO-Revision-Date: 2026-10-08 13:29+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -1707,10 +1707,9 @@ msgid "Copy Filename"
 msgstr "Copier le nom de fichier"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "Copie l'emplacement du fichier actuel dans le presse-papier"
+msgstr "Copie le nom du fichier courant dans le presse-papier."
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1718,10 +1717,9 @@ msgid "&Open Containing Folder"
 msgstr "&Ouvrir le dossier contenant"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "Ouvrir de nouveaux onglets à droite de l'onglet actuel."
+msgstr "Ouvre le dossier contenant le fichier courant."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format

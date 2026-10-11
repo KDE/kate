@@ -21,6 +21,8 @@ struct OpenLinkRange {
     QString link = {};
     KTextEditor::Cursor startPos = KTextEditor::Cursor::invalid();
     OpenLinkType type;
+
+    bool operator==(const OpenLinkRange &) const = default;
 };
 
 static const QRegularExpression &httplinkRE()

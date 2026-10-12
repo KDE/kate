@@ -4,6 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "kate_view_mgmt_tests.h"
+#include "diffwidget.h"
 #include "katedocmanager.h"
 #include "ktexteditor_utils.h"
 
@@ -15,6 +16,7 @@
 #include <QClipboard>
 #include <QCommandLineParser>
 #include <QDialog>
+#include <QPlainTextEdit>
 #include <QPointer>
 #include <QSignalSpy>
 #include <QTemporaryFile>
@@ -1067,6 +1069,61 @@ void KateViewManagementTests::testClosingSplitWithWidgetDeletesAllItsViews()
     for (auto v : mwViews) {
         QVERIFY(v->document());
     }
+}
+
+// Clicking into a widget (e.g. a diff view) in an inactive split must make that split the
+// active one: the editor view of the other split must not stay active (KatePart actions,
+// "Hide Inactive Views"), and the clicked child must keep the focus. Bug 485209
+void KateViewManagementTests::testFocusInWidgetActivatesViewspace()
+{
+    app->sessionManager()->sessionNew();
+    auto mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+    mw->show();
+    QVERIFY(QTest::qWaitForWindowActive(mw));
+
+    auto v1 = vm->createView();
+    vm->slotSplitViewSpaceVert();
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+    auto vs1 = vm->m_viewSpaceList[0];
+    auto vs2 = vm->m_viewSpaceList[1];
+
+    // a diff view in the second split
+    auto diff = new DiffWidget(DiffParams{});
+    diff->openDiff(QByteArrayLiteral("diff --git a/a.txt b/a.txt\n--- a/a.txt\n+++ b/a.txt\n@@ -1,2 +1,2 @@\n-old\n+new\n same\n"));
+    mw->wrapper()->addWidget(diff);
+    QCOMPARE(vs2->currentWidget(), diff);
+    const auto editors = diff->findChildren<QPlainTextEdit *>();
+    QVERIFY(!editors.isEmpty());
+    auto editor = editors.first();
+
+    // the user works in the other split
+    vm->activateView(v1->document(), vs1);
+    v1->setFocus();
+    QTRY_COMPARE(vm->activeViewSpace(), vs1);
+    QCOMPARE(vm->activeView(), v1);
+
+    // and clicks into the diff
+    editor->setFocus(Qt::MouseFocusReason);
+    QTRY_COMPARE(vm->activeViewSpace(), vs2);
+    QCOMPARE(vm->activeView(), nullptr);
+    QVERIFY(editor->hasFocus());
+
+    // "Hide Inactive Views" keeps the diff visible
+    vm->slotHideOtherViews(true);
+    QVERIFY(vs2->isVisible());
+    QVERIFY(!vs1->isVisible());
+    vm->slotHideOtherViews(false);
+
+    // the same when clicking on the tab of the diff
+    vm->activateView(v1->document(), vs1);
+    v1->setFocus();
+    QTRY_COMPARE(vm->activeViewSpace(), vs1);
+    QCOMPARE(vm->activeView(), v1);
+    const auto tabBar = vs2->m_tabBar;
+    QTest::mouseClick(tabBar, Qt::LeftButton, {}, tabBar->tabRect(tabBar->currentIndex()).center());
+    QTRY_COMPARE(vm->activeViewSpace(), vs2);
+    QCOMPARE(vm->activeView(), nullptr);
 }
 
 #include "moc_kate_view_mgmt_tests.cpp"

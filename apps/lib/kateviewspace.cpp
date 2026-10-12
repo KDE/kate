@@ -25,6 +25,7 @@
 #include <KSharedConfig>
 #include <KTextEditor/Editor>
 
+#include <QApplication>
 #include <QGridLayout>
 #include <QHelpEvent>
 #include <QMenu>
@@ -567,8 +568,14 @@ void KateViewSpace::makeActive(bool focusCurrentView)
         if (focusCurrentView) {
             if (currentView()) {
                 m_viewManager->activateView(currentView()->document(), this);
-            } else if (currentWidget()) {
-                activateWidget(currentWidget());
+            } else if (auto widget = currentWidget()) {
+                // like selecting its tab, this lets the view manager know that no view is active now
+                m_viewManager->activateView(DocOrWidget(widget), this);
+                // don't steal the focus if it is already inside, e.g. the user clicked into the widget
+                auto focus = QApplication::focusWidget();
+                if (focus != widget && !widget->isAncestorOf(focus)) {
+                    widget->setFocus();
+                }
             }
         }
     }

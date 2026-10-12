@@ -12,6 +12,7 @@
 #include <string>
 
 #include <QObject>
+#include <QStringView>
 #include <QTest>
 
 class LatexCompletionTableTest : public QObject
@@ -21,10 +22,10 @@ private Q_SLOTS:
     static void testSorting()
     {
         for (int i = 0; i < n_completions - 1; ++i) {
-            QVERIFY(std::char_traits<char16_t>::compare(completiontable[i].completion,
-                                                        completiontable[i + 1].completion,
-                                                        std::max(completiontable[i].completion_strlen, completiontable[i + 1].completion_strlen))
-                    < 0);
+            QStringView s1(completiontable[i].completion, completiontable[i].completion_strlen);
+            QStringView s2(completiontable[i + 1].completion, completiontable[i + 1].completion_strlen);
+
+            QVERIFY(s1 < s2);
         }
     }
 };

@@ -1029,4 +1029,44 @@ void KateViewManagementTests::testCloseAllDocumentsWithMultipleDocs()
     QVERIFY(!p4);
 }
 
+// Closing a split must delete all its views via the view manager, also if a widget (e.g.
+// the welcome view or a diff) is its current tab. Otherwise views deleted together with
+// the split stay in the view manager and e.g. MainWindow::views() returns dangling pointers.
+void KateViewManagementTests::testClosingSplitWithWidgetDeletesAllItsViews()
+{
+    app->sessionManager()->sessionNew();
+    auto mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+
+    vm->createView();
+    vm->slotSplitViewSpaceVert();
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+    vm->createView(); // a second document in the new split
+
+    // remember all views, to detect deleted ones without dereferencing them
+    std::vector<QPointer<KTextEditor::View>> views;
+    for (const auto &[view, _] : vm->m_views) {
+        views.emplace_back(view);
+    }
+
+    // the new split shows a widget, e.g. the welcome view or a diff
+    mw->wrapper()->addWidget(new QWidget);
+    QVERIFY(vm->activeViewSpace()->currentWidget());
+
+    vm->slotCloseCurrentViewSpace();
+    QCOMPARE(vm->m_viewSpaceList.size(), 1);
+
+    for (const auto &[view, _] : vm->m_views) {
+        const bool alive = std::any_of(views.begin(), views.end(), [view](const auto &p) {
+            return p && p.data() == view;
+        });
+        QVERIFY2(alive, "m_views contains a deleted view");
+    }
+    // mainwindow API on top of m_views must work
+    const auto mwViews = mw->views();
+    for (auto v : mwViews) {
+        QVERIFY(v->document());
+    }
+}
+
 #include "moc_kate_view_mgmt_tests.cpp"

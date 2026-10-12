@@ -125,6 +125,15 @@ public:
     }
 
     /**
+     * Any view of this space, nullptr if there is none.
+     * Unlike currentView() this finds views also if a widget is the current tab.
+     */
+    KTextEditor::View *anyView() const
+    {
+        return m_docToView.empty() ? nullptr : m_docToView.begin()->second;
+    }
+
+    /**
      * Removes @p doc from this space and returns the associated
      * view or a widget
      * Used for dnd

@@ -472,16 +472,24 @@ void KateProjectWorker::filesFromGit(const QDir &dir, bool recursive, std::vecto
      * git ls-files -z results a bytearray where each entry is \0-terminated.
      * NOTE: Without -z, Umlauts such as "Der Bäcker/Das Brötchen.txt" do not work (#389415)
      *
+     * use -t to output status tags (e.g. 'H', 'S', '?') so we can filter out skip-worktree ('S')
+     * files in sparse checkouts (bug 525771).
+     *
      * use --recurse-submodules, there since git 2.11 (released 2016)
      * our own submodules handling code leads to file duplicates
      */
 
-    QStringList lsFilesArgs{QStringLiteral("ls-files"), QStringLiteral("-z"), QStringLiteral("--recurse-submodules"), QStringLiteral(".")};
+    QStringList lsFilesArgs{QStringLiteral("ls-files"),
+                            QStringLiteral("-t"),
+                            QStringLiteral("-z"),
+                            QStringLiteral("--recurse-submodules"),
+                            QStringLiteral(".")};
 
     /**
      * ls-files untracked
      */
     QStringList lsFilesUntrackedArgs{QStringLiteral("ls-files"),
+                                     QStringLiteral("-t"),
                                      QStringLiteral("-z"),
                                      QStringLiteral("--others"),
                                      QStringLiteral("--exclude-standard"),
@@ -492,8 +500,8 @@ void KateProjectWorker::filesFromGit(const QDir &dir, bool recursive, std::vecto
      */
     const auto [major, minor] = getGitVersion(dir.absolutePath());
     if (major > 2 || (major == 2 && minor >= 31)) {
-        lsFilesArgs.insert(3, QStringLiteral("--deduplicate"));
-        lsFilesUntrackedArgs.insert(4, QStringLiteral("--deduplicate"));
+        lsFilesArgs.insert(lsFilesArgs.size() - 1, QStringLiteral("--deduplicate"));
+        lsFilesUntrackedArgs.insert(lsFilesUntrackedArgs.size() - 1, QStringLiteral("--deduplicate"));
     }
 
     if (major == -1) {
@@ -513,20 +521,58 @@ void KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringL
         return;
     }
     startHostProcess(git, QProcess::ReadOnly);
-    if (!git.waitForStarted() || !git.waitForFinished(-1)) {
+    if (!git.waitForStarted()) {
         return;
     }
 
-    const QByteArray b = git.readAllStandardOutput();
-    for (strview byteArray : ByteArraySplitter(b, '\0')) {
-        if (byteArray.empty()) {
-            continue;
+    QByteArray buffer;
+    auto processChunk = [&buffer, recursive, &outFiles]() {
+        int start = 0;
+        const int size = buffer.size();
+        while (start < size) {
+            const int nullPos = buffer.indexOf('\0', start);
+            if (nullPos == -1) {
+                break;
+            }
+            const int len = nullPos - start;
+            if (len > 0) {
+                int fileStart = start;
+                int fileLen = len;
+
+                // When -t is used with git ls-files, each line starts with "<tag> <filename>" (e.g. "H file", "S file", "? file")
+                if (len >= 2 && buffer[start + 1] == ' ') {
+                    const char tag = buffer[start];
+                    if (tag == 'S' || tag == 's') {
+                        // skip-worktree entry (sparse checkout) -> ignore (bug 525771)
+                        start = nullPos + 1;
+                        continue;
+                    }
+                    fileStart = start + 2;
+                    fileLen = len - 2;
+                }
+
+                if (fileLen > 0) {
+                    const QByteArrayView piece(buffer.constData() + fileStart, fileLen);
+                    if (recursive || !piece.contains('/')) {
+                        outFiles.push_back(FileEntry{.filePath = QString::fromUtf8(piece)});
+                    }
+                }
+            }
+            start = nullPos + 1;
         }
-        if (!recursive && (byteArray.find('/') != std::string::npos)) {
-            continue;
+        if (start > 0) {
+            buffer.remove(0, start);
         }
-        outFiles.push_back(FileEntry{.filePath = byteArray.toString()});
+    };
+
+    while (git.state() != QProcess::NotRunning) {
+        if (git.waitForReadyRead(500)) {
+            buffer.append(git.readAllStandardOutput());
+            processChunk();
+        }
     }
+    buffer.append(git.readAllStandardOutput());
+    processChunk();
 }
 
 void KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles)

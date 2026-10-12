@@ -1540,9 +1540,11 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     // avoid flicker
     KateUpdateDisabler disableUpdates(mainWindow());
 
-    // delete views of the viewspace
-    while (viewspace->currentView()) {
-        deleteView(viewspace->currentView());
+    // delete all views of the viewspace, not only the current one: the current tab
+    // might be a widget, the remaining views would then be deleted by ~KateViewSpace
+    // without removing them from m_views
+    while (auto view = viewspace->anyView()) {
+        deleteView(view);
     }
 
     if (viewspaceHasWidgets) {

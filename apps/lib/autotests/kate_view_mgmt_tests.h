@@ -82,6 +82,7 @@ private Q_SLOTS:
     void testTabbarMiddleClick();
     void testTabLimitIncreaseDoesNotDuplicateTabs();
     void testTabLimitDecreaseKeepsReplacementTabs();
+    void testClosingSplitWithWidgetDeletesAllItsViews();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;

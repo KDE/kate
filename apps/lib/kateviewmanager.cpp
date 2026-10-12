@@ -1353,6 +1353,10 @@ void KateViewManager::slotChangeSynchedView(KTextEditor::View *currentView)
     // Add the currentView to scroll-sync
     ScrollSynchronisation::ScrollBarInfo scrollBarInfo = m_scrollSynchronisation.getViewScrollBarInfo(currentView);
     if (!scrollBarInfo.scrollBar) {
+        // No view, e.g. a widget is shown: the viewspace has no synched view now, else
+        // previousView would still be the old view and it wouldn't be synched again
+        // when switching back to it
+        m_scrollSynchronisation.synchedViewSpaces[activeViewSpace()] = nullptr;
         return;
     }
     // Connect scrolling to slotSynchedView

@@ -1690,20 +1690,24 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
     // reset lru history, too!
     m_minAge = 0;
 
+    // "Active ViewSpace" is the number used in the group name of the active viewspace, see saveSplitterConfig().
+    // m_viewSpaceList is rebuilt in splitter order, so it can't be used as index into it.
+    const QString activeViewSpaceGroup = config.name() + QStringLiteral("-ViewSpace %1").arg(config.readEntry("Active ViewSpace", 0));
+    KateViewSpace *activeViewSpace = nullptr;
+
     // start recursion for the root splitter (Splitter 0)
-    restoreSplitter(config.config(), config.name() + QStringLiteral("-Splitter 0"), this, config.name());
+    restoreSplitter(config.config(), config.name() + QStringLiteral("-Splitter 0"), this, config.name(), activeViewSpaceGroup, activeViewSpace);
 
     // finally, make the correct view from the last session active
-    size_t lastViewSpace = config.readEntry("Active ViewSpace", 0);
-    if (lastViewSpace >= m_viewSpaceList.size()) {
-        lastViewSpace = 0;
+    if (!activeViewSpace && !m_viewSpaceList.empty()) {
+        activeViewSpace = m_viewSpaceList.front();
     }
-    if (lastViewSpace < m_viewSpaceList.size()) {
-        setActiveSpace(m_viewSpaceList.at(lastViewSpace));
+    if (activeViewSpace) {
+        setActiveSpace(activeViewSpace);
         // activate correct view (wish #195435, #188764)
-        activateView(m_viewSpaceList.at(lastViewSpace)->currentView());
+        activateView(activeViewSpace->currentView());
         // give view the focus to avoid focus stealing by toolviews / plugins
-        m_viewSpaceList.at(lastViewSpace)->setFocus();
+        activeViewSpace->setFocus();
     }
 
     // emergency
@@ -1797,7 +1801,12 @@ QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfig *configBase
     return grp;
 }
 
-void KateViewManager::restoreSplitter(const KConfig *configBase, const QString &group, KateSplitter *parent, const QString &viewConfGrp)
+void KateViewManager::restoreSplitter(const KConfig *configBase,
+                                      const QString &group,
+                                      KateSplitter *parent,
+                                      const QString &viewConfGrp,
+                                      const QString &activeViewSpaceGroup,
+                                      KateViewSpace *&activeViewSpace)
 {
     KConfigGroup config(configBase, group);
 
@@ -1816,6 +1825,10 @@ void KateViewManager::restoreSplitter(const KConfig *configBase, const QString &
             parent->addWidget(vs);
             vs->restoreConfig(this, configBase, str);
             vs->show();
+
+            if (str == activeViewSpaceGroup) {
+                activeViewSpace = vs;
+            }
         } else {
             // for a splitter, recurse
             auto newContainer = new KateSplitter(parent);
@@ -1823,7 +1836,7 @@ void KateViewManager::restoreSplitter(const KConfig *configBase, const QString &
             // we don't allow full collapse, see bug 366014
             newContainer->setChildrenCollapsible(false);
 
-            restoreSplitter(configBase, str, newContainer, viewConfGrp);
+            restoreSplitter(configBase, str, newContainer, viewConfGrp, activeViewSpaceGroup, activeViewSpace);
         }
     }
 

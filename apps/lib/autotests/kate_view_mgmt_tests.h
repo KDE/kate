@@ -81,6 +81,7 @@ private Q_SLOTS:
     void testTabbarContextMenu2();
     void testTabbarMiddleClick();
     void testCloseAllDocumentsWithMultipleDocs();
+    void testRestoreActivatesSavedActiveViewspace();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;

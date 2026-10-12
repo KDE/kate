@@ -23,14 +23,15 @@
 #include <QDirIterator>
 #include <QPainter>
 #include <QProcess>
+#include <QScopedValueRollback>
 #include <QScrollBar>
 #include <QStyledItemDelegate>
+#include <QTextLayout>
 
 #include <KColorScheme>
 #include <KLocalizedString>
 
 #include "drawing_utils.h"
-#include <QTextLayout>
 
 #include <KIO/DeleteJob>
 
@@ -207,13 +208,19 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
     connect(m_project, &KateProject::modelChanged, this, &KateProjectViewTree::slotModelChanged);
 
     connect(this, &QTreeView::expanded, this, [this](const QModelIndex &index) {
-        QString path = index.data(Qt::UserRole).toString().remove(m_project->baseDir());
-        m_expandedNodes.insert(path);
+        if (!m_restoringExpandState) {
+            QString path = index.data(Qt::UserRole).toString().remove(m_project->baseDir());
+            m_expandedNodes.insert(path);
+        }
 
         flattenPath(index);
     });
 
     connect(this, &QTreeView::collapsed, this, [this](const QModelIndex &index) {
+        if (m_restoringExpandState) {
+            return;
+        }
+
         QString path = index.data(Qt::UserRole).toString().remove(m_project->baseDir());
         m_expandedNodes.remove(path);
     });
@@ -507,17 +514,33 @@ void KateProjectViewTree::slotModelChanged()
         selectFile(activeView->document()->url().toLocalFile());
     }
 
-    auto proxy = static_cast<QSortFilterProxyModel *>(model());
-    for (const auto &path : std::as_const(m_expandedNodes)) {
-        QStringList parts = path.split(QStringLiteral("/"), Qt::SkipEmptyParts);
-        if (parts.empty()) {
-            continue;
+    {
+        // block so that we don't end up modifying m_expandedNodes while the following
+        // loop executes
+        QScopedValueRollback restoring(m_restoringExpandState, true);
+
+        QSet<QString> didExpand;
+
+        auto proxy = static_cast<QSortFilterProxyModel *>(model());
+        for (const auto &path : std::as_const(m_expandedNodes)) {
+            QStringList parts = path.split(QStringLiteral("/"), Qt::SkipEmptyParts);
+            if (parts.empty()) {
+                continue;
+            }
+            QStandardItem *parent = m_project->itemForPath(path);
+            if (parent) {
+                QPersistentModelIndex index = proxy->mapFromSource(m_project->model()->indexFromItem(parent));
+                expand(index);
+
+                if (index.isValid()) {
+                    QString expandedPath = index.data(Qt::UserRole).toString().remove(m_project->baseDir());
+                    didExpand.insert(expandedPath);
+                }
+            }
         }
-        QStandardItem *parent = m_project->itemForPath(path);
-        if (parent) {
-            auto index = proxy->mapFromSource(m_project->model()->indexFromItem(parent));
-            expand(index);
-        }
+
+        // Update the container with nodes that actually got expanded
+        m_expandedNodes = std::move(didExpand);
     }
 
     QMetaObject::invokeMethod(

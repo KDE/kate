@@ -24,6 +24,7 @@ class KateProjectViewTree : public QTreeView
 {
     friend class KateProjectTreeDelegate;
     friend class KateProjectTreeViewContextMenu;
+
 public:
     /**
      * construct project view for given project
@@ -141,4 +142,6 @@ private:
     int m_verticalScrollPosition = 0;
 
     QPoint m_lastMousePosition;
+
+    bool m_restoringExpandState = false;
 };

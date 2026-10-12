@@ -688,13 +688,13 @@ void KateProject::registerDocument(KTextEditor::Document *document)
         // remove filename
         int lastSlash = relativeDirPath.lastIndexOf(u'/');
         if (lastSlash != -1) {
-            relativeDirPath = relativeDirPath.remove(lastSlash, docPath.size() - lastSlash);
+            relativeDirPath = relativeDirPath.remove(lastSlash, relativeDirPath.size() - lastSlash);
             // find the item for parent directory of this file
             auto dir = itemForPath(relativeDirPath);
             // if found, add this file to the directory
             if (dir && dir->data(KateProjectItem::TypeRole).value<int>() == KateProjectItem::Directory) {
-                QFileInfo fi(document->url().toLocalFile());
-                auto *fileItem = new KateProjectItem(KateProjectItem::File, fi.fileName(), fi.absoluteFilePath());
+                // the item path must match the key in the file => item map, see forgetItem()
+                auto *fileItem = new KateProjectItem(KateProjectItem::File, QFileInfo(docPath).fileName(), docPath);
 
                 if (addFile(docPath, fileItem)) {
                     dir->appendRow(fileItem);

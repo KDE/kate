@@ -243,7 +243,7 @@ void KateSessionManageDialog::openSession()
 {
     KateSessionChooserItem *item = currentSessionItem();
 
-    if (!item) {
+    if (!item || m_deleteList.contains(item->session)) {
         return;
     }
 

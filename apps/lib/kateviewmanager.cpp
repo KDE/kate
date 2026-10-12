@@ -989,7 +989,8 @@ KTextEditor::View *KateViewManager::activateView(DocOrWidget docOrWidget, KateVi
     if (vs == activeViewSpace()) {
         activateView(v);
     }
-    return activeView();
+    // return the new view, not the active one: that is in another viewspace if vs isn't active
+    return v;
 }
 
 void KateViewManager::slotViewChanged()

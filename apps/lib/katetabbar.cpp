@@ -80,6 +80,8 @@ void KateTabBar::readConfig()
                 if (toRemove-- == 0) {
                     break;
                 }
+                // this doc has no tab anymore, it can become the replacement for a closed tab later
+                m_docToLruCounterAndHasTab[doc].hasTab = false;
                 removeTab(documentIdx(doc));
             }
         } else if (m_docToLruCounterAndHasTab.size() > (size_t)docList.size()) {
@@ -102,6 +104,8 @@ void KateTabBar::readConfig()
                 DocOrWidget doc = i.doc;
                 const auto idx = addTab(doc.doc() ? doc.doc()->documentName() : doc.widget()->windowTitle());
                 setTabDocument(idx, doc);
+                // mark it, else it would be used as replacement for a closed tab and end up in two tabs
+                m_docToLruCounterAndHasTab[doc].hasTab = true;
             }
         }
     }

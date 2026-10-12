@@ -80,6 +80,8 @@ private Q_SLOTS:
     void testTabbarContextMenu();
     void testTabbarContextMenu2();
     void testTabbarMiddleClick();
+    void testTabLimitIncreaseDoesNotDuplicateTabs();
+    void testTabLimitDecreaseKeepsReplacementTabs();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;

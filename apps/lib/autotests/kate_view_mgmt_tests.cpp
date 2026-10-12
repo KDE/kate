@@ -978,4 +978,57 @@ void KateViewManagementTests::testTabbarMiddleClick()
     }
 }
 
+// With a tab limit, documents without a tab replace closed tabs. Changing the limit adds
+// or removes tabs, the bookkeeping of which documents have a tab must follow, else a
+// document that already has a tab is used as replacement and shows up in two tabs.
+// The second tab then outlives the document which leads to a crash once it gets closed.
+void KateViewManagementTests::testTabLimitIncreaseDoesNotDuplicateTabs()
+{
+    app->sessionManager()->sessionNew();
+    auto vm = app->activeKateMainWindow()->viewManager();
+    auto vs = vm->activeViewSpace();
+
+    TempConfigChanger limit2(app.get(), "Tabbar Tab Limit", 2);
+    for (int i = 0; i < 4; ++i) {
+        vm->createView();
+    }
+    QCOMPARE(vs->tabCount(), 2);
+
+    TempConfigChanger limit4(app.get(), "Tabbar Tab Limit", 4);
+    QCOMPARE(vs->tabCount(), 4);
+
+    vm->slotDocumentClose();
+    QTest::qWait(10);
+
+    const auto docs = vs->documentList();
+    QSet<QObject *> unique;
+    for (const auto &d : docs) {
+        unique.insert(d.qobject());
+    }
+    QCOMPARE(unique.size(), docs.size());
+}
+
+// Lowering the tab limit removes tabs, these documents must become available again
+// as replacement when another tab is closed
+void KateViewManagementTests::testTabLimitDecreaseKeepsReplacementTabs()
+{
+    app->sessionManager()->sessionNew();
+    auto vm = app->activeKateMainWindow()->viewManager();
+    auto vs = vm->activeViewSpace();
+
+    TempConfigChanger limit4(app.get(), "Tabbar Tab Limit", 4);
+    for (int i = 0; i < 4; ++i) {
+        vm->createView();
+    }
+    QCOMPARE(vs->tabCount(), 4);
+
+    TempConfigChanger limit2(app.get(), "Tabbar Tab Limit", 2);
+    QCOMPARE(vs->tabCount(), 2);
+
+    // a document without tab takes over the tab of the closed one
+    vm->slotDocumentClose();
+    QTest::qWait(10);
+    QCOMPARE(vs->tabCount(), 2);
+}
+
 #include "moc_kate_view_mgmt_tests.cpp"

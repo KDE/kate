@@ -796,7 +796,7 @@ void KateProject::unregisterUntrackedItem(const KateProjectItem *item)
     }
 
     if (m_untrackedDocumentsRoot->rowCount() < 1) {
-        m_model.removeRow(0);
+        m_model.removeRow(m_untrackedDocumentsRoot->row());
         m_untrackedDocumentsRoot = nullptr;
     }
 }

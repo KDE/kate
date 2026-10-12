@@ -673,33 +673,35 @@ QStandardItem *KateProject::itemForPath(const QString &path) const
 void KateProject::registerDocument(KTextEditor::Document *document)
 {
     // remember the document, if not already there
-    QString path = document->url().toLocalFile();
+    const QString docPath = document->url().toLocalFile();
     if (!m_documents.contains(document)) {
-        m_documents[document] = path;
+        m_documents[document] = docPath;
     }
 
     // try to get item for the document
-    KateProjectItem *item = itemForFile(path);
+    KateProjectItem *item = itemForFile(docPath);
 
     // a new document that we don't know? If it belong to the project add it
-    if (!item && path.startsWith(m_baseDir)) {
-        path = path.remove(m_baseDir);
+    if (!item && docPath.startsWith(m_baseDir)) {
+        auto relativeDirPath = docPath;
+        relativeDirPath = relativeDirPath.remove(m_baseDir);
         // remove filename
-        int lastSlash = path.lastIndexOf(u'/');
+        int lastSlash = relativeDirPath.lastIndexOf(u'/');
         if (lastSlash != -1) {
-            path = path.remove(lastSlash, path.size() - lastSlash);
+            relativeDirPath = relativeDirPath.remove(lastSlash, docPath.size() - lastSlash);
             // find the item for parent directory of this file
-            auto dir = itemForPath(path);
+            auto dir = itemForPath(relativeDirPath);
             // if found, add this file to the directory
             if (dir && dir->data(KateProjectItem::TypeRole).value<int>() == KateProjectItem::Directory) {
                 QFileInfo fi(document->url().toLocalFile());
-                auto *i = new KateProjectItem(KateProjectItem::File, fi.fileName(), fi.absoluteFilePath());
-                if (addFile(path, i)) {
-                    dir->appendRow(i);
+                auto *fileItem = new KateProjectItem(KateProjectItem::File, fi.fileName(), fi.absoluteFilePath());
+
+                if (addFile(docPath, fileItem)) {
+                    dir->appendRow(fileItem);
                     dir->sortChildren(0);
-                    item = i;
+                    item = fileItem;
                 } else {
-                    delete i;
+                    delete fileItem;
                 }
             }
         }

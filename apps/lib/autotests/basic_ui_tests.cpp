@@ -16,6 +16,19 @@
 #include <QTest>
 #include <QTreeView>
 
+static QDialog *findConfigDialog()
+{
+    const auto tops = qApp->topLevelWidgets();
+    for (QWidget *w : tops) {
+        auto *dlg = qobject_cast<QDialog *>(w);
+        if (!dlg || !dlg->isVisible() || QByteArray("KateConfigDialog") != dlg->metaObject()->className()) {
+            continue;
+        }
+        return dlg;
+    }
+    return nullptr;
+}
+
 class BasicUiTests : public QObject
 {
     Q_OBJECT
@@ -145,6 +158,7 @@ void BasicUiTests::test_windowGeometrySaveRestore()
 void BasicUiTests::test_sessionGeometrySaveRestore()
 {
     const QString sessionName = QStringLiteral("TestSessionGeometryRestore");
+    constexpr auto delay = 50;
 
     // Activate a fresh named session with no prior windows
     // Use loadNew=true so that loadSession() is called and a window is created
@@ -161,7 +175,7 @@ void BasicUiTests::test_sessionGeometrySaveRestore()
     mainWindow->show();
 
     // Visual delay so you can see it open at the desired size
-    QTest::qWait(5000);
+    QTest::qWait(delay);
 
     // Grab the actual QWindow size that Wayland/X11 settled on
     QSize savedWindowSize = mainWindow->windowHandle() ? mainWindow->windowHandle()->size() : mainWindow->size();
@@ -185,7 +199,7 @@ void BasicUiTests::test_sessionGeometrySaveRestore()
     restoredWindow->show();
 
     // Wait again so the user can see the restored window
-    QTest::qWait(5000);
+    QTest::qWait(delay);
 
     QSize restoredWindowSize = restoredWindow->windowHandle() ? restoredWindow->windowHandle()->size() : restoredWindow->size();
     qDebug() << ">>> Session Size AFTER restoration:" << restoredWindow->size() << " QWindow:" << restoredWindowSize;
@@ -225,10 +239,10 @@ void BasicUiTests::test_openFontDialog()
 
     auto dialogTest = [dismissNextDialog] {
         // expect a KateConfigDialog to be there
-        auto w = qApp->activeModalWidget();
-        QVERIFY(w);
+        auto dlg = findConfigDialog();
+        QVERIFY(dlg);
         // expect to find a font requester
-        auto fontRequester = w->findChild<KFontRequester *>();
+        auto fontRequester = dlg->findChild<KFontRequester *>();
         QVERIFY(fontRequester);
         // click the button
         dismissNextDialog();
@@ -256,10 +270,9 @@ void BasicUiTests::test_settingPATH()
 
     // 2. Set the path in dialog
     auto dialogTest1 = [acceptDialog] {
-        QTRY_VERIFY(qApp->activeModalWidget());
-        auto w = qApp->activeModalWidget();
-        QVERIFY(w);
-        auto pathEdit = w->findChild<QLineEdit *>(QStringLiteral("katePATHedit"));
+        auto dlg = findConfigDialog();
+        QVERIFY(dlg);
+        auto pathEdit = dlg->findChild<QLineEdit *>(QStringLiteral("katePATHedit"));
         QVERIFY(pathEdit);
         pathEdit->setText(qApp->applicationDirPath());
 
@@ -280,10 +293,9 @@ void BasicUiTests::test_settingPATH()
 
     // 3. Remove the path, ensure its properly gone
     auto dialogTest2 = [acceptDialog] {
-        QTRY_VERIFY(qApp->activeModalWidget());
-        auto w = qApp->activeModalWidget();
-        QVERIFY(w);
-        auto pathEdit = w->findChild<QLineEdit *>(QStringLiteral("katePATHedit"));
+        auto dlg = findConfigDialog();
+        QVERIFY(dlg);
+        auto pathEdit = dlg->findChild<QLineEdit *>(QStringLiteral("katePATHedit"));
         QVERIFY(pathEdit);
         pathEdit->setText(QString());
 

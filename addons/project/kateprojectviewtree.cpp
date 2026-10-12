@@ -252,8 +252,17 @@ void KateProjectViewTree::selectFile(const QString &file)
     // a single node
     for (int i = 0; i < 2; i++) {
         const QStandardItem *item = m_project->itemForFile(file);
-        const auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
-        const auto index = item ? proxyModel->mapFromSource(m_project->model()->indexFromItem(item)) : QModelIndex();
+        if (!item) {
+            qWarning("Failed to find item for file %ls", qUtf16Printable(file));
+            return;
+        }
+
+        const auto sourceIndex = m_project->model()->indexFromItem(item);
+        if (!sourceIndex.isValid()) {
+            return;
+        }
+
+        const auto index = static_cast<QSortFilterProxyModel *>(model())->mapFromSource(sourceIndex);
         if (!index.isValid()) {
             return;
         }

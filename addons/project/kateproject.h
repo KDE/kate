@@ -229,6 +229,13 @@ public:
     void removeFile(const QString &file);
 
     /**
+     * Remove @p item from the file => item map if the map points to it.
+     * Must be called before deleting an item that is not removed via the model
+     * (removing rows from the model takes care of this automatically).
+     */
+    void forgetItem(const QStandardItem *item);
+
+    /**
      * Access to project index.
      * May be null.
      * Don't store this pointer, might change.
@@ -331,6 +338,12 @@ private Q_SLOTS:
      * @param file name of file that did change
      */
     void slotFileChanged(const QString &file);
+
+    /**
+     * Rows of our model are about to be removed (and their items deleted),
+     * drop all of them from the file => item map to avoid dangling pointers.
+     */
+    void slotRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last);
 
 Q_SIGNALS:
     /**

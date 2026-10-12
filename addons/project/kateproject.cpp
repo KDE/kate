@@ -251,6 +251,7 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, con
 {
     // link model
     m_model.m_project = this;
+    connect(&m_model, &QAbstractItemModel::rowsAboutToBeRemoved, this, &KateProject::slotRowsAboutToBeRemoved);
 
     // ensure we get notified for project file changes
     connect(&m_plugin->fileWatcher(), &QFileSystemWatcher::fileChanged, this, &KateProject::slotFileChanged);
@@ -273,6 +274,7 @@ KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, con
 {
     // link model
     m_model.m_project = this;
+    connect(&m_model, &QAbstractItemModel::rowsAboutToBeRemoved, this, &KateProject::slotRowsAboutToBeRemoved);
 
     // try to load the project map, will start worker thread, too
     load(globalProject);
@@ -318,6 +320,50 @@ void KateProject::removeFile(const QString &file)
         return;
     }
     m_file2Item->erase(it);
+}
+
+void KateProject::forgetItem(const QStandardItem *item)
+{
+    if (!m_file2Item || !item) {
+        return;
+    }
+
+    // items are registered with the path they represent, only remove the entry if it really is this item
+    auto it = m_file2Item->find(item->data(Qt::UserRole).toString());
+    if (it != m_file2Item->end() && it.value() == item) {
+        m_file2Item->erase(it);
+    }
+}
+
+void KateProject::slotRowsAboutToBeRemoved(const QModelIndex &parent, int first, int last)
+{
+    if (!m_file2Item || m_file2Item->isEmpty()) {
+        return;
+    }
+
+    const QStandardItem *parentItem = parent.isValid() ? m_model.itemFromIndex(parent) : m_model.invisibleRootItem();
+    if (!parentItem) {
+        return;
+    }
+
+    std::vector<const QStandardItem *> stack;
+    for (int row = first; row <= last; ++row) {
+        if (const auto *child = parentItem->child(row)) {
+            stack.push_back(child);
+        }
+    }
+
+    // the whole subtree will be deleted, forget about every item in it
+    while (!stack.empty()) {
+        const QStandardItem *item = stack.back();
+        stack.pop_back();
+        forgetItem(item);
+        for (int row = 0; row < item->rowCount(); ++row) {
+            if (const auto *child = item->child(row)) {
+                stack.push_back(child);
+            }
+        }
+    }
 }
 
 /**

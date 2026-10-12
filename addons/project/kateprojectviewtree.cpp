@@ -442,31 +442,22 @@ void KateProjectViewTree::removePath(const QModelIndex &idx, const QString &path
 {
     auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
     auto index = proxyModel->mapToSource(idx);
-    auto item = m_project->model()->itemFromIndex(index);
-    if (!item) {
+    if (!m_project->model()->itemFromIndex(index)) {
         return;
     }
-    QStandardItem *parent = item->parent();
+
+    // exec() spins an event loop, the project might be reloaded meanwhile which deletes all items
+    const QPersistentModelIndex persistentIndex = index;
 
     auto *job = KIO::del(QUrl::fromLocalFile(path));
     if (job->exec()) {
-        std::function<void(QStandardItem *)> removeSubtreeFiles;
-        removeSubtreeFiles = [this, &removeSubtreeFiles](QStandardItem *curr) {
-            if (!curr) {
-                return;
-            }
+        auto item = m_project->model()->itemFromIndex(persistentIndex);
+        if (!item) {
+            return;
+        }
+        QStandardItem *parent = item->parent();
 
-            if (curr->data(KateProjectItem::TypeRole).toInt() == KateProjectItem::File) {
-                // Remove file from project hash map
-                m_project->removeFile(curr->data(Qt::UserRole).toString());
-            }
-            // Recurse
-            for (int r = 0; r < curr->rowCount(); ++r) {
-                removeSubtreeFiles(curr->child(r));
-            }
-        };
-        removeSubtreeFiles(item);
-
+        // removing the rows will remove the items from the project file => item map, too
         if (parent != nullptr) {
             parent->removeRow(item->row());
             parent->sortChildren(0);
@@ -619,6 +610,8 @@ void KateProjectViewTree::flattenPath(const QModelIndex &index)
             item->setData(child->data(Qt::UserRole), Qt::UserRole);
             item->setText(QStringLiteral("%1 / %2").arg(item->text(), child->text()));
 
+            // child is already detached from the model, empty directories are in the file => item map
+            m_project->forgetItem(child);
             delete child;
         } else {
             break;

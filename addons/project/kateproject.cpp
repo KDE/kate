@@ -188,12 +188,12 @@ static bool matchesAny(QStringView pathView, const QList<GitUtils::StatusItem> &
         return lastSlash == -1 ? QByteArrayView() : path.mid(0, lastSlash);
     };
     for (const auto &m : items) {
-        if (pathView == QLatin1String(m.file)) {
+        if (pathView == QUtf8StringView(m.file.data(), m.file.size())) {
             return true;
         } else {
             QByteArrayView parent = pathParent(m.file);
             while (!parent.isEmpty()) {
-                if (pathView == QLatin1String(parent.data(), parent.size())) {
+                if (pathView == QUtf8StringView(parent.data(), parent.size())) {
                     return true;
                 }
                 parent = pathParent(parent);

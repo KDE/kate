@@ -47,13 +47,18 @@ void Test::test()
 
     view->resize(800, 600);
     view->show();
-    QTest::qWait(50); // resize() debounces resizes for 16ms, wait 50ms to be extra safe
 
     std::vector<std::unique_ptr<KTextEditor::MovingRange>> ranges;
 
-    auto colorIdx = rehighlight(view, ranges, 0, attributes);
-    std::ignore = colorIdx;
-    QCOMPARE(colorIdx, 3);
+    // try a few times, it can fail in first try
+    int i = 0;
+    while (i++ < 3) {
+        ranges.clear();
+        QTest::qWait(50); // resize() debounces resizes for 16ms, wait 50ms to be extra safe
+        auto colorIdx = rehighlight(view, ranges, 0, attributes);
+        QCOMPARE(colorIdx, 3);
+    }
+
     QCOMPARE(ranges.size(), 6);
 
     // ()

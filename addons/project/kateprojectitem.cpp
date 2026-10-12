@@ -8,19 +8,12 @@
 #include "kateprojectitem.h"
 #include "kateproject.h"
 
-#include <QApplication>
-#include <QFile>
+#include <QCoreApplication>
 #include <QIcon>
-#include <QMessageBox>
 #include <QMimeDatabase>
 #include <QThread>
-#include <QUrl>
 
 #include <KIconUtils>
-#include <KLocalizedString>
-
-#include <KTextEditor/Application>
-#include <KTextEditor/Editor>
 
 KateProjectItem::KateProjectItem(Type type, const QString &text, const QString &path)
     : QStandardItem(text)
@@ -132,8 +125,8 @@ QIcon *KateProjectItem::icon() const
 void KateProjectItem::setData(const QVariant &value, int role)
 {
     if (role == Qt::EditRole) {
-        auto newFileName = value.toString();
-        if (newFileName.isEmpty()) {
+        // we can only rename files
+        if (m_type != File) {
             return;
         }
 
@@ -146,45 +139,20 @@ void KateProjectItem::setData(const QVariant &value, int role)
             return;
         }
 
-        auto oldFileName = data(Qt::DisplayRole).toString();
-        auto oldName = m_path;
-        QString newName = oldName;
-        newName.replace(oldFileName, newFileName);
-
-        if (oldName == newName) {
+        const QString newFileName = value.toString();
+        if (newFileName.isEmpty() || newFileName == text()) {
             return;
         }
 
-        const auto oldUrl = QUrl::fromLocalFile(m_path).adjusted(QUrl::RemoveScheme);
-        const auto openDocuments = KTextEditor::Editor::instance()->application()->documents();
-        KTextEditor::Document *documentToRename = nullptr;
-        // find open document to rename
-        for (auto *doc : openDocuments) {
-            if (doc->url().adjusted(QUrl::RemoveScheme) == oldUrl && doc->closeUrl()) {
-                doc->waitSaveComplete();
-                documentToRename = doc;
-                break;
-            }
-        }
-
-        if (!QFile::rename(oldName, newName)) {
-            QMessageBox::critical(QApplication::activeWindow(), i18n("Error"), i18n("File name already exists"));
-            return;
-        }
-
-        /**
-         * Update the file2Item
-         */
-        project->renameFile(newName, oldName);
-
-        // update URL of the open document
-        if (documentToRename != nullptr) {
-            documentToRename->openUrl(QUrl::fromLocalFile(newName));
-            Q_EMIT documentToRename->documentSavedOrUploaded(documentToRename, true);
-        }
-
-        // change internal path
-        m_path = newName;
+        // Rename later: it closes and reopens the document which can delete this item (e.g. untracked items).
+        // The project updates our path and text once the rename succeeded.
+        QMetaObject::invokeMethod(
+            project,
+            [project, oldPath = m_path, newFileName] {
+                project->renameFileOnDisk(oldPath, newFileName);
+            },
+            Qt::QueuedConnection);
+        return;
     } else if (role == Qt::UserRole) {
         m_path = value.toString();
     }

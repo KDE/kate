@@ -219,9 +219,11 @@ public:
     }
 
     /**
-     * rename a file
+     * Rename the file @p oldPath on disk to @p newFileName, the file stays in its directory.
+     * An open document for the file is closed and reopened with the new url.
+     * Reports errors to the user.
      */
-    void renameFile(const QString &newName, const QString &oldName);
+    void renameFileOnDisk(const QString &oldPath, const QString &newFileName);
 
     /**
      * remove a file

@@ -13,6 +13,8 @@
 #include <KIO/CopyJob>
 #include <KJobWidgets>
 #include <KLocalizedString>
+#include <KTextEditor/Application>
+#include <KTextEditor/Editor>
 #include <QTextDocument>
 
 #include <json_utils.h>
@@ -26,6 +28,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
+#include <QMessageBox>
 #include <QMimeData>
 #include <QPlainTextDocumentLayout>
 #include <utility>
@@ -303,12 +306,67 @@ bool KateProject::reload(bool force)
     return load(m_globalProject, force);
 }
 
-void KateProject::renameFile(const QString &newName, const QString &oldName)
+void KateProject::renameFileOnDisk(const QString &oldPath, const QString &newFileName)
 {
-    if (auto *item = m_file2Item->take(oldName)) {
-        m_file2Item->insert(newName, item);
-    } else {
-        qWarning("renameFile() File not found, new: %ls old: %ls", qUtf16Printable(newName), qUtf16Printable(oldName));
+    const auto showError = [](const QString &message) {
+        QMessageBox::critical(QApplication::activeWindow(), i18n("Error"), message);
+    };
+
+    // only plain file names, the file stays in its directory
+    if (newFileName.isEmpty() || newFileName == u"." || newFileName == u".." || newFileName.contains(u'/') || newFileName.contains(QDir::separator())) {
+        showError(i18n("'%1' is not a valid file name.", newFileName));
+        return;
+    }
+
+    const QString newPath = QFileInfo(oldPath).dir().filePath(newFileName);
+    if (newPath == oldPath) {
+        return;
+    }
+
+    // allow case-only renames on case-insensitive file systems
+    if (QFileInfo::exists(newPath) && QFileInfo(newPath) != QFileInfo(oldPath)) {
+        showError(i18n("A file named '%1' already exists.", newFileName));
+        return;
+    }
+
+    // close the open document for this file, it is reopened with the new url below
+    QPointer<KTextEditor::Document> documentToRename;
+    const auto oldUrl = QUrl::fromLocalFile(oldPath).adjusted(QUrl::RemoveScheme);
+    const auto openDocuments = KTextEditor::Editor::instance()->application()->documents();
+    for (auto *doc : openDocuments) {
+        if (doc->url().adjusted(QUrl::RemoveScheme) == oldUrl) {
+            // asks to save a modified document, the user might cancel
+            if (!doc->closeUrl()) {
+                return;
+            }
+            doc->waitSaveComplete();
+            documentToRename = doc;
+            break;
+        }
+    }
+
+    QFile file(oldPath);
+    if (!file.rename(newPath)) {
+        showError(i18n("Failed to rename '%1' to '%2': %3", QFileInfo(oldPath).fileName(), newFileName, file.errorString()));
+        if (documentToRename) {
+            documentToRename->openUrl(QUrl::fromLocalFile(oldPath));
+        }
+        return;
+    }
+
+    // look the item up again, closing the document can delete it (untracked documents)
+    if (KateProjectItem *item = m_file2Item ? m_file2Item->take(oldPath) : nullptr) {
+        item->setData(newPath, Qt::UserRole);
+        item->setText(newFileName);
+        m_file2Item->insert(newPath, item);
+        QStandardItem *parent = item->parent() ? item->parent() : m_model.invisibleRootItem();
+        parent->sortChildren(0);
+    }
+
+    // update URL of the open document
+    if (documentToRename) {
+        documentToRename->openUrl(QUrl::fromLocalFile(newPath));
+        Q_EMIT documentToRename->documentSavedOrUploaded(documentToRename, true);
     }
 }
 

@@ -432,28 +432,31 @@ void KateProjectViewTree::removePath(const QModelIndex &idx, const QString &path
     }
     QStandardItem *parent = item->parent();
 
-    QStringList filesToRemove;
-    if (QFileInfo(path).isDir()) {
-        QDirIterator it(path, QDir::Files, QDirIterator::Subdirectories);
-        while (it.hasNext()) {
-            filesToRemove.push_back(it.next());
-        }
-    } else {
-        filesToRemove.push_back(path);
-    }
-
     auto *job = KIO::del(QUrl::fromLocalFile(path));
     if (job->exec()) {
+        std::function<void(QStandardItem *)> removeSubtreeFiles;
+        removeSubtreeFiles = [this, &removeSubtreeFiles](QStandardItem *curr) {
+            if (!curr) {
+                return;
+            }
+
+            if (curr->data(KateProjectItem::TypeRole).toInt() == KateProjectItem::File) {
+                // Remove file from project hash map
+                m_project->removeFile(curr->data(Qt::UserRole).toString());
+            }
+            // Recurse
+            for (int r = 0; r < curr->rowCount(); ++r) {
+                removeSubtreeFiles(curr->child(r));
+            }
+        };
+        removeSubtreeFiles(item);
+
         if (parent != nullptr) {
             parent->removeRow(item->row());
             parent->sortChildren(0);
         } else {
             m_project->model()->removeRow(item->row());
             m_project->model()->sort(0);
-        }
-
-        for (const auto &file : filesToRemove) {
-            m_project->removeFile(file);
         }
 
         if (parent) {

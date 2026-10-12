@@ -311,7 +311,12 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
     std::vector<QRegularExpression> excludeRegexps;
     excludeRegexps.reserve(excludeFolderPatterns.size());
     for (const auto &pattern : excludeFolderPatterns) {
-        excludeRegexps.push_back(QRegularExpression(pattern, QRegularExpression::DontCaptureOption));
+        auto regexp = QRegularExpression(pattern, QRegularExpression::DontCaptureOption);
+        if (regexp.isValid()) {
+            excludeRegexps.push_back(std::move(regexp));
+        } else {
+            Q_EMIT errorOccurred(i18n("Invalid regex pattern in exclude_patterns %1", pattern));
+        }
     }
 
     /**

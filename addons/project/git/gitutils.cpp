@@ -265,6 +265,6 @@ GitUtils::Result GitUtils::deleteBranches(const QStringList &branches, const QSt
         QString out = QString::fromLatin1(git.readAllStandardError()) + QString::fromLatin1(git.readAllStandardOutput());
         return {.error = out, .returnCode = git.exitCode()};
     }
-    Q_UNREACHABLE();
+
     return {.error = QString(), .returnCode = -1};
 }

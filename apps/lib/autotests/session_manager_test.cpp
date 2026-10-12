@@ -9,9 +9,12 @@
 #include "katesessionmanager.h"
 
 #include <KConfig>
+#include <KConfigGroup>
 #include <KLocalizedString>
+#include <KSharedConfig>
 
 #include <QCommandLineParser>
+#include <QScopeGuard>
 #include <QTemporaryDir>
 #include <QtTestWidgets>
 
@@ -114,6 +117,26 @@ void KateSessionManagerTest::renameSession()
     QVERIFY(m_manager->activateAnonymousSession());
     QVERIFY(m_manager->deleteSession(s));
     QCOMPARE(m_manager->sessionList().size(), 0);
+}
+
+// Renaming the session stored as "Last Session" must update that entry. Else the next
+// start with "Startup Session=last" would create a new empty session with the old name.
+void KateSessionManagerTest::renameSessionUpdatesLastSession()
+{
+    QVERIFY(m_manager->activateSession(QStringLiteral("last"), false, false));
+    KateSession::Ptr s = m_manager->activeSession();
+    QVERIFY(m_manager->activateAnonymousSession());
+
+    KConfigGroup c(KSharedConfig::openConfig(), QStringLiteral("General"));
+    c.writeEntry("Last Session", QStringLiteral("last"));
+    c.sync();
+    auto cleanup = qScopeGuard([this, s, &c] {
+        c.writeEntry("Last Session", QString());
+        m_manager->deleteSession(s);
+    });
+
+    QCOMPARE(m_manager->renameSession(s, QStringLiteral("renamed")), QStringLiteral("renamed"));
+    QCOMPARE(c.readEntry("Last Session"), QStringLiteral("renamed"));
 }
 
 #include "moc_session_manager_test.cpp"

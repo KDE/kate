@@ -378,6 +378,14 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
     m_sessions[session->name()] = m_sessions.take(oldName);
     Q_EMIT sessionListChanged();
 
+    // keep the last session pointing to this session, else the next start
+    // would create a new empty session with the old name
+    KConfigGroup c(KSharedConfig::openConfig(), QStringLiteral("General"));
+    if (c.readEntry("Last Session") == oldName) {
+        c.writeEntry("Last Session", name);
+        c.sync();
+    }
+
     if (session == activeSession()) {
         Q_EMIT sessionChanged();
     }

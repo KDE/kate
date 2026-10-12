@@ -741,7 +741,7 @@ void KateConfigDialog::slotApply()
 
                 // prepend to PATH
                 const QString p = validatedPaths.join(seperator);
-                const QString newPATH = p + seperator + oldPATH;
+                const QString newPATH = p.isEmpty() ? oldPATH : p + seperator + oldPATH;
                 // putenv the new PATH
                 qputenv("PATH", newPATH.toUtf8());
 

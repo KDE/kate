@@ -9,19 +9,27 @@
 #include "kateviewspace.h"
 #include "ktexteditor_utils.h"
 
+#include <KActionCollection>
 #include <KLocalizedString>
 #include <KSharedConfig>
+#include <KStandardActions>
 #include <KTextEditor/Editor>
 
+#include <QApplication>
 #include <QCommandLineParser>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QLineEdit>
 #include <QObject>
 #include <QPointer>
+#include <QPushButton>
 #include <QScopeGuard>
 #include <QSignalSpy>
 #include <QTemporaryDir>
 #include <QTemporaryFile>
 #include <QTest>
 #include <QTextBrowser>
+#include <QTimer>
 #include <memory>
 
 class KateApp;
@@ -48,6 +56,7 @@ private Q_SLOTS:
     void testShowMessageWorks();
     void testPinnedDocs();
     void testNonActivatedViewCursorPositionIsRestored();
+    void testClearingPathSettingDoesNotAddEmptyPathEntry();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -644,6 +653,48 @@ void KateViewManagementTest2::testNonActivatedViewCursorPositionIsRestored()
         QCOMPARE(views[1]->cursorPosition(), KTextEditor::Cursor(7, 2));
         QCOMPARE(views[2]->cursorPosition(), KTextEditor::Cursor(2, 2));
     }
+}
+
+// The user PATH setting is prepended to $PATH. Clearing it in the config dialog must
+// restore the original $PATH and must not leave an empty entry behind: an empty entry
+// means the current directory for execvp/sh, programs would then be looked up there first.
+void KateViewManagementTest2::testClearingPathSettingDoesNotAddEmptyPathEntry()
+{
+    const QByteArray oldPATH = qgetenv("PATH");
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+    auto restore = qScopeGuard([oldPATH, &cgGeneral] {
+        qputenv("PATH", oldPATH);
+        cgGeneral.deleteEntry("Kate PATH");
+    });
+
+    // a user PATH entry is currently set
+    const QString userPath = m_tempdir->path();
+    cgGeneral.writeEntry("Kate PATH", userPath);
+    qputenv("PATH", QByteArray((userPath + QDir::listSeparator()).toUtf8() + oldPATH));
+
+    app->sessionManager()->sessionNew();
+
+    // the user clears the PATH field in the config dialog and presses Apply
+    bool applied = false;
+    QTimer::singleShot(0, this, [&applied, userPath] {
+        auto *dlg = qobject_cast<QDialog *>(QApplication::activeModalWidget());
+        QVERIFY(dlg);
+        auto *pathEdit = dlg->findChild<QLineEdit *>(QStringLiteral("katePATHedit"));
+        auto *buttons = dlg->findChild<QDialogButtonBox *>();
+        if (pathEdit && buttons && pathEdit->text() == userPath) {
+            pathEdit->clear();
+            buttons->button(QDialogButtonBox::Apply)->click();
+            applied = true;
+        }
+        dlg->reject();
+    });
+    app->activeKateMainWindow()->actionCollection()->action(KStandardActions::name(KStandardActions::Preferences))->trigger();
+    QVERIFY(applied);
+
+    const QString newPATH = QString::fromUtf8(qgetenv("PATH"));
+    QCOMPARE(newPATH, QString::fromUtf8(oldPATH));
+    QVERIFY(!newPATH.split(QDir::listSeparator()).contains(QString()));
 }
 
 QTEST_MAIN(KateViewManagementTest2)

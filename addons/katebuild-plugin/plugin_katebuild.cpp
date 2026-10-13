@@ -62,14 +62,12 @@
 #include <KXMLGUIFactory>
 
 #include <KTerminalLauncherJob>
-#include <kateapp.h>
 #include <ktexteditor_utils.h>
 
 #include <QPalette>
 #include <QTextBrowser>
 #include <QTextCursor>
 #include <QTextEdit>
-#include <kde_terminal_interface.h>
 #include <kparts/part.h>
 
 using namespace Qt::Literals::StringLiterals;

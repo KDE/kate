@@ -10,7 +10,6 @@
 
 #include "lspclientservermanager.h"
 
-#include "exec_io_utils.h"
 #include "hostprocess.h"
 #include "ktexteditor_utils.h"
 #include "lspclient_debug.h"

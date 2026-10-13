@@ -1499,6 +1499,10 @@ void KateViewSpace::goBack()
         v = m_viewManager->openUrlWithView(location.url, QString());
     }
 
+    if (!v) {
+        return;
+    }
+
     QScopedValueRollback blocker(m_blockAddHistory, true);
     v->setCursorPosition(location.cursor);
     // enable forward in viewspace + mainwindow
@@ -1556,6 +1560,10 @@ void KateViewSpace::goForward()
         v = m_viewManager->activateView(location.document.get());
     } else {
         v = m_viewManager->openUrlWithView(location.url, QString());
+    }
+
+    if (!v) {
+        return;
     }
 
     QScopedValueRollback blocker(m_blockAddHistory, true);

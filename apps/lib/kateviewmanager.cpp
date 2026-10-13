@@ -1854,13 +1854,14 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
         return;
     }
 
-    int move = 0;
-    // try to use font height in pixel to move splitter
-    {
-        KTextEditor::Attribute::Ptr attrib(vs->currentView()->defaultStyleAttribute(KSyntaxHighlighting::Theme::TextStyle::Normal));
-        QFontMetrics fm(attrib->font());
-        move = fm.height() * repeats;
+    // try to use font height in pixel to move splitter,
+    // the view space might show a widget instead of a view, then use its font
+    int lineHeight = vs->fontMetrics().height();
+    if (auto view = vs->currentView()) {
+        KTextEditor::Attribute::Ptr attrib(view->defaultStyleAttribute(KSyntaxHighlighting::Theme::TextStyle::Normal));
+        lineHeight = QFontMetrics(attrib->font()).height();
     }
+    const int move = lineHeight * repeats;
 
     auto *currentWidget = static_cast<QWidget *>(vs);
     bool foundSplitter = false;

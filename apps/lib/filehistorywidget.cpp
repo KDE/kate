@@ -50,6 +50,24 @@ struct Commit {
     QStringView fileName;
 };
 
+/**
+ * Length of the start of @p data that contains only complete records.
+ * git log -z ends every record with a '\0', with file names a record consists of
+ * two such parts: the commit and the file name.
+ */
+static qsizetype completeRecordsLength(QByteArrayView data, bool hasFiles)
+{
+    qsizetype length = 0;
+    int parts = 0;
+    for (qsizetype i = data.indexOf('\0'); i != -1; i = data.indexOf('\0', i + 1)) {
+        ++parts;
+        if (!hasFiles || parts % 2 == 0) {
+            length = i + 1;
+        }
+    }
+    return length;
+}
+
 static std::vector<Commit> parseCommits(const QString &raw, bool hasFiles)
 {
     std::vector<Commit> commits;
@@ -409,6 +427,8 @@ public:
     QLineEdit m_filterLineEdit;
     QListWidget m_filtersListWidget;
     QProcess m_git;
+    // git log output received but not parsed yet: an incomplete record
+    QByteArray m_pendingLogData;
     const QString m_file;
     const QString m_gitDir;
     const QPointer<QWidget> m_toolView;
@@ -538,10 +558,20 @@ void FileHistoryWidget::getFileHistory(const QString &file)
         return;
     }
 
+    m_pendingLogData.clear();
     connect(&m_git, &QProcess::readyReadStandardOutput, this, [this, isDir] {
+        // the output arrives in chunks, a record (or UTF-8 character) can be split
+        // between them: only parse complete records, keep the rest for the next chunk
+        m_pendingLogData += m_git.readAllStandardOutput();
+        const qsizetype length = completeRecordsLength(m_pendingLogData, !isDir);
+        if (length == 0) {
+            return;
+        }
+        QString rawLogData = QString::fromUtf8(m_pendingLogData.constData(), length);
+        m_pendingLogData.remove(0, length);
+
         auto proxy = static_cast<CommitProxyModel *>(m_listView.model());
         auto model = static_cast<CommitListModel *>(proxy->sourceModel());
-        QString rawLogData = QString::fromUtf8(m_git.readAllStandardOutput());
         std::vector<Commit> commits = parseCommits(model->appendData(rawLogData), !isDir);
         if (!commits.empty()) {
             model->addCommits(std::move(commits));

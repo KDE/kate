@@ -6,6 +6,7 @@
 
 #include "filehistorywidget.h"
 #include "gitprocess.h"
+#include "hostprocess.h"
 #include "katemainwindow.h"
 #include "ktexteditor_utils.h"
 
@@ -19,6 +20,7 @@
 #include <QListWidget>
 #include <QObject>
 #include <QPointer>
+#include <QProcess>
 #include <QScopeGuard>
 #include <QSignalSpy>
 #include <QSortFilterProxyModel>
@@ -45,6 +47,7 @@ private Q_SLOTS:
     void smokeTest();
     void testFiltering();
     void testAuthorAndDateFiltering();
+    void testLargeHistoryParsedCompletely();
 
 private:
     QWidget *getToolview()
@@ -239,6 +242,78 @@ void FileHistoryTest::testAuthorAndDateFiltering()
     // close the toolview
     getCloseButton(toolview)->click();
     QTRY_VERIFY(getToolview() == nullptr);
+}
+
+// git log output arrives in chunks while git is still running. Records (commit + file name)
+// and UTF-8 characters split across chunks must still be parsed correctly: every commit
+// shows up exactly once with the right author.
+void FileHistoryTest::testLargeHistoryParsedCompletely()
+{
+    if (!haveGit) {
+        QSKIP("Skipping the test, 'git' not found");
+    }
+
+    QTemporaryDir repo;
+    QVERIFY(repo.isValid());
+    auto git = [&repo](const QStringList &args, const QByteArray &input = {}) {
+        QProcess p;
+        if (!setupGitProcess(p, repo.path(), args)) {
+            return false;
+        }
+        startHostProcess(p, QProcess::ReadWrite);
+        if (!input.isEmpty()) {
+            p.write(input);
+        }
+        p.closeWriteChannel();
+        return p.waitForFinished(60000) && p.exitStatus() == QProcess::NormalExit && p.exitCode() == 0;
+    };
+    QVERIFY(git({QStringLiteral("init"), QStringLiteral("-q")}));
+
+    // many commits with non-ASCII authors, some with very long messages: git writes a commit
+    // with one write() if it fits into the pipe atomically (PIPE_BUF, 4K on Linux), larger
+    // ones are split and arrive in several chunks
+    constexpr int commitCount = 3000;
+    QSet<QString> expectedTooltips;
+    QByteArray stream;
+    for (int i = 0; i < commitCount; ++i) {
+        const QByteArray name = "Jürgen Äpfelbäum " + QByteArray::number(i);
+        const QByteArray email = "user" + QByteArray::number(i) + "@example.com";
+        const QByteArray body = (i % 7 == 0) ? QByteArray(20000, 'y') : QByteArray(150, 'x');
+        const QByteArray msg = "Ändere Datei " + QByteArray::number(i) + " " + body + " ✓\n";
+        const QByteArray content = "line " + QByteArray::number(i) + "\n";
+        const QByteArray ident = name + " <" + email + "> " + QByteArray::number(1700000000 + i) + " +0000\n";
+        stream += "commit refs/heads/master\nauthor " + ident + "committer " + ident;
+        stream += "data " + QByteArray::number(msg.size()) + "\n" + msg;
+        stream += "M 644 inline file.txt\ndata " + QByteArray::number(content.size()) + "\n" + content + "\n";
+        expectedTooltips.insert(QString::fromUtf8(name) + QStringLiteral("<br>") + QString::fromUtf8(email));
+    }
+    QVERIFY(git({QStringLiteral("fast-import"), QStringLiteral("--quiet")}, stream));
+    QVERIFY(git({QStringLiteral("checkout"), QStringLiteral("-q"), QStringLiteral("master")}));
+
+    const QString file = repo.filePath(QStringLiteral("file.txt"));
+    KateMainWindow *mw = app->activeKateMainWindow();
+    FileHistory::showFileHistory(file, mw->wrapper());
+
+    auto toolview = Utils::toolviewForName(mw->wrapper(), QStringLiteral("git_file_history_%1").arg(file));
+    QVERIFY(toolview);
+    auto fileHistoryWidget = toolview->findChild<QWidget *>(QStringLiteral("FileHistoryWidget"));
+    QVERIFY(fileHistoryWidget);
+    QSignalSpy spy(fileHistoryWidget, SIGNAL(gitLogDone()));
+    QVERIFY(spy.count() == 1 || spy.wait(60000));
+
+    auto commitModel = toolview->findChild<QAbstractListModel *>();
+    QVERIFY(commitModel);
+    QCOMPARE(commitModel->rowCount(), commitCount);
+
+    QSet<QString> tooltips;
+    for (int row = 0; row < commitModel->rowCount(); ++row) {
+        tooltips.insert(commitModel->index(row).data(Qt::ToolTipRole).toString());
+    }
+    QCOMPARE(tooltips, expectedTooltips);
+
+    auto closeBtn = getCloseButton(toolview);
+    QVERIFY(closeBtn);
+    closeBtn->click();
 }
 
 QTEST_MAIN(FileHistoryTest)

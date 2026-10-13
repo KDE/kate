@@ -12,17 +12,19 @@ target_link_libraries(
     KF6::I18n
     KF6::TextEditor
     Qt::Test
+    $<TARGET_OBJECTS:katefiletreeplugin>
 )
 
 target_sources(
   filetree_model_test
   PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/../katefiletreemodel.cpp
     filetree_model_test.cpp
     document_dummy.cpp
 )
 
 if(ENABLE_PCH)
+    # plugin objects were compiled with katepch, MSVC needs its PCH object
+    target_link_libraries(filetree_model_test PRIVATE katepch)
     target_precompile_headers(filetree_model_test REUSE_FROM katepch_tests)
 endif()
 

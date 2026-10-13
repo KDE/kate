@@ -11,17 +11,19 @@ target_link_libraries(
     KF6::TextEditor
     KF6::I18n
     Qt::Test
+    $<TARGET_OBJECTS:kategitblameplugin>
 )
 
 target_sources(
   test_gitblameparsing
   PRIVATE
-    ../gitblameparser.cpp
     gitblametest.cpp
     testfiles.qrc
 )
 
 if(ENABLE_PCH)
+    # plugin objects were compiled with katepch, MSVC needs its PCH object
+    target_link_libraries(test_gitblameparsing PRIVATE katepch)
     target_precompile_headers(test_gitblameparsing REUSE_FROM katepch_tests)
 endif()
 

@@ -10,16 +10,18 @@ target_link_libraries(
     KF6::TextEditor
     kateprivate
     Qt::Test
+    $<TARGET_OBJECTS:tabswitcherplugin>
 )
 
 target_sources(
   tabswitcher_test 
   PRIVATE 
-    tabswitchertest.cpp 
-    ../tabswitcherfilesmodel.cpp
+    tabswitchertest.cpp
 )
 
 if(ENABLE_PCH)
+    # plugin objects were compiled with katepch, MSVC needs its PCH object
+    target_link_libraries(tabswitcher_test PRIVATE katepch)
     target_precompile_headers(tabswitcher_test REUSE_FROM katepch_tests)
 endif()
 

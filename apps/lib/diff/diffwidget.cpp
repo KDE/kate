@@ -458,6 +458,11 @@ void DiffWidget::handleStageUnstage_unified(int startLine, int endLine, int acti
 
 void DiffWidget::handleStageUnstage_sideBySide(DiffEditor *e, int startLine, int endLine, int actionType, DiffParams::Flag flags)
 {
+    if (m_style == Raw) {
+        // We do not support doing stage/unstage for raw diff in side by side
+        return;
+    }
+
     bool added = e == m_right;
     int diffLine = -1;
     if (actionType == DiffEditor::Line) {

@@ -60,7 +60,7 @@ private:
     void onActiveViewChanged(KTextEditor::View *);
     void onFormattedTextReceived(class FormatterRunner *, KTextEditor::Document *doc, const QByteArray &, int offset);
     void onFormattedPatchReceived(KTextEditor::Document *doc, const std::vector<PatchLine> &, bool setCursor = false);
-    void saveDocument(KTextEditor::Document *doc);
+    bool saveDocument(KTextEditor::Document *doc);
     bool formatOnSave() const
     {
         return m_plugin->formatOnSave;

@@ -195,9 +195,13 @@ void FormatPluginView::format()
         return;
     }
 
-    // save if modified
+    // save if modified. The patch is computed against the file on disk, if saving
+    // failed the file differs from the document and the patch would corrupt it.
     if (m_activeDoc->isModified() && !m_activeDoc->url().toLocalFile().isEmpty()) {
-        saveDocument(m_activeDoc);
+        if (!saveDocument(m_activeDoc)) {
+            qWarning("Not formatting %ls, saving it failed", qUtf16Printable(m_activeDoc->url().toDisplayString(QUrl::PreferLocalFile)));
+            return;
+        }
     }
 
     if (!m_lastChecksum.isEmpty() && m_activeDoc->checksum() == m_lastChecksum) {
@@ -328,19 +332,21 @@ void FormatPluginView::onFormattedPatchReceived(KTextEditor::Document *doc, cons
     }
 }
 
-void FormatPluginView::saveDocument(KTextEditor::Document *doc)
+bool FormatPluginView::saveDocument(KTextEditor::Document *doc)
 {
+    bool saved = true;
     if (doc->url().isValid() && doc->isModified()) {
         if (formatOnSave() && doc == m_activeDoc) {
             disconnect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::runFormatOnSave);
         }
 
-        doc->documentSave();
+        saved = doc->documentSave();
 
         if (formatOnSave() && doc == m_activeDoc) {
             connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &FormatPluginView::runFormatOnSave, Qt::QueuedConnection);
         }
     }
+    return saved;
 }
 
 #include "FormatPlugin.moc"

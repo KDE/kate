@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-04 00:51+0000\n"
+"POT-Creation-Date: 2026-10-13 00:49+0000\n"
 "PO-Revision-Date: 2025-11-07 18:23+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -707,14 +707,14 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Slikto formatēta JSON datne „%1“: %2"
 
 #: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
-#: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:368
-#: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
-#: kateprojectviewtree.cpp:416
+#: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
+#: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
+#: kateprojectviewtree.cpp:432
 #, kde-format
 msgid "Project"
 msgstr "Projekts"
 
-#: kateproject.cpp:732
+#: kateproject.cpp:734
 #, kde-format
 msgid "<untracked>"
 msgstr "<neizsekots>"
@@ -1284,22 +1284,22 @@ msgstr "Jauna datne"
 msgid "New Folder"
 msgstr "Jauna mape"
 
-#: kateprojectviewtree.cpp:368
+#: kateprojectviewtree.cpp:384
 #, kde-format
 msgid "The file already exists"
 msgstr "Datne ar šādu nosaukumu jau pastāv"
 
-#: kateprojectviewtree.cpp:379
+#: kateprojectviewtree.cpp:395
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Neizdevās izveidot datni: „%1“. Kļūda: %2"
 
-#: kateprojectviewtree.cpp:409
+#: kateprojectviewtree.cpp:425
 #, kde-format
 msgid "The directory already exists"
 msgstr "Mape ar šādu nosaukumu jau pastāv"
 
-#: kateprojectviewtree.cpp:416
+#: kateprojectviewtree.cpp:432
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Neizdevās izveidot mapi: „%1“"
@@ -1309,7 +1309,12 @@ msgstr "Neizdevās izveidot mapi: „%1“"
 msgid "Unable to find directory: %1"
 msgstr "Neizdodas atrast mapi: %1"
 
-#: kateprojectworker.cpp:753
+#: kateprojectworker.cpp:318
+#, kde-format
+msgid "Invalid regex pattern in exclude_patterns %1"
+msgstr ""
+
+#: kateprojectworker.cpp:758
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

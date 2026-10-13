@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-04 00:51+0000\n"
+"POT-Creation-Date: 2026-10-13 00:49+0000\n"
 "PO-Revision-Date: 2026-10-01 02:36+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -699,14 +699,14 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "格式不正確的 JSON 檔案 '%1'：%2"
 
 #: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
-#: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:368
-#: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
-#: kateprojectviewtree.cpp:416
+#: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
+#: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
+#: kateprojectviewtree.cpp:432
 #, kde-format
 msgid "Project"
 msgstr "專案"
 
-#: kateproject.cpp:732
+#: kateproject.cpp:734
 #, kde-format
 msgid "<untracked>"
 msgstr "<未追蹤>"
@@ -1273,22 +1273,22 @@ msgstr "新檔案"
 msgid "New Folder"
 msgstr "新資料夾"
 
-#: kateprojectviewtree.cpp:368
+#: kateprojectviewtree.cpp:384
 #, kde-format
 msgid "The file already exists"
 msgstr "檔案已存在"
 
-#: kateprojectviewtree.cpp:379
+#: kateprojectviewtree.cpp:395
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "建立檔案時失敗：%1，錯誤：%2"
 
-#: kateprojectviewtree.cpp:409
+#: kateprojectviewtree.cpp:425
 #, kde-format
 msgid "The directory already exists"
 msgstr "目錄已存在"
 
-#: kateprojectviewtree.cpp:416
+#: kateprojectviewtree.cpp:432
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "建立目錄時失敗：%1"
@@ -1298,7 +1298,12 @@ msgstr "建立目錄時失敗：%1"
 msgid "Unable to find directory: %1"
 msgstr "找不到目錄：%1"
 
-#: kateprojectworker.cpp:753
+#: kateprojectworker.cpp:318
+#, kde-format
+msgid "Invalid regex pattern in exclude_patterns %1"
+msgstr ""
+
+#: kateprojectworker.cpp:758
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-04 00:51+0000\n"
+"POT-Creation-Date: 2026-10-13 00:49+0000\n"
 "PO-Revision-Date: 2026-09-25 06:21+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -707,14 +707,14 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "არასწორი JSON ფაილი '%1': %2"
 
 #: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
-#: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:368
-#: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
-#: kateprojectviewtree.cpp:416
+#: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
+#: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
+#: kateprojectviewtree.cpp:432
 #, kde-format
 msgid "Project"
 msgstr "პროექტი"
 
-#: kateproject.cpp:732
+#: kateproject.cpp:734
 #, kde-format
 msgid "<untracked>"
 msgstr "<მიუთვალყურებელი>"
@@ -1287,22 +1287,22 @@ msgstr "ახალი ფაილი"
 msgid "New Folder"
 msgstr "ახალი საქაღალდე"
 
-#: kateprojectviewtree.cpp:368
+#: kateprojectviewtree.cpp:384
 #, kde-format
 msgid "The file already exists"
 msgstr "ფაილი უკვე არსებობს"
 
-#: kateprojectviewtree.cpp:379
+#: kateprojectviewtree.cpp:395
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "ფაილის (%1) შექმნის შეცდომა: %2"
 
-#: kateprojectviewtree.cpp:409
+#: kateprojectviewtree.cpp:425
 #, kde-format
 msgid "The directory already exists"
 msgstr "საქაღალდე უკვე არსებობს"
 
-#: kateprojectviewtree.cpp:416
+#: kateprojectviewtree.cpp:432
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "საქაღალდის შექმნის შეცდომა: %1"
@@ -1312,7 +1312,12 @@ msgstr "საქაღალდის შექმნის შეცდომ�
 msgid "Unable to find directory: %1"
 msgstr "ვერ ვიპოვე საქაღალდე: %1"
 
-#: kateprojectworker.cpp:753
+#: kateprojectworker.cpp:318
+#, kde-format
+msgid "Invalid regex pattern in exclude_patterns %1"
+msgstr ""
+
+#: kateprojectworker.cpp:758
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

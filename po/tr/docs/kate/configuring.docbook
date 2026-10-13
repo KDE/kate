@@ -541,7 +541,7 @@
 <term
 ><anchor id="config-sessions-keep-meta-information"/>
 <guilabel
->Geçmiş oturumlardaki üstbilgiyi sakla</guilabel
+>Geçmiş oturumlardaki üst bilgiyi sakla</guilabel
 ></term>
 <listitem
 ><para
@@ -553,11 +553,11 @@
 <term
 ><anchor id="config-sessions-delete-meta-information-after"/>
 <guilabel
->Kullanılmayan üstbilgiyi sil</guilabel
+>Kullanılmayan üst bilgiyi sil</guilabel
 ></term>
 <listitem
 ><para
->Önceden açılmış dosyalara ilişkin üstbilginin saklanacağı en çok gün sayısını ayarlayın. Bu, üstbilgi veri tabanının makul boyutta tutulmasına yardımcı olur.</para
+>Önceden açılmış dosyalara ilişkin üst bilginin saklanacağı en çok gün sayısını ayarlayın. Bu, üst bilgi veri tabanının makul boyutta tutulmasına yardımcı olur.</para
 ></listitem>
 </varlistentry>
 

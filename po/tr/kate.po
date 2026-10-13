@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-08 00:49+0000\n"
-"PO-Revision-Date: 2026-10-08 19:05+0300\n"
+"PO-Revision-Date: 2026-10-12 11:38+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1165,7 +1165,7 @@ msgstr "Zaman damgalarında tarihi içer"
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
-msgstr "Etkinleştirildiğinde, zaman damgası üstbilgisine tarih de eklenir."
+msgstr "Etkinleştirildiğinde, zaman damgası üst bilgisine tarih de eklenir."
 
 #: lib/kateconfigdialog.cpp:204
 #, kde-format
@@ -3092,13 +3092,13 @@ msgstr ""
 #: lib/ui/sessionconfigwidget.ui:180
 #, kde-format
 msgid "Keep &meta-information past sessions"
-msgstr "Geçmiş oturumlardaki &üstbilgiyi sakla"
+msgstr "Geçmiş oturumlardaki &üst bilgiyi sakla"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: lib/ui/sessionconfigwidget.ui:191
 #, kde-format
 msgid "Delete unused meta-information after:"
-msgstr "Kullanılmayan üstbilgiyi sil:"
+msgstr "Kullanılmayan üst bilgiyi sil:"
 
 #: lib/welcomeview/welcomeview.cpp:57
 #, kde-format

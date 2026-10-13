@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-04 00:51+0000\n"
+"POT-Creation-Date: 2026-10-13 00:49+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -729,14 +729,14 @@ msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
 #: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
-#: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:368
-#: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
-#: kateprojectviewtree.cpp:416
+#: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
+#: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
+#: kateprojectviewtree.cpp:432
 #, kde-format
 msgid "Project"
 msgstr "Projek"
 
-#: kateproject.cpp:732
+#: kateproject.cpp:734
 #, kde-format
 msgid "<untracked>"
 msgstr "<tak terlacak>"
@@ -1342,24 +1342,24 @@ msgstr "Buka file"
 msgid "New Folder"
 msgstr "Tambahkan Folder"
 
-#: kateprojectviewtree.cpp:368
+#: kateprojectviewtree.cpp:384
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The file already exists"
 msgstr "Nama file sudah ada"
 
-#: kateprojectviewtree.cpp:379
+#: kateprojectviewtree.cpp:395
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Gagal membuat file: %1, Galat: %2"
 
-#: kateprojectviewtree.cpp:409
+#: kateprojectviewtree.cpp:425
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The directory already exists"
 msgstr "Nama file sudah ada"
 
-#: kateprojectviewtree.cpp:416
+#: kateprojectviewtree.cpp:432
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Gagal membuat direktori: %1"
@@ -1370,7 +1370,12 @@ msgstr "Gagal membuat direktori: %1"
 msgid "Unable to find directory: %1"
 msgstr "Gagal mendapatkan histori file: %1"
 
-#: kateprojectworker.cpp:753
+#: kateprojectworker.cpp:318
+#, kde-format
+msgid "Invalid regex pattern in exclude_patterns %1"
+msgstr ""
+
+#: kateprojectworker.cpp:758
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

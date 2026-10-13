@@ -4487,7 +4487,7 @@ Projects Replicode run / stop-->
 >Diğer Özellikler</title>
 
 <para
->Clangd kaynak üstbilgisini değiştirme komutu desteklenir. Bir C veya C++ projesinde kaynak üstbilgisini değiştirmek için bağlam menüsündeki “Kaynak Üstbilgisini Değiştir” seçeneğini veya <keycombo action="simul"
+>Clangd kaynak üst bilgisini değiştirme komutu desteklenir. Bir C veya C++ projesinde kaynak üst bilgisini değiştirmek için bağlam menüsündeki “Kaynak Üst Bilgisini Değiştir” seçeneğini veya <keycombo action="simul"
 ><keycap
 >F12</keycap
 ></keycombo

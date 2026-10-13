@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-04 00:51+0000\n"
+"POT-Creation-Date: 2026-10-13 00:49+0000\n"
 "PO-Revision-Date: 2026-06-05 23:23+0100\n"
 "Last-Translator: César A. P. Cláudio <cesarapclaudio@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
@@ -713,14 +713,14 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Ficheiro JSON mal-formatado '%1': %2"
 
 #: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
-#: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:368
-#: kateprojectviewtree.cpp:379 kateprojectviewtree.cpp:409
-#: kateprojectviewtree.cpp:416
+#: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
+#: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
+#: kateprojectviewtree.cpp:432
 #, kde-format
 msgid "Project"
 msgstr "Projecto"
 
-#: kateproject.cpp:732
+#: kateproject.cpp:734
 #, kde-format
 msgid "<untracked>"
 msgstr "<não seguido>"
@@ -1310,24 +1310,24 @@ msgstr "Abrir um Ficheiro"
 msgid "New Folder"
 msgstr "Adicionar uma Pasta"
 
-#: kateprojectviewtree.cpp:368
+#: kateprojectviewtree.cpp:384
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The file already exists"
 msgstr "O nome do ficheiro já existe"
 
-#: kateprojectviewtree.cpp:379
+#: kateprojectviewtree.cpp:395
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Não foi possível criar o ficheiro: %1. Erro: %2"
 
-#: kateprojectviewtree.cpp:409
+#: kateprojectviewtree.cpp:425
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The directory already exists"
 msgstr "O nome do ficheiro já existe"
 
-#: kateprojectviewtree.cpp:416
+#: kateprojectviewtree.cpp:432
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Não foi possível criar a pasta: %1"
@@ -1337,7 +1337,12 @@ msgstr "Não foi possível criar a pasta: %1"
 msgid "Unable to find directory: %1"
 msgstr ""
 
-#: kateprojectworker.cpp:753
+#: kateprojectworker.cpp:318
+#, kde-format
+msgid "Invalid regex pattern in exclude_patterns %1"
+msgstr ""
+
+#: kateprojectworker.cpp:758
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

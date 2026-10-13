@@ -845,7 +845,7 @@ action="simul"
 ></indexterm
 > &kate;, &konqueror;’un veya popüler metin düzenleyicisi <application
 >emacs</application
->’in çalışma biçimine benzer olarak, aynı anda birden çok belgeyi açabilir ve düzenleme alanını istediğiniz sayıda çerçeveye bölebilir. Böylece, aynı anda birden çok belgeyi veya aynı belgenin birden çok örneğini görüntüleyebilirsiniz. Bu örneğin, belgeniz en üstte tanımlar ve altta da tanımlara başvurular içeriyorsa ikisini aynı anda görebilmek için yararlıdır. Başka bir örnek olarak, bir program kaynağı üstbilgisini bir çerçevede görebilir, uygulanmasını da başka bir çerçevede düzenleyebilirsiniz.</para>
+>’in çalışma biçimine benzer olarak, aynı anda birden çok belgeyi açabilir ve düzenleme alanını istediğiniz sayıda çerçeveye bölebilir. Böylece, aynı anda birden çok belgeyi veya aynı belgenin birden çok örneğini görüntüleyebilirsiniz. Bu örneğin, belgeniz en üstte tanımlar ve altta da tanımlara başvurular içeriyorsa ikisini aynı anda görebilmek için yararlıdır. Başka bir örnek olarak, bir program kaynağı üst bilgisini bir çerçevede görebilir, uygulanmasını da başka bir çerçevede düzenleyebilirsiniz.</para>
 
 <para
 >Bir belge birden fazla düzenleyicide kullanıldığında, bir düzenleyicide yapılan değişiklikler anında diğerlerine de yansıtılacaktır. Bunda metin değiştirmenin yanı sıra metin seçme de içerilir. Arama işlemleri veya imleç hareketi yalnızca geçerli düzenleyiciye yansıtılır. </para>

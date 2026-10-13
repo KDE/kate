@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2024 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2024, 2026 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2024-03-30 14:08+0300\n"
+"PO-Revision-Date: 2026-10-12 11:37+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.04.70\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #: RBQLPlugin.cpp:32
 #, kde-format
@@ -40,7 +40,7 @@ msgstr "Sorguyu Yürüt"
 #: RBQLWidget.cpp:72
 #, kde-format
 msgid "File has header"
-msgstr "Dosyanın üstbilgisi var"
+msgstr "Dosyanın üst bilgisi var"
 
 #: RBQLWidget.cpp:112
 #, kde-format

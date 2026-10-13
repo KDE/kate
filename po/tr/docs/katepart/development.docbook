@@ -350,7 +350,7 @@
 
 <varlistentry>
 <term
->Vurgulama dosyası, &XML; sürümünü ayarlayan bir üstbilgi içerir:</term>
+>Vurgulama dosyası, &XML; sürümünü ayarlayan bir üst bilgi içerir:</term>
 <listitem>
 <programlisting
 >&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
@@ -4279,11 +4279,11 @@
 
 <sect3 id="dev-scripting-indentation-header">
 <title
->Girintileme Betiği Üstbilgisi</title>
+>Girintileme Betiği Üst Bilgisi</title>
 <para
 ><filename
 >javascript.js</filename
-> dosyasının üstbilgisi, aşağıdaki gibi belgenin başına &JSON; olarak gömülür: <programlisting>
+> dosyasının üst bilgisi, aşağıdaki gibi belgenin başına &JSON; olarak gömülür: <programlisting>
 var katescript = {
     "name": "JavaScript",
     "author": "Örnek Ad &lt;örnek.ad@bir.adres.org&gt;",
@@ -4369,7 +4369,7 @@ var katescript = {
 <title
 >Girintileyici Kaynak Kodu</title>
 <para
->Üstbilgiyi belirledikten sonra bu bölüm girintileme betiği oluşturma işleminin nasıl çalıştığını açıklamaktadır. Gövdenin temel iskeleti şöyle görünür: <programlisting>
+>Üst bilgiyi belirledikten sonra bu bölüm girintileme betiği oluşturma işleminin nasıl çalıştığını açıklamaktadır. Gövdenin temel iskeleti şöyle görünür: <programlisting>
 // zorunlu katepart js kitaplıkları; &eg;, Range require ("range.js"); kullanıyorsanız range.js
 
 triggerCharacters = "{}/:;";
@@ -4543,11 +4543,11 @@ function indent(line, indentWidth, ch)
 
 <sect3 id="dev-scripting-command-line-header">
 <title
->Komut Satırı Betik Üstbilgisi</title>
+>Komut Satırı Betik Üst Bilgisi</title>
 <para
 ><filename
 >javascript.js</filename
-> dosyasının üstbilgisi, aşağıdaki gibi belgenin başına &JSON; olarak gömülür: <programlisting>
+> dosyasının üst bilgisi, aşağıdaki gibi belgenin başına &JSON; olarak gömülür: <programlisting>
 var katescript = {
     "author": "Örnek Ad &lt;örnek.ad@bir.adres.org&gt;",
     "license": "LGPLv2+",
@@ -4624,11 +4624,11 @@ var katescript = {
 >Betik Kaynak Kodu</title>
 
 <para
->Üstbilgide belirtilen tüm işlevlerin betikte uygulanması gerekir. Örneğin, yukarıdaki örnekteki komut dosyasının <command
+>Üst bilgide belirtilen tüm işlevlerin betikte uygulanması gerekir. Örneğin, yukarıdaki örnekteki komut dosyasının <command
 >sort</command
 > ve <command
 >moveLinesDown</command
-> işlevlerini uygulaması gerekir. Tüm işlevler aşağıdaki sözdizime sahiptir: <programlisting
+> işlevlerini uygulaması gerekir. Tüm işlevler aşağıdaki sözdizimine sahiptir: <programlisting
 >// zorunlu katepart js kitaplıkları; &eg;, Range require ("range.js"); kullanıyorsanız range.js
 
 function &lt;name&gt;(arg1, arg2, …)
@@ -4674,7 +4674,7 @@ function help(cmd)
 <title
 >Kısayolları Bağıntılamak</title>
 <para
->Betiklerin uygulama menüsünden erişilebilir olmasını sağlamak ve kısayollar atamak için betiğin uygun bir betik başlığı sağlaması gerekir. Yukarıdaki örnekte, betik üstbilgisindeki aşağıdaki bölüm nedeniyle menüde hem <literal
+>Betiklerin uygulama menüsünden erişilebilir olmasını sağlamak ve kısayollar atamak için betiğin uygun bir betik başlığı sağlaması gerekir. Yukarıdaki örnekte, betik üst bilgisindeki aşağıdaki bölüm nedeniyle menüde hem <literal
 >sort</literal
 > hem de <literal
 >moveLinesDown</literal

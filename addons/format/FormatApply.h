@@ -26,7 +26,14 @@
     f.close();
 
     QProcess p;
-    QStringList args = {QStringLiteral("diff"), QStringLiteral("--no-color"), QStringLiteral("--no-index")};
+    // ignore user git config that changes the diff output, parseDiff() expects the plain unified format
+    QStringList args = {QStringLiteral("-c"),
+                        QStringLiteral("diff.suppressBlankEmpty=false"),
+                        QStringLiteral("diff"),
+                        QStringLiteral("--no-ext-diff"),
+                        QStringLiteral("--no-textconv"),
+                        QStringLiteral("--no-color"),
+                        QStringLiteral("--no-index")};
     args << doc->url().toString(QUrl::PreferLocalFile);
     args << f.fileName();
     if (!setupGitProcess(p, QFileInfo(doc->url().toString(QUrl::PreferLocalFile)).absolutePath(), args)) {

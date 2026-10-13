@@ -2,6 +2,12 @@ include(ECMMarkAsTest)
 
 add_executable(test_formatapply "")
 target_include_directories(test_formatapply PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_compile_definitions(test_formatapply PRIVATE TRANSLATION_DOMAIN="formatplugin")
+
+# fake formatter process for the tests, a binary to not depend on a shell
+add_executable(fake_formatter fake_formatter.cpp)
+add_dependencies(test_formatapply fake_formatter)
+target_compile_definitions(test_formatapply PRIVATE FAKE_FORMATTER="$<TARGET_FILE:fake_formatter>")
 
 find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
@@ -16,6 +22,7 @@ target_sources(
   test_formatapply
   PRIVATE
     test_formatapply.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../Formatters.cpp
 )
 
 if(ENABLE_PCH)

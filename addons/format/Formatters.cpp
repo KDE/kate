@@ -141,18 +141,31 @@ void FormatterRunner::run(KTextEditor::Document *doc)
 
     m_procHandle = new QProcess(this);
     QProcess *p = m_procHandle;
-    connect(p, &QProcess::finished, this, [this, p](int exit, QProcess::ExitStatus) {
+    connect(p, &QProcess::finished, this, [this, p](int exit, QProcess::ExitStatus status) {
         RunOutput output;
         output.exitCode = exit;
         output.out = p->readAllStandardOutput();
         output.err = p->readAllStandardError();
-        onResultReady(output);
+        if (status != QProcess::NormalExit || exit != 0) {
+            // the output of a crashed or failed formatter is incomplete, never apply it
+            QString error = QString::fromUtf8(output.err).trimmed();
+            if (error.isEmpty()) {
+                error = status != QProcess::NormalExit ? i18n("%1 crashed", m_fmt.name) : i18n("%1 failed with exit code %2", m_fmt.name, exit);
+            }
+            Q_EMIT message(error);
+        } else {
+            onResultReady(output);
+        }
 
         p->deleteLater();
         deleteLater();
     });
 
     connect(p, &QProcess::errorOccurred, this, [this, p](QProcess::ProcessError e) {
+        // finished() follows a crash and reports it
+        if (e == QProcess::Crashed) {
+            return;
+        }
         Q_EMIT message(QStringLiteral("%1: %2").arg(e).arg(p->errorString()));
         p->deleteLater();
         deleteLater();

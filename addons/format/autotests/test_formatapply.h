@@ -12,4 +12,6 @@ class FormatApplyTest : public QObject
 private Q_SLOTS:
     void testFormatApply();
     void testFormatterForName();
+    void testFailedFormatterOutputIsNotApplied_data();
+    void testFailedFormatterOutputIsNotApplied();
 };

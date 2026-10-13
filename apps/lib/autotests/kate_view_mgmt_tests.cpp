@@ -19,6 +19,7 @@
 #include <QPlainTextEdit>
 #include <QPointer>
 #include <QSignalSpy>
+#include <QSplitter>
 #include <QTemporaryFile>
 #include <QTest>
 
@@ -1123,6 +1124,60 @@ void KateViewManagementTests::testFocusInWidgetActivatesViewspace()
     QTest::mouseClick(tabBar, Qt::LeftButton, {}, tabBar->tabRect(tabBar->currentIndex()).center());
     QTRY_COMPARE(vm->activeViewSpace(), vs2);
     QCOMPARE(vm->activeView(), nullptr);
+}
+
+// "Move Splitter Left/Right/Up/Down" must work when the active split shows a widget
+// (e.g. the welcome view or a diff) instead of a view
+void KateViewManagementTests::testMoveSplitterWithWidgetTab()
+{
+    app->sessionManager()->sessionNew();
+    auto mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+    mw->resize(1600, 900); // room to move the splitter, both splits are at their minimum width otherwise
+    mw->show();
+    QVERIFY(QTest::qWaitForWindowExposed(mw));
+
+    vm->createView();
+    vm->slotSplitViewSpaceVert();
+    auto vs = vm->activeViewSpace();
+    mw->wrapper()->addWidget(new QWidget);
+    QVERIFY(vs->currentWidget());
+    QCOMPARE(vm->activeView(), nullptr);
+
+    auto splitter = qobject_cast<QSplitter *>(vs->parent());
+    QVERIFY(splitter);
+    const auto sizesBefore = splitter->sizes();
+    vm->moveSplitterLeft();
+    QVERIFY(splitter->sizes() != sizesBefore);
+}
+
+// "Left/Right/Upward/Downward Split View" must work when the active split shows a widget,
+// also when the target is a split with the other orientation
+void KateViewManagementTests::testNeighborSplitNavigationWithWidgetTab()
+{
+    app->sessionManager()->sessionNew();
+    auto mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+    mw->show();
+    QVERIFY(QTest::qWaitForWindowExposed(mw));
+
+    // [ vs1 | [ vs2 / vs3 ] ]
+    vm->createView();
+    auto vs1 = vm->activeViewSpace();
+    vm->slotSplitViewSpaceVert();
+    auto vs2 = vm->activeViewSpace();
+    vm->slotSplitViewSpaceHoriz();
+    auto vs3 = vm->activeViewSpace();
+    QVERIFY(vs1 != vs2 && vs2 != vs3);
+
+    // vs1 shows a widget
+    vm->setActiveSpace(vs1);
+    mw->wrapper()->addWidget(new QWidget);
+    QVERIFY(vs1->currentWidget());
+    QCOMPARE(vm->activeView(), nullptr);
+
+    vm->activateRightView();
+    QVERIFY(vm->activeViewSpace() == vs2 || vm->activeViewSpace() == vs3);
 }
 
 #include "moc_kate_view_mgmt_tests.cpp"

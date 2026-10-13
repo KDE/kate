@@ -14,4 +14,5 @@ private Q_SLOTS:
     void testFormatterForName();
     void testFailedFormatterOutputIsNotApplied_data();
     void testFailedFormatterOutputIsNotApplied();
+    void testFormattingEmptyDocumentFinishes();
 };

@@ -126,4 +126,18 @@ void FormatApplyTest::testFailedFormatterOutputIsNotApplied()
     delete doc;
 }
 
+// Formatting an empty document must finish: the formatter waits for the end of its input
+void FormatApplyTest::testFormattingEmptyDocumentFinishes()
+{
+    auto doc = KTextEditor::Editor::instance()->createDocument(this);
+    QVERIFY(doc->isEmpty());
+
+    QPointer<FormatterRunner> runner = fakeFormatter(doc, {});
+    runner->run(doc);
+
+    // the runner deletes itself once the formatter finished
+    QTRY_VERIFY_WITH_TIMEOUT(!runner, 5000);
+    delete doc;
+}
+
 #include "moc_test_formatapply.cpp"

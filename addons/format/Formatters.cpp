@@ -189,8 +189,9 @@ void FormatterRunner::run(KTextEditor::Document *doc)
             const QByteArray stdinText = textForStdin();
             if (!stdinText.isEmpty()) {
                 p->write(stdinText);
-                p->closeWriteChannel();
             }
+            // always close it, formatters read until the end of the input, also for an empty document
+            p->closeWriteChannel();
         });
     }
 

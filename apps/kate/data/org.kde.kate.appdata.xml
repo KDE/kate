@@ -1657,6 +1657,18 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     <color type="primary" scheme_preference="dark">#17529b</color>
   </branding>
   <releases>
+    <release version="26.11.70" type="snapshot">
+      <description>
+        <ul>
+          <li>See added, modified, and removed lines in the editor margins with the new Git Decorations plugin.</li>
+          <li>Upload files, folders, or entire projects over SFTP with the new Deployment plugin, with transfer progress and a sidebar for browsing and editing remote files.</li>
+          <li>Open files and selected lines on GitHub, GitLab, or Forgejo, or copy their links, with support for custom Git host mappings globally and per project.</li>
+          <li>Follow relative file links with the Open Link plugin, now enabled by default, with improved recognition of file paths and URLs.</li>
+          <li>Keep the editor responsive during project code completion by looking up matches in the background.</li>
+          <li>Format Perl files with perltidy and CMake files with gersemi.</li>
+        </ul>
+      </description>
+    </release>
     <release version="26.08.2" date="2026-10-08"/>
     <release version="26.08.1" date="2026-09-10"/>
     <release version="26.08.0" date="2026-08-20"/>

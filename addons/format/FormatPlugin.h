@@ -72,6 +72,4 @@ private:
     FormatPlugin *const m_plugin;
     KTextEditor::MainWindow *m_mainWindow;
     bool m_triggeredOnSave = false;
-    QVariant m_lastProjectConfig;
-    QJsonObject m_lastMergedConfig;
 };

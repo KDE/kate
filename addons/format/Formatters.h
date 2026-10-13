@@ -96,3 +96,9 @@ public:
 };
 
 [[nodiscard]] FormatterRunner *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &config);
+
+/**
+ * The formatter config for a document: @p globalConfig with the "formatting" config of its
+ * project (@p projectFormatting, invalid if there is none) merged in.
+ */
+[[nodiscard]] QJsonObject formatterConfigWithProject(const QJsonObject &globalConfig, const QVariant &projectFormatting);

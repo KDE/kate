@@ -19,6 +19,7 @@
 #include <KTextEditor/Editor>
 
 #include <hostprocess.h>
+#include <json_utils.h>
 
 Q_LOGGING_CATEGORY(FORMATTING, "kate.formatting", QtWarningMsg)
 
@@ -368,3 +369,12 @@ FormatterRunner *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &
 }
 
 #include "moc_Formatters.cpp"
+
+QJsonObject formatterConfigWithProject(const QJsonObject &globalConfig, const QVariant &projectFormatting)
+{
+    const QJsonObject projectConfig = QJsonDocument::fromVariant(projectFormatting).object();
+    if (projectConfig.isEmpty()) {
+        return globalConfig;
+    }
+    return json::merge(globalConfig, projectConfig);
+}

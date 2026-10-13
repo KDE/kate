@@ -148,7 +148,6 @@ FormatPluginView::~FormatPluginView()
 void FormatPluginView::onConfigChanged()
 {
     m_lastChecksum = {};
-    m_lastMergedConfig = {};
     onActiveViewChanged(nullptr);
     onActiveViewChanged(m_mainWindow->activeView());
 
@@ -208,25 +207,11 @@ void FormatPluginView::format()
         return;
     }
 
+    // not cached, the global config or the project config might have changed
     const QVariant projectConfig = Utils::projectMapForDocument(m_activeDoc).value(QStringLiteral("formatting"));
-    if (projectConfig != m_lastProjectConfig) {
-        m_lastProjectConfig = projectConfig;
-        if (projectConfig.isValid()) {
-            const QJsonObject formattingConfig = QJsonDocument::fromVariant(projectConfig).object();
-            if (!formattingConfig.isEmpty()) {
-                m_lastMergedConfig = json::merge(m_plugin->formatterConfig(), formattingConfig);
-            }
-        } else {
-            // clear otherwise
-            m_lastMergedConfig = QJsonObject();
-        }
-    }
+    const QJsonObject config = formatterConfigWithProject(m_plugin->formatterConfig(), projectConfig);
 
-    if (m_lastMergedConfig.isEmpty()) {
-        m_lastMergedConfig = m_plugin->formatterConfig();
-    }
-
-    FormatterRunner *formatter = formatterForDoc(m_activeDoc, m_lastMergedConfig);
+    FormatterRunner *formatter = formatterForDoc(m_activeDoc, config);
     if (!formatter) {
         return;
     }

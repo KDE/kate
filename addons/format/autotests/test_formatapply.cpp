@@ -140,4 +140,23 @@ void FormatApplyTest::testFormattingEmptyDocumentFinishes()
     delete doc;
 }
 
+// The project "formatting" config overrides the global formatter config, without a project
+// config (or with an empty one) the global config applies unchanged
+void FormatApplyTest::testFormatterConfigWithProject()
+{
+    const QJsonObject global{{QStringLiteral("formatterForJson"), QStringLiteral("jq")},
+                             {QStringLiteral("clang-format"), QJsonObject{{QStringLiteral("formatOnSave"), true}}}};
+
+    // no project config
+    QCOMPARE(formatterConfigWithProject(global, QVariant()), global);
+    // empty project config
+    QCOMPARE(formatterConfigWithProject(global, QVariantMap()), global);
+
+    // project config overrides single values, the rest stays
+    const QVariantMap project{{QStringLiteral("formatterForJson"), QStringLiteral("clang-format")}};
+    const QJsonObject merged = formatterConfigWithProject(global, project);
+    QCOMPARE(merged.value(QStringLiteral("formatterForJson")).toString(), QStringLiteral("clang-format"));
+    QCOMPARE(merged.value(QStringLiteral("clang-format")), global.value(QStringLiteral("clang-format")));
+}
+
 #include "moc_test_formatapply.cpp"

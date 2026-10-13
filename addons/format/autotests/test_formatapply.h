@@ -15,4 +15,5 @@ private Q_SLOTS:
     void testFailedFormatterOutputIsNotApplied_data();
     void testFailedFormatterOutputIsNotApplied();
     void testFormattingEmptyDocumentFinishes();
+    void testFormatterConfigWithProject();
 };

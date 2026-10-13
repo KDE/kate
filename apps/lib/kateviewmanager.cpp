@@ -1088,7 +1088,10 @@ KateViewSpace *KateViewManager::findIntuitiveNeighborView(KateSplitter *splitter
             if (targetSplitter->orientation() == o) { // as long as the orientation is the same we move down in the desired direction
                 targetChild = targetSplitter->widget(childIndex);
             } else { // otherwise we need to find in which of the two child to go based on the cursor position
-                QPoint cursorCoord = activeView()->mapToGlobal(activeView()->cursorPositionCoordinates());
+                // the active view space might show a widget instead of a view, then use its center
+                const auto view = activeView();
+                const QWidget *activeSpace = activeViewSpace();
+                QPoint cursorCoord = view ? view->mapToGlobal(view->cursorPositionCoordinates()) : activeSpace->mapToGlobal(activeSpace->rect().center());
                 QPoint targetSplitterCoord = targetSplitter->widget(0)->mapToGlobal(QPoint(0, 0));
                 if ((o == Qt::Horizontal && (targetSplitterCoord.y() + targetSplitter->sizes().constFirst() > cursorCoord.y()))
                     || (o == Qt::Vertical && (targetSplitterCoord.x() + targetSplitter->sizes().constFirst() > cursorCoord.x()))) {

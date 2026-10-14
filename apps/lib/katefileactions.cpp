@@ -90,6 +90,15 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
         return;
     }
 
+    // avoid two documents for the same url, bug 521546
+    if (auto *other = KTextEditor::Editor::instance()->application()->findUrl(newFileUrl); other && other != doc) {
+        KMessageBox::error(
+            parent,
+            i18n("File \"%1\" is already open in another document. Please close that document first if you want to overwrite it or choose a different name.",
+                 newFileUrl.toDisplayString(QUrl::PreferLocalFile)));
+        return;
+    }
+
     if (!doc->closeUrl()) {
         return;
     }

@@ -21,6 +21,7 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
+#include <QDir>
 #include <QFileInfo>
 #include <QFontMetrics>
 #include <QKeySequence>
@@ -353,7 +354,7 @@ void KateGitBlamePluginView::commandFinished(int exitCode, QProcess::ExitStatus 
     case Command::RevParse: {
         m_root = QString::fromUtf8(m_blameInfoProc.readAllStandardOutput().trimmed());
 
-        if (!setupGitProcess(m_blameInfoProc, m_parentPath, {QStringLiteral("config"), QStringLiteral("blame.ignoreRevsFile")})) {
+        if (!setupGitProcess(m_blameInfoProc, m_parentPath, {QStringLiteral("config"), QStringLiteral("--path"), QStringLiteral("blame.ignoreRevsFile")})) {
             return;
         }
         m_currentCommand = Command::IgnoreRevsFile;
@@ -363,11 +364,12 @@ void KateGitBlamePluginView::commandFinished(int exitCode, QProcess::ExitStatus 
     case Command::Config: {
         m_ignoreRevsFile = QString::fromUtf8(m_blameInfoProc.readAllStandardOutput().trimmed());
 
-        auto arguments = QStringList{QStringLiteral("blame"), QStringLiteral("-p")};
+        // Git fails when the configured file is missing, so it is passed below only when it exists.
+        auto arguments = QStringList{QStringLiteral("blame"), QStringLiteral("-p"), QStringLiteral("--no-ignore-revs-file")};
 
         // add ignore-revs-file
         const auto ignoreRevFile = !m_ignoreRevsFile.isEmpty() ? m_ignoreRevsFile : QStringLiteral(".git-blame-ignore-revs");
-        const auto ignoreRevFilePath = QStringLiteral("%1/%2").arg(m_root, ignoreRevFile);
+        const auto ignoreRevFilePath = QDir(m_root).filePath(ignoreRevFile);
         if (QFileInfo::exists(ignoreRevFilePath)) {
             arguments.append({QStringLiteral("--ignore-revs-file"), ignoreRevFilePath});
         }

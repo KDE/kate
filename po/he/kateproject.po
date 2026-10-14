@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-13 00:49+0000\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
 "PO-Revision-Date: 2026-09-27 10:03+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -696,12 +696,12 @@ msgstr "(נערכו)"
 msgid "(Staged)"
 msgstr "(בימוי)"
 
-#: kateproject.cpp:355
+#: kateproject.cpp:401
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "קובץ ה־JSON‏ ‚%1’ פגום: %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -709,7 +709,7 @@ msgstr "קובץ ה־JSON‏ ‚%1’ פגום: %2"
 msgid "Project"
 msgstr "מיזם"
 
-#: kateproject.cpp:734
+#: kateproject.cpp:780
 #, kde-format
 msgid "<untracked>"
 msgstr "<לא במעקב>"

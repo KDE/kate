@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-05 00:50+0000\n"
-"PO-Revision-Date: 2026-10-06 11:37+0200\n"
+"PO-Revision-Date: 2026-10-13 09:52+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -294,10 +294,10 @@ msgstr "Izbrana ni bila nobena datoteka za namestitev."
 #, kde-format
 msgid "Queued one file for upload."
 msgid_plural "Queued %1 files for upload."
-msgstr[0] ""
-msgstr[1] "%2 datoteki sta v čakalni vrsti za prenos tja."
-msgstr[2] "%2 datoteke so v čakalni vrsti za prenos tja."
-msgstr[3] "%2 datotek je v čakalni vrsti za prenos tja."
+msgstr[0] "%1 datotek je v čakalni vrsti za prenos tja."
+msgstr[1] "%1 datoteka je v čakalni vrsti za prenos tja."
+msgstr[2] "%1 datoteki sta v čakalni vrsti za prenos tja."
+msgstr[3] "%1 datoteke so v čakalni vrsti za prenos tja."
 
 #: deploymentplugin.cpp:696 deploymentplugin.cpp:762
 #, kde-format

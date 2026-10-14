@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-08 00:49+0000\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
 "PO-Revision-Date: 2026-03-01 12:27+0100\n"
 "Last-Translator: Kjetil Sørlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@nuug.no>\n"
@@ -172,7 +172,7 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite – skriveprogram"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
-#: lib/filehistorywidget.cpp:467 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:487 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Filter …"
@@ -189,7 +189,7 @@ msgid "Copy Location"
 msgstr "Kopier filadresse"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -204,7 +204,7 @@ msgstr "Endret navn %1 → %2"
 msgid "Invalid hash"
 msgstr "Ugyldig nøkkel"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 finnes ikke i et Gir-depot."
@@ -540,7 +540,7 @@ msgstr ""
 "allerede er installer må du sikre at den er tilgjengelig i søkestien (PATH-"
 "variabelen). Se https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1278
+#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1283
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
@@ -588,28 +588,28 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "Vis diff med full kontekt, ikke bare endrede linjer"
 
-#: lib/diff/diffwidget.cpp:886 lib/diff/diffwidget.cpp:1090
+#: lib/diff/diffwidget.cpp:891 lib/diff/diffwidget.cpp:1095
 #, kde-format
 msgid "New file %1"
 msgstr "Ny fil %1"
 
-#: lib/diff/diffwidget.cpp:888 lib/diff/diffwidget.cpp:1092
+#: lib/diff/diffwidget.cpp:893 lib/diff/diffwidget.cpp:1097
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Slettet fil %1"
 
-#: lib/diff/diffwidget.cpp:1261 lib/diff/diffwidget.cpp:1262
+#: lib/diff/diffwidget.cpp:1266 lib/diff/diffwidget.cpp:1267
 #, kde-format
 msgid "No differences found"
 msgstr "Fant ingen forskjeller"
 
-#: lib/filehistorywidget.cpp:253
+#: lib/filehistorywidget.cpp:271
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Ugyldig dato: %1"
 
-#: lib/filehistorywidget.cpp:475
+#: lib/filehistorywidget.cpp:495
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -638,31 +638,31 @@ msgstr ""
 "meldinger som samsvarer med alle søkeordene.</li></ul>Trykk <b>Enter</b>-"
 "tasten for å aktivere filteret."
 
-#: lib/filehistorywidget.cpp:537
+#: lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Klarte ikke hente filhistorikken: fant ikke programfila «git» i søkestien "
 "(PATH-variabelen)"
 
-#: lib/filehistorywidget.cpp:553
+#: lib/filehistorywidget.cpp:583
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Klarte ikke hente filhistorikken: %1"
 
-#: lib/filehistorywidget.cpp:568
+#: lib/filehistorywidget.cpp:598
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Kopier innmeldings-ID"
 
-#: lib/filehistorywidget.cpp:576
+#: lib/filehistorywidget.cpp:606
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Vis full innmelding"
 
-#: lib/filehistorywidget.cpp:712
+#: lib/filehistorywidget.cpp:742
 #, fuzzy, kde-format
 #| msgctxt "@title:tab"
 #| msgid "File History - %1"
@@ -2799,12 +2799,12 @@ msgstr "Håndter økter"
 msgid "Session Chooser"
 msgstr "Øktvelger"
 
-#: lib/session/katesessionmanagedialog.cpp:152
+#: lib/session/katesessionmanagedialog.cpp:153
 #, kde-format
 msgid "Restore"
 msgstr "Gjenopprett"
 
-#: lib/session/katesessionmanagedialog.cpp:316
+#: lib/session/katesessionmanagedialog.cpp:317
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Økten slettes når dialogvinduet lukkes."

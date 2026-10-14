@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-08 00:49+0000\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
 "PO-Revision-Date: 2026-10-08 16:01+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -170,7 +170,7 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - текстов редактор"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
-#: lib/filehistorywidget.cpp:467 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:487 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Филтър..."
@@ -187,7 +187,7 @@ msgid "Copy Location"
 msgstr "Копиране на местоположението"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -202,7 +202,7 @@ msgstr "Преименувано %1 => %2"
 msgid "Invalid hash"
 msgstr "Невалиден хеш"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1s не съществува в хранилището на git."
@@ -535,7 +535,7 @@ msgstr ""
 "git вече е инсталиран, уверете се, че е в променливата PATH. Вижте https://"
 "git-scm.com/Изтегляния"
 
-#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1278
+#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1283
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
@@ -584,28 +584,28 @@ msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 "Показване на пълното съдържание на diff, а не само на променените редове"
 
-#: lib/diff/diffwidget.cpp:886 lib/diff/diffwidget.cpp:1090
+#: lib/diff/diffwidget.cpp:891 lib/diff/diffwidget.cpp:1095
 #, kde-format
 msgid "New file %1"
 msgstr "Нов файл %1"
 
-#: lib/diff/diffwidget.cpp:888 lib/diff/diffwidget.cpp:1092
+#: lib/diff/diffwidget.cpp:893 lib/diff/diffwidget.cpp:1097
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Изтрити файлове %1"
 
-#: lib/diff/diffwidget.cpp:1261 lib/diff/diffwidget.cpp:1262
+#: lib/diff/diffwidget.cpp:1266 lib/diff/diffwidget.cpp:1267
 #, kde-format
 msgid "No differences found"
 msgstr "Няма разлики"
 
-#: lib/filehistorywidget.cpp:253
+#: lib/filehistorywidget.cpp:271
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Невалидна дата: %1"
 
-#: lib/filehistorywidget.cpp:475
+#: lib/filehistorywidget.cpp:495
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -635,31 +635,31 @@ msgstr ""
 "показани съобщения, съответстващи на всички термини за търсене.</li></ul>За "
 "да задействате филтъра, натиснете клавиша <b>Enter</b>."
 
-#: lib/filehistorywidget.cpp:537
+#: lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Неуспешно получаване на историята на файловете: изпълнимият файл на git не е "
 "открит в PATH"
 
-#: lib/filehistorywidget.cpp:553
+#: lib/filehistorywidget.cpp:583
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Неуспешно получаване на историята на файловете: %1"
 
-#: lib/filehistorywidget.cpp:568
+#: lib/filehistorywidget.cpp:598
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Копиране на хеша на commit"
 
-#: lib/filehistorywidget.cpp:576
+#: lib/filehistorywidget.cpp:606
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Показване на целия commit"
 
-#: lib/filehistorywidget.cpp:712
+#: lib/filehistorywidget.cpp:742
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
@@ -2812,12 +2812,12 @@ msgstr "Управление на сесиите"
 msgid "Session Chooser"
 msgstr "Избор на сесия"
 
-#: lib/session/katesessionmanagedialog.cpp:152
+#: lib/session/katesessionmanagedialog.cpp:153
 #, kde-format
 msgid "Restore"
 msgstr "Възстановяване"
 
-#: lib/session/katesessionmanagedialog.cpp:316
+#: lib/session/katesessionmanagedialog.cpp:317
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Сесията ще бъде изтрита при затваряне на диалоговия прозорец"

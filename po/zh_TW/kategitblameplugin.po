@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
 "PO-Revision-Date: 2026-10-01 02:38+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -20,45 +20,39 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 26.11.70\n"
 
-#: kategitblameplugin.cpp:88
+#: kategitblameplugin.cpp:89
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "尚未提交"
 
-#: kategitblameplugin.cpp:97
+#: kategitblameplugin.cpp:98
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
 msgstr " %1: %2 "
 
-#: kategitblameplugin.cpp:98
+#: kategitblameplugin.cpp:99
 #, kde-format
 msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
 msgstr " %1: %2: %3 "
 
-#: kategitblameplugin.cpp:187 kategitblameplugin.cpp:340
+#: kategitblameplugin.cpp:188 kategitblameplugin.cpp:341
 #, kde-format
 msgid "Git Blame"
 msgstr "Git Blame"
 
-#: kategitblameplugin.cpp:190
+#: kategitblameplugin.cpp:191
 #, kde-format
 msgid "Show Git Blame Details"
 msgstr "顯示 Git Blame 詳細資料"
 
-#: kategitblameplugin.cpp:193
+#: kategitblameplugin.cpp:194
 #, kde-format
 msgid "Toggle Git Blame Details"
 msgstr "切換 Git Blame 詳細資料"
 
-#: kategitblameplugin.cpp:352
-#, kde-format
-msgctxt "@info %1 is a git error"
-msgid "Git Blame plugin error: %1"
-msgstr "Git Blame 外掛程式錯誤：%1"
-
-#: kategitblameplugin.cpp:410
+#: kategitblameplugin.cpp:405
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git blame，顯示提交時失敗。"
@@ -68,6 +62,10 @@ msgstr "Git blame，顯示提交時失敗。"
 #, kde-format
 msgid "&Tools"
 msgstr "工具(&T)"
+
+#~ msgctxt "@info %1 is a git error"
+#~ msgid "Git Blame plugin error: %1"
+#~ msgstr "Git Blame 外掛程式錯誤：%1"
 
 #~ msgid "Git"
 #~ msgstr "Git"

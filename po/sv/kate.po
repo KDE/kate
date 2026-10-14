@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-08 00:49+0000\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
 "PO-Revision-Date: 2026-09-09 17:12+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -173,7 +173,7 @@ msgid "KWrite - Text Editor"
 msgstr "Kwrite - Texteditor"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
-#: lib/filehistorywidget.cpp:467 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:487 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Filter…"
@@ -190,7 +190,7 @@ msgid "Copy Location"
 msgstr "Kopiera plats"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -205,7 +205,7 @@ msgstr "Bytte namn på %1 till %2"
 msgid "Invalid hash"
 msgstr "Ogiltigt kondensat"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 finns inte i Git-arkivet."
@@ -538,7 +538,7 @@ msgstr ""
 "är installerat, säkerställ att det finns i PATH-variabeln. Se https://git-"
 "scm.com/downloads."
 
-#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1278
+#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1283
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
@@ -587,28 +587,28 @@ msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 "Visa jämförelse med fullständigt sammanhang, inte bara de ändrade raderna"
 
-#: lib/diff/diffwidget.cpp:886 lib/diff/diffwidget.cpp:1090
+#: lib/diff/diffwidget.cpp:891 lib/diff/diffwidget.cpp:1095
 #, kde-format
 msgid "New file %1"
 msgstr "Ny fil %1"
 
-#: lib/diff/diffwidget.cpp:888 lib/diff/diffwidget.cpp:1092
+#: lib/diff/diffwidget.cpp:893 lib/diff/diffwidget.cpp:1097
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Tar bort fil %1"
 
-#: lib/diff/diffwidget.cpp:1261 lib/diff/diffwidget.cpp:1262
+#: lib/diff/diffwidget.cpp:1266 lib/diff/diffwidget.cpp:1267
 #, kde-format
 msgid "No differences found"
 msgstr "Inga skillnader funna"
 
-#: lib/filehistorywidget.cpp:253
+#: lib/filehistorywidget.cpp:271
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Ogiltigt datum: %1"
 
-#: lib/filehistorywidget.cpp:475
+#: lib/filehistorywidget.cpp:495
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -637,30 +637,30 @@ msgstr ""
 "söktermen. Om flera söktermer anges visas meddelanden som matchar alla "
 "söktermer.</li></ul>För att aktivera filtret, tryck på returtangenten."
 
-#: lib/filehistorywidget.cpp:537
+#: lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Misslyckades hämta filhistorik: git körbart program hittades inte i PATH"
 
-#: lib/filehistorywidget.cpp:553
+#: lib/filehistorywidget.cpp:583
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Misslyckades hämta filhistorik: %1"
 
-#: lib/filehistorywidget.cpp:568
+#: lib/filehistorywidget.cpp:598
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Kopiera arkiveringskondensat"
 
-#: lib/filehistorywidget.cpp:576
+#: lib/filehistorywidget.cpp:606
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Visa fullständig arkivering"
 
-#: lib/filehistorywidget.cpp:712
+#: lib/filehistorywidget.cpp:742
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
@@ -2792,12 +2792,12 @@ msgstr "Hantera sessioner"
 msgid "Session Chooser"
 msgstr "Sessionsväljare"
 
-#: lib/session/katesessionmanagedialog.cpp:152
+#: lib/session/katesessionmanagedialog.cpp:153
 #, kde-format
 msgid "Restore"
 msgstr "Återställ"
 
-#: lib/session/katesessionmanagedialog.cpp:316
+#: lib/session/katesessionmanagedialog.cpp:317
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Sessionen kommer att tas bort när dialogrutan stängs"

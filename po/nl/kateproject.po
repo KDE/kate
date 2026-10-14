@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-13 00:49+0000\n"
-"PO-Revision-Date: 2026-09-25 18:12+0200\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"PO-Revision-Date: 2026-10-13 15:40+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -703,12 +703,12 @@ msgstr "(Gewijzigd)"
 msgid "(Staged)"
 msgstr "(Staged)"
 
-#: kateproject.cpp:355
+#: kateproject.cpp:401
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Misvormd JSON-bestand '%1': %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -716,7 +716,7 @@ msgstr "Misvormd JSON-bestand '%1': %2"
 msgid "Project"
 msgstr "Project"
 
-#: kateproject.cpp:734
+#: kateproject.cpp:780
 #, kde-format
 msgid "<untracked>"
 msgstr "<untracked>"
@@ -1322,7 +1322,7 @@ msgstr "Kan map niet vinden: %1"
 #: kateprojectworker.cpp:318
 #, kde-format
 msgid "Invalid regex pattern in exclude_patterns %1"
-msgstr ""
+msgstr "Ongeldig reguliere expressie patroon in exclude_patterns %1"
 
 #: kateprojectworker.cpp:758
 #, kde-format

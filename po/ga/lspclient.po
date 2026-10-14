@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-04 00:51+0000\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
 "PO-Revision-Date: 2026-02-19 15:25+0000\n"
 "Last-Translator: charlotte <altronic25@protonmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -366,59 +366,59 @@ msgstr "Cliant LSP"
 msgid "Question from LSP server"
 msgstr "Ceist ó fhreastalaí LSP"
 
-#: lspclientservermanager.cpp:630
+#: lspclientservermanager.cpp:629
 #, kde-format
 msgid "Restarting"
 msgstr "Atosú"
 
-#: lspclientservermanager.cpp:630
+#: lspclientservermanager.cpp:629
 #, kde-format
 msgid "NOT Restarting"
 msgstr "GAN Atosú"
 
-#: lspclientservermanager.cpp:631
+#: lspclientservermanager.cpp:630
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr ""
 "Foirceannadh an fhreastalaí gan choinne ... %1 [%2] [leathanach baile: %3] "
 
-#: lspclientservermanager.cpp:903
+#: lspclientservermanager.cpp:902
 #, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Theip ar an mbínéir freastalaí '%1' a aimsiú don teanga '%2'"
 
-#: lspclientservermanager.cpp:906 lspclientservermanager.cpp:971
+#: lspclientservermanager.cpp:905 lspclientservermanager.cpp:970
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Seiceáil do PATH le haghaidh an chomhaid dhénártha le do thoil"
 
-#: lspclientservermanager.cpp:907 lspclientservermanager.cpp:972
+#: lspclientservermanager.cpp:906 lspclientservermanager.cpp:971
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Féach freisin %1 le haghaidh suiteáil nó sonraí"
 
-#: lspclientservermanager.cpp:968
+#: lspclientservermanager.cpp:967
 #, kde-format
 msgid "Failed to start server '%1' for language '%2'"
 msgstr "Theip ar thosú freastalaí '%1' don teanga '%2'"
 
-#: lspclientservermanager.cpp:976
+#: lspclientservermanager.cpp:975
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Freastalaí %2 tosaithe: %1"
 
-#: lspclientservermanager.cpp:1023
+#: lspclientservermanager.cpp:1022
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Theip ar chumraíocht an fhreastalaí '%1' a pharsáil: níl aon réad JSON ann"
 
-#: lspclientservermanager.cpp:1026
+#: lspclientservermanager.cpp:1025
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Theip ar chumraíocht an fhreastalaí '%1' a pharsáil: %2"
 
-#: lspclientservermanager.cpp:1030
+#: lspclientservermanager.cpp:1029
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Theip ar chumraíocht an fhreastalaí a léamh: %1"

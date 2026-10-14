@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-08 00:49+0000\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
 "PO-Revision-Date: 2026-09-17 01:00+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -169,7 +169,7 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - 文字編輯器"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
-#: lib/filehistorywidget.cpp:467 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:487 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "過濾…"
@@ -186,7 +186,7 @@ msgid "Copy Location"
 msgstr "複製位置"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -201,7 +201,7 @@ msgstr "已重新命名 %1 => %2"
 msgid "Invalid hash"
 msgstr "無效的 hash"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:693
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 不存在於一個 git 版本庫中。"
@@ -528,7 +528,7 @@ msgstr ""
 "找不到 <b>git</b>。需要 Git 才能比對文件的差異。如果 git 已安裝，請確保它在您"
 "的 PATH 環境變數中。也請參閱 https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1278
+#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1283
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
@@ -576,28 +576,28 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "顯示差異時也顯示完整前後文，不只是變更的行"
 
-#: lib/diff/diffwidget.cpp:886 lib/diff/diffwidget.cpp:1090
+#: lib/diff/diffwidget.cpp:891 lib/diff/diffwidget.cpp:1095
 #, kde-format
 msgid "New file %1"
 msgstr "新檔案 %1"
 
-#: lib/diff/diffwidget.cpp:888 lib/diff/diffwidget.cpp:1092
+#: lib/diff/diffwidget.cpp:893 lib/diff/diffwidget.cpp:1097
 #, kde-format
 msgid "Deleted file %1"
 msgstr "已刪除檔案 %1"
 
-#: lib/diff/diffwidget.cpp:1261 lib/diff/diffwidget.cpp:1262
+#: lib/diff/diffwidget.cpp:1266 lib/diff/diffwidget.cpp:1267
 #, kde-format
 msgid "No differences found"
 msgstr "未找到差異"
 
-#: lib/filehistorywidget.cpp:253
+#: lib/filehistorywidget.cpp:271
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "無效的日期：%1"
 
-#: lib/filehistorywidget.cpp:475
+#: lib/filehistorywidget.cpp:495
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -623,29 +623,29 @@ msgstr ""
 "搜尋字詞。如果提供多個搜尋字詞，會顯示符合所有搜尋字詞的訊息。  </li></ul>要"
 "觸發過濾，請按下 <b>Enter</b> 鍵。"
 
-#: lib/filehistorywidget.cpp:537
+#: lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "無法取得檔案歷史：git 執行檔未在 PATH 中找到"
 
-#: lib/filehistorywidget.cpp:553
+#: lib/filehistorywidget.cpp:583
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "無法取得檔案歷史：%1"
 
-#: lib/filehistorywidget.cpp:568
+#: lib/filehistorywidget.cpp:598
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "複製提交 hash"
 
-#: lib/filehistorywidget.cpp:576
+#: lib/filehistorywidget.cpp:606
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "顯示完整提交"
 
-#: lib/filehistorywidget.cpp:712
+#: lib/filehistorywidget.cpp:742
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
@@ -2728,12 +2728,12 @@ msgstr "管理工作階段"
 msgid "Session Chooser"
 msgstr "工作階段選擇器"
 
-#: lib/session/katesessionmanagedialog.cpp:152
+#: lib/session/katesessionmanagedialog.cpp:153
 #, kde-format
 msgid "Restore"
 msgstr "復原"
 
-#: lib/session/katesessionmanagedialog.cpp:316
+#: lib/session/katesessionmanagedialog.cpp:317
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "工作階段將會在對話框關閉時刪除"

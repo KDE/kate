@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-13 00:49+0000\n"
-"PO-Revision-Date: 2026-09-25 14:25+0300\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"PO-Revision-Date: 2026-10-13 13:36+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -713,12 +713,12 @@ msgstr "(Змінено)"
 msgid "(Staged)"
 msgstr "(Позначено)"
 
-#: kateproject.cpp:355
+#: kateproject.cpp:401
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Помилкове форматування файла JSON «%1»: %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -726,7 +726,7 @@ msgstr "Помилкове форматування файла JSON «%1»: %2"
 msgid "Project"
 msgstr "Проєкт"
 
-#: kateproject.cpp:734
+#: kateproject.cpp:780
 #, kde-format
 msgid "<untracked>"
 msgstr "<стеження не виконується>"
@@ -1334,7 +1334,7 @@ msgstr "Не вдалося знайти каталог: %1"
 #: kateprojectworker.cpp:318
 #, kde-format
 msgid "Invalid regex pattern in exclude_patterns %1"
-msgstr ""
+msgstr "Некоректний взірець у формі формального виразу у exclude_patterns %1"
 
 #: kateprojectworker.cpp:758
 #, kde-format

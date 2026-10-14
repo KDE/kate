@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-13 00:49+0000\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
 "PO-Revision-Date: 2024-01-01 12:44-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -690,12 +690,12 @@ msgstr ""
 msgid "(Staged)"
 msgstr ""
 
-#: kateproject.cpp:355
+#: kateproject.cpp:401
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -703,7 +703,7 @@ msgstr ""
 msgid "Project"
 msgstr "ਪਰੋਜੈਕਟ"
 
-#: kateproject.cpp:734
+#: kateproject.cpp:780
 #, kde-format
 msgid "<untracked>"
 msgstr ""

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-13 00:49+0000\n"
-"PO-Revision-Date: 2026-09-25 22:10+0200\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"PO-Revision-Date: 2026-10-13 23:10+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -713,12 +713,12 @@ msgstr "(Изменённые)"
 msgid "(Staged)"
 msgstr "(Промежуточно сохранённые)"
 
-#: kateproject.cpp:355
+#: kateproject.cpp:401
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Некорректный файл в формате JSON «%1»: %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -726,7 +726,7 @@ msgstr "Некорректный файл в формате JSON «%1»: %2"
 msgid "Project"
 msgstr "Проект"
 
-#: kateproject.cpp:734
+#: kateproject.cpp:780
 #, kde-format
 msgid "<untracked>"
 msgstr "<неотслеживаемые>"
@@ -1333,7 +1333,7 @@ msgstr "Не удалось найти папку: %1"
 #: kateprojectworker.cpp:318
 #, kde-format
 msgid "Invalid regex pattern in exclude_patterns %1"
-msgstr ""
+msgstr "Недопустимое регулярное выражение в exclude_patterns: %1"
 
 #: kateprojectworker.cpp:758
 #, kde-format

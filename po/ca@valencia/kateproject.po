@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-13 00:49+0000\n"
-"PO-Revision-Date: 2026-09-25 21:33+0200\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"PO-Revision-Date: 2026-10-13 08:35+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -146,7 +146,7 @@ msgstr ""
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Git Remote Host"
-msgstr "Servidor remot de Git"
+msgstr "Amfitrió remot de Git"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
@@ -709,12 +709,12 @@ msgstr "(Modificat)"
 msgid "(Staged)"
 msgstr "(Marcat)"
 
-#: kateproject.cpp:355
+#: kateproject.cpp:401
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Fitxer JSON «%1» amb format incorrecte: %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -722,7 +722,7 @@ msgstr "Fitxer JSON «%1» amb format incorrecte: %2"
 msgid "Project"
 msgstr "Projecte"
 
-#: kateproject.cpp:734
+#: kateproject.cpp:780
 #, kde-format
 msgid "<untracked>"
 msgstr "<sense seguiment>"
@@ -1329,7 +1329,7 @@ msgstr "No s'ha pogut trobar el directori: %1"
 #: kateprojectworker.cpp:318
 #, kde-format
 msgid "Invalid regex pattern in exclude_patterns %1"
-msgstr ""
+msgstr "Patró no vàlid de «regexp» a «exclude_patterns» %1"
 
 #: kateprojectworker.cpp:758
 #, kde-format

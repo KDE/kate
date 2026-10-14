@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
 "PO-Revision-Date: 2026-09-26 12:10+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -20,45 +20,39 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 25.04.0\n"
 
-#: kategitblameplugin.cpp:88
+#: kategitblameplugin.cpp:89
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "Encara no s'ha comès"
 
-#: kategitblameplugin.cpp:97
+#: kategitblameplugin.cpp:98
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
 msgstr " %1: %2 "
 
-#: kategitblameplugin.cpp:98
+#: kategitblameplugin.cpp:99
 #, kde-format
 msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
 msgstr " %1: %2: %3 "
 
-#: kategitblameplugin.cpp:187 kategitblameplugin.cpp:340
+#: kategitblameplugin.cpp:188 kategitblameplugin.cpp:341
 #, kde-format
 msgid "Git Blame"
 msgstr "Git blame"
 
-#: kategitblameplugin.cpp:190
+#: kategitblameplugin.cpp:191
 #, kde-format
 msgid "Show Git Blame Details"
 msgstr "Mostra els detalls de «git blame»"
 
-#: kategitblameplugin.cpp:193
+#: kategitblameplugin.cpp:194
 #, kde-format
 msgid "Toggle Git Blame Details"
 msgstr "Alterna els detalls de «git blame»"
 
-#: kategitblameplugin.cpp:352
-#, kde-format
-msgctxt "@info %1 is a git error"
-msgid "Git Blame plugin error: %1"
-msgstr "Error del connector «git blame»,: %1"
-
-#: kategitblameplugin.cpp:410
+#: kategitblameplugin.cpp:405
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Ha fallat el «git blame», en mostrar la comissió."
@@ -68,6 +62,10 @@ msgstr "Ha fallat el «git blame», en mostrar la comissió."
 #, kde-format
 msgid "&Tools"
 msgstr "&Eines"
+
+#~ msgctxt "@info %1 is a git error"
+#~ msgid "Git Blame plugin error: %1"
+#~ msgstr "Error del connector «git blame»,: %1"
 
 #~ msgid "Git"
 #~ msgstr "Git"

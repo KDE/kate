@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-13 00:49+0000\n"
-"PO-Revision-Date: 2026-09-25 09:31+0200\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"PO-Revision-Date: 2026-10-13 07:27+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -712,12 +712,12 @@ msgstr "(Spremenjeno)"
 msgid "(Staged)"
 msgstr "(Postavljeno)"
 
-#: kateproject.cpp:355
+#: kateproject.cpp:401
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Pokvarjena datoteka JSON '%1': %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -725,7 +725,7 @@ msgstr "Pokvarjena datoteka JSON '%1': %2"
 msgid "Project"
 msgstr "Projekt"
 
-#: kateproject.cpp:734
+#: kateproject.cpp:780
 #, kde-format
 msgid "<untracked>"
 msgstr "<ni sledeno>"
@@ -1331,7 +1331,7 @@ msgstr "Ni bilo mogoče najti imenika: %1"
 #: kateprojectworker.cpp:318
 #, kde-format
 msgid "Invalid regex pattern in exclude_patterns %1"
-msgstr ""
+msgstr "Neveljaven vzorec regularnega izraza v exclude_patterns %1"
 
 #: kateprojectworker.cpp:758
 #, kde-format
@@ -1430,7 +1430,7 @@ msgstr "Clazy (Qt/C++)"
 #: tools/clazy.h:30
 #, kde-format
 msgid "Clazy is a static analysis tool for Qt/C++ code"
-msgstr "Clazy je orodje za statično analizo kode Qt/C++."
+msgstr "Clazy je orodje za statično analizo kode Qt/C++"
 
 #: tools/clazy.h:71
 #, kde-format
@@ -1455,7 +1455,7 @@ msgstr "Clippy (Rust)"
 #: tools/clippy.h:32
 #, kde-format
 msgid "Clippy is a static analysis tool for Rust code"
-msgstr "Clippy je orodje za statično analizo kode Rust."
+msgstr "Clippy je orodje za statično analizo kode Rust"
 
 #: tools/clippy.h:95
 #, kde-format
@@ -1470,7 +1470,7 @@ msgstr "Cppcheck (C++)"
 #: tools/cppcheck.h:31
 #, kde-format
 msgid "Cppcheck is a static analysis tool for C/C++ code"
-msgstr "Cppcheck je orodje za statično analizo kode C/C++."
+msgstr "Cppcheck je orodje za statično analizo kode C/C++"
 
 #: tools/cppcheck.h:64
 #, kde-format

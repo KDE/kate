@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-07 00:52+0000\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
 "PO-Revision-Date: 2026-09-28 18:22+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -17,45 +17,39 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 26.08.1\n"
 
-#: kategitblameplugin.cpp:88
+#: kategitblameplugin.cpp:89
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "Non ancora depositato"
 
-#: kategitblameplugin.cpp:97
+#: kategitblameplugin.cpp:98
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
 msgstr " %1: %2 "
 
-#: kategitblameplugin.cpp:98
+#: kategitblameplugin.cpp:99
 #, kde-format
 msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
 msgstr " %1: %2: %3 "
 
-#: kategitblameplugin.cpp:187 kategitblameplugin.cpp:340
+#: kategitblameplugin.cpp:188 kategitblameplugin.cpp:341
 #, kde-format
 msgid "Git Blame"
 msgstr "Git Blame"
 
-#: kategitblameplugin.cpp:190
+#: kategitblameplugin.cpp:191
 #, kde-format
 msgid "Show Git Blame Details"
 msgstr "Mostra i dettagli di Git Blame"
 
-#: kategitblameplugin.cpp:193
+#: kategitblameplugin.cpp:194
 #, kde-format
 msgid "Toggle Git Blame Details"
 msgstr "Visualizza o nascondi i dettagli di Git Blame"
 
-#: kategitblameplugin.cpp:352
-#, kde-format
-msgctxt "@info %1 is a git error"
-msgid "Git Blame plugin error: %1"
-msgstr "Errore dell'estensione Git Blame: %1"
-
-#: kategitblameplugin.cpp:410
+#: kategitblameplugin.cpp:405
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git blame, mostra il deposito non riuscito."
@@ -65,6 +59,10 @@ msgstr "Git blame, mostra il deposito non riuscito."
 #, kde-format
 msgid "&Tools"
 msgstr "S&trumenti"
+
+#~ msgctxt "@info %1 is a git error"
+#~ msgid "Git Blame plugin error: %1"
+#~ msgstr "Errore dell'estensione Git Blame: %1"
 
 #~ msgid "Git"
 #~ msgstr "Git"

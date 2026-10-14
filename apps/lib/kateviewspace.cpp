@@ -984,10 +984,10 @@ QWidget *KateViewSpace::currentWidget()
 
 QWidgetList KateViewSpace::widgets() const
 {
+    // don't use the tab bar, with a tab limit not every widget has a tab
     QWidgetList widgets;
-    for (int i = 0; i < m_tabBar->count(); ++i) {
-        auto widget = m_tabBar->tabData(i).value<DocOrWidget>().widget();
-        if (widget) {
+    for (const auto &docOrWidget : m_registeredDocuments) {
+        if (auto widget = docOrWidget.widget()) {
             widgets << widget;
         }
     }

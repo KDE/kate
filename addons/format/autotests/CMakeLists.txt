@@ -6,6 +6,7 @@ target_compile_definitions(test_formatapply PRIVATE TRANSLATION_DOMAIN="formatpl
 
 # fake formatter process for the tests, a binary to not depend on a shell
 add_executable(fake_formatter fake_formatter.cpp)
+target_link_libraries(fake_formatter PRIVATE Qt6::Core)
 add_dependencies(test_formatapply fake_formatter)
 target_compile_definitions(test_formatapply PRIVATE FAKE_FORMATTER="$<TARGET_FILE:fake_formatter>")
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-16 00:48+0000\n"
+"POT-Creation-Date: 2026-10-15 00:49+0000\n"
 "PO-Revision-Date: 2024-11-09 16:05+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 24.08.3\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
-#: FormatPlugin.cpp:245 Formatters.cpp:271 Formatters.cpp:291
-#: Formatters.cpp:314 Formatters.cpp:346
+#: FormatApply.h:22 FormatApply.h:40 FormatApply.h:45 FormatPlugin.cpp:88
+#: FormatPlugin.cpp:234 Formatters.cpp:286 Formatters.cpp:306
+#: Formatters.cpp:329 Formatters.cpp:361
 #, kde-format
 msgid "Format"
 msgstr "Formatar"
@@ -29,13 +29,13 @@ msgstr "Formatar"
 msgid "Failed to write a temp file"
 msgstr "Non foi posíbel escribir un ficheiro temporal."
 
-#: FormatApply.h:33
+#: FormatApply.h:40
 #, fuzzy, kde-format
 #| msgid "Failed to run git diff: %1"
 msgid "Failed to run git diff: git not installed"
 msgstr "Non foi posíbel executar «git diff»: %1"
 
-#: FormatApply.h:38
+#: FormatApply.h:45
 #, kde-format
 msgid "Failed to run git diff: %1"
 msgstr "Non foi posíbel executar «git diff»: %1"
@@ -70,34 +70,44 @@ msgstr "Formatar ao gardar"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Desactivar a formatación ao gardar sen aplicalo á configuración."
 
-#: Formatters.cpp:129
+#: Formatters.cpp:130
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: a orde está inesperadamente baleira!"
 
-#: Formatters.cpp:136
+#: Formatters.cpp:137
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 non se instalou, debe instalarse para formatar o documento!"
 
-#: Formatters.cpp:271
+#: Formatters.cpp:154
+#, kde-format
+msgid "%1 crashed"
+msgstr ""
+
+#: Formatters.cpp:154
+#, kde-format
+msgid "%1 failed with exit code %2"
+msgstr ""
+
+#: Formatters.cpp:286
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "formatterForJson (formatador para JSON) descoñecido: %1"
 
-#: Formatters.cpp:291
+#: Formatters.cpp:306
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "formatterForPython (formatador para Python) descoñecido: %1"
 
-#: Formatters.cpp:314
+#: Formatters.cpp:329
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr ""
 "formatterForYaml (formatador de YAML) «%1» descoñecido, usarase yamlfmt."
 
-#: Formatters.cpp:346
+#: Formatters.cpp:361
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""

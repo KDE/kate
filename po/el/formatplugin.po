@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-16 00:48+0000\n"
+"POT-Creation-Date: 2026-10-15 00:49+0000\n"
 "PO-Revision-Date: 2026-10-07 18:31+0300\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 25.12.3\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
-#: FormatPlugin.cpp:245 Formatters.cpp:271 Formatters.cpp:291
-#: Formatters.cpp:314 Formatters.cpp:346
+#: FormatApply.h:22 FormatApply.h:40 FormatApply.h:45 FormatPlugin.cpp:88
+#: FormatPlugin.cpp:234 Formatters.cpp:286 Formatters.cpp:306
+#: Formatters.cpp:329 Formatters.cpp:361
 #, kde-format
 msgid "Format"
 msgstr "Μορφή"
@@ -29,12 +29,12 @@ msgstr "Μορφή"
 msgid "Failed to write a temp file"
 msgstr "Αποτυχία εγγραφής προσωρινού αρχείου"
 
-#: FormatApply.h:33
+#: FormatApply.h:40
 #, kde-format
 msgid "Failed to run git diff: git not installed"
 msgstr "Αποτυχία εκτέλεσης git diff: το git δεν είναι εγκατεστημένο"
 
-#: FormatApply.h:38
+#: FormatApply.h:45
 #, kde-format
 msgid "Failed to run git diff: %1"
 msgstr "Αποτυχία εκτέλεσης git diff: %1"
@@ -71,12 +71,12 @@ msgstr ""
 "Απενεργοποίηση μορφοποίησης κατά την αποθήκευση χωρίς να διατηρείται στις "
 "ρυθμίσεις"
 
-#: Formatters.cpp:129
+#: Formatters.cpp:130
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Μη αναμενόμενη κενή εντολή!"
 
-#: Formatters.cpp:136
+#: Formatters.cpp:137
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
@@ -84,22 +84,32 @@ msgstr ""
 "%1 δεν είναι εγκατεστημένο, παρακαλώ εγκαταστήστε το για να μπορέσετε να "
 "μορφοποιήσετε αυτό το έγγραφο!"
 
-#: Formatters.cpp:271
+#: Formatters.cpp:154
+#, kde-format
+msgid "%1 crashed"
+msgstr ""
+
+#: Formatters.cpp:154
+#, kde-format
+msgid "%1 failed with exit code %2"
+msgstr ""
+
+#: Formatters.cpp:286
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Άγνωστος μορφοποιητής για Json: %1"
 
-#: Formatters.cpp:291
+#: Formatters.cpp:306
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Άγνωστος μορφοποιητής για Python: %1"
 
-#: Formatters.cpp:314
+#: Formatters.cpp:329
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Άγνωστος μορφοποιητής για Yaml: %1, επιστροφή στο yamlfmt"
 
-#: Formatters.cpp:346
+#: Formatters.cpp:361
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Αποτυχία εκτέλεσης του μορφοποιητή. Μη υποστηριζόμενη γλώσσα %1"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-14 00:51+0000\n"
-"PO-Revision-Date: 2026-09-28 18:19+0200\n"
+"PO-Revision-Date: 2026-10-14 09:34+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -160,6 +160,8 @@ msgstr "URL del sito web"
 #, kde-format
 msgid "Host from the Git clone URL, optionally followed by its SSH port"
 msgstr ""
+"Host dall'URL di clonazione Git, eventualmente seguito dalla relativa porta "
+"SSH"
 
 #: git/gitforgeconfigwidget.cpp:47
 #, kde-format
@@ -223,6 +225,8 @@ msgstr "Seleziona una mappatura per rilevare il servizio di hosting."
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
 msgstr ""
+"Inserisci un URL valido di un sito web HTTP o HTTPS prima di rilevare il "
+"servizio di hosting."
 
 #: git/gitforgeconfigwidget.cpp:191
 #, kde-format
@@ -917,11 +921,10 @@ msgid "Double click action in the git status view"
 msgstr "Azione al doppio clic nella vista di git status"
 
 #: kateprojectconfigpage.cpp:153
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
-msgstr "Strumenti Git"
+msgstr "Hosting Git"
 
 #: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
 #, kde-format
@@ -1187,21 +1190,20 @@ msgid "Goto: %1"
 msgstr "Vai a: %1"
 
 #: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:189
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#, kde-format
 msgid "Git Hosting"
-msgstr "Strumenti Git"
+msgstr "Hosting Git"
 
 #: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
 #: kateprojectpluginview.cpp:922
 #, kde-format
 msgid "Open on Git Hosting Service"
-msgstr ""
+msgstr "Apri sul servizio di hosting Git"
 
 #: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
 #, kde-format
 msgid "Copy Git Hosting Link"
-msgstr ""
+msgstr "Copia il collegamento al servizio di hosting Git"
 
 #: kateprojectpluginview.cpp:331
 #, kde-format
@@ -1211,7 +1213,7 @@ msgstr "Indice dei progetti"
 #: kateprojectpluginview.cpp:887 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
-msgstr ""
+msgstr "Rilevamento del servizio di hosting Git..."
 
 #: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
@@ -1321,7 +1323,7 @@ msgstr "Impossibile trovare la cartella: %1"
 #: kateprojectworker.cpp:318
 #, kde-format
 msgid "Invalid regex pattern in exclude_patterns %1"
-msgstr ""
+msgstr "Schema di espressione regolare non valido in exclude_patterns %1"
 
 #: kateprojectworker.cpp:758
 #, kde-format

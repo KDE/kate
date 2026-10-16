@@ -585,13 +585,25 @@ void GitWidget::slotUpdateStatus()
     auto git = gitp(args);
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
-            // no error on status failure
-            // sendMessage(QString::fromUtf8(git->readAllStandardError()), true);
+            if (m_refreshButton) {
+                m_refreshButton->setBusy(false);
+            }
+            QString error = QString::fromUtf8(git->readAllStandardError()).trimmed();
+            if (error.isEmpty()) {
+                error = i18n("Failed to get the git status");
+            }
+            sendMessage(error, true);
         } else {
             auto future = QtConcurrent::run(GitUtils::parseStatus, git->readAllStandardOutput(), m_activeGitDirPath);
             m_gitStatusWatcher->setFuture(future);
         }
         git->deleteLater();
+    });
+
+    connect(git, &QProcess::errorOccurred, this, [this](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart && m_refreshButton) {
+            m_refreshButton->setBusy(false);
+        }
     });
     startHostProcess(*git, QProcess::ReadOnly);
 }

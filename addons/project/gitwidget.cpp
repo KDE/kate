@@ -607,7 +607,7 @@ void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
     auto git = gitp(args);
     connect(git, &QProcess::finished, this, [this, i18error, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18error + QStringLiteral(": ") + QString::fromUtf8(git->readAllStandardError()), true);
+            sendMessage(i18error + QString::fromUtf8(git->readAllStandardError()), true);
         } else {
             updateStatus();
         }

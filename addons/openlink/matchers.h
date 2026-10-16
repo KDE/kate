@@ -109,13 +109,13 @@ static KTextEditor::Cursor parseLineCol(QStringView &link)
 
 static void pushLink(int s, int e, QStringView line, std::vector<OpenLinkRange> *outColumnRanges, const QString &baseDir = QString())
 {
-    QStringView linkView(QStringView(line).mid(s, e - s));
+    QStringView linkView = line.sliced(s, e - s);
     KTextEditor::Cursor c = parseLineCol(linkView);
     QString link = linkView.toString();
     // empty baseDir => relative to the current working directory
     const QFileInfo info = baseDir.isEmpty() ? QFileInfo(link) : QFileInfo(QDir(baseDir), link);
     if (info.isFile()) {
-        outColumnRanges->push_back({.start = s, .end = e, .link = link, .startPos = c, .type = FileLink});
+        outColumnRanges->push_back({.start = s, .end = e, .link = std::move(link), .startPos = c, .type = FileLink});
     }
 }
 
@@ -158,8 +158,13 @@ static int findRelativeLinkEnd(const QString &line, int s)
         const QChar c = line[e - 1];
         if (c == u',' || c == u'.') {
             e--;
-        } else if (c == u')' && line.mid(s, e - s).count(u')') > line.mid(s, e - s).count(u'(')) {
-            e--; // e.g. "(../file.cpp:12)"
+        } else if (c == u')') {
+            const QStringView sub = QStringView(line).sliced(s, e - s);
+            if (sub.count(u')') > sub.count(u'(')) {
+                e--; // e.g. "(../file.cpp:12)"
+                continue;
+            }
+            break;
         } else {
             break;
         }
@@ -224,7 +229,7 @@ static void matchAbsoluteFilePaths(const QString &line, std::vector<OpenLinkRang
             const bool matchNextQuote = s > 0 && line[s - 1] == u'"'; // last char is quote?
             int e = -1;
             if (!matchNextQuote) {
-                e = line.indexOf(QLatin1String(" "), s);
+                e = line.indexOf(u' ', s);
                 e = e == -1 ? line.size() : e;
 
                 // Strip trailing punctuation
@@ -261,7 +266,7 @@ static void matchAbsoluteFilePaths(const QString &line, std::vector<OpenLinkRang
         const bool matchNextQuote = s > 0 && line[s - 1] == u'"'; // last char is quote?
         int e = -1;
         if (!matchNextQuote) {
-            e = line.indexOf(QLatin1String(" "), s);
+            e = line.indexOf(u' ', s);
             e = e == -1 ? line.size() : e;
 
             // Strip trailing punctuation
@@ -297,7 +302,7 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *out,
 [[maybe_unused]] static void matchLine(const QString &line, std::vector<OpenLinkRange> *outColumnRanges, const QString &baseDir = QString())
 {
     outColumnRanges->clear();
-    if (line.contains(QLatin1String("http://")) || line.contains(QLatin1String("https://"))) {
+    if (line.contains(u"http://") || line.contains(u"https://")) {
         QRegularExpressionMatchIterator it = httplinkRE().globalMatch(line);
         while (it.hasNext()) {
             auto match = it.next();
@@ -306,7 +311,7 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *out,
                 adjustLink(link);
                 if (!link.isEmpty()) {
                     outColumnRanges->push_back(
-                        {.start = int(match.capturedStart()), .end = int(match.capturedStart() + link.size()), .link = link, .type = HttpLink});
+                        {.start = int(match.capturedStart()), .end = int(match.capturedStart() + link.size()), .link = std::move(link), .type = HttpLink});
                 }
             }
         }

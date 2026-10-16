@@ -708,9 +708,8 @@ void GitWidget::openAtHEAD(const QString &file)
     }
 
     auto args = QStringList{QStringLiteral("show"), QStringLiteral("--textconv")};
-    args.append(QStringLiteral(":") + file);
+    args.append(QStringLiteral("HEAD:") + file);
     auto git = gitp(args);
-    startHostProcess(*git, QProcess::ReadOnly);
 
     connect(git, &QProcess::finished, this, [this, file, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
@@ -727,7 +726,6 @@ void GitWidget::openAtHEAD(const QString &file)
         git->deleteLater();
     });
 
-    git->setArguments(args);
     startHostProcess(*git, QProcess::ReadOnly);
 }
 

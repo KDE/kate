@@ -676,7 +676,7 @@ void KateProjectPlugin::readConfig()
     m_indexDirectory = config.readEntry("indexDirectory", QUrl());
 
     m_multiProjectCompletion = config.readEntry("multiProjectCompletion", false);
-    m_multiProjectGoto = config.readEntry("multiProjectCompletion", false);
+    m_multiProjectGoto = config.readEntry("multiProjectGoto", false);
 
     m_singleClickAction = (ClickAction)config.readEntry("gitStatusSingleClick", (int)ClickAction::NoAction);
     m_doubleClickAction = (ClickAction)config.readEntry("gitStatusDoubleClick", (int)ClickAction::StageUnstage);

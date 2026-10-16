@@ -21,7 +21,6 @@ public:
         NodeUntrack,
         NodeFile,
     };
-    Q_ENUM(ItemType)
 
     enum Role {
         TreeItemType = Qt::UserRole + 1,

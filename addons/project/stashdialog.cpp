@@ -76,6 +76,10 @@ static QString getStashIndex(const QModelIndex &index)
 
 void StashDialog::slotReturnPressed(const QModelIndex &index)
 {
+    if (m_busy) {
+        return;
+    }
+
     switch (m_currentMode) {
     case StashMode::Stash:
         stash(false, false);
@@ -151,6 +155,7 @@ void StashDialog::stash(bool keepIndex, bool includeUntracked)
         Q_EMIT done();
         git->deleteLater();
     });
+    m_busy = true;
     startHostProcess(*git, QProcess::ReadOnly);
 }
 
@@ -199,6 +204,7 @@ void StashDialog::popStash(const QString &index, const QString &command)
         Q_EMIT done();
         git->deleteLater();
     });
+    m_busy = true;
     startHostProcess(*git, QProcess::ReadOnly);
 }
 
@@ -230,6 +236,7 @@ void StashDialog::showStash(const QString &index)
         git->deleteLater();
     });
 
+    m_busy = true;
     startHostProcess(*git, QProcess::ReadOnly);
 }
 

@@ -70,4 +70,6 @@ private:
     QString m_gitPath;
     QString m_projectPath;
     StashMode m_currentMode = StashMode::None;
+    // a stash operation is running, e.g. don't drop a second stash on a second Enter
+    bool m_busy = false;
 };

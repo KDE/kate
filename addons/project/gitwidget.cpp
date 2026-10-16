@@ -1258,12 +1258,12 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         if (act == stageAct) {
             stage(files, treeItem == GitStatusModel::NodeUntrack);
         } else if (act == discardAct && !untracked) {
-            auto ret = confirm(this, i18n("Are you sure you want to remove these files?"), KStandardGuiItem::remove());
+            auto ret = confirm(this, i18n("Are you sure you want to discard all changes?"), KStandardGuiItem::discard());
             if (ret == KMessageBox::PrimaryAction) {
                 discard(files);
             }
         } else if (act == discardAct && untracked) {
-            auto ret = confirm(this, i18n("Are you sure you want to discard all changes?"), KStandardGuiItem::discard());
+            auto ret = confirm(this, i18n("Are you sure you want to remove these files?"), KStandardGuiItem::remove());
             if (ret == KMessageBox::PrimaryAction) {
                 clean(files);
             }

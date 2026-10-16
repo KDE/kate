@@ -136,6 +136,13 @@ QProcess *StashDialog::gitp(const QStringList &arguments)
     if (!setupGitProcess(*git, m_gitPath, arguments)) {
         qWarning("'git' not found");
     }
+
+    connect(git, &QProcess::errorOccurred, m_gitWidget, [gitWidget = m_gitWidget, git](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            gitWidget->sendMessage(i18n("Failed to run git: %1", git->errorString()), true);
+            git->deleteLater();
+        }
+    });
     return git;
 }
 

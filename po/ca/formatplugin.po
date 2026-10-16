@@ -1,15 +1,15 @@
 # Translation of formatplugin.po to Catalan
-# Copyright (C) 2023-2025 This_file_is_part_of_KDE
+# Copyright (C) 2023-2026 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# SPDX-FileCopyrightText: 2023-2025 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2023-2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-15 00:49+0000\n"
-"PO-Revision-Date: 2025-08-23 10:40+0200\n"
+"PO-Revision-Date: 2026-10-15 09:29+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #: FormatApply.h:22 FormatApply.h:40 FormatApply.h:45 FormatPlugin.cpp:88
 #: FormatPlugin.cpp:234 Formatters.cpp:286 Formatters.cpp:306
@@ -87,12 +87,12 @@ msgstr ""
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 crashed"
-msgstr ""
+msgstr "%1 ha fallat"
 
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 failed with exit code %2"
-msgstr ""
+msgstr "%1 ha fallat amb el codi de sortida %2"
 
 #: Formatters.cpp:286
 #, kde-format

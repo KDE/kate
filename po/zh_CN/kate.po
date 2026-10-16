@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-16 00:52+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -49,16 +49,16 @@ msgstr "Kate - 多功能文本编辑器"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 The Kate Authors"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:280
-#: lib/autotests/kate_view_mgmt_test2.cpp:582
-#: lib/autotests/kate_view_mgmt_test2.cpp:618
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:282
+#: lib/autotests/kate_view_mgmt_test2.cpp:584
+#: lib/autotests/kate_view_mgmt_test2.cpp:620
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "以给定会话启动 Kate."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:281
-#: lib/autotests/kate_view_mgmt_test2.cpp:583
-#: lib/autotests/kate_view_mgmt_test2.cpp:619
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:283
+#: lib/autotests/kate_view_mgmt_test2.cpp:585
+#: lib/autotests/kate_view_mgmt_test2.cpp:621
 #, kde-format
 msgid "session"
 msgstr "会话"
@@ -1468,27 +1468,34 @@ msgstr "重命名文件"
 msgid "New file name"
 msgstr "新文件名"
 
-#: lib/katefileactions.cpp:121
+#: lib/katefileactions.cpp:97
+#, kde-format
+msgid ""
+"File \"%1\" is already open in another document. Please close that document "
+"first if you want to overwrite it or choose a different name."
+msgstr ""
+
+#: lib/katefileactions.cpp:130
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "文件“%1”无法移动到“%2”"
 
-#: lib/katefileactions.cpp:142
+#: lib/katefileactions.cpp:151
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "您真的想删除文件“%1”吗？"
 
-#: lib/katefileactions.cpp:143
+#: lib/katefileactions.cpp:152
 #, kde-format
 msgid "Delete file"
 msgstr "删除文件"
 
-#: lib/katefileactions.cpp:166
+#: lib/katefileactions.cpp:175
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "无法删除文件“%1”。"
 
-#: lib/katefileactions.cpp:225
+#: lib/katefileactions.cpp:234
 #, kde-format
 msgid "&Other Application..."
 msgstr "其他应用程序(&O)..."

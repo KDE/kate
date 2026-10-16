@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-16 00:52+0000\n"
 "PO-Revision-Date: 2026-10-09 16:06+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -43,16 +43,16 @@ msgstr "Kate - Editor avantiate de texto"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000–2024 Le Autores de Kate"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:280
-#: lib/autotests/kate_view_mgmt_test2.cpp:582
-#: lib/autotests/kate_view_mgmt_test2.cpp:618
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:282
+#: lib/autotests/kate_view_mgmt_test2.cpp:584
+#: lib/autotests/kate_view_mgmt_test2.cpp:620
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Initia Kate con un date session"
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:281
-#: lib/autotests/kate_view_mgmt_test2.cpp:583
-#: lib/autotests/kate_view_mgmt_test2.cpp:619
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:283
+#: lib/autotests/kate_view_mgmt_test2.cpp:585
+#: lib/autotests/kate_view_mgmt_test2.cpp:621
 #, kde-format
 msgid "session"
 msgstr "session"
@@ -1509,27 +1509,34 @@ msgstr "Renomina file"
 msgid "New file name"
 msgstr "Nove nomine de file"
 
-#: lib/katefileactions.cpp:121
+#: lib/katefileactions.cpp:97
+#, kde-format
+msgid ""
+"File \"%1\" is already open in another document. Please close that document "
+"first if you want to overwrite it or choose a different name."
+msgstr ""
+
+#: lib/katefileactions.cpp:130
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "File \"%1\" non pote esser movite a \"%2\""
 
-#: lib/katefileactions.cpp:142
+#: lib/katefileactions.cpp:151
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "Tu vermente vole deler file \"%1\"?"
 
-#: lib/katefileactions.cpp:143
+#: lib/katefileactions.cpp:152
 #, kde-format
 msgid "Delete file"
 msgstr "Dele file"
 
-#: lib/katefileactions.cpp:166
+#: lib/katefileactions.cpp:175
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "File \"%1\" non poteva esser delite."
 
-#: lib/katefileactions.cpp:225
+#: lib/katefileactions.cpp:234
 #, kde-format
 msgid "&Other Application..."
 msgstr "Altere Applicati&on..."

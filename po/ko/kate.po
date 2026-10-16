@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-16 00:52+0000\n"
 "PO-Revision-Date: 2026-09-21 22:50+0200\n"
 "Last-Translator: Shinjo Park <peremen@gmail.com>\n"
 "Language-Team: Korean\n"
@@ -46,16 +46,16 @@ msgstr "Kate - 고급 문서 편집기"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 The Kate Authors"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:280
-#: lib/autotests/kate_view_mgmt_test2.cpp:582
-#: lib/autotests/kate_view_mgmt_test2.cpp:618
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:282
+#: lib/autotests/kate_view_mgmt_test2.cpp:584
+#: lib/autotests/kate_view_mgmt_test2.cpp:620
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "지정한 세션으로 Kate를 시작합니다."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:281
-#: lib/autotests/kate_view_mgmt_test2.cpp:583
-#: lib/autotests/kate_view_mgmt_test2.cpp:619
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:283
+#: lib/autotests/kate_view_mgmt_test2.cpp:585
+#: lib/autotests/kate_view_mgmt_test2.cpp:621
 #, kde-format
 msgid "session"
 msgstr "세션"
@@ -1475,27 +1475,34 @@ msgstr "파일 이름 바꾸기"
 msgid "New file name"
 msgstr "새 파일 이름"
 
-#: lib/katefileactions.cpp:121
+#: lib/katefileactions.cpp:97
+#, kde-format
+msgid ""
+"File \"%1\" is already open in another document. Please close that document "
+"first if you want to overwrite it or choose a different name."
+msgstr ""
+
+#: lib/katefileactions.cpp:130
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "파일 \"%1\"을(를) \"%2\"(으)로 이동할 수 없습니다."
 
-#: lib/katefileactions.cpp:142
+#: lib/katefileactions.cpp:151
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "파일 \"%1\"을(를) 삭제하시겠습니까?"
 
-#: lib/katefileactions.cpp:143
+#: lib/katefileactions.cpp:152
 #, kde-format
 msgid "Delete file"
 msgstr "파일 삭제"
 
-#: lib/katefileactions.cpp:166
+#: lib/katefileactions.cpp:175
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "파일 \"%1\"을(를) 삭제할 수 없습니다."
 
-#: lib/katefileactions.cpp:225
+#: lib/katefileactions.cpp:234
 #, kde-format
 msgid "&Other Application..."
 msgstr "다른 앱(&O)..."

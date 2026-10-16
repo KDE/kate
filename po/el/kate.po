@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-16 00:52+0000\n"
 "PO-Revision-Date: 2026-04-15 23:40+0300\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -54,16 +54,16 @@ msgstr "Kate - Προηγμένος επεξεργαστής κειμένου"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 Οι συγγραφείς του Kate"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:280
-#: lib/autotests/kate_view_mgmt_test2.cpp:582
-#: lib/autotests/kate_view_mgmt_test2.cpp:618
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:282
+#: lib/autotests/kate_view_mgmt_test2.cpp:584
+#: lib/autotests/kate_view_mgmt_test2.cpp:620
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Εκκίνηση του Kate με μία δοσμένη συνεδρία."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:281
-#: lib/autotests/kate_view_mgmt_test2.cpp:583
-#: lib/autotests/kate_view_mgmt_test2.cpp:619
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:283
+#: lib/autotests/kate_view_mgmt_test2.cpp:585
+#: lib/autotests/kate_view_mgmt_test2.cpp:621
 #, kde-format
 msgid "session"
 msgstr "συνεδρία"
@@ -1525,27 +1525,34 @@ msgstr "Μετονομασία αρχείου"
 msgid "New file name"
 msgstr "Νέο όνομα αρχείου"
 
-#: lib/katefileactions.cpp:121
+#: lib/katefileactions.cpp:97
+#, kde-format
+msgid ""
+"File \"%1\" is already open in another document. Please close that document "
+"first if you want to overwrite it or choose a different name."
+msgstr ""
+
+#: lib/katefileactions.cpp:130
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "Αδυναμία μετακίνησης αρχείου από \"%1\" σε \"%2\""
 
-#: lib/katefileactions.cpp:142
+#: lib/katefileactions.cpp:151
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "Θέλετε πράγματι να διαγράψετε το αρχείο \"%1\";"
 
-#: lib/katefileactions.cpp:143
+#: lib/katefileactions.cpp:152
 #, kde-format
 msgid "Delete file"
 msgstr "Διαγραφή αρχείου"
 
-#: lib/katefileactions.cpp:166
+#: lib/katefileactions.cpp:175
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "Αδυναμία διαγραφής του αρχείου \"%1\"."
 
-#: lib/katefileactions.cpp:225
+#: lib/katefileactions.cpp:234
 #, kde-format
 msgid "&Other Application..."
 msgstr "Άλλη εφαρμ&ογή..."

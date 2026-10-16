@@ -1,15 +1,15 @@
 # Spanish translations for formatplugin.po package.
-# Copyright (C) 2023-2025 This file is copyright:
+# Copyright (C) 2023-2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # Automatically generated, 2023.
 #
-# SPDX-FileCopyrightText: 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2023-2026 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: formatplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-15 00:49+0000\n"
-"PO-Revision-Date: 2025-08-23 22:51+0100\n"
+"PO-Revision-Date: 2026-10-15 20:29+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #: FormatApply.h:22 FormatApply.h:40 FormatApply.h:45 FormatPlugin.cpp:88
 #: FormatPlugin.cpp:234 Formatters.cpp:286 Formatters.cpp:306
@@ -85,12 +85,12 @@ msgstr "%1 no está instalado. Instálelo para poder formatear este documento."
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 crashed"
-msgstr ""
+msgstr "%1 ha fallado"
 
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 failed with exit code %2"
-msgstr ""
+msgstr "%1 ha fallado con el código de salida %2"
 
 #: Formatters.cpp:286
 #, kde-format
@@ -111,18 +111,3 @@ msgstr "Formateador Yaml desconocido: %1, se vuelve a yamlfmt"
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "La ejecución del formateador ha fallado. Lenguaje %1 no reconocido."
-
-#~ msgid "User Settings"
-#~ msgstr "Preferencias del usuario"
-
-#~ msgid "Default Settings"
-#~ msgstr "Preferencias predeterminadas"
-
-#~ msgid "Please install node and prettier"
-#~ msgstr "Instale «node» y «prettier»"
-
-#~ msgid "PrettierFormat: Failed to create temporary file"
-#~ msgstr "PrettierFormat: No se ha podido crear un archivo temporal"
-
-#~ msgid "PrettierFormat: Failed to start 'node': %1"
-#~ msgstr "PrettierFormat: No se ha podido iniciar «node»: %1"

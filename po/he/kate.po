@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
-"PO-Revision-Date: 2026-09-13 11:31+0300\n"
+"POT-Creation-Date: 2026-10-16 00:52+0000\n"
+"PO-Revision-Date: 2026-10-09 11:19+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -60,16 +60,16 @@ msgstr "Kate - עורך טקסט מתקדם"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000‏-2024 Kate יוצרי"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:280
-#: lib/autotests/kate_view_mgmt_test2.cpp:582
-#: lib/autotests/kate_view_mgmt_test2.cpp:618
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:282
+#: lib/autotests/kate_view_mgmt_test2.cpp:584
+#: lib/autotests/kate_view_mgmt_test2.cpp:620
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "התחלת Kate עם ההפעלה הנתונה."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:281
-#: lib/autotests/kate_view_mgmt_test2.cpp:583
-#: lib/autotests/kate_view_mgmt_test2.cpp:619
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:283
+#: lib/autotests/kate_view_mgmt_test2.cpp:585
+#: lib/autotests/kate_view_mgmt_test2.cpp:621
 #, kde-format
 msgid "session"
 msgstr "הפעלה"
@@ -1500,27 +1500,34 @@ msgstr "שינוי שם קובץ"
 msgid "New file name"
 msgstr "שם קובץ חדש"
 
-#: lib/katefileactions.cpp:121
+#: lib/katefileactions.cpp:97
+#, kde-format
+msgid ""
+"File \"%1\" is already open in another document. Please close that document "
+"first if you want to overwrite it or choose a different name."
+msgstr ""
+
+#: lib/katefileactions.cpp:130
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr "אי אפשר להעביר את הקובץ „%1” אל „%2”"
 
-#: lib/katefileactions.cpp:142
+#: lib/katefileactions.cpp:151
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr "למחוק את „%1”?"
 
-#: lib/katefileactions.cpp:143
+#: lib/katefileactions.cpp:152
 #, kde-format
 msgid "Delete file"
 msgstr "מחיקת קובץ"
 
-#: lib/katefileactions.cpp:166
+#: lib/katefileactions.cpp:175
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "אי אפשר למחוק את הקובץ „%1”."
 
-#: lib/katefileactions.cpp:225
+#: lib/katefileactions.cpp:234
 #, kde-format
 msgid "&Other Application..."
 msgstr "יישום &אחר…"
@@ -1649,10 +1656,9 @@ msgid "Copy Filename"
 msgstr "העתקת שם הקובץ"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "העתקת נתיב הקובץ הנוכחי ללוח הגזירים."
+msgstr "העתקת שם הקובץ הנוכחי ללוח הגזירים."
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1660,10 +1666,9 @@ msgid "&Open Containing Folder"
 msgstr "פתיחת תיקייה מכילה"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "לפתוח לשוניות חדשות מימין ללשונית הנוכחית"
+msgstr "פתיחת התיקייה המכילה של הקובץ הנוכחי."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format

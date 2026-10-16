@@ -1130,21 +1130,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
 
 void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
 {
-    auto stashDialog = new StashDialog(mainWindow()->window(), gitPath);
-    connect(stashDialog, &StashDialog::message, this, &GitWidget::sendMessage);
-    connect(stashDialog, &StashDialog::showStashDiff, this, [this](const QByteArray &r) {
-        DiffParams d;
-        d.tabTitle = i18n("Diff - stash");
-        d.workingDir = m_activeGitDirPath;
-        Utils::showDiff(r, d, mainWindow());
-    });
-    connect(stashDialog, &StashDialog::showStashEntry, this, [this](const QString &index) {
-        CommitView::openStash(index, dotGitPath(), mainWindow());
-    });
-    connect(stashDialog, &StashDialog::done, this, [this, stashDialog] {
-        updateStatus();
-        stashDialog->deleteLater();
-    });
+    auto stashDialog = new StashDialog(mainWindow()->window(), this, gitPath);
     stashDialog->openDialog(m);
 }
 

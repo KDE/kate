@@ -815,7 +815,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
 
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to commit: %1", QString::fromUtf8(git->readAllStandardError())), true);
+            sendMessage(i18n("Failed to commit: %1", QString::fromUtf8(git->readAllStandardOutput())), true);
         } else {
             m_commitMessage.clear();
             updateStatus();

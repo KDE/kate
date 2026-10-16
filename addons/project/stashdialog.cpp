@@ -178,21 +178,36 @@ void StashDialog::stash(bool keepIndex, bool includeUntracked)
 
 void StashDialog::getStashList()
 {
-    QProcess git;
-    if (!setupGitProcess(git, m_gitPath, {QStringLiteral("stash"), QStringLiteral("list")})) {
+    // only reads, it can go away with the dialog
+    auto git = new QProcess(this);
+    if (!setupGitProcess(*git, m_gitPath, {QStringLiteral("stash"), QStringLiteral("list")})) {
         qWarning("'git' not found");
     }
-    startHostProcess(git, QProcess::ReadOnly);
 
-    QStringList stashList;
-    if (git.waitForStarted() && git.waitForFinished(-1)) {
-        if (git.exitStatus() == QProcess::NormalExit && git.exitCode() == 0) {
-            stashList = QString::fromUtf8(git.readAllStandardOutput()).split(u'\n');
-            setStringList(stashList);
+    // Busy until stash list loads
+    m_busy = true;
+    setStringList({i18n("Loading...")});
+
+    connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
+        m_busy = false;
+        if (es == QProcess::NormalExit && exitCode == 0) {
+            setStringList(QString::fromUtf8(git->readAllStandardOutput()).split(u'\n', Qt::SkipEmptyParts));
+            reselectFirst();
         } else {
-            m_gitWidget->sendMessage(i18n("Failed to get stash list. Error: ") + QString::fromUtf8(git.readAll()), true);
+            setStringList({});
+            m_gitWidget->sendMessage(i18n("Failed to get stash list. Error: ") + QString::fromUtf8(git->readAllStandardError()), true);
         }
-    }
+        git->deleteLater();
+    });
+
+    auto onError = [this, git](QProcess::ProcessError) {
+        m_gitWidget->sendMessage(i18n("Failed to run git: %1", git->errorString()), true);
+        // nothing to show, hide
+        hide();
+        deleteLater();
+    };
+    connect(git, &QProcess::errorOccurred, this, onError, Qt::QueuedConnection);
+    startHostProcess(*git, QProcess::ReadOnly);
 }
 
 void StashDialog::popStash(const QString &index, const QString &command)

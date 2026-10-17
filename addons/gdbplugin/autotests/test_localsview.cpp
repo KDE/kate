@@ -15,6 +15,7 @@ class LocalsViewTest : public QObject
 private Q_SLOTS:
     void testStructsAreExpandable();
     void testCollapsedScopeIsRefreshedAfterStep();
+    void testVariableWithoutMembersAnymore();
     void testClearForgetsVariables();
 };
 
@@ -103,6 +104,25 @@ void LocalsViewTest::testCollapsedScopeIsRefreshedAfterStep()
     // expanding it later must fetch the new variables, not show the stale ones
     f.locals()->setExpanded(true);
     QCOMPARE(requestedReferences(f.spy), QList<int>{10});
+}
+
+void LocalsViewTest::testVariableWithoutMembersAnymore()
+{
+    // e.g. an expanded pointer that is null now
+    Fixture f({var(QStringLiteral("ptr"), QStringLiteral("0x1234"), 4)});
+    auto *ptr = f.locals()->child(0);
+    ptr->setExpanded(true);
+    f.view.addVariables(4, {var(QStringLiteral("x"), QStringLiteral("1"))});
+    f.spy.clear();
+
+    f.view.insertScopes({dap::Scope(10, QStringLiteral("Locals"))});
+    QCOMPARE(requestedReferences(f.spy), QList<int>{10});
+    f.view.addVariables(10, {var(QStringLiteral("ptr"), QStringLiteral("0x0"))});
+
+    // nothing to request, the old members are gone
+    QVERIFY(requestedReferences(f.spy).isEmpty());
+    QCOMPARE(ptr->childCount(), 0);
+    QCOMPARE(ptr->text(2), QStringLiteral("0x0"));
 }
 
 void LocalsViewTest::testClearForgetsVariables()

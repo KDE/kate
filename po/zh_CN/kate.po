@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-16 00:52+0000\n"
+"POT-Creation-Date: 2026-10-17 00:53+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -253,7 +253,7 @@ msgid "&View"
 msgstr "视图(&V)"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:152
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:153
 #, kde-format
 msgid "Split View"
 msgstr "拆分视图"
@@ -1839,12 +1839,12 @@ msgstr "固定/取消固定活动文档"
 msgid "Open Next Pinned Document"
 msgstr "打开下一个固定文档"
 
-#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "跳转到上一个位置"
 
-#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:82
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:83
 #, kde-format
 msgid "Go to Next Location"
 msgstr "跳转到下一个位置"
@@ -2559,34 +2559,34 @@ msgstr "启用插件 <b>%1</b> 失败"
 msgid "The file '%1' does not exist"
 msgstr "文件“%1”不存在。"
 
-#: lib/kateviewspace.cpp:107
+#: lib/kateviewspace.cpp:108
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "同步滚动"
 
-#: lib/kateviewspace.cpp:109
+#: lib/kateviewspace.cpp:110
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr "同步滚动此拆分视图和其他同步的拆分视图"
 
-#: lib/kateviewspace.cpp:131
+#: lib/kateviewspace.cpp:132
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:137 lib/kateviewspace.cpp:270
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "点击这里切换到快速打开视图。"
 
-#: lib/kateviewspace.cpp:153
+#: lib/kateviewspace.cpp:154
 #, kde-format
 msgid "Control view space splitting"
 msgstr "控制视图空间拆分"
 
-#: lib/kateviewspace.cpp:270
+#: lib/kateviewspace.cpp:271
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2597,47 +2597,47 @@ msgid_plural ""
 msgstr[0] ""
 "当前还有 %1 个文档已打开。要查看所有打开文档，请点击此处切换到快速打开视图。"
 
-#: lib/kateviewspace.cpp:1158
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "&Close Tab"
 msgstr "关闭标签页(&C)"
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1172
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "关闭其他标签页(&O)"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1186
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "关闭所有标签页(&T)"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1219
 #, kde-format
 msgid "D&etach Document"
 msgstr "分离文档到新窗口(&E)"
 
-#: lib/kateviewspace.cpp:1217
+#: lib/kateviewspace.cpp:1224
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "移动文档到新窗口"
 
-#: lib/kateviewspace.cpp:1258
+#: lib/kateviewspace.cpp:1265
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "与当前文档进行比较"
 
-#: lib/kateviewspace.cpp:1264
+#: lib/kateviewspace.cpp:1271
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "与当前文档进行比较"
 
-#: lib/kateviewspace.cpp:1272
+#: lib/kateviewspace.cpp:1279
 #, kde-format
 msgid "Unpin Document"
 msgstr "取消固定文档"
 
-#: lib/kateviewspace.cpp:1274
+#: lib/kateviewspace.cpp:1281
 #, kde-format
 msgid "Pin Document"
 msgstr "固定文档"
@@ -2846,12 +2846,12 @@ msgstr "此会话无法被重命名为“%1”，无法写入“%2”"
 msgid "Session Renaming"
 msgstr "会话重命名"
 
-#: lib/session/katesessionmanager.cpp:535
+#: lib/session/katesessionmanager.cpp:543
 #, kde-format
 msgid "Session name:"
 msgstr "会话名称："
 
-#: lib/session/katesessionmanager.cpp:537
+#: lib/session/katesessionmanager.cpp:545
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2860,17 +2860,17 @@ msgstr ""
 "已经有了一个和您选择的同名的会话：%1\n"
 "请选择其他会话名称。"
 
-#: lib/session/katesessionmanager.cpp:539
+#: lib/session/katesessionmanager.cpp:547
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "要保存会话，您必须指定名称。"
 
-#: lib/session/katesessionmanager.cpp:566
+#: lib/session/katesessionmanager.cpp:574
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "指定此会话的名称"
 
-#: lib/session/katesessionmanager.cpp:568
+#: lib/session/katesessionmanager.cpp:576
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "为会话指定新名称：%1"

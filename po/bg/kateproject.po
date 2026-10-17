@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-17 00:53+0000\n"
 "PO-Revision-Date: 2026-09-28 17:22+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -698,22 +698,44 @@ msgstr "Сигурни ли сте, че желаете да отхвърлит�
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Наистина ли искате да премахнете тези непроследени промени?"
 
-#: kateproject.cpp:233
+#: kateproject.cpp:236
 #, kde-format
 msgid "(Modified)"
 msgstr "(Променен)"
 
-#: kateproject.cpp:235
+#: kateproject.cpp:238
 #, kde-format
 msgid "(Staged)"
 msgstr "(Staged)"
 
-#: kateproject.cpp:401
+#: kateproject.cpp:312
+#, kde-format
+msgid "Error"
+msgstr "Грешка"
+
+#: kateproject.cpp:317
+#, kde-format
+msgid "'%1' is not a valid file name."
+msgstr ""
+
+#: kateproject.cpp:328
+#, fuzzy, kde-format
+#| msgid "File name already exists"
+msgid "A file named '%1' already exists."
+msgstr "Файловото име вече съществува"
+
+#: kateproject.cpp:350
+#, fuzzy, kde-format
+#| msgid "Failed to create file: %1, Error: %2"
+msgid "Failed to rename '%1' to '%2': %3"
+msgstr "Неуспешно създаване на файл: %1. Грешка: %2"
+
+#: kateproject.cpp:459
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Неправилен JSON файл „%1“: %2"
 
-#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -721,7 +743,7 @@ msgstr "Неправилен JSON файл „%1“: %2"
 msgid "Project"
 msgstr "Проект"
 
-#: kateproject.cpp:780
+#: kateproject.cpp:838
 #, kde-format
 msgid "<untracked>"
 msgstr "<непроследен>"
@@ -1065,16 +1087,6 @@ msgstr "Индексът не можа да бъде създаден. Моля 
 msgid "Indexing is not enabled"
 msgstr "Индексирането не е активирано"
 
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "Error"
-msgstr "Грешка"
-
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "File name already exists"
-msgstr "Файловото име вече съществува"
-
 #: kateprojectplugin.cpp:312
 #, kde-format
 msgid "Confirm project closing: %1"
@@ -1326,7 +1338,7 @@ msgstr "Директорията не може да бъде намерена: %
 msgid "Invalid regex pattern in exclude_patterns %1"
 msgstr ""
 
-#: kateprojectworker.cpp:758
+#: kateprojectworker.cpp:804
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

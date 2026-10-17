@@ -19,15 +19,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-16 00:52+0000\n"
-"PO-Revision-Date: 2026-10-07 13:17+0200\n"
+"POT-Creation-Date: 2026-10-17 00:53+0000\n"
+"PO-Revision-Date: 2026-10-16 12:10+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 26.08.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -270,7 +270,7 @@ msgid "&View"
 msgstr "Beel&d"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:152
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:153
 #, kde-format
 msgid "Split View"
 msgstr "Beeld splitsen"
@@ -1535,6 +1535,8 @@ msgid ""
 "File \"%1\" is already open in another document. Please close that document "
 "first if you want to overwrite it or choose a different name."
 msgstr ""
+"Bestand \"%1\" is al geopend in een ander document. Sluit dat document eerst "
+"als u het wilt overschrijven, of kies een andere naam."
 
 #: lib/katefileactions.cpp:130
 #, kde-format
@@ -1909,12 +1911,12 @@ msgstr "Actief document vastpinnen/losmaken"
 msgid "Open Next Pinned Document"
 msgstr "Volgende vast gepinde document openen"
 
-#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Ga naar de vorige locatie"
 
-#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:82
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:83
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Ga naar de volgende locatie"
@@ -2657,12 +2659,12 @@ msgstr "Inschakelen van plug-in <b>%1</b> is mislukt"
 msgid "The file '%1' does not exist"
 msgstr "Het bestand '%1 bestaat niet"
 
-#: lib/kateviewspace.cpp:107
+#: lib/kateviewspace.cpp:108
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "Schuiven synchroniseren"
 
-#: lib/kateviewspace.cpp:109
+#: lib/kateviewspace.cpp:110
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
@@ -2670,23 +2672,23 @@ msgstr ""
 "Schuiven synchroniseren van deze gesplitste weergave met andere "
 "gesynchroniseerde gesplitste weergaven"
 
-#: lib/kateviewspace.cpp:131
+#: lib/kateviewspace.cpp:132
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:137 lib/kateviewspace.cpp:270
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Hier klikken om om te schakelen naar de weergave Snelopenen."
 
-#: lib/kateviewspace.cpp:153
+#: lib/kateviewspace.cpp:154
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Besturing van opsplitsen van weergaveruimte "
 
-#: lib/kateviewspace.cpp:270
+#: lib/kateviewspace.cpp:271
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2701,48 +2703,48 @@ msgstr[1] ""
 "Op dit moment zijn er %1 documenten meer open. Om alle open documenten te "
 "zien, schakel over naar de weergave Snelopenen door hier te klikken."
 
-#: lib/kateviewspace.cpp:1158
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "&Close Tab"
 msgstr "Tabblad &sluiten"
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1172
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "&Andere tabbladen sluiten"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1186
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "Alle &tabbladen sluiten"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1219
 #, kde-format
 msgid "D&etach Document"
 msgstr "Docum&ent afkoppelen"
 
-#: lib/kateviewspace.cpp:1217
+#: lib/kateviewspace.cpp:1224
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Opent het document in een nieuw venster en sluit het in het huidige venster"
 
-#: lib/kateviewspace.cpp:1258
+#: lib/kateviewspace.cpp:1265
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Met het actieve document vergelijken"
 
-#: lib/kateviewspace.cpp:1264
+#: lib/kateviewspace.cpp:1271
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Vergelijken met het actieve document met gebruik van"
 
-#: lib/kateviewspace.cpp:1272
+#: lib/kateviewspace.cpp:1279
 #, kde-format
 msgid "Unpin Document"
 msgstr "Document losmaken"
 
-#: lib/kateviewspace.cpp:1274
+#: lib/kateviewspace.cpp:1281
 #, kde-format
 msgid "Pin Document"
 msgstr "Document vastpinnen"
@@ -2959,12 +2961,12 @@ msgstr ""
 msgid "Session Renaming"
 msgstr "Sessie hernoemen"
 
-#: lib/session/katesessionmanager.cpp:535
+#: lib/session/katesessionmanager.cpp:543
 #, kde-format
 msgid "Session name:"
 msgstr "Sessienaam:"
 
-#: lib/session/katesessionmanager.cpp:537
+#: lib/session/katesessionmanager.cpp:545
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2973,17 +2975,17 @@ msgstr ""
 "Er bestaat al een sessie met de door u gekozen naam: %1\n"
 "Kies een andere."
 
-#: lib/session/katesessionmanager.cpp:539
+#: lib/session/katesessionmanager.cpp:547
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Geef een naam op om de nieuwe sessie te kunnen opslaan."
 
-#: lib/session/katesessionmanager.cpp:566
+#: lib/session/katesessionmanager.cpp:574
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Een nieuwe naam voor deze sessie specificeren"
 
-#: lib/session/katesessionmanager.cpp:568
+#: lib/session/katesessionmanager.cpp:576
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Een nieuwe naam specificeren voor sessie: %1"

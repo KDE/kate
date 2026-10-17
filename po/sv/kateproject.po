@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-17 00:53+0000\n"
 "PO-Revision-Date: 2026-09-27 20:32+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -689,22 +689,44 @@ msgstr "Är du säker på att du vill avlägsna ändringarna?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Är du säker på att du vill ta bort de här ospårade ändringarna?"
 
-#: kateproject.cpp:233
+#: kateproject.cpp:236
 #, kde-format
 msgid "(Modified)"
 msgstr "(Ändrad)"
 
-#: kateproject.cpp:235
+#: kateproject.cpp:238
 #, kde-format
 msgid "(Staged)"
 msgstr "(Förberedd)"
 
-#: kateproject.cpp:401
+#: kateproject.cpp:312
+#, kde-format
+msgid "Error"
+msgstr "Fel"
+
+#: kateproject.cpp:317
+#, kde-format
+msgid "'%1' is not a valid file name."
+msgstr ""
+
+#: kateproject.cpp:328
+#, fuzzy, kde-format
+#| msgid "File name already exists"
+msgid "A file named '%1' already exists."
+msgstr "Filnamnet finns redan"
+
+#: kateproject.cpp:350
+#, fuzzy, kde-format
+#| msgid "Failed to create file: %1, Error: %2"
+msgid "Failed to rename '%1' to '%2': %3"
+msgstr "Misslyckades skapa fil: %1, Fel: %2"
+
+#: kateproject.cpp:459
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Felaktig JSON-fil '%1': %2"
 
-#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -712,7 +734,7 @@ msgstr "Felaktig JSON-fil '%1': %2"
 msgid "Project"
 msgstr "Projekt"
 
-#: kateproject.cpp:780
+#: kateproject.cpp:838
 #, kde-format
 msgid "<untracked>"
 msgstr "<ospårad>"
@@ -1055,16 +1077,6 @@ msgstr "Indexet kunde inte skapas. Installera 'ctags'."
 msgid "Indexing is not enabled"
 msgstr "Indexering är inte aktiverad"
 
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "Error"
-msgstr "Fel"
-
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "File name already exists"
-msgstr "Filnamnet finns redan"
-
 #: kateprojectplugin.cpp:312
 #, kde-format
 msgid "Confirm project closing: %1"
@@ -1315,7 +1327,7 @@ msgstr "Kan inte hitta katalog: %1"
 msgid "Invalid regex pattern in exclude_patterns %1"
 msgstr ""
 
-#: kateprojectworker.cpp:758
+#: kateprojectworker.cpp:804
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

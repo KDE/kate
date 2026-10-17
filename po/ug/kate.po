@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-16 00:52+0000\n"
+"POT-Creation-Date: 2026-10-17 00:53+0000\n"
 "PO-Revision-Date: 2026-09-23 06:56+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
@@ -252,7 +252,7 @@ msgid "&View"
 msgstr "كۆرۈنۈش(&V)"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:152
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:153
 #, kde-format
 msgid "Split View"
 msgstr "كۆرۈنۈشنى بۆل"
@@ -1826,12 +1826,12 @@ msgstr "ئاكتىپ پۈتۈكنى مىخلا/قومۇر"
 msgid "Open Next Pinned Document"
 msgstr "كېيىنكى مىخلانغان پۈتۈكنى ئاچ"
 
-#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "ئالدىنقى ئورۇنغا يۆتكەل"
 
-#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:82
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:83
 #, kde-format
 msgid "Go to Next Location"
 msgstr "كېيىنكى ئورۇنغا يۆتكەل"
@@ -2548,12 +2548,12 @@ msgstr "<b>%1</b> قىستۇرمىنى قوزغىتالمىدى"
 msgid "The file '%1' does not exist"
 msgstr "«%1» ھۆججەت مەۋجۇت ئەمەس"
 
-#: lib/kateviewspace.cpp:107
+#: lib/kateviewspace.cpp:108
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "قەدەمداش سىيرىش"
 
-#: lib/kateviewspace.cpp:109
+#: lib/kateviewspace.cpp:110
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
@@ -2561,23 +2561,23 @@ msgstr ""
 "بۇ بۆلۈنمە كۆرۈنۈش باشقا قەدەمداش بۆلۈنمە كۆرۈنۈش بىلەن بىللە قەدەمداش "
 "سىيرىلىدۇ"
 
-#: lib/kateviewspace.cpp:131
+#: lib/kateviewspace.cpp:132
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr ""
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:137 lib/kateviewspace.cpp:270
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "بۇ جاي چېكىلسە تېز ئېچىش كۆرۈنۈشىگە ئالمىشىدۇ."
 
-#: lib/kateviewspace.cpp:153
+#: lib/kateviewspace.cpp:154
 #, kde-format
 msgid "Control view space splitting"
 msgstr "كۆرۈنۈش بوشلۇقىنىڭ بۆلۈنۈشىنى تىزگىنلەيدۇ"
 
-#: lib/kateviewspace.cpp:270
+#: lib/kateviewspace.cpp:271
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2587,47 +2587,47 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:1158
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "&Close Tab"
 msgstr "بەتكۈچنى ياپ(&C)"
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1172
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "باشقا بەتكۈچنى ياپ(&O)"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1186
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "ھەممە بەتكۈچنى ياپ(&T)"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1219
 #, kde-format
 msgid "D&etach Document"
 msgstr "پۈتۈكنى ئاجرات(&E)"
 
-#: lib/kateviewspace.cpp:1217
+#: lib/kateviewspace.cpp:1224
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "پۈتۈكنى يېڭى كۆزنەكتە ئاچىدۇ ۋە ئۇنى نۆۋەتتىكى كۆزنەكتە تاقايدۇ"
 
-#: lib/kateviewspace.cpp:1258
+#: lib/kateviewspace.cpp:1265
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "ئاكتىپ پۈتۈك بىلەن سېلىشتۇر"
 
-#: lib/kateviewspace.cpp:1264
+#: lib/kateviewspace.cpp:1271
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "ئىشلىتىۋاتقان ئاكتىپ پۈتۈك بىلەن سېلىشتۇر"
 
-#: lib/kateviewspace.cpp:1272
+#: lib/kateviewspace.cpp:1279
 #, kde-format
 msgid "Unpin Document"
 msgstr "پۈتۈكنى قومۇر"
 
-#: lib/kateviewspace.cpp:1274
+#: lib/kateviewspace.cpp:1281
 #, kde-format
 msgid "Pin Document"
 msgstr "پۈتۈكنى مىخلا"
@@ -2833,12 +2833,12 @@ msgstr ""
 msgid "Session Renaming"
 msgstr "جەريانچاق ئاتىنى ئۆزگەرتىش"
 
-#: lib/session/katesessionmanager.cpp:535
+#: lib/session/katesessionmanager.cpp:543
 #, kde-format
 msgid "Session name:"
 msgstr "جەريانچاق ئاتى:"
 
-#: lib/session/katesessionmanager.cpp:537
+#: lib/session/katesessionmanager.cpp:545
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2847,17 +2847,17 @@ msgstr ""
 "سىز تاللىغان ئات بىلەن ئوخشاش ئاتتىكى جەريانچاق مەۋجۇت: %1\n"
 "باشقا بىر ئات تاللاڭ."
 
-#: lib/session/katesessionmanager.cpp:539
+#: lib/session/katesessionmanager.cpp:547
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "جەريانچاقنى ساقلاش ئۈچۈن چوقۇم ئاتىنى بەلگىلەپ بېرىشىڭىز كېرەك."
 
-#: lib/session/katesessionmanager.cpp:566
+#: lib/session/katesessionmanager.cpp:574
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "بۇ جەريانچاققا ئات بەلگىلىنىدۇ"
 
-#: lib/session/katesessionmanager.cpp:568
+#: lib/session/katesessionmanager.cpp:576
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "جەريانچاققا يېڭى ئات بەلگىلىنىدۇ: %1"

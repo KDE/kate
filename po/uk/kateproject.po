@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-17 00:53+0000\n"
 "PO-Revision-Date: 2026-10-13 13:36+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -703,22 +703,44 @@ msgstr ""
 "Ви справді хочете вилучити ці зміни, за якими не ведеться стеження у системі "
 "керування версіями?"
 
-#: kateproject.cpp:233
+#: kateproject.cpp:236
 #, kde-format
 msgid "(Modified)"
 msgstr "(Змінено)"
 
-#: kateproject.cpp:235
+#: kateproject.cpp:238
 #, kde-format
 msgid "(Staged)"
 msgstr "(Позначено)"
 
-#: kateproject.cpp:401
+#: kateproject.cpp:312
+#, kde-format
+msgid "Error"
+msgstr "Помилка"
+
+#: kateproject.cpp:317
+#, kde-format
+msgid "'%1' is not a valid file name."
+msgstr ""
+
+#: kateproject.cpp:328
+#, fuzzy, kde-format
+#| msgid "File name already exists"
+msgid "A file named '%1' already exists."
+msgstr "Файл з такою назвою вже існує"
+
+#: kateproject.cpp:350
+#, fuzzy, kde-format
+#| msgid "Failed to create file: %1, Error: %2"
+msgid "Failed to rename '%1' to '%2': %3"
+msgstr "Не вдалося створити файл: %1, повідомлення про помилку: %2"
+
+#: kateproject.cpp:459
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Помилкове форматування файла JSON «%1»: %2"
 
-#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -726,7 +748,7 @@ msgstr "Помилкове форматування файла JSON «%1»: %2"
 msgid "Project"
 msgstr "Проєкт"
 
-#: kateproject.cpp:780
+#: kateproject.cpp:838
 #, kde-format
 msgid "<untracked>"
 msgstr "<стеження не виконується>"
@@ -1076,16 +1098,6 @@ msgstr "Не вдалося створити покажчик. Будь ласк
 msgid "Indexing is not enabled"
 msgstr "Індексування вимкнено"
 
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "Error"
-msgstr "Помилка"
-
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "File name already exists"
-msgstr "Файл з такою назвою вже існує"
-
 #: kateprojectplugin.cpp:312
 #, kde-format
 msgid "Confirm project closing: %1"
@@ -1336,7 +1348,7 @@ msgstr "Не вдалося знайти каталог: %1"
 msgid "Invalid regex pattern in exclude_patterns %1"
 msgstr "Некоректний взірець у формі формального виразу у exclude_patterns %1"
 
-#: kateprojectworker.cpp:758
+#: kateprojectworker.cpp:804
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

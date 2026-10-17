@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-17 00:53+0000\n"
 "PO-Revision-Date: 2026-10-13 23:10+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -703,22 +703,44 @@ msgstr "Действительно отменить изменения?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Действительно удалить эти неотслеживаемые изменения?"
 
-#: kateproject.cpp:233
+#: kateproject.cpp:236
 #, kde-format
 msgid "(Modified)"
 msgstr "(Изменённые)"
 
-#: kateproject.cpp:235
+#: kateproject.cpp:238
 #, kde-format
 msgid "(Staged)"
 msgstr "(Промежуточно сохранённые)"
 
-#: kateproject.cpp:401
+#: kateproject.cpp:312
+#, kde-format
+msgid "Error"
+msgstr "Ошибка"
+
+#: kateproject.cpp:317
+#, kde-format
+msgid "'%1' is not a valid file name."
+msgstr ""
+
+#: kateproject.cpp:328
+#, fuzzy, kde-format
+#| msgid "File name already exists"
+msgid "A file named '%1' already exists."
+msgstr "Файл с таким именем уже существует"
+
+#: kateproject.cpp:350
+#, fuzzy, kde-format
+#| msgid "Failed to create file: %1, Error: %2"
+msgid "Failed to rename '%1' to '%2': %3"
+msgstr "Не удалось создать файл: %1. Ошибка: %2"
+
+#: kateproject.cpp:459
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Некорректный файл в формате JSON «%1»: %2"
 
-#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -726,7 +748,7 @@ msgstr "Некорректный файл в формате JSON «%1»: %2"
 msgid "Project"
 msgstr "Проект"
 
-#: kateproject.cpp:780
+#: kateproject.cpp:838
 #, kde-format
 msgid "<untracked>"
 msgstr "<неотслеживаемые>"
@@ -1075,16 +1097,6 @@ msgstr "Не удалось создать индекс, установите «
 msgid "Indexing is not enabled"
 msgstr "Индексирование отключено"
 
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "Error"
-msgstr "Ошибка"
-
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "File name already exists"
-msgstr "Файл с таким именем уже существует"
-
 #: kateprojectplugin.cpp:312
 #, kde-format
 msgid "Confirm project closing: %1"
@@ -1335,7 +1347,7 @@ msgstr "Не удалось найти папку: %1"
 msgid "Invalid regex pattern in exclude_patterns %1"
 msgstr "Недопустимое регулярное выражение в exclude_patterns: %1"
 
-#: kateprojectworker.cpp:758
+#: kateprojectworker.cpp:804
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

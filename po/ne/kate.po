@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-16 00:52+0000\n"
+"POT-Creation-Date: 2026-10-17 00:53+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -263,7 +263,7 @@ msgid "&View"
 msgstr "दृश्य"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:152
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:153
 #, fuzzy, kde-format
 #| msgid "Split Ve&rtical"
 msgid "Split View"
@@ -1929,13 +1929,13 @@ msgstr "कागजात"
 msgid "Open Next Pinned Document"
 msgstr "खुला कागजात"
 
-#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:71
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Go to Previous Location"
 msgstr "स्थान पूर्वावस्थामा लैजानुहोस्"
 
-#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:82
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:83
 #, fuzzy, kde-format
 #| msgid "Custom location:"
 msgid "Go to Next Location"
@@ -2727,36 +2727,36 @@ msgstr ""
 msgid "The file '%1' does not exist"
 msgstr ""
 
-#: lib/kateviewspace.cpp:107
+#: lib/kateviewspace.cpp:108
 #, fuzzy, kde-format
 #| msgid "&New Window"
 msgid "Synchronize Scrolling"
 msgstr "नयाँ सञ्झ्याल"
 
-#: lib/kateviewspace.cpp:109
+#: lib/kateviewspace.cpp:110
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
 
-#: lib/kateviewspace.cpp:131
+#: lib/kateviewspace.cpp:132
 #, fuzzy, kde-format
 #| msgid "%1"
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:137 lib/kateviewspace.cpp:270
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr ""
 
-#: lib/kateviewspace.cpp:153
+#: lib/kateviewspace.cpp:154
 #, kde-format
 msgid "Control view space splitting"
 msgstr ""
 
-#: lib/kateviewspace.cpp:270
+#: lib/kateviewspace.cpp:271
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2767,54 +2767,54 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:1158
+#: lib/kateviewspace.cpp:1165
 #, fuzzy, kde-format
 #| msgid "Close &All Tabs"
 msgid "&Close Tab"
 msgstr "सबै ट्याब बन्द गर्नुहोस्"
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1172
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "अन्य ट्याब बन्द गर्नुहोस्"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1186
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All &Tabs"
 msgstr "सबै बन्द गर्नुहोस्"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1219
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "कागजात"
 
-#: lib/kateviewspace.cpp:1217
+#: lib/kateviewspace.cpp:1224
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1258
+#: lib/kateviewspace.cpp:1265
 #, fuzzy, kde-format
 #| msgid "Start with an &empty document"
 msgid "Compare with Active Document"
 msgstr "एउटा खाली कागजातसँग सुरु गर्नुहोस्"
 
-#: lib/kateviewspace.cpp:1264
+#: lib/kateviewspace.cpp:1271
 #, fuzzy, kde-format
 #| msgid "Start with an &empty document"
 msgid "Compare with Active Document Using"
 msgstr "एउटा खाली कागजातसँग सुरु गर्नुहोस्"
 
-#: lib/kateviewspace.cpp:1272
+#: lib/kateviewspace.cpp:1279
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Unpin Document"
 msgstr "खुला कागजात"
 
-#: lib/kateviewspace.cpp:1274
+#: lib/kateviewspace.cpp:1281
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
@@ -3034,12 +3034,12 @@ msgstr ""
 msgid "Session Renaming"
 msgstr "सत्र पुन: नामाकरण गर्दै"
 
-#: lib/session/katesessionmanager.cpp:535
+#: lib/session/katesessionmanager.cpp:543
 #, kde-format
 msgid "Session name:"
 msgstr "सत्र नाम:"
 
-#: lib/session/katesessionmanager.cpp:537
+#: lib/session/katesessionmanager.cpp:545
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -3053,18 +3053,18 @@ msgstr ""
 " कृपया एउटा भिन्न सत्र नाम\n"
 " रोज्नुहोस्:"
 
-#: lib/session/katesessionmanager.cpp:539
+#: lib/session/katesessionmanager.cpp:547
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "तपाईँले सत्र बचत गर्नका लागि नाम निर्दिष्ट गर्नुपर्छ ।"
 
-#: lib/session/katesessionmanager.cpp:566
+#: lib/session/katesessionmanager.cpp:574
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "सत्रका लागि नयाँ नाम निर्दिष्ट गर्नुहोस्"
 
-#: lib/session/katesessionmanager.cpp:568
+#: lib/session/katesessionmanager.cpp:576
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

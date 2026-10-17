@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-16 00:52+0000\n"
+"POT-Creation-Date: 2026-10-17 00:53+0000\n"
 "PO-Revision-Date: 2026-04-15 23:40+0300\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -265,7 +265,7 @@ msgid "&View"
 msgstr "Π&ροβολή"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:152
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:153
 #, kde-format
 msgid "Split View"
 msgstr "Διαίρεση προβολής"
@@ -1907,12 +1907,12 @@ msgstr "Καρφίτσωμα/Ξεκαρφίτσωμα ενεργού εγγρά�
 msgid "Open Next Pinned Document"
 msgstr "Άνοιγμα επόμενου καρφιτσωμένου έγγραφου"
 
-#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:71
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Μετάβαση σε προηγούμενη τοποθεσία"
 
-#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:82
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:83
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Μετάβαση σε επόμενη τοποθεσία"
@@ -2658,12 +2658,12 @@ msgstr "Αποτυχία ενεργοποίησης του πρόσθετου <b
 msgid "The file '%1' does not exist"
 msgstr "Το αρχείο '%1' δεν υπάρχει"
 
-#: lib/kateviewspace.cpp:107
+#: lib/kateviewspace.cpp:108
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "Συγχρονισμός κύλισης"
 
-#: lib/kateviewspace.cpp:109
+#: lib/kateviewspace.cpp:110
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
@@ -2671,23 +2671,23 @@ msgstr ""
 "Συγχρονίστε την κύλιση αυτής της διαιρεμένης προβολής με άλλες "
 "συγχρονισμένες προβολές"
 
-#: lib/kateviewspace.cpp:131
+#: lib/kateviewspace.cpp:132
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:269
+#: lib/kateviewspace.cpp:137 lib/kateviewspace.cpp:270
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Πατήστε εδώ για εναλλαγή σε προβολή γρήγορου ανοίγματος."
 
-#: lib/kateviewspace.cpp:153
+#: lib/kateviewspace.cpp:154
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Έλεγχος της διαίρεσης του χώρου προβολής"
 
-#: lib/kateviewspace.cpp:270
+#: lib/kateviewspace.cpp:271
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2702,47 +2702,47 @@ msgstr[1] ""
 "Αυτή τη στιγμή είναι ανοιχτά %1 ακόμα έγγραφα. Για να δείτε όλα τα ανοιχτά "
 "έγγραφα, κάντε εναλλαγή σε προβολή \"Γρήγορου ανοίγματος\" κάνοντας κλικ εδώ."
 
-#: lib/kateviewspace.cpp:1158
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "&Close Tab"
 msgstr "&Κλείσιμο καρτέλας"
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1172
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "Κλείσιμο ά&λλων καρτελών"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1186
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "Κλείσιμο όλων &των καρτελών"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1219
 #, kde-format
 msgid "D&etach Document"
 msgstr "Απόσπαση &εγγράφου"
 
-#: lib/kateviewspace.cpp:1217
+#: lib/kateviewspace.cpp:1224
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Ανοίγει το έγγραφο σε νέο παράθυρο και το κλείνει στο τρέχον"
 
-#: lib/kateviewspace.cpp:1258
+#: lib/kateviewspace.cpp:1265
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Σύγκρινε με το ενεργό έγγραφο"
 
-#: lib/kateviewspace.cpp:1264
+#: lib/kateviewspace.cpp:1271
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Σύγκρινε με το ενεργό έγγραφο με χρήση"
 
-#: lib/kateviewspace.cpp:1272
+#: lib/kateviewspace.cpp:1279
 #, kde-format
 msgid "Unpin Document"
 msgstr "Ξεκαρφίτσωμα εγγράφου"
 
-#: lib/kateviewspace.cpp:1274
+#: lib/kateviewspace.cpp:1281
 #, kde-format
 msgid "Pin Document"
 msgstr "Καρφίτσωμα εγγράφου"
@@ -2959,12 +2959,12 @@ msgstr ""
 msgid "Session Renaming"
 msgstr "Μετονομασία συνεδρίας"
 
-#: lib/session/katesessionmanager.cpp:535
+#: lib/session/katesessionmanager.cpp:543
 #, kde-format
 msgid "Session name:"
 msgstr "Όνομα συνεδρίας:"
 
-#: lib/session/katesessionmanager.cpp:537
+#: lib/session/katesessionmanager.cpp:545
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2973,17 +2973,17 @@ msgstr ""
 "Υπάρχει ήδη μια συνεδρία με το επιλεγμένο όνομα: %1\n"
 "Παρακαλώ επιλέξτε ένα διαφορετικό."
 
-#: lib/session/katesessionmanager.cpp:539
+#: lib/session/katesessionmanager.cpp:547
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Για την αποθήκευση μιας συνεδρίας, πρέπει να ορίσετε ένα όνομα."
 
-#: lib/session/katesessionmanager.cpp:566
+#: lib/session/katesessionmanager.cpp:574
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Ορισμός ονόματος για αυτήν τη συνεδρία"
 
-#: lib/session/katesessionmanager.cpp:568
+#: lib/session/katesessionmanager.cpp:576
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Ορισμός νέου ονόματος για τη συνεδρία: %1"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-17 00:53+0000\n"
 "PO-Revision-Date: 2026-06-05 23:23+0100\n"
 "Last-Translator: César A. P. Cláudio <cesarapclaudio@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
@@ -695,24 +695,46 @@ msgstr "Tem a certeza que deseja esquecer as alterações?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Tem a certeza que deseja remover estas alterações por confirmar?"
 
-#: kateproject.cpp:233
+#: kateproject.cpp:236
 #, fuzzy, kde-format
 #| msgid "Modified"
 msgid "(Modified)"
 msgstr "Modificado"
 
-#: kateproject.cpp:235
+#: kateproject.cpp:238
 #, fuzzy, kde-format
 #| msgid "Staged"
 msgid "(Staged)"
 msgstr "Preparado"
 
-#: kateproject.cpp:401
+#: kateproject.cpp:312
+#, kde-format
+msgid "Error"
+msgstr "Erro"
+
+#: kateproject.cpp:317
+#, kde-format
+msgid "'%1' is not a valid file name."
+msgstr ""
+
+#: kateproject.cpp:328
+#, fuzzy, kde-format
+#| msgid "File name already exists"
+msgid "A file named '%1' already exists."
+msgstr "O nome do ficheiro já existe"
+
+#: kateproject.cpp:350
+#, fuzzy, kde-format
+#| msgid "Failed to create file: %1, Error: %2"
+msgid "Failed to rename '%1' to '%2': %3"
+msgstr "Não foi possível criar o ficheiro: %1. Erro: %2"
+
+#: kateproject.cpp:459
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Ficheiro JSON mal-formatado '%1': %2"
 
-#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -720,7 +742,7 @@ msgstr "Ficheiro JSON mal-formatado '%1': %2"
 msgid "Project"
 msgstr "Projecto"
 
-#: kateproject.cpp:780
+#: kateproject.cpp:838
 #, kde-format
 msgid "<untracked>"
 msgstr "<não seguido>"
@@ -1071,16 +1093,6 @@ msgstr "Não foi possível criar o índice. Por favor, instale o 'ctags'."
 msgid "Indexing is not enabled"
 msgstr "A indexação não está activa"
 
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "Error"
-msgstr "Erro"
-
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "File name already exists"
-msgstr "O nome do ficheiro já existe"
-
 #: kateprojectplugin.cpp:312
 #, kde-format
 msgid "Confirm project closing: %1"
@@ -1342,7 +1354,7 @@ msgstr ""
 msgid "Invalid regex pattern in exclude_patterns %1"
 msgstr ""
 
-#: kateprojectworker.cpp:758
+#: kateprojectworker.cpp:804
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

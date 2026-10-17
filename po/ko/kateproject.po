@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-17 00:53+0000\n"
 "PO-Revision-Date: 2026-10-03 23:15+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -684,22 +684,44 @@ msgstr "모든 변경 사항을 버리시겠습니까?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "추적하지 않는 변경 사항을 삭제하시겠습니까?"
 
-#: kateproject.cpp:233
+#: kateproject.cpp:236
 #, kde-format
 msgid "(Modified)"
 msgstr "(수정됨)"
 
-#: kateproject.cpp:235
+#: kateproject.cpp:238
 #, kde-format
 msgid "(Staged)"
 msgstr "(스테이지됨)"
 
-#: kateproject.cpp:401
+#: kateproject.cpp:312
+#, kde-format
+msgid "Error"
+msgstr "오류"
+
+#: kateproject.cpp:317
+#, kde-format
+msgid "'%1' is not a valid file name."
+msgstr ""
+
+#: kateproject.cpp:328
+#, fuzzy, kde-format
+#| msgid "File name already exists"
+msgid "A file named '%1' already exists."
+msgstr "파일 이름이 이미 존재함"
+
+#: kateproject.cpp:350
+#, fuzzy, kde-format
+#| msgid "Failed to create file: %1, Error: %2"
+msgid "Failed to rename '%1' to '%2': %3"
+msgstr "파일을 만들 수 없음: %1, 오류: %2"
+
+#: kateproject.cpp:459
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "잘못된 JSON 파일 '%1': %2"
 
-#: kateproject.cpp:469 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -707,7 +729,7 @@ msgstr "잘못된 JSON 파일 '%1': %2"
 msgid "Project"
 msgstr "프로젝트"
 
-#: kateproject.cpp:780
+#: kateproject.cpp:838
 #, kde-format
 msgid "<untracked>"
 msgstr "<추적 안 됨>"
@@ -1050,16 +1072,6 @@ msgstr "색인을 만들 수 없습니다. 'ctags'를 설치하십시오."
 msgid "Indexing is not enabled"
 msgstr "색인 생성이 비활성화됨"
 
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "Error"
-msgstr "오류"
-
-#: kateprojectitem.cpp:171
-#, kde-format
-msgid "File name already exists"
-msgstr "파일 이름이 이미 존재함"
-
 #: kateprojectplugin.cpp:312
 #, kde-format
 msgid "Confirm project closing: %1"
@@ -1310,7 +1322,7 @@ msgstr "디렉터리를 찾을 수 없음: %1"
 msgid "Invalid regex pattern in exclude_patterns %1"
 msgstr ""
 
-#: kateprojectworker.cpp:758
+#: kateprojectworker.cpp:804
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

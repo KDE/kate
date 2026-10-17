@@ -14,7 +14,37 @@ class LocalsViewTest : public QObject
     Q_OBJECT
 private Q_SLOTS:
     void testStructsAreExpandable();
+    void testClearForgetsVariables();
 };
+
+namespace
+{
+dap::Variable var(const QString &name, const QString &value, int reference = 0)
+{
+    return dap::Variable(name, value, reference);
+}
+
+// a view with an expanded "Locals" scope (reference 1) and the given variables in it
+struct Fixture {
+    Fixture(const QList<dap::Variable> &variables)
+    {
+        tree = view.findChild<QTreeWidget *>();
+        view.insertScopes({dap::Scope(1, QStringLiteral("Locals"))});
+        locals()->setExpanded(true);
+        view.addVariables(1, variables);
+        spy.clear();
+    }
+
+    QTreeWidgetItem *locals() const
+    {
+        return tree->topLevelItem(0);
+    }
+
+    LocalsView view;
+    QTreeWidget *tree = nullptr;
+    QSignalSpy spy{&view, &LocalsView::requestVariable};
+};
+}
 
 void LocalsViewTest::testStructsAreExpandable()
 {
@@ -48,6 +78,18 @@ void LocalsViewTest::testStructsAreExpandable()
 
     // a variable without members can't be expanded
     QCOMPARE(locals->child(1)->childCount(), 0);
+}
+
+void LocalsViewTest::testClearForgetsVariables()
+{
+    Fixture f({var(QStringLiteral("p"), QString(), 4)});
+    f.locals()->child(0)->setExpanded(true);
+
+    // e.g. the debugger stopped, a late variables response must not touch the deleted items
+    f.view.clear();
+    QCOMPARE(f.tree->topLevelItemCount(), 0);
+    f.view.addVariables(4, {var(QStringLiteral("x"), QStringLiteral("1"))});
+    QCOMPARE(f.tree->topLevelItemCount(), 0);
 }
 
 QTEST_MAIN(LocalsViewTest)

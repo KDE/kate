@@ -34,9 +34,9 @@ enum Column {
 
 QString nameTip(const dap::Variable &variable)
 {
-    QString text = QStringLiteral("<qt>%1<qt>").arg(variable.name);
+    QString text = QStringLiteral("<qt>%1<qt>").arg(variable.name.toHtmlEscaped());
     if (variable.type && !variable.type->isEmpty()) {
-        text += QStringLiteral("<em>%1</em>: %2").arg(i18n("type"), variable.type.value());
+        text += QStringLiteral("<em>%1</em>: %2").arg(i18n("type"), variable.type->toHtmlEscaped());
     }
     return text;
 }
@@ -45,12 +45,12 @@ QString valueTip(const dap::Variable &variable)
 {
     QString text;
     if (variable.indexedVariables.value_or(0) > 0) {
-        text + QStringLiteral("<em>%1</em>: %2").arg(i18n("indexed items")).arg(variable.indexedVariables.value());
+        text += QStringLiteral("<em>%1</em>: %2").arg(i18n("indexed items")).arg(variable.indexedVariables.value());
     }
     if (variable.namedVariables.value_or(0) > 0) {
-        text + QStringLiteral("<em>%1</em>: %2").arg(i18n("named items")).arg(variable.namedVariables.value());
+        text += QStringLiteral("<em>%1</em>: %2").arg(i18n("named items")).arg(variable.namedVariables.value());
     }
-    text += QStringLiteral("<qt>%1<qt>").arg(variable.value);
+    text += QStringLiteral("<qt>%1<qt>").arg(variable.value.toHtmlEscaped());
     return text;
 }
 

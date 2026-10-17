@@ -212,8 +212,7 @@ void KateViewManagementTests::testViewspaceClosesWhenThereIsWidget()
 
     // close the widget!
     QVERIFY(vm->removeWidget(widget));
-    QTest::qWait(100);
-    QVERIFY(!widget); // widget should be gone
+    QTRY_VERIFY(!widget); // widget should be gone
 
     // only one viewspace should be left now
     QCOMPARE(vm->m_views.size(), 1);

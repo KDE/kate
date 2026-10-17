@@ -14,6 +14,7 @@ class LocalsViewTest : public QObject
     Q_OBJECT
 private Q_SLOTS:
     void testStructsAreExpandable();
+    void testCollapsedScopeIsRefreshedAfterStep();
     void testClearForgetsVariables();
 };
 
@@ -22,6 +23,16 @@ namespace
 dap::Variable var(const QString &name, const QString &value, int reference = 0)
 {
     return dap::Variable(name, value, reference);
+}
+
+QList<int> requestedReferences(QSignalSpy &spy)
+{
+    QList<int> refs;
+    for (const auto &args : std::as_const(spy)) {
+        refs << args.at(0).toInt();
+    }
+    spy.clear();
+    return refs;
 }
 
 // a view with an expanded "Locals" scope (reference 1) and the given variables in it
@@ -78,6 +89,20 @@ void LocalsViewTest::testStructsAreExpandable()
 
     // a variable without members can't be expanded
     QCOMPARE(locals->child(1)->childCount(), 0);
+}
+
+void LocalsViewTest::testCollapsedScopeIsRefreshedAfterStep()
+{
+    Fixture f({var(QStringLiteral("i"), QStringLiteral("1"))});
+    f.locals()->setExpanded(false);
+
+    f.view.insertScopes({dap::Scope(10, QStringLiteral("Locals"))});
+    QVERIFY(!f.locals()->isExpanded());
+    QVERIFY(requestedReferences(f.spy).isEmpty());
+
+    // expanding it later must fetch the new variables, not show the stale ones
+    f.locals()->setExpanded(true);
+    QCOMPARE(requestedReferences(f.spy), QList<int>{10});
 }
 
 void LocalsViewTest::testClearForgetsVariables()

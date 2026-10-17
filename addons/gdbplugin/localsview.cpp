@@ -199,9 +199,15 @@ void LocalsView::insertScopes(const QList<dap::Scope> &scopes)
         if (expandedScopes.contains(scope.name)) {
             scopesToRequestVarsFor.push_back(scope.variablesReference);
             item->setExpanded(true);
-        } else if (item->isExpanded()) {
+        } else {
             // else if it was not expanded before, collapse it
-            item->setExpanded(false);
+            if (item->isExpanded()) {
+                item->setExpanded(false);
+            }
+            // the variables are outdated, fetch them again on expansion
+            if (pendingDataChildIndex(item) == -1) {
+                item->addChild(pendingDataChild(item));
+            }
         }
     }
 

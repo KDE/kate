@@ -290,7 +290,7 @@ void LocalsView::addVariables(int variableReference, const QList<dap::Variable> 
 
         // If this var was expanded previously, expand it again
         // and request its variables
-        if (expandedVariables.contains(variable.name)) {
+        if (expandedVariables.contains(variable.name) && variable.variablesReference > 0) {
             item->setExpanded(true);
             varsToRequestVarsFor.push_back(variable.variablesReference);
         }

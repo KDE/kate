@@ -10,6 +10,7 @@
 #include "ktexteditor_utils.h"
 
 #include <KLocalizedString>
+#include <KMultiTabBar>
 #include <KSharedConfig>
 #include <KTextEditor/Editor>
 
@@ -50,6 +51,7 @@ private Q_SLOTS:
     void testPinnedDocs();
     void testNonActivatedViewCursorPositionIsRestored();
     void testClosingViewSpaceRemovesWidgetsWithoutTab();
+    void testRestoreSidebarWithMissingToolViews();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -699,6 +701,35 @@ void KateViewManagementTest2::testClosingViewSpaceRemovesWidgetsWithoutTab()
     QVERIFY(widget1Guard.isNull());
     QVERIFY(widget2Guard.isNull());
     QVERIFY(knownWidgets.isEmpty());
+}
+
+void KateViewManagementTest2::testRestoreSidebarWithMissingToolViews()
+{
+    // The left sidebar was saved with three tab bars, but none of their tool views
+    // exist anymore, e.g. the plugins were disabled. Removing the left over blank tabs
+    // empties the bars, removing them must not mess up the indices of the others
+    auto *sm = app->sessionManager();
+    QVERIFY(sm->activateSession(QStringLiteral("sidebar"), false, true));
+    sm->saveActiveSession(true);
+
+    KConfigGroup cg(sm->activeSession()->config(), QStringLiteral("MainWindow0"));
+    const int left = KMultiTabBar::Left;
+    cg.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(left), QList<int>{100, 100, 100});
+    for (int bar = 0; bar < 3; ++bar) {
+        cg.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Bar-%2-TvList").arg(left).arg(bar), QStringList{QStringLiteral("missing_toolview_%1").arg(bar)});
+    }
+    cg.sync();
+
+    // switch away without saving and back, this restores the sidebars
+    QVERIFY(sm->activateSession(QStringLiteral("other"), false, true));
+    QVERIFY(sm->activateSession(QStringLiteral("sidebar"), false, true));
+
+    // the empty bars are gone, one is always kept
+    const auto bars = app->activeKateMainWindow()->findChildren<KMultiTabBar *>();
+    const auto leftBars = std::count_if(bars.begin(), bars.end(), [](KMultiTabBar *bar) {
+        return bar->position() == KMultiTabBar::Left;
+    });
+    QCOMPARE(leftBars, 1);
 }
 
 QTEST_MAIN(KateViewManagementTest2)

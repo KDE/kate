@@ -90,7 +90,8 @@ void initItem(QTreeWidgetItem *item, const dap::Variable &variable)
     item->setData(Column_Value, Qt::UserRole, variable.value);
     if (variable.variablesReference > 0) { // if the is > 0, we can expand this item
         item->setData(Column_Value, VariableReference, variable.variablesReference);
-        if (int pendingIndex = pendingDataChildIndex(item); pendingIndex != -1) {
+        // add the placeholder child that makes the item expandable, unless it is already there
+        if (pendingDataChildIndex(item) == -1) {
             item->addChild(pendingDataChild(item));
         }
     }

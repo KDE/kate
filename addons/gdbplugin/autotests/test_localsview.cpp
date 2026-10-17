@@ -14,6 +14,8 @@ class LocalsViewTest : public QObject
     Q_OBJECT
 private Q_SLOTS:
     void testStructsAreExpandable();
+    void testValueTooltipShowsItemCounts();
+    void testTooltipsEscapeHtml();
     void testCollapsedScopeIsRefreshedAfterStep();
     void testVariableWithoutMembersAnymore();
     void testClearForgetsVariables();
@@ -90,6 +92,30 @@ void LocalsViewTest::testStructsAreExpandable()
 
     // a variable without members can't be expanded
     QCOMPARE(locals->child(1)->childCount(), 0);
+}
+
+void LocalsViewTest::testValueTooltipShowsItemCounts()
+{
+    dap::Variable array = var(QStringLiteral("arr"), QString(), 5);
+    array.indexedVariables = 3;
+    dap::Variable object = var(QStringLiteral("p"), QString(), 6);
+    object.namedVariables = 2;
+    Fixture f({array, object});
+
+    QVERIFY2(f.locals()->child(0)->toolTip(2).contains(QStringLiteral("3")), qPrintable(f.locals()->child(0)->toolTip(2)));
+    QVERIFY2(f.locals()->child(1)->toolTip(2).contains(QStringLiteral("2")), qPrintable(f.locals()->child(1)->toolTip(2)));
+}
+
+void LocalsViewTest::testTooltipsEscapeHtml()
+{
+    // e.g. gdb shows the symbol for addresses
+    dap::Variable rip = var(QStringLiteral("rip"), QStringLiteral("0x1234 <main+75>"));
+    rip.type = QStringLiteral("std::vector<int>");
+    Fixture f({rip});
+
+    const auto *item = f.locals()->child(0);
+    QVERIFY2(item->toolTip(2).contains(QStringLiteral("&lt;main+75&gt;")), qPrintable(item->toolTip(2)));
+    QVERIFY2(item->toolTip(0).contains(QStringLiteral("std::vector&lt;int&gt;")), qPrintable(item->toolTip(0)));
 }
 
 void LocalsViewTest::testCollapsedScopeIsRefreshedAfterStep()

@@ -108,13 +108,12 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
             resultLine = line;
             break;
         }
-        QRegularExpressionMatch match;
-        match = regExp.match(doc->line(line));
+        const auto lineStr = doc->line(line);
+        QRegularExpressionMatch match = regExp.match(lineStr);
         column = match.capturedStart();
 
         while (column != -1 && !match.captured().isEmpty()) {
             int endColumn = column + match.capturedLength();
-            const QString &lineStr = doc->line(line);
             const auto [preContextStart, postContextLen] = MatchModel::contextLengths(lineStr.size(), column, endColumn);
             QString preContext = lineStr.mid(preContextStart, column - preContextStart);
             QString postContext = lineStr.mid(endColumn, postContextLen);
@@ -126,7 +125,7 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
                                               .range = KTextEditor::Range{line, column, line, int(column + match.capturedLength())},
                                               .checked = true,
                                               .matchesFilter = true});
-            match = regExp.match(doc->line(line), column + match.capturedLength());
+            match = regExp.match(lineStr, column + match.capturedLength());
             column = match.capturedStart();
         }
     }

@@ -8,6 +8,7 @@
 */
 
 #include "katecolorpickerplugin.h"
+#include "colornames.h"
 
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -165,7 +166,7 @@ QList<int> ColorPickerInlineNoteProvider::inlineNotes(int line) const
         ColorIndices colorsForLine;
         while (matchIter.hasNext()) {
             const auto match = matchIter.next();
-            if (!QColor(match.captured()).isValid()) {
+            if (!colorFromText(match.capturedView()).isValid()) {
                 continue;
             }
 
@@ -220,7 +221,7 @@ void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNot
         colorStart = note.position().column();
     }
 
-    const auto color = QColor(m_doc->text({line, colorStart, line, colorEnd}));
+    const auto color = colorFromText(m_doc->text({line, colorStart, line, colorEnd}));
     // ensure that the border color is always visible
     QColor penColor = color;
     penColor.setAlpha(255);
@@ -250,7 +251,7 @@ void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::Inlin
         colorStart = note.position().column();
     }
 
-    const auto oldColor = QColor(m_doc->text({line, colorStart, line, colorEnd}));
+    const auto oldColor = colorFromText(m_doc->text({line, colorStart, line, colorEnd}));
     QColorDialog::ColorDialogOptions dialogOptions = QColorDialog::ShowAlphaChannel;
     QString title = i18n("Select Color (Hex output)");
     if (!m_doc->isReadWrite()) {

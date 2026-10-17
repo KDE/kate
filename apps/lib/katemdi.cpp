@@ -1486,7 +1486,10 @@ void Sidebar::restoreSession(KConfigGroup &config)
 
     // In case of some config mismatch, we should remove left over blank tabs
     for (const auto &[tv, id, tabbarId] : m_tvIdToTabId) {
-        tabBar(tabbarId)->removeBlankTab(id);
+        // empty bars are removed below, deleting them here would shift the indices of the remaining bars
+        auto *bar = tabBar(tabbarId);
+        const QSignalBlocker blocker(bar);
+        bar->removeBlankTab(id);
     }
     m_tvIdToTabId.clear();
 

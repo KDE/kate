@@ -130,7 +130,22 @@ LocalsView::~LocalsView() = default;
 
 void LocalsView::clear()
 {
+    m_variables.clear();
     m_treeWidget->clear();
+}
+
+void LocalsView::deleteItem(QTreeWidgetItem *item)
+{
+    // forget the item and its children, a late variables response must not find them
+    m_variables.removeIf([item](auto it) {
+        for (auto *i = it.value(); i; i = i->parent()) {
+            if (i == item) {
+                return true;
+            }
+        }
+        return false;
+    });
+    delete item;
 }
 
 void LocalsView::insertScopes(const QList<dap::Scope> &scopes)
@@ -222,7 +237,7 @@ void LocalsView::addVariables(int variableReference, const QList<dap::Variable> 
 
     // Remove the pending data child of this root now, we have retrieved the data
     if (int childIndex = pendingDataChildIndex(root); childIndex >= 0) {
-        root->removeChild(root->child(childIndex));
+        deleteItem(root->takeChild(childIndex));
     }
 
     const int itemChildCount = root->childCount();
@@ -239,7 +254,7 @@ void LocalsView::addVariables(int variableReference, const QList<dap::Variable> 
     if (itemChildCount > variables.size()) {
         const int toRemove = itemChildCount - variables.size();
         for (int i = 0; i < toRemove; i++) {
-            root->removeChild(root->child(root->childCount() - 1));
+            deleteItem(root->takeChild(root->childCount() - 1));
         }
     } else {
         const int toAdd = variables.size() - itemChildCount;
@@ -281,7 +296,10 @@ void LocalsView::addVariables(int variableReference, const QList<dap::Variable> 
         // else if there are no children for this variable, but old var had children
         // clear those children
         else if (item->childCount() > 0 && variable.variablesReference == 0) {
-            qDeleteAll(item->takeChildren());
+            const auto children = item->takeChildren();
+            for (auto *child : children) {
+                deleteItem(child);
+            }
         }
     }
 

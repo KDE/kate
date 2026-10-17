@@ -14,9 +14,14 @@ class LocalsViewTest : public QObject
     Q_OBJECT
 private Q_SLOTS:
     void testStructsAreExpandable();
+    void testItemColumns();
     void testValueTooltipShowsItemCounts();
     void testTooltipsEscapeHtml();
+    void testExpandedScopeIsRefreshedAfterStep();
     void testCollapsedScopeIsRefreshedAfterStep();
+    void testExtraScopesAreRemoved();
+    void testExpandedVariableStaysExpandedAfterStep();
+    void testExtraVariablesAreRemoved();
     void testVariableWithoutMembersAnymore();
     void testClearForgetsVariables();
 };
@@ -26,6 +31,15 @@ namespace
 dap::Variable var(const QString &name, const QString &value, int reference = 0)
 {
     return dap::Variable(name, value, reference);
+}
+
+QStringList childNames(QTreeWidgetItem *item)
+{
+    QStringList names;
+    for (int i = 0; i < item->childCount(); ++i) {
+        names << item->child(i)->text(0);
+    }
+    return names;
 }
 
 QList<int> requestedReferences(QSignalSpy &spy)
@@ -73,25 +87,37 @@ void LocalsViewTest::testStructsAreExpandable()
     QCOMPARE(tree->topLevelItemCount(), 1);
     auto *locals = tree->topLevelItem(0);
     locals->setExpanded(true);
-    QCOMPARE(spy.count(), 1);
-    QCOMPARE(spy.takeFirst().at(0).toInt(), 1);
+    QCOMPARE(requestedReferences(spy), QList<int>{1});
 
-    view.addVariables(1, {dap::Variable(QStringLiteral("p"), QString(), 4), dap::Variable(QStringLiteral("i"), QStringLiteral("1"), 0)});
-    QCOMPARE(locals->childCount(), 2);
+    view.addVariables(1, {var(QStringLiteral("p"), QString(), 4), var(QStringLiteral("i"), QStringLiteral("1"))});
+    QCOMPARE(childNames(locals), (QStringList{QStringLiteral("p"), QStringLiteral("i")}));
 
     auto *p = locals->child(0);
     QVERIFY(p->childCount() > 0);
     p->setExpanded(true);
-    QCOMPARE(spy.count(), 1);
-    QCOMPARE(spy.takeFirst().at(0).toInt(), 4);
+    QCOMPARE(requestedReferences(spy), QList<int>{4});
 
-    view.addVariables(4, {dap::Variable(QStringLiteral("x"), QStringLiteral("1"), 0), dap::Variable(QStringLiteral("y"), QStringLiteral("2"), 0)});
-    QCOMPARE(p->childCount(), 2);
-    QCOMPARE(p->child(0)->text(0), QStringLiteral("x"));
-    QCOMPARE(p->child(1)->text(0), QStringLiteral("y"));
+    view.addVariables(4, {var(QStringLiteral("x"), QStringLiteral("1")), var(QStringLiteral("y"), QStringLiteral("2"))});
+    QCOMPARE(childNames(p), (QStringList{QStringLiteral("x"), QStringLiteral("y")}));
 
     // a variable without members can't be expanded
     QCOMPARE(locals->child(1)->childCount(), 0);
+}
+
+void LocalsViewTest::testItemColumns()
+{
+    dap::Variable changed = var(QStringLiteral("i"), QStringLiteral("42"));
+    changed.type = QStringLiteral("int");
+    changed.valueChanged = true;
+    Fixture f({changed, var(QStringLiteral("j"), QStringLiteral("7"))});
+
+    auto *i = f.locals()->child(0);
+    QCOMPARE(i->text(0), QStringLiteral("i"));
+    QCOMPARE(i->text(1), QStringLiteral("int"));
+    QCOMPARE(i->text(2), QStringLiteral("42"));
+    // changed values are bold
+    QVERIFY(i->font(0).bold());
+    QVERIFY(!f.locals()->child(1)->font(0).bold());
 }
 
 void LocalsViewTest::testValueTooltipShowsItemCounts()
@@ -118,6 +144,22 @@ void LocalsViewTest::testTooltipsEscapeHtml()
     QVERIFY2(item->toolTip(0).contains(QStringLiteral("std::vector&lt;int&gt;")), qPrintable(item->toolTip(0)));
 }
 
+void LocalsViewTest::testExpandedScopeIsRefreshedAfterStep()
+{
+    Fixture f({var(QStringLiteral("i"), QStringLiteral("1"))});
+    auto *iBefore = f.locals()->child(0);
+
+    // after a step the scopes are sent again, with new references
+    f.view.insertScopes({dap::Scope(10, QStringLiteral("Locals"))});
+    QVERIFY(f.locals()->isExpanded());
+    QCOMPARE(requestedReferences(f.spy), QList<int>{10});
+
+    f.view.addVariables(10, {var(QStringLiteral("i"), QStringLiteral("2"))});
+    // the items are updated in place, nothing collapses
+    QCOMPARE(f.locals()->child(0), iBefore);
+    QCOMPARE(f.locals()->child(0)->text(2), QStringLiteral("2"));
+}
+
 void LocalsViewTest::testCollapsedScopeIsRefreshedAfterStep()
 {
     Fixture f({var(QStringLiteral("i"), QStringLiteral("1"))});
@@ -130,6 +172,55 @@ void LocalsViewTest::testCollapsedScopeIsRefreshedAfterStep()
     // expanding it later must fetch the new variables, not show the stale ones
     f.locals()->setExpanded(true);
     QCOMPARE(requestedReferences(f.spy), QList<int>{10});
+}
+
+void LocalsViewTest::testExtraScopesAreRemoved()
+{
+    LocalsView view;
+    auto *tree = view.findChild<QTreeWidget *>();
+    view.insertScopes({dap::Scope(1, QStringLiteral("Locals")), dap::Scope(2, QStringLiteral("Registers"))});
+    QCOMPARE(tree->topLevelItemCount(), 2);
+    QCOMPARE(tree->topLevelItem(1)->text(0), QStringLiteral("Registers"));
+
+    view.insertScopes({dap::Scope(3, QStringLiteral("Locals"))});
+    QCOMPARE(tree->topLevelItemCount(), 1);
+
+    view.insertScopes({});
+    QCOMPARE(tree->topLevelItemCount(), 0);
+}
+
+void LocalsViewTest::testExpandedVariableStaysExpandedAfterStep()
+{
+    Fixture f({var(QStringLiteral("p"), QString(), 4)});
+    auto *p = f.locals()->child(0);
+    p->setExpanded(true);
+    f.view.addVariables(4, {var(QStringLiteral("x"), QStringLiteral("1"))});
+    f.spy.clear();
+
+    // step: the scope and then the variables come with new references
+    f.view.insertScopes({dap::Scope(10, QStringLiteral("Locals"))});
+    QCOMPARE(requestedReferences(f.spy), QList<int>{10});
+    f.view.addVariables(10, {var(QStringLiteral("p"), QString(), 40)});
+    QCOMPARE(f.locals()->child(0), p);
+    QVERIFY(p->isExpanded());
+    QCOMPARE(requestedReferences(f.spy), QList<int>{40});
+
+    f.view.addVariables(40, {var(QStringLiteral("x"), QStringLiteral("2"))});
+    QCOMPARE(childNames(p), QStringList{QStringLiteral("x")});
+    QCOMPARE(p->child(0)->text(2), QStringLiteral("2"));
+}
+
+void LocalsViewTest::testExtraVariablesAreRemoved()
+{
+    Fixture f({var(QStringLiteral("a"), QStringLiteral("1")), var(QStringLiteral("b"), QStringLiteral("2")), var(QStringLiteral("c"), QStringLiteral("3"))});
+
+    f.view.insertScopes({dap::Scope(10, QStringLiteral("Locals"))});
+    f.view.addVariables(10, {var(QStringLiteral("a"), QStringLiteral("1"))});
+    QCOMPARE(childNames(f.locals()), QStringList{QStringLiteral("a")});
+
+    f.view.insertScopes({dap::Scope(20, QStringLiteral("Locals"))});
+    f.view.addVariables(20, {var(QStringLiteral("a"), QStringLiteral("1")), var(QStringLiteral("d"), QStringLiteral("4"))});
+    QCOMPARE(childNames(f.locals()), (QStringList{QStringLiteral("a"), QStringLiteral("d")}));
 }
 
 void LocalsViewTest::testVariableWithoutMembersAnymore()

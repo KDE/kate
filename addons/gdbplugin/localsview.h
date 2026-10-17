@@ -35,6 +35,7 @@ Q_SIGNALS:
 private:
     void onTreeWidgetContextMenu(QPoint pos);
     void onItemExpanded(QTreeWidgetItem *);
+    void deleteItem(QTreeWidgetItem *item);
 
     QHash<int, QTreeWidgetItem *> m_variables;
     QTreeWidget *const m_treeWidget;

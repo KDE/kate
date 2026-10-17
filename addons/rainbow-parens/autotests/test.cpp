@@ -51,13 +51,12 @@ void Test::test()
     std::vector<std::unique_ptr<KTextEditor::MovingRange>> ranges;
 
     // try a few times, it can fail in first try
-    int i = 0;
-    while (i++ < 3) {
+    // resize() debounces resizes for 16ms, wait 50ms to be extra safe
+    const auto re = [&ranges, view, &attributes]() {
         ranges.clear();
-        QTest::qWait(50); // resize() debounces resizes for 16ms, wait 50ms to be extra safe
-        auto colorIdx = rehighlight(view, ranges, 0, attributes);
-        QCOMPARE(colorIdx, 3);
-    }
+        return rehighlight(view, ranges, 0, attributes);
+    };
+    QTRY_COMPARE(re(), 3);
 
     QCOMPARE(ranges.size(), 6);
 

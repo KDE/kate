@@ -19,3 +19,6 @@ Options:
   require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
   cmake-options: '-DWARNINGS_AS_ERRORS=ON'
   enable-lsan: True
+
+  # tests with ASAN on FreeBSD are very slow
+  per-test-timeout: 120

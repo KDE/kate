@@ -51,7 +51,7 @@ enum StatusXY {
 
 struct StatusItem {
     QByteArray file;
-    GitStatus status;
+    GitStatus status = Untracked;
     char statusChar = 0;
     int linesAdded = 0;
     int linesRemoved = 0;

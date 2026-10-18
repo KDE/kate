@@ -70,7 +70,7 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
             cg.writeEntry("stashedFile", stashedFile);
             if (doc->url().isValid()) {
                 // save checksum for already-saved documents
-                cg.writeEntry("checksum", doc->checksum());
+                cg.writeEntry("checksum", doc->checksum().toHex());
             }
         }
     }
@@ -115,7 +115,7 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
 
     bool checksumOk = true;
     if (url.isValid()) {
-        const QByteArray sum = kconfig.readEntry("checksum").toUtf8();
+        const QByteArray sum = QByteArray::fromHex(kconfig.readEntry("checksum").toLatin1());
         checksumOk = sum == doc->checksum();
     }
 

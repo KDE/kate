@@ -52,6 +52,7 @@ private Q_SLOTS:
     void testNonActivatedViewCursorPositionIsRestored();
     void testClosingViewSpaceRemovesWidgetsWithoutTab();
     void testRestoreSidebarWithMissingToolViews();
+    void testUnsavedChangesInUnchangedFileRestoredFromStash();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -730,6 +731,60 @@ void KateViewManagementTest2::testRestoreSidebarWithMissingToolViews()
         return bar->position() == KMultiTabBar::Left;
     });
     QCOMPARE(leftBars, 1);
+}
+
+// Unsaved changes of a saved file are stashed when the session is closed and must be
+// restored when the session is opened again, as long as the file on disk didn't change.
+// The stash stores a checksum of the file to detect that, it must survive the round trip
+// through the session config.
+void KateViewManagementTest2::testUnsavedChangesInUnchangedFileRestoredFromStash()
+{
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+    const bool oldStashUnsaved = cgGeneral.readEntry("Stash unsaved file changes", false);
+    cgGeneral.writeEntry("Stash unsaved file changes", true);
+    KateApp::self()->stashManager()->stashUnsavedChanges = true;
+
+    auto _ = qScopeGuard([&cgGeneral, oldStashUnsaved] {
+        cgGeneral.writeEntry("Stash unsaved file changes", oldStashUnsaved);
+        if (KateApp::self() && KateApp::self()->stashManager()) {
+            KateApp::self()->stashManager()->stashUnsavedChanges = oldStashUnsaved;
+        }
+    });
+
+    // Create a temporary file outside QDir::tempPath() so willStashDoc does not reject it as temp
+    QTemporaryDir testDir(QDir::currentPath() + QStringLiteral("/kate_stash_test_XXXXXX"));
+    QVERIFY(testDir.isValid());
+
+    const QString filePath = testDir.filePath(QStringLiteral("testfile.txt"));
+    QFile file(filePath);
+    QVERIFY(file.open(QIODevice::WriteOnly | QIODevice::Text));
+    file.write("Original file content\n");
+    file.close();
+
+    const QString sessionName = QStringLiteral("testUnsavedChangesInUnchangedFileRestoredFromStash");
+    app->sessionManager()->activateSession(sessionName, false, true);
+    KateMainWindow *mw = app->activeKateMainWindow();
+
+    auto v = mw->openUrl(QUrl::fromLocalFile(filePath));
+    QVERIFY(v);
+    v->document()->setText(QStringLiteral("Modified unsaved content\n"));
+    QVERIFY(v->document()->isModified());
+
+    QVERIFY(app->sessionManager()->saveActiveSession());
+
+    // Switch to a new empty session and back, the file on disk is unchanged
+    // so the checksum matches and the stashed content must be restored
+    app->sessionManager()->sessionNew();
+    mw = app->activeKateMainWindow();
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 1);
+
+    app->sessionManager()->activateSession(sessionName);
+    mw = app->activeKateMainWindow();
+
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 1);
+    auto docs = mw->viewManager()->activeViewSpace()->documentList();
+    QCOMPARE(docs[0].doc()->text(), QStringLiteral("Modified unsaved content\n"));
 }
 
 QTEST_MAIN(KateViewManagementTest2)

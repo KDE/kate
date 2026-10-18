@@ -252,6 +252,7 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, con
     , m_userFeedbackProvider(new KUserFeedback::Provider(this))
 #endif
     , m_lastActivationChange(QDateTime::currentMSecsSinceEpoch())
+    , m_initialPathEnvVar(qgetenv("PATH"))
 {
 #ifdef WITH_DBUS
     // init adaptor if not already there, that can happen in tests
@@ -463,12 +464,14 @@ bool KateApp::init()
     });
 #endif
 
+    /**
+     * we might want to alter the global path based on user settings
+     */
     if (isKate()) {
         KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("General"));
         const QString katePATH = cg.readEntry("Kate PATH", QString());
         if (!katePATH.isEmpty()) {
-            QByteArray envPATH = qgetenv("PATH");
-            qputenv("PATH", katePATH.toUtf8().append(QDir::listSeparator().toLatin1()).append(envPATH));
+            qputenv("PATH", katePATH.toUtf8().append(QDir::listSeparator().toLatin1()).append(m_initialPathEnvVar));
         }
     }
 

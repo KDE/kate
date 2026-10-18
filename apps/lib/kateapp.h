@@ -265,6 +265,14 @@ public:
     }
 
     /**
+     * initial PATH env var before we did apply our extra settings
+     */
+    const QByteArray &initialPathEnvVar() const
+    {
+        return m_initialPathEnvVar;
+    }
+
+    /**
      * some stuff for the DBus API
      */
 public:
@@ -505,10 +513,14 @@ private:
      */
     KUserFeedback::Provider *m_userFeedbackProvider = nullptr;
 #endif
-
     /**
      * last time some QEvent::ActivationChange occurred
      * used to determine which instance to reuse, if we have multiple
      */
     qint64 m_lastActivationChange;
+
+    /**
+     * initial PATH env var before we did apply our extra settings
+     */
+    const QByteArray m_initialPathEnvVar;
 };

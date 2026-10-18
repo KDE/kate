@@ -1135,7 +1135,6 @@ void KateViewManagementTests::testMoveSplitterWithWidgetTab()
     auto vm = mw->viewManager();
     mw->resize(1600, 900); // room to move the splitter, both splits are at their minimum width otherwise
     mw->show();
-    QVERIFY(QTest::qWaitForWindowExposed(mw, 30 * 1000));
 
     vm->createView();
     vm->slotSplitViewSpaceVert();
@@ -1159,7 +1158,6 @@ void KateViewManagementTests::testNeighborSplitNavigationWithWidgetTab()
     auto mw = app->activeKateMainWindow();
     auto vm = mw->viewManager();
     mw->show();
-    QVERIFY(QTest::qWaitForWindowExposed(mw, 30 * 1000));
 
     // [ vs1 | [ vs2 / vs3 ] ]
     vm->createView();

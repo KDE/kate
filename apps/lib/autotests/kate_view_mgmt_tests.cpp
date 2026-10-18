@@ -22,6 +22,7 @@
 #include <QSplitter>
 #include <QTemporaryFile>
 #include <QTest>
+#include <QToolButton>
 
 QTEST_MAIN(KateViewManagementTests)
 
@@ -1313,6 +1314,72 @@ void KateViewManagementTests::testTabLimitClosingBackgroundTabKeepsActiveView()
     // the hidden document took over the freed tab
     QCOMPARE(vs->tabCount(), 3);
     QVERIFY(vs->documentList().contains(DocOrWidget(hidden)));
+}
+
+// A viewspace with scroll sync enabled keeps syncing its current view. Showing a widget
+// in it (no scrolling) and switching back to the view must sync the view again.
+void KateViewManagementTests::testScrollSyncSurvivesWidgetTabRoundTrip()
+{
+    app->sessionManager()->sessionNew();
+    auto mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+
+    vm->createView();
+    vm->slotSplitViewSpaceVert();
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+    auto vs1 = vm->m_viewSpaceList[0];
+    auto vs2 = vm->m_viewSpaceList[1];
+
+    vm->setActiveSpace(vs1);
+    vm->activateView(vs1->currentView()->document());
+    vs1->toggleScrollSync();
+    vm->setActiveSpace(vs2);
+    vm->activateView(vs2->currentView()->document());
+    auto v2 = vs2->currentView();
+    vs2->toggleScrollSync();
+    QVERIFY(vm->m_scrollSynchronisation.viewScrollInfo.contains(v2));
+
+    mw->wrapper()->addWidget(new QWidget); // vs2 shows a widget
+    vm->activateView(v2->document()); // and back to v2
+
+    QVERIFY(vs2->m_scrollSync->isChecked());
+    QVERIFY(vm->m_scrollSynchronisation.viewScrollInfo.contains(v2));
+}
+
+// After showing a widget in a scroll synched viewspace and switching back to the view,
+// turning scroll sync off and on again for the viewspace must work
+void KateViewManagementTests::testScrollSyncCanBeToggledAfterWidgetTabRoundTrip()
+{
+    app->sessionManager()->sessionNew();
+    auto mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+
+    vm->createView();
+    vm->slotSplitViewSpaceVert();
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+    auto vs1 = vm->m_viewSpaceList[0];
+    auto vs2 = vm->m_viewSpaceList[1];
+
+    vm->setActiveSpace(vs1);
+    vm->activateView(vs1->currentView()->document());
+    vs1->toggleScrollSync();
+    vm->setActiveSpace(vs2);
+    vm->activateView(vs2->currentView()->document());
+    auto v2 = vs2->currentView();
+    vs2->toggleScrollSync();
+
+    mw->wrapper()->addWidget(new QWidget); // vs2 shows a widget
+    vm->activateView(v2->document()); // and back to v2
+
+    vs2->toggleScrollSync(); // off
+    QVERIFY(!vs2->m_scrollSync->isChecked());
+    QVERIFY(!vm->m_scrollSynchronisation.synchedViewSpaces.contains(vs2));
+    QVERIFY(!vm->m_scrollSynchronisation.viewScrollInfo.contains(v2));
+
+    vs2->toggleScrollSync(); // on again
+    QVERIFY(vs2->m_scrollSync->isChecked());
+    QCOMPARE(vm->m_scrollSynchronisation.synchedViewSpaces.value(vs2), v2);
+    QVERIFY(vm->m_scrollSynchronisation.viewScrollInfo.contains(v2));
 }
 
 #include "moc_kate_view_mgmt_tests.cpp"

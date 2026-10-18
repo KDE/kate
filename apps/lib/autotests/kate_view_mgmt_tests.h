@@ -90,6 +90,8 @@ private Q_SLOTS:
     void testTabLimitIncreaseDoesNotDuplicateTabs();
     void testTabLimitDecreaseKeepsReplacementTabs();
     void testTabLimitClosingBackgroundTabKeepsActiveView();
+    void testScrollSyncSurvivesWidgetTabRoundTrip();
+    void testScrollSyncCanBeToggledAfterWidgetTabRoundTrip();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;

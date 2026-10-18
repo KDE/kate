@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-17 00:47+0000\n"
+"POT-Creation-Date: 2026-10-18 03:05+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -17,44 +17,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
 
-#: kategitblameplugin.cpp:88
+#: kategitblameplugin.cpp:89
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "अद्यापि प्रतिबद्धः नास्ति"
 
-#: kategitblameplugin.cpp:97
+#: kategitblameplugin.cpp:98
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
 msgstr " %1: %2 "
 
-#: kategitblameplugin.cpp:98
+#: kategitblameplugin.cpp:99
 #, kde-format
 msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
 msgstr " %1: %2: %3 "
 
-#: kategitblameplugin.cpp:187
+#: kategitblameplugin.cpp:188
 #, kde-format
 msgid "Git Blame"
 msgstr "गिट् दोषः"
 
-#: kategitblameplugin.cpp:190
+#: kategitblameplugin.cpp:191
 #, kde-format
 msgid "Show Git Blame Details"
 msgstr "Git Blame विवरणं दर्शयतु"
 
-#: kategitblameplugin.cpp:193
+#: kategitblameplugin.cpp:194
 #, kde-format
 msgid "Toggle Git Blame Details"
 msgstr "Git दोषविवरणं Toggle कुर्वन्तु"
 
-#: kategitblameplugin.cpp:340
+#: kategitblameplugin.cpp:341
 #, kde-format
 msgid "Git"
 msgstr "गिट्"
 
-#: kategitblameplugin.cpp:403
+#: kategitblameplugin.cpp:405
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "दोषं ददातु, प्रतिबद्धतां दर्शयतु विफलम्।"

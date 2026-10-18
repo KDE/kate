@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-17 00:47+0000\n"
+"POT-Creation-Date: 2026-10-18 03:05+0000\n"
 "PO-Revision-Date: 2026-05-30 16:56-0400\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
@@ -18,44 +18,44 @@ msgstr ""
 "X-Generator: Poedit 3.9\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: kategitblameplugin.cpp:88
+#: kategitblameplugin.cpp:89
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "تېخى تاپشۇرۇلمىدى"
 
-#: kategitblameplugin.cpp:97
+#: kategitblameplugin.cpp:98
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
 msgstr " %1: %2 "
 
-#: kategitblameplugin.cpp:98
+#: kategitblameplugin.cpp:99
 #, kde-format
 msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
 msgstr ""
 
-#: kategitblameplugin.cpp:187
+#: kategitblameplugin.cpp:188
 #, kde-format
 msgid "Git Blame"
 msgstr ""
 
-#: kategitblameplugin.cpp:190
+#: kategitblameplugin.cpp:191
 #, kde-format
 msgid "Show Git Blame Details"
 msgstr ""
 
-#: kategitblameplugin.cpp:193
+#: kategitblameplugin.cpp:194
 #, kde-format
 msgid "Toggle Git Blame Details"
 msgstr ""
 
-#: kategitblameplugin.cpp:340
+#: kategitblameplugin.cpp:341
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:403
+#: kategitblameplugin.cpp:405
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr ""

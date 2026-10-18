@@ -119,6 +119,9 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, QWidget *parent, Qt:
         if (state != Qt::Checked) {
             ok.setText(i18n("Commit"));
             setWindowTitle(i18n("Commit Changes"));
+
+            m_le.setText({});
+            m_pe.setPlainText({});
             return;
         }
         setWindowTitle(i18n("Amending Commit"));

@@ -131,7 +131,9 @@ void KateProjectInfoView::initialize()
 void KateProjectInfoView::runCmdInTerminal(const QString &cmd)
 {
     initialize();
-    m_terminal->runCommand({}, cmd);
+    if (m_terminal) {
+        m_terminal->runCommand({}, cmd);
+    }
 }
 
 #include "moc_kateprojectinfoview.cpp"

@@ -344,13 +344,13 @@ QStandardItem *KateProjectViewTree::unflattenTreeAndReturnClickedItem(const QMod
         items.append(item);
 
         // Try to flatten the path after we are done adding the file
+        QPersistentModelIndex srcIdx(m_project->model()->indexFromItem(item));
         QMetaObject::invokeMethod(
             this,
-            [this, item] {
-                auto proxy = static_cast<QSortFilterProxyModel *>(model());
-                auto model = static_cast<QStandardItemModel *>(proxy->sourceModel());
-                auto index = model->indexFromItem(item);
-                flattenPath(proxy->mapFromSource(index));
+            [this, srcIdx] {
+                if (srcIdx.isValid()) {
+                    flattenPath(static_cast<QSortFilterProxyModel *>(model())->mapFromSource(srcIdx));
+                }
             },
             Qt::QueuedConnection);
 

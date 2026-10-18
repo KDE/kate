@@ -16,6 +16,7 @@ class StashFilterModel;
 class KActionCollection;
 class QStandardItemModel;
 class QProcess;
+class GitWidget;
 
 namespace KTextEditor
 {
@@ -45,15 +46,9 @@ class StashDialog : public HUDDialog
 {
     Q_OBJECT
 public:
-    StashDialog(QWidget *window, const QString &gitPath);
+    StashDialog(QWidget *window, GitWidget *gitWidget, const QString &gitPath);
 
     void openDialog(StashMode mode);
-
-Q_SIGNALS:
-    void message(const QString &msg, bool warn);
-    void done();
-    void showStashDiff(const QByteArray &diff);
-    void showStashEntry(const QString &index);
 
 protected Q_SLOTS:
     void slotReturnPressed(const QModelIndex &index) override;
@@ -67,7 +62,11 @@ private:
     void dropStash(const QString &index);
     void showStash(const QString &index);
 
+    // the git processes report to the git widget, the dialog might be gone by the time they finish
+    GitWidget *const m_gitWidget;
     QString m_gitPath;
     QString m_projectPath;
     StashMode m_currentMode = StashMode::None;
+    // a stash operation is running, e.g. don't drop a second stash on a second Enter
+    bool m_busy = false;
 };

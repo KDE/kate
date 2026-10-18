@@ -585,13 +585,25 @@ void GitWidget::slotUpdateStatus()
     auto git = gitp(args);
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
-            // no error on status failure
-            // sendMessage(QString::fromUtf8(git->readAllStandardError()), true);
+            if (m_refreshButton) {
+                m_refreshButton->setBusy(false);
+            }
+            QString error = QString::fromUtf8(git->readAllStandardError()).trimmed();
+            if (error.isEmpty()) {
+                error = i18n("Failed to get the git status");
+            }
+            sendMessage(error, true);
         } else {
             auto future = QtConcurrent::run(GitUtils::parseStatus, git->readAllStandardOutput(), m_activeGitDirPath);
             m_gitStatusWatcher->setFuture(future);
         }
         git->deleteLater();
+    });
+
+    connect(git, &QProcess::errorOccurred, this, [this](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart && m_refreshButton) {
+            m_refreshButton->setBusy(false);
+        }
     });
     startHostProcess(*git, QProcess::ReadOnly);
 }
@@ -607,7 +619,7 @@ void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
     auto git = gitp(args);
     connect(git, &QProcess::finished, this, [this, i18error, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18error + QStringLiteral(": ") + QString::fromUtf8(git->readAllStandardError()), true);
+            sendMessage(i18error + QString::fromUtf8(git->readAllStandardError()), true);
         } else {
             updateStatus();
         }
@@ -708,9 +720,8 @@ void GitWidget::openAtHEAD(const QString &file)
     }
 
     auto args = QStringList{QStringLiteral("show"), QStringLiteral("--textconv")};
-    args.append(QStringLiteral(":") + file);
+    args.append(QStringLiteral("HEAD:") + file);
     auto git = gitp(args);
-    startHostProcess(*git, QProcess::ReadOnly);
 
     connect(git, &QProcess::finished, this, [this, file, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
@@ -727,7 +738,6 @@ void GitWidget::openAtHEAD(const QString &file)
         git->deleteLater();
     });
 
-    git->setArguments(args);
     startHostProcess(*git, QProcess::ReadOnly);
 }
 
@@ -817,7 +827,7 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
 
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
-            sendMessage(i18n("Failed to commit: %1", QString::fromUtf8(git->readAllStandardError())), true);
+            sendMessage(i18n("Failed to commit: %1", QString::fromUtf8(git->readAllStandardOutput())), true);
         } else {
             m_commitMessage.clear();
             updateStatus();
@@ -1132,21 +1142,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
 
 void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
 {
-    auto stashDialog = new StashDialog(mainWindow()->window(), gitPath);
-    connect(stashDialog, &StashDialog::message, this, &GitWidget::sendMessage);
-    connect(stashDialog, &StashDialog::showStashDiff, this, [this](const QByteArray &r) {
-        DiffParams d;
-        d.tabTitle = i18n("Diff - stash");
-        d.workingDir = m_activeGitDirPath;
-        Utils::showDiff(r, d, mainWindow());
-    });
-    connect(stashDialog, &StashDialog::showStashEntry, this, [this](const QString &index) {
-        CommitView::openStash(index, dotGitPath(), mainWindow());
-    });
-    connect(stashDialog, &StashDialog::done, this, [this, stashDialog] {
-        updateStatus();
-        stashDialog->deleteLater();
-    });
+    auto stashDialog = new StashDialog(mainWindow()->window(), this, gitPath);
     stashDialog->openDialog(m);
 }
 
@@ -1260,12 +1256,12 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         if (act == stageAct) {
             stage(files, treeItem == GitStatusModel::NodeUntrack);
         } else if (act == discardAct && !untracked) {
-            auto ret = confirm(this, i18n("Are you sure you want to remove these files?"), KStandardGuiItem::remove());
+            auto ret = confirm(this, i18n("Are you sure you want to discard all changes?"), KStandardGuiItem::discard());
             if (ret == KMessageBox::PrimaryAction) {
                 discard(files);
             }
         } else if (act == discardAct && untracked) {
-            auto ret = confirm(this, i18n("Are you sure you want to discard all changes?"), KStandardGuiItem::discard());
+            auto ret = confirm(this, i18n("Are you sure you want to remove these files?"), KStandardGuiItem::remove());
             if (ret == KMessageBox::PrimaryAction) {
                 clean(files);
             }

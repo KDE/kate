@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-17 00:53+0000\n"
+"POT-Creation-Date: 2026-10-18 00:53+0000\n"
 "PO-Revision-Date: 2008-09-22 00:54+0200\n"
 "Last-Translator: Erdal Ronahi <erdal.ronahi@nospam.gmail.com>\n"
 "Language-Team: American English <>\n"
@@ -43,16 +43,16 @@ msgstr ""
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr ""
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:282
-#: lib/autotests/kate_view_mgmt_test2.cpp:584
-#: lib/autotests/kate_view_mgmt_test2.cpp:620
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:284
+#: lib/autotests/kate_view_mgmt_test2.cpp:586
+#: lib/autotests/kate_view_mgmt_test2.cpp:622
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr ""
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:283
-#: lib/autotests/kate_view_mgmt_test2.cpp:585
-#: lib/autotests/kate_view_mgmt_test2.cpp:621
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:285
+#: lib/autotests/kate_view_mgmt_test2.cpp:587
+#: lib/autotests/kate_view_mgmt_test2.cpp:623
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "session"
@@ -2031,7 +2031,7 @@ msgstr ""
 msgid "Bottom Sidebar"
 msgstr ""
 
-#: lib/katemdi.cpp:1787
+#: lib/katemdi.cpp:1790
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

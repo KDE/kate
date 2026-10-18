@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-17 00:53+0000\n"
-"PO-Revision-Date: 2026-10-13 19:01+0300\n"
+"PO-Revision-Date: 2026-10-17 19:52+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -712,19 +712,17 @@ msgstr "Hata"
 #: kateproject.cpp:317
 #, kde-format
 msgid "'%1' is not a valid file name."
-msgstr ""
+msgstr "“%1”, geçerli bir dosya adı değil."
 
 #: kateproject.cpp:328
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "A file named '%1' already exists."
-msgstr "Dosya adı hâlihazırda var"
+msgstr "“%1” adlı bir dosya hâlihazırda var."
 
 #: kateproject.cpp:350
-#, fuzzy, kde-format
-#| msgid "Failed to create file: %1, Error: %2"
+#, kde-format
 msgid "Failed to rename '%1' to '%2': %3"
-msgstr "Dosya oluşturulamadı: %1, Hata: %2"
+msgstr "“%1” dosyası, “%2” olarak yeniden adlandırılamadı: %3"
 
 #: kateproject.cpp:459
 #, kde-format

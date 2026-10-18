@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-17 00:53+0000\n"
-"PO-Revision-Date: 2026-10-13 08:43-0300\n"
+"PO-Revision-Date: 2026-10-17 07:47-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -718,19 +718,17 @@ msgstr "Erro"
 #: kateproject.cpp:317
 #, kde-format
 msgid "'%1' is not a valid file name."
-msgstr ""
+msgstr "'%1' não é um nome de arquivo válido."
 
 #: kateproject.cpp:328
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "A file named '%1' already exists."
-msgstr "O nome do arquivo já existe"
+msgstr "Já existe um arquivo chamado '%1'."
 
 #: kateproject.cpp:350
-#, fuzzy, kde-format
-#| msgid "Failed to create file: %1, Error: %2"
+#, kde-format
 msgid "Failed to rename '%1' to '%2': %3"
-msgstr "Falha ao criar o arquivo: %1, Erro: %2"
+msgstr "Falha ao renomear '%1' para '%2': %3"
 
 #: kateproject.cpp:459
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-17 00:53+0000\n"
-"PO-Revision-Date: 2026-10-13 13:36+0300\n"
+"PO-Revision-Date: 2026-10-17 17:39+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -721,19 +721,17 @@ msgstr "Помилка"
 #: kateproject.cpp:317
 #, kde-format
 msgid "'%1' is not a valid file name."
-msgstr ""
+msgstr "«%1» не є коректною назвою файла."
 
 #: kateproject.cpp:328
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "A file named '%1' already exists."
-msgstr "Файл з такою назвою вже існує"
+msgstr "Файл з назвою «%1» вже існує."
 
 #: kateproject.cpp:350
-#, fuzzy, kde-format
-#| msgid "Failed to create file: %1, Error: %2"
+#, kde-format
 msgid "Failed to rename '%1' to '%2': %3"
-msgstr "Не вдалося створити файл: %1, повідомлення про помилку: %2"
+msgstr "Не вдалося перейменувати «%1» на «%2»: %3"
 
 #: kateproject.cpp:459
 #, kde-format

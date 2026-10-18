@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-17 00:53+0000\n"
+"POT-Creation-Date: 2026-10-18 00:53+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -40,16 +40,16 @@ msgstr "केट - उन्नत पाठ्य सम्पादक"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) २०००-२०२४ केट लेखकाः"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:282
-#: lib/autotests/kate_view_mgmt_test2.cpp:584
-#: lib/autotests/kate_view_mgmt_test2.cpp:620
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:284
+#: lib/autotests/kate_view_mgmt_test2.cpp:586
+#: lib/autotests/kate_view_mgmt_test2.cpp:622
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "दत्तसत्रेण केट् आरभत।."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:283
-#: lib/autotests/kate_view_mgmt_test2.cpp:585
-#: lib/autotests/kate_view_mgmt_test2.cpp:621
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:285
+#: lib/autotests/kate_view_mgmt_test2.cpp:587
+#: lib/autotests/kate_view_mgmt_test2.cpp:623
 #, kde-format
 msgid "session"
 msgstr "सत्र"
@@ -2080,7 +2080,7 @@ msgstr "शीर्ष पार्श्वपट्टिका"
 msgid "Bottom Sidebar"
 msgstr "अधः पार्श्वपट्टिका"
 
-#: lib/katemdi.cpp:1787
+#: lib/katemdi.cpp:1790
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

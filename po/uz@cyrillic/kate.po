@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-17 00:53+0000\n"
+"POT-Creation-Date: 2026-10-18 00:53+0000\n"
 "PO-Revision-Date: 2006-12-17 12:02+0000\n"
 "Last-Translator: Mashrab Kuvatov <kmashrab@uni-bremen.de>\n"
 "Language-Team: Uzbek <floss-uz-l10n@googlegroups.com>\n"
@@ -43,17 +43,17 @@ msgstr "Kate - Кенгайтирилган матн таҳрирчи"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(C) 2000-2005, Kate муаллифлари"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:282
-#: lib/autotests/kate_view_mgmt_test2.cpp:584
-#: lib/autotests/kate_view_mgmt_test2.cpp:620
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:284
+#: lib/autotests/kate_view_mgmt_test2.cpp:586
+#: lib/autotests/kate_view_mgmt_test2.cpp:622
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a given session."
 msgstr "Дастурни кўрсатилган сеанс билан ишга тушириш"
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:283
-#: lib/autotests/kate_view_mgmt_test2.cpp:585
-#: lib/autotests/kate_view_mgmt_test2.cpp:621
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:285
+#: lib/autotests/kate_view_mgmt_test2.cpp:587
+#: lib/autotests/kate_view_mgmt_test2.cpp:623
 #, fuzzy, kde-format
 #| msgid "Session"
 msgid "session"
@@ -2100,7 +2100,7 @@ msgstr "Юқори ён панели"
 msgid "Bottom Sidebar"
 msgstr "Паст ён панели"
 
-#: lib/katemdi.cpp:1787
+#: lib/katemdi.cpp:1790
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

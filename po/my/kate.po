@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-17 00:53+0000\n"
+"POT-Creation-Date: 2026-10-18 00:53+0000\n"
 "PO-Revision-Date: 2025-09-16 15:43+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -43,16 +43,16 @@ msgstr "ကိတ် - အဆင့်မြင့်စာသားတည်း
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) ၂၀၀၀-၂၀၂၄ ကိတ် ရေးသားသူများ"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:282
-#: lib/autotests/kate_view_mgmt_test2.cpp:584
-#: lib/autotests/kate_view_mgmt_test2.cpp:620
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:284
+#: lib/autotests/kate_view_mgmt_test2.cpp:586
+#: lib/autotests/kate_view_mgmt_test2.cpp:622
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "ရွေးချယ်ထားသောဆက်ရှင်ဖြင့် ကိတ်စတင်မည်"
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:283
-#: lib/autotests/kate_view_mgmt_test2.cpp:585
-#: lib/autotests/kate_view_mgmt_test2.cpp:621
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:285
+#: lib/autotests/kate_view_mgmt_test2.cpp:587
+#: lib/autotests/kate_view_mgmt_test2.cpp:623
 #, kde-format
 msgid "session"
 msgstr "ဆက်ရှင်"
@@ -2015,7 +2015,7 @@ msgstr "အပေါ်ဘေးတန်း"
 msgid "Bottom Sidebar"
 msgstr "အောက်ခြေဘေးတန်း"
 
-#: lib/katemdi.cpp:1787
+#: lib/katemdi.cpp:1790
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

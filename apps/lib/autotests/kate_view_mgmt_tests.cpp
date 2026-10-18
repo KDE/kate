@@ -1211,4 +1211,27 @@ void KateViewManagementTests::testRestoreActivatesSavedActiveViewspace()
     QCOMPARE(cv->document(), docC);
 }
 
+// activateView(doc, vs) must return the view of doc in vs, also when vs isn't the active
+// viewspace and a new view has to be created there. E.g. dropping a document on an
+// inactive split uses the returned view to set the cursor.
+void KateViewManagementTests::testActivateViewInOtherViewspaceReturnsItsView()
+{
+    app->sessionManager()->sessionNew();
+    auto vm = app->activeKateMainWindow()->viewManager();
+
+    auto vA = vm->createView();
+    vm->slotSplitViewSpaceVert();
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+    auto vs1 = vm->m_viewSpaceList[0];
+    auto vs2 = vm->m_viewSpaceList[1];
+    vm->setActiveSpace(vs1);
+    vm->activateView(vA->document());
+
+    auto *b = app->documentManager()->createDoc();
+    auto ret = vm->activateView(b, vs2);
+    QVERIFY(ret);
+    QCOMPARE(ret->document(), b);
+    QVERIFY(viewspaceContainsView(vs2, ret));
+}
+
 #include "moc_kate_view_mgmt_tests.cpp"

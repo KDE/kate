@@ -730,16 +730,8 @@ void KateConfigDialog::slotApply()
                     }
                 }
 
-                // Remove existing user set path
-                QString oldPATH = QString::fromUtf8(qgetenv("PATH"));
-                if (oldPATH.startsWith(existingPATH)) {
-                    oldPATH.remove(0, existingPATH.length());
-                    if (oldPATH.startsWith(seperator)) {
-                        oldPATH.remove(0, 1);
-                    }
-                }
-
-                // prepend to PATH
+                // prepend to initial PATH
+                const QString oldPATH = QString::fromUtf8(KateApp::self()->initialPathEnvVar());
                 const QString p = validatedPaths.join(seperator);
                 const QString newPATH = p.isEmpty() ? oldPATH : p + seperator + oldPATH;
                 // putenv the new PATH

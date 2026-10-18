@@ -87,6 +87,8 @@ private Q_SLOTS:
     void testNeighborSplitNavigationWithWidgetTab();
     void testRestoreActivatesSavedActiveViewspace();
     void testActivateViewInOtherViewspaceReturnsItsView();
+    void testTabLimitIncreaseDoesNotDuplicateTabs();
+    void testTabLimitDecreaseKeepsReplacementTabs();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;

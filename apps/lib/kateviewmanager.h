@@ -137,8 +137,15 @@ private:
 
     /** Restore a single splitter.
      * This is all the work is done for @see saveSplitterConfig()
+     * @param activeViewSpaceGroup config group of the viewspace that was active when saving
+     * @param activeViewSpace set to the viewspace restored from @p activeViewSpaceGroup
      */
-    void restoreSplitter(const KConfig *config, const QString &group, KateSplitter *parent, const QString &viewConfGrp);
+    void restoreSplitter(const KConfig *config,
+                         const QString &group,
+                         KateSplitter *parent,
+                         const QString &viewConfGrp,
+                         const QString &activeViewSpaceGroup,
+                         KateViewSpace *&activeViewSpace);
 
     void removeViewSpace(KateViewSpace *viewspace);
 

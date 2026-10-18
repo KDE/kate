@@ -1178,4 +1178,37 @@ void KateViewManagementTests::testNeighborSplitNavigationWithWidgetTab()
     QVERIFY(vm->activeViewSpace() == vs2 || vm->activeViewSpace() == vs3);
 }
 
+// The viewspace that was active when the session was saved must be active again after
+// restoring it. Viewspaces are restored in splitter tree order, which differs from their
+// creation order once a split that isn't the last one gets split again.
+void KateViewManagementTests::testRestoreActivatesSavedActiveViewspace()
+{
+    app->sessionManager()->sessionNew();
+    auto mw = app->activeKateMainWindow();
+    auto vm = mw->viewManager();
+
+    auto vA = vm->createView();
+    auto vs0 = vm->activeViewSpace();
+    vm->slotSplitViewSpaceVert(); // vs1
+    vm->createView();
+    // split vs0 again => vs2 is created next to vs0, but appended to m_viewSpaceList
+    vm->setActiveSpace(vs0);
+    vm->activateView(vA->document());
+    vm->slotSplitViewSpaceVert();
+    auto docC = vm->createView()->document();
+    QCOMPARE(vm->activeViewSpace()->currentView()->document(), docC);
+
+    KConfig cfg(m_tempdir->path() + QStringLiteral("/view6.katesession"), KConfig::SimpleConfig);
+    app->documentManager()->saveDocumentList(&cfg);
+    KConfigGroup g(&cfg, QStringLiteral("MainWindow0-ViewManager"));
+    vm->saveViewConfiguration(g);
+    cfg.sync();
+
+    vm->restoreViewConfiguration(g);
+    QCOMPARE(vm->m_viewSpaceList.size(), 3);
+    auto cv = vm->activeViewSpace()->currentView();
+    QVERIFY(cv);
+    QCOMPARE(cv->document(), docC);
+}
+
 #include "moc_kate_view_mgmt_tests.cpp"

@@ -476,9 +476,14 @@ void KateTabBar::removeDocument(DocOrWidget doc)
             m_docToLruCounterAndHasTab[docToReplace].hasTab = true;
 
             // replace info for the tab
+            const bool wasCurrent = idx == currentIndex();
             setTabDocument(idx, docToReplace);
-            setCurrentIndex(idx);
-            Q_EMIT currentChanged(idx);
+
+            // only activate the replacement if the closed tab was the current one,
+            // closing a background tab must not change the active document
+            if (wasCurrent) {
+                Q_EMIT currentChanged(idx);
+            }
             return;
         }
     }

@@ -1287,4 +1287,32 @@ void KateViewManagementTests::testTabLimitDecreaseKeepsReplacementTabs()
     QCOMPARE(vs->tabCount(), 2);
 }
 
+// With a tab limit, closing a tab reuses it for a document that has no tab. When the
+// closed tab is a background tab, the replacement must not become the active document.
+void KateViewManagementTests::testTabLimitClosingBackgroundTabKeepsActiveView()
+{
+    app->sessionManager()->sessionNew();
+    auto vm = app->activeKateMainWindow()->viewManager();
+    auto vs = vm->activeViewSpace();
+
+    TempConfigChanger limit(app.get(), "Tabbar Tab Limit", 3);
+    // hidden doc (oldest, will lose its tab)
+    auto *hidden = app->documentManager()->createDoc();
+    vs->registerDocument(hidden);
+    // background doc with a tab but no view
+    auto *background = app->documentManager()->createDoc();
+    vs->registerDocument(background);
+    vm->createView();
+    auto active = vm->createView();
+    QCOMPARE(vm->activeView(), active);
+
+    vs->closeDocument(background);
+    QTest::qWait(10);
+
+    QCOMPARE(vm->activeView(), active);
+    // the hidden document took over the freed tab
+    QCOMPARE(vs->tabCount(), 3);
+    QVERIFY(vs->documentList().contains(DocOrWidget(hidden)));
+}
+
 #include "moc_kate_view_mgmt_tests.cpp"

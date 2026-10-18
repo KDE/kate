@@ -89,6 +89,7 @@ private Q_SLOTS:
     void testActivateViewInOtherViewspaceReturnsItsView();
     void testTabLimitIncreaseDoesNotDuplicateTabs();
     void testTabLimitDecreaseKeepsReplacementTabs();
+    void testTabLimitClosingBackgroundTabKeepsActiveView();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;

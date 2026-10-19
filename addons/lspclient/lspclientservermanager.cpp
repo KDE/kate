@@ -23,6 +23,7 @@
 
 #include <QDir>
 #include <QFileInfo>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
@@ -94,6 +95,30 @@ static QStringList indicationDataToStringList(const QJsonValue &indicationData)
     }
 
     return {};
+}
+
+// expand variables like %{ENV:HOME} in all strings of the settings
+static QJsonValue expandSettings(const QJsonValue &value, KTextEditor::View *view)
+{
+    if (value.isString()) {
+        return KTextEditor::Editor::instance()->expandText(value.toString(), view);
+    }
+    if (value.isArray()) {
+        QJsonArray array;
+        const auto values = value.toArray();
+        for (const auto &v : values) {
+            array.append(expandSettings(v, view));
+        }
+        return array;
+    }
+    if (value.isObject()) {
+        QJsonObject object = value.toObject();
+        for (auto it = object.begin(); it != object.end(); ++it) {
+            it.value() = expandSettings(it.value(), view);
+        }
+        return object;
+    }
+    return value;
 }
 
 static TriggerCharactersOverride parseTriggerOverride(const QJsonValue &json)
@@ -867,7 +892,7 @@ private:
         if (!cmdline.empty()) {
             // always update some info
             // (even if eventually no server found/started)
-            serverinfo.settings = serverConfig.value(QStringLiteral("settings"));
+            serverinfo.settings = expandSettings(serverConfig.value(QStringLiteral("settings")), view);
             serverinfo.started = QTime::currentTime();
             serverinfo.url = serverConfig.value(QStringLiteral("url")).toString();
             // leave failcount as-is

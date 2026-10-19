@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-10-19 00:50+0000\n"
 "PO-Revision-Date: 2022-10-05 16:50+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -23,11 +23,14 @@ msgid "Show preview for known color names"
 msgstr "أظهر معاينة لأسماء الألوان المعروفة"
 
 #: colorpickerconfigpage.cpp:36
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Also show the color picker for known color names (e.g. skyblue).\n"
+#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
+#| "colors."
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
-"See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-"colors."
+"See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
 "أظهر أيضًا منتقي الألوان لأسماء الألوان المعروفة (مثل SkyBlue). \n"
 "طالع https://www.w3.org/tr/svg11/types.html#colorkeywords لقائمة الألوان."
@@ -77,12 +80,12 @@ msgstr "منتق الألوان"
 msgid "Color Picker Settings"
 msgstr "إعدادات منتق الألوان"
 
-#: katecolorpickerplugin.cpp:255
+#: katecolorpickerplugin.cpp:256
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "حدد لون (خرج ستة عشر)"
 
-#: katecolorpickerplugin.cpp:258
+#: katecolorpickerplugin.cpp:259
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "اعرض لون [قراءة فقط]"

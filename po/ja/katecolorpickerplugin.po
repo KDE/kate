@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-10-19 00:50+0000\n"
 "PO-Revision-Date: 2026-08-01 23:02+0900\n"
 "Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -21,11 +21,14 @@ msgid "Show preview for known color names"
 msgstr "既知の色名のプレビューを表示する"
 
 #: colorpickerconfigpage.cpp:36
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Also show the color picker for known color names (e.g. skyblue).\n"
+#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
+#| "colors."
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
-"See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-"colors."
+"See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
 "既知の色名 (例: skyblue) に対してもカラーピッカーを表示します。\n"
 "色の一覧については https://www.w3.org/TR/SVG11/types.html#ColorKeywords をご"
@@ -76,12 +79,12 @@ msgstr "カラーピッカー"
 msgid "Color Picker Settings"
 msgstr "カラーピッカーの設定"
 
-#: katecolorpickerplugin.cpp:255
+#: katecolorpickerplugin.cpp:256
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "色の選択 (16 進数出力)"
 
-#: katecolorpickerplugin.cpp:258
+#: katecolorpickerplugin.cpp:259
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "色の表示 [読み取り専用]"

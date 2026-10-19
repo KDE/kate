@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-10-19 00:50+0000\n"
 "PO-Revision-Date: 2026-03-04 12:47+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -24,11 +24,14 @@ msgid "Show preview for known color names"
 msgstr "Arată previzualizare pentru denumiri de culori cunoscute"
 
 #: colorpickerconfigpage.cpp:36
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Also show the color picker for known color names (e.g. skyblue).\n"
+#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
+#| "colors."
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
-"See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-"colors."
+"See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
 "Arată selectorul de culori și pentru denumiri de culori cunoscute (ca "
 "„skyblue”).\n"
@@ -80,12 +83,12 @@ msgstr "Selector de culori"
 msgid "Color Picker Settings"
 msgstr "Configurări pentru selectorul de culori"
 
-#: katecolorpickerplugin.cpp:255
+#: katecolorpickerplugin.cpp:256
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "Alege culoarea (rezultat hexazecimal)"
 
-#: katecolorpickerplugin.cpp:258
+#: katecolorpickerplugin.cpp:259
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "Vezi culoarea [numai citire]"

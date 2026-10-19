@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-10-19 00:50+0000\n"
 "PO-Revision-Date: 2021-02-06 13:49+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@nuug.no>\n"
@@ -25,11 +25,14 @@ msgid "Show preview for known color names"
 msgstr "Vis førehandsvising for kjende fargenamn"
 
 #: colorpickerconfigpage.cpp:36
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Also show the color picker for known color names (e.g. skyblue).\n"
+#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
+#| "colors."
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
-"See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-"colors."
+"See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
 "Vis òg fargeveljar for kjende fargenamn (eks. «skyblue»).\n"
 "Sjå https://www.w3.org/TR/SVG11/types.html#ColorKeywords for oversikt over "
@@ -80,12 +83,12 @@ msgstr "Fargeveljar"
 msgid "Color Picker Settings"
 msgstr "Innstillingar for fargeveljar"
 
-#: katecolorpickerplugin.cpp:255
+#: katecolorpickerplugin.cpp:256
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "Vel farge (Hex-format)"
 
-#: katecolorpickerplugin.cpp:258
+#: katecolorpickerplugin.cpp:259
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "Vis farge [skriveverna]"

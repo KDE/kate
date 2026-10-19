@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-17 00:53+0000\n"
+"POT-Creation-Date: 2026-10-19 00:50+0000\n"
 "PO-Revision-Date: 2026-09-27 20:32+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -289,7 +289,7 @@ msgid "Commit Changes"
 msgstr "Arkivera ändringar"
 
 #: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:265
-#: gitwidget.cpp:1090
+#: gitwidget.cpp:1100
 #, kde-format
 msgid "Commit"
 msgstr "Arkivera"
@@ -314,28 +314,28 @@ msgstr "Utökad arkiveringsbeskrivning..."
 msgid "Sign off"
 msgstr "Bekräfta"
 
-#: gitcommitdialog.cpp:112 gitcommitdialog.cpp:125
+#: gitcommitdialog.cpp:112 gitcommitdialog.cpp:128
 #, kde-format
 msgid "Amend"
 msgstr "Rätta till"
 
-#: gitcommitdialog.cpp:113 gitwidget.cpp:1043
+#: gitcommitdialog.cpp:113 gitwidget.cpp:1053
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Rätta till senaste arkivering"
 
-#: gitcommitdialog.cpp:124
+#: gitcommitdialog.cpp:127
 #, kde-format
 msgid "Amending Commit"
 msgstr "Rättar till arkivering"
 
-#: gitcommitdialog.cpp:207
+#: gitcommitdialog.cpp:210
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
 msgstr "%1 / 52"
 
-#: gitcommitdialog.cpp:211
+#: gitcommitdialog.cpp:214
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
@@ -398,293 +398,294 @@ msgstr ""
 "Misslyckades hitta .git-katalog för '%1', saker och ting kanske inte "
 "fungerar som de ska"
 
-#: gitwidget.cpp:640
+#: gitwidget.cpp:593
+#, fuzzy, kde-format
+#| msgid "Failed to get git-status. Error: %1"
+msgid "Failed to get the git status"
+msgstr "Misslyckades hämta git-status. Fel: %1"
+
+#: gitwidget.cpp:652
 #, kde-format
 msgid " error: %1"
 msgstr " fel: %1"
 
-#: gitwidget.cpp:646
+#: gitwidget.cpp:658
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "\"%1\" körde med lyckat resultat: %2"
 
-#: gitwidget.cpp:666
+#: gitwidget.cpp:678
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Misslyckades förbereda fil. Fel:"
 
-#: gitwidget.cpp:679
+#: gitwidget.cpp:691
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Misslyckades avlägsna förberedd fil. Fel:"
 
-#: gitwidget.cpp:690
+#: gitwidget.cpp:702
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Misslyckades kasta ändringar. Fel:"
 
-#: gitwidget.cpp:701
+#: gitwidget.cpp:713
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Misslyckades ta bort. Fel:"
 
-#: gitwidget.cpp:717
+#: gitwidget.cpp:728
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Misslyckades öppna fil vid HEAD: %1"
 
-#: gitwidget.cpp:751
+#: gitwidget.cpp:761
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Misslyckades hämta skillnad för fil: %1"
 
-#: gitwidget.cpp:820
+#: gitwidget.cpp:830
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Misslyckades arkivera: %1"
 
-#: gitwidget.cpp:824
+#: gitwidget.cpp:834
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Ändringar arkiverade med lyckat resultat."
 
-#: gitwidget.cpp:834
+#: gitwidget.cpp:844
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Ingenting att arkivera. Förbered ändringarna först."
 
-#: gitwidget.cpp:848
+#: gitwidget.cpp:858
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Arkiveringsmeddelandet kan inte vara tomt."
 
-#: gitwidget.cpp:979
+#: gitwidget.cpp:989
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Ingen skillnad för %1...%2"
 
-#: gitwidget.cpp:985
+#: gitwidget.cpp:995
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Misslyckades jämföra %1...%2"
 
-#: gitwidget.cpp:1000
+#: gitwidget.cpp:1010
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "Misslyckades hämta numerisk statistik vid jämförelse av %1... %2"
 
-#: gitwidget.cpp:1035
+#: gitwidget.cpp:1045
 #, kde-format
 msgid "Refresh"
 msgstr "Uppdatera"
 
-#: gitwidget.cpp:1052
+#: gitwidget.cpp:1062
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Checka ut gren"
 
-#: gitwidget.cpp:1064
+#: gitwidget.cpp:1074
 #, kde-format
 msgid "Delete Branch"
 msgstr "Ta bort gren"
 
-#: gitwidget.cpp:1078
+#: gitwidget.cpp:1088
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Jämför gren med..."
 
-#: gitwidget.cpp:1084
+#: gitwidget.cpp:1094
 #, kde-format
 msgid "Show Commit"
 msgstr "Visa arkiveringar"
 
-#: gitwidget.cpp:1102
+#: gitwidget.cpp:1112
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Visa senaste arkivering"
 
-#: gitwidget.cpp:1120
+#: gitwidget.cpp:1130
 #, kde-format
 msgid "Open Commit..."
 msgstr "Öppna arkivering..."
 
-#: gitwidget.cpp:1123 gitwidget.cpp:1171
+#: gitwidget.cpp:1133 gitwidget.cpp:1167
 #, kde-format
 msgid "Stash"
 msgstr "Göm undan"
 
-#: gitwidget.cpp:1127
+#: gitwidget.cpp:1137
 #, kde-format
 msgid "Show history"
 msgstr "Visa historik"
 
-#: gitwidget.cpp:1139
-#, kde-format
-msgid "Diff - stash"
-msgstr "Jämför - göm undan"
-
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1171
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Plocka bort senaste gömsle"
 
-#: gitwidget.cpp:1179
+#: gitwidget.cpp:1175
 #, kde-format
 msgid "Pop Stash"
 msgstr "Plocka bort gömsle"
 
-#: gitwidget.cpp:1183
+#: gitwidget.cpp:1179
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Verkställer senaste gömsle"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1181
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Göm undan (behåll förberett)"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1185
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Göm undan (inkludera ospårade)"
 
-#: gitwidget.cpp:1193
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Apply Stash"
 msgstr "Verkställ gömsle"
 
-#: gitwidget.cpp:1194
+#: gitwidget.cpp:1190
 #, kde-format
 msgid "Drop Stash"
 msgstr "Rensa gömsle"
 
-#: gitwidget.cpp:1198
+#: gitwidget.cpp:1194
 #, kde-format
 msgid "Show Stash"
 msgstr "Visa gömsle"
 
-#: gitwidget.cpp:1202
+#: gitwidget.cpp:1198
 #, kde-format
 msgid "Show Stash Diff"
 msgstr "Visa gömslejämförelse"
 
-#: gitwidget.cpp:1240
+#: gitwidget.cpp:1236
 #, kde-format
 msgid "Stage All"
 msgstr "Förbered alla"
 
-#: gitwidget.cpp:1242
+#: gitwidget.cpp:1238
 #, kde-format
 msgid "Remove All"
 msgstr "Ta bort alla"
 
-#: gitwidget.cpp:1242
+#: gitwidget.cpp:1238
 #, kde-format
 msgid "Discard All"
 msgstr "Kasta alla"
 
-#: gitwidget.cpp:1245
+#: gitwidget.cpp:1241
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Öppna .gitignore"
 
-#: gitwidget.cpp:1246 gitwidget.cpp:1295 gitwidget.cpp:1346
+#: gitwidget.cpp:1242 gitwidget.cpp:1291 gitwidget.cpp:1342
 #: kateprojectconfigpage.cpp:128 kateprojectconfigpage.cpp:140
 #, kde-format
 msgid "Show Diff"
 msgstr "Visa jämförelse"
 
-#: gitwidget.cpp:1263
-#, kde-format
-msgid "Are you sure you want to remove these files?"
-msgstr "Är du säker på att du vill ta bort filerna?"
-
-#: gitwidget.cpp:1268
+#: gitwidget.cpp:1259
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Är du säker på att du vill kasta alla ändringar?"
 
-#: gitwidget.cpp:1286
+#: gitwidget.cpp:1264
+#, kde-format
+msgid "Are you sure you want to remove these files?"
+msgstr "Är du säker på att du vill ta bort filerna?"
+
+#: gitwidget.cpp:1282
 #, kde-format
 msgid "Open File"
 msgstr "Öppna fil"
 
-#: gitwidget.cpp:1287
+#: gitwidget.cpp:1283
 #, kde-format
 msgid "Unstage File"
 msgstr "Avlägsna förberedd fil"
 
-#: gitwidget.cpp:1287
+#: gitwidget.cpp:1283
 #, kde-format
 msgid "Stage File"
 msgstr "Förbered fil"
 
-#: gitwidget.cpp:1288
+#: gitwidget.cpp:1284
 #, kde-format
 msgid "Remove"
 msgstr "Ta bort"
 
-#: gitwidget.cpp:1288
+#: gitwidget.cpp:1284
 #, kde-format
 msgid "Discard"
 msgstr "Kasta"
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1292
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Visa i externt Git jämförelseverktyg"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1293
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Öppna vid HEAD"
 
-#: gitwidget.cpp:1301
+#: gitwidget.cpp:1297
 #, kde-format
 msgid "Show History"
 msgstr "Visa historik"
 
-#: gitwidget.cpp:1317
+#: gitwidget.cpp:1313
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Är du säker på att du vill kasta ändringarna i den här filen?"
 
-#: gitwidget.cpp:1328
+#: gitwidget.cpp:1324
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Är du säker på att du vill ta bort den här filen?"
 
-#: gitwidget.cpp:1345
+#: gitwidget.cpp:1341
 #, kde-format
 msgid "Unstage All"
 msgstr "Avlägsna alla förberedda filer"
 
-#: gitwidget.cpp:1412
+#: gitwidget.cpp:1408
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Avlägsna förberedda markerade filer"
 
-#: gitwidget.cpp:1412
+#: gitwidget.cpp:1408
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Förbered markerade filer"
 
-#: gitwidget.cpp:1413
+#: gitwidget.cpp:1409
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Avlägsna markerade filer"
 
-#: gitwidget.cpp:1417
+#: gitwidget.cpp:1413
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Ta bort markerade filer"
 
-#: gitwidget.cpp:1430
+#: gitwidget.cpp:1426
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Är du säker på att du vill avlägsna ändringarna?"
 
-#: gitwidget.cpp:1435
+#: gitwidget.cpp:1431
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Är du säker på att du vill ta bort de här ospårade ändringarna?"
@@ -1355,69 +1356,85 @@ msgstr "Inget kommando angivet"
 msgid "Project Command"
 msgstr "Projektkommando"
 
-#: stashdialog.cpp:36
+#: stashdialog.cpp:40
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
 "Meddelande för göm undan (valfritt). Returtangent för att bekräfta. Esc för "
 "att lämna."
 
-#: stashdialog.cpp:44
+#: stashdialog.cpp:48
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
 "Skriv för att filtrera. Returtangent för att plocka bort gömsle. Esc för att "
 "lämna."
 
-#: stashdialog.cpp:147
+#: stashdialog.cpp:142 stashdialog.cpp:204
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgid "Failed to run git: %1"
+msgstr "Misslyckades arkivera: %1"
+
+#: stashdialog.cpp:168
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Misslyckades gömma undan ändringar %1"
 
-#: stashdialog.cpp:149
+#: stashdialog.cpp:170
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Ändringar undangömda med lyckat resultat."
 
-#: stashdialog.cpp:168
+#: stashdialog.cpp:189
+#, kde-format
+msgid "Loading..."
+msgstr ""
+
+#: stashdialog.cpp:198
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Misslyckades hämta lista över gömsle. Fel: "
 
-#: stashdialog.cpp:184
+#: stashdialog.cpp:224
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Misslyckades utföra göm undan. Fel: "
 
-#: stashdialog.cpp:186
+#: stashdialog.cpp:226
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Misslyckades rensa gömsle. Fel: "
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:228
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Misslyckades plocka bort gömsle. Fel: "
 
-#: stashdialog.cpp:192
+#: stashdialog.cpp:232
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Göm undan verkställt med lyckat resultat."
 
-#: stashdialog.cpp:194
+#: stashdialog.cpp:234
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Gömsle rensat med lyckat resultat."
 
-#: stashdialog.cpp:196
+#: stashdialog.cpp:236
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Gömsle bortplockat med lyckat resultat."
 
-#: stashdialog.cpp:225
+#: stashdialog.cpp:266
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Misslyckades visa gömsle. Fel: "
+
+#: stashdialog.cpp:269
+#, kde-format
+msgid "Diff - stash"
+msgstr "Jämför - göm undan"
 
 #: tools/clazy.h:25
 #, kde-format
@@ -1663,9 +1680,6 @@ msgstr "Projektinsticksprogram"
 
 #~ msgid "Untracked (%1)"
 #~ msgstr "Ospårad (%1)"
-
-#~ msgid "Failed to get git-status. Error: %1"
-#~ msgstr "Misslyckades hämta git-status. Fel: %1"
 
 #~ msgid "Ok"
 #~ msgstr "Ok"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-08-24 00:49+0000\n"
+"POT-Creation-Date: 2026-10-19 00:50+0000\n"
 "PO-Revision-Date: 2019-11-09 21:15+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -542,28 +542,28 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: localsview.cpp:116
+#: localsview.cpp:117
 #, kde-format
 msgid "Symbol"
 msgstr "Simbol"
 
-#: localsview.cpp:117
+#: localsview.cpp:118
 #, kde-format
 msgid "Type"
 msgstr ""
 
-#: localsview.cpp:118
+#: localsview.cpp:119
 #, kde-format
 msgid "Value"
 msgstr "Nilai"
 
-#: localsview.cpp:300
+#: localsview.cpp:325
 #, fuzzy, kde-format
 #| msgid "Symbol"
 msgid "Copy Symbol"
 msgstr "Simbol"
 
-#: localsview.cpp:315
+#: localsview.cpp:340
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Value"

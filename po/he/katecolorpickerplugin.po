@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-10-19 00:50+0000\n"
 "PO-Revision-Date: 2024-07-23 16:31+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -24,11 +24,14 @@ msgid "Show preview for known color names"
 msgstr "הצגת תצוגה מקדימה של שמות צבעים מוכרים"
 
 #: colorpickerconfigpage.cpp:36
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Also show the color picker for known color names (e.g. skyblue).\n"
+#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
+#| "colors."
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
-"See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-"colors."
+"See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
 "להציג גם את בורר הצבעים לשמות צבעים מוכרים (למשל: תכול שמיים).\n"
 "בכתובת https://www.w3.org/TR/SVG11/types.html#ColorKeywords מופיעה רשימת "
@@ -79,12 +82,12 @@ msgstr "בורר צבעים"
 msgid "Color Picker Settings"
 msgstr "הגדרות בורר צבעים"
 
-#: katecolorpickerplugin.cpp:255
+#: katecolorpickerplugin.cpp:256
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "בחירת צבע (פלט הקסדצימלי)"
 
-#: katecolorpickerplugin.cpp:258
+#: katecolorpickerplugin.cpp:259
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "הצגת צבע [לקריאה בלבד]"

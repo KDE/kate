@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-17 00:53+0000\n"
+"POT-Creation-Date: 2026-10-19 00:50+0000\n"
 "PO-Revision-Date: 2026-06-22 13:30+0200\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -290,7 +290,7 @@ msgid "Commit Changes"
 msgstr "Änderungen einspielen"
 
 #: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:265
-#: gitwidget.cpp:1090
+#: gitwidget.cpp:1100
 #, kde-format
 msgid "Commit"
 msgstr "Einspielen"
@@ -315,28 +315,28 @@ msgstr "Erweiterte Commit-Beschreibung …"
 msgid "Sign off"
 msgstr "Signieren (Sign off)"
 
-#: gitcommitdialog.cpp:112 gitcommitdialog.cpp:125
+#: gitcommitdialog.cpp:112 gitcommitdialog.cpp:128
 #, kde-format
 msgid "Amend"
 msgstr "Nachbessern"
 
-#: gitcommitdialog.cpp:113 gitwidget.cpp:1043
+#: gitcommitdialog.cpp:113 gitwidget.cpp:1053
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Letzten Commit ändern"
 
-#: gitcommitdialog.cpp:124
+#: gitcommitdialog.cpp:127
 #, kde-format
 msgid "Amending Commit"
 msgstr "Letzter Commit wird geändert"
 
-#: gitcommitdialog.cpp:207
+#: gitcommitdialog.cpp:210
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
 msgstr "%1 / 52"
 
-#: gitcommitdialog.cpp:211
+#: gitcommitdialog.cpp:214
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
@@ -399,305 +399,307 @@ msgstr ""
 "„.git“-Ordner für „%1“ kann nicht gefunden werden, manches wird "
 "möglicherweise nicht richtig funktionieren"
 
-#: gitwidget.cpp:640
+#: gitwidget.cpp:593
+#, fuzzy, kde-format
+#| msgid "Failed to get stash list. Error: "
+msgid "Failed to get the git status"
+msgstr ""
+"Die Liste der Einträge im Zwischenlager kann nicht geholt werden. Fehler: "
+
+#: gitwidget.cpp:652
 #, kde-format
 msgid " error: %1"
 msgstr " Fehler: %1"
 
-#: gitwidget.cpp:646
+#: gitwidget.cpp:658
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "„%1“ wurde erfolgreich ausgeführt: %2"
 
-#: gitwidget.cpp:666
+#: gitwidget.cpp:678
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Zum Commit vormerken fehlgeschlagen. Fehler:"
 
-#: gitwidget.cpp:679
+#: gitwidget.cpp:691
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Entfernen aus der Vormerkung zum Commit fehlgeschlagen. Fehler:"
 
-#: gitwidget.cpp:690
+#: gitwidget.cpp:702
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Die Änderungen können nicht verworfen werden. Fehler:"
 
-#: gitwidget.cpp:701
+#: gitwidget.cpp:713
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Das Entfernen ist fehlgeschlagen, die Fehlermeldung lautet:"
 
-#: gitwidget.cpp:717
+#: gitwidget.cpp:728
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Die Datei kann nicht an der HEAD-Position geöffnet werden: %1"
 
-#: gitwidget.cpp:751
+#: gitwidget.cpp:761
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Ermitteln des Diffs fehlgeschlagen: %1"
 
-#: gitwidget.cpp:820
+#: gitwidget.cpp:830
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Commit fehlgeschlagen: %1"
 
-#: gitwidget.cpp:824
+#: gitwidget.cpp:834
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Änderungen erfolgreich ins Quelltext-Archiv eingetragen"
 
-#: gitwidget.cpp:834
+#: gitwidget.cpp:844
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr ""
 "Nichts zum Commit vorgemerkt, bitte zuerst Änderungen vormerken („git "
 "add …“)."
 
-#: gitwidget.cpp:848
+#: gitwidget.cpp:858
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Die Commit-Nachricht darf nicht leer sein."
 
-#: gitwidget.cpp:979
+#: gitwidget.cpp:989
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Kein Diff für %1...%2"
 
-#: gitwidget.cpp:985
+#: gitwidget.cpp:995
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Fehler beim Vergleich von %1...%2"
 
-#: gitwidget.cpp:1000
+#: gitwidget.cpp:1010
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "Fehler beim Ermitteln der numstats des Vergleichs von %1...%2"
 
-#: gitwidget.cpp:1035
+#: gitwidget.cpp:1045
 #, kde-format
 msgid "Refresh"
 msgstr "Aktualisieren"
 
-#: gitwidget.cpp:1052
+#: gitwidget.cpp:1062
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Branch wechseln"
 
-#: gitwidget.cpp:1064
+#: gitwidget.cpp:1074
 #, kde-format
 msgid "Delete Branch"
 msgstr "Branch löschen"
 
-#: gitwidget.cpp:1078
+#: gitwidget.cpp:1088
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Branch vergleichen mit …"
 
-#: gitwidget.cpp:1084
+#: gitwidget.cpp:1094
 #, kde-format
 msgid "Show Commit"
 msgstr "Commit anzeigen"
 
-#: gitwidget.cpp:1102
+#: gitwidget.cpp:1112
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Letzten Commit anzeigen"
 
-#: gitwidget.cpp:1120
+#: gitwidget.cpp:1130
 #, kde-format
 msgid "Open Commit..."
 msgstr "Commit öffnen …"
 
-#: gitwidget.cpp:1123 gitwidget.cpp:1171
+#: gitwidget.cpp:1133 gitwidget.cpp:1167
 #, kde-format
 msgid "Stash"
 msgstr "Zwischenlagern (stash)"
 
-#: gitwidget.cpp:1127
+#: gitwidget.cpp:1137
 #, kde-format
 msgid "Show history"
 msgstr "Verlauf anzeigen"
 
-#: gitwidget.cpp:1139
-#, kde-format
-msgid "Diff - stash"
-msgstr "Vergleich – Zwischenlager (stash)"
-
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1171
 #, kde-format
 msgid "Pop Last Stash"
 msgstr ""
 "Änderungen der letzten Zwischenlagerung holen\n"
 "„git stash pop“"
 
-#: gitwidget.cpp:1179
+#: gitwidget.cpp:1175
 #, kde-format
 msgid "Pop Stash"
 msgstr ""
 "Änderungen einer bestimmten Zwischenlagerung holen\n"
 "„git stash pop …“"
 
-#: gitwidget.cpp:1183
+#: gitwidget.cpp:1179
 #, kde-format
 msgid "Apply Last Stash"
 msgstr ""
 "Änderungen der letzten Zwischenlagerung holen und anwenden\n"
 "„git stash apply“"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1181
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Änderungen zwischenlagern (vorgemerkt lassen)"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1185
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Änderungen (inklusive unversionierter) zwischenlagern"
 
-#: gitwidget.cpp:1193
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Apply Stash"
 msgstr ""
 "Änderungen einer bestimmten Zwischenlagerung holen und anwenden\n"
 "„git stash apply …“"
 
-#: gitwidget.cpp:1194
+#: gitwidget.cpp:1190
 #, kde-format
 msgid "Drop Stash"
 msgstr ""
 "Einen Eintrag aus dem Zwischenlager löschen\n"
 "„git stash drop …“"
 
-#: gitwidget.cpp:1198
+#: gitwidget.cpp:1194
 #, kde-format
 msgid "Show Stash"
 msgstr "Stash anzeigen"
 
-#: gitwidget.cpp:1202
+#: gitwidget.cpp:1198
 #, kde-format
 msgid "Show Stash Diff"
 msgstr "Unterschiede zum Stash anzeigen"
 
-#: gitwidget.cpp:1240
+#: gitwidget.cpp:1236
 #, kde-format
 msgid "Stage All"
 msgstr "Alle zum Commit vormerken"
 
-#: gitwidget.cpp:1242
+#: gitwidget.cpp:1238
 #, kde-format
 msgid "Remove All"
 msgstr "Alle entfernen"
 
-#: gitwidget.cpp:1242
+#: gitwidget.cpp:1238
 #, kde-format
 msgid "Discard All"
 msgstr "Alle verwerfen"
 
-#: gitwidget.cpp:1245
+#: gitwidget.cpp:1241
 #, kde-format
 msgid "Open .gitignore"
 msgstr ".gitignore öffnen"
 
-#: gitwidget.cpp:1246 gitwidget.cpp:1295 gitwidget.cpp:1346
+#: gitwidget.cpp:1242 gitwidget.cpp:1291 gitwidget.cpp:1342
 #: kateprojectconfigpage.cpp:128 kateprojectconfigpage.cpp:140
 #, kde-format
 msgid "Show Diff"
 msgstr "Diff anzeigen"
 
-#: gitwidget.cpp:1263
-#, kde-format
-msgid "Are you sure you want to remove these files?"
-msgstr "Möchten Sie diese Dateien wirklich entfernen?"
-
-#: gitwidget.cpp:1268
+#: gitwidget.cpp:1259
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Möchten Sie alle Änderungen wirklich verwerfen?"
 
-#: gitwidget.cpp:1286
+#: gitwidget.cpp:1264
+#, kde-format
+msgid "Are you sure you want to remove these files?"
+msgstr "Möchten Sie diese Dateien wirklich entfernen?"
+
+#: gitwidget.cpp:1282
 #, kde-format
 msgid "Open File"
 msgstr "Datei öffnen"
 
-#: gitwidget.cpp:1287
+#: gitwidget.cpp:1283
 #, kde-format
 msgid "Unstage File"
 msgstr "Datei aus der Vormerkung entfernen"
 
-#: gitwidget.cpp:1287
+#: gitwidget.cpp:1283
 #, kde-format
 msgid "Stage File"
 msgstr "Datei zum Commit vormerken"
 
-#: gitwidget.cpp:1288
+#: gitwidget.cpp:1284
 #, kde-format
 msgid "Remove"
 msgstr "Entfernen"
 
-#: gitwidget.cpp:1288
+#: gitwidget.cpp:1284
 #, kde-format
 msgid "Discard"
 msgstr "Verwerfen"
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1292
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "In externem Diff-Programm anzeigen"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1293
 #, kde-format
 msgid "Open at HEAD"
 msgstr "An der HEAD-Position öffnen"
 
-#: gitwidget.cpp:1301
+#: gitwidget.cpp:1297
 #, kde-format
 msgid "Show History"
 msgstr "Verlauf anzeigen"
 
-#: gitwidget.cpp:1317
+#: gitwidget.cpp:1313
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Möchten Sie die Änderungen an dieser Datei wirklich verwerfen?"
 
-#: gitwidget.cpp:1328
+#: gitwidget.cpp:1324
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Möchten Sie diese Datei wirklich entfernen?"
 
-#: gitwidget.cpp:1345
+#: gitwidget.cpp:1341
 #, kde-format
 msgid "Unstage All"
 msgstr "Alle aus der Vormerkung entfernen"
 
-#: gitwidget.cpp:1412
+#: gitwidget.cpp:1408
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Ausgewählte Dateien aus der Vormerkung entfernen"
 
-#: gitwidget.cpp:1412
+#: gitwidget.cpp:1408
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Ausgewählte Dateien zum Commit vormerken"
 
-#: gitwidget.cpp:1413
+#: gitwidget.cpp:1409
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Ausgewählte Dateien verwerfen"
 
-#: gitwidget.cpp:1417
+#: gitwidget.cpp:1413
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Ausgewählte Dateien entfernen"
 
-#: gitwidget.cpp:1430
+#: gitwidget.cpp:1426
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Möchten Sie die Änderungen wirklich verwerfen?"
 
-#: gitwidget.cpp:1435
+#: gitwidget.cpp:1431
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
@@ -1370,7 +1372,7 @@ msgstr "Kein Befehl eingegeben"
 msgid "Project Command"
 msgstr "Projektbefehl"
 
-#: stashdialog.cpp:36
+#: stashdialog.cpp:40
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
@@ -1378,65 +1380,81 @@ msgstr ""
 "„Esc“ → verlassen."
 
 # Kein Platz für lange Texte!
-#: stashdialog.cpp:44
+#: stashdialog.cpp:48
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
 "Texteingabe → filtern, Eingabetaste → aus dem Zwischenlager holen, „Esc“ → "
 "verlassen."
 
-#: stashdialog.cpp:147
+#: stashdialog.cpp:142 stashdialog.cpp:204
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgid "Failed to run git: %1"
+msgstr "Commit fehlgeschlagen: %1"
+
+#: stashdialog.cpp:168
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Die Änderungen können nicht ins Zwischenlager geschrieben werden %1"
 
-#: stashdialog.cpp:149
+#: stashdialog.cpp:170
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Die Änderungen wurden erfolgreich ins Zwischenlager geschrieben."
 
-#: stashdialog.cpp:168
+#: stashdialog.cpp:189
+#, kde-format
+msgid "Loading..."
+msgstr ""
+
+#: stashdialog.cpp:198
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr ""
 "Die Liste der Einträge im Zwischenlager kann nicht geholt werden. Fehler: "
 
-#: stashdialog.cpp:184
+#: stashdialog.cpp:224
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr ""
 "Die Änderungen aus dem Zwischenlager können nicht angewandt werden. Fehler: "
 
-#: stashdialog.cpp:186
+#: stashdialog.cpp:226
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Der Eintrag im Zwischenlager kann nicht gelöscht werden. Fehler: "
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:228
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr ""
 "Die Änderungen aus dem Zwischenlager können nicht geholt werden. Fehler: "
 
-#: stashdialog.cpp:192
+#: stashdialog.cpp:232
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Die Änderungen aus dem Zwischenlager wurden erfolgreich angewendet."
 
-#: stashdialog.cpp:194
+#: stashdialog.cpp:234
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Der Eintrag wurde erfolgreich aus dem Zwischenlager gelöscht."
 
-#: stashdialog.cpp:196
+#: stashdialog.cpp:236
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Die Änderungen wurden erfolgreich aus dem Zwischenlager geholt."
 
-#: stashdialog.cpp:225
+#: stashdialog.cpp:266
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Anzeigen von Stash fehlgeschlagen. Fehler: "
+
+#: stashdialog.cpp:269
+#, kde-format
+msgid "Diff - stash"
+msgstr "Vergleich – Zwischenlager (stash)"
 
 #: tools/clazy.h:25
 #, kde-format

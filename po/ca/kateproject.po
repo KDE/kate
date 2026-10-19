@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-17 00:53+0000\n"
+"POT-Creation-Date: 2026-10-19 00:50+0000\n"
 "PO-Revision-Date: 2026-10-17 08:15+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -297,7 +297,7 @@ msgid "Commit Changes"
 msgstr "Comet els canvis"
 
 #: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:265
-#: gitwidget.cpp:1090
+#: gitwidget.cpp:1100
 #, kde-format
 msgid "Commit"
 msgstr "Comet"
@@ -322,28 +322,28 @@ msgstr "Descripció ampliada de la comissió..."
 msgid "Sign off"
 msgstr "Tanca la sessió"
 
-#: gitcommitdialog.cpp:112 gitcommitdialog.cpp:125
+#: gitcommitdialog.cpp:112 gitcommitdialog.cpp:128
 #, kde-format
 msgid "Amend"
 msgstr "Esmena"
 
-#: gitcommitdialog.cpp:113 gitwidget.cpp:1043
+#: gitcommitdialog.cpp:113 gitwidget.cpp:1053
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Esmena de la darrera comissió"
 
-#: gitcommitdialog.cpp:124
+#: gitcommitdialog.cpp:127
 #, kde-format
 msgid "Amending Commit"
 msgstr "Esmena la comissió"
 
-#: gitcommitdialog.cpp:207
+#: gitcommitdialog.cpp:210
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
 msgstr "%1 / 52"
 
-#: gitcommitdialog.cpp:211
+#: gitcommitdialog.cpp:214
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
@@ -406,294 +406,295 @@ msgstr ""
 "Ha fallat en trobar el directori «.git» per a «%1», potser hi haurà quelcom "
 "que no funcioni correctament"
 
-#: gitwidget.cpp:640
+#: gitwidget.cpp:593
+#, fuzzy, kde-format
+#| msgid "Failed to get stash list. Error: "
+msgid "Failed to get the git status"
+msgstr "Ha fallat en obtenir la llista de modificacions temporals. Error: "
+
+#: gitwidget.cpp:652
 #, kde-format
 msgid " error: %1"
 msgstr " error: %1"
 
-#: gitwidget.cpp:646
+#: gitwidget.cpp:658
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "«%1» s'ha executat correctament: %2"
 
-#: gitwidget.cpp:666
+#: gitwidget.cpp:678
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Ha fallat en marcar el fitxer. Error:"
 
-#: gitwidget.cpp:679
+#: gitwidget.cpp:691
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Ha fallat en desmarcar el fitxer. Error:"
 
-#: gitwidget.cpp:690
+#: gitwidget.cpp:702
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Ha fallat en descartar els canvis. Error:"
 
-#: gitwidget.cpp:701
+#: gitwidget.cpp:713
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Ha fallat en eliminar. Error:"
 
-#: gitwidget.cpp:717
+#: gitwidget.cpp:728
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Ha fallat en obrir el fitxer a HEAD: %1"
 
-#: gitwidget.cpp:751
+#: gitwidget.cpp:761
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Ha fallat en obtenir el «diff» del fitxer: %1"
 
-#: gitwidget.cpp:820
+#: gitwidget.cpp:830
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Ha fallat en cometre: %1"
 
-#: gitwidget.cpp:824
+#: gitwidget.cpp:834
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Els canvis s'han comès correctament."
 
-#: gitwidget.cpp:834
+#: gitwidget.cpp:844
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "No hi ha res a cometre. Primer, marqueu els vostres canvis."
 
-#: gitwidget.cpp:848
+#: gitwidget.cpp:858
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "El missatge de comissió no pot estar buit."
 
-#: gitwidget.cpp:979
+#: gitwidget.cpp:989
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "No hi ha «diff» per a %1...%2"
 
-#: gitwidget.cpp:985
+#: gitwidget.cpp:995
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Ha fallat en comparar %1...%2"
 
-#: gitwidget.cpp:1000
+#: gitwidget.cpp:1010
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "Ha fallat en obtenir el número d'estat en diferenciar %1...%2"
 
-#: gitwidget.cpp:1035
+#: gitwidget.cpp:1045
 #, kde-format
 msgid "Refresh"
 msgstr "Actualitza"
 
-#: gitwidget.cpp:1052
+#: gitwidget.cpp:1062
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Extreu la branca"
 
-#: gitwidget.cpp:1064
+#: gitwidget.cpp:1074
 #, kde-format
 msgid "Delete Branch"
 msgstr "Suprimeix la branca"
 
-#: gitwidget.cpp:1078
+#: gitwidget.cpp:1088
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Compara la branca amb..."
 
-#: gitwidget.cpp:1084
+#: gitwidget.cpp:1094
 #, kde-format
 msgid "Show Commit"
 msgstr "Mostra les comissions"
 
-#: gitwidget.cpp:1102
+#: gitwidget.cpp:1112
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Mostra la darrera comissió"
 
-#: gitwidget.cpp:1120
+#: gitwidget.cpp:1130
 #, kde-format
 msgid "Open Commit..."
 msgstr "Obre una comissió..."
 
-#: gitwidget.cpp:1123 gitwidget.cpp:1171
+#: gitwidget.cpp:1133 gitwidget.cpp:1167
 #, kde-format
 msgid "Stash"
 msgstr "Modificació temporal"
 
-#: gitwidget.cpp:1127
+#: gitwidget.cpp:1137
 #, kde-format
 msgid "Show history"
 msgstr "Mostra l'historial"
 
-#: gitwidget.cpp:1139
-#, kde-format
-msgid "Diff - stash"
-msgstr "Diff - modificació temporal"
-
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1171
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Aplica («pop») la darrera modificació temporal"
 
-#: gitwidget.cpp:1179
+#: gitwidget.cpp:1175
 #, kde-format
 msgid "Pop Stash"
 msgstr "Aplica («Pop») una modificació temporal"
 
-#: gitwidget.cpp:1183
+#: gitwidget.cpp:1179
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Aplica la darrera modificació temporal"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1181
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Modificació temporal (mantén marcada)"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1185
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Modificació temporal (inclou les no seguides)"
 
-#: gitwidget.cpp:1193
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Apply Stash"
 msgstr "Aplica la modificació temporal"
 
-#: gitwidget.cpp:1194
+#: gitwidget.cpp:1190
 #, kde-format
 msgid "Drop Stash"
 msgstr "Llença la modificació temporal"
 
-#: gitwidget.cpp:1198
+#: gitwidget.cpp:1194
 #, kde-format
 msgid "Show Stash"
 msgstr "Mostra una modificació temporal («Stash»)"
 
-#: gitwidget.cpp:1202
+#: gitwidget.cpp:1198
 #, kde-format
 msgid "Show Stash Diff"
 msgstr "Mostra el «diff» d'una modificació temporal"
 
-#: gitwidget.cpp:1240
+#: gitwidget.cpp:1236
 #, kde-format
 msgid "Stage All"
 msgstr "Marca-ho tot"
 
-#: gitwidget.cpp:1242
+#: gitwidget.cpp:1238
 #, kde-format
 msgid "Remove All"
 msgstr "Elimina-ho tot"
 
-#: gitwidget.cpp:1242
+#: gitwidget.cpp:1238
 #, kde-format
 msgid "Discard All"
 msgstr "Descarta-ho tot"
 
 # skip-rule: t-sp_pu
-#: gitwidget.cpp:1245
+#: gitwidget.cpp:1241
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Obre el .gitignore"
 
-#: gitwidget.cpp:1246 gitwidget.cpp:1295 gitwidget.cpp:1346
+#: gitwidget.cpp:1242 gitwidget.cpp:1291 gitwidget.cpp:1342
 #: kateprojectconfigpage.cpp:128 kateprojectconfigpage.cpp:140
 #, kde-format
 msgid "Show Diff"
 msgstr "Mostra el «diff»"
 
-#: gitwidget.cpp:1263
-#, kde-format
-msgid "Are you sure you want to remove these files?"
-msgstr "Esteu segur que voleu eliminar aquests fitxers?"
-
-#: gitwidget.cpp:1268
+#: gitwidget.cpp:1259
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Esteu segur de voler descartar tots els canvis?"
 
-#: gitwidget.cpp:1286
+#: gitwidget.cpp:1264
+#, kde-format
+msgid "Are you sure you want to remove these files?"
+msgstr "Esteu segur que voleu eliminar aquests fitxers?"
+
+#: gitwidget.cpp:1282
 #, kde-format
 msgid "Open File"
 msgstr "Obre un fitxer"
 
-#: gitwidget.cpp:1287
+#: gitwidget.cpp:1283
 #, kde-format
 msgid "Unstage File"
 msgstr "Desmarca el fitxer"
 
-#: gitwidget.cpp:1287
+#: gitwidget.cpp:1283
 #, kde-format
 msgid "Stage File"
 msgstr "Marca el fitxer"
 
-#: gitwidget.cpp:1288
+#: gitwidget.cpp:1284
 #, kde-format
 msgid "Remove"
 msgstr "Elimina"
 
-#: gitwidget.cpp:1288
+#: gitwidget.cpp:1284
 #, kde-format
 msgid "Discard"
 msgstr "Descarta"
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1292
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Mostra-ho en l'eina de «git diff» externa"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1293
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Obre a HEAD"
 
-#: gitwidget.cpp:1301
+#: gitwidget.cpp:1297
 #, kde-format
 msgid "Show History"
 msgstr "Mostra l'historial"
 
-#: gitwidget.cpp:1317
+#: gitwidget.cpp:1313
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Esteu segur de voler descartar tots els canvis en aquest fitxer?"
 
-#: gitwidget.cpp:1328
+#: gitwidget.cpp:1324
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Esteu segur que voleu eliminar aquest fitxer?"
 
-#: gitwidget.cpp:1345
+#: gitwidget.cpp:1341
 #, kde-format
 msgid "Unstage All"
 msgstr "Desmarca-ho tot"
 
-#: gitwidget.cpp:1412
+#: gitwidget.cpp:1408
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Desmarca els fitxers seleccionats"
 
-#: gitwidget.cpp:1412
+#: gitwidget.cpp:1408
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Marca els fitxers seleccionats"
 
-#: gitwidget.cpp:1413
+#: gitwidget.cpp:1409
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Descarta els fitxers seleccionats"
 
-#: gitwidget.cpp:1417
+#: gitwidget.cpp:1413
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Elimina els fitxers seleccionats"
 
-#: gitwidget.cpp:1430
+#: gitwidget.cpp:1426
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Esteu segur de voler descartar els canvis?"
 
-#: gitwidget.cpp:1435
+#: gitwidget.cpp:1431
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Esteu segur que voleu eliminar aquests canvis sense seguir?"
@@ -1368,69 +1369,85 @@ msgstr "No s'ha proporcionat cap ordre"
 msgid "Project Command"
 msgstr "Ordre del projecte"
 
-#: stashdialog.cpp:36
+#: stashdialog.cpp:40
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
 "Missatge de modificació temporal (opcional). Premeu «Retorn» per a "
 "confirmar, «Esc» per a sortir."
 
-#: stashdialog.cpp:44
+#: stashdialog.cpp:48
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
 "Escriviu per a filtrar, premeu «Retorn» per a aplicar una modificació "
 "temporal, «Esc» per a sortir."
 
-#: stashdialog.cpp:147
+#: stashdialog.cpp:142 stashdialog.cpp:204
+#, fuzzy, kde-format
+#| msgid "Failed to commit: %1"
+msgid "Failed to run git: %1"
+msgstr "Ha fallat en cometre: %1"
+
+#: stashdialog.cpp:168
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Ha fallat en fer dels canvis %1 una modificació temporal"
 
-#: stashdialog.cpp:149
+#: stashdialog.cpp:170
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Els canvis s'han fet modificació temporal correctament."
 
-#: stashdialog.cpp:168
+#: stashdialog.cpp:189
+#, kde-format
+msgid "Loading..."
+msgstr ""
+
+#: stashdialog.cpp:198
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Ha fallat en obtenir la llista de modificacions temporals. Error: "
 
-#: stashdialog.cpp:184
+#: stashdialog.cpp:224
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Ha fallat en aplicar les modificacions temporals. Error: "
 
-#: stashdialog.cpp:186
+#: stashdialog.cpp:226
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Ha fallat en llençar les modificacions temporals. Error: "
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:228
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Ha fallat en aplicar («pop») les modificacions temporals. Error: "
 
-#: stashdialog.cpp:192
+#: stashdialog.cpp:232
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Les modificacions temporals s'han aplicat correctament."
 
-#: stashdialog.cpp:194
+#: stashdialog.cpp:234
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Les modificacions temporals s'han llençat correctament."
 
-#: stashdialog.cpp:196
+#: stashdialog.cpp:236
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Les modificacions temporals s'han aplicat correctament."
 
-#: stashdialog.cpp:225
+#: stashdialog.cpp:266
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Ha fallat en mostrar la modificació temporal. Error: "
+
+#: stashdialog.cpp:269
+#, kde-format
+msgid "Diff - stash"
+msgstr "Diff - modificació temporal"
 
 #: tools/clazy.h:25
 #, kde-format

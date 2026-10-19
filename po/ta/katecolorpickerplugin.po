@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-10-19 00:50+0000\n"
 "PO-Revision-Date: 2022-08-23 21:17+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -23,11 +23,14 @@ msgid "Show preview for known color names"
 msgstr "குறிப்பிட்ட நிறப்பெயர்களுக்கான முன்னோட்டத்தைக் காட்டு"
 
 #: colorpickerconfigpage.cpp:36
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "Also show the color picker for known color names (e.g. skyblue).\n"
+#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
+#| "colors."
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
-"See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-"colors."
+"See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
 "குறிப்பிட்ட நிறப்பெயர்களுக்கு (எ.கா. skyblue) நிறத்தேர்வியைக் காட்டும்.\n"
 "நிறங்களின் பட்டியலைக் காண https://www.w3.org/TR/SVG11/types.html#ColorKeywords "
@@ -78,12 +81,12 @@ msgstr "நிறத் தேர்வி"
 msgid "Color Picker Settings"
 msgstr "நிறத் தேர்விக்கான அமைப்புகள்"
 
-#: katecolorpickerplugin.cpp:255
+#: katecolorpickerplugin.cpp:256
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "நிறத்தைத் தேர்ந்தெடுங்கள் (பதின‍றும எண் கிடைக்கும்)"
 
-#: katecolorpickerplugin.cpp:258
+#: katecolorpickerplugin.cpp:259
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "நிறத்தைப் பார் (படித்தல் மட்டும்)"

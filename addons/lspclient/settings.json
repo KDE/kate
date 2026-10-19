@@ -65,7 +65,12 @@
             "url": "https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec",
             "highlightingModeRegex": "^Dart$",
             "useWorkspace": true,
-            "rootIndicationFileNames": ["pubspec.yaml", "pubspec.lock"]
+            "rootIndicationFileNames": ["pubspec.yaml", "pubspec.lock"],
+            "settings": {
+                "dart": {
+                    "analysisExcludedFolders": ["%{ENV:HOME}/flutter"]
+                }
+            }
         },
         "debputy": {
             "command": ["debputy", "lsp", "server"],

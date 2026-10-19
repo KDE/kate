@@ -372,8 +372,10 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
 
     // update session name and sync
     const auto oldName = session->name();
+    const auto oldFile = session->file();
     session->setName(newName);
     session->setFile(newFile);
+    KateStashManager::moveStashForSession(session, oldFile);
     session->config()->sync();
 
     // ensure session list is updated

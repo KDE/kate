@@ -15,6 +15,13 @@
 #include <QFileInfo>
 #include <QUrl>
 
+// the stash directory of a session is named after its session file
+static QString stashPath(const QString &sessionFile)
+{
+    const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    return QStringLiteral("%1/stash/%2").arg(appDataPath, QFileInfo(sessionFile).fileName());
+}
+
 void KateStashManager::clearStashForSession(const KateSession::Ptr &session)
 {
     // we should avoid to kill stuff for these, they can't be stashed
@@ -22,14 +29,36 @@ void KateStashManager::clearStashForSession(const KateSession::Ptr &session)
         return;
     }
 
-    const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    QDir dir(appDataPath);
-    if (dir.exists(QStringLiteral("stash"))) {
-        dir.cd(QStringLiteral("stash"));
-        const QString stashName = QFileInfo(session->file()).fileName();
-        if (dir.exists(stashName)) {
-            dir.cd(stashName);
-            dir.removeRecursively();
+    QDir(stashPath(session->file())).removeRecursively();
+}
+
+void KateStashManager::moveStashForSession(const KateSession::Ptr &session, const QString &oldSessionFile)
+{
+    if (session->isAnonymous() || session->file().isEmpty() || oldSessionFile.isEmpty()) {
+        return;
+    }
+
+    const QString oldPath = stashPath(oldSessionFile);
+    const QString newPath = stashPath(session->file());
+    if (oldPath == newPath || !QDir(oldPath).exists()) {
+        return;
+    }
+
+    // a left over stash of an older session with the new name is of no use
+    QDir(newPath).removeRecursively();
+    if (!QDir().rename(oldPath, newPath)) {
+        qCWarning(LOG_KATE, "Could not move the stash %ls to %ls", qUtf16Printable(oldPath), qUtf16Printable(newPath));
+        return;
+    }
+
+    // the session refers to the stash files with their absolute path
+    KConfig *config = session->config();
+    const auto groups = config->groupList();
+    for (const auto &group : groups) {
+        KConfigGroup cg(config, group);
+        const QString stashedFile = cg.readEntry("stashedFile");
+        if (stashedFile.startsWith(oldPath + u'/')) {
+            cg.writeEntry("stashedFile", QString(newPath + stashedFile.mid(oldPath.size())));
         }
     }
 }
@@ -42,9 +71,7 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
     qCDebug(LOG_KATE, "%s", __func__);
 
     // prepare stash directory, create it recursively if needed
-    const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    const QString stashName = QFileInfo(KateApp::self()->sessionManager()->activeSession()->file()).fileName();
-    const QString path = QStringLiteral("%1/stash/%2").arg(appDataPath, stashName);
+    const QString path = stashPath(KateApp::self()->sessionManager()->activeSession()->file());
     QDir().mkpath(path);
 
     // forget documents that are gone

@@ -40,6 +40,9 @@ public:
 
     static void clearStashForSession(const KateSession::Ptr &session);
 
+    // move the stash of a renamed session, the session already uses its new file
+    static void moveStashForSession(const KateSession::Ptr &session, const QString &oldSessionFile);
+
 private:
     struct StashedDocument {
         QPointer<KTextEditor::Document> doc;

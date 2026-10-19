@@ -158,3 +158,35 @@ void KateSessionManagerTest::deleteSessionRemovesStash()
     QVERIFY(m_manager->deleteSession(s));
     QVERIFY(!QDir(stashPath).exists());
 }
+
+void KateSessionManagerTest::renameSessionMovesStash()
+{
+    m_manager->activateSession(QStringLiteral("stashBeforeRename"), false, false);
+    KateSession::Ptr s = m_manager->activeSession();
+
+    // the stash of the session, see KateStashManager::stashDocuments
+    const auto stashPath = [](const KateSession::Ptr &session) {
+        return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/stash/") + QFileInfo(session->file()).fileName();
+    };
+    const QString oldStashPath = stashPath(s);
+    QVERIFY(QDir().mkpath(oldStashPath));
+    QFile stashFile(oldStashPath + QStringLiteral("/Document 0"));
+    QVERIFY(stashFile.open(QIODevice::WriteOnly));
+    stashFile.write("unsaved\n");
+    stashFile.close();
+    KConfigGroup(s->config(), QStringLiteral("Document 0")).writeEntry("stashedFile", stashFile.fileName());
+    s->config()->sync();
+
+    QCOMPARE(m_manager->renameSession(s, QStringLiteral("stashAfterRename")), QStringLiteral("stashAfterRename"));
+
+    // the stash moved with the session, and the session refers to the moved files
+    const QString newStashPath = stashPath(s);
+    QVERIFY(newStashPath != oldStashPath);
+    QVERIFY(!QDir(oldStashPath).exists());
+    QVERIFY(QFile::exists(newStashPath + QStringLiteral("/Document 0")));
+    QCOMPARE(KConfigGroup(s->config(), QStringLiteral("Document 0")).readEntry("stashedFile"), newStashPath + QStringLiteral("/Document 0"));
+
+    QVERIFY(m_manager->activateAnonymousSession());
+    QVERIFY(m_manager->deleteSession(s));
+    QVERIFY(!QDir(newStashPath).exists());
+}

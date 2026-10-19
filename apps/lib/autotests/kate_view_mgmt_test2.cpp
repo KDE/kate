@@ -66,6 +66,8 @@ private Q_SLOTS:
     void testStashSkipsUnchangedDocuments();
     void testStashKeepsEncoding();
     void testStashFilesOfClosedDocumentsAreRemoved();
+    void testWhatIsNotStashed_data();
+    void testWhatIsNotStashed();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -1106,6 +1108,80 @@ void KateViewManagementTest2::testStashFilesOfClosedDocumentsAreRemoved()
     QCOMPARE(stashDir.entryList(QDir::Files).size(), 1);
     QVERIFY(!docGroup(docs[0]).hasKey("stashedFile"));
     QCOMPARE(read(docGroup(docs[1]).readEntry("stashedFile")), QStringLiteral("unsaved c.txt\n"));
+}
+
+void KateViewManagementTest2::testWhatIsNotStashed_data()
+{
+    QTest::addColumn<bool>("anonymousSession");
+    QTest::addColumn<bool>("inTempDir");
+    QTest::addColumn<QString>("text");
+    QTest::addColumn<bool>("stashed");
+
+    // an untitled document with text in a named session is stashed, the others aren't
+    QTest::newRow("untitled document") << false << false << QStringLiteral("unsaved\n") << true;
+    QTest::newRow("anonymous session") << true << false << QStringLiteral("unsaved\n") << false;
+    QTest::newRow("empty document") << false << false << QString() << false;
+    QTest::newRow("file in the temp dir") << false << true << QStringLiteral("unsaved\n") << false;
+}
+
+// Only non-empty documents in named sessions are stashed, and no files in the temp dir
+void KateViewManagementTest2::testWhatIsNotStashed()
+{
+    QFETCH(bool, anonymousSession);
+    QFETCH(bool, inTempDir);
+    QFETCH(QString, text);
+    QFETCH(bool, stashed);
+
+    // stash everything that can be stashed
+    KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
+    const bool oldStashUnsaved = cgGeneral.readEntry("Stash unsaved file changes", false);
+    const bool oldStashNew = cgGeneral.readEntry("Stash new unsaved files", true);
+    cgGeneral.writeEntry("Stash unsaved file changes", true);
+    cgGeneral.writeEntry("Stash new unsaved files", true);
+    KateApp::self()->stashManager()->stashUnsavedChanges = true;
+    KateApp::self()->stashManager()->stashNewUnsavedFiles = true;
+    auto _ = qScopeGuard([&cgGeneral, oldStashUnsaved, oldStashNew] {
+        cgGeneral.writeEntry("Stash unsaved file changes", oldStashUnsaved);
+        cgGeneral.writeEntry("Stash new unsaved files", oldStashNew);
+        if (KateApp::self() && KateApp::self()->stashManager()) {
+            KateApp::self()->stashManager()->stashUnsavedChanges = oldStashUnsaved;
+            KateApp::self()->stashManager()->stashNewUnsavedFiles = oldStashNew;
+        }
+    });
+
+    if (anonymousSession) {
+        QVERIFY(app->sessionManager()->activateAnonymousSession());
+    } else {
+        app->sessionManager()->activateSession(QStringLiteral("testWhatIsNotStashed"), false, true);
+    }
+    KateMainWindow *mw = app->activeKateMainWindow();
+
+    KTextEditor::View *v = nullptr;
+    QTemporaryDir tempDir; // in QDir::tempPath()
+    if (inTempDir) {
+        QFile file(tempDir.filePath(QStringLiteral("file.txt")));
+        QVERIFY(file.open(QIODevice::WriteOnly));
+        file.write("original\n");
+        file.close();
+        v = mw->openUrl(QUrl::fromLocalFile(file.fileName()));
+    } else {
+        v = mw->viewManager()->createView();
+    }
+    QVERIFY(v);
+    v->document()->setText(text);
+    auto _2 = qScopeGuard([v] {
+        v->document()->setModified(false);
+    });
+
+    QVERIFY(app->sessionManager()->saveActiveSession());
+
+    KConfig *config = app->sessionManager()->activeSession()->config();
+    bool hasStash = false;
+    const auto groups = config->groupList();
+    for (const auto &group : groups) {
+        hasStash = hasStash || KConfigGroup(config, group).hasKey("stashedFile");
+    }
+    QCOMPARE(hasStash, stashed);
 }
 
 QTEST_MAIN(KateViewManagementTest2)

@@ -52,11 +52,14 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
         return !stashed.second.doc;
     });
 
+    // the stash files that are still in use, all others are removed below
+    QStringList usedFiles;
+
     for (int i = 0; i < (int)documents.size(); ++i) {
         auto doc = documents[i];
+        const QString stashfileName = QStringLiteral("Document %1").arg(i);
+        KConfigGroup cg(config, stashfileName);
         if (willStashDoc(doc)) {
-            // stash the file content
-            const QString stashfileName = QStringLiteral("Document %1").arg(i);
             // Stash changes
             QString stashedFile = path + QStringLiteral("/") + stashfileName;
 
@@ -80,18 +83,33 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
                 if (!tmpDoc->saveAs(QUrl::fromLocalFile(stashedFile))) {
                     qCWarning(LOG_KATE, "Could not write to stash file %ls", qUtf16Printable(stashedFile));
                     m_stashedDocuments.erase(doc);
+                    cg.deleteEntry("stashedFile");
+                    cg.deleteEntry("checksum");
                     continue;
                 }
                 m_stashedDocuments[doc] = {.doc = doc, .file = stashedFile, .revision = doc->revision()};
             }
 
-            KConfigGroup cg(config, stashfileName);
             // write stash metadata to config
             cg.writeEntry("stashedFile", stashedFile);
             if (doc->url().isValid()) {
                 // save checksum for already-saved documents
                 cg.writeEntry("checksum", doc->checksum().toHex());
             }
+            usedFiles.push_back(stashfileName);
+        } else {
+            // not stashed (anymore): the session must not refer to an old stash file
+            cg.deleteEntry("stashedFile");
+            cg.deleteEntry("checksum");
+        }
+    }
+
+    // remove the stash files of documents that were closed, saved or moved meanwhile
+    QDir stashDir(path);
+    const auto files = stashDir.entryList(QDir::Files);
+    for (const auto &file : files) {
+        if (!usedFiles.contains(file)) {
+            stashDir.remove(file);
         }
     }
 }
@@ -132,6 +150,12 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
     // read metadata
     const auto stashedFile = kconfig.readEntry("stashedFile");
     const auto url = QUrl(kconfig.readEntry("URL"));
+
+    // the stash file is gone, keep the document as it is
+    if (!QFile::exists(stashedFile)) {
+        qCWarning(LOG_KATE, "Stash file %ls does not exist", qUtf16Printable(stashedFile));
+        return;
+    }
 
     bool checksumOk = true;
     if (url.isValid()) {

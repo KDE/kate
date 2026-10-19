@@ -65,6 +65,7 @@ private Q_SLOTS:
     void testUnsavedChangesRestoredFromOldStashFormat();
     void testStashSkipsUnchangedDocuments();
     void testStashKeepsEncoding();
+    void testStashFilesOfClosedDocumentsAreRemoved();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -1029,6 +1030,82 @@ void KateViewManagementTest2::testStashKeepsEncoding()
     QCOMPARE(doc->encoding(), QStringLiteral("ISO-8859-15"));
     QCOMPARE(doc->text(), text);
     doc->setModified(false);
+}
+
+// Stash files of documents that are closed or not modified anymore must be removed
+void KateViewManagementTest2::testStashFilesOfClosedDocumentsAreRemoved()
+{
+    KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
+    const bool oldStashUnsaved = cgGeneral.readEntry("Stash unsaved file changes", false);
+    cgGeneral.writeEntry("Stash unsaved file changes", true);
+    KateApp::self()->stashManager()->stashUnsavedChanges = true;
+    auto _ = qScopeGuard([&cgGeneral, oldStashUnsaved] {
+        cgGeneral.writeEntry("Stash unsaved file changes", oldStashUnsaved);
+        if (KateApp::self() && KateApp::self()->stashManager()) {
+            KateApp::self()->stashManager()->stashUnsavedChanges = oldStashUnsaved;
+        }
+    });
+
+    // Create the files outside QDir::tempPath() so willStashDoc does not reject them as temp
+    QTemporaryDir testDir(QDir::currentPath() + QStringLiteral("/kate_stash_test_XXXXXX"));
+    QVERIFY(testDir.isValid());
+
+    app->sessionManager()->activateSession(QStringLiteral("testStashFilesOfClosedDocumentsAreRemoved"), false, true);
+    KConfig *config = app->sessionManager()->activeSession()->config();
+    KateMainWindow *mw = app->activeKateMainWindow();
+
+    QList<KTextEditor::Document *> docs;
+    for (const auto &name : {QStringLiteral("a.txt"), QStringLiteral("b.txt"), QStringLiteral("c.txt")}) {
+        QFile file(testDir.filePath(name));
+        QVERIFY(file.open(QIODevice::WriteOnly));
+        file.write("original\n");
+        file.close();
+        auto v = mw->openUrl(QUrl::fromLocalFile(file.fileName()));
+        QVERIFY(v);
+        v->document()->setText(QStringLiteral("unsaved %1\n").arg(name));
+        docs.push_back(v->document());
+    }
+    auto _2 = qScopeGuard([&docs] {
+        for (auto doc : std::as_const(docs)) {
+            doc->setModified(false);
+        }
+    });
+
+    // the group of a document in the session config, only the ones of open documents are used on restore
+    const auto docGroup = [config](KTextEditor::Document *doc) {
+        const int count = KConfigGroup(config, QStringLiteral("Open Documents")).readEntry("Count", 0);
+        for (int i = 0; i < count; ++i) {
+            KConfigGroup group(config, QStringLiteral("Document %1").arg(i));
+            if (group.readEntry("URL") == doc->url().toString()) {
+                return group;
+            }
+        }
+        return KConfigGroup();
+    };
+    const auto read = [](const QString &path) {
+        QFile file(path);
+        return file.open(QIODevice::ReadOnly) ? QString::fromUtf8(file.readAll()) : QString();
+    };
+
+    // autosave, like the timer after opening or closing documents
+    QVERIFY(app->sessionManager()->saveActiveSession(true, true));
+    const QDir stashDir = QFileInfo(docGroup(docs[0]).readEntry("stashedFile")).absoluteDir();
+    QCOMPARE(stashDir.entryList(QDir::Files).size(), 3);
+
+    // a closed document: its stash file is removed, the others are still there
+    docs[0]->setModified(false);
+    QVERIFY(app->documentManager()->closeDocument(docs.takeFirst()));
+    QVERIFY(app->sessionManager()->saveActiveSession(true, true));
+    QCOMPARE(stashDir.entryList(QDir::Files).size(), 2);
+    QCOMPARE(read(docGroup(docs[0]).readEntry("stashedFile")), QStringLiteral("unsaved b.txt\n"));
+    QCOMPARE(read(docGroup(docs[1]).readEntry("stashedFile")), QStringLiteral("unsaved c.txt\n"));
+
+    // a document that isn't stashed anymore, e.g. it was saved: the stash file and the reference are removed
+    docs[0]->setModified(false);
+    QVERIFY(app->sessionManager()->saveActiveSession(true, true));
+    QCOMPARE(stashDir.entryList(QDir::Files).size(), 1);
+    QVERIFY(!docGroup(docs[0]).hasKey("stashedFile"));
+    QCOMPARE(read(docGroup(docs[1]).readEntry("stashedFile")), QStringLiteral("unsaved c.txt\n"));
 }
 
 QTEST_MAIN(KateViewManagementTest2)

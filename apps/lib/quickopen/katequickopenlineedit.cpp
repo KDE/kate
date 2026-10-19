@@ -29,7 +29,8 @@ QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
 
     updatePlaceholderText(m_listMode);
 
-    m_filterMode = (FilterMode)cg.readEntry(CONFIG_QUICKOPEN_FILTERMODE, (int)Fuzzy);
+    // the key was used for other values in the past, ensure we end up with a valid mode
+    m_filterMode = cg.readEntry(CONFIG_QUICKOPEN_FILTERMODE, (int)Fuzzy) == Wildcard ? Wildcard : Fuzzy;
     m_matchFolderNames = cg.readEntry(CONFIG_QUICKOPEN_MATCH_FOLDER_NAMES, false);
 }
 

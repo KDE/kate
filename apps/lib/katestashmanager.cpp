@@ -115,7 +115,9 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
 
     bool checksumOk = true;
     if (url.isValid()) {
-        const QByteArray sum = QByteArray::fromHex(kconfig.readEntry("checksum").toLatin1());
+        // hex encoded, older versions stored the raw bytes of the SHA1
+        const QByteArray storedSum = kconfig.readEntry("checksum", QByteArray());
+        const QByteArray sum = storedSum.size() == 40 ? QByteArray::fromHex(storedSum) : storedSum;
         checksumOk = sum == doc->checksum();
     }
 

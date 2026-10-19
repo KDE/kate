@@ -62,6 +62,7 @@ private Q_SLOTS:
     void testRestoreSidebarWithMissingToolViews();
     void testUnsavedChangesInUnchangedFileRestoredFromStash();
     void testClearingPathSettingDoesNotAddEmptyPathEntry();
+    void testUnsavedChangesRestoredFromOldStashFormat();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -836,6 +837,63 @@ void KateViewManagementTest2::testClearingPathSettingDoesNotAddEmptyPathEntry()
     const QString newPATH = QString::fromUtf8(qgetenv("PATH"));
     QCOMPARE(newPATH, QString::fromUtf8(oldPATH));
     QVERIFY(!newPATH.split(QDir::listSeparator()).contains(QString()));
+}
+
+// Older versions stored the raw bytes of the checksum instead of hex, their stashes
+// must still be restored after an update
+void KateViewManagementTest2::testUnsavedChangesRestoredFromOldStashFormat()
+{
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+    const bool oldStashUnsaved = cgGeneral.readEntry("Stash unsaved file changes", false);
+    cgGeneral.writeEntry("Stash unsaved file changes", true);
+    KateApp::self()->stashManager()->stashUnsavedChanges = true;
+
+    auto _ = qScopeGuard([&cgGeneral, oldStashUnsaved] {
+        cgGeneral.writeEntry("Stash unsaved file changes", oldStashUnsaved);
+        if (KateApp::self() && KateApp::self()->stashManager()) {
+            KateApp::self()->stashManager()->stashUnsavedChanges = oldStashUnsaved;
+        }
+    });
+
+    // Create a temporary file outside QDir::tempPath() so willStashDoc does not reject it as temp
+    QTemporaryDir testDir(QDir::currentPath() + QStringLiteral("/kate_stash_test_XXXXXX"));
+    QVERIFY(testDir.isValid());
+
+    const QString filePath = testDir.filePath(QStringLiteral("testfile.txt"));
+    QFile file(filePath);
+    QVERIFY(file.open(QIODevice::WriteOnly | QIODevice::Text));
+    file.write("Original file content\n");
+    file.close();
+
+    const QString sessionName = QStringLiteral("testUnsavedChangesRestoredFromOldStashFormat");
+    app->sessionManager()->activateSession(sessionName, false, true);
+    KateSession::Ptr session = app->sessionManager()->activeSession();
+    KateMainWindow *mw = app->activeKateMainWindow();
+
+    auto v = mw->openUrl(QUrl::fromLocalFile(filePath));
+    QVERIFY(v);
+    const QByteArray checksum = v->document()->checksum();
+    QVERIFY(!checksum.isEmpty());
+    v->document()->setText(QStringLiteral("Modified unsaved content\n"));
+
+    // switching the session saves it and stashes the changes
+    app->sessionManager()->sessionNew();
+    mw = app->activeKateMainWindow();
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 1);
+
+    // write the checksum like older versions did
+    KConfigGroup stashGroup(session->config(), QStringLiteral("Document 0"));
+    QCOMPARE(stashGroup.readEntry("checksum"), QString::fromLatin1(checksum.toHex()));
+    stashGroup.writeEntry("checksum", checksum);
+    session->config()->sync();
+
+    app->sessionManager()->activateSession(sessionName);
+    mw = app->activeKateMainWindow();
+
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 1);
+    auto docs = mw->viewManager()->activeViewSpace()->documentList();
+    QCOMPARE(docs[0].doc()->text(), QStringLiteral("Modified unsaved content\n"));
 }
 
 QTEST_MAIN(KateViewManagementTest2)

@@ -31,7 +31,6 @@
   #define QAPPLICATION_CLASS QCoreApplication
 #endif
 
-#include <QApplication>
 #include QT_STRINGIFY(QAPPLICATION_CLASS)
 
 class SingleApplicationPrivate;

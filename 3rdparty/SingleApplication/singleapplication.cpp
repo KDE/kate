@@ -21,12 +21,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <QtCore/QDebug>
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QByteArray>
 #include <QtCore/QSharedMemory>
 
+#ifdef Q_OS_UNIX
+#include <signal.h>
+#include <errno.h>
+#endif
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
+
 #include "singleapplication.h"
 #include "singleapplication_p.h"
+
+static bool isProcessRunning( qint64 pid )
+{
+    if ( pid <= 0 )
+        return false;
+
+#ifdef Q_OS_UNIX
+    return kill( static_cast<pid_t>( pid ), 0 ) == 0 || errno != ESRCH;
+#endif
+#ifdef Q_OS_WIN
+    HANDLE hProcess = OpenProcess( PROCESS_QUERY_LIMITED_INFORMATION, FALSE, static_cast<DWORD>( pid ) );
+    if ( hProcess == NULL )
+        return false;
+    DWORD exitCode;
+    bool running = GetExitCodeProcess( hProcess, &exitCode ) && exitCode == STILL_ACTIVE;
+    CloseHandle( hProcess );
+    return running;
+#endif
+}
 
 /**
  * @brief Constructor. Checks and fires up LocalServer or closes the program
@@ -68,7 +96,9 @@ SingleApplication::SingleApplication( int &argc, char *argv[], bool allowSeconda
     // By explicitly attaching it and then deleting it we make sure that the
     // memory is deleted even after the process has crashed on Unix.
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-    d->memory = new QSharedMemory( QNativeIpcKey( d->blockServerName ) );
+    //d->memory = new QSharedMemory( QNativeIpcKey( d->blockServerName ) ); //old implementation
+    // Use legacy (System V) key type as POSIX realtime shm may not work on macOS
+    d->memory = new QSharedMemory( QSharedMemory::legacyNativeKey( d->blockServerName ) );
 #else
     d->memory = new QSharedMemory( d->blockServerName );
 #endif
@@ -77,7 +107,9 @@ SingleApplication::SingleApplication( int &argc, char *argv[], bool allowSeconda
 #endif
     // Guarantee thread safe behaviour with a shared memory block.
 #if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
-    d->memory = new QSharedMemory( QNativeIpcKey( d->blockServerName ) );
+    //d->memory = new QSharedMemory( QNativeIpcKey( d->blockServerName ) ); //old implementation
+    // Use legacy (System V) key type as POSIX realtime shm may not work on macOS
+    d->memory = new QSharedMemory( QSharedMemory::legacyNativeKey( d->blockServerName ) );
 #else
     d->memory = new QSharedMemory( d->blockServerName );
 #endif
@@ -135,6 +167,13 @@ SingleApplication::SingleApplication( int &argc, char *argv[], bool allowSeconda
         qCritical() << "SingleApplication: Unable to lock memory after random wait.";
         abortSafely();
       }
+    }
+
+    // If the recorded primary PID is no longer running (e.g. force-killed),
+    // take over as the primary instance
+    if( inst->primary && !isProcessRunning( inst->primaryPid ) ){
+        qWarning() << "SingleApplication: Primary instance (PID" << inst->primaryPid << ") is no longer running. Taking over.";
+        d->initializeMemoryBlock();
     }
 
     if( inst->primary == false ){

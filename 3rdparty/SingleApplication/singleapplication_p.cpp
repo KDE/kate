@@ -321,7 +321,8 @@ bool SingleApplicationPrivate::writeConfirmedFrame( int msecs, const QByteArray 
     socket->write( msg );
     socket->flush();
 
-    bool result = socket->waitForReadyRead( msecs ); // await ack byte
+    // Clamp negative msecs to -1 (Qt6's "wait forever" sentinel for waitForReadyRead)
+    bool result = socket->waitForReadyRead( msecs < 0 ? -1 : msecs ); // await ack byte
     if (result) {
         socket->read( 1 );
         return true;

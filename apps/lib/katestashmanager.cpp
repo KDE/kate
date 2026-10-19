@@ -67,6 +67,8 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
             if (changed) {
                 // create a temp doc to stash it. We dont want to change the url of the original doc
                 std::unique_ptr<KTextEditor::Document> tmpDoc(KTextEditor::Editor::instance()->createDocument(nullptr));
+                // use the encoding of the document, popDocument reads the stash with it
+                tmpDoc->setEncoding(doc->encoding());
                 tmpDoc->setText(doc->text());
 
                 // the file belongs to this document now

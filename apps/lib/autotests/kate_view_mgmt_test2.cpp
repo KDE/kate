@@ -64,6 +64,7 @@ private Q_SLOTS:
     void testClearingPathSettingDoesNotAddEmptyPathEntry();
     void testUnsavedChangesRestoredFromOldStashFormat();
     void testStashSkipsUnchangedDocuments();
+    void testStashKeepsEncoding();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -981,6 +982,53 @@ void KateViewManagementTest2::testStashSkipsUnchangedDocuments()
     QVERIFY(app->sessionManager()->saveActiveSession());
     QCOMPARE(read(stashedFile(docs[0])), QStringLiteral("changed b.txt\n"));
     QCOMPARE(read(stashedFile(docs[1])), QStringLiteral("unsaved c.txt\n"));
+}
+
+// The stash is read back with the encoding of the document, it must be written with it, too
+void KateViewManagementTest2::testStashKeepsEncoding()
+{
+    KConfigGroup cgGeneral = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
+    const bool oldStashUnsaved = cgGeneral.readEntry("Stash unsaved file changes", false);
+    cgGeneral.writeEntry("Stash unsaved file changes", true);
+    KateApp::self()->stashManager()->stashUnsavedChanges = true;
+    auto _ = qScopeGuard([&cgGeneral, oldStashUnsaved] {
+        cgGeneral.writeEntry("Stash unsaved file changes", oldStashUnsaved);
+        if (KateApp::self() && KateApp::self()->stashManager()) {
+            KateApp::self()->stashManager()->stashUnsavedChanges = oldStashUnsaved;
+        }
+    });
+
+    // Create the file outside QDir::tempPath() so willStashDoc does not reject it as temp
+    QTemporaryDir testDir(QDir::currentPath() + QStringLiteral("/kate_stash_test_XXXXXX"));
+    QVERIFY(testDir.isValid());
+    const QString filePath = testDir.filePath(QStringLiteral("latin.txt"));
+    QFile file(filePath);
+    QVERIFY(file.open(QIODevice::WriteOnly));
+    file.write("Hello\n");
+    file.close();
+
+    const QString sessionName = QStringLiteral("testStashKeepsEncoding");
+    app->sessionManager()->activateSession(sessionName, false, true);
+    KateMainWindow *mw = app->activeKateMainWindow();
+
+    auto v = mw->openUrl(QUrl::fromLocalFile(filePath));
+    QVERIFY(v);
+    QVERIFY(v->document()->setEncoding(QStringLiteral("ISO-8859-15")));
+    const QString text = QStringLiteral("Grüße\n");
+    v->document()->setText(text);
+
+    // switching the session stashes the changes, switching back restores them
+    app->sessionManager()->sessionNew();
+    mw = app->activeKateMainWindow();
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 1);
+
+    app->sessionManager()->activateSession(sessionName);
+    mw = app->activeKateMainWindow();
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 1);
+    auto doc = mw->viewManager()->activeViewSpace()->documentList().constFirst().doc();
+    QCOMPARE(doc->encoding(), QStringLiteral("ISO-8859-15"));
+    QCOMPARE(doc->text(), text);
+    doc->setModified(false);
 }
 
 QTEST_MAIN(KateViewManagementTest2)

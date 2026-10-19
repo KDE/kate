@@ -96,9 +96,7 @@ void KateSessionManageDialog::filterChanged()
 void KateSessionManageDialog::done(int result)
 {
     for (const auto &session : std::as_const(m_deleteList)) {
-        if (KateApp::self()->sessionManager()->deleteSession(session)) {
-            KateApp::self()->stashManager()->clearStashForSession(session);
-        }
+        KateApp::self()->sessionManager()->deleteSession(session);
     }
     m_deleteList.clear(); // May not needed, but anyway
 

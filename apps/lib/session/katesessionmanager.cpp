@@ -12,6 +12,7 @@
 #include "katedebug.h"
 #include "katemainwindow.h"
 #include "katepluginmanager.h"
+#include "katestashmanager.h"
 
 #ifdef WITH_DBUS
 #include "katerunninginstanceinfo.h"
@@ -323,6 +324,7 @@ bool KateSessionManager::deleteSession(KateSession::Ptr session)
     }
 
     QFile::remove(session->file());
+    KateStashManager::clearStashForSession(session);
 
     // ensure session list is updated
     m_sessions.remove(session->name());

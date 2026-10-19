@@ -24,6 +24,7 @@ private Q_SLOTS:
     void urlizeSessionFile();
     void renameSession();
     void renameSessionUpdatesLastSession();
+    void deleteSessionRemovesStash();
 
 private:
     class QTemporaryDir *m_tempdir;

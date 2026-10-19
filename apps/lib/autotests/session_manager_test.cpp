@@ -140,3 +140,21 @@ void KateSessionManagerTest::renameSessionUpdatesLastSession()
 }
 
 #include "moc_session_manager_test.cpp"
+
+void KateSessionManagerTest::deleteSessionRemovesStash()
+{
+    m_manager->activateSession(QStringLiteral("stashed"), false, false);
+    KateSession::Ptr s = m_manager->activeSession();
+
+    // the stash of the session, see KateStashManager::stashDocuments
+    const QString stashPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/stash/") + QFileInfo(s->file()).fileName();
+    QVERIFY(QDir().mkpath(stashPath));
+    QFile stashFile(stashPath + QStringLiteral("/Document 0"));
+    QVERIFY(stashFile.open(QIODevice::WriteOnly));
+    stashFile.write("unsaved\n");
+    stashFile.close();
+
+    QVERIFY(m_manager->activateAnonymousSession());
+    QVERIFY(m_manager->deleteSession(s));
+    QVERIFY(!QDir(stashPath).exists());
+}

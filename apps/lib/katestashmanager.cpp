@@ -34,7 +34,7 @@ void KateStashManager::clearStashForSession(const KateSession::Ptr &session)
     }
 }
 
-void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Document *const> documents) const
+void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Document *const> documents)
 {
     if (!canStash()) {
         return;
@@ -47,6 +47,11 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
     const QString path = QStringLiteral("%1/stash/%2").arg(appDataPath, stashName);
     QDir().mkpath(path);
 
+    // forget documents that are gone
+    std::erase_if(m_stashedDocuments, [](const auto &stashed) {
+        return !stashed.second.doc;
+    });
+
     for (int i = 0; i < (int)documents.size(); ++i) {
         auto doc = documents[i];
         if (willStashDoc(doc)) {
@@ -55,14 +60,27 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
             // Stash changes
             QString stashedFile = path + QStringLiteral("/") + stashfileName;
 
-            // create a temp doc to stash it. We dont want to change the url of the original doc
-            std::unique_ptr<KTextEditor::Document> tmpDoc(KTextEditor::Editor::instance()->createDocument(nullptr));
-            tmpDoc->setText(doc->text());
+            // only write the content if it changed since it was stashed to this file
+            const auto it = m_stashedDocuments.find(doc);
+            const bool changed = it == m_stashedDocuments.end() || it->second.doc != doc || it->second.file != stashedFile
+                || it->second.revision != doc->revision() || !QFile::exists(stashedFile);
+            if (changed) {
+                // create a temp doc to stash it. We dont want to change the url of the original doc
+                std::unique_ptr<KTextEditor::Document> tmpDoc(KTextEditor::Editor::instance()->createDocument(nullptr));
+                tmpDoc->setText(doc->text());
 
-            // save the current document changes to stash
-            if (!tmpDoc->saveAs(QUrl::fromLocalFile(stashedFile))) {
-                qCWarning(LOG_KATE, "Could not write to stash file %ls", qUtf16Printable(stashedFile));
-                continue;
+                // the file belongs to this document now
+                std::erase_if(m_stashedDocuments, [&stashedFile](const auto &stashed) {
+                    return stashed.second.file == stashedFile;
+                });
+
+                // save the current document changes to stash
+                if (!tmpDoc->saveAs(QUrl::fromLocalFile(stashedFile))) {
+                    qCWarning(LOG_KATE, "Could not write to stash file %ls", qUtf16Printable(stashedFile));
+                    m_stashedDocuments.erase(doc);
+                    continue;
+                }
+                m_stashedDocuments[doc] = {.doc = doc, .file = stashedFile, .revision = doc->revision()};
             }
 
             KConfigGroup cg(config, stashfileName);

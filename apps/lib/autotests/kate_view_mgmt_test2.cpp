@@ -14,6 +14,7 @@
 #include <KTextEditor/Editor>
 
 #include <QCommandLineParser>
+#include <QLabel>
 #include <QObject>
 #include <QPointer>
 #include <QScopeGuard>
@@ -47,6 +48,7 @@ private Q_SLOTS:
     void testShowMessageWorks();
     void testPinnedDocs();
     void testNonActivatedViewCursorPositionIsRestored();
+    void testClosingViewSpaceRemovesWidgetsWithoutTab();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -584,6 +586,59 @@ void KateViewManagementTest2::testNonActivatedViewCursorPositionIsRestored()
         QCOMPARE(views[1]->cursorPosition(), KTextEditor::Cursor(7, 2));
         QCOMPARE(views[2]->cursorPosition(), KTextEditor::Cursor(2, 2));
     }
+}
+
+void KateViewManagementTest2::testClosingViewSpaceRemovesWidgetsWithoutTab()
+{
+    // With a tab limit, widgets can be in a view space without having a tab.
+    // Closing the view space deletes them, so widgetRemoved must be emitted for
+    // them, too. Otherwise e.g. the tab switcher keeps dangling pointers, bug 526207
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+    const int oldValue = cgGeneral.readEntry("Tabbar Tab Limit", 0);
+    cgGeneral.writeEntry("Tabbar Tab Limit", 1);
+    auto _ = qScopeGuard([&cgGeneral, oldValue] {
+        cgGeneral.writeEntry("Tabbar Tab Limit", oldValue);
+    });
+
+    app->sessionManager()->activateAnonymousSession();
+    KateMainWindow *mw = app->activeKateMainWindow();
+    auto *vm = mw->viewManager();
+
+    // widgets added - widgets removed, what plugins think is alive
+    QSet<QWidget *> knownWidgets;
+    connect(mw->wrapper(), &KTextEditor::MainWindow::widgetAdded, this, [&knownWidgets](QWidget *w) {
+        knownWidgets.insert(w);
+    });
+    connect(mw->wrapper(), &KTextEditor::MainWindow::widgetRemoved, this, [&knownWidgets](QWidget *w) {
+        knownWidgets.remove(w);
+    });
+
+    mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc")));
+    QTRY_VERIFY(vm->activeView());
+    vm->splitViewSpace();
+    QCOMPARE(mw->findChildren<KateViewSpace *>().size(), 2);
+    KateViewSpace *vs = vm->activeViewSpace();
+
+    // two widgets and a document in a view space with only one tab
+    auto *widget1 = new QLabel(QStringLiteral("widget1"));
+    auto *widget2 = new QLabel(QStringLiteral("widget2"));
+    QPointer<QWidget> widget1Guard(widget1);
+    QPointer<QWidget> widget2Guard(widget2);
+    QVERIFY(mw->addWidget(widget1));
+    QVERIFY(mw->addWidget(widget2));
+    mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kwrite/kateui.rc")));
+    QCOMPARE(vm->activeViewSpace(), vs);
+    QCOMPARE(vs->documentList().size(), 1);
+    QCOMPARE(vs->widgets().size(), 2);
+    QCOMPARE(knownWidgets.size(), 2);
+
+    vm->slotCloseCurrentViewSpace();
+    QCOMPARE(mw->findChildren<KateViewSpace *>().size(), 1);
+
+    QVERIFY(widget1Guard.isNull());
+    QVERIFY(widget2Guard.isNull());
+    QVERIFY(knownWidgets.isEmpty());
 }
 
 QTEST_MAIN(KateViewManagementTest2)

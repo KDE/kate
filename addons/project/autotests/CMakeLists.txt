@@ -5,7 +5,7 @@ target_include_directories(projectplugin_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR
 
 find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
 target_link_libraries(
-  projectplugin_test 
+  projectplugin_test
   PRIVATE
     kateprivate
     KF6::I18n
@@ -14,7 +14,7 @@ target_link_libraries(
 )
 
 target_sources(
-  projectplugin_test 
+  projectplugin_test
   PRIVATE
     test1.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../fileutil.cpp

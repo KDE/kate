@@ -14,7 +14,8 @@
 #include <QFileInfo>
 #include <QProcess>
 
-namespace {
+namespace
+{
 QString runGit(const QString &repository, const QStringList &arguments)
 {
     QProcess process;
@@ -50,16 +51,16 @@ std::optional<GitForge::Link> GitForge::linkForFile(const QString &filePath, con
     if (relativePath == QLatin1String("..") || relativePath.startsWith(QLatin1String("../"))) {
         return std::nullopt;
     }
-    if (runGit(*root, { QStringLiteral("ls-files"), QStringLiteral("--error-unmatch"), QStringLiteral("--"), relativePath }).isEmpty()) {
+    if (runGit(*root, {QStringLiteral("ls-files"), QStringLiteral("--error-unmatch"), QStringLiteral("--"), relativePath}).isEmpty()) {
         return std::nullopt;
     }
 
-    const QString branch = runGit(*root, { QStringLiteral("symbolic-ref"), QStringLiteral("--quiet"), QStringLiteral("--short"), QStringLiteral("HEAD") });
+    const QString branch = runGit(*root, {QStringLiteral("symbolic-ref"), QStringLiteral("--quiet"), QStringLiteral("--short"), QStringLiteral("HEAD")});
     QString remote;
     QString ref;
     if (!branch.isEmpty()) {
-        remote = runGit(*root, { QStringLiteral("config"), QStringLiteral("branch.%1.remote").arg(branch) });
-        const QString merge = runGit(*root, { QStringLiteral("config"), QStringLiteral("branch.%1.merge").arg(branch) });
+        remote = runGit(*root, {QStringLiteral("config"), QStringLiteral("branch.%1.remote").arg(branch)});
+        const QString merge = runGit(*root, {QStringLiteral("config"), QStringLiteral("branch.%1.merge").arg(branch)});
         if (!remote.isEmpty() && remote != QLatin1String(".") && merge.startsWith(QLatin1String("refs/heads/"))) {
             ref = merge.sliced(11);
         } else {
@@ -67,11 +68,11 @@ std::optional<GitForge::Link> GitForge::linkForFile(const QString &filePath, con
             ref = branch;
         }
     } else {
-        ref = runGit(*root, { QStringLiteral("rev-parse"), QStringLiteral("HEAD") });
+        ref = runGit(*root, {QStringLiteral("rev-parse"), QStringLiteral("HEAD")});
     }
 
     if (remote.isEmpty()) {
-        const QStringList remotes = runGit(*root, { QStringLiteral("remote") }).split(u'\n', Qt::SkipEmptyParts);
+        const QStringList remotes = runGit(*root, {QStringLiteral("remote")}).split(u'\n', Qt::SkipEmptyParts);
         if (remotes.contains(QStringLiteral("origin"))) {
             remote = QStringLiteral("origin");
         } else if (remotes.size() == 1) {
@@ -82,7 +83,7 @@ std::optional<GitForge::Link> GitForge::linkForFile(const QString &filePath, con
         return std::nullopt;
     }
 
-    const auto parsedRemote = parseRemote(runGit(*root, { QStringLiteral("remote"), QStringLiteral("get-url"), remote }));
+    const auto parsedRemote = parseRemote(runGit(*root, {QStringLiteral("remote"), QStringLiteral("get-url"), remote}));
     if (!parsedRemote) {
         return std::nullopt;
     }
@@ -91,5 +92,5 @@ std::optional<GitForge::Link> GitForge::linkForFile(const QString &filePath, con
         return std::nullopt;
     }
     const auto url = blobUrl(*repository, ref, QDir::fromNativeSeparators(relativePath), lines);
-    return url ? std::optional<Link>(Link{ *url, repository->provider }) : std::nullopt;
+    return url ? std::optional<Link>(Link{*url, repository->provider}) : std::nullopt;
 }

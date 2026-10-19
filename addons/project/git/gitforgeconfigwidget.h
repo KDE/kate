@@ -18,7 +18,8 @@ class QNetworkAccessManager;
 class QPushButton;
 class QTableWidget;
 
-class GitForgeConfigWidget final : public QWidget {
+class GitForgeConfigWidget final : public QWidget
+{
     Q_OBJECT
 
 public:

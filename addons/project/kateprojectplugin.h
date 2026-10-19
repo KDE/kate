@@ -17,8 +17,8 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/SessionConfigInterface>
 
-#include "kateprojectcompletion.h"
 #include "git/gitforgeurl.h"
+#include "kateprojectcompletion.h"
 #include "project_commands.h"
 
 class KateProject;

@@ -274,10 +274,7 @@ void KeyboardMacrosPlugin::stop(bool save)
     disconnect(qApp, &QGuiApplication::applicationStateChanged, this, &KeyboardMacrosPlugin::applicationStateChanged);
     disconnect(qApp, &QGuiApplication::focusObjectChanged, this, &KeyboardMacrosPlugin::focusObjectChanged);
     // display feedback
-    displayMessage(
-        save ? i18n("Recording ended")
-             : i18n("Recording canceled"),
-        KTextEditor::Message::Positive);
+    displayMessage(save ? i18n("Recording ended") : i18n("Recording canceled"), KTextEditor::Message::Positive);
 }
 
 bool KeyboardMacrosPlugin::play(const QString &name)

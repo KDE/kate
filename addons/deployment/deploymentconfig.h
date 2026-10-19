@@ -13,24 +13,24 @@
 
 #include <optional>
 
-namespace Deployment {
+namespace Deployment
+{
 struct Config {
-  QString host;
-  int port = 22;
-  QString user;
-  QString localRoot;
-  QString remoteRoot;
-  QStringList excludePatterns;
-  bool enabled = false;
-  bool valid = false;
-  QString error;
+    QString host;
+    int port = 22;
+    QString user;
+    QString localRoot;
+    QString remoteRoot;
+    QStringList excludePatterns;
+    bool enabled = false;
+    bool valid = false;
+    QString error;
 
-  static Config fromProjectMap(const QVariantMap &projectMap,
-                               const QString &projectBase);
+    static Config fromProjectMap(const QVariantMap &projectMap, const QString &projectBase);
 
-  QUrl remoteBaseUrl() const;
-  std::optional<QUrl> remoteUrlForLocalPath(const QString &localPath) const;
-  std::optional<QString> localPathForRemoteUrl(const QUrl &url) const;
-  bool isExcluded(const QString &localPath) const;
+    QUrl remoteBaseUrl() const;
+    std::optional<QUrl> remoteUrlForLocalPath(const QString &localPath) const;
+    std::optional<QString> localPathForRemoteUrl(const QUrl &url) const;
+    bool isExcluded(const QString &localPath) const;
 };
 } // namespace Deployment

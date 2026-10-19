@@ -15,7 +15,8 @@
 
 #include <optional>
 
-namespace GitForge {
+namespace GitForge
+{
 enum class Provider {
     Forgejo,
     GitHub,

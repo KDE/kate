@@ -10,7 +10,8 @@
 
 Q_DECLARE_METATYPE(GitForge::Provider)
 
-class GitForgeUrlTest : public QObject {
+class GitForgeUrlTest : public QObject
+{
     Q_OBJECT
 
 private Q_SLOTS:
@@ -79,7 +80,8 @@ void GitForgeUrlTest::resolveRepository()
     const auto github = GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@github.com:owner/repo.git")), GitForge::defaultHostMappings());
     QVERIFY(github);
     QCOMPARE(github->provider, GitForge::Provider::GitHub);
-    const auto codeberg = GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@codeberg.org:owner/repo.git")), GitForge::defaultHostMappings());
+    const auto codeberg =
+        GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@codeberg.org:owner/repo.git")), GitForge::defaultHostMappings());
     QVERIFY(codeberg);
     QCOMPARE(codeberg->provider, GitForge::Provider::Forgejo);
     QVERIFY(!GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@codeberg.org:owner/group/repo.git")), GitForge::defaultHostMappings()));
@@ -87,10 +89,10 @@ void GitForgeUrlTest::resolveRepository()
     QCOMPARE(GitForge::providerFromName(QStringLiteral("forgejo")), std::optional(GitForge::Provider::Forgejo));
     QVERIFY(!GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@github.com:owner/repo.git")), {}));
 
-    const auto mapping
-        = GitForge::hostMapping(QStringLiteral("git.example.com:2222"), GitForge::Provider::GitLab, QUrl(QStringLiteral("https://code.example.com/git")));
+    const auto mapping =
+        GitForge::hostMapping(QStringLiteral("git.example.com:2222"), GitForge::Provider::GitLab, QUrl(QStringLiteral("https://code.example.com/git")));
     QVERIFY(mapping);
-    const auto custom = GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("ssh://git@git.example.com:2222/team/repo.git")), { *mapping });
+    const auto custom = GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("ssh://git@git.example.com:2222/team/repo.git")), {*mapping});
     QVERIFY(custom);
     QCOMPARE(custom->provider, GitForge::Provider::GitLab);
     QCOMPARE(custom->webBaseUrl, QUrl(QStringLiteral("https://code.example.com/git")));
@@ -98,22 +100,22 @@ void GitForgeUrlTest::resolveRepository()
     QVERIFY(!GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@unknown.example:team/repo.git")), {}));
     QVERIFY(!GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@github.com:owner/group/repo.git")), GitForge::defaultHostMappings()));
 
-    const auto wildcard
-        = GitForge::hostMapping(QStringLiteral("git.example.com"), GitForge::Provider::GitHub, QUrl(QStringLiteral("https://github.example.com")));
+    const auto wildcard =
+        GitForge::hostMapping(QStringLiteral("git.example.com"), GitForge::Provider::GitHub, QUrl(QStringLiteral("https://github.example.com")));
     QVERIFY(wildcard);
-    const auto exact
-        = GitForge::hostMapping(QStringLiteral("git.example.com:2222"), GitForge::Provider::GitLab, QUrl(QStringLiteral("https://gitlab.example.com")));
+    const auto exact =
+        GitForge::hostMapping(QStringLiteral("git.example.com:2222"), GitForge::Provider::GitLab, QUrl(QStringLiteral("https://gitlab.example.com")));
     QVERIFY(exact);
-    const auto exactResult
-        = GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("ssh://git@git.example.com:2222/team/repo.git")), { *wildcard, *exact });
+    const auto exactResult =
+        GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("ssh://git@git.example.com:2222/team/repo.git")), {*wildcard, *exact});
     QVERIFY(exactResult);
     QCOMPARE(exactResult->provider, GitForge::Provider::GitLab);
 
-    const auto relativeBase
-        = GitForge::hostMapping(QStringLiteral("example.com"), GitForge::Provider::GitLab, QUrl(QStringLiteral("https://example.com/gitlab")));
+    const auto relativeBase =
+        GitForge::hostMapping(QStringLiteral("example.com"), GitForge::Provider::GitLab, QUrl(QStringLiteral("https://example.com/gitlab")));
     QVERIFY(relativeBase);
-    const auto relativeResult
-        = GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("https://example.com/gitlab/team/repo.git")), { *relativeBase });
+    const auto relativeResult =
+        GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("https://example.com/gitlab/team/repo.git")), {*relativeBase});
     QVERIFY(relativeResult);
     QCOMPARE(relativeResult->path, QStringLiteral("team/repo"));
 }
@@ -132,8 +134,9 @@ void GitForgeUrlTest::buildUrl_data()
                                   << QStringLiteral("src/file.cpp") << 10 << 18 << QByteArray("https://github.com/owner/repo/blob/main/src/file.cpp#L10-L18");
     QTest::newRow("gitlab-line") << GitForge::Provider::GitLab << QStringLiteral("https://gitlab.example/git") << QStringLiteral("feature/topic")
                                  << QStringLiteral("a file.cpp") << 4 << 4
-                                 << QByteArray("https://gitlab.example/git/owner/repo/-/blob/feature/"
-                                               "topic/a%20file.cpp#L4");
+                                 << QByteArray(
+                                        "https://gitlab.example/git/owner/repo/-/blob/feature/"
+                                        "topic/a%20file.cpp#L4");
     QTest::newRow("forgejo-branch") << GitForge::Provider::Forgejo << QStringLiteral("https://codeberg.org") << QStringLiteral("feature/topic")
                                     << QStringLiteral("src/file.cpp") << 10 << 18
                                     << QByteArray("https://codeberg.org/owner/repo/src/branch/feature/topic/src/file.cpp#L10-L18");
@@ -151,8 +154,8 @@ void GitForgeUrlTest::buildUrl()
     QFETCH(int, first);
     QFETCH(int, last);
     QFETCH(QByteArray, expected);
-    const GitForge::Repository repository{ provider, QUrl(base), QStringLiteral("owner/repo") };
-    const auto url = GitForge::blobUrl(repository, ref, path, GitForge::LineRange{ first, last });
+    const GitForge::Repository repository{provider, QUrl(base), QStringLiteral("owner/repo")};
+    const auto url = GitForge::blobUrl(repository, ref, path, GitForge::LineRange{first, last});
     QVERIFY(url);
     QCOMPARE(url->toEncoded(), expected);
 }
@@ -184,37 +187,36 @@ void GitForgeUrlTest::lineRange()
 
 void GitForgeUrlTest::projectHostMappings()
 {
-    const auto globalMapping
-        = GitForge::hostMapping(QStringLiteral("git.example.com"), GitForge::Provider::GitLab, QUrl(QStringLiteral("https://global.example.com")));
+    const auto globalMapping =
+        GitForge::hostMapping(QStringLiteral("git.example.com"), GitForge::Provider::GitLab, QUrl(QStringLiteral("https://global.example.com")));
     QVERIFY(globalMapping);
     const QVariantMap projectMap{
-        { QStringLiteral("git"),
-            QVariantMap{ { QStringLiteral("hostMappings"),
-                QVariantList{
-                    QVariantMap{
-                        { QStringLiteral("host"), QStringLiteral("git.example.com") },
-                        { QStringLiteral("provider"), QStringLiteral("Forgejo") },
-                        { QStringLiteral("webBaseUrl"), QStringLiteral("https://project.example.com") },
-                    },
-                    QVariantMap{
-                        { QStringLiteral("host"), QStringLiteral("invalid.example.com") },
-                        { QStringLiteral("provider"), QStringLiteral("unknown") },
-                        { QStringLiteral("webBaseUrl"), QStringLiteral("https://invalid.example.com") },
-                    },
-                } } } },
+        {QStringLiteral("git"),
+         QVariantMap{{QStringLiteral("hostMappings"),
+                      QVariantList{
+                          QVariantMap{
+                              {QStringLiteral("host"), QStringLiteral("git.example.com")},
+                              {QStringLiteral("provider"), QStringLiteral("Forgejo")},
+                              {QStringLiteral("webBaseUrl"), QStringLiteral("https://project.example.com")},
+                          },
+                          QVariantMap{
+                              {QStringLiteral("host"), QStringLiteral("invalid.example.com")},
+                              {QStringLiteral("provider"), QStringLiteral("unknown")},
+                              {QStringLiteral("webBaseUrl"), QStringLiteral("https://invalid.example.com")},
+                          },
+                      }}}},
     };
 
-    const auto mappings = GitForge::effectiveHostMappings({ *globalMapping, GitForge::defaultHostMappings().constFirst() }, projectMap);
+    const auto mappings = GitForge::effectiveHostMappings({*globalMapping, GitForge::defaultHostMappings().constFirst()}, projectMap);
     QCOMPARE(mappings.size(), 2);
     QCOMPARE(mappings.at(0).provider, GitForge::Provider::Forgejo);
     QCOMPARE(mappings.at(0).webBaseUrl, QUrl(QStringLiteral("https://project.example.com")));
     QCOMPARE(mappings.at(1).host, QStringLiteral("codeberg.org"));
 
-    const auto repository
-        = GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@git.example.com:owner/repo.git")), mappings);
+    const auto repository = GitForge::resolveRepository(*GitForge::parseRemote(QStringLiteral("git@git.example.com:owner/repo.git")), mappings);
     QVERIFY(repository);
     QCOMPARE(repository->provider, GitForge::Provider::Forgejo);
-    QCOMPARE(GitForge::effectiveHostMappings({ *globalMapping }, {}).size(), 1);
+    QCOMPARE(GitForge::effectiveHostMappings({*globalMapping}, {}).size(), 1);
 }
 
 void GitForgeUrlTest::providerApiUrls()
@@ -222,12 +224,11 @@ void GitForgeUrlTest::providerApiUrls()
     const auto urls = GitForge::providerApiUrls(QUrl(QStringLiteral("https://code.example.com/gitlab/")));
     QCOMPARE(urls.size(), 3);
     QCOMPARE(urls.at(0).first, GitForge::Provider::Forgejo);
-    QCOMPARE(urls.at(0).second,
-        QUrl(QStringLiteral("https://code.example.com/gitlab/api/v1/version")));
+    QCOMPARE(urls.at(0).second, QUrl(QStringLiteral("https://code.example.com/gitlab/api/v1/version")));
     QCOMPARE(urls.at(1).first, GitForge::Provider::GitLab);
     QCOMPARE(urls.at(1).second,
-        QUrl(QStringLiteral("https://code.example.com/gitlab/api/v4/"
-                            "projects?simple=true&per_page=1")));
+             QUrl(QStringLiteral("https://code.example.com/gitlab/api/v4/"
+                                 "projects?simple=true&per_page=1")));
     QCOMPARE(urls.at(2).first, GitForge::Provider::GitHub);
     QCOMPARE(urls.at(2).second, QUrl(QStringLiteral("https://code.example.com/gitlab/api/v3")));
 

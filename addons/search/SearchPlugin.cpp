@@ -563,7 +563,11 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KatePluginSearchView::updateMatchMarks);
 
     // when in search-while-typing mode, update the search results when switching to a different file
-    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, [this]() { if (m_isSearchAsYouType) startSearchWhileTyping();} );
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, [this]() {
+        if (m_isSearchAsYouType) {
+            startSearchWhileTyping();
+        }
+    });
 
     // Connect signals from project plugin to our slots
     m_projectPluginView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
@@ -2280,7 +2284,9 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
     menu->addAction(copyExpanded);
 
     auto *exportMatches = new QAction(i18n("Export matches"), menu);
-    exportMatches->setToolTip(i18n("Transform and export search matches using a replacement pattern. To export the whole matches, use \\0. To export regular expression captures, use \\1,\\2,... The other text in the pattern is returned in the export results."));
+    exportMatches->setToolTip(
+        i18n("Transform and export search matches using a replacement pattern. To export the whole matches, use \\0. To export regular expression captures, "
+             "use \\1,\\2,... The other text in the pattern is returned in the export results."));
     if (currentResults->useRegExp) {
         menu->addAction(exportMatches);
     }

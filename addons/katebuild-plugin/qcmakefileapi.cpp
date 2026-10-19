@@ -207,7 +207,7 @@ QCMakeFileApi::TargetType QCMakeFileApi::typeFromJson(const QString &typeStr) co
     return TargetType::Unknown;
 }
 
-bool QCMakeFileApi::isTargetDirectlyInProject(const QJsonObject& targetDoc) const
+bool QCMakeFileApi::isTargetDirectlyInProject(const QJsonObject &targetDoc) const
 {
     // We look at the backtrace of the definition of the target, i.e. the file (and line)
     // where the target is created by add_custom_target()/add_executable()/add_library().
@@ -224,11 +224,11 @@ bool QCMakeFileApi::isTargetDirectlyInProject(const QJsonObject& targetDoc) cons
         if ((fileIdx >= 0) && (fileIdx < files.count())) {
             QString file = files.at(fileIdx).toString();
             if (QFileInfo(file).isAbsolute()) {
-                return false; 
+                return false;
             }
         }
     }
-    
+
     return true;
 }
 
@@ -327,7 +327,7 @@ bool QCMakeFileApi::readReplyFiles()
 
             QJsonObject targetDoc = readJsonFile(targetJsonFile);
 
-            bool skipTarget = false;  // shall the target be included, or skipped ?
+            bool skipTarget = false; // shall the target be included, or skipped ?
 
             TargetType type = typeFromJson(targetDoc.value(QStringLiteral("type")).toString());
             bool fromGenerator = targetDoc.value(QStringLiteral("isGeneratorProvided")).toBool();
@@ -338,7 +338,7 @@ bool QCMakeFileApi::readReplyFiles()
             if (!skipTarget) {
                 if (type == TargetType::Utility) {
                     // Only include Utility targets which are created directly within the project.
-                    // Otherwise the target list contains e.g. all the "Continuous/Experiment" build and 
+                    // Otherwise the target list contains e.g. all the "Continuous/Experiment" build and
                     // test targets, for KDE a clang-format target for each source file and more.
                     if (!isTargetDirectlyInProject(targetDoc)) {
                         skipTarget = true;
@@ -371,7 +371,6 @@ bool QCMakeFileApi::readReplyFiles()
                 break;
             }
         }
-
     }
 
     return true;

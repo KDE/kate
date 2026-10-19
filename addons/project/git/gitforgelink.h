@@ -10,7 +10,8 @@
 
 #include <optional>
 
-namespace GitForge {
+namespace GitForge
+{
 struct Link {
     QUrl url;
     Provider provider;

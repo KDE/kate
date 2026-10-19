@@ -13,7 +13,8 @@
 
 #include <algorithm>
 
-namespace {
+namespace
+{
 std::optional<QString> normalizedPath(QString path)
 {
     while (path.startsWith(u'/')) {
@@ -109,7 +110,7 @@ std::optional<GitForge::Remote> GitForge::parseRemote(const QString &remoteUrl)
     if (!repositoryPath || host.isEmpty()) {
         return std::nullopt;
     }
-    return Remote{ host, port, *repositoryPath };
+    return Remote{host, port, *repositoryPath};
 }
 
 std::optional<GitForge::Repository> GitForge::resolveRepository(const Remote &remote, const QList<HostMapping> &customMappings)
@@ -144,7 +145,7 @@ std::optional<GitForge::Repository> GitForge::resolveRepository(const Remote &re
         if (wildcardPortMapping->provider != Provider::GitLab && repositoryPath.count(u'/') != 1) {
             return std::nullopt;
         }
-        return Repository{ wildcardPortMapping->provider, wildcardPortMapping->webBaseUrl, repositoryPath };
+        return Repository{wildcardPortMapping->provider, wildcardPortMapping->webBaseUrl, repositoryPath};
     }
 
     return std::nullopt;
@@ -194,7 +195,7 @@ GitForge::LineRange GitForge::selectedLineRange(int startLine, int endLine, int 
     if (endLine > startLine && endColumn == 0) {
         --endLine;
     }
-    return LineRange{ startLine + 1, endLine + 1 };
+    return LineRange{startLine + 1, endLine + 1};
 }
 
 QString GitForge::providerName(Provider provider)
@@ -237,7 +238,7 @@ std::optional<GitForge::HostMapping> GitForge::hostMapping(const QString &hostAn
     if (host.isEmpty()) {
         return std::nullopt;
     }
-    return HostMapping{ host, authority.port(-1), provider, webBaseUrl };
+    return HostMapping{host, authority.port(-1), provider, webBaseUrl};
 }
 
 QList<GitForge::HostMapping> GitForge::effectiveHostMappings(const QList<HostMapping> &globalMappings, const QVariantMap &projectMap)
@@ -249,8 +250,8 @@ QList<GitForge::HostMapping> GitForge::effectiveHostMappings(const QList<HostMap
         const auto provider = providerFromName(values.value(QStringLiteral("provider")).toString());
         if (provider) {
             if (const auto mapping = hostMapping(values.value(QStringLiteral("host")).toString(),
-                    *provider,
-                    QUrl(values.value(QStringLiteral("webBaseUrl")).toString(), QUrl::StrictMode))) {
+                                                 *provider,
+                                                 QUrl(values.value(QStringLiteral("webBaseUrl")).toString(), QUrl::StrictMode))) {
                 mappings.push_back(*mapping);
             }
         }
@@ -288,7 +289,7 @@ QList<QPair<GitForge::Provider, QUrl>> GitForge::providerApiUrls(const QUrl &web
     gitLabUrl.setQuery(gitLabQuery);
     QUrl gitHubUrl = webBaseUrl;
     gitHubUrl.setPath(basePath + QStringLiteral("/api/v3"));
-    return { { Provider::Forgejo, forgejoUrl }, { Provider::GitLab, gitLabUrl }, { Provider::GitHub, gitHubUrl } };
+    return {{Provider::Forgejo, forgejoUrl}, {Provider::GitLab, gitLabUrl}, {Provider::GitHub, gitHubUrl}};
 }
 
 bool GitForge::isProviderApiResponse(Provider provider, int statusCode, const QByteArray &body)
@@ -311,9 +312,9 @@ bool GitForge::isProviderApiResponse(Provider provider, int statusCode, const QB
 QList<GitForge::HostMapping> GitForge::defaultHostMappings()
 {
     return {
-        { QStringLiteral("codeberg.org"), -1, Provider::Forgejo, QUrl(QStringLiteral("https://codeberg.org")) },
-        { QStringLiteral("github.com"), -1, Provider::GitHub, QUrl(QStringLiteral("https://github.com")) },
-        { QStringLiteral("gitlab.com"), -1, Provider::GitLab, QUrl(QStringLiteral("https://gitlab.com")) },
-        { QStringLiteral("invent.kde.org"), -1, Provider::GitLab, QUrl(QStringLiteral("https://invent.kde.org")) },
+        {QStringLiteral("codeberg.org"), -1, Provider::Forgejo, QUrl(QStringLiteral("https://codeberg.org"))},
+        {QStringLiteral("github.com"), -1, Provider::GitHub, QUrl(QStringLiteral("https://github.com"))},
+        {QStringLiteral("gitlab.com"), -1, Provider::GitLab, QUrl(QStringLiteral("https://gitlab.com"))},
+        {QStringLiteral("invent.kde.org"), -1, Provider::GitLab, QUrl(QStringLiteral("https://invent.kde.org"))},
     };
 }

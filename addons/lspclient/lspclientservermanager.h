@@ -10,7 +10,6 @@
 #include "lspclientprotocol.h"
 #include "lspclientserver.h"
 
-
 #include <KTextEditor/Message>
 
 #include <memory>

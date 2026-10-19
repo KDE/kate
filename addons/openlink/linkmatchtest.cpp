@@ -7,7 +7,6 @@
 #include <QFile>
 #include <QTest>
 
-
 class LinkMatchTest : public QObject
 {
     Q_OBJECT

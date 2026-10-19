@@ -37,12 +37,12 @@ GitForgeConfigWidget::GitForgeConfigWidget(QWidget *parent)
     auto *description = new QLabel(i18n("Map Git remote hosts to their Forgejo, GitHub, or GitLab website. The remote "
                                         "host is taken from the clone URL; the website URL is used to open "
                                         "repository links in a browser."),
-        this);
+                                   this);
     description->setWordWrap(true);
     layout->addWidget(description);
 
     m_table->setColumnCount(3);
-    m_table->setHorizontalHeaderLabels({ i18n("Git Remote Host"), i18n("Hosting Service"), i18n("Website URL") });
+    m_table->setHorizontalHeaderLabels({i18n("Git Remote Host"), i18n("Hosting Service"), i18n("Website URL")});
     m_table->horizontalHeaderItem(0)->setToolTip(i18n("Host from the Git clone URL, optionally followed by its SSH port"));
     m_table->horizontalHeaderItem(1)->setToolTip(i18n("Forgejo, GitHub, or GitLab software running on the server"));
     m_table->horizontalHeaderItem(2)->setToolTip(i18n("HTTP or HTTPS address used to open repository links in a web browser"));
@@ -57,8 +57,9 @@ GitForgeConfigWidget::GitForgeConfigWidget(QWidget *parent)
     auto *removeButton = new QPushButton(QIcon::fromTheme(QStringLiteral("list-remove")), i18n("Remove Selected Mapping"), this);
     removeButton->setEnabled(false);
     m_detectButton->setEnabled(false);
-    m_detectButton->setToolTip(i18n("Try to identify Forgejo, GitHub, or GitLab from the "
-                                    "selected mapping's website URL"));
+    m_detectButton->setToolTip(
+        i18n("Try to identify Forgejo, GitHub, or GitLab from the "
+             "selected mapping's website URL"));
     buttons->addWidget(addButton);
     buttons->addWidget(removeButton);
     buttons->addWidget(m_detectButton);
@@ -141,7 +142,7 @@ void GitForgeConfigWidget::addRow(const QString &host, const QString &provider, 
     m_table->setCellWidget(row, 0, hostEdit);
 
     auto *providerBox = new QComboBox(m_table);
-    providerBox->addItems({ QStringLiteral("Forgejo"), QStringLiteral("GitHub"), QStringLiteral("GitLab") });
+    providerBox->addItems({QStringLiteral("Forgejo"), QStringLiteral("GitHub"), QStringLiteral("GitLab")});
     providerBox->setCurrentText(provider);
     providerBox->setFrame(false);
     connect(providerBox, &QComboBox::currentTextChanged, this, &GitForgeConfigWidget::hostMappingsChanged);
@@ -177,8 +178,8 @@ void GitForgeConfigWidget::detectService()
     m_pendingProbes = GitForge::providerApiUrls(QUrl(webBaseUrlEdit->text().trimmed(), QUrl::StrictMode));
     if (m_pendingProbes.isEmpty()) {
         KMessageBox::error(this,
-            i18n("Enter a valid HTTP or HTTPS website URL "
-                 "before detecting the hosting service."));
+                           i18n("Enter a valid HTTP or HTTPS website URL "
+                                "before detecting the hosting service."));
         return;
     }
 

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2021-02-09 11:02+0300\n"
+"PO-Revision-Date: 2026-10-19 09:57+0200\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -24,11 +24,7 @@ msgid "Show preview for known color names"
 msgstr "Предварительный просмотр известных названий цветов"
 
 #: colorpickerconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgid ""
-#| "Also show the color picker for known color names (e.g. skyblue).\n"
-#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-#| "colors."
+#, kde-format
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
 "See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
@@ -36,7 +32,7 @@ msgstr ""
 "Выводить поле просмотра для стандартных названий цветов (например: "
 "skyblue).\n"
 "Список стандартных названий цветов приведён на странице https://www.w3.org/"
-"TR/SVG11/types.html#ColorKeywords"
+"TR/css-color-4/#named-colors"
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format

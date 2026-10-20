@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-06 00:49+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2023-01-25 17:34+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -56,29 +56,29 @@ msgctxt "@info:progress Macro is being recorded right now"
 msgid "Recording…"
 msgstr "Nahrávanie..."
 
-#: keyboardmacrosplugin.cpp:278
+#: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "Recording ended"
 msgstr "Nahrávanie skončilo"
 
-#: keyboardmacrosplugin.cpp:279
+#: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "Recording canceled"
 msgstr "Nahrávanie zrušené"
 
-#: keyboardmacrosplugin.cpp:330
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Saved ‘%1’"
 msgstr "Uložené '%1'"
 
-#: keyboardmacrosplugin.cpp:350
+#: keyboardmacrosplugin.cpp:347
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Loaded ‘%1’"
 msgstr "Načítané '%1'"
 
-#: keyboardmacrosplugin.cpp:368
+#: keyboardmacrosplugin.cpp:365
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wiped ‘%1’"

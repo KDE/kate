@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-22 00:49+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2025-11-07 18:26+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -641,68 +641,68 @@ msgstr "Klikšķiniet, lai filtrētu rezultātus"
 msgid "Find"
 msgstr "Meklēt"
 
-#: SearchPlugin.cpp:1174
+#: SearchPlugin.cpp:1178
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "Meklēšana nav sākta, jo mape „%1“ nepastāv."
 
-#: SearchPlugin.cpp:1347
+#: SearchPlugin.cpp:1351
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "Meklēšana rakstīšanas laikā ir pārtraukta. Tā aizņemtu pārāk ilgu laiku."
 
-#: SearchPlugin.cpp:1680
+#: SearchPlugin.cpp:1684
 #, kde-format
 msgid "Search Match"
 msgstr "Meklēt atbilsmi"
 
-#: SearchPlugin.cpp:1857 SearchPlugin.cpp:1933
+#: SearchPlugin.cpp:1861 SearchPlugin.cpp:1937
 #, kde-format
 msgid "Next from cursor"
 msgstr "Nākamā no kursora"
 
-#: SearchPlugin.cpp:1874
+#: SearchPlugin.cpp:1878
 #, kde-format
 msgid "Starting from first match"
 msgstr "Sākot no pirmās atbilsmes"
 
-#: SearchPlugin.cpp:1894
+#: SearchPlugin.cpp:1898
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Turpina no pirmās atbilsmes"
 
-#: SearchPlugin.cpp:1950
+#: SearchPlugin.cpp:1954
 #, kde-format
 msgid "Starting from last match"
 msgstr "Sākot no pēdējās atbilsmes"
 
-#: SearchPlugin.cpp:1970
+#: SearchPlugin.cpp:1974
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Turpinot no pēdējās atbilsmes"
 
-#: SearchPlugin.cpp:2131
+#: SearchPlugin.cpp:2135
 #, kde-format
 msgid "Search: %1"
 msgstr "Meklēt: %1"
 
-#: SearchPlugin.cpp:2274
+#: SearchPlugin.cpp:2278
 #, kde-format
 msgid "Copy all"
 msgstr "Kopēt visu"
 
-#: SearchPlugin.cpp:2279
+#: SearchPlugin.cpp:2283
 #, kde-format
 msgid "Copy expanded"
 msgstr "Kopēt izvērsto"
 
-#: SearchPlugin.cpp:2282
+#: SearchPlugin.cpp:2286
 #, kde-format
 msgid "Export matches"
 msgstr "Eksportēt atbilsmes"
 
-#: SearchPlugin.cpp:2283
+#: SearchPlugin.cpp:2288
 #, kde-format
 msgid ""
 "Transform and export search matches using a replacement pattern. To export "
@@ -710,37 +710,37 @@ msgid ""
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
 
-#: SearchPlugin.cpp:2288
+#: SearchPlugin.cpp:2294
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Atvērt kā redaktora cilni"
 
-#: SearchPlugin.cpp:2296
+#: SearchPlugin.cpp:2302
 #, kde-format
 msgid "Clear"
 msgstr "Notīrīt"
 
-#: SearchPlugin.cpp:2405 SearchPlugin.cpp:2447
+#: SearchPlugin.cpp:2411 SearchPlugin.cpp:2453
 #, kde-format
 msgid "Clear history"
 msgstr ""
 
-#: SearchPlugin.cpp:2413 SearchPlugin.cpp:2454
+#: SearchPlugin.cpp:2419 SearchPlugin.cpp:2460
 #, kde-format
 msgid "Add..."
 msgstr "Pievienot..."
 
-#: SearchPlugin.cpp:2425
+#: SearchPlugin.cpp:2431
 #, kde-format
 msgid "Search As You Type"
 msgstr "Meklēt rakstīšanas laikā"
 
-#: SearchPlugin.cpp:2503
+#: SearchPlugin.cpp:2509
 #, kde-format
 msgid "In Current Project"
 msgstr "Pašreizējā projektā"
 
-#: SearchPlugin.cpp:2505
+#: SearchPlugin.cpp:2511
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Visos atvērtajos projektos"

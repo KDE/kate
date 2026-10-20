@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-06 00:49+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2026-01-30 23:54+0000\n"
 "Last-Translator: César A. P. Cláudio <cesarapclaudio@gmail.com>\n"
 "Language-Team: pt\n"
@@ -65,33 +65,33 @@ msgctxt "@info:progress Macro is being recorded right now"
 msgid "Recording…"
 msgstr "A gravar…"
 
-#: keyboardmacrosplugin.cpp:278
+#: keyboardmacrosplugin.cpp:277
 #, fuzzy, kde-format
 #| msgid "Recording %1"
 msgid "Recording ended"
 msgstr "A gravar %1"
 
-#: keyboardmacrosplugin.cpp:279
+#: keyboardmacrosplugin.cpp:277
 #, fuzzy, kde-format
 #| msgid "Recording %1"
 msgid "Recording canceled"
 msgstr "A gravar %1"
 
-#: keyboardmacrosplugin.cpp:330
+#: keyboardmacrosplugin.cpp:327
 #, fuzzy, kde-format
 #| msgid "Saved '%1'"
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Saved ‘%1’"
 msgstr "Guardada '%1'"
 
-#: keyboardmacrosplugin.cpp:350
+#: keyboardmacrosplugin.cpp:347
 #, fuzzy, kde-format
 #| msgid "Loaded '%1'"
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Loaded ‘%1’"
 msgstr "Carregada '%1'"
 
-#: keyboardmacrosplugin.cpp:368
+#: keyboardmacrosplugin.cpp:365
 #, fuzzy, kde-format
 #| msgid "Wiped '%1'"
 msgctxt "%1 is the name of a keyboard macro"

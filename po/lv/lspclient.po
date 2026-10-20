@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2025-11-07 18:28+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -368,59 +368,59 @@ msgstr "LSP klients"
 msgid "Question from LSP server"
 msgstr "Jautājums no LSP servera"
 
-#: lspclientservermanager.cpp:629
+#: lspclientservermanager.cpp:654
 #, kde-format
 msgid "Restarting"
 msgstr "Pārstartē"
 
-#: lspclientservermanager.cpp:629
+#: lspclientservermanager.cpp:654
 #, kde-format
 msgid "NOT Restarting"
 msgstr "NENOTIEK pārstartēšana"
 
-#: lspclientservermanager.cpp:630
+#: lspclientservermanager.cpp:655
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Serveris negaidīti beidza darbību... %1 [%2] [mājaslapa: %3] "
 
-#: lspclientservermanager.cpp:902
+#: lspclientservermanager.cpp:927
 #, fuzzy, kde-format
 #| msgid "Failed to find server binary: %1"
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Neizdevās atrast servera bināro: %1"
 
-#: lspclientservermanager.cpp:905 lspclientservermanager.cpp:970
+#: lspclientservermanager.cpp:930 lspclientservermanager.cpp:995
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Pārbaudiet PATH vērtību binārajam"
 
-#: lspclientservermanager.cpp:906 lspclientservermanager.cpp:971
+#: lspclientservermanager.cpp:931 lspclientservermanager.cpp:996
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Saistībā ar instalāciju un papildinformāciju skatiet arī „%1“"
 
-#: lspclientservermanager.cpp:967
+#: lspclientservermanager.cpp:992
 #, fuzzy, kde-format
 #| msgid "Failed to start server: %1"
 msgid "Failed to start server '%1' for language '%2'"
 msgstr "Neizdevās sākt serveri: %1"
 
-#: lspclientservermanager.cpp:975
+#: lspclientservermanager.cpp:1000
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Sākts serveris „%2“: %1"
 
-#: lspclientservermanager.cpp:1022
+#: lspclientservermanager.cpp:1047
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Neizdevās parsēt servera konfigurāciju „%1“: nav JSON objekta"
 
-#: lspclientservermanager.cpp:1025
+#: lspclientservermanager.cpp:1050
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Neizdevās parsēt servera konfigurāciju „%1“: %2"
 
-#: lspclientservermanager.cpp:1029
+#: lspclientservermanager.cpp:1054
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Neizdevās nolasīt servera konfigurāciju: %1"

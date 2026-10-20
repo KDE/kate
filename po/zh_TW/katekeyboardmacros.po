@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-06 00:49+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2026-08-04 07:30+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -59,31 +59,31 @@ msgstr "錄製中…"
 
 # %1 是 canceled 或 ended
 # (this should've been in the context)
-#: keyboardmacrosplugin.cpp:278
+#: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "Recording ended"
 msgstr "錄製已結束"
 
 # %1 是 canceled 或 ended
 # (this should've been in the context)
-#: keyboardmacrosplugin.cpp:279
+#: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "Recording canceled"
 msgstr "錄製已取消"
 
-#: keyboardmacrosplugin.cpp:330
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Saved ‘%1’"
 msgstr "已儲存「%1」"
 
-#: keyboardmacrosplugin.cpp:350
+#: keyboardmacrosplugin.cpp:347
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Loaded ‘%1’"
 msgstr "已載入「%1」"
 
-#: keyboardmacrosplugin.cpp:368
+#: keyboardmacrosplugin.cpp:365
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wiped ‘%1’"

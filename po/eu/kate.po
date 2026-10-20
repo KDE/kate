@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2026-03-29 21:57+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -53,16 +53,16 @@ msgstr "Kate - Testu-editore aurreratua"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 Kate-ren egileak"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:294
-#: lib/autotests/kate_view_mgmt_test2.cpp:596
-#: lib/autotests/kate_view_mgmt_test2.cpp:632
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:300
+#: lib/autotests/kate_view_mgmt_test2.cpp:602
+#: lib/autotests/kate_view_mgmt_test2.cpp:638
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Hasi Kate emandako saio batekin."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:295
-#: lib/autotests/kate_view_mgmt_test2.cpp:597
-#: lib/autotests/kate_view_mgmt_test2.cpp:633
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:301
+#: lib/autotests/kate_view_mgmt_test2.cpp:603
+#: lib/autotests/kate_view_mgmt_test2.cpp:639
 #, kde-format
 msgid "session"
 msgstr "Saioa"
@@ -2768,41 +2768,41 @@ msgstr ""
 "'showtoolview $toolview_name'. Ezkutatu tresna-ikuspegi panel bat. Panel "
 "erabilgarriak: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:51
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr "Bilatu fitxategiak proiektu guztietan (eskuin klik konfiguratzeko)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:53
+#: lib/quickopen/katequickopenlineedit.cpp:54
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "Bilatu fitxategiak uneko proiektuan (eskuin klik konfiguratzeko)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:75
+#: lib/quickopen/katequickopenlineedit.cpp:76
 #, kde-format
 msgid "All Projects"
 msgstr "Proiektu guztiak"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:89
 #, kde-format
 msgid "Current Project"
 msgstr "Uneko proiektua"
 
-#: lib/quickopen/katequickopenlineedit.cpp:104
+#: lib/quickopen/katequickopenlineedit.cpp:105
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Iragazte lausoa"
 
-#: lib/quickopen/katequickopenlineedit.cpp:115
+#: lib/quickopen/katequickopenlineedit.cpp:116
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Komodin bidez iragaztea"
 
-#: lib/quickopen/katequickopenlineedit.cpp:128
+#: lib/quickopen/katequickopenlineedit.cpp:129
 #, fuzzy, kde-format
 #| msgid "&Match Mode:"
 msgid "Match Folder Names"
@@ -2823,12 +2823,12 @@ msgstr "Kudeatu saioak"
 msgid "Session Chooser"
 msgstr "Saio-hautatzailea"
 
-#: lib/session/katesessionmanagedialog.cpp:153
+#: lib/session/katesessionmanagedialog.cpp:151
 #, kde-format
 msgid "Restore"
 msgstr "Lehengoratu"
 
-#: lib/session/katesessionmanagedialog.cpp:317
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Saioa ezabatuko da elkarrizketa-koadroa ixtean"
@@ -2907,7 +2907,7 @@ msgstr "Ezabatua"
 msgid "Close"
 msgstr "Itxi"
 
-#: lib/session/katesessionmanager.cpp:147
+#: lib/session/katesessionmanager.cpp:148
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2916,35 +2916,35 @@ msgstr ""
 "'%1' saioa dagoeneko irekita dago Kate-ren beste instantzia batean, han "
 "aldatu berrireki ordez?"
 
-#: lib/session/katesessionmanager.cpp:149
+#: lib/session/katesessionmanager.cpp:150
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Aldatu instantziara"
 
-#: lib/session/katesessionmanager.cpp:150
+#: lib/session/katesessionmanager.cpp:151
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Berrireki"
 
-#: lib/session/katesessionmanager.cpp:366
+#: lib/session/katesessionmanager.cpp:368
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Saioa ezin izan da «%1» gisa berrizendatu. «%2»(e)ra idaztea huts egin du"
 
-#: lib/session/katesessionmanager.cpp:367
+#: lib/session/katesessionmanager.cpp:369
 #, kde-format
 msgid "Session Renaming"
 msgstr "Saio berrizendatzea"
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:547
 #, kde-format
 msgid "Session name:"
 msgstr "Saioaren izena:"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:549
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2953,17 +2953,17 @@ msgstr ""
 "Badago dagoeneko hautatu duzun izeneko saio bat: %1\n"
 "Aukeratu beste bat."
 
-#: lib/session/katesessionmanager.cpp:547
+#: lib/session/katesessionmanager.cpp:551
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Saio bat gordetzeko, izen bat zehaztu behar duzu."
 
-#: lib/session/katesessionmanager.cpp:574
+#: lib/session/katesessionmanager.cpp:578
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Zehaztu saiorako izen bat"
 
-#: lib/session/katesessionmanager.cpp:576
+#: lib/session/katesessionmanager.cpp:580
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Zehaztu saiorako izen berri bat: %1"

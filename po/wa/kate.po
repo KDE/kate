@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2011-07-17 15:37+0200\n"
 "Last-Translator: Jean Cayron <jean.cayron@base.be>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -45,17 +45,17 @@ msgstr "Kata - Aspougneu di tecse po spepieus"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000-2005 Les oteurs di Kate"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:294
-#: lib/autotests/kate_view_mgmt_test2.cpp:596
-#: lib/autotests/kate_view_mgmt_test2.cpp:632
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:300
+#: lib/autotests/kate_view_mgmt_test2.cpp:602
+#: lib/autotests/kate_view_mgmt_test2.cpp:638
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a given session."
 msgstr "Enonder Kate avou ene session dinêye"
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:295
-#: lib/autotests/kate_view_mgmt_test2.cpp:597
-#: lib/autotests/kate_view_mgmt_test2.cpp:633
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:301
+#: lib/autotests/kate_view_mgmt_test2.cpp:603
+#: lib/autotests/kate_view_mgmt_test2.cpp:639
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "session"
@@ -2812,42 +2812,42 @@ msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:51
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:53
+#: lib/quickopen/katequickopenlineedit.cpp:54
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:75
+#: lib/quickopen/katequickopenlineedit.cpp:76
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "All Projects"
 msgstr "Pordjets"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:89
 #, kde-format
 msgid "Current Project"
 msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:104
+#: lib/quickopen/katequickopenlineedit.cpp:105
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:115
+#: lib/quickopen/katequickopenlineedit.cpp:116
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:128
+#: lib/quickopen/katequickopenlineedit.cpp:129
 #, fuzzy, kde-format
 #| msgid "Search folders"
 msgid "Match Folder Names"
@@ -2869,12 +2869,12 @@ msgstr "Manaedjî les sessions"
 msgid "Session Chooser"
 msgstr "Tchoes del session"
 
-#: lib/session/katesessionmanagedialog.cpp:153
+#: lib/session/katesessionmanagedialog.cpp:151
 #, kde-format
 msgid "Restore"
 msgstr ""
 
-#: lib/session/katesessionmanagedialog.cpp:317
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr ""
@@ -2957,26 +2957,26 @@ msgstr "Disfacé"
 msgid "Close"
 msgstr "Clôre"
 
-#: lib/session/katesessionmanager.cpp:147
+#: lib/session/katesessionmanager.cpp:148
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:149
+#: lib/session/katesessionmanager.cpp:150
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:150
+#: lib/session/katesessionmanager.cpp:151
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:366
+#: lib/session/katesessionmanager.cpp:368
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\", there already exists another "
@@ -2986,17 +2986,17 @@ msgstr ""
 "Li session n' pout nén esse rilomêye « %1 », i gn a ddja yene k' a l' minme "
 "no"
 
-#: lib/session/katesessionmanager.cpp:367
+#: lib/session/katesessionmanager.cpp:369
 #, kde-format
 msgid "Session Renaming"
 msgstr "Rilomaedje del session"
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:547
 #, kde-format
 msgid "Session name:"
 msgstr "No del session :"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:549
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -3010,18 +3010,18 @@ msgstr ""
 "Tchoezixhoz ndè diferin, s' i vs plait\n"
 "No del session :"
 
-#: lib/session/katesessionmanager.cpp:547
+#: lib/session/katesessionmanager.cpp:551
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Po schaper ene session, vos dvoz specifyî on no."
 
-#: lib/session/katesessionmanager.cpp:574
+#: lib/session/katesessionmanager.cpp:578
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "Sipecifyîz on novea no pol session"
 
-#: lib/session/katesessionmanager.cpp:576
+#: lib/session/katesessionmanager.cpp:580
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

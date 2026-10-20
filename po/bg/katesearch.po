@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-22 00:49+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2026-04-02 22:56+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -621,70 +621,70 @@ msgstr "Кликнете за филтриране на резултатите"
 msgid "Find"
 msgstr "Търсене"
 
-#: SearchPlugin.cpp:1174
+#: SearchPlugin.cpp:1178
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
 "Търсенето не беше започнато, тъй като директорията „%1“, в която да се "
 "търси, не съществува."
 
-#: SearchPlugin.cpp:1347
+#: SearchPlugin.cpp:1351
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "Търсенето, докато пишете, бе прекъснато. Щеше да отнеме твърде много време."
 
-#: SearchPlugin.cpp:1680
+#: SearchPlugin.cpp:1684
 #, kde-format
 msgid "Search Match"
 msgstr "Търсене на съвпадение"
 
-#: SearchPlugin.cpp:1857 SearchPlugin.cpp:1933
+#: SearchPlugin.cpp:1861 SearchPlugin.cpp:1937
 #, kde-format
 msgid "Next from cursor"
 msgstr "Следващото след курсора"
 
-#: SearchPlugin.cpp:1874
+#: SearchPlugin.cpp:1878
 #, kde-format
 msgid "Starting from first match"
 msgstr "Низ от първото съвпадение"
 
-#: SearchPlugin.cpp:1894
+#: SearchPlugin.cpp:1898
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Продължаване от първото съвпадение"
 
-#: SearchPlugin.cpp:1950
+#: SearchPlugin.cpp:1954
 #, kde-format
 msgid "Starting from last match"
 msgstr "Низ от първото съвпадение"
 
-#: SearchPlugin.cpp:1970
+#: SearchPlugin.cpp:1974
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Продължаване от последното съвпадение"
 
-#: SearchPlugin.cpp:2131
+#: SearchPlugin.cpp:2135
 #, kde-format
 msgid "Search: %1"
 msgstr "Търсене: %1"
 
-#: SearchPlugin.cpp:2274
+#: SearchPlugin.cpp:2278
 #, kde-format
 msgid "Copy all"
 msgstr "Копиране всички"
 
-#: SearchPlugin.cpp:2279
+#: SearchPlugin.cpp:2283
 #, kde-format
 msgid "Copy expanded"
 msgstr "Копиране разширените"
 
-#: SearchPlugin.cpp:2282
+#: SearchPlugin.cpp:2286
 #, kde-format
 msgid "Export matches"
 msgstr "Експортиране на съвпаденията"
 
-#: SearchPlugin.cpp:2283
+#: SearchPlugin.cpp:2288
 #, kde-format
 msgid ""
 "Transform and export search matches using a replacement pattern. To export "
@@ -696,37 +696,37 @@ msgstr ""
 "За да експортирате записи на регулярни изрази, използвайте \\1,\\2,... "
 "Останалият текст в шаблона се връща в резултатите от експортирането."
 
-#: SearchPlugin.cpp:2288
+#: SearchPlugin.cpp:2294
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Отваряне като раздел на редактора"
 
-#: SearchPlugin.cpp:2296
+#: SearchPlugin.cpp:2302
 #, kde-format
 msgid "Clear"
 msgstr "Изчистване"
 
-#: SearchPlugin.cpp:2405 SearchPlugin.cpp:2447
+#: SearchPlugin.cpp:2411 SearchPlugin.cpp:2453
 #, kde-format
 msgid "Clear history"
 msgstr "Изчистване на историята"
 
-#: SearchPlugin.cpp:2413 SearchPlugin.cpp:2454
+#: SearchPlugin.cpp:2419 SearchPlugin.cpp:2460
 #, kde-format
 msgid "Add..."
 msgstr "Добавяне..."
 
-#: SearchPlugin.cpp:2425
+#: SearchPlugin.cpp:2431
 #, kde-format
 msgid "Search As You Type"
 msgstr "Търсене при въвеждане"
 
-#: SearchPlugin.cpp:2503
+#: SearchPlugin.cpp:2509
 #, kde-format
 msgid "In Current Project"
 msgstr "В текущия проект"
 
-#: SearchPlugin.cpp:2505
+#: SearchPlugin.cpp:2511
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Във всички отворени проекти"

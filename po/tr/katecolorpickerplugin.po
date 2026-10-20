@@ -1,7 +1,7 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2023 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2023, 2026 Emir SARI <emir_sari@icloud.com>
 # Volkan Gezer <volkangezer@gmail.com>, 2022.
 # Emir SARI <emir_sari@icloud.com>, 2023.
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2023-11-23 13:33+0300\n"
+"PO-Revision-Date: 2026-10-19 12:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #: colorpickerconfigpage.cpp:34
 #, kde-format
@@ -25,18 +25,14 @@ msgid "Show preview for known color names"
 msgstr "Bilinen renkler için önizlemeyi göster"
 
 #: colorpickerconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgid ""
-#| "Also show the color picker for known color names (e.g. skyblue).\n"
-#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-#| "colors."
+#, kde-format
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
 "See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
 "Bilinen renk adları için renk seçicinin gösterilip gösterilmeyeceği (örn., "
-"skyblue). Renk listesi için https://www.w3.org/TR/SVG11/types."
-"html#ColorKeywords adresine bakın."
+"skyblue). Renk listesi için https://www.w3.org/TR/css-color-4/#named-colors "
+"adresine bakın."
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format

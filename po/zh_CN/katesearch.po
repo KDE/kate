@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-22 00:49+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2024-04-23 19:24\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -589,67 +589,67 @@ msgstr "点击过滤结果"
 msgid "Find"
 msgstr "查找"
 
-#: SearchPlugin.cpp:1174
+#: SearchPlugin.cpp:1178
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "搜索没有开始，因为要搜索的目录“%1”不存在。"
 
-#: SearchPlugin.cpp:1347
+#: SearchPlugin.cpp:1351
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "输入时搜索已中断。因为耗时过长。"
 
-#: SearchPlugin.cpp:1680
+#: SearchPlugin.cpp:1684
 #, kde-format
 msgid "Search Match"
 msgstr "选择匹配"
 
-#: SearchPlugin.cpp:1857 SearchPlugin.cpp:1933
+#: SearchPlugin.cpp:1861 SearchPlugin.cpp:1937
 #, kde-format
 msgid "Next from cursor"
 msgstr "从光标处的下一个"
 
-#: SearchPlugin.cpp:1874
+#: SearchPlugin.cpp:1878
 #, kde-format
 msgid "Starting from first match"
 msgstr "从第一个匹配开始"
 
-#: SearchPlugin.cpp:1894
+#: SearchPlugin.cpp:1898
 #, kde-format
 msgid "Continuing from first match"
 msgstr "从第一个匹配继续"
 
-#: SearchPlugin.cpp:1950
+#: SearchPlugin.cpp:1954
 #, kde-format
 msgid "Starting from last match"
 msgstr "从最后一个匹配开始"
 
-#: SearchPlugin.cpp:1970
+#: SearchPlugin.cpp:1974
 #, kde-format
 msgid "Continuing from last match"
 msgstr "从最后一个匹配继续"
 
-#: SearchPlugin.cpp:2131
+#: SearchPlugin.cpp:2135
 #, kde-format
 msgid "Search: %1"
 msgstr "搜索：%1"
 
-#: SearchPlugin.cpp:2274
+#: SearchPlugin.cpp:2278
 #, kde-format
 msgid "Copy all"
 msgstr "复制全部"
 
-#: SearchPlugin.cpp:2279
+#: SearchPlugin.cpp:2283
 #, kde-format
 msgid "Copy expanded"
 msgstr "复制展开内容"
 
-#: SearchPlugin.cpp:2282
+#: SearchPlugin.cpp:2286
 #, kde-format
 msgid "Export matches"
 msgstr "导出匹配项"
 
-#: SearchPlugin.cpp:2283
+#: SearchPlugin.cpp:2288
 #, kde-format
 msgid ""
 "Transform and export search matches using a replacement pattern. To export "
@@ -659,37 +659,37 @@ msgstr ""
 "使用替换模式变换和导出搜索匹配项。要导出完全匹配项，请使用 \\0。 要导出正则表"
 "达式捕获项，请使用 \\1、\\2 等。替换模式中的其他文本将返回到导出结果中。"
 
-#: SearchPlugin.cpp:2288
+#: SearchPlugin.cpp:2294
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "打开为编辑器标签页"
 
-#: SearchPlugin.cpp:2296
+#: SearchPlugin.cpp:2302
 #, kde-format
 msgid "Clear"
 msgstr "清除"
 
-#: SearchPlugin.cpp:2405 SearchPlugin.cpp:2447
+#: SearchPlugin.cpp:2411 SearchPlugin.cpp:2453
 #, kde-format
 msgid "Clear history"
 msgstr "清除历史记录"
 
-#: SearchPlugin.cpp:2413 SearchPlugin.cpp:2454
+#: SearchPlugin.cpp:2419 SearchPlugin.cpp:2460
 #, kde-format
 msgid "Add..."
 msgstr "添加..."
 
-#: SearchPlugin.cpp:2425
+#: SearchPlugin.cpp:2431
 #, kde-format
 msgid "Search As You Type"
 msgstr "即输即搜"
 
-#: SearchPlugin.cpp:2503
+#: SearchPlugin.cpp:2509
 #, kde-format
 msgid "In Current Project"
 msgstr "当前项目"
 
-#: SearchPlugin.cpp:2505
+#: SearchPlugin.cpp:2511
 #, kde-format
 msgid "In All Open Projects"
 msgstr "所有打开的项目"

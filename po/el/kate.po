@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2026-04-15 23:40+0300\n"
 "Last-Translator: Petros Vidalis <pvidalis@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -54,16 +54,16 @@ msgstr "Kate - Προηγμένος επεξεργαστής κειμένου"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 Οι συγγραφείς του Kate"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:294
-#: lib/autotests/kate_view_mgmt_test2.cpp:596
-#: lib/autotests/kate_view_mgmt_test2.cpp:632
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:300
+#: lib/autotests/kate_view_mgmt_test2.cpp:602
+#: lib/autotests/kate_view_mgmt_test2.cpp:638
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Εκκίνηση του Kate με μία δοσμένη συνεδρία."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:295
-#: lib/autotests/kate_view_mgmt_test2.cpp:597
-#: lib/autotests/kate_view_mgmt_test2.cpp:633
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:301
+#: lib/autotests/kate_view_mgmt_test2.cpp:603
+#: lib/autotests/kate_view_mgmt_test2.cpp:639
 #, kde-format
 msgid "session"
 msgstr "συνεδρία"
@@ -2788,41 +2788,41 @@ msgstr ""
 "'showtoolview $toolview_name'. Απόκρυψη ενός πίνακα toolview. Διαθέσιμοι "
 "πίνακες: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:51
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr "Αναζήτηση αρχείων σε όλα τα έργα (κάντε δεξί κλικ για διαμόρφωση)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:53
+#: lib/quickopen/katequickopenlineedit.cpp:54
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "Αναζήτηση αρχείων στο τρέχον έργο (κάντε δεξί κλικ για διαμόρφωση)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:75
+#: lib/quickopen/katequickopenlineedit.cpp:76
 #, kde-format
 msgid "All Projects"
 msgstr "Όλα τα έργα"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:89
 #, kde-format
 msgid "Current Project"
 msgstr "Τρέχον έργο"
 
-#: lib/quickopen/katequickopenlineedit.cpp:104
+#: lib/quickopen/katequickopenlineedit.cpp:105
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Ασαφές φιλτράρισμα"
 
-#: lib/quickopen/katequickopenlineedit.cpp:115
+#: lib/quickopen/katequickopenlineedit.cpp:116
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Φιλτράρισμα με υποκατάσταση"
 
-#: lib/quickopen/katequickopenlineedit.cpp:128
+#: lib/quickopen/katequickopenlineedit.cpp:129
 #, fuzzy, kde-format
 #| msgid "Search folders"
 msgid "Match Folder Names"
@@ -2843,12 +2843,12 @@ msgstr "Διαχείριση συνεδριών"
 msgid "Session Chooser"
 msgstr "Επιλογή συνεδρίας"
 
-#: lib/session/katesessionmanagedialog.cpp:153
+#: lib/session/katesessionmanagedialog.cpp:151
 #, kde-format
 msgid "Restore"
 msgstr "Επαναφορά"
 
-#: lib/session/katesessionmanagedialog.cpp:317
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Η συνεδρία θα διαγραφεί με το κλείσιμο του διαλόγου"
@@ -2927,7 +2927,7 @@ msgstr "Διαγραφή"
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: lib/session/katesessionmanager.cpp:147
+#: lib/session/katesessionmanager.cpp:148
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2936,35 +2936,35 @@ msgstr ""
 "Η συνεδρία '%1' είναι ήδη ανοιχτή σε μία άλλη διεργασία του kate. Να γίνει "
 "εναλλαγή εκεί ή να ανοίξει πάλι σε αυτήν;"
 
-#: lib/session/katesessionmanager.cpp:149
+#: lib/session/katesessionmanager.cpp:150
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Εναλλαγή σε διεργασία"
 
-#: lib/session/katesessionmanager.cpp:150
+#: lib/session/katesessionmanager.cpp:151
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Άνοιγμα πάλι"
 
-#: lib/session/katesessionmanager.cpp:366
+#: lib/session/katesessionmanager.cpp:368
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Αδυναμία μετονομασίας της συνεδρίας σε «%1». Αποτυχία εγγραφής στο «%2»"
 
-#: lib/session/katesessionmanager.cpp:367
+#: lib/session/katesessionmanager.cpp:369
 #, kde-format
 msgid "Session Renaming"
 msgstr "Μετονομασία συνεδρίας"
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:547
 #, kde-format
 msgid "Session name:"
 msgstr "Όνομα συνεδρίας:"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:549
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2973,17 +2973,17 @@ msgstr ""
 "Υπάρχει ήδη μια συνεδρία με το επιλεγμένο όνομα: %1\n"
 "Παρακαλώ επιλέξτε ένα διαφορετικό."
 
-#: lib/session/katesessionmanager.cpp:547
+#: lib/session/katesessionmanager.cpp:551
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Για την αποθήκευση μιας συνεδρίας, πρέπει να ορίσετε ένα όνομα."
 
-#: lib/session/katesessionmanager.cpp:574
+#: lib/session/katesessionmanager.cpp:578
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Ορισμός ονόματος για αυτήν τη συνεδρία"
 
-#: lib/session/katesessionmanager.cpp:576
+#: lib/session/katesessionmanager.cpp:580
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Ορισμός νέου ονόματος για τη συνεδρία: %1"

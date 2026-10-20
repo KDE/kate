@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2023-03-21 06:48+0100\n"
+"PO-Revision-Date: 2026-10-19 05:40+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.10\n"
 
 #: colorpickerconfigpage.cpp:34
 #, kde-format
@@ -24,17 +24,13 @@ msgid "Show preview for known color names"
 msgstr "ცნობილი ფერის სახელების გადახედვის ჩვენება"
 
 #: colorpickerconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgid ""
-#| "Also show the color picker for known color names (e.g. skyblue).\n"
-#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-#| "colors."
+#, kde-format
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
 "See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
 "ასევე ნაჩვენები იქნება ცნობილი ფერის სახელებით არჩევა (მაგ: ცისფერი).\n"
-"ფერების სიისთვის იხილეთ https://www.w3.org/TR/SVG11/types.html#ColorKeywords."
+"ფერების სიისთვის იხილეთ https://www.w3.org/TR/css-color-4/#named-colors."
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format

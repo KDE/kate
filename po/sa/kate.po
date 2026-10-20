@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -40,16 +40,16 @@ msgstr "केट - उन्नत पाठ्य सम्पादक"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) २०००-२०२४ केट लेखकाः"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:294
-#: lib/autotests/kate_view_mgmt_test2.cpp:596
-#: lib/autotests/kate_view_mgmt_test2.cpp:632
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:300
+#: lib/autotests/kate_view_mgmt_test2.cpp:602
+#: lib/autotests/kate_view_mgmt_test2.cpp:638
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "दत्तसत्रेण केट् आरभत।."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:295
-#: lib/autotests/kate_view_mgmt_test2.cpp:597
-#: lib/autotests/kate_view_mgmt_test2.cpp:633
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:301
+#: lib/autotests/kate_view_mgmt_test2.cpp:603
+#: lib/autotests/kate_view_mgmt_test2.cpp:639
 #, kde-format
 msgid "session"
 msgstr "सत्र"
@@ -2742,41 +2742,41 @@ msgstr ""
 "'showtoolview $ toolview_name' इति । एकं toolview फलकं गोपयन्तु । उपलब्धाः पटलाः: "
 "%1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:51
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr "सर्वेषु परियोजनासु सञ्चिकाः अन्वेष्टुम् (विन्यस्तुं राइट् क्लिक् कुर्वन्तु)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:53
+#: lib/quickopen/katequickopenlineedit.cpp:54
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "वर्तमान परियोजनायां सञ्चिकाः अन्वेष्टुम् (विन्यस्तुं राइट् क्लिक् कुर्वन्तु)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:75
+#: lib/quickopen/katequickopenlineedit.cpp:76
 #, kde-format
 msgid "All Projects"
 msgstr "सर्वाणि परियोजनानि"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:89
 #, kde-format
 msgid "Current Project"
 msgstr "वर्तमान परियोजना"
 
-#: lib/quickopen/katequickopenlineedit.cpp:104
+#: lib/quickopen/katequickopenlineedit.cpp:105
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "फजी फ़िल्टरिंग"
 
-#: lib/quickopen/katequickopenlineedit.cpp:115
+#: lib/quickopen/katequickopenlineedit.cpp:116
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "वाइल्डकार्ड फ़िल्टरिंग"
 
-#: lib/quickopen/katequickopenlineedit.cpp:128
+#: lib/quickopen/katequickopenlineedit.cpp:129
 #, kde-format
 msgid "Match Folder Names"
 msgstr ""
@@ -2796,12 +2796,12 @@ msgstr "सत्रं प्रबन्धयन्तु"
 msgid "Session Chooser"
 msgstr "सत्रचयनकर्ता"
 
-#: lib/session/katesessionmanagedialog.cpp:153
+#: lib/session/katesessionmanagedialog.cpp:151
 #, kde-format
 msgid "Restore"
 msgstr "निर्यत्"
 
-#: lib/session/katesessionmanagedialog.cpp:317
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "संवादः समाप्तः इत्यत्र सत्रं विलोपितं भविष्यति"
@@ -2880,7 +2880,7 @@ msgstr "लोपयन्तु"
 msgid "Close"
 msgstr "पिधाय"
 
-#: lib/session/katesessionmanager.cpp:147
+#: lib/session/katesessionmanager.cpp:148
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2889,34 +2889,34 @@ msgstr ""
 "अन्यस्मिन् केट् दृष्टान्ते '%1' सत्रं पूर्वमेव उद्घाटितम् अस्ति । तस्मिन् स्विच् कुर्वन्तु अथवा अस्मिन् "
 "दृष्टान्ते पुनः उद्घाटयन्तु?"
 
-#: lib/session/katesessionmanager.cpp:149
+#: lib/session/katesessionmanager.cpp:150
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "उदाहरणं प्रति परिवर्तनं कुर्वन्तु"
 
-#: lib/session/katesessionmanager.cpp:150
+#: lib/session/katesessionmanager.cpp:151
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "पुनः उद्घाटयतु"
 
-#: lib/session/katesessionmanager.cpp:366
+#: lib/session/katesessionmanager.cpp:368
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "सत्रस्य नाम \"%1\" इति परिवर्तयितुं न शक्यते स्म । \"%2\" इत्यत्र लिखितुं असफलम् ।"
 
-#: lib/session/katesessionmanager.cpp:367
+#: lib/session/katesessionmanager.cpp:369
 #, kde-format
 msgid "Session Renaming"
 msgstr "सत्र पुनर्नामकरणम्"
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:547
 #, kde-format
 msgid "Session name:"
 msgstr "सत्रस्य नाम :"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:549
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2925,17 +2925,17 @@ msgstr ""
 "भवतः चयनितनाम्ना सह विद्यमानं सत्रं पूर्वमेव अस्ति: %1\n"
 "कृपया भिन्नं चिनोतु ।."
 
-#: lib/session/katesessionmanager.cpp:547
+#: lib/session/katesessionmanager.cpp:551
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "सत्रं रक्षितुं भवता नाम निर्दिष्टव्यम् ।."
 
-#: lib/session/katesessionmanager.cpp:574
+#: lib/session/katesessionmanager.cpp:578
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "अस्य सत्रस्य नाम निर्दिशन्तु"
 
-#: lib/session/katesessionmanager.cpp:576
+#: lib/session/katesessionmanager.cpp:580
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "सत्रस्य कृते नूतनं नाम निर्दिशन्तु: %1"

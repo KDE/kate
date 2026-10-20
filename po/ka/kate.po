@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2026-10-16 07:02+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -43,16 +43,16 @@ msgstr "Kate - გაუმჯობესებული ტექსტურ�
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 The Kate -ის ავტორები"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:294
-#: lib/autotests/kate_view_mgmt_test2.cpp:596
-#: lib/autotests/kate_view_mgmt_test2.cpp:632
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:300
+#: lib/autotests/kate_view_mgmt_test2.cpp:602
+#: lib/autotests/kate_view_mgmt_test2.cpp:638
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Kate-ის მითითებული სესიით გაშვება."
 
-#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:295
-#: lib/autotests/kate_view_mgmt_test2.cpp:597
-#: lib/autotests/kate_view_mgmt_test2.cpp:633
+#: kate/main.cpp:171 lib/autotests/kate_view_mgmt_test2.cpp:301
+#: lib/autotests/kate_view_mgmt_test2.cpp:603
+#: lib/autotests/kate_view_mgmt_test2.cpp:639
 #, kde-format
 msgid "session"
 msgstr "სესია"
@@ -2746,41 +2746,41 @@ msgstr ""
 "'showtoolview $toolview_name'. ხელსაწყოს ხედის პანელის დამალვა. "
 "ხელმისაწვდომი პანელებია: %1"
 
-#: lib/quickopen/katequickopenlineedit.cpp:50
+#: lib/quickopen/katequickopenlineedit.cpp:51
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr "ფაილების ძებნა ყველა პროექტში (მარჯვენა წკაპი მოსარგებად)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:53
+#: lib/quickopen/katequickopenlineedit.cpp:54
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr "ფაილის ძებნა მიმდინარე პროექტში (მარჯვენა წკაპი მოსარგებად)"
 
-#: lib/quickopen/katequickopenlineedit.cpp:75
+#: lib/quickopen/katequickopenlineedit.cpp:76
 #, kde-format
 msgid "All Projects"
 msgstr "ყველა პროექტები"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:89
 #, kde-format
 msgid "Current Project"
 msgstr "მიმდინარე პროექტი"
 
-#: lib/quickopen/katequickopenlineedit.cpp:104
+#: lib/quickopen/katequickopenlineedit.cpp:105
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "არაზუსტი ფილტრი"
 
-#: lib/quickopen/katequickopenlineedit.cpp:115
+#: lib/quickopen/katequickopenlineedit.cpp:116
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "ვაილდკარდით ფილტრი"
 
-#: lib/quickopen/katequickopenlineedit.cpp:128
+#: lib/quickopen/katequickopenlineedit.cpp:129
 #, kde-format
 msgid "Match Folder Names"
 msgstr "საქაღალდის სახელების დამთხვევა"
@@ -2800,12 +2800,12 @@ msgstr "სესიების მართვა"
 msgid "Session Chooser"
 msgstr "სესიის ამომრჩევი"
 
-#: lib/session/katesessionmanagedialog.cpp:153
+#: lib/session/katesessionmanagedialog.cpp:151
 #, kde-format
 msgid "Restore"
 msgstr "აღდგენა"
 
-#: lib/session/katesessionmanagedialog.cpp:317
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "ფანჯრის დახურვისას სესია წაიშლება"
@@ -2884,7 +2884,7 @@ msgstr "წაშლა"
 msgid "Close"
 msgstr "დახურვა"
 
-#: lib/session/katesessionmanager.cpp:147
+#: lib/session/katesessionmanager.cpp:148
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2893,34 +2893,34 @@ msgstr ""
 "სესია '%1' უკვე გახსნილია Kate-ის სხვა გაშვებულ ასლში. გადავრთო იმ გაშვებულ "
 "ასლზე თუ თავიდან გავხსნა ამ გაშვებულ ასლში?"
 
-#: lib/session/katesessionmanager.cpp:149
+#: lib/session/katesessionmanager.cpp:150
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "გაშვებულ ასლზე გადასვლა"
 
-#: lib/session/katesessionmanager.cpp:150
+#: lib/session/katesessionmanager.cpp:151
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "ხელახლა გახსნა"
 
-#: lib/session/katesessionmanager.cpp:366
+#: lib/session/katesessionmanager.cpp:368
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "სესიის სახელის გადარქმევა '%1'-ზე შეუძლებელია. '%2'-ში ჩაწერა ჩავარდა"
 
-#: lib/session/katesessionmanager.cpp:367
+#: lib/session/katesessionmanager.cpp:369
 #, kde-format
 msgid "Session Renaming"
 msgstr "სესიის გადარქმევა"
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:547
 #, kde-format
 msgid "Session name:"
 msgstr "სესიის სახელი:"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:549
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2929,17 +2929,17 @@ msgstr ""
 "სესია თქვენი არჩეული სახელით უკვე არსებობს: %1\n"
 "აირჩიეთ სხვა სახელი."
 
-#: lib/session/katesessionmanager.cpp:547
+#: lib/session/katesessionmanager.cpp:551
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "სესიის შესანახად საჭიროა სახელის მითითება."
 
-#: lib/session/katesessionmanager.cpp:574
+#: lib/session/katesessionmanager.cpp:578
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "ამ სესიის ფაილის მიითება"
 
-#: lib/session/katesessionmanager.cpp:576
+#: lib/session/katesessionmanager.cpp:580
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "მიუთითეთ ახალი სახელი სესიისთვის: %1"

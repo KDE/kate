@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-06 00:49+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2026-07-06 09:07+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -61,29 +61,29 @@ msgctxt "@info:progress Macro is being recorded right now"
 msgid "Recording…"
 msgstr "Записування…"
 
-#: keyboardmacrosplugin.cpp:278
+#: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "Recording ended"
 msgstr "Записування завершено"
 
-#: keyboardmacrosplugin.cpp:279
+#: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "Recording canceled"
 msgstr "Записування скасовано"
 
-#: keyboardmacrosplugin.cpp:330
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Saved ‘%1’"
 msgstr "Збережено «%1»"
 
-#: keyboardmacrosplugin.cpp:350
+#: keyboardmacrosplugin.cpp:347
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Loaded ‘%1’"
 msgstr "Завантажено «%1»"
 
-#: keyboardmacrosplugin.cpp:368
+#: keyboardmacrosplugin.cpp:365
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wiped ‘%1’"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2020-07-15 07:20+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -382,63 +382,63 @@ msgstr "Klien LSP"
 msgid "Question from LSP server"
 msgstr "Nyalakan Ulang Server LSP"
 
-#: lspclientservermanager.cpp:629
+#: lspclientservermanager.cpp:654
 #, kde-format
 msgid "Restarting"
 msgstr ""
 
-#: lspclientservermanager.cpp:629
+#: lspclientservermanager.cpp:654
 #, kde-format
 msgid "NOT Restarting"
 msgstr ""
 
-#: lspclientservermanager.cpp:630
+#: lspclientservermanager.cpp:655
 #, fuzzy, kde-format
 #| msgid "Server terminated unexpectedly: %1"
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Server mati secara tiba-tiba: %1"
 
-#: lspclientservermanager.cpp:902
+#: lspclientservermanager.cpp:927
 #, fuzzy, kde-format
 #| msgid "Failed to start server: %1"
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Gagal menyalakan server: %1"
 
-#: lspclientservermanager.cpp:905 lspclientservermanager.cpp:970
+#: lspclientservermanager.cpp:930 lspclientservermanager.cpp:995
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr ""
 
-#: lspclientservermanager.cpp:906 lspclientservermanager.cpp:971
+#: lspclientservermanager.cpp:931 lspclientservermanager.cpp:996
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr ""
 
-#: lspclientservermanager.cpp:967
+#: lspclientservermanager.cpp:992
 #, fuzzy, kde-format
 #| msgid "Failed to start server: %1"
 msgid "Failed to start server '%1' for language '%2'"
 msgstr "Gagal menyalakan server: %1"
 
-#: lspclientservermanager.cpp:975
+#: lspclientservermanager.cpp:1000
 #, fuzzy, kde-format
 #| msgid "Failed to start server: %1"
 msgid "Started server %2: %1"
 msgstr "Gagal menyalakan server: %1"
 
-#: lspclientservermanager.cpp:1022
+#: lspclientservermanager.cpp:1047
 #, fuzzy, kde-format
 #| msgid "Failed to parse server configuration: %1"
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Gagal mengurai konfigurasi server: %1"
 
-#: lspclientservermanager.cpp:1025
+#: lspclientservermanager.cpp:1050
 #, fuzzy, kde-format
 #| msgid "Failed to parse server configuration: %1"
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Gagal mengurai konfigurasi server: %1"
 
-#: lspclientservermanager.cpp:1029
+#: lspclientservermanager.cpp:1054
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Gagal membaca konfigurasi server: %1"

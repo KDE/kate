@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2026-10-17 08:15+0200\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"PO-Revision-Date: 2026-10-19 11:13+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -187,7 +187,7 @@ msgstr "Afegeix un mapatge"
 msgid "Remove Selected Mapping"
 msgstr "Elimina el mapatge seleccionat"
 
-#: git/gitforgeconfigwidget.cpp:60
+#: git/gitforgeconfigwidget.cpp:61
 #, kde-format
 msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
@@ -196,34 +196,34 @@ msgstr ""
 "Intenta identificar un Forgejo, GitHub o GitLab a partir de l'URL del lloc "
 "web seleccionat"
 
-#: git/gitforgeconfigwidget.cpp:106
+#: git/gitforgeconfigwidget.cpp:107
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
 msgstr "El servei d'allotjament a la fila %1 no és vàlid."
 
-#: git/gitforgeconfigwidget.cpp:111
+#: git/gitforgeconfigwidget.cpp:112
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
 msgstr ""
 "L'URL del servidor remot o del lloc web del Git a la fila %1 no és vàlid."
 
-#: git/gitforgeconfigwidget.cpp:138
+#: git/gitforgeconfigwidget.cpp:139
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
 msgstr "git.exemple.com o git.exemple.com:2222"
 
-#: git/gitforgeconfigwidget.cpp:156
+#: git/gitforgeconfigwidget.cpp:157
 #, kde-format
 msgid "https://git.example.com"
 msgstr "https://git.example.com"
 
-#: git/gitforgeconfigwidget.cpp:173
+#: git/gitforgeconfigwidget.cpp:174
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
 msgstr "Seleccioneu un mapatge per detectar el seu servei d'allotjament."
 
-#: git/gitforgeconfigwidget.cpp:180
+#: git/gitforgeconfigwidget.cpp:181
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
@@ -231,22 +231,22 @@ msgstr ""
 "Introduïu un URL vàlid de lloc web HTTP o HTTPS abans de detectar el servei "
 "d'allotjament."
 
-#: git/gitforgeconfigwidget.cpp:191
+#: git/gitforgeconfigwidget.cpp:192
 #, kde-format
 msgid "Detecting…"
 msgstr "S'està detectant…"
 
-#: git/gitforgeconfigwidget.cpp:237
+#: git/gitforgeconfigwidget.cpp:238
 #, kde-format
 msgid "Detected %1."
 msgstr "S'ha detectat %1."
 
-#: git/gitforgeconfigwidget.cpp:239
+#: git/gitforgeconfigwidget.cpp:240
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
 msgstr "El mapatge ha canviat; el resultat de la detecció s'ha ignorat."
 
-#: git/gitforgeconfigwidget.cpp:241
+#: git/gitforgeconfigwidget.cpp:242
 #, kde-format
 msgid "Service could not be detected; select it manually."
 msgstr "No s'ha pogut detectar el servei; seleccioneu-lo manualment."
@@ -407,10 +407,9 @@ msgstr ""
 "que no funcioni correctament"
 
 #: gitwidget.cpp:593
-#, fuzzy, kde-format
-#| msgid "Failed to get stash list. Error: "
+#, kde-format
 msgid "Failed to get the git status"
-msgstr "Ha fallat en obtenir la llista de modificacions temporals. Error: "
+msgstr "Ha fallat en obtenir l'estat del «git»"
 
 #: gitwidget.cpp:652
 #, kde-format
@@ -1384,10 +1383,9 @@ msgstr ""
 "temporal, «Esc» per a sortir."
 
 #: stashdialog.cpp:142 stashdialog.cpp:204
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgid "Failed to run git: %1"
-msgstr "Ha fallat en cometre: %1"
+msgstr "Ha fallat en executar el «git»: %1"
 
 #: stashdialog.cpp:168
 #, kde-format
@@ -1402,7 +1400,7 @@ msgstr "Els canvis s'han fet modificació temporal correctament."
 #: stashdialog.cpp:189
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "S'està carregant..."
 
 #: stashdialog.cpp:198
 #, kde-format

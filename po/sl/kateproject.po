@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2026-10-17 07:40+0200\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"PO-Revision-Date: 2026-10-19 09:52+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -192,7 +192,7 @@ msgstr "Dodaj preslikavo"
 msgid "Remove Selected Mapping"
 msgstr "Odstrani izbrano preslikavo"
 
-#: git/gitforgeconfigwidget.cpp:60
+#: git/gitforgeconfigwidget.cpp:61
 #, kde-format
 msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
@@ -201,34 +201,34 @@ msgstr ""
 "Poskusi prepoznati Forgejo, GitHub ali GitLab iz URL-ja spletnega mesta "
 "izbrane preslikave"
 
-#: git/gitforgeconfigwidget.cpp:106
+#: git/gitforgeconfigwidget.cpp:107
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
 msgstr "Storitev gostovanja v vrstici %1 je neveljavna."
 
-#: git/gitforgeconfigwidget.cpp:111
+#: git/gitforgeconfigwidget.cpp:112
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
 msgstr ""
 "Oddaljeni gostitelj Git ali URL spletnega mesta v vrstici %1 je neveljaven."
 
-#: git/gitforgeconfigwidget.cpp:138
+#: git/gitforgeconfigwidget.cpp:139
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
 msgstr "git.example.com ali git.example.com:2222"
 
-#: git/gitforgeconfigwidget.cpp:156
+#: git/gitforgeconfigwidget.cpp:157
 #, kde-format
 msgid "https://git.example.com"
 msgstr "https://git.example.com"
 
-#: git/gitforgeconfigwidget.cpp:173
+#: git/gitforgeconfigwidget.cpp:174
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
 msgstr "Izberite preslikavo, da zaznate njeno storitev gostovanja."
 
-#: git/gitforgeconfigwidget.cpp:180
+#: git/gitforgeconfigwidget.cpp:181
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
@@ -236,22 +236,22 @@ msgstr ""
 "Vnesite veljaven URL spletnega mesta (HTTP ali HTTPS) pred zaznavanjem "
 "storitve gostovanja."
 
-#: git/gitforgeconfigwidget.cpp:191
+#: git/gitforgeconfigwidget.cpp:192
 #, kde-format
 msgid "Detecting…"
 msgstr "Zaznavanje…"
 
-#: git/gitforgeconfigwidget.cpp:237
+#: git/gitforgeconfigwidget.cpp:238
 #, kde-format
 msgid "Detected %1."
 msgstr "Zaznana %1."
 
-#: git/gitforgeconfigwidget.cpp:239
+#: git/gitforgeconfigwidget.cpp:240
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
 msgstr "Preslikava se je spremenila; rezultat zaznave je bil prezrt."
 
-#: git/gitforgeconfigwidget.cpp:241
+#: git/gitforgeconfigwidget.cpp:242
 #, kde-format
 msgid "Service could not be detected; select it manually."
 msgstr "Storitve ni bilo mogoče zaznati; izberite jo ročno."
@@ -412,10 +412,9 @@ msgstr ""
 "pravilno"
 
 #: gitwidget.cpp:593
-#, fuzzy, kde-format
-#| msgid "Failed to get stash list. Error: "
+#, kde-format
 msgid "Failed to get the git status"
-msgstr "Seznama zaloge ni bilo mogoče pridobiti. Napaka: "
+msgstr "Pridobivanje stanja git ni uspelo"
 
 #: gitwidget.cpp:652
 #, kde-format
@@ -1384,10 +1383,9 @@ msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "Vnesite za filtriranje, vnašalka za dvig zaloge, ubežnica za izhod."
 
 #: stashdialog.cpp:142 stashdialog.cpp:204
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgid "Failed to run git: %1"
-msgstr "Potrjevanje ni uspelo: %1"
+msgstr "Ni uspelo zagnati gita: %1"
 
 #: stashdialog.cpp:168
 #, kde-format
@@ -1402,7 +1400,7 @@ msgstr "Spremembe so bile uspešno založene."
 #: stashdialog.cpp:189
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Nalaganje..."
 
 #: stashdialog.cpp:198
 #, kde-format

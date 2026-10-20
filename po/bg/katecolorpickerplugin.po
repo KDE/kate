@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the kate package.
 #
 # Automatically generated, 2022.
-# Mincho Kondarev <mkondarev@yahoo.de>, 2022.
+# SPDX-FileCopyrightText: 2022, 2026 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2022-07-10 13:39+0200\n"
+"PO-Revision-Date: 2026-10-19 15:56+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #: colorpickerconfigpage.cpp:34
 #, kde-format
@@ -25,19 +25,14 @@ msgid "Show preview for known color names"
 msgstr "Показване на предварителен преглед за известни имена на цветове"
 
 #: colorpickerconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgid ""
-#| "Also show the color picker for known color names (e.g. skyblue).\n"
-#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-#| "colors."
+#, kde-format
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
 "See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
-"Също така показване на известни имена на цветове (напр. небесносиньо) при "
-"избор на цвят.\n"
-"Вижте https://www.w3.org/TR/SVG11/types.html#ColorKeywords за списъка на "
-"цветове."
+"Също да се показва изборът на цветове за известни имена на цветове (напр. "
+"skyblue).\n"
+"Вижте https://www.w3.org/TR/css-color-4/#named-colors за списъка с цветове."
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format

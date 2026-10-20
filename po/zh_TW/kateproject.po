@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2026-10-01 02:36+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -180,61 +180,61 @@ msgstr "新增對應"
 msgid "Remove Selected Mapping"
 msgstr "移除已選的對應"
 
-#: git/gitforgeconfigwidget.cpp:60
+#: git/gitforgeconfigwidget.cpp:61
 #, kde-format
 msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
 msgstr "試著從已選對應的網站 URL 辨別 Forgejo、GitHub 或 GitLab"
 
-#: git/gitforgeconfigwidget.cpp:106
+#: git/gitforgeconfigwidget.cpp:107
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
 msgstr "第 %1 列的託管服務是無效的。"
 
-#: git/gitforgeconfigwidget.cpp:111
+#: git/gitforgeconfigwidget.cpp:112
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
 msgstr "第 %1 列的 Git 遠端主機或網站 URL 是無效的。"
 
-#: git/gitforgeconfigwidget.cpp:138
+#: git/gitforgeconfigwidget.cpp:139
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
 msgstr "git.example.com 或 git.example.com:2222"
 
-#: git/gitforgeconfigwidget.cpp:156
+#: git/gitforgeconfigwidget.cpp:157
 #, kde-format
 msgid "https://git.example.com"
 msgstr "https://git.example.com"
 
-#: git/gitforgeconfigwidget.cpp:173
+#: git/gitforgeconfigwidget.cpp:174
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
 msgstr "選擇對應來偵測它的託管服務。"
 
-#: git/gitforgeconfigwidget.cpp:180
+#: git/gitforgeconfigwidget.cpp:181
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
 msgstr "偵測託管服務前請先輸入有效的 HTTP 或 HTTPS 網站 URL。"
 
-#: git/gitforgeconfigwidget.cpp:191
+#: git/gitforgeconfigwidget.cpp:192
 #, kde-format
 msgid "Detecting…"
 msgstr "偵測中…"
 
-#: git/gitforgeconfigwidget.cpp:237
+#: git/gitforgeconfigwidget.cpp:238
 #, kde-format
 msgid "Detected %1."
 msgstr "已偵測到 %1。"
 
-#: git/gitforgeconfigwidget.cpp:239
+#: git/gitforgeconfigwidget.cpp:240
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
 msgstr "對應已變更；偵測結果已忽略。"
 
-#: git/gitforgeconfigwidget.cpp:241
+#: git/gitforgeconfigwidget.cpp:242
 #, kde-format
 msgid "Service could not be detected; select it manually."
 msgstr "無法偵測到服務；請手動選取。"

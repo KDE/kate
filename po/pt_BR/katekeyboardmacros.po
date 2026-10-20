@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-06 00:49+0000\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
 "PO-Revision-Date: 2026-07-06 08:40-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -63,29 +63,29 @@ msgctxt "@info:progress Macro is being recorded right now"
 msgid "Recording…"
 msgstr "Gravando…"
 
-#: keyboardmacrosplugin.cpp:278
+#: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "Recording ended"
 msgstr "Gravação terminada"
 
-#: keyboardmacrosplugin.cpp:279
+#: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "Recording canceled"
 msgstr "Gravação cancelada"
 
-#: keyboardmacrosplugin.cpp:330
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Saved ‘%1’"
 msgstr "Salvou '%1'"
 
-#: keyboardmacrosplugin.cpp:350
+#: keyboardmacrosplugin.cpp:347
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Loaded ‘%1’"
 msgstr "Carregou '%1'"
 
-#: keyboardmacrosplugin.cpp:368
+#: keyboardmacrosplugin.cpp:365
 #, kde-format
 msgctxt "%1 is the name of a keyboard macro"
 msgid "Wiped ‘%1’"

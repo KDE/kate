@@ -1,21 +1,21 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Freek de Kruijf <freekdekruijf@kde.nl>, 2020, 2021.
+# SPDX-FileCopyrightText: 2020-2021, 2026 Freek de Kruijf <freekdekruijf@kde.nl>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2021-01-20 13:13+0100\n"
+"PO-Revision-Date: 2026-10-19 14:44+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
-"Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
+"Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.12.1\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #: colorpickerconfigpage.cpp:34
 #, kde-format
@@ -23,17 +23,13 @@ msgid "Show preview for known color names"
 msgstr "Voorbeeld voor bekende kleurennamen tonen"
 
 #: colorpickerconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgid ""
-#| "Also show the color picker for known color names (e.g. skyblue).\n"
-#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-#| "colors."
+#, kde-format
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
 "See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
-"Ook de kleurenkiezer voor bekend kleurennamen tonen (bijv. hemelsblauw).\n"
-"Zie https://www.w3.org/TR/SVG11/types.html#ColorKeywords voor de lijst met "
+"Ook de kleurenkiezer voor bekende kleurennamen tonen (bijv. hemelsblauw).\n"
+"Zie https://www.w3.org/TR/css-color-4/#named-colors voor de lijst met "
 "kleuren."
 
 #: colorpickerconfigpage.cpp:39

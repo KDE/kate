@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2026-10-17 04:52+0200\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"PO-Revision-Date: 2026-10-19 05:43+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -21,42 +21,42 @@ msgstr ""
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr "აირჩიეთ გამოსათხოვი ბრენჩი. გასაუქმებლად 'Esc'."
+msgstr "აირჩიეთ გამოსათხოვი ტოტი. გასაუქმებლად 'Esc'."
 
 #: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr "ბრენჩი %1 გამოთხოვილია"
+msgstr "ტოტი %1 გამოთხოვილია"
 
 #: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr "შეცდომა ბრენჩის (%1) გამოთხოვისას. შეცდომა: %2"
+msgstr "შეცდომა ტოტის (%1) გამოთხოვისას. შეცდომა: %2"
 
 #: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr "შეიყვანეთ ახალი ბრენჩის სახელი. 'Esc' გასაუქმებლად."
+msgstr "შეიყვანეთ ახალი ტოტის სახელი. 'Esc' გასაუქმებლად."
 
 #: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr "აირჩიეთ გამოსათხოვი ბრენჩი. გასაუქმებლად 'Esc'."
+msgstr "აირჩიეთ გამოსათხოვი ტოტი. გასაუქმებლად 'Esc'."
 
 #: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr "გამოთხოვილია ახალ ბრენჩში: %1"
+msgstr "გამოთხოვილია ახალ ტოტში: %1"
 
 #: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr "ახალი ბრენჩის შექმნა შეუძლებელია. შეცდომა \"%1\""
+msgstr "ახალი ტოტის შექმნა შეუძლებელია. შეცდომა \"%1\""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Branch"
-msgstr "ბრენჩი"
+msgstr "ტოტი"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -77,13 +77,13 @@ msgstr "წაშლა"
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ მონიშნული ბრენჩი?"
-msgstr[1] "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ მონიშნული ბრენჩები?"
+msgstr[0] "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ მონიშნული ტოტი?"
+msgstr[1] "დარწმუნებული ბრძანდებით, რომ გნებავთ, წაშალოთ მონიშნული ტოტები?"
 
 #: branchesdialog.cpp:96
 #, kde-format
 msgid "Select Branch..."
-msgstr "აირჩიეთ ბრენჩი..."
+msgstr "აირჩიეთ ტოტი..."
 
 #: branchesdialog.cpp:108 gitwidget.cpp:551 kateprojectconfigpage.cpp:32
 #: kateprojectpluginview.cpp:77
@@ -94,12 +94,12 @@ msgstr "Git"
 #: branchesdialogmodel.cpp:102
 #, kde-format
 msgid "Create New Branch"
-msgstr "ახალი ბრენჩის შექმნა"
+msgstr "ახალი ტოტის შექმნა"
 
 #: branchesdialogmodel.cpp:108
 #, kde-format
 msgid "Create New Branch From..."
-msgstr "ახალი ბრენჩის შექმნა წყაროდან..."
+msgstr "ახალი ტოტის შექმნა წყაროდან..."
 
 #: comparebranchesview.cpp:131
 #, kde-format
@@ -122,7 +122,7 @@ msgstr "HEAD არის ჭდეზე %1"
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr "აქტიური ბრენჩი: %1"
+msgstr "აქტიური ტოტი: %1"
 
 #: git/gitforgeconfigwidget.cpp:32
 #, kde-format
@@ -184,7 +184,7 @@ msgstr "ასახვის დამატება"
 msgid "Remove Selected Mapping"
 msgstr "მონიშნული ასახვის წაშლა"
 
-#: git/gitforgeconfigwidget.cpp:60
+#: git/gitforgeconfigwidget.cpp:61
 #, kde-format
 msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
@@ -193,54 +193,54 @@ msgstr ""
 "Forgejo-ის, GitHub-ის, ან GitLab-ის დადგენის ცდა არჩეული ასახვის ვებსაიტის "
 "URL-დან"
 
-#: git/gitforgeconfigwidget.cpp:106
+#: git/gitforgeconfigwidget.cpp:107
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
 msgstr "ჰოსტინგის სერვისი მწკრივში %1 არასწორია."
 
-#: git/gitforgeconfigwidget.cpp:111
+#: git/gitforgeconfigwidget.cpp:112
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
 msgstr "Git-ის დაშორებული ჰოსტი, ან ვებსაიტის URL მწკრივში %1 არასწორია."
 
-#: git/gitforgeconfigwidget.cpp:138
+#: git/gitforgeconfigwidget.cpp:139
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
 msgstr "git.example.com, ან git.example.com:2222"
 
-#: git/gitforgeconfigwidget.cpp:156
+#: git/gitforgeconfigwidget.cpp:157
 #, kde-format
 msgid "https://git.example.com"
 msgstr "https://git.example.com"
 
-#: git/gitforgeconfigwidget.cpp:173
+#: git/gitforgeconfigwidget.cpp:174
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
 msgstr "აირჩიეთ ასახვა მისი ჰოსტინგის სერვისის დასადგენად."
 
-#: git/gitforgeconfigwidget.cpp:180
+#: git/gitforgeconfigwidget.cpp:181
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
 msgstr "ჰოსტინგის სერვისის დადგენამდე შეიყვანეთ HTTP, ან HTTPS ვებსაიტის URL."
 
-#: git/gitforgeconfigwidget.cpp:191
+#: git/gitforgeconfigwidget.cpp:192
 #, kde-format
 msgid "Detecting…"
 msgstr "დადგენა…"
 
-#: git/gitforgeconfigwidget.cpp:237
+#: git/gitforgeconfigwidget.cpp:238
 #, kde-format
 msgid "Detected %1."
 msgstr "დადგენილია %1."
 
-#: git/gitforgeconfigwidget.cpp:239
+#: git/gitforgeconfigwidget.cpp:240
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
 msgstr "ასახვა შეიცვალა. აღმოჩენის შედეგი იგნორირებულია."
 
-#: git/gitforgeconfigwidget.cpp:241
+#: git/gitforgeconfigwidget.cpp:242
 #, kde-format
 msgid "Service could not be detected; select it manually."
 msgstr "სერვისის დადგენა შეუძლებელია. აირჩიეთ ის ხელით."
@@ -401,10 +401,9 @@ msgstr ""
 "არ იმუშაოს"
 
 #: gitwidget.cpp:593
-#, fuzzy, kde-format
-#| msgid "Failed to get stash list. Error: "
+#, kde-format
 msgid "Failed to get the git status"
-msgstr "სამალავების სიის მიღება ჩავარდა. შეცდომა: "
+msgstr "git-ის სტატუსის მიღება ჩავარდა"
 
 #: gitwidget.cpp:652
 #, kde-format
@@ -489,17 +488,17 @@ msgstr "განახლება"
 #: gitwidget.cpp:1062
 #, kde-format
 msgid "Checkout Branch"
-msgstr "ბრენჩის გამოთხოვა"
+msgstr "ტოტი გამოთხოვა"
 
 #: gitwidget.cpp:1074
 #, kde-format
 msgid "Delete Branch"
-msgstr "ბრენჩის წაშლა"
+msgstr "ტოტის წაშლა"
 
 #: gitwidget.cpp:1088
 #, kde-format
 msgid "Compare Branch with..."
-msgstr "ბრენჩის შედარება..."
+msgstr "ტოტის შედარება..."
 
 #: gitwidget.cpp:1094
 #, kde-format
@@ -1180,7 +1179,7 @@ msgstr "ყველა პროექტის თავიდან ჩატ
 #: kateprojectpluginview.cpp:235
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr "Git-ის ბრენჩის გამოთხოვა"
+msgstr "Git-ის ტოტის გამოთხოვა"
 
 #: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:877
 #, kde-format
@@ -1369,10 +1368,9 @@ msgstr ""
 "გასაფილტრად აკრიფეთ, სამალავის გამოსაყენებლად - Enter, გასასვლელად - Esc."
 
 #: stashdialog.cpp:142 stashdialog.cpp:204
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgid "Failed to run git: %1"
-msgstr "კომიტის შეცდომა: %1"
+msgstr "git-ის გაშვება ჩავარდა: %1"
 
 #: stashdialog.cpp:168
 #, kde-format
@@ -1387,7 +1385,7 @@ msgstr "ცვლილებების სამალავში შენ�
 #: stashdialog.cpp:189
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "იტვირთება..."
 
 #: stashdialog.cpp:198
 #, kde-format

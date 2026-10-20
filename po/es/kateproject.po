@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2026-10-17 23:59+0100\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"PO-Revision-Date: 2026-10-19 12:07+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -185,7 +185,7 @@ msgstr "Añadir mapeo"
 msgid "Remove Selected Mapping"
 msgstr "Eliminar mapeo seleccionado"
 
-#: git/gitforgeconfigwidget.cpp:60
+#: git/gitforgeconfigwidget.cpp:61
 #, kde-format
 msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
@@ -194,34 +194,34 @@ msgstr ""
 "Tratar de identificar Forgejo, GitHub o GitLab a partir de la URL del sitio "
 "web del mapeo"
 
-#: git/gitforgeconfigwidget.cpp:106
+#: git/gitforgeconfigwidget.cpp:107
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
 msgstr "El servicio de alojamiento de la línea %1 no es válido."
 
-#: git/gitforgeconfigwidget.cpp:111
+#: git/gitforgeconfigwidget.cpp:112
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
 msgstr ""
 "La máquina Git remota o la URL del sitio web de la fila %1 no es válida."
 
-#: git/gitforgeconfigwidget.cpp:138
+#: git/gitforgeconfigwidget.cpp:139
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
 msgstr "git.ejemplo.com o git.ejemplo.com:2222"
 
-#: git/gitforgeconfigwidget.cpp:156
+#: git/gitforgeconfigwidget.cpp:157
 #, kde-format
 msgid "https://git.example.com"
 msgstr "https://git.ejemplo.com"
 
-#: git/gitforgeconfigwidget.cpp:173
+#: git/gitforgeconfigwidget.cpp:174
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
 msgstr "Seleccionar un mapeo para detectar su servicio de alojamiento."
 
-#: git/gitforgeconfigwidget.cpp:180
+#: git/gitforgeconfigwidget.cpp:181
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
@@ -229,22 +229,22 @@ msgstr ""
 "Introduzca una URL de sitio web HTTP o HTTPS válida antes de detectar el "
 "servicio de alojamiento."
 
-#: git/gitforgeconfigwidget.cpp:191
+#: git/gitforgeconfigwidget.cpp:192
 #, kde-format
 msgid "Detecting…"
 msgstr "Detectando…"
 
-#: git/gitforgeconfigwidget.cpp:237
+#: git/gitforgeconfigwidget.cpp:238
 #, kde-format
 msgid "Detected %1."
 msgstr "Detectado %1."
 
-#: git/gitforgeconfigwidget.cpp:239
+#: git/gitforgeconfigwidget.cpp:240
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
 msgstr "El mapeo ha cambiado: el resultado de la detección se ha ignorado."
 
-#: git/gitforgeconfigwidget.cpp:241
+#: git/gitforgeconfigwidget.cpp:242
 #, kde-format
 msgid "Service could not be detected; select it manually."
 msgstr "No se puede detectar el servicio: selecciónelo manualmente."
@@ -405,10 +405,9 @@ msgstr ""
 "no funcione correctamente."
 
 #: gitwidget.cpp:593
-#, fuzzy, kde-format
-#| msgid "Failed to get stash list. Error: "
+#, kde-format
 msgid "Failed to get the git status"
-msgstr "No se ha podido obtener el listado de la reserva. Error: "
+msgstr "No se ha podido obtener el estado de git"
 
 #: gitwidget.cpp:652
 #, kde-format
@@ -1378,10 +1377,9 @@ msgstr ""
 "Escriba para filtrar. «Intro» para recuperar reserva. «Esc» para salir."
 
 #: stashdialog.cpp:142 stashdialog.cpp:204
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgid "Failed to run git: %1"
-msgstr "No se ha podido confirmar: %1"
+msgstr "No se ha podido ejecutar git: %1"
 
 #: stashdialog.cpp:168
 #, kde-format
@@ -1396,7 +1394,7 @@ msgstr "Cambios reservados correctamente."
 #: stashdialog.cpp:189
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Cargando…"
 
 #: stashdialog.cpp:198
 #, kde-format

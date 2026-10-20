@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-25 00:47+0000\n"
+"POT-Creation-Date: 2026-10-20 03:16+0000\n"
 "PO-Revision-Date: 2025-12-23 07:33+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -522,27 +522,27 @@ msgstr "poimenovane postavke"
 msgid "Loading..."
 msgstr "Nalaganje..."
 
-#: localsview.cpp:116
+#: localsview.cpp:117
 #, kde-format
 msgid "Symbol"
 msgstr "Simbol"
 
-#: localsview.cpp:117
+#: localsview.cpp:118
 #, kde-format
 msgid "Type"
 msgstr "Vrsta"
 
-#: localsview.cpp:118
+#: localsview.cpp:119
 #, kde-format
 msgid "Value"
 msgstr "Vrednost"
 
-#: localsview.cpp:300
+#: localsview.cpp:325
 #, kde-format
 msgid "Copy Symbol"
 msgstr "Kopiraj simbol"
 
-#: localsview.cpp:315
+#: localsview.cpp:340
 #, kde-format
 msgid "Copy Value"
 msgstr "Kopiraj vrednost"

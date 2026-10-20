@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-16 02:46+0000\n"
+"POT-Creation-Date: 2026-10-20 03:16+0000\n"
 "PO-Revision-Date: 2026-03-29 21:57+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -53,16 +53,16 @@ msgstr "Kate - Testu-editore aurreratua"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 Kate-ren egileak"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:220
-#: lib/autotests/kate_view_mgmt_test2.cpp:522
-#: lib/autotests/kate_view_mgmt_test2.cpp:558
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:224
+#: lib/autotests/kate_view_mgmt_test2.cpp:526
+#: lib/autotests/kate_view_mgmt_test2.cpp:562
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Hasi Kate emandako saio batekin."
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:221
-#: lib/autotests/kate_view_mgmt_test2.cpp:523
-#: lib/autotests/kate_view_mgmt_test2.cpp:559
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:225
+#: lib/autotests/kate_view_mgmt_test2.cpp:527
+#: lib/autotests/kate_view_mgmt_test2.cpp:563
 #, kde-format
 msgid "session"
 msgstr "Saioa"
@@ -2079,7 +2079,7 @@ msgstr "Goiko alboko-barra"
 msgid "Bottom Sidebar"
 msgstr "Beheko alboko-barra"
 
-#: lib/katemdi.cpp:1787
+#: lib/katemdi.cpp:1790
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

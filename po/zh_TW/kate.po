@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-16 02:46+0000\n"
+"POT-Creation-Date: 2026-10-20 03:16+0000\n"
 "PO-Revision-Date: 2026-05-12 03:21+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -51,16 +51,16 @@ msgstr "Kate - 進階的文字編輯器"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 Kate 作者群"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:220
-#: lib/autotests/kate_view_mgmt_test2.cpp:522
-#: lib/autotests/kate_view_mgmt_test2.cpp:558
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:224
+#: lib/autotests/kate_view_mgmt_test2.cpp:526
+#: lib/autotests/kate_view_mgmt_test2.cpp:562
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "以指定的工作階段啟動 Kate。"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:221
-#: lib/autotests/kate_view_mgmt_test2.cpp:523
-#: lib/autotests/kate_view_mgmt_test2.cpp:559
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:225
+#: lib/autotests/kate_view_mgmt_test2.cpp:527
+#: lib/autotests/kate_view_mgmt_test2.cpp:563
 #, kde-format
 msgid "session"
 msgstr "工作階段"
@@ -2018,7 +2018,7 @@ msgstr "頂端邊列"
 msgid "Bottom Sidebar"
 msgstr "底部邊列"
 
-#: lib/katemdi.cpp:1787
+#: lib/katemdi.cpp:1790
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

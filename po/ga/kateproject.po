@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-07-17 02:43+0000\n"
+"POT-Creation-Date: 2026-10-20 03:16+0000\n"
 "PO-Revision-Date: 2025-12-01 12:43+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish\n"
@@ -138,7 +138,7 @@ msgid "Commit Changes"
 msgstr "Athruithe a Thiomnú"
 
 #: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:265
-#: gitwidget.cpp:1090
+#: gitwidget.cpp:1088
 #, kde-format
 msgid "Commit"
 msgstr "Tiomantas"
@@ -168,7 +168,7 @@ msgstr "Sínigh amach"
 msgid "Amend"
 msgstr "Leasaigh"
 
-#: gitcommitdialog.cpp:113 gitwidget.cpp:1043
+#: gitcommitdialog.cpp:113 gitwidget.cpp:1041
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Leasaigh an Tiomantas Deiridh"
@@ -277,270 +277,270 @@ msgstr "Theip ar athruithe a dhíscríobh. Earráid:"
 msgid "Failed to remove. Error:"
 msgstr "Theip ar bhaint. Earráid:"
 
-#: gitwidget.cpp:717
+#: gitwidget.cpp:716
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Theip ar chomhad a oscailt ag HEAD: %1"
 
-#: gitwidget.cpp:751
+#: gitwidget.cpp:749
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Theip ar an difríocht den chomhad a fháil: %1"
 
-#: gitwidget.cpp:820
+#: gitwidget.cpp:818
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Theip ar an tiomnú: %1"
 
-#: gitwidget.cpp:824
+#: gitwidget.cpp:822
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Rinneadh na hathruithe go rathúil."
 
-#: gitwidget.cpp:834
+#: gitwidget.cpp:832
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr ""
 "Ní gá gealltanas a thabhairt. Déan do chuid athruithe a chur i bhfeidhm ar "
 "dtús, le do thoil."
 
-#: gitwidget.cpp:848
+#: gitwidget.cpp:846
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Ní féidir an teachtaireacht tiomantais a bheith folamh."
 
-#: gitwidget.cpp:979
+#: gitwidget.cpp:977
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Gan aon difríocht do %1...%2"
 
-#: gitwidget.cpp:985
+#: gitwidget.cpp:983
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Theip ar %1...%2 a chur i gcomparáid"
 
-#: gitwidget.cpp:1000
+#: gitwidget.cpp:998
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "Theip ar numstat a fháil agus difríocht %1...%2 á déanamh"
 
-#: gitwidget.cpp:1035
+#: gitwidget.cpp:1033
 #, kde-format
 msgid "Refresh"
 msgstr "Athnuachan"
 
-#: gitwidget.cpp:1052
+#: gitwidget.cpp:1050
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Brainse Seiceála"
 
-#: gitwidget.cpp:1064
+#: gitwidget.cpp:1062
 #, kde-format
 msgid "Delete Branch"
 msgstr "Scrios Brainse"
 
-#: gitwidget.cpp:1078
+#: gitwidget.cpp:1076
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Déan comparáid idir Branch agus..."
 
-#: gitwidget.cpp:1084
+#: gitwidget.cpp:1082
 #, kde-format
 msgid "Show Commit"
 msgstr "Taispeáin Tiomantas"
 
-#: gitwidget.cpp:1102
+#: gitwidget.cpp:1100
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Taispeáin an Tiomantas Deireanach"
 
-#: gitwidget.cpp:1120
+#: gitwidget.cpp:1118
 #, kde-format
 msgid "Open Commit..."
 msgstr "Oscail Tiomantas..."
 
-#: gitwidget.cpp:1123 gitwidget.cpp:1171
+#: gitwidget.cpp:1121 gitwidget.cpp:1169
 #, kde-format
 msgid "Stash"
 msgstr "Taisce"
 
-#: gitwidget.cpp:1127
+#: gitwidget.cpp:1125
 #, kde-format
 msgid "Show history"
 msgstr "Taispeáin stair"
 
-#: gitwidget.cpp:1139
+#: gitwidget.cpp:1137
 #, kde-format
 msgid "Diff - stash"
 msgstr "Difríocht - taisce"
 
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1173
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Pop an Taisce Deiridh"
 
-#: gitwidget.cpp:1179
+#: gitwidget.cpp:1177
 #, kde-format
 msgid "Pop Stash"
 msgstr "Stáis Pop"
 
-#: gitwidget.cpp:1183
+#: gitwidget.cpp:1181
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Cuir an Stoc Deireanach i bhFeidhm"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1183
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Taisce (Coinnigh ar an Stáitse)"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1187
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Stór (Cuir san áireamh Gan Rianú)"
 
-#: gitwidget.cpp:1193
+#: gitwidget.cpp:1191
 #, kde-format
 msgid "Apply Stash"
 msgstr "Cuir Taisce i bhFeidhm"
 
-#: gitwidget.cpp:1194
+#: gitwidget.cpp:1192
 #, kde-format
 msgid "Drop Stash"
 msgstr "Buail Taisce"
 
-#: gitwidget.cpp:1198
+#: gitwidget.cpp:1196
 #, fuzzy, kde-format
 #| msgid "Pop Stash"
 msgid "Show Stash"
 msgstr "Stáis Pop"
 
-#: gitwidget.cpp:1202
+#: gitwidget.cpp:1200
 #, fuzzy, kde-format
 #| msgid "Show Diff"
 msgid "Show Stash Diff"
 msgstr "Taispeáin Difríocht"
 
-#: gitwidget.cpp:1240
+#: gitwidget.cpp:1238
 #, kde-format
 msgid "Stage All"
 msgstr "Céim Uile"
 
-#: gitwidget.cpp:1242
+#: gitwidget.cpp:1240
 #, kde-format
 msgid "Remove All"
 msgstr "Bain Gach Rud"
 
-#: gitwidget.cpp:1242
+#: gitwidget.cpp:1240
 #, kde-format
 msgid "Discard All"
 msgstr "Scrios Gach Rud"
 
-#: gitwidget.cpp:1245
+#: gitwidget.cpp:1243
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Oscail .gitignore"
 
-#: gitwidget.cpp:1246 gitwidget.cpp:1295 gitwidget.cpp:1346
+#: gitwidget.cpp:1244 gitwidget.cpp:1293 gitwidget.cpp:1344
 #: kateprojectconfigpage.cpp:111 kateprojectconfigpage.cpp:123
 #, kde-format
 msgid "Show Diff"
 msgstr "Taispeáin Difríocht"
 
-#: gitwidget.cpp:1263
-#, kde-format
-msgid "Are you sure you want to remove these files?"
-msgstr "An bhfuil tú cinnte gur mian leat na comhaid seo a bhaint?"
-
-#: gitwidget.cpp:1268
+#: gitwidget.cpp:1261
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr ""
 "An bhfuil tú cinnte gur mian leat na hathruithe go léir a chaitheamh amach?"
 
-#: gitwidget.cpp:1286
+#: gitwidget.cpp:1266
+#, kde-format
+msgid "Are you sure you want to remove these files?"
+msgstr "An bhfuil tú cinnte gur mian leat na comhaid seo a bhaint?"
+
+#: gitwidget.cpp:1284
 #, kde-format
 msgid "Open File"
 msgstr "Oscail Comhad"
 
-#: gitwidget.cpp:1287
+#: gitwidget.cpp:1285
 #, kde-format
 msgid "Unstage File"
 msgstr "Comhad Dí-stáisiúin"
 
-#: gitwidget.cpp:1287
+#: gitwidget.cpp:1285
 #, kde-format
 msgid "Stage File"
 msgstr "Comhad Céime"
 
-#: gitwidget.cpp:1288
+#: gitwidget.cpp:1286
 #, kde-format
 msgid "Remove"
 msgstr "Bain"
 
-#: gitwidget.cpp:1288
+#: gitwidget.cpp:1286
 #, kde-format
 msgid "Discard"
 msgstr "Scrios"
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1294
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Taispeáin in Uirlis Sheachtrach Git Diff"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1295
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Oscail ag HEAD"
 
-#: gitwidget.cpp:1301
+#: gitwidget.cpp:1299
 #, kde-format
 msgid "Show History"
 msgstr "Taispeáin Stair"
 
-#: gitwidget.cpp:1317
+#: gitwidget.cpp:1315
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr ""
 "An bhfuil tú cinnte gur mian leat na hathruithe sa chomhad seo a chaitheamh "
 "amach?"
 
-#: gitwidget.cpp:1328
+#: gitwidget.cpp:1326
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "An bhfuil tú cinnte gur mian leat an comhad seo a bhaint?"
 
-#: gitwidget.cpp:1345
+#: gitwidget.cpp:1343
 #, kde-format
 msgid "Unstage All"
 msgstr "Dí-stáblaigh Gach Rud"
 
-#: gitwidget.cpp:1412
+#: gitwidget.cpp:1410
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Dí-stáisiú Comhaid Roghnaithe"
 
-#: gitwidget.cpp:1412
+#: gitwidget.cpp:1410
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Céim ar Chomhaid Roghnaithe"
 
-#: gitwidget.cpp:1413
+#: gitwidget.cpp:1411
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Scrios Comhaid Roghnaithe"
 
-#: gitwidget.cpp:1417
+#: gitwidget.cpp:1415
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Bain Comhaid Roghnaithe"
 
-#: gitwidget.cpp:1430
+#: gitwidget.cpp:1428
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "An bhfuil tú cinnte gur mian leat na hathruithe a chaitheamh amach?"
 
-#: gitwidget.cpp:1435
+#: gitwidget.cpp:1433
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
@@ -569,7 +569,7 @@ msgstr "Comhad JSON mífhoirmithe '%1': %2"
 msgid "Project"
 msgstr "Tionscadal"
 
-#: kateproject.cpp:725
+#: kateproject.cpp:727
 #, kde-format
 msgid "<untracked>"
 msgstr "<gan rianú>"
@@ -1128,7 +1128,7 @@ msgstr "Theip ar chruthú an eolaire: %1"
 msgid "Unable to find directory: %1"
 msgstr "Ní féidir an t-eolaire a aimsiú: %1"
 
-#: kateprojectworker.cpp:753
+#: kateprojectworker.cpp:799
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-16 02:46+0000\n"
+"POT-Creation-Date: 2026-10-20 03:16+0000\n"
 "PO-Revision-Date: 2026-06-30 21:43+0200\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -51,16 +51,16 @@ msgstr "Kate – Erweiterter Texteditor"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000–2024, die Kate-Autoren"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:220
-#: lib/autotests/kate_view_mgmt_test2.cpp:522
-#: lib/autotests/kate_view_mgmt_test2.cpp:558
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:224
+#: lib/autotests/kate_view_mgmt_test2.cpp:526
+#: lib/autotests/kate_view_mgmt_test2.cpp:562
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Kate mit einer bestimmten Sitzung starten."
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:221
-#: lib/autotests/kate_view_mgmt_test2.cpp:523
-#: lib/autotests/kate_view_mgmt_test2.cpp:559
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:225
+#: lib/autotests/kate_view_mgmt_test2.cpp:527
+#: lib/autotests/kate_view_mgmt_test2.cpp:563
 #, kde-format
 msgid "session"
 msgstr "Sitzung"
@@ -2095,7 +2095,7 @@ msgstr "Obere Seitenleiste"
 msgid "Bottom Sidebar"
 msgstr "Untere Seitenleiste"
 
-#: lib/katemdi.cpp:1787
+#: lib/katemdi.cpp:1790
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

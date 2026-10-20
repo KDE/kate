@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-06-25 00:47+0000\n"
+"POT-Creation-Date: 2026-10-20 03:16+0000\n"
 "PO-Revision-Date: 2023-02-07 18:19+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -520,27 +520,27 @@ msgstr "pomenované položky"
 msgid "Loading..."
 msgstr "Loading..."
 
-#: localsview.cpp:116
+#: localsview.cpp:117
 #, kde-format
 msgid "Symbol"
 msgstr "Symbol"
 
-#: localsview.cpp:117
+#: localsview.cpp:118
 #, kde-format
 msgid "Type"
 msgstr "Typ"
 
-#: localsview.cpp:118
+#: localsview.cpp:119
 #, kde-format
 msgid "Value"
 msgstr "Hodnota"
 
-#: localsview.cpp:300
+#: localsview.cpp:325
 #, kde-format
 msgid "Copy Symbol"
 msgstr "Symbol"
 
-#: localsview.cpp:315
+#: localsview.cpp:340
 #, kde-format
 msgid "Copy Value"
 msgstr "Kopírovať hodnotu"

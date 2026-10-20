@@ -775,12 +775,24 @@ void KateProjectPlugin::registerVariables()
                                       }
                                       return QDir::toNativeSeparators(QDir(kateProject->baseDir()).absolutePath());
                                   });
+
+    editor->registerVariableMatch(QStringLiteral("Document:FilePathRelativeToProject"),
+                                  i18n("File path relative to the project directory"),
+                                  [](const QStringView &, KTextEditor::View *view) -> QString {
+                                      auto projectPlugin = view ? findProjectPlugin() : nullptr;
+                                      auto kateProject = projectPlugin ? projectPlugin->projectForUrl(view->document()->url()) : nullptr;
+                                      if (!kateProject) {
+                                          return {};
+                                      }
+                                      return QDir(kateProject->baseDir()).relativeFilePath(view->document()->url().toLocalFile());
+                                  });
 }
 void KateProjectPlugin::unregisterVariables()
 {
     auto editor = KTextEditor::Editor::instance();
     editor->unregisterVariable(QStringLiteral("Project:Path"));
     editor->unregisterVariable(QStringLiteral("Project:NativePath"));
+    editor->unregisterVariable(QStringLiteral("Document:FilePathRelativeToProject"));
 }
 
 void KateProjectPlugin::readSessionConfig(const KConfigGroup &config)

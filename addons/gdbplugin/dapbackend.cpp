@@ -1137,7 +1137,7 @@ void DapBackend::cmdListBreakpoints(const QString &)
 void DapBackend::cmdBreakpointOn(const QString &cmd)
 {
     static const QRegularExpression rx_bon(
-        QStringLiteral(R"--(^b\s+(\d+)(?:\s+when\s+\{(?P<COND>.+)\})?(?:\s*hitcont\s+\{(?P<HIT>.+)\})?(?:\s+on\s+(?P<SOURCE>.+))?\s*$)--"));
+        QStringLiteral(R"--(^b\s+(\d+)(?:\s+when\s+\{(?P<COND>.+?)\})?(?:\s*hitcount\s+\{(?P<HIT>.+?)\})?(?:\s+on\s+(?P<SOURCE>.+))?\s*$)--"));
 
     const auto match = rx_bon.match(cmd);
     if (!match.hasMatch()) {

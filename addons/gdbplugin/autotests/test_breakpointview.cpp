@@ -5,6 +5,7 @@
 #include "breakpointview.h"
 
 #include <QAbstractItemModel>
+#include <QAbstractItemModelTester>
 #include <QHash>
 #include <QMenu>
 #include <QTest>
@@ -221,6 +222,7 @@ private Q_SLOTS:
     void testFunctionBreakpointUncheckCheck();
     void testUserRemovedBreakpoint();
     void testPendingBreakpointKeepsLine();
+    void testBreakpointChangedEventWithOtherPath();
 
 private:
     std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url)
@@ -807,6 +809,36 @@ void BreakpointViewTest::testPendingBreakpointKeepsLine()
     QCOMPARE(breakpoints.at(url).size(), 2);
     QCOMPARE(breakpoints.at(url).at(0).line, 10);
     QCOMPARE(breakpoints.at(url).at(1).line, 20);
+}
+
+void BreakpointViewTest::testBreakpointChangedEventWithOtherPath()
+{
+    const QUrl url(QStringLiteral("/file"));
+    auto backend = std::make_unique<BreakpointBackend>();
+    backend->isRunning = true;
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+    QAbstractItemModelTester tester(bv->m_treeview->model());
+
+    bv->setBreakpoint(url, dap::SourceBreakpoint(3), std::nullopt);
+    bv->setBreakpoint(url, dap::SourceBreakpoint(9), std::nullopt);
+
+    // e.g. the resolved path of a symlink
+    auto bp = backend->breakpoints[url].front();
+    bp.source = dap::Source(QUrl(QStringLiteral("/real/file")));
+    bp.line = 4;
+    Q_EMIT backend->breakpointEvent(bp, BackendInterface::Changed);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:4\n"
+                            "** [x]file:9\n"),
+             stringifyLineBreakpoints(bv->m_treeview->model()));
+
+    // pending again, stays where it is
+    bp.line = std::nullopt;
+    Q_EMIT backend->breakpointEvent(bp, BackendInterface::Changed);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:4\n"
+                            "** [x]file:9\n"),
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 }
 
 QTEST_MAIN(BreakpointViewTest)

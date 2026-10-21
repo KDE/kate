@@ -740,29 +740,22 @@ public:
                                        return fp.breakpoint && fp.breakpoint->id == id;
                                    });
             it != m_lineBreakpoints.end()) {
-            if (!bp.source) {
-                // can we do better?
-                qCWarning(kateBreakpoint, "breakpoint-update: ignoring because breakpoint has no path set");
-                return;
-            }
-
-            // If we don't find an id for this, ignore
-            if (it == m_lineBreakpoints.end()) {
-                qCWarning(kateBreakpoint, "breakpoint-update: Unexpected didn't find a breakpoint in the model for id: %d", id);
-                return;
-            }
-
             if (it->breakpoint == bp) {
                 return;
             }
 
-            const auto url = bp.source.value().path;
+            // the debugger might report another path for the same file, e.g. the resolved one of a symlink
+            const auto url = it->url;
             const auto fileBreakpoints = getFileBreakpoints(url);
-            Q_ASSERT(!fileBreakpoints.empty());
             const int fileStartIdx = static_cast<int>(fileBreakpoints.data() - m_lineBreakpoints.data());
 
-            auto fit = std::lower_bound(fileBreakpoints.begin(), fileBreakpoints.end(), bp, [](const FileBreakpoint &l, const dap::Breakpoint &val) {
-                return l.line() < val.line;
+            // a breakpoint without line, e.g. pending again, stays where it is
+            auto newBp = bp;
+            if (!newBp.line) {
+                newBp.line = it->line();
+            }
+            auto fit = std::lower_bound(fileBreakpoints.begin(), fileBreakpoints.end(), newBp.line.value(), [](const FileBreakpoint &l, int line) {
+                return l.line() < line;
             });
             qsizetype newPos = fileStartIdx + std::distance(fileBreakpoints.begin(), fit);
             const qsizetype oldPos = std::distance(m_lineBreakpoints.begin(), it);
@@ -774,7 +767,7 @@ public:
             }
 
             if (newPos == oldPos) {
-                it->breakpoint = bp;
+                it->breakpoint = newBp;
 
                 const int pos = it - m_lineBreakpoints.begin();
 
@@ -785,13 +778,11 @@ public:
                 beginMoveRows(parent, oldPos, oldPos, parent, dest);
                 qCDebug(kateBreakpoint, "onBreakpointChanged: oldPos %lld, newPos: %lld, total: %lld", oldPos, newPos, m_lineBreakpoints.size());
                 m_lineBreakpoints.move(oldPos, newPos);
-                m_lineBreakpoints[newPos].breakpoint = bp;
+                m_lineBreakpoints[newPos].breakpoint = newBp;
                 endMoveRows();
             }
 
-            if (bp.line && bp.source.has_value() && !bp.source.value().path.isEmpty()) {
-                Q_EMIT breakpointChanged(bp.source.value().path, oldLine, bp.line.value(), BackendInterface::BreakpointEventKind::Changed);
-            }
+            Q_EMIT breakpointChanged(url, oldLine, newBp.line.value(), BackendInterface::BreakpointEventKind::Changed);
         }
         // Function breakpoint update
         else if (auto funcBreakPointIt = std::find_if(m_funcBreakpoints.begin(),

@@ -348,6 +348,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_complParens;
     QPointer<QAction> m_autoHover;
     QPointer<QAction> m_onTypeFormatting;
+    QPointer<QAction> m_fmtOnSave;
     QPointer<QAction> m_incrementalSync;
     QPointer<QAction> m_highlightGoto;
     QPointer<QAction> m_diagnostics;
@@ -580,6 +581,9 @@ public:
         m_onTypeFormatting = actionCollection()->addAction(QStringLiteral("lspclient_type_formatting"), this, &self_type::displayOptionChanged);
         m_onTypeFormatting->setText(i18n("Format on typing"));
         m_onTypeFormatting->setCheckable(true);
+        m_fmtOnSave = actionCollection()->addAction(QStringLiteral("lspclient_format_on_save"), this, &self_type::displayOptionChanged);
+        m_fmtOnSave->setText(i18n("Format on save"));
+        m_fmtOnSave->setCheckable(true);
         m_incrementalSync = actionCollection()->addAction(QStringLiteral("lspclient_incremental_sync"), this, &self_type::displayOptionChanged);
         m_incrementalSync->setText(i18n("Incremental document synchronization"));
         m_incrementalSync->setCheckable(true);
@@ -653,6 +657,7 @@ public:
         moreOptions->addAction(m_complParens);
         moreOptions->addAction(m_autoHover);
         moreOptions->addAction(m_onTypeFormatting);
+        moreOptions->addAction(m_fmtOnSave);
         moreOptions->addAction(m_incrementalSync);
         moreOptions->addAction(m_highlightGoto);
         moreOptions->addAction(m_inlayHints);
@@ -913,6 +918,9 @@ public:
         }
         if (m_onTypeFormatting) {
             m_onTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);
+        }
+        if (m_fmtOnSave) {
+            m_fmtOnSave->setChecked(m_plugin->m_fmtOnSave);
         }
         if (m_incrementalSync) {
             m_incrementalSync->setChecked(m_plugin->m_incrementalSync);
@@ -2265,7 +2273,7 @@ public:
             renameEnabled = caps.renameProvider;
             codeActionEnabled = caps.codeActionProvider;
             selectionRangeEnabled = caps.selectionRangeProvider;
-            formatOnSave = formatEnabled && m_plugin->m_fmtOnSave;
+            formatOnSave = formatEnabled && m_fmtOnSave && m_fmtOnSave->isChecked();
 
             connect(server.get(), &LSPClientServer::publishDiagnostics, this, &self_type::onDiagnostics, Qt::UniqueConnection);
             connect(server.get(), &LSPClientServer::applyEdit, this, &self_type::onApplyEdit, Qt::UniqueConnection);

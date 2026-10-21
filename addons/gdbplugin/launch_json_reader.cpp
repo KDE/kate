@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QProcessEnvironment>
 
 #include <KLocalizedString>
 
@@ -102,6 +103,27 @@ static QJsonObject toKateTarget(const QJsonObject &in, const QDir &baseDir)
             args.chop(1);
         }
         ret[F_ARGS] = args;
+    }
+
+    // the variables are added to the inherited environment, but some adapters like gdb
+    // use the env of the request as the whole environment of the program
+    it = in.find(QLatin1String("env"));
+    if (it != in.end() && it->isObject()) {
+        const auto vars = it->toObject();
+        const auto sysEnv = QProcessEnvironment::systemEnvironment();
+        QJsonObject env;
+        const auto keys = sysEnv.keys();
+        for (const auto &key : keys) {
+            env[key] = sysEnv.value(key);
+        }
+        for (auto var = vars.begin(); var != vars.end(); ++var) {
+            if (var->isNull()) {
+                env.remove(var.key());
+            } else {
+                env[var.key()] = var.value();
+            }
+        }
+        ret[QLatin1String("env")] = env;
     }
 
     ret[F_DEBUGGER] = in.value(QLatin1String("type"));

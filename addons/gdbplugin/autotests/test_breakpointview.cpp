@@ -223,6 +223,7 @@ private Q_SLOTS:
     void testUserRemovedBreakpoint();
     void testPendingBreakpointKeepsLine();
     void testBreakpointChangedEventWithOtherPath();
+    void testRunToCursorOnExistingBreakpoint();
 
 private:
     std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url)
@@ -839,6 +840,39 @@ void BreakpointViewTest::testBreakpointChangedEventWithOtherPath()
                             "** [x]file:4\n"
                             "** [x]file:9\n"),
              stringifyLineBreakpoints(bv->m_treeview->model()));
+}
+
+void BreakpointViewTest::testRunToCursorOnExistingBreakpoint()
+{
+    const QUrl url(QStringLiteral("/file"));
+    auto backend = std::make_unique<BreakpointBackend>();
+    backend->isRunning = true;
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+    auto model = bv->m_treeview->model();
+
+    // an enabled breakpoint stays after it was hit
+    bv->setBreakpoint(url, dap::SourceBreakpoint(5), std::nullopt);
+    bv->runToPosition(url, 5);
+    bv->onStoppedAtLine(url, 5);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:5\n"),
+             stringifyLineBreakpoints(model));
+    QCOMPARE(backend->breakpoints[url].size(), 1);
+
+    // a disabled one is only enabled until it is hit
+    model->setData(indexForString(model, "file:5"), Qt::Unchecked, Qt::CheckStateRole);
+    QVERIFY(backend->breakpoints[url].isEmpty());
+    bv->runToPosition(url, 5);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:5\n"),
+             stringifyLineBreakpoints(model));
+    QCOMPARE(backend->breakpoints[url].size(), 1);
+
+    bv->onStoppedAtLine(url, 5);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** []file:5\n"),
+             stringifyLineBreakpoints(model));
+    QVERIFY(backend->breakpoints[url].isEmpty());
 }
 
 QTEST_MAIN(BreakpointViewTest)

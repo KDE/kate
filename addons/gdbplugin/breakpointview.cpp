@@ -80,12 +80,21 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtWarningMsg)
     return out.join(QString());
 }
 
+// what happens to a breakpoint of run to cursor once it is hit
+enum class OneShot {
+    None,
+    // it was added for run to cursor
+    Remove,
+    // it existed disabled and was only enabled for run to cursor
+    Disable,
+};
+
 struct FileBreakpoint {
     QUrl url;
     dap::SourceBreakpoint sourceBreakpoint;
     std::optional<dap::Breakpoint> breakpoint;
     Qt::CheckState checkState = Qt::Checked;
-    bool isOneShot = false;
+    OneShot oneShot = OneShot::None;
 
     [[nodiscard]] bool isEnabled() const
     {
@@ -545,16 +554,19 @@ public:
                                          .url = url,
                                          .sourceBreakpoint = bp,
                                          .breakpoint = {},
-                                         .isOneShot = isOneShot,
+                                         .oneShot = isOneShot ? OneShot::Remove : OneShot::None,
                                      });
             endInsertRows();
         } else {
             if (isOneShot) {
-                // For one shot, don't remove instead force check + mark it one shot
-                m_lineBreakpoints[pos].isOneShot = true;
-                m_lineBreakpoints[pos].checkState = Qt::Checked;
-                auto thisIdx = index(pos, 0, parent);
-                Q_EMIT dataChanged(thisIdx, thisIdx);
+                // run to cursor on an existing breakpoint keeps it, a disabled one is only enabled until it is hit
+                auto &existingBp = m_lineBreakpoints[pos];
+                if (!existingBp.isEnabled()) {
+                    existingBp.oneShot = OneShot::Disable;
+                    existingBp.checkState = Qt::Checked;
+                    auto thisIdx = index(pos, 0, parent);
+                    Q_EMIT dataChanged(thisIdx, thisIdx);
+                }
             } else {
                 beginRemoveRows(parent, pos, pos);
                 m_lineBreakpoints.remove(pos);
@@ -901,16 +913,26 @@ public:
         endRemoveRows();
     }
 
-    [[nodiscard]] bool hasSingleShotBreakpointAtLine(const QUrl &url, int line)
+    [[nodiscard]] OneShot oneShotAtLine(const QUrl &url, int line)
     {
         const auto breakpoints = getFileBreakpoints(url);
         auto it = std::find_if(breakpoints.begin(), breakpoints.end(), [line](const FileBreakpoint &n) {
             return n.breakpoint.has_value() && n.breakpoint->line == line;
         });
-        if (it != breakpoints.end() && it->isOneShot && it->breakpoint) {
-            return true;
+        return it != breakpoints.end() ? it->oneShot : OneShot::None;
+    }
+
+    void disableOneShotBreakpoint(const QUrl &url, int line)
+    {
+        const auto breakpoints = getFileBreakpoints(url);
+        auto it = std::find_if(breakpoints.begin(), breakpoints.end(), [line](const FileBreakpoint &n) {
+            return n.breakpoint.has_value() && n.breakpoint->line == line;
+        });
+        if (it != breakpoints.end()) {
+            it->oneShot = OneShot::None;
+            const int row = static_cast<int>(&*it - m_lineBreakpoints.data());
+            setData(index(row, 0, index(LineBreakpointsItem, 0, QModelIndex())), Qt::Unchecked, Qt::CheckStateRole);
         }
-        return false;
     }
 
     [[nodiscard]] bool hasBreakpointAtLine(const QUrl &url, int line)
@@ -1460,9 +1482,17 @@ void BreakpointView::runToCursor()
 void BreakpointView::onStoppedAtLine(const QUrl &url, int line)
 {
     Q_ASSERT(m_backend->canContinue());
-    if (m_breakpointModel->hasSingleShotBreakpointAtLine(url, line)) {
+    switch (m_breakpointModel->oneShotAtLine(url, line)) {
+    case OneShot::None:
+        break;
+    case OneShot::Remove:
         qCDebug(kateBreakpoint, "run-to-cursor, removing one-shot breakpoint");
         setBreakpoint(url, dap::SourceBreakpoint(line), std::nullopt);
+        break;
+    case OneShot::Disable:
+        qCDebug(kateBreakpoint, "run-to-cursor, disabling the breakpoint again");
+        m_breakpointModel->disableOneShotBreakpoint(url, line);
+        break;
     }
 }
 

@@ -224,6 +224,7 @@ private Q_SLOTS:
     void testPendingBreakpointKeepsLine();
     void testBreakpointChangedEventWithOtherPath();
     void testRunToCursorOnExistingBreakpoint();
+    void testFunctionBreakpointRemovedEvent();
 
 private:
     std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url)
@@ -873,6 +874,25 @@ void BreakpointViewTest::testRunToCursorOnExistingBreakpoint()
                             "** []file:5\n"),
              stringifyLineBreakpoints(model));
     QVERIFY(backend->breakpoints[url].isEmpty());
+}
+
+void BreakpointViewTest::testFunctionBreakpointRemovedEvent()
+{
+    auto backend = std::make_unique<BreakpointBackend>();
+    backend->isRunning = true;
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+    QAbstractItemModelTester tester(bv->m_treeview->model());
+
+    bv->addFunctionBreakpoint(QStringLiteral("func1"));
+    bv->addFunctionBreakpoint(QStringLiteral("func2"));
+
+    // the debugger removed func1
+    dap::Breakpoint bp;
+    bp.id = backend->idCounter - 2;
+    Q_EMIT backend->breakpointEvent(bp, BackendInterface::Removed);
+    QCOMPARE(QStringLiteral("* Function Breakpoints\n"
+                            "** [x]func2 (0xffee2211) [verified]\n"),
+             stringifyFuncBreakpoints(bv->m_treeview->model()));
 }
 
 QTEST_MAIN(BreakpointViewTest)

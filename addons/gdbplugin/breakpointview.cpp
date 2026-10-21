@@ -850,7 +850,7 @@ public:
                  funcBreakPointIt != m_funcBreakpoints.end()) {
             const auto parent = index(FunctionBreakpointItem, 0, QModelIndex());
             const auto row = static_cast<int>(std::distance(m_funcBreakpoints.begin(), funcBreakPointIt));
-            beginRemoveColumns(parent, row, row);
+            beginRemoveRows(parent, row, row);
             m_funcBreakpoints.remove(row);
             endRemoveRows();
         } else {

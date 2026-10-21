@@ -1661,6 +1661,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <description>
         <ul>
           <li>See added, modified, and removed lines in the editor margins with the new Git Decorations plugin.</li>
+          <li xml:lang="bg">Вижте добавените, модифицираните и премахнатите редове в полетата на редактора с новия плъгин за Git декорации.</li>
           <li xml:lang="ca">Vegeu les línies afegides, modificades i eliminades als marges de l'editor amb el connector Git Decorations nou.</li>
           <li xml:lang="ca-valencia">Vegeu les línies afegides, modificades i eliminades als marges de l'editor amb el connector Git Decorations nou.</li>
           <li xml:lang="cs">Díky novému modulu Git Decorations můžete v okrajích editoru sledovat přidané, upravené a odstraněné řádky.</li>
@@ -1673,6 +1674,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="tr">Yeni Git Dekorasyonları eklentisi ile, düzenleyici kenar boşluklarında eklenen, değişiklik yapılan ve kaldırılan satırları görün.</li>
           <li xml:lang="uk">Реалізовано перегляд доданих, змінених та вилучених рядків на полях редактора за допомогою нового додатка декорування Git.</li>
           <li>Upload files, folders, or entire projects over SFTP with the new Deployment plugin, with transfer progress and a sidebar for browsing and editing remote files.</li>
+          <li xml:lang="bg">Качване на файлове, папки или цели проекти чрез SFTP с новия плъгин за разгръщане (Deployment), с индикатор за прогреса на трансфера и страничен панел за разглеждане и редактиране на отдалечени файлове.</li>
           <li xml:lang="ca">Pugeu fitxers, carpetes o projectes sencers amb SFTP amb el connector Desplegament nou, amb progrés de transferència i una barra lateral per a navegar i editar fitxers remots.</li>
           <li xml:lang="ca-valencia">Pugeu fitxers, carpetes o projectes sencers amb SFTP amb el connector Desplegament nou, amb progrés de transferència i una barra lateral per a navegar i editar fitxers remots.</li>
           <li xml:lang="cs">Pomocí nového modulu Deployment můžete přes SFTP nahrávat soubory, složky nebo celé projekty. K dispozici je přehled průběhu přenosu a postranní panel pro procházení a úpravy vzdálených souborů.</li>
@@ -1685,6 +1687,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="tr">Yeni Konuşlandırma eklentisi ile SFTP üzerinden dosyalar, klasörler veya bütün bir halde projeleri karşıya yükleyin; uzak dosyalara göz atmak ve onları düzenlemek için kenar çubuğunu kullanın ve aktarım ilerlemelerini görün.</li>
           <li xml:lang="uk">Реалізовано вивантаження файлів, тек або цілих проєктів за допомогою SFTP і нового додатка розгортання; доступний показ поступу передавання, а також бічна панель для перегляду і редагування віддалених файлів.</li>
           <li>Open files and selected lines on GitHub, GitLab, or Forgejo, or copy their links, with support for custom Git host mappings globally and per project.</li>
+          <li xml:lang="bg">Отваряне на файлове и избрани редове в GitHub, GitLab или Forgejo, или копиране на техните връзки, с поддръжка на персонализирани карти за Git хостове глобално и за отделни проекти.</li>
           <li xml:lang="ca">Obriu fitxers i línies seleccionades al GitHub, GitLab o Forgejo, o copieu els seus enllaços, amb suport per a mapatges personalitzats del servidor Git a nivell global i per projecte.</li>
           <li xml:lang="ca-valencia">Obriu fitxers i línies seleccionades a GitHub, GitLab o Forgejo, o copieu els seus enllaços, amb suport per a mapatges personalitzats de l'amfitrió Git a nivell global i per projecte.</li>
           <li xml:lang="cs">Otevírejte soubory a vybrané řádky na GitHubu, GitLabu nebo Forgejo, případně zkopírujte jejich odkazy, a to s podporou vlastních přiřazení hostitelů Git, a to globálně i pro jednotlivé projekty.</li>
@@ -1697,6 +1700,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="tr">Dosyaları ve seçili satırları Github, GitLab veya Forgejo ile açın veya onların bağlantılarını kopyalayın. Global ve proje başına özel Git makine eşlemleri desteklenir.</li>
           <li xml:lang="uk">Реалізовано відкриття файлів і вибраних рядків на GitHub, GitLab або Forgejo — або копіювання посилань на них; передбачено підтримку нетипових прив'язок для Git-вузлів як на загальному рівні, так і для окремих проєктів.</li>
           <li>Follow relative file links with the Open Link plugin, now enabled by default, with improved recognition of file paths and URLs.</li>
+          <li xml:lang="bg">Следене на относителни връзки към файлове с плъгина „Отваряне на връзки“, който вече е активиран по подразбиране, с подобрено разпознаване на пътища до файлове и URL адреси.</li>
           <li xml:lang="ca">Seguiu els enllaços de fitxer relatius amb el connector Obre l'enllaç, ara activat de manera predeterminada, amb un reconeixement millorat dels camins de fitxers i els URL.</li>
           <li xml:lang="ca-valencia">Seguiu els enllaços de fitxer relatius amb el connector Obri l'enllaç, ara activat de manera predeterminada, amb un reconeixement millorat dels camins de fitxers i els URL.</li>
           <li xml:lang="cs">Procházejte odkazy na soubory pomocí modulu Open Link, který je nyní ve výchozím nastavení zapnutý a nabízí vylepšené rozpoznávání cest k souborům a adres URL.</li>
@@ -1709,6 +1713,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="tr">Bağlantı Aç eklentisi ile göreceli dosya bağlantılarını açın; öntanımlı olarak etkindir ve dosya yollarını ve URL’leri daha iyi tanır.</li>
           <li xml:lang="uk">Реалізовано перехід за відносними посиланнями на файли за допомогою додатка відкриття посилань (тепер типово увімкненого), у якому покращено розпізнавання шляхів до файлів і адрес.</li>
           <li>Keep the editor responsive during project code completion by looking up matches in the background.</li>
+          <li xml:lang="bg">Поддържане на бързата реакция на редактора по време на допълване на кода на проекта чрез търсене на съвпадения във фонов режим.</li>
           <li xml:lang="ca">Mantingueu l'editor fluid durant la compleció de codi del projecte cercant coincidències en segon pla.</li>
           <li xml:lang="ca-valencia">Manteniu l'editor fluid durant la compleció de codi del projecte buscant coincidències en segon pla.</li>
           <li xml:lang="cs">Zachovejte odezvu editoru během doplňování kódu v projektu tím, že budete vyhledávat shody na pozadí.</li>
@@ -1721,6 +1726,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="tr">Eşleşmelere arka planda erişerek, kod tamamlama sırasında düzenleyiciyi daha yanıt verir bir durumda tutun.</li>
           <li xml:lang="uk">Забезпечено стабільну швидкодію редактора під час автодоповнення коду в проєкті шляхом виконання пошуку збігів у фоновому режимі.</li>
           <li>Format Perl files with perltidy and CMake files with gersemi.</li>
+          <li xml:lang="bg">Форматиране на Perl файлове с perltidy и на CMake файлове с gersemi.</li>
           <li xml:lang="ca">Format dels fitxers Perl amb «perltidy» i dels fitxers CMake amb «gersemi».</li>
           <li xml:lang="ca-valencia">Format dels fitxers Perl amb «perltidy» i dels fitxers CMake amb «gersemi».</li>
           <li xml:lang="cs">Formátujte soubory v jazyce Perl pomocí nástroje perltidy a soubory CMake pomocí nástroje gersemi.</li>

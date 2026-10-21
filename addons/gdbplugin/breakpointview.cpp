@@ -1591,12 +1591,11 @@ void BreakpointView::onAddBreakpointRequested(const QUrl &url, const dap::Source
 
 void BreakpointView::onListBreakpointsRequested()
 {
-    QString out = QStringLiteral("\n");
-    out.append(m_breakpointModel->printBreakpoints());
-    if (out.isEmpty()) {
+    const QString breakpoints = m_breakpointModel->printBreakpoints();
+    if (breakpoints.isEmpty()) {
         Q_EMIT m_backend->outputText(i18n("No breakpoints set"));
     } else {
-        Q_EMIT m_backend->outputText(out);
+        Q_EMIT m_backend->outputText(QStringLiteral("\n") + breakpoints);
     }
 }
 

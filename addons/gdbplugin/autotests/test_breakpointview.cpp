@@ -226,6 +226,7 @@ private Q_SLOTS:
     void testRunToCursorOnExistingBreakpoint();
     void testFunctionBreakpointRemovedEvent();
     void testClearBreakpointsKeepsOtherMarks();
+    void testListBreakpointsEmpty();
 
 private:
     std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url)
@@ -912,6 +913,19 @@ void BreakpointViewTest::testClearBreakpointsKeepsOtherMarks()
     bv->clearLineBreakpoints();
     QCOMPARE(doc->mark(2), KTextEditor::Document::Bookmark);
     QCOMPARE(stringifyLineBreakpoints(bv->m_treeview->model()), QStringLiteral("* Line Breakpoints\n"));
+}
+
+void BreakpointViewTest::testListBreakpointsEmpty()
+{
+    auto backend = std::make_unique<BreakpointBackend>();
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+
+    QString out;
+    connect(backend.get(), &BackendInterface::outputText, backend.get(), [&out](const QString &text) {
+        out = text;
+    });
+    backend->listBreakpointsRequested();
+    QCOMPARE(out, QStringLiteral("No breakpoints set"));
 }
 
 QTEST_MAIN(BreakpointViewTest)

@@ -220,6 +220,7 @@ private Q_SLOTS:
     void testFunctionBreakpoints();
     void testFunctionBreakpointUncheckCheck();
     void testUserRemovedBreakpoint();
+    void testPendingBreakpointKeepsLine();
 
 private:
     std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url)
@@ -779,6 +780,33 @@ void BreakpointViewTest::testUserRemovedBreakpoint()
         a->trigger();
         QCOMPARE(QStringLiteral("* Line Breakpoints\n"), stringifyLineBreakpoints(bv->m_treeview->model()));
     }
+}
+
+void BreakpointViewTest::testPendingBreakpointKeepsLine()
+{
+    const QUrl url(QStringLiteral("/file"));
+    auto backend = std::make_unique<BreakpointBackend>();
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+
+    bv->setBreakpoint(url, dap::SourceBreakpoint(10), std::nullopt);
+    bv->setBreakpoint(url, dap::SourceBreakpoint(20), std::nullopt);
+
+    // the response is in the order of the request, gdb sends no line for a pending breakpoint
+    dap::Breakpoint resolved{10};
+    resolved.id = 1;
+    resolved.verified = true;
+    dap::Breakpoint pending;
+    pending.id = 2;
+    Q_EMIT backend->breakPointsSet(url, {resolved, pending});
+
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:10\n"
+                            "** [x]file:20\n"),
+             stringifyLineBreakpoints(bv->m_treeview->model()));
+    const auto breakpoints = bv->allBreakpoints();
+    QCOMPARE(breakpoints.at(url).size(), 2);
+    QCOMPARE(breakpoints.at(url).at(0).line, 10);
+    QCOMPARE(breakpoints.at(url).at(1).line, 20);
 }
 
 QTEST_MAIN(BreakpointViewTest)

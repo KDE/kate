@@ -572,6 +572,17 @@ public:
         std::byte memory[sizeof(FileBreakpoint) * 30];
         std::pmr::monotonic_buffer_resource allocator(memory, sizeof(memory));
 
+        // the response is in the order of the request, i.e. the enabled breakpoints of the file. Breakpoints the
+        // debugger couldn't resolve yet (e.g. in a library that isn't loaded yet) have no line, keep the requested one
+        const auto requested = sourceBreakpointsForPath(url);
+        if (requested.size() == newDapBreakpoints.size()) {
+            for (int i = 0; i < newDapBreakpoints.size(); ++i) {
+                if (!newDapBreakpoints[i].line) {
+                    newDapBreakpoints[i].line = requested[i].line;
+                }
+            }
+        }
+
         std::span oldBreakpoints = getFileBreakpoints(url);
 
         // ensure elements are sorted

@@ -225,6 +225,7 @@ private Q_SLOTS:
     void testBreakpointChangedEventWithOtherPath();
     void testRunToCursorOnExistingBreakpoint();
     void testFunctionBreakpointRemovedEvent();
+    void testClearBreakpointsKeepsOtherMarks();
 
 private:
     std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url)
@@ -893,6 +894,24 @@ void BreakpointViewTest::testFunctionBreakpointRemovedEvent()
     QCOMPARE(QStringLiteral("* Function Breakpoints\n"
                             "** [x]func2 (0xffee2211) [verified]\n"),
              stringifyFuncBreakpoints(bv->m_treeview->model()));
+}
+
+void BreakpointViewTest::testClearBreakpointsKeepsOtherMarks()
+{
+    auto backend = std::make_unique<BreakpointBackend>();
+    const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+    auto doc = createDocument(url);
+
+    doc->addMark(2, KTextEditor::Document::Bookmark);
+    doc->addMark(2, KTextEditor::Document::BreakpointActive);
+    QCOMPARE(stringifyLineBreakpoints(bv->m_treeview->model()),
+             QStringLiteral("* Line Breakpoints\n"
+                            "** [x]kateui.rc:3\n"));
+
+    bv->clearLineBreakpoints();
+    QCOMPARE(doc->mark(2), KTextEditor::Document::Bookmark);
+    QCOMPARE(stringifyLineBreakpoints(bv->m_treeview->model()), QStringLiteral("* Line Breakpoints\n"));
 }
 
 QTEST_MAIN(BreakpointViewTest)

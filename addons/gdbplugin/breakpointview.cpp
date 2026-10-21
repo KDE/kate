@@ -1459,7 +1459,7 @@ void BreakpointView::clearLineBreakpoints()
             while (i.hasNext()) {
                 i.next();
                 if (i.value()->type & KTextEditor::Document::BreakpointActive) {
-                    doc->removeMark(i.value()->line, i.value()->type);
+                    doc->removeMark(i.value()->line, KTextEditor::Document::BreakpointActive);
                 }
             }
             connect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints, Qt::UniqueConnection);

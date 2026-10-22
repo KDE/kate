@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-22 00:53+0000\n"
 "PO-Revision-Date: 2026-08-24 07:20+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -29,67 +29,67 @@ msgstr ""
 "Seja za odpravljanje napak je v teku. Prosimo, uporabite ponovni zagon ali "
 "ustavite tekočo sejo."
 
-#: breakpointview.cpp:354
+#: breakpointview.cpp:363
 #, kde-format
 msgid "Line Breakpoints"
 msgstr "Prekinitvene točke vrstice"
 
-#: breakpointview.cpp:356
+#: breakpointview.cpp:365
 #, kde-format
 msgid "Function Breakpoints"
 msgstr "Prekinitvene točke funkcije"
 
-#: breakpointview.cpp:358
+#: breakpointview.cpp:367
 #, kde-format
 msgid "Exception Breakpoints"
 msgstr "Prekinitvene točke izjeme"
 
-#: breakpointview.cpp:417
+#: breakpointview.cpp:426
 #, kde-format
 msgid "verified"
 msgstr "preverjeno"
 
-#: breakpointview.cpp:417 breakpointview.cpp:422
+#: breakpointview.cpp:426 breakpointview.cpp:431
 #, kde-format
 msgid "pending"
 msgstr "v reševanju"
 
-#: breakpointview.cpp:965
+#: breakpointview.cpp:989
 #, kde-format
 msgid "Add Function Breakpoint…"
 msgstr "Dodaj prekinitveno točko…"
 
-#: breakpointview.cpp:969
+#: breakpointview.cpp:993
 #, kde-format
 msgid "Clear All Function Breakpoints"
 msgstr "Počisti vse prekinitvene točke funkcij"
 
-#: breakpointview.cpp:976
+#: breakpointview.cpp:1000
 #, kde-format
 msgid "Remove Breakpoint"
 msgstr "Odstrani prekinitveno točko"
 
-#: breakpointview.cpp:1493
+#: breakpointview.cpp:1525
 #, kde-format
 msgid "Breakpoint"
 msgstr "Prekinitvena točka"
 
-#: breakpointview.cpp:1556
+#: breakpointview.cpp:1588
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "vrstica %1 že ima prekinitveno točko"
 
-#: breakpointview.cpp:1565
+#: breakpointview.cpp:1596
 #, kde-format
 msgid "No breakpoints set"
 msgstr "Ni prekinitvenih točk"
 
-#: breakpointview.cpp:1624
+#: breakpointview.cpp:1655
 #, kde-format
 msgid "Add Function Breakpoint"
 msgstr "Dodaj prekinitveno točko funkcije"
 
-#: breakpointview.cpp:1625
+#: breakpointview.cpp:1656
 #, kde-format
 msgid "Function name:"
 msgstr "Ime funkcije:"
@@ -495,13 +495,13 @@ msgstr "Trenutni okvir [%3]: %1:%2 (%4)"
 msgid "Debugger"
 msgstr "Razhroščevalnik"
 
-#: launch_json_reader.cpp:40
+#: launch_json_reader.cpp:41
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
 msgstr "Neuspelo razčlenjevanje datoteke .vscode/launch.json pri %1. "
 
-#: launch_json_reader.cpp:51
+#: launch_json_reader.cpp:52
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"

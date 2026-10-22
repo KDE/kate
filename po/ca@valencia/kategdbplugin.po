@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-22 00:53+0000\n"
 "PO-Revision-Date: 2026-08-24 20:47+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -31,67 +31,67 @@ msgstr ""
 "Hi ha una sessió de depuració en curs. Torneu a executar o pareu la sessió "
 "actual."
 
-#: breakpointview.cpp:354
+#: breakpointview.cpp:363
 #, kde-format
 msgid "Line Breakpoints"
 msgstr "Punt d'interrupció de línia"
 
-#: breakpointview.cpp:356
+#: breakpointview.cpp:365
 #, kde-format
 msgid "Function Breakpoints"
 msgstr "Punts d'interrupció de funció"
 
-#: breakpointview.cpp:358
+#: breakpointview.cpp:367
 #, kde-format
 msgid "Exception Breakpoints"
 msgstr "Punts d'interrupció d'excepció"
 
-#: breakpointview.cpp:417
+#: breakpointview.cpp:426
 #, kde-format
 msgid "verified"
 msgstr "verificat"
 
-#: breakpointview.cpp:417 breakpointview.cpp:422
+#: breakpointview.cpp:426 breakpointview.cpp:431
 #, kde-format
 msgid "pending"
 msgstr "pendent"
 
-#: breakpointview.cpp:965
+#: breakpointview.cpp:989
 #, kde-format
 msgid "Add Function Breakpoint…"
 msgstr "Afig un punt d'interrupció de funció…"
 
-#: breakpointview.cpp:969
+#: breakpointview.cpp:993
 #, kde-format
 msgid "Clear All Function Breakpoints"
 msgstr "Neteja tots els punts d'interrupció de funció"
 
-#: breakpointview.cpp:976
+#: breakpointview.cpp:1000
 #, kde-format
 msgid "Remove Breakpoint"
 msgstr "Elimina el punt d'interrupció"
 
-#: breakpointview.cpp:1493
+#: breakpointview.cpp:1525
 #, kde-format
 msgid "Breakpoint"
 msgstr "Punt d'interrupció"
 
-#: breakpointview.cpp:1556
+#: breakpointview.cpp:1588
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "la línia %1 ja té un punt d'interrupció"
 
-#: breakpointview.cpp:1565
+#: breakpointview.cpp:1596
 #, kde-format
 msgid "No breakpoints set"
 msgstr "No s'ha establit cap punt d'interrupció"
 
-#: breakpointview.cpp:1624
+#: breakpointview.cpp:1655
 #, kde-format
 msgid "Add Function Breakpoint"
 msgstr "Afig un punt d'interrupció de funció"
 
-#: breakpointview.cpp:1625
+#: breakpointview.cpp:1656
 #, kde-format
 msgid "Function name:"
 msgstr "Nom de la funció:"
@@ -500,13 +500,13 @@ msgstr "Marc actual [%3]: %1:%2 (%4)"
 msgid "Debugger"
 msgstr "Depurador"
 
-#: launch_json_reader.cpp:40
+#: launch_json_reader.cpp:41
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
 msgstr "Ha fallat durant l'anàlisi .vscode/launch.json a %1. "
 
-#: launch_json_reader.cpp:51
+#: launch_json_reader.cpp:52
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"

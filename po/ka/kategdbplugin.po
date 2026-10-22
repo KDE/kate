@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-22 00:53+0000\n"
 "PO-Revision-Date: 2026-08-24 06:05+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -27,67 +27,67 @@ msgstr ""
 "მიმდინარეობს გამართვის სესია. გამოიყენეთ თავიდან გაშვება ან გააჩერეთ "
 "მიმდინარე სესია."
 
-#: breakpointview.cpp:354
+#: breakpointview.cpp:363
 #, kde-format
 msgid "Line Breakpoints"
 msgstr "ხაზის შეჩერების წერტილები"
 
-#: breakpointview.cpp:356
+#: breakpointview.cpp:365
 #, kde-format
 msgid "Function Breakpoints"
 msgstr "ფუნქციის შეჩერების წერტილები"
 
-#: breakpointview.cpp:358
+#: breakpointview.cpp:367
 #, kde-format
 msgid "Exception Breakpoints"
 msgstr "გამონაკლისის შეჩერების წერტილები"
 
-#: breakpointview.cpp:417
+#: breakpointview.cpp:426
 #, kde-format
 msgid "verified"
 msgstr "გადამოწმებულია"
 
-#: breakpointview.cpp:417 breakpointview.cpp:422
+#: breakpointview.cpp:426 breakpointview.cpp:431
 #, kde-format
 msgid "pending"
 msgstr "დარჩენილია"
 
-#: breakpointview.cpp:965
+#: breakpointview.cpp:989
 #, kde-format
 msgid "Add Function Breakpoint…"
 msgstr "ფუნქციის შეჩერების წერტილის დამატება…"
 
-#: breakpointview.cpp:969
+#: breakpointview.cpp:993
 #, kde-format
 msgid "Clear All Function Breakpoints"
 msgstr "ყველა ფუნქციის შეჩერების წერტილის გასუფთავება"
 
-#: breakpointview.cpp:976
+#: breakpointview.cpp:1000
 #, kde-format
 msgid "Remove Breakpoint"
 msgstr "შეჩერების წერტილის წაშლა"
 
-#: breakpointview.cpp:1493
+#: breakpointview.cpp:1525
 #, kde-format
 msgid "Breakpoint"
 msgstr "შეჩერების წერტილი"
 
-#: breakpointview.cpp:1556
+#: breakpointview.cpp:1588
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "ხაზს %1 გამართვის წერტილი უკვე გააჩნია"
 
-#: breakpointview.cpp:1565
+#: breakpointview.cpp:1596
 #, kde-format
 msgid "No breakpoints set"
 msgstr "შეჩერების წერტილები დაყენებული არაა"
 
-#: breakpointview.cpp:1624
+#: breakpointview.cpp:1655
 #, kde-format
 msgid "Add Function Breakpoint"
 msgstr "ფუნქციის შეჩერების წერტილის დამატება"
 
-#: breakpointview.cpp:1625
+#: breakpointview.cpp:1656
 #, kde-format
 msgid "Function name:"
 msgstr "ფუნქციის სახელი:"
@@ -493,13 +493,13 @@ msgstr "მიმდინარე კადრი [%3]: %1:%2 (%4)"
 msgid "Debugger"
 msgstr "გამმართველი"
 
-#: launch_json_reader.cpp:40
+#: launch_json_reader.cpp:41
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
 msgstr "დამუშავების შეცდომა ფაილისთვის .vscode/launch.json მისამართზე %1. "
 
-#: launch_json_reader.cpp:51
+#: launch_json_reader.cpp:52
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"

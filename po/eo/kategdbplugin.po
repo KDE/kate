@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-22 00:53+0000\n"
 "PO-Revision-Date: 2025-03-01 17:55+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -27,75 +27,75 @@ msgstr ""
 "Sencimiga seanco estas en kurso. Bonvolu uzi re-run aŭ ĉesigi la nunan "
 "seancon."
 
-#: breakpointview.cpp:354
+#: breakpointview.cpp:363
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Line Breakpoints"
 msgstr "Paŭzopunkto"
 
-#: breakpointview.cpp:356
+#: breakpointview.cpp:365
 #, fuzzy, kde-format
 #| msgid "function breakpoints"
 msgid "Function Breakpoints"
 msgstr "funkciaj paŭzopunktoj"
 
-#: breakpointview.cpp:358
+#: breakpointview.cpp:367
 #, fuzzy, kde-format
 #| msgid "function breakpoints"
 msgid "Exception Breakpoints"
 msgstr "funkciaj paŭzopunktoj"
 
-#: breakpointview.cpp:417
+#: breakpointview.cpp:426
 #, kde-format
 msgid "verified"
 msgstr ""
 
-#: breakpointview.cpp:417 breakpointview.cpp:422
+#: breakpointview.cpp:426 breakpointview.cpp:431
 #, kde-format
 msgid "pending"
 msgstr ""
 
-#: breakpointview.cpp:965
+#: breakpointview.cpp:989
 #, fuzzy, kde-format
 #| msgid "function breakpoints"
 msgid "Add Function Breakpoint…"
 msgstr "funkciaj paŭzopunktoj"
 
-#: breakpointview.cpp:969
+#: breakpointview.cpp:993
 #, fuzzy, kde-format
 #| msgid "Clear All Breakpoints"
 msgid "Clear All Function Breakpoints"
 msgstr "Viŝi Ĉiujn Paŭzopunktojn"
 
-#: breakpointview.cpp:976
+#: breakpointview.cpp:1000
 #, fuzzy, kde-format
 #| msgid "Remove breakpoint"
 msgid "Remove Breakpoint"
 msgstr "Forigi paŭzopunkton"
 
-#: breakpointview.cpp:1493
+#: breakpointview.cpp:1525
 #, kde-format
 msgid "Breakpoint"
 msgstr "Paŭzopunkto"
 
-#: breakpointview.cpp:1556
+#: breakpointview.cpp:1588
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "linio %1 jam havas paŭzopunkton"
 
-#: breakpointview.cpp:1565
+#: breakpointview.cpp:1596
 #, fuzzy, kde-format
 #| msgid "breakpoint set"
 msgid "No breakpoints set"
 msgstr "paŭzopunkto aro"
 
-#: breakpointview.cpp:1624
+#: breakpointview.cpp:1655
 #, fuzzy, kde-format
 #| msgid "function breakpoints"
 msgid "Add Function Breakpoint"
 msgstr "funkciaj paŭzopunktoj"
 
-#: breakpointview.cpp:1625
+#: breakpointview.cpp:1656
 #, fuzzy, kde-format
 #| msgctxt "Column label"
 #| msgid "Function"
@@ -507,13 +507,13 @@ msgstr "Nuna kadro [%3]: %1:%2 (%4)"
 msgid "Debugger"
 msgstr "Sencimigilo"
 
-#: launch_json_reader.cpp:40
+#: launch_json_reader.cpp:41
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
 msgstr ""
 
-#: launch_json_reader.cpp:51
+#: launch_json_reader.cpp:52
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"

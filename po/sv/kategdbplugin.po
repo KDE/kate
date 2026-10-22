@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-22 00:53+0000\n"
 "PO-Revision-Date: 2026-08-24 21:48+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -26,67 +26,67 @@ msgstr ""
 "En avlusningssession är pågående. Använd kör igen eller stoppa den aktuella "
 "sessionen."
 
-#: breakpointview.cpp:354
+#: breakpointview.cpp:363
 #, kde-format
 msgid "Line Breakpoints"
 msgstr "Radbrytpunkter"
 
-#: breakpointview.cpp:356
+#: breakpointview.cpp:365
 #, kde-format
 msgid "Function Breakpoints"
 msgstr "Funktionsbrytpunkter"
 
-#: breakpointview.cpp:358
+#: breakpointview.cpp:367
 #, kde-format
 msgid "Exception Breakpoints"
 msgstr "Undantagsbrytpunkter"
 
-#: breakpointview.cpp:417
+#: breakpointview.cpp:426
 #, kde-format
 msgid "verified"
 msgstr "verifierad"
 
-#: breakpointview.cpp:417 breakpointview.cpp:422
+#: breakpointview.cpp:426 breakpointview.cpp:431
 #, kde-format
 msgid "pending"
 msgstr "vilande"
 
-#: breakpointview.cpp:965
+#: breakpointview.cpp:989
 #, kde-format
 msgid "Add Function Breakpoint…"
 msgstr "Lägg till funktionsbrytpunkter…"
 
-#: breakpointview.cpp:969
+#: breakpointview.cpp:993
 #, kde-format
 msgid "Clear All Function Breakpoints"
 msgstr "Ta bort alla funktionsbrytpunkter"
 
-#: breakpointview.cpp:976
+#: breakpointview.cpp:1000
 #, kde-format
 msgid "Remove Breakpoint"
 msgstr "Ta bort brytpunkt"
 
-#: breakpointview.cpp:1493
+#: breakpointview.cpp:1525
 #, kde-format
 msgid "Breakpoint"
 msgstr "Brytpunkt"
 
-#: breakpointview.cpp:1556
+#: breakpointview.cpp:1588
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "rad %1 har redan en brytpunkt"
 
-#: breakpointview.cpp:1565
+#: breakpointview.cpp:1596
 #, kde-format
 msgid "No breakpoints set"
 msgstr "Inga brytpunkter angivna"
 
-#: breakpointview.cpp:1624
+#: breakpointview.cpp:1655
 #, kde-format
 msgid "Add Function Breakpoint"
 msgstr "Lägg till funktionsbrytpunkt"
 
-#: breakpointview.cpp:1625
+#: breakpointview.cpp:1656
 #, kde-format
 msgid "Function name:"
 msgstr "Funktionsnamn:"
@@ -493,13 +493,13 @@ msgstr "Aktuell aktiveringspost [%3]: %1:%2 (%4)"
 msgid "Debugger"
 msgstr "Avlusare"
 
-#: launch_json_reader.cpp:40
+#: launch_json_reader.cpp:41
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
 msgstr "Misslyckades tolka .vscode/launch.json i %1."
 
-#: launch_json_reader.cpp:51
+#: launch_json_reader.cpp:52
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"

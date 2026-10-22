@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-22 00:53+0000\n"
 "PO-Revision-Date: 2011-06-23 22:47+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
 "Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
@@ -25,67 +25,67 @@ msgid ""
 "session."
 msgstr ""
 
-#: breakpointview.cpp:354
+#: breakpointview.cpp:363
 #, fuzzy, kde-format
 msgid "Line Breakpoints"
 msgstr "Selit"
 
-#: breakpointview.cpp:356
+#: breakpointview.cpp:365
 #, fuzzy, kde-format
 msgid "Function Breakpoints"
 msgstr "Selit"
 
-#: breakpointview.cpp:358
+#: breakpointview.cpp:367
 #, fuzzy, kde-format
 msgid "Exception Breakpoints"
 msgstr "Selit"
 
-#: breakpointview.cpp:417
+#: breakpointview.cpp:426
 #, kde-format
 msgid "verified"
 msgstr ""
 
-#: breakpointview.cpp:417 breakpointview.cpp:422
+#: breakpointview.cpp:426 breakpointview.cpp:431
 #, kde-format
 msgid "pending"
 msgstr ""
 
-#: breakpointview.cpp:965
+#: breakpointview.cpp:989
 #, fuzzy, kde-format
 msgid "Add Function Breakpoint…"
 msgstr "Selit"
 
-#: breakpointview.cpp:969
+#: breakpointview.cpp:993
 #, fuzzy, kde-format
 msgid "Clear All Function Breakpoints"
 msgstr "Selit"
 
-#: breakpointview.cpp:976
+#: breakpointview.cpp:1000
 #, fuzzy, kde-format
 msgid "Remove Breakpoint"
 msgstr "Buang"
 
-#: breakpointview.cpp:1493
+#: breakpointview.cpp:1525
 #, kde-format
 msgid "Breakpoint"
 msgstr ""
 
-#: breakpointview.cpp:1556
+#: breakpointview.cpp:1588
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr ""
 
-#: breakpointview.cpp:1565
+#: breakpointview.cpp:1596
 #, fuzzy, kde-format
 msgid "No breakpoints set"
 msgstr "Selit"
 
-#: breakpointview.cpp:1624
+#: breakpointview.cpp:1655
 #, fuzzy, kde-format
 msgid "Add Function Breakpoint"
 msgstr "Selit"
 
-#: breakpointview.cpp:1625
+#: breakpointview.cpp:1656
 #, kde-format
 msgid "Function name:"
 msgstr ""
@@ -495,13 +495,13 @@ msgstr ""
 msgid "Debugger"
 msgstr "Nyahpepijat"
 
-#: launch_json_reader.cpp:40
+#: launch_json_reader.cpp:41
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
 msgstr ""
 
-#: launch_json_reader.cpp:51
+#: launch_json_reader.cpp:52
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"

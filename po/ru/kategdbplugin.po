@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-19 00:50+0000\n"
+"POT-Creation-Date: 2026-10-22 00:53+0000\n"
 "PO-Revision-Date: 2026-09-22 22:31+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -30,67 +30,67 @@ msgid ""
 msgstr ""
 "Сеанс отладки уже выполняется. Перезапустите или остановите текущий сеанс."
 
-#: breakpointview.cpp:354
+#: breakpointview.cpp:363
 #, kde-format
 msgid "Line Breakpoints"
 msgstr "Точки останова по строкам"
 
-#: breakpointview.cpp:356
+#: breakpointview.cpp:365
 #, kde-format
 msgid "Function Breakpoints"
 msgstr "Точки останова функций"
 
-#: breakpointview.cpp:358
+#: breakpointview.cpp:367
 #, kde-format
 msgid "Exception Breakpoints"
 msgstr "Точки останова исключений"
 
-#: breakpointview.cpp:417
+#: breakpointview.cpp:426
 #, kde-format
 msgid "verified"
 msgstr "проверено"
 
-#: breakpointview.cpp:417 breakpointview.cpp:422
+#: breakpointview.cpp:426 breakpointview.cpp:431
 #, kde-format
 msgid "pending"
 msgstr "ожидает"
 
-#: breakpointview.cpp:965
+#: breakpointview.cpp:989
 #, kde-format
 msgid "Add Function Breakpoint…"
 msgstr "Добавить точку останова функции…"
 
-#: breakpointview.cpp:969
+#: breakpointview.cpp:993
 #, kde-format
 msgid "Clear All Function Breakpoints"
 msgstr "Очистить все точки останова функций"
 
-#: breakpointview.cpp:976
+#: breakpointview.cpp:1000
 #, kde-format
 msgid "Remove Breakpoint"
 msgstr "Удалить точку останова"
 
-#: breakpointview.cpp:1493
+#: breakpointview.cpp:1525
 #, kde-format
 msgid "Breakpoint"
 msgstr "Точка останова"
 
-#: breakpointview.cpp:1556
+#: breakpointview.cpp:1588
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "в строке %1 уже есть точка останова"
 
-#: breakpointview.cpp:1565
+#: breakpointview.cpp:1596
 #, kde-format
 msgid "No breakpoints set"
 msgstr "Точки останова не заданы"
 
-#: breakpointview.cpp:1624
+#: breakpointview.cpp:1655
 #, kde-format
 msgid "Add Function Breakpoint"
 msgstr "Добавить точку останова функции"
 
-#: breakpointview.cpp:1625
+#: breakpointview.cpp:1656
 #, kde-format
 msgid "Function name:"
 msgstr "Имя функции:"
@@ -498,13 +498,13 @@ msgstr "Текущий вызов [%3]: %1:%2 (%4)"
 msgid "Debugger"
 msgstr "Отладчик"
 
-#: launch_json_reader.cpp:40
+#: launch_json_reader.cpp:41
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
 msgstr "Не удалось проанализировать .vscode/launch.json в «%1». "
 
-#: launch_json_reader.cpp:51
+#: launch_json_reader.cpp:52
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"

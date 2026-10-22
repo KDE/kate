@@ -7,6 +7,8 @@
 #include <KFontRequester>
 #include <KLocalizedString>
 #include <KSharedConfig>
+#include <KTextEditor/Document>
+#include <KTextEditor/View>
 #include <QCommandLineParser>
 #include <QDialog>
 #include <QDir>
@@ -37,6 +39,7 @@ public:
 
 private Q_SLOTS:
     void test_windowOpenClose();
+    void test_windowTitlePrefix();
     void test_windowGeometrySaveRestore();
     void test_sessionGeometrySaveRestore();
     void test_openFontDialog();
@@ -80,6 +83,45 @@ void BasicUiTests::test_windowOpenClose()
     delete mainWindow;
 
     QCOMPARE(app->mainWindows().size(), 1);
+}
+
+void BasicUiTests::test_windowTitlePrefix()
+{
+    app->sessionManager()->sessionNew();
+    auto mainWindow = app->activeKateMainWindow();
+    auto view = mainWindow->wrapper()->openUrl(QUrl());
+    QVERIFY(view);
+    auto doc = view->document();
+
+    const QString originalTitle = mainWindow->windowTitle();
+    QVERIFY(mainWindow->setProperty("windowTitlePrefix", QStringLiteral("Project: ")));
+    QCOMPARE(mainWindow->windowTitle(), QStringLiteral("Project: ") + originalTitle);
+
+    // Caption updates must retain the prefix and the document state.
+    doc->setReadWrite(false);
+    QVERIFY(mainWindow->windowTitle().startsWith(QStringLiteral("Project: ")));
+    QVERIFY(mainWindow->windowTitle().contains(i18n(" [read only]")));
+    doc->setReadWrite(true);
+    doc->setModified(true);
+    QVERIFY(mainWindow->isWindowModified());
+    QVERIFY(mainWindow->windowTitle().startsWith(QStringLiteral("Project: ")));
+    doc->setModified(false);
+
+    QVERIFY(mainWindow->setProperty("windowTitlePrefix", QStringLiteral("Other Project: ")));
+    QCOMPARE(mainWindow->windowTitle(), QStringLiteral("Other Project: ") + originalTitle);
+    QVERIFY(mainWindow->setProperty("windowTitlePrefix", QString()));
+    QCOMPARE(mainWindow->windowTitle(), originalTitle);
+
+    // Non-document tabs also use the prefix, and clearing it updates immediately.
+    auto widget = new QWidget;
+    widget->setWindowTitle(QStringLiteral("Tool"));
+    QVERIFY(mainWindow->wrapper()->addWidget(widget));
+    const QString widgetTitle = mainWindow->windowTitle();
+    mainWindow->setProperty("windowTitlePrefix", QStringLiteral("Project: "));
+    QCOMPARE(mainWindow->windowTitle(), QStringLiteral("Project: ") + widgetTitle);
+    mainWindow->setProperty("windowTitlePrefix", QString());
+    QCOMPARE(mainWindow->windowTitle(), widgetTitle);
+    QVERIFY(mainWindow->wrapper()->removeWidget(widget));
 }
 
 void BasicUiTests::test_windowGeometrySaveRestore()

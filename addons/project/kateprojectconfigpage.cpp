@@ -114,6 +114,15 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     group->setLayout(vbox);
     layout->addWidget(group);
 
+    vbox = new QVBoxLayout;
+    group = new QGroupBox(i18nc("Groupbox title", "Window Title"), this);
+    m_cbPrefixWindowTitle = new QCheckBox(i18n("Prefix window title with project name"), this);
+    m_cbPrefixWindowTitle->setObjectName(QStringLiteral("prefixWindowTitle"));
+    m_cbPrefixWindowTitle->setWhatsThis(i18n("Show the current project's name before the existing window title."));
+    vbox->addWidget(m_cbPrefixWindowTitle);
+    group->setLayout(vbox);
+    layout->addWidget(group);
+
     layout->addStretch(1);
 
     /** Git specific **/
@@ -164,6 +173,7 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
                     m_cbAutoFossil,
                     m_cbAutoCMake,
                     m_cbSessionRestoreOpenProjects,
+                    m_cbPrefixWindowTitle,
                     m_cbMultiProjectCompletion,
                     m_cbIndexEnabled,
                     m_cbMultiProjectGoto,
@@ -226,6 +236,7 @@ void KateProjectConfigPage::apply()
     m_plugin->setDoubleClickAction((ClickAction)m_cmbDoubleClick->currentIndex());
 
     m_plugin->setRestoreProjectsForSession(m_cbSessionRestoreOpenProjects->isChecked());
+    m_plugin->setPrefixWindowTitle(m_cbPrefixWindowTitle->isChecked());
 
     m_plugin->setDirectoryListing(m_cbDirectoryListing->isChecked(), m_cbShowHiddenFiles->isChecked());
     m_plugin->setGitHostMappings(*hostMappings);
@@ -247,6 +258,7 @@ void KateProjectConfigPage::reset()
     m_cmbDoubleClick->setCurrentIndex((int)m_plugin->doubleClickAcion());
 
     m_cbSessionRestoreOpenProjects->setCheckState(m_plugin->restoreProjectsForSession() ? Qt::Checked : Qt::Unchecked);
+    m_cbPrefixWindowTitle->setChecked(m_plugin->prefixWindowTitle());
 
     m_cbDirectoryListing->setCheckState(m_plugin->directoryListing() ? Qt::Checked : Qt::Unchecked);
     m_cbShowHiddenFiles->setCheckState(m_plugin->showHiddenFiles() ? Qt::Checked : Qt::Unchecked);
@@ -257,6 +269,7 @@ void KateProjectConfigPage::reset()
 
 void KateProjectConfigPage::defaults()
 {
+    m_cbPrefixWindowTitle->setChecked(false);
     m_gitForgeConfig->setHostMappings(GitForge::defaultHostMappings());
     slotMyChanged();
 }

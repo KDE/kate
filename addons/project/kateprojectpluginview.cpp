@@ -277,11 +277,16 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
      * ensure proper action update, to enable/disable stuff
      */
     connect(this, &KateProjectPluginView::projectMapChanged, this, &KateProjectPluginView::updateActions);
+    connect(this, &KateProjectPluginView::projectMapChanged, this, &KateProjectPluginView::updateWindowTitle);
+    connect(this, &KateProjectPluginView::projectMapEdited, this, &KateProjectPluginView::updateWindowTitle);
     updateActions();
+    updateWindowTitle();
 }
 
 KateProjectPluginView::~KateProjectPluginView()
 {
+    m_mainWindow->window()->setProperty("windowTitlePrefix", QString());
+
     // avoid that we trigger any view change or similar during destruction
     // might lead to crashes, in any case, it is unwanted
     disconnect(m_projectSelectAction, &KSelectAction::indexTriggered, this, &KateProjectPluginView::slotCurrentChanged);
@@ -335,6 +340,13 @@ void KateProjectPluginView::slotConfigUpdated()
 
     // update action state
     updateActions();
+    updateWindowTitle();
+}
+
+void KateProjectPluginView::updateWindowTitle()
+{
+    const QString name = m_plugin->prefixWindowTitle() ? projectName() : QString();
+    m_mainWindow->window()->setProperty("windowTitlePrefix", name.isEmpty() ? QString() : name + QStringLiteral(": "));
 }
 
 int KateProjectPluginView::findProjectActionIndex(const QString &filename) const
@@ -819,6 +831,7 @@ void KateProjectPluginView::slotHandleProjectClosing(KateProject *project)
 
     // update actions, e.g. the close all stuff needs this
     updateActions();
+    updateWindowTitle();
 }
 
 QString KateProjectPluginView::currentWord() const

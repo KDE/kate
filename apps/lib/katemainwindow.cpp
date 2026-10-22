@@ -1352,8 +1352,14 @@ void KateMainWindow::slotDocumentCreated(KTextEditor::Document *doc)
 
 void KateMainWindow::updateCaption()
 {
-    if (m_viewManager->activeView()) {
-        updateCaption(m_viewManager->activeView()->document());
+    updateCaption(m_viewManager->activeView() ? m_viewManager->activeView()->document() : nullptr);
+}
+
+void KateMainWindow::setWindowTitlePrefix(const QString &prefix)
+{
+    if (m_windowTitlePrefix != prefix) {
+        m_windowTitlePrefix = prefix;
+        updateCaption();
     }
 }
 
@@ -1362,7 +1368,7 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
     if (!m_viewManager->activeView()) {
         QWidget *w = activeWidget();
         QString title = w ? w->windowTitle() : QString();
-        setCaption(title, false);
+        setCaption(m_windowTitlePrefix + title, false);
         setWindowFilePath(QString());
         return;
     }
@@ -1393,7 +1399,7 @@ void KateMainWindow::updateCaption(KTextEditor::Document *doc)
         readOnlyCaption = i18n(" [read only]");
     }
 
-    setCaption(sessName + c + readOnlyCaption + QStringLiteral(" [*]"), m_viewManager->activeView()->document()->isModified());
+    setCaption(m_windowTitlePrefix + sessName + c + readOnlyCaption + QStringLiteral(" [*]"), m_viewManager->activeView()->document()->isModified());
 }
 
 void KateMainWindow::saveProperties(KConfigGroup &config, bool includeViewConfig)

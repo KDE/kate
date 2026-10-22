@@ -355,6 +355,8 @@ private:
      */
     void setCurrentProject(int index);
 
+    void updateWindowTitle();
+
 private:
     /**
      * Watches for changes to .git/index

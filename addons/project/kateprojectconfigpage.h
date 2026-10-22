@@ -38,6 +38,7 @@ private:
     void setupGitConfigUI();
 
     QCheckBox *m_cbSessionRestoreOpenProjects;
+    QCheckBox *m_cbPrefixWindowTitle;
     QCheckBox *m_cbAutoGit;
     QCheckBox *m_cbAutoSubversion;
     QCheckBox *m_cbAutoMercurial;

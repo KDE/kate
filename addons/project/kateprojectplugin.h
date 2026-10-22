@@ -161,6 +161,9 @@ public:
     void setRestoreProjectsForSession(bool enabled);
     bool restoreProjectsForSession() const;
 
+    void setPrefixWindowTitle(bool enabled);
+    bool prefixWindowTitle() const;
+
     void setDirectoryListing(bool directoryListing, bool showHiddenFiles);
     bool directoryListing() const;
     bool showHiddenFiles() const;
@@ -299,6 +302,8 @@ private:
 
     // restore projects on session loading?
     bool m_restoreProjectsForSession = true;
+
+    bool m_prefixWindowTitle = false;
 
     // indexing is expensive, default off
     bool m_indexEnabled = false;

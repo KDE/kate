@@ -45,8 +45,16 @@ class KateContainerStackedLayout;
 class KATE_PRIVATE_EXPORT KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBase
 {
     Q_OBJECT
+    Q_PROPERTY(QString windowTitlePrefix READ windowTitlePrefix WRITE setWindowTitlePrefix)
 
 public:
+    /** Optional prefix supplied by plugins, preserved across caption updates. */
+    QString windowTitlePrefix() const
+    {
+        return m_windowTitlePrefix;
+    }
+    void setWindowTitlePrefix(const QString &prefix);
+
     /**
      * Construct the window and restore its state from given config if any
      * @param sconfig session config for this window, 0 if none
@@ -569,6 +577,7 @@ private:
      * keeps track of views
      */
     KateViewManager *m_viewManager = nullptr;
+    QString m_windowTitlePrefix;
 
     KRecentFilesAction *m_fileOpenRecent = nullptr;
 

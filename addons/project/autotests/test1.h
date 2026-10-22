@@ -20,6 +20,7 @@ public Q_SLOTS:
 private Q_SLOTS:
     void testCommonParent();
     void testShellCheckParsing();
+    void testWindowTitleConfig();
 };
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

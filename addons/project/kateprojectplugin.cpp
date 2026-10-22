@@ -631,6 +631,17 @@ bool KateProjectPlugin::restoreProjectsForSession() const
     return m_restoreProjectsForSession;
 }
 
+void KateProjectPlugin::setPrefixWindowTitle(bool enabled)
+{
+    m_prefixWindowTitle = enabled;
+    writeConfig();
+}
+
+bool KateProjectPlugin::prefixWindowTitle() const
+{
+    return m_prefixWindowTitle;
+}
+
 void KateProjectPlugin::setDirectoryListing(bool directoryListing, bool showHiddenFiles)
 {
     const bool changed = (m_directoryListing != directoryListing) || (m_showHiddenFiles != showHiddenFiles);
@@ -683,6 +694,7 @@ void KateProjectPlugin::readConfig()
     m_gitHostMappings = hostMappingsFromConfig(config.readEntry("gitHostMappings", serializedHostMappings(GitForge::defaultHostMappings())));
 
     m_restoreProjectsForSession = config.readEntry("restoreProjectsForSessions", false);
+    m_prefixWindowTitle = config.readEntry("prefixWindowTitle", false);
 
     m_directoryListing = config.readEntry("directoryListing", false);
     m_showHiddenFiles = config.readEntry("showHiddenFiles", false);
@@ -726,6 +738,7 @@ void KateProjectPlugin::writeConfig()
     config.writeEntry("gitHostMappings", serializedHostMappings(m_gitHostMappings));
 
     config.writeEntry("restoreProjectsForSessions", m_restoreProjectsForSession);
+    config.writeEntry("prefixWindowTitle", m_prefixWindowTitle);
 
     config.writeEntry("directoryListing", m_directoryListing);
     config.writeEntry("showHiddenFiles", m_showHiddenFiles);

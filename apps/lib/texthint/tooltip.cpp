@@ -6,6 +6,7 @@
 #include "hintstate.h"
 
 #include <QApplication>
+#include <QDesktopServices>
 #include <QEvent>
 #include <QFontMetrics>
 #include <QMenu>
@@ -396,6 +397,9 @@ private:
                         hideTooltip();
                         actions[idx].m_callback();
                     }
+                } else if (url.scheme() == QStringLiteral("http") || url.scheme() == QStringLiteral("https")) {
+                    hideTooltip();
+                    QDesktopServices::openUrl(url);
                 }
             });
 

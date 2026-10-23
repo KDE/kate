@@ -83,12 +83,12 @@ msgstr ""
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 crashed"
-msgstr ""
+msgstr "%1 spadol"
 
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 failed with exit code %2"
-msgstr ""
+msgstr "%1 zlyhal s návratovým kódom %2"
 
 #: Formatters.cpp:286
 #, kde-format

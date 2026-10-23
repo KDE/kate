@@ -1512,6 +1512,8 @@ msgid ""
 "File \"%1\" is already open in another document. Please close that document "
 "first if you want to overwrite it or choose a different name."
 msgstr ""
+"Súbor „%1“ je už otvorený v inom dokumente. Ak ho chcete prepísať, najprv "
+"zatvorte ten dokument, alebo zvoľte iný názov."
 
 #: lib/katefileactions.cpp:130
 #, kde-format
@@ -1664,10 +1666,9 @@ msgid "Copy Filename"
 msgstr "Kopírovať názov súboru"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "Skopíruje cestu k aktuálnemu dokumentu do schránky"
+msgstr "Skopíruje názov aktuálneho súboru do schránky."
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1675,10 +1676,9 @@ msgid "&Open Containing Folder"
 msgstr "&Otvoriť priečinok s obsahom"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "Otvárať nové karty napravo od aktuálnej karty"
+msgstr "Otvorí priečinok obsahujúci aktuálny súbor."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format

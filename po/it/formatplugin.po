@@ -1,6 +1,6 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2023, 2024, 2025 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2023-2026 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:88
 #: FormatPlugin.cpp:245 Formatters.cpp:265 Formatters.cpp:285

@@ -273,8 +273,8 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     QPointer<QObject> m_projectPlugin;
     // merged default and user config
     QJsonObject m_serverConfig;
-    // root -> (mode -> server)
-    QMap<QUrl, QMap<QString, ServerInfo>> m_servers;
+    // root -> (server id -> server)
+    QMap<QUrl, QMap<QByteArray, ServerInfo>> m_servers;
     QHash<KTextEditor::Document *, DocumentInfo> m_docs;
     bool m_incrementalSync = false;
     LSPClientCapabilities m_clientCapabilities;
@@ -738,6 +738,10 @@ private:
                                                                                                                             KTextEditor::Document *document,
                                                                                                                             QJsonObject config,
                                                                                                                             QJsonObject &mergedConfig) {
+            // use the full config content as server id inside m_servers
+            // could be improved
+            const auto serverId = QJsonDocument(config).toJson();
+
             // store overall settings for later use
             auto lspConfig = initialServerConfig;
 
@@ -798,7 +802,7 @@ private:
                 // such that the root (or document) maps into the remote exec space
                 const auto &cs = m_servers;
                 for (auto m = cs.begin(); m != cs.end(); ++m) {
-                    auto it = m.value().find(langId);
+                    auto it = m.value().find(serverId);
                     if (it != m.value().end()) {
                         auto &si = *it;
                         auto checkurl = rootpath ? QUrl::fromLocalFile(*rootpath) : document->url();
@@ -835,14 +839,14 @@ private:
             }
 
             auto root = rootpath && !rootpath->isEmpty() ? QUrl::fromLocalFile(*rootpath) : QUrl();
-            auto &serverinfo = m_servers[root][langId];
+            auto &serverinfo = m_servers[root][serverId];
             auto &server = serverinfo.server;
 
             // maybe there is a server with other root that is workspace capable
             if (!server && useWorkspace) {
                 for (const auto &l : std::as_const(m_servers)) {
                     // for (auto it = l.begin(); it != l.end(); ++it) {
-                    auto it = l.find(langId);
+                    auto it = l.find(serverId);
                     if (it != l.end()) {
                         if (auto oserver = it->server) {
                             const auto &caps = oserver->capabilities();
@@ -1025,8 +1029,8 @@ private:
                     connect(server.get(),
                             &LSPClientServer::configuration,
                             this,
-                            [this, root, langId](const LSPConfigurationParams &params, const ConfigurationReplyHandler &h, bool &handled) {
-                                onConfiguration(root, langId, params, h, handled);
+                            [this, root, serverId](const LSPConfigurationParams &params, const ConfigurationReplyHandler &h, bool &handled) {
+                                onConfiguration(root, serverId, params, h, handled);
                             });
                     connect(server.get(), &LSPClientServer::showDocument, this, &self_type::showDocument);
                     connect(server.get(), &LSPClientServer::showMessageRequest, this, &self_type::showMessageRequest);
@@ -1408,13 +1412,13 @@ private:
         handled = true;
     }
 
-    void onConfiguration(QUrl root, QString langId, const LSPConfigurationParams &params, const ConfigurationReplyHandler &h, bool &handled)
+    void onConfiguration(QUrl root, QByteArray serverId, const LSPConfigurationParams &params, const ConfigurationReplyHandler &h, bool &handled)
     {
         if (handled) {
             return;
         }
 
-        const auto &settings = m_servers[root][langId].settings;
+        const auto &settings = m_servers[root][serverId].settings;
         QList<QJsonValue> configurations;
         for (const auto &item : params.items) {
             auto configValue = settings;

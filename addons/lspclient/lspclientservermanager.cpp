@@ -676,7 +676,7 @@ private:
         qCInfo(LSPCLIENT) << "map updated" << ok << "now;\n" << *mapping;
     }
 
-    // try to find server at specified index, set to
+    // try to start the matching lsp sever for the given view/document
     std::shared_ptr<LSPClientServer> _findServer(KTextEditor::View *view, KTextEditor::Document *document, QJsonObject &mergedConfig)
     {
         // compute the LSP standardized language id, none found => no change
@@ -695,19 +695,20 @@ private:
         const auto projectMap = Utils::projectMapForDocument(document);
 
         // merge with project specific
-        auto pluginName = QStringLiteral("lspclient");
-        auto projectConfig = QJsonDocument::fromVariant(projectMap).object();
-        auto serverConfig = json::merge(m_serverConfig, projectConfig.value(pluginName).toObject());
+        const auto pluginName = QStringLiteral("lspclient");
+        const auto projectConfig = QJsonDocument::fromVariant(projectMap).object();
+        const auto initialServerConfig = json::merge(m_serverConfig, projectConfig.value(pluginName).toObject());
 
         // locate server config
+        // follow the use=xxx chains to deduce languageId of the server we shall use
+        // allows to share configs for multiple languages
         QJsonValue config;
-        QSet<QString> used;
-        // reduce langId
         auto realLangId = langId;
+        QSet<QString> used;
         while (true) {
             qCInfo(LSPCLIENT) << "language id " << langId;
             used << langId;
-            config = serverConfig.value(QStringLiteral("servers")).toObject().value(langId);
+            config = initialServerConfig.value(QStringLiteral("servers")).toObject().value(langId);
             if (config.isObject()) {
                 const auto &base = config.toObject().value(QStringLiteral("use")).toString();
                 // basic cycle detection
@@ -719,306 +720,337 @@ private:
             break;
         }
 
+        // if we find no config object at all, we are done
         if (!config.isObject()) {
             return nullptr;
         }
 
-        // store overall settings for later use
-        auto lspConfig = serverConfig;
-        // merge global settings
-        serverConfig = json::merge(serverConfig.value(QStringLiteral("global")).toObject(), config.toObject());
-
-        // used for variable substitution in the sequl
-        // NOTE that also covers a form of environment substitution using %{ENV:XYZ}
-        auto editor = KTextEditor::Editor::instance();
-
-        std::optional<QString> rootpath;
-        const auto rootv = serverConfig.value(QStringLiteral("root"));
-        if (rootv.isString()) {
-            auto sroot = rootv.toString();
-            sroot = editor->expandText(sroot, view);
-            if (QDir::isAbsolutePath(sroot)) {
-                rootpath = sroot;
-            } else if (!projectBase.isEmpty()) {
-                rootpath = QDir(projectBase).absoluteFilePath(sroot);
-            } else if (sroot.isEmpty()) {
-                // empty root; so we are convinced the server can handle null rootUri
-                rootpath = QString();
-            } else if (const auto url = document->url(); url.isValid() && url.isLocalFile()) {
-                // likewise, but use safer traditional approach and specify rootUri
-                rootpath = QDir(QFileInfo(url.toLocalFile()).absolutePath()).absoluteFilePath(sroot);
-            }
+        // if we have a "servers" attribute in the config with some non-empty list,
+        // we have a list of servers configured, use that
+        // if not just fill an array with the one config we have
+        auto servers = config.toObject().value(QStringLiteral("servers")).toArray();
+        if (servers.isEmpty()) {
+            servers << config;
         }
 
-        /**
-         * no explicit set root dir? search for a matching root based on some name filters
-         * this is required for some LSP servers like rls that don't handle that on their own like
-         * clangd does
-         */
-        if (!rootpath) {
-            const auto fileNamesForDetection = indicationDataToStringList(serverConfig.value(QStringLiteral("rootIndicationFileNames")));
-            const auto filePatternsForDetection = indicationDataToStringList(serverConfig.value(QStringLiteral("rootIndicationFilePatterns")));
-            const auto root = findRootForDocument(document, fileNamesForDetection, filePatternsForDetection);
-            if (!root.isEmpty()) {
-                rootpath = root;
-            }
-        }
+        // handle one lsp server config entry and try to start it
+        auto _findOneServer = [this, initialServerConfig, langId, pluginName, projectBase, projectConfig, realLangId](KTextEditor::View *view,
+                                                                                                                      KTextEditor::Document *document,
+                                                                                                                      QJsonObject config,
+                                                                                                                      QJsonObject &mergedConfig) {
+            // store overall settings for later use
+            auto lspConfig = initialServerConfig;
 
-        // just in case ... ensure normalized result
-        if (rootpath && !rootpath->isEmpty()) {
-            auto cpath = QFileInfo(*rootpath).canonicalFilePath();
-            if (!cpath.isEmpty()) {
-                rootpath = cpath;
-            }
-        }
+            // merge global settings
+            auto serverConfig = json::merge(initialServerConfig.value(QStringLiteral("global")).toObject(), config);
 
-        QStringList execPrefix;
-        Utils::PathMappingPtr pathMapping;
-        // if we are dealing with a rogue document, i.e. not belonging to a project,
-        // then there is a good chance this was opened by following some definition/declaration reference
-        // so let's see if we can find a server of proper language with an execPrefix and
-        if (projectBase.isEmpty()) {
-            // look for a server of same language with an execPrefix and pathMapping
-            // such that the root (or document) maps into the remote exec space
-            const auto &cs = m_servers;
-            for (auto m = cs.begin(); m != cs.end(); ++m) {
-                auto it = m.value().find(langId);
-                if (it != m.value().end()) {
-                    auto &si = *it;
-                    auto checkurl = rootpath ? QUrl::fromLocalFile(*rootpath) : document->url();
-                    auto map = si.server ? si.server->pathMapping() : nullptr;
-                    if (!si.execPrefix.isEmpty() && map && !si.server->mapPath(checkurl, true).isEmpty()) {
-                        // got one
-                        // then we can re-use the existing server instance or use that execPrefix for a new server
-                        // the latter should reasonably work as it was so configured
-                        execPrefix = si.execPrefix;
-                        pathMapping = map;
-                        // if no reasonable root yet, re-use existing server and root, if any
-                        if (!rootpath && si.server)
-                            rootpath = m.key().toLocalFile();
-                    }
+            // used for variable substitution in the sequl
+            // NOTE that also covers a form of environment substitution using %{ENV:XYZ}
+            auto editor = KTextEditor::Editor::instance();
+
+            std::optional<QString> rootpath;
+            const auto rootv = serverConfig.value(QStringLiteral("root"));
+            if (rootv.isString()) {
+                auto sroot = rootv.toString();
+                sroot = editor->expandText(sroot, view);
+                if (QDir::isAbsolutePath(sroot)) {
+                    rootpath = sroot;
+                } else if (!projectBase.isEmpty()) {
+                    rootpath = QDir(projectBase).absoluteFilePath(sroot);
+                } else if (sroot.isEmpty()) {
+                    // empty root; so we are convinced the server can handle null rootUri
+                    rootpath = QString();
+                } else if (const auto url = document->url(); url.isValid() && url.isLocalFile()) {
+                    // likewise, but use safer traditional approach and specify rootUri
+                    rootpath = QDir(QFileInfo(url.toLocalFile()).absolutePath()).absoluteFilePath(sroot);
                 }
             }
-        }
 
-        // is it actually safe/reasonable to use workspaces?
-        // in practice, (at this time) servers do do not quite consider or support all that
-        // so in that regard workspace folders represents a bit of "spec endulgance"
-        // (along with quite some other aspects for that matter)
-        //
-        // if a server was/is able to handle a "generic root",
-        //   let's assume it is safe to consider workspace folders if it explicitly claims such support
-        // if, however, an explicit root was/is necessary,
-        //   let's assume not safe
-        // in either case, let configuration explicitly specify this
-        bool useWorkspace = serverConfig.value(QStringLiteral("useWorkspace")).toBool(!rootpath ? true : false);
+            /**
+             * no explicit set root dir? search for a matching root based on some name filters
+             * this is required for some LSP servers like rls that don't handle that on their own like
+             * clangd does
+             */
+            if (!rootpath) {
+                const auto fileNamesForDetection = indicationDataToStringList(serverConfig.value(QStringLiteral("rootIndicationFileNames")));
+                const auto filePatternsForDetection = indicationDataToStringList(serverConfig.value(QStringLiteral("rootIndicationFilePatterns")));
+                const auto root = findRootForDocument(document, fileNamesForDetection, filePatternsForDetection);
+                if (!root.isEmpty()) {
+                    rootpath = root;
+                }
+            }
 
-        // last fallback: home directory
-        if (!rootpath) {
-            rootpath = QDir::homePath();
-        }
+            // just in case ... ensure normalized result
+            if (rootpath && !rootpath->isEmpty()) {
+                auto cpath = QFileInfo(*rootpath).canonicalFilePath();
+                if (!cpath.isEmpty()) {
+                    rootpath = cpath;
+                }
+            }
 
-        auto root = rootpath && !rootpath->isEmpty() ? QUrl::fromLocalFile(*rootpath) : QUrl();
-        auto &serverinfo = m_servers[root][langId];
-        auto &server = serverinfo.server;
-
-        // maybe there is a server with other root that is workspace capable
-        if (!server && useWorkspace) {
-            for (const auto &l : std::as_const(m_servers)) {
-                // for (auto it = l.begin(); it != l.end(); ++it) {
-                auto it = l.find(langId);
-                if (it != l.end()) {
-                    if (auto oserver = it->server) {
-                        const auto &caps = oserver->capabilities();
-                        if (caps.workspaceFolders.supported && caps.workspaceFolders.changeNotifications && it->useWorkspace) {
-                            // so this server can handle workspace folders and should know about project root
-                            server = oserver;
-                            break;
+            QStringList execPrefix;
+            Utils::PathMappingPtr pathMapping;
+            // if we are dealing with a rogue document, i.e. not belonging to a project,
+            // then there is a good chance this was opened by following some definition/declaration reference
+            // so let's see if we can find a server of proper language with an execPrefix and
+            if (projectBase.isEmpty()) {
+                // look for a server of same language with an execPrefix and pathMapping
+                // such that the root (or document) maps into the remote exec space
+                const auto &cs = m_servers;
+                for (auto m = cs.begin(); m != cs.end(); ++m) {
+                    auto it = m.value().find(langId);
+                    if (it != m.value().end()) {
+                        auto &si = *it;
+                        auto checkurl = rootpath ? QUrl::fromLocalFile(*rootpath) : document->url();
+                        auto map = si.server ? si.server->pathMapping() : nullptr;
+                        if (!si.execPrefix.isEmpty() && map && !si.server->mapPath(checkurl, true).isEmpty()) {
+                            // got one
+                            // then we can re-use the existing server instance or use that execPrefix for a new server
+                            // the latter should reasonably work as it was so configured
+                            execPrefix = si.execPrefix;
+                            pathMapping = map;
+                            // if no reasonable root yet, re-use existing server and root, if any
+                            if (!rootpath && si.server)
+                                rootpath = m.key().toLocalFile();
                         }
                     }
                 }
             }
-        }
 
-        // try to collect all exec related info
-        auto execConfig = Utils::ExecConfig::load(serverConfig, projectConfig, {lspConfig});
+            // is it actually safe/reasonable to use workspaces?
+            // in practice, (at this time) servers do do not quite consider or support all that
+            // so in that regard workspace folders represents a bit of "spec endulgance"
+            // (along with quite some other aspects for that matter)
+            //
+            // if a server was/is able to handle a "generic root",
+            //   let's assume it is safe to consider workspace folders if it explicitly claims such support
+            // if, however, an explicit root was/is necessary,
+            //   let's assume not safe
+            // in either case, let configuration explicitly specify this
+            bool useWorkspace = serverConfig.value(QStringLiteral("useWorkspace")).toBool(!rootpath ? true : false);
 
-        QStringList cmdline;
-        if (!server) {
-            // need to find command line for server
-            // choose debug command line for debug mode, fallback to command
-            auto vcmdline = serverConfig.value(m_plugin->m_debugMode ? QStringLiteral("commandDebug") : QStringLiteral("command"));
-            if (vcmdline.isUndefined()) {
-                vcmdline = serverConfig.value(QStringLiteral("command"));
+            // last fallback: home directory
+            if (!rootpath) {
+                rootpath = QDir::homePath();
             }
 
-            auto scmdline = vcmdline.toString();
-            if (!scmdline.isEmpty()) {
-                cmdline = scmdline.split(u' ');
-            } else {
-                const auto cmdOpts = vcmdline.toArray();
-                for (const auto &c : cmdOpts) {
-                    cmdline.push_back(c.toString());
+            auto root = rootpath && !rootpath->isEmpty() ? QUrl::fromLocalFile(*rootpath) : QUrl();
+            auto &serverinfo = m_servers[root][langId];
+            auto &server = serverinfo.server;
+
+            // maybe there is a server with other root that is workspace capable
+            if (!server && useWorkspace) {
+                for (const auto &l : std::as_const(m_servers)) {
+                    // for (auto it = l.begin(); it != l.end(); ++it) {
+                    auto it = l.find(langId);
+                    if (it != l.end()) {
+                        if (auto oserver = it->server) {
+                            const auto &caps = oserver->capabilities();
+                            if (caps.workspaceFolders.supported && caps.workspaceFolders.changeNotifications && it->useWorkspace) {
+                                // so this server can handle workspace folders and should know about project root
+                                server = oserver;
+                                break;
+                            }
+                        }
+                    }
                 }
             }
 
-            // consider and prefix command with execPrefix if supplied
-            // note; we might have obtained it from existing server above
-            // but any config that is found explicitly overrides that guess
-            auto vexecPrefix = execConfig.prefix();
-            if (vexecPrefix.isArray()) {
-                execPrefix.clear();
-                const auto vexecPrefixArray = vexecPrefix.toArray();
-                for (const auto &c : vexecPrefixArray) {
-                    execPrefix.push_back(c.toString());
+            // try to collect all exec related info
+            auto execConfig = Utils::ExecConfig::load(serverConfig, projectConfig, {lspConfig});
+
+            QStringList cmdline;
+            if (!server) {
+                // need to find command line for server
+                // choose debug command line for debug mode, fallback to command
+                auto vcmdline = serverConfig.value(m_plugin->m_debugMode ? QStringLiteral("commandDebug") : QStringLiteral("command"));
+                if (vcmdline.isUndefined()) {
+                    vcmdline = serverConfig.value(QStringLiteral("command"));
+                }
+
+                auto scmdline = vcmdline.toString();
+                if (!scmdline.isEmpty()) {
+                    cmdline = scmdline.split(u' ');
+                } else {
+                    const auto cmdOpts = vcmdline.toArray();
+                    for (const auto &c : cmdOpts) {
+                        cmdline.push_back(c.toString());
+                    }
+                }
+
+                // consider and prefix command with execPrefix if supplied
+                // note; we might have obtained it from existing server above
+                // but any config that is found explicitly overrides that guess
+                auto vexecPrefix = execConfig.prefix();
+                if (vexecPrefix.isArray()) {
+                    execPrefix.clear();
+                    const auto vexecPrefixArray = vexecPrefix.toArray();
+                    for (const auto &c : vexecPrefixArray) {
+                        execPrefix.push_back(c.toString());
+                    }
+                }
+
+                // NOTE no substitution in execPrefix itself
+                // only as part of cmdline below
+                // it may be used elsewhere,
+                // so up to user to ensure it also makes sense there
+                if (!execPrefix.isEmpty()) {
+                    cmdline = execPrefix + cmdline;
+                }
+
+                // some more expansion and substitution
+                // unlikely to be used here, but anyway
+                for (auto &e : cmdline) {
+                    e = editor->expandText(e, view);
                 }
             }
 
-            // NOTE no substitution in execPrefix itself
-            // only as part of cmdline below
-            // it may be used elsewhere,
-            // so up to user to ensure it also makes sense there
-            if (!execPrefix.isEmpty()) {
-                cmdline = execPrefix + cmdline;
-            }
+            if (!cmdline.empty()) {
+                // always update some info
+                // (even if eventually no server found/started)
+                serverinfo.settings = expandSettings(serverConfig.value(QStringLiteral("settings")), view);
+                serverinfo.started = QTime::currentTime();
+                serverinfo.url = serverConfig.value(QStringLiteral("url")).toString();
+                // leave failcount as-is
+                serverinfo.useWorkspace = useWorkspace;
+                serverinfo.execPrefix = execPrefix;
 
-            // some more expansion and substitution
-            // unlikely to be used here, but anyway
-            for (auto &e : cmdline) {
-                e = editor->expandText(e, view);
-            }
-        }
+                // ensure we always only take the server executable from the PATH or user defined paths
+                // QProcess will take the executable even just from current working directory without this => BAD
+                auto cmd = safeExecutableName(cmdline[0]);
 
-        if (!cmdline.empty()) {
-            // always update some info
-            // (even if eventually no server found/started)
-            serverinfo.settings = expandSettings(serverConfig.value(QStringLiteral("settings")), view);
-            serverinfo.started = QTime::currentTime();
-            serverinfo.url = serverConfig.value(QStringLiteral("url")).toString();
-            // leave failcount as-is
-            serverinfo.useWorkspace = useWorkspace;
-            serverinfo.execPrefix = execPrefix;
-
-            // ensure we always only take the server executable from the PATH or user defined paths
-            // QProcess will take the executable even just from current working directory without this => BAD
-            auto cmd = safeExecutableName(cmdline[0]);
-
-            // optionally search in supplied path(s)
-            const auto vpath = serverConfig.value(QStringLiteral("path")).toArray();
-            if (cmd.isEmpty() && !vpath.isEmpty()) {
-                // collect and expand in case home dir or other (environment) variable reference is used
-                QStringList path;
-                for (const auto &e : vpath) {
-                    auto p = e.toString();
-                    p = editor->expandText(p, view);
-                    path.push_back(p);
+                // optionally search in supplied path(s)
+                const auto vpath = serverConfig.value(QStringLiteral("path")).toArray();
+                if (cmd.isEmpty() && !vpath.isEmpty()) {
+                    // collect and expand in case home dir or other (environment) variable reference is used
+                    QStringList path;
+                    for (const auto &e : vpath) {
+                        auto p = e.toString();
+                        p = editor->expandText(p, view);
+                        path.push_back(p);
+                    }
+                    cmd = safeExecutableName(cmdline[0], path);
                 }
-                cmd = safeExecutableName(cmdline[0], path);
+
+                // we can only start the stuff if we did find the binary in the paths
+                if (!cmd.isEmpty()) {
+                    // use full path to avoid security issues
+                    cmdline[0] = cmd;
+                } else {
+                    if (!m_failedToFindServers.contains(cmdline[0])) {
+                        m_failedToFindServers.insert(cmdline[0]);
+                        // we didn't find the server binary at all!
+                        QString message = i18n("Failed to find server binary '%1' for language '%2'", cmdline[0], langId);
+                        const auto url = serverConfig.value(QStringLiteral("url")).toString();
+                        if (!url.isEmpty()) {
+                            message += QStringLiteral("\n") + i18n("Please check your PATH for the binary");
+                            message += QStringLiteral("\n") + i18n("See also %1 for installation or details", url);
+                        }
+                        showMessage(message, KTextEditor::Message::Warning);
+                    }
+                    // clear to cut branch below
+                    cmdline.clear();
+                }
             }
 
-            // we can only start the stuff if we did find the binary in the paths
-            if (!cmd.isEmpty()) {
-                // use full path to avoid security issues
-                cmdline[0] = cmd;
-            } else {
-                if (!m_failedToFindServers.contains(cmdline[0])) {
-                    m_failedToFindServers.insert(cmdline[0]);
-                    // we didn't find the server binary at all!
-                    QString message = i18n("Failed to find server binary '%1' for language '%2'", cmdline[0], langId);
+            // check if allowed to start, function will query user if needed and emit messages
+            if (!cmdline.empty() && !m_plugin->isCommandLineAllowed(cmdline)) {
+                cmdline.clear();
+            }
+
+            // made it here with a command line; spin up server
+            if (!cmdline.empty()) {
+                // an empty list is always passed here (or null)
+                // the initial list is provided/updated using notification after start
+                // since that is what a server is more aware of
+                // and should support if it declares workspace folder capable
+                // (as opposed to the new initialization property)
+                FoldersType folders;
+                if (useWorkspace) {
+                    folders = QList<LSPWorkspaceFolder>();
+                }
+                // spin up using currently configured client capabilities
+                auto &caps = m_clientCapabilities;
+                // extract some more additional config
+                auto completionOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("completionTriggerCharacters")));
+                auto signatureOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("signatureTriggerCharacters")));
+                decltype(ExtraServerConfig::environment) env;
+
+                if (!execPrefix.isEmpty()) {
+                    if (!pathMapping) {
+                        pathMapping = execConfig.init_mapping(view);
+                    }
+                    env[Utils::ExecConfig::ENV_KATE_EXEC_PLUGIN()] = pluginName;
+                    env[QStringLiteral("KATE_EXEC_SERVER")] = realLangId;
+                    // allow/enable mount inspection
+                    if (pathMapping)
+                        env[Utils::ExecConfig::ENV_KATE_EXEC_INSPECT()] = QStringLiteral("1");
+                }
+
+                // Setup flatpak path mappings
+                Utils::setupFlatpakPathMapping(pathMapping);
+
+                // request server and setup
+                server.reset(new LSPClientServer(cmdline,
+                                                 root,
+                                                 realLangId,
+                                                 serverConfig.value(QStringLiteral("initializationOptions")),
+                                                 {.folders = folders,
+                                                  .caps = caps,
+                                                  .completion = completionOverride,
+                                                  .signature = signatureOverride,
+                                                  .map = pathMapping,
+                                                  .allowExperimental = serverConfig.value(QStringLiteral("allowExperimental")).toBool(),
+                                                  .environment = env}));
+                connect(server.get(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
+                connect(server.get(), &LSPClientServer::extraData, this, &self_type::onExtraData, Qt::UniqueConnection);
+                if (!server->start(m_plugin->m_debugMode)) {
+                    QString message = i18n("Failed to start server '%1' for language '%2'", cmdline.join(u' '), langId);
                     const auto url = serverConfig.value(QStringLiteral("url")).toString();
                     if (!url.isEmpty()) {
                         message += QStringLiteral("\n") + i18n("Please check your PATH for the binary");
                         message += QStringLiteral("\n") + i18n("See also %1 for installation or details", url);
                     }
                     showMessage(message, KTextEditor::Message::Warning);
+                } else {
+                    showMessage(i18n("Started server %2: %1", cmdline.join(u' '), serverDescription(server.get())), KTextEditor::Message::Positive);
+                    connect(server.get(), &LSPClientServer::logMessage, this, [this](const LSPLogMessageParams &params) {
+                        onMessage(true, params);
+                    });
+                    connect(server.get(), &LSPClientServer::showMessage, this, [this](const LSPShowMessageParams &params) {
+                        onMessage(false, params);
+                    });
+                    connect(server.get(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
+                    connect(server.get(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
+                    connect(server.get(),
+                            &LSPClientServer::configuration,
+                            this,
+                            [this, root, langId](const LSPConfigurationParams &params, const ConfigurationReplyHandler &h, bool &handled) {
+                                onConfiguration(root, langId, params, h, handled);
+                            });
+                    connect(server.get(), &LSPClientServer::showDocument, this, &self_type::showDocument);
+                    connect(server.get(), &LSPClientServer::showMessageRequest, this, &self_type::showMessageRequest);
                 }
-                // clear to cut branch below
-                cmdline.clear();
+            }
+            // set out param value
+            mergedConfig = serverConfig;
+            return (server && server->state() == LSPClientServer::State::Running) ? server : nullptr;
+        };
+
+        // handle all servers, use the first one
+        for (const auto &oneConfig : servers) {
+            if (!oneConfig.isObject()) {
+                continue;
+            }
+
+            // try to start server, use it if success
+            if (auto server = _findOneServer(view, document, oneConfig.toObject(), mergedConfig); server) {
+                return server;
             }
         }
 
-        // check if allowed to start, function will query user if needed and emit messages
-        if (!cmdline.empty() && !m_plugin->isCommandLineAllowed(cmdline)) {
-            cmdline.clear();
-        }
-
-        // made it here with a command line; spin up server
-        if (!cmdline.empty()) {
-            // an empty list is always passed here (or null)
-            // the initial list is provided/updated using notification after start
-            // since that is what a server is more aware of
-            // and should support if it declares workspace folder capable
-            // (as opposed to the new initialization property)
-            FoldersType folders;
-            if (useWorkspace) {
-                folders = QList<LSPWorkspaceFolder>();
-            }
-            // spin up using currently configured client capabilities
-            auto &caps = m_clientCapabilities;
-            // extract some more additional config
-            auto completionOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("completionTriggerCharacters")));
-            auto signatureOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("signatureTriggerCharacters")));
-            decltype(ExtraServerConfig::environment) env;
-
-            if (!execPrefix.isEmpty()) {
-                if (!pathMapping) {
-                    pathMapping = execConfig.init_mapping(view);
-                }
-                env[Utils::ExecConfig::ENV_KATE_EXEC_PLUGIN()] = pluginName;
-                env[QStringLiteral("KATE_EXEC_SERVER")] = realLangId;
-                // allow/enable mount inspection
-                if (pathMapping)
-                    env[Utils::ExecConfig::ENV_KATE_EXEC_INSPECT()] = QStringLiteral("1");
-            }
-
-            // Setup flatpak path mappings
-            Utils::setupFlatpakPathMapping(pathMapping);
-
-            // request server and setup
-            server.reset(new LSPClientServer(cmdline,
-                                             root,
-                                             realLangId,
-                                             serverConfig.value(QStringLiteral("initializationOptions")),
-                                             {.folders = folders,
-                                              .caps = caps,
-                                              .completion = completionOverride,
-                                              .signature = signatureOverride,
-                                              .map = pathMapping,
-                                              .allowExperimental = serverConfig.value(QStringLiteral("allowExperimental")).toBool(),
-                                              .environment = env}));
-            connect(server.get(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
-            connect(server.get(), &LSPClientServer::extraData, this, &self_type::onExtraData, Qt::UniqueConnection);
-            if (!server->start(m_plugin->m_debugMode)) {
-                QString message = i18n("Failed to start server '%1' for language '%2'", cmdline.join(u' '), langId);
-                const auto url = serverConfig.value(QStringLiteral("url")).toString();
-                if (!url.isEmpty()) {
-                    message += QStringLiteral("\n") + i18n("Please check your PATH for the binary");
-                    message += QStringLiteral("\n") + i18n("See also %1 for installation or details", url);
-                }
-                showMessage(message, KTextEditor::Message::Warning);
-            } else {
-                showMessage(i18n("Started server %2: %1", cmdline.join(u' '), serverDescription(server.get())), KTextEditor::Message::Positive);
-                connect(server.get(), &LSPClientServer::logMessage, this, [this](const LSPLogMessageParams &params) {
-                    onMessage(true, params);
-                });
-                connect(server.get(), &LSPClientServer::showMessage, this, [this](const LSPShowMessageParams &params) {
-                    onMessage(false, params);
-                });
-                connect(server.get(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
-                connect(server.get(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
-                connect(server.get(),
-                        &LSPClientServer::configuration,
-                        this,
-                        [this, root, langId](const LSPConfigurationParams &params, const ConfigurationReplyHandler &h, bool &handled) {
-                            onConfiguration(root, langId, params, h, handled);
-                        });
-                connect(server.get(), &LSPClientServer::showDocument, this, &self_type::showDocument);
-                connect(server.get(), &LSPClientServer::showMessageRequest, this, &self_type::showMessageRequest);
-            }
-        }
-        // set out param value
-        mergedConfig = serverConfig;
-        return (server && server->state() == LSPClientServer::State::Running) ? server : nullptr;
+        // no server found
+        return {};
     }
 
     void updateServerConfig()

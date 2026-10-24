@@ -734,10 +734,10 @@ private:
         }
 
         // handle one lsp server config entry and try to start it
-        auto _findOneServer = [this, initialServerConfig, langId, pluginName, projectBase, projectConfig, realLangId](KTextEditor::View *view,
-                                                                                                                      KTextEditor::Document *document,
-                                                                                                                      QJsonObject config,
-                                                                                                                      QJsonObject &mergedConfig) {
+        const auto _findOneServer = [this, initialServerConfig, langId, pluginName, projectBase, projectConfig, realLangId](KTextEditor::View *view,
+                                                                                                                            KTextEditor::Document *document,
+                                                                                                                            QJsonObject config,
+                                                                                                                            QJsonObject &mergedConfig) {
             // store overall settings for later use
             auto lspConfig = initialServerConfig;
 
@@ -1049,7 +1049,8 @@ private:
             }
         }
 
-        // no server found
+        // no server found, be safe, reset mergedConfig
+        mergedConfig = {};
         return {};
     }
 

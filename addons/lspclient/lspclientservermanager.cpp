@@ -1042,7 +1042,7 @@ private:
         };
 
         // handle all servers, use the first one
-        for (const auto &oneConfig : servers) {
+        for (const auto &oneConfig : std::as_const(servers)) {
             if (!oneConfig.isObject()) {
                 continue;
             }

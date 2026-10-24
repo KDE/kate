@@ -247,9 +247,18 @@
             "highlightingModeRegex": "^PureScript$"
         },
         "python": {
-            "command": ["pylsp", "--check-parent-process"],
-            "url": "https://github.com/python-lsp/python-lsp-server",
-            "highlightingModeRegex": "^Python$"
+            "highlightingModeRegex": "^Python$",
+            "servers" : [
+                {
+                    "command": ["pylsp", "--check-parent-process"],
+                    "url": "https://github.com/python-lsp/python-lsp-server"
+                },
+                {
+                    "command": ["pyrefly", "lsp"],
+                    "rootIndicationFileNames": ["pyproject.toml"],
+                    "url": "https://github.com/facebook/pyrefly",
+                }
+            ]
         },
         "qml": {
             "command": ["qmlls"],

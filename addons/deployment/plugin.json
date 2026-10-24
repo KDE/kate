@@ -14,6 +14,7 @@
         "Description[nl]": "Projectbestanden uploaden over SFTP en op de externe host bladeren",
         "Description[pt_BR]": "Envia arquivos de projeto via SFTP e navega pelo host remoto",
         "Description[ru]": "Отправка файлов проекта по SFTP и просмотр удалённого узла",
+        "Description[sk]": "Nahrať súbory projektu cez SFTP a prehliadať vzdialený počítač",
         "Description[sl]": "Prenesite tja projektne datoteke prek protokola SFTP in brskajte po oddaljenem gostitelju",
         "Description[tr]": "Proje dosyalarını SFTP üzerinden karşıya yükleyin ve uzak makineye göz atın",
         "Description[uk]": "Вивантаження файлів проєкту за допомогою SFTP і навігація віддаленим вузлом",
@@ -32,6 +33,7 @@
         "Name[nl]": "Deployment",
         "Name[pt_BR]": "Implantação",
         "Name[ru]": "Развёртывание",
+        "Name[sk]": "Nasadenie",
         "Name[sl]": "Uvedba",
         "Name[tr]": "Konuşlandırma",
         "Name[uk]": "Розгортання"

@@ -13,6 +13,7 @@
         "Description[nl]": "Toont Git-wijzigingsindicatoren in de marges van de bewerker.",
         "Description[pt_BR]": "Exibir indicadores de alterações do Git nas margens do editor",
         "Description[ru]": "Показ отметок изменений Git на полях редактора",
+        "Description[sk]": "Zobrazuje indikátory zmien Gitu na okrajoch editora",
         "Description[sl]": "Prikazuje indikatorje sprememb Git na robovih urejevalnika",
         "Description[tr]": "Düzenleyici kenar boşluklarında Git değişiklik göstergelerini gösterin",
         "Description[uk]": "Показує індикатори змін у Git на полях редактора",
@@ -30,6 +31,7 @@
         "Name[nl]": "Git-decoraties",
         "Name[pt_BR]": "Decorações do Git",
         "Name[ru]": "Отметки Git",
+        "Name[sk]": "Dekorácie Gitu",
         "Name[sl]": "Git dekoracije",
         "Name[tr]": "Git Dekorasyonları",
         "Name[uk]": "Декорування Git"

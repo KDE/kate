@@ -256,7 +256,7 @@
                 {
                     "command": ["pyrefly", "lsp"],
                     "rootIndicationFileNames": ["pyproject.toml"],
-                    "url": "https://github.com/facebook/pyrefly",
+                    "url": "https://github.com/facebook/pyrefly"
                 }
             ]
         },

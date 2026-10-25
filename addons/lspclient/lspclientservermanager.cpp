@@ -274,7 +274,7 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     // merged default and user config
     QJsonObject m_serverConfig;
     // root -> (server id -> server)
-    QMap<QUrl, QMap<QByteArray, ServerInfo>> m_servers;
+    QMap<QUrl, QMap<QString, ServerInfo>> m_servers;
     QHash<KTextEditor::Document *, DocumentInfo> m_docs;
     bool m_incrementalSync = false;
     LSPClientCapabilities m_clientCapabilities;
@@ -679,15 +679,18 @@ private:
     // try to start the matching lsp sever for the given view/document
     std::shared_ptr<LSPClientServer> _findServer(KTextEditor::View *view, KTextEditor::Document *document, QJsonObject &mergedConfig)
     {
+        // default merged config out argument
+        mergedConfig = {};
+
         // compute the LSP standardized language id, none found => no change
         auto langId = languageId(document);
         if (langId.isEmpty()) {
-            return nullptr;
+            return {};
         }
 
         if (m_plugin->m_alwaysDisabledLanguages.contains(langId)) {
             qCInfo(LSPCLIENT) << "skipping always disabled language ID" << langId;
-            return nullptr;
+            return {};
         }
 
         // get project plugin infos if available
@@ -722,25 +725,25 @@ private:
 
         // if we find no config object at all, we are done
         if (!config.isObject()) {
-            return nullptr;
+            return {};
         }
 
-        // if we have a "servers" attribute in the config with some non-empty list,
-        // we have a list of servers configured, use that
-        // if not just fill an array with the one config we have
-        auto servers = config.toObject().value(QStringLiteral("servers")).toArray();
-        if (servers.isEmpty()) {
-            servers << config;
+        // if we have no servers attribute that is an object, we have old format config, tell the user
+        const auto servers = config.toObject().value(QStringLiteral("servers"));
+        if (!servers.isObject()) {
+            QString message = i18n("Found old LSP config format for language '%1', please migrate to new format with a 'servers' sub-object.", langId);
+            showMessage(message, KTextEditor::Message::Warning);
+            return {};
         }
 
         // handle one lsp server config entry and try to start it
         const auto _findOneServer = [this, initialServerConfig, langId, pluginName, projectBase, projectConfig, realLangId](KTextEditor::View *view,
                                                                                                                             KTextEditor::Document *document,
+                                                                                                                            const QString &serverKey,
                                                                                                                             QJsonObject config,
                                                                                                                             QJsonObject &mergedConfig) {
-            // use the full config content as server id inside m_servers
-            // could be improved
-            const auto serverId = QJsonDocument(config).toJson();
+            // use language id & server key as server id inside m_servers
+            const QString serverId = QStringLiteral("%1/%2").arg(langId, serverKey);
 
             // store overall settings for later use
             auto lspConfig = initialServerConfig;
@@ -1042,13 +1045,15 @@ private:
         };
 
         // handle all servers, use the first one
-        for (const auto &oneConfig : std::as_const(servers)) {
+        const auto serversObject = servers.toObject();
+        for (const auto [serverKey, oneConfig] : serversObject.asKeyValueRange()) {
+            // config must be an object
             if (!oneConfig.isObject()) {
                 continue;
             }
 
             // try to start server, use it if success
-            if (auto server = _findOneServer(view, document, oneConfig.toObject(), mergedConfig); server) {
+            if (auto server = _findOneServer(view, document, serverKey.toString(), oneConfig.toObject(), mergedConfig); server) {
                 return server;
             }
         }
@@ -1412,7 +1417,7 @@ private:
         handled = true;
     }
 
-    void onConfiguration(QUrl root, QByteArray serverId, const LSPConfigurationParams &params, const ConfigurationReplyHandler &h, bool &handled)
+    void onConfiguration(QUrl root, QString serverId, const LSPConfigurationParams &params, const ConfigurationReplyHandler &h, bool &handled)
     {
         if (handled) {
             return;

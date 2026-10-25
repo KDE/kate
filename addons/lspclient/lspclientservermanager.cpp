@@ -731,7 +731,7 @@ private:
         // if we have no servers attribute that is an object, we have old format config, tell the user
         const auto servers = config.toObject().value(QStringLiteral("servers"));
         if (!servers.isObject()) {
-            QString message = i18n("Found old LSP config format for language '%1', please migrate to new format with a 'servers' sub-object.", langId);
+            QString message = i18n("Found old LSP config format for language '%1', please migrate to the new format with a 'servers' sub-object.", langId);
             showMessage(message, KTextEditor::Message::Warning);
             return {};
         }

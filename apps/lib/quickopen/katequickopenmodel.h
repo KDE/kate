@@ -56,6 +56,11 @@ public:
         m_listMode = mode;
     }
 
+    const QString &projectBase() const
+    {
+        return m_projectBase;
+    }
+
     bool isValid(int row) const
     {
         return row >= 0 && (size_t)row < m_modelEntries.size();

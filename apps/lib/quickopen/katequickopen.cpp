@@ -303,6 +303,12 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     m_listView->setModel(m_model);
 
     connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this](const QString &text) {
+        QString filter = text;
+        const QString &base = m_model->projectBase();
+        if (!base.isEmpty() && filter.startsWith(base)) {
+            filter.remove(0, base.size());
+        }
+
         // We init the proxy model when there is something to filter
         bool didFilter = false;
         if (!m_proxyModel) {
@@ -310,11 +316,11 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
             m_proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
             m_proxyModel->setFilterMode(m_inputLine->filterMode());
             m_proxyModel->setMatchFolderNames(m_inputLine->matchFolderNames());
-            didFilter = m_proxyModel->setFilterText(text);
+            didFilter = m_proxyModel->setFilterText(filter);
             m_proxyModel->setSourceModel(m_model);
             m_listView->setModel(m_proxyModel);
         } else {
-            didFilter = m_proxyModel->setFilterText(text);
+            didFilter = m_proxyModel->setFilterText(filter);
         }
         if (didFilter) {
             m_styleDelegate->setFilterString(text);

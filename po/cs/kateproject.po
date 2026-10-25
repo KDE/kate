@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"POT-Creation-Date: 2026-10-25 00:54+0000\n"
 "PO-Revision-Date: 2026-10-19 19:03+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -735,7 +735,7 @@ msgstr "Nepodařilo se přejmenovat '%1' na '%2': %3"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Neplatný soubor JSON '%1': %2"
 
-#: kateproject.cpp:527 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:893 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -1110,6 +1110,11 @@ msgid ""
 msgstr ""
 "Úplná cesta k aktuálnímu projektu bez názvu souboru, s nativním oddělovačem "
 "cest (zpětné lomítko ve Windows)."
+
+#: kateprojectplugin.cpp:780
+#, kde-format
+msgid "File path relative to the project directory"
+msgstr ""
 
 #: kateprojectpluginview.cpp:66
 #, kde-format

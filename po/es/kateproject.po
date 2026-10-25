@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"POT-Creation-Date: 2026-10-25 00:54+0000\n"
 "PO-Revision-Date: 2026-10-19 12:07+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -730,7 +730,7 @@ msgstr "No se ha podido cambiar el nombre de «%1» a «%2»: %3"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Archivo JSON mal formado «%1»: %2"
 
-#: kateproject.cpp:527 kateprojectplugin.cpp:881 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:893 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -1109,6 +1109,11 @@ msgid ""
 msgstr ""
 "Ruta completa al proyecto actual, excluyendo el nombre de archivo y con "
 "separadores de ruta nativos (barra inversa en Windows)."
+
+#: kateprojectplugin.cpp:780
+#, kde-format
+msgid "File path relative to the project directory"
+msgstr ""
 
 #: kateprojectpluginview.cpp:66
 #, kde-format

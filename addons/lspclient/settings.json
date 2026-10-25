@@ -1,250 +1,398 @@
 {
     "servers": {
         "ada": {
-            "command": ["ada_language_server"],
-            "root": "",
-            "url": "https://github.com/AdaCore/ada_language_server",
-            "highlightingModeRegex": "^Ada$"
+            "highlightingModeRegex": "^Ada$",
+            "servers" : {
+                "ada_language_server" : {
+                    "command": ["ada_language_server"],
+                    "root": "",
+                    "url": "https://github.com/AdaCore/ada_language_server"
+                }
+            }
         },
         "bash": {
-            "command": ["bash-language-server", "start"],
-            "root": "",
-            "url": "https://github.com/bash-lsp/bash-language-server",
-            "highlightingModeRegex": "^Bash$"
+            "highlightingModeRegex": "^Bash$",
+            "servers" : {
+                "bash-language-server" : {
+                    "command": ["bash-language-server", "start"],
+                    "root": "",
+                    "url": "https://github.com/bash-lsp/bash-language-server"
+                }
+            }
         },
         "bibtex": {
             "use": "latex",
             "highlightingModeRegex": "^BibTeX$"
         },
         "blueprint": {
-            "command": ["blueprint-compiler", "lsp"],
-            "url": "https://gitlab.gnome.org/GNOME/blueprint-compiler",
-            "highlightingModeRegex": "^GTK Blueprint$"
+            "highlightingModeRegex": "^GTK Blueprint$",
+            "servers" : {
+                "blueprint-compiler" : {
+                    "command": ["blueprint-compiler", "lsp"],
+                    "url": "https://gitlab.gnome.org/GNOME/blueprint-compiler"
+                }
+            }
         },
         "c": {
-            "command": ["clangd", "-log=error", "--background-index", "--limit-results=500", "--completion-style=bundled"],
-            "commandDebug": ["clangd", "-log=verbose", "--background-index"],
-            "url": "https://clangd.llvm.org",
-            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
+            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$",
+            "servers" : {
+                "clangd" : {
+                    "command": ["clangd", "-log=error", "--background-index", "--limit-results=500", "--completion-style=bundled"],
+                    "commandDebug": ["clangd", "-log=verbose", "--background-index"],
+                    "url": "https://clangd.llvm.org"
+                }
+            }
         },
         "clojure": {
-            "command": ["clojure-lsp"],
-            "url": "https://github.com/clojure-lsp/clojure-lsp",
             "highlightingModeRegex": "^Clojure$",
-            "rootIndicationFileNames": ["deps.edn", "project.clj", ".git", ".projections.json"]
+            "servers" : {
+                "clojure-lsp" : {
+                    "command": ["clojure-lsp"],
+                    "rootIndicationFileNames": ["deps.edn", "project.clj", ".git", ".projections.json"],
+                    "url": "https://github.com/clojure-lsp/clojure-lsp"
+                }
+            }
         },
         "cmake": {
-            "command": ["neocmakelsp", "stdio"],
-            "url": "https://github.com/neocmakelsp/neocmakelsp",
-            "highlightingModeRegex": "^CMake$"
+            "highlightingModeRegex": "^CMake$",
+            "servers" : {
+                "neocmakelsp" : {
+                    "command": ["neocmakelsp", "stdio"],
+                    "url": "https://github.com/neocmakelsp/neocmakelsp"
+                }
+            }
         },
         "css": {
-            "command": ["vscode-css-languageserver", "--stdio"],
-            "url": "https://github.com/Microsoft/vscode/tree/main/extensions/css-language-features/server",
-            "highlightingModeRegex": "^CSS$"
+            "highlightingModeRegex": "^CSS$",
+            "servers" : {
+                "vscode-css-languageserver" : {
+                    "command": ["vscode-css-languageserver", "--stdio"],
+                    "url": "https://github.com/Microsoft/vscode/tree/main/extensions/css-language-features/server"
+                }
+            }
         },
         "cpp": {
             "use": "c",
             "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$"
         },
         "c-sharp": {
-            "command": ["OmniSharp", "-lsp"],
-            "commandDebug": ["OmniSharp", "--debug", "--verbose"],
-            "rootIndicationFilePatterns": ["*.sln", "*.csproj"],
-            "url": "https://github.com/OmniSharp/omnisharp-roslyn",
-            "highlightingModeRegex": "^C#$"
+            "highlightingModeRegex": "^C#$",
+            "servers" : {
+                "OmniSharp" : {
+                    "command": ["OmniSharp", "-lsp"],
+                    "commandDebug": ["OmniSharp", "--debug", "--verbose"],
+                    "rootIndicationFilePatterns": ["*.sln", "*.csproj"],
+                    "url": "https://github.com/OmniSharp/omnisharp-roslyn"
+                }
+            }
         },
         "d": {
-            "command": ["serve-d"],
-            "rootIndicationFileNames": ["dub.json"],
-            "url": "https://github.com/Pure-D/serve-d",
-            "highlightingModeRegex": "^D$"
+            "highlightingModeRegex": "^D$",
+            "servers" : {
+                "serve-d" : {
+                    "command": ["serve-d"],
+                    "rootIndicationFileNames": ["dub.json"],
+                    "url": "https://github.com/Pure-D/serve-d"
+                }
+            }
         },
         "dart": {
-            "command": ["dart", "language-server"],
-            "url": "https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec",
             "highlightingModeRegex": "^Dart$",
-            "useWorkspace": true,
-            "rootIndicationFileNames": ["pubspec.yaml", "pubspec.lock"],
-            "settings": {
-                "dart": {
-                    "analysisExcludedFolders": ["%{ENV:HOME}/flutter"]
+            "servers" : {
+                "dart-language-server" : {
+                    "command": ["dart", "language-server"],
+                    "rootIndicationFileNames": ["pubspec.yaml", "pubspec.lock"],
+                    "settings": {
+                        "dart": {
+                            "analysisExcludedFolders": ["%{ENV:HOME}/flutter"]
+                        }
+                    },
+                    "url": "https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec",
+                    "useWorkspace": true
                 }
             }
         },
         "debputy": {
-            "command": ["debputy", "lsp", "server"],
-            "url": "https://salsa.debian.org/debian/debputy-lsp",
             "highlightingModeRegex": "^(Debian .+|Debputy .+)$",
-            "documentLanguageId": false,
-            "useWorkspace": true
+            "servers" : {
+                "debputy-lsp" : {
+                    "command": ["debputy", "lsp", "server"],
+                    "documentLanguageId": false,
+                    "url": "https://salsa.debian.org/debian/debputy-lsp",
+                    "useWorkspace": true
+                }
+            }
         },
         "docker": {
-            "command": ["docker-langserver", "--stdio"],
-            "url": "https://github.com/rcjsuen/dockerfile-language-server-nodejs",
-            "highlightingModeRegex": "^Dockerfile$"
+            "highlightingModeRegex": "^Dockerfile$",
+            "servers" : {
+                "docker-langserver" : {
+                    "command": ["docker-langserver", "--stdio"],
+                    "url": "https://github.com/rcjsuen/dockerfile-language-server-nodejs"
+                }
+            }
         },
         "elm": {
-            "command": ["elm-language-server"],
-            "rootIndicationFileNames": ["elm.json"],
-            "url": "https://github.com/elm-tooling/elm-language-server",
-            "highlightingModeRegex": "^Elm$"
+            "highlightingModeRegex": "^Elm$",
+            "servers" : {
+                "elm-language-server" : {
+                    "command": ["elm-language-server"],
+                    "rootIndicationFileNames": ["elm.json"],
+                    "url": "https://github.com/elm-tooling/elm-language-server"
+                }
+            }
         },
         "fish": {
-            "command": ["fish-lsp", "start"],
-            "url": "https://github.com/ndonfris/fish-lsp",
-            "highlightingModeRegex": "^fish$"
+            "highlightingModeRegex": "^fish$",
+            "servers" : {
+                "fish-lsp" : {
+                    "command": ["fish-lsp", "start"],
+                    "url": "https://github.com/ndonfris/fish-lsp"
+                }
+            }
         },
         "fortran": {
-            "command": ["fortls"],
-            "rootIndicationFileNames": [".fortls"],
-            "url": "https://github.com/hansec/fortran-language-server",
-            "highlightingModeRegex": "^Fortran.*$"
+            "highlightingModeRegex": "^Fortran.*$",
+            "servers" : {
+                "fortls" : {
+                    "command": ["fortls"],
+                    "rootIndicationFileNames": [".fortls"],
+                    "url": "https://github.com/hansec/fortran-language-server"
+                }
+            }
         },
         "fsharp": {
-            "command": ["fsautocomplete", "--adaptive-lsp-server-enabled"],
-            "url": "https://github.com/fsharp/FsAutoComplete",
-            "highlightingModeRegex": "^FSharp$"
+            "highlightingModeRegex": "^FSharp$",
+            "servers" : {
+                "fsautocomplete" : {
+                    "command": ["fsautocomplete", "--adaptive-lsp-server-enabled"],
+                    "url": "https://github.com/fsharp/FsAutoComplete"
+                }
+            }
         },
         "gleam":
         {
-            "command": ["gleam", "lsp"],
-            "rootIndicationFileNames": ["gleam.toml"],
-            "url": "https://gleam.run/",
-            "highlightingModeRegex": "^Gleam$"
+            "highlightingModeRegex": "^Gleam$",
+            "servers" : {
+                "gleam-lsp" : {
+                    "command": ["gleam", "lsp"],
+                    "rootIndicationFileNames": ["gleam.toml"],
+                    "url": "https://gleam.run/"
+                }
+            }
         },
         "glsl": {
-            "command": ["glsl_analyzer"],
-            "root": "",
-            "url": "https://github.com/nolanderc/glsl_analyzer",
-            "highlightingModeRegex": "^GLSL$"
+            "highlightingModeRegex": "^GLSL$",
+            "servers" : {
+                "glsl_analyzer" : {
+                    "command": ["glsl_analyzer"],
+                    "root": "",
+                    "url": "https://github.com/nolanderc/glsl_analyzer"
+                }
+            }
         },
         "go": {
-            "command": ["gopls"],
-            "commandDebug": ["gopls", "serve", "-rpc.trace"],
-            "path": ["%{ENV:GOPATH}/bin","%{ENV:HOME}/go/bin", "%{ENV:USERPROFILE}/go/bin"],
-            "rootIndicationFileNames": ["go.mod"],
-            "url": "golang.org/x/tools/gopls",
-            "highlightingModeRegex": "^Go$"
+            "highlightingModeRegex": "^Go$",
+            "servers" : {
+                "gopls" : {
+                    "command": ["gopls"],
+                    "commandDebug": ["gopls", "serve", "-rpc.trace"],
+                    "path": ["%{ENV:GOPATH}/bin","%{ENV:HOME}/go/bin", "%{ENV:USERPROFILE}/go/bin"],
+                    "rootIndicationFileNames": ["go.mod"],
+                    "url": "golang.org/x/tools/gopls"
+                }
+            }
         },
         "godot": {
-            "command": ["nc", "127.0.0.1", "6005"],
-            "url": "https://godotengine.org/",
-            "highlightingModeRegex": "^Godot$"
+            "highlightingModeRegex": "^Godot$",
+            "servers" : {
+                "godotengine" : {
+                    "command": ["nc", "127.0.0.1", "6005"],
+                    "url": "https://godotengine.org/"
+                }
+            }
         },
         "haskell": {
-            "command": ["haskell-language-server-wrapper", "--lsp"],
-            "rootIndicationFileNames": ["stack.yaml", "cabal.project", "package.yaml"],
-            "rootIndicationFilePatterns": ["*.cabal"],
-            "url": "https://github.com/haskell/haskell-language-server",
-            "highlightingModeRegex": "^Haskell$"
+            "highlightingModeRegex": "^Haskell$",
+            "servers" : {
+                "haskell-language-server" : {
+                    "command": ["haskell-language-server-wrapper", "--lsp"],
+                    "rootIndicationFileNames": ["stack.yaml", "cabal.project", "package.yaml"],
+                    "rootIndicationFilePatterns": ["*.cabal"],
+                    "url": "https://github.com/haskell/haskell-language-server"
+                }
+            }
         },
         "html": {
-            "command": ["vscode-html-languageserver", "--stdio"],
-            "url": "https://github.com/Microsoft/vscode/tree/main/extensions/html-language-features/server",
-            "highlightingModeRegex": "^HTML$"
+            "highlightingModeRegex": "^HTML$",
+            "servers" : {
+                "vscode-html-languageserver" : {
+                    "command": ["vscode-html-languageserver", "--stdio"],
+                    "url": "https://github.com/Microsoft/vscode/tree/main/extensions/html-language-features/server"
+                }
+            }
         },
         "java": {
-            "command": ["jdtls"],
-            "url": "https://github.com/eclipse-jdtls/eclipse.jdt.ls",
-            "highlightingModeRegex": "^Java$"
+            "highlightingModeRegex": "^Java$",
+            "servers" : {
+                "jdtls" : {
+                    "command": ["jdtls"],
+                    "url": "https://github.com/eclipse-jdtls/eclipse.jdt.ls"
+                }
+            }
         },
         "javascript": {
-            "command": ["typescript-language-server", "--stdio"],
-            "rootIndicationFileNames": ["package.json", "package-lock.json"],
-            "url": "https://github.com/typescript-language-server/typescript-language-server",
-            "highlightingModeRegex": "^JavaScript$"
+            "highlightingModeRegex": "^JavaScript$",
+            "servers" : {
+                "typescript-language-server" : {
+                    "command": ["typescript-language-server", "--stdio"],
+                    "rootIndicationFileNames": ["package.json", "package-lock.json"],
+                    "url": "https://github.com/typescript-language-server/typescript-language-server"
+                }
+            }
         },
         "javascriptreact": {
             "use": "javascript",
             "highlightingModeRegex": "^JavaScript React.*$"
         },
         "json": {
-            "command": ["vscode-json-languageserver", "--stdio"],
-            "url": "https://github.com/microsoft/vscode/tree/main/extensions/json-language-features/server",
-            "highlightingModeRegex": "^JSON$"
+            "highlightingModeRegex": "^JSON$",
+            "servers" : {
+                "vscode-json-languageserver" : {
+                    "command": ["vscode-json-languageserver", "--stdio"],
+                    "url": "https://github.com/microsoft/vscode/tree/main/extensions/json-language-features/server"
+                }
+            }
         },
         "jsonc": {
             "use": "json",
             "highlightingModeRegex": "^JSONC$"
         },
         "julia": {
-            "command": ["julia", "-e", "using LanguageServer; runserver();"],
-            "root": ".",
-            "path": ["%{ENV:HOME}/.juliaup/bin"],
-            "url": "https://github.com/julia-vscode/LanguageServer.jl",
-            "highlightingModeRegex": "^Julia$"
+            "highlightingModeRegex": "^Julia$",
+            "servers" : {
+                "JuliaLanguageServer" : {
+                    "command": ["julia", "-e", "using LanguageServer; runserver();"],
+                    "root": ".",
+                    "path": ["%{ENV:HOME}/.juliaup/bin"],
+                    "url": "https://github.com/julia-vscode/LanguageServer.jl"
+                }
+            }
         },
         "kotlin": {
-            "command": ["kotlin-language-server"],
-            "root": ".",
-            "url": "https://github.com/fwcd/kotlin-language-server",
-            "highlightingModeRegex": "^Kotlin$"
+            "highlightingModeRegex": "^Kotlin$",
+            "servers" : {
+                "kotlin-language-server" : {
+                    "command": ["kotlin-language-server"],
+                    "root": ".",
+                    "url": "https://github.com/fwcd/kotlin-language-server"
+                }
+            }
         },
         "latex": {
-            "command": ["texlab"],
-            "url": "https://github.com/latex-lsp/texlab",
-            "highlightingModeRegex": "^LaTeX$"
+            "highlightingModeRegex": "^LaTeX$",
+            "servers" : {
+                "texlab" : {
+                    "command": ["texlab"],
+                    "url": "https://github.com/latex-lsp/texlab"
+                }
+            }
         },
         "less": {
             "use": "css",
             "highlightingModeRegex": "^LESSCSS$"
         },
         "lua": {
-            "command": ["lua-language-server"],
-            "url": "https://github.com/sumneko/lua-language-server",
-            "highlightingModeRegex": "^Lua$"
+            "highlightingModeRegex": "^Lua$",
+            "servers" : {
+                "lua-language-server" : {
+                    "command": ["lua-language-server"],
+                    "url": "https://github.com/sumneko/lua-language-server"
+                }
+            }
         },
         "markdown": {
-            "command": ["marksman","server"],
-            "rootIndicatorFileNames": [".git",".marksman.toml"],
-            "url": "https://github.com/artempyanykh/marksman",
-            "highlightingModeRegex": "^Markdown$"
+            "highlightingModeRegex": "^Markdown$",
+            "servers" : {
+                "marksman" : {
+                    "command": ["marksman", "server"],
+                    "rootIndicatorFileNames": [".git",".marksman.toml"],
+                    "url": "https://github.com/artempyanykh/marksman"
+                }
+            }
         },
         "nix": {
-            "command": ["nil"],
-            "url": "https://github.com/oxalica/nil",
-            "highlightingModeRegex": "^Nix$"
+            "highlightingModeRegex": "^Nix$",
+            "servers" : {
+                "nil" : {
+                    "command": ["nil"],
+                    "url": "https://github.com/oxalica/nil"
+                }
+            }
         },
         "nim": {
-            "command": ["nimlsp"],
-            "path": ["%{ENV:HOME}/.nimble/bin", "%{ENV:USERPROFILE}/.nimble/bin"],
-            "url": "https://github.com/PMunch/nimlsp",
-            "highlightingModeRegex": "^Nim$"
+            "highlightingModeRegex": "^Nim$",
+            "servers" : {
+                "nimlsp" : {
+                    "command": ["nimlsp"],
+                    "path": ["%{ENV:HOME}/.nimble/bin", "%{ENV:USERPROFILE}/.nimble/bin"],
+                    "url": "https://github.com/PMunch/nimlsp"
+                }
+            }
         },
         "ocaml": {
-            "command": ["ocamllsp"],
-            "url": "https://github.com/ocaml/ocaml-lsp",
-            "highlightingModeRegex": "^Objective Caml.*$"
+            "highlightingModeRegex": "^Objective Caml.*$",
+            "servers" : {
+                "ocamllsp" : {
+                    "command": ["ocamllsp"],
+                    "url": "https://github.com/ocaml/ocaml-lsp"
+                }
+            }
         },
         "openscad": {
-            "command": ["openscad-lsp", "--stdio"],
-            "path": ["%{ENV:CARGO_HOME}/bin", "%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
-            "url": "https://github.com/Leathong/openscad-LSP",
-            "highlightingModeRegex": "^OpenSCAD$"
+            "highlightingModeRegex": "^OpenSCAD$",
+            "servers" : {
+                "openscad-lsp" : {
+                    "command": ["openscad-lsp", "--stdio"],
+                    "path": ["%{ENV:CARGO_HOME}/bin", "%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
+                    "url": "https://github.com/Leathong/openscad-LSP"
+                }
+            }
         },
         "perl": {
-            "command": ["perlnavigator", "--stdio"],
-            "url": "https://github.com/bscan/PerlNavigator",
             "highlightingModeRegex": "^Perl$",
-            "settings": {
-                "perlnavigator": {
-                    "perlPath": "perl"
+            "servers" : {
+                "perlnavigator" : {
+                    "command": ["perlnavigator", "--stdio"],
+                    "settings": {
+                        "perlnavigator": {
+                            "perlPath": "perl"
+                        }
+                    },
+                    "url": "https://github.com/bscan/PerlNavigator"
                 }
             }
         },
         "php": {
-            "command": ["phpactor", "language-server"],
-            "commandDebug": ["phpactor", "language-server", "-vvv"],
-            "root": ".",
-            "url": "https://github.com/phpactor/phpactor",
-            "highlightingModeRegex": "^PHP \\(HTML\\)$"
+            "highlightingModeRegex": "^PHP \\(HTML\\)$",
+            "servers" : {
+                "phpactor" : {
+                    "command": ["phpactor", "language-server"],
+                    "commandDebug": ["phpactor", "language-server", "-vvv"],
+                    "root": ".",
+                    "url": "https://github.com/phpactor/phpactor"
+                }
+            }
         },
         "purescript": {
-            "command": ["purescript-language-server", "--stdio"],
-            "rootIndicationFileNames": ["spago.dhall", "spago.yaml", "spago.lock"],
-            "url": "https://github.com/nwolverson/purescript-language-server",
-            "highlightingModeRegex": "^PureScript$"
+            "highlightingModeRegex": "^PureScript$",
+            "servers" : {
+                "purescript-language-server" : {
+                    "command": ["purescript-language-server", "--stdio"],
+                    "rootIndicationFileNames": ["spago.dhall", "spago.yaml", "spago.lock"],
+                    "url": "https://github.com/nwolverson/purescript-language-server"
+                }
+            }
         },
         "python": {
             "highlightingModeRegex": "^Python$",
@@ -261,68 +409,104 @@
             }
         },
         "qml": {
-            "command": ["qmlls"],
-            "url": "https://code.qt.io/cgit/qt/qtdeclarative.git/tree/src/qmlls",
-            "highlightingModeRegex": "^Qml$"
+            "highlightingModeRegex": "^Qml$",
+            "servers" : {
+                "qmlls" : {
+                    "command": ["qmlls"],
+                    "url": "https://code.qt.io/cgit/qt/qtdeclarative.git/tree/src/qmlls"
+                }
+            }
         },
         "r": {
-            "command": ["R", "--slave", "-e", "languageserver::run()"],
-            "url": "https://github.com/REditorSupport/languageserver",
-            "highlightingModeRegex": "^R Script$"
+            "highlightingModeRegex": "^R Script$",
+            "servers" : {
+                "R-languageserver" : {
+                    "command": ["R", "--slave", "-e", "languageserver::run()"],
+                    "url": "https://github.com/REditorSupport/languageserver"
+                }
+            }
         },
         "racket": {
-            "command": ["racket","-l","racket-langserver"],
-            "rootIndicationFileNames": ["info.rkt"],
-            "url": "https://github.com/jeapostrophe/racket-langserver",
-            "highlightingModeRegex": "^Racket$"
+            "highlightingModeRegex": "^Racket$",
+            "servers" : {
+                "racket-langserver" : {
+                    "command": ["racket", "-l", "racket-langserver"],
+                    "rootIndicationFileNames": ["info.rkt"],
+                    "url": "https://github.com/jeapostrophe/racket-langserver"
+                }
+            }
         },
         "rpmspec": {
-            "command": ["rpm_lsp_server", "--stdio"],
-            "url": "https://github.com/dcermak/rpm-spec-language-server",
-            "highlightingModeRegex": "^RPM Spec$"
+            "highlightingModeRegex": "^RPM Spec$",
+            "servers" : {
+                "rpm_lsp_server" : {
+                    "command": ["rpm_lsp_server", "--stdio"],
+                    "url": "https://github.com/dcermak/rpm-spec-language-server"
+                }
+            }
         },
         "rst": {
-            "command": ["python", "-m", "esbonio"],
-            "initializationOptions": {
-                "server": {
-                    "completion": {
-                        "preferredInsertBehavior": "insert"
-                    }
+            "highlightingModeRegex": "^reStructuredText$",
+            "servers" : {
+                "esbonio" : {
+                    "command": ["python", "-m", "esbonio"],
+                    "initializationOptions": {
+                        "server": {
+                            "completion": {
+                                "preferredInsertBehavior": "insert"
+                            }
+                        }
+                    },
+                    "rootIndicationFileNames": ["conf.py"],
+                    "url": "https://github.com/swyddfa/esbonio"
                 }
-            },
-            "url": "https://github.com/swyddfa/esbonio",
-            "rootIndicationFileNames": ["conf.py"],
-            "highlightingModeRegex": "^reStructuredText$"
+            }
         },
         "ruby": {
-            "command": ["solargraph", "stdio"],
-            "rootIndicationFileNames": ["Gemfile", "Gemfile.lock", "gems.rb", "gems.lock", "Rakefile"],
-            "url": "https://solargraph.org",
-            "highlightingModeRegex": "^Ruby$"
+            "highlightingModeRegex": "^Ruby$",
+            "servers" : {
+                "solargraph" : {
+                    "command": ["solargraph", "stdio"],
+                    "rootIndicationFileNames": ["Gemfile", "Gemfile.lock", "gems.rb", "gems.lock", "Rakefile"],
+                    "url": "https://solargraph.org"
+                }
+            }
         },
         "rust": {
-            "command": ["rust-analyzer"],
-            "path": ["%{ENV:CARGO_HOME}/bin", "%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
-            "url": "https://rust-analyzer.github.io",
-            "useWorkspace": true,
-            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
-            "highlightingModeRegex": "^Rust$"
+            "highlightingModeRegex": "^Rust$",
+            "servers" : {
+                "rust-analyzer": {
+                    "command": ["rust-analyzer"],
+                    "path": ["%{ENV:CARGO_HOME}/bin", "%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
+                    "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
+                    "url": "https://rust-analyzer.github.io",
+                    "useWorkspace": true
+                }
+            }
         },
         "scala": {
-            "command": ["metals"],
-            "rootIndicationFileNames": ["build.sbt"],
-            "url": "https://scalameta.org/metals/",
-            "highlightingModeRegex": "^Scala$"
+            "highlightingModeRegex": "^Scala$",
+            "servers" : {
+                "metals": {
+                    "command": ["metals"],
+                    "rootIndicationFileNames": ["build.sbt"],
+                    "url": "https://scalameta.org/metals/"
+                }
+            }
         },
         "scss": {
             "use": "css",
             "highlightingModeRegex": "^SCSS$"
         },
         "terraform": {
-            "command": ["terraform-ls", "serve"],
-            "root": ".",
-            "url": "https://github.com/hashicorp/terraform-ls",
-            "highlightingModeRegex": "^Terraform$"
+            "highlightingModeRegex": "^Terraform$",
+            "servers" : {
+                "terraform-ls": {
+                    "command": ["terraform-ls", "serve"],
+                    "root": ".",
+                    "url": "https://github.com/hashicorp/terraform-ls"
+                }
+            }
         },
         "typescript": {
             "use": "javascript",
@@ -333,51 +517,79 @@
             "highlightingModeRegex": "^TypeScript React.*$"
         },
         "typst": {
-            "command": ["tinymist"],
-            "path": ["%{ENV:HOME}/.cargo/bin"],
-            "root": ".",
-            "url": "https://github.com/Myriad-Dreamin/tinymist",
-            "highlightingModeRegex": "^Typst$"
+            "highlightingModeRegex": "^Typst$",
+            "servers" : {
+                "tinymist": {
+                    "command": ["tinymist"],
+                    "path": ["%{ENV:HOME}/.cargo/bin"],
+                    "root": ".",
+                    "url": "https://github.com/Myriad-Dreamin/tinymist"
+                }
+            }
         },
         "vala": {
-            "command": ["vala-language-server"],
-            "url": "https://github.com/vala-lang/vala-language-server",
             "highlightingModeRegex": "^Vala$",
-            "rootIndicationFileNames": ["meson.build"]
+            "servers" : {
+                "vala-language-server" : {
+                    "command": ["vala-language-server"],
+                    "rootIndicationFileNames": ["meson.build"],
+                    "url": "https://github.com/vala-lang/vala-language-server"
+                }
+            }
         },
         "vhdl": {
-            "command": ["vhdl_ls"],
-            "url": "https://github.com/VHDL-LS/rust_hdl",
-            "highlightingModeRegex": "^VHDL"
+            "highlightingModeRegex": "^VHDL",
+            "servers" : {
+                "vhdl_ls" : {
+                    "command": ["vhdl_ls"],
+                    "url": "https://github.com/VHDL-LS/rust_hdl"
+                }
+            }
         },
         "vue": {
-            "command": [ "vue-language-server", "--stdio"],
-            "rootIndicationFileNames": ["package.json", "package-lock.json"],
-            "url": "https://www.npmjs.com/package/@vue/language-server",
             "highlightingModeRegex": "^Vue.*$",
-            "initializationOptions": {
-                "typescript": {
-                    "tsdk": "./node_modules/typescript/lib"
-                },
-                "vue": {
-                    "hybridMode": false
+            "servers" : {
+                "vue-language-server" : {
+                    "command": ["vue-language-server", "--stdio"],
+                    "initializationOptions": {
+                        "typescript": {
+                            "tsdk": "./node_modules/typescript/lib"
+                        },
+                        "vue": {
+                            "hybridMode": false
+                        }
+                    },
+                    "rootIndicationFileNames": ["package.json", "package-lock.json"],
+                    "url": "https://www.npmjs.com/package/@vue/language-server"
                 }
             }
         },
         "xml": {
-            "command": ["lemminx"],
-            "url": "https://github.com/redhat-developer/vscode-xml#lemminx-binary",
-            "highlightingModeRegex": "^XML$"
+            "highlightingModeRegex": "^XML$",
+            "servers" : {
+                "lemminx" : {
+                    "command": ["lemminx"],
+                    "url": "https://github.com/redhat-developer/vscode-xml#lemminx-binary"
+                }
+            }
         },
         "yaml": {
-            "command": ["yaml-language-server", "--stdio"],
-            "url": "https://github.com/redhat-developer/yaml-language-server",
-            "highlightingModeRegex": "^YAML$"
+            "highlightingModeRegex": "^YAML$",
+            "servers" : {
+                "yaml-language-server" : {
+                    "command": ["yaml-language-server", "--stdio"],
+                    "url": "https://github.com/redhat-developer/yaml-language-server"
+                }
+            }
         },
         "zig": {
-            "command": ["zls"],
-            "url": "https://github.com/zigtools/zls",
-            "highlightingModeRegex": "^Zig$"
+            "highlightingModeRegex": "^Zig$",
+            "servers" : {
+                "zls" : {
+                    "command": ["zls"],
+                    "url": "https://github.com/zigtools/zls"
+                }
+            }
         }
     }
 }

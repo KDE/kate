@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-20 03:16+0000\n"
-"PO-Revision-Date: 2026-05-15 13:21+0300\n"
+"PO-Revision-Date: 2026-10-25 20:10+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.04.0\n"
+"X-Generator: Lokalize 26.08.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -909,7 +909,7 @@ msgstr "%1 projesini ve ilgili %2 dosyayı kapatmak istiyor musunuz?"
 #: kateprojectplugin.cpp:691
 #, kde-format
 msgid "Full path to current project excluding the file name."
-msgstr "Dosya adı hariç geçerli projenin tam yolu."
+msgstr "Dosya adı hariç geçerli projenin tam yolu"
 
 #: kateprojectplugin.cpp:708
 #, kde-format
@@ -918,7 +918,7 @@ msgid ""
 "separator (backslash on Windows)."
 msgstr ""
 "Dosya adı hariç, yerel yol ayırıcılı (Windows’ta ters eğik çizgi) geçerli "
-"projenin tam yolu."
+"projenin tam yolu"
 
 #: kateprojectpluginview.cpp:61
 #, kde-format

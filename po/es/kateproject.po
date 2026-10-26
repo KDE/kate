@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-25 00:54+0000\n"
-"PO-Revision-Date: 2026-10-19 12:07+0100\n"
+"PO-Revision-Date: 2026-10-26 00:11+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1113,7 +1113,7 @@ msgstr ""
 #: kateprojectplugin.cpp:780
 #, kde-format
 msgid "File path relative to the project directory"
-msgstr ""
+msgstr "Ruta del archivo relativa al directorio del proyecto"
 
 #: kateprojectpluginview.cpp:66
 #, kde-format

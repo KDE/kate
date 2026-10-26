@@ -1107,7 +1107,7 @@ msgstr ""
 #: kateprojectplugin.cpp:780
 #, kde-format
 msgid "File path relative to the project directory"
-msgstr ""
+msgstr "Cesta k súboru relatívne k priečinku projektu"
 
 #: kateprojectpluginview.cpp:66
 #, kde-format

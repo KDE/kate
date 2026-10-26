@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-25 00:54+0000\n"
-"PO-Revision-Date: 2026-10-19 05:43+0200\n"
+"PO-Revision-Date: 2026-10-25 05:15+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1104,7 +1104,7 @@ msgstr ""
 #: kateprojectplugin.cpp:780
 #, kde-format
 msgid "File path relative to the project directory"
-msgstr ""
+msgstr "ფაილის ბილიკი პროექტის საქაღალდესთან ფარდობით"
 
 #: kateprojectpluginview.cpp:66
 #, kde-format

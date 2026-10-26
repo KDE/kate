@@ -62,11 +62,11 @@ QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding
 QString KateAppAdaptor::tokenOpenUrlAt(const QString &url, int line, int column, const QString &encoding, bool isTempFile)
 {
     qCDebug(LOG_KATE, "openURLAt");
-    KTextEditor::Document *doc = KateApp::self()->openDocUrl(QUrl(url), encoding, isTempFile);
+    const KTextEditor::Cursor c = (line >= 0) ? KTextEditor::Cursor(line, qMax(column, 0)) : KTextEditor::Cursor::invalid();
+    KTextEditor::Document *doc = KateApp::self()->openDocUrl(QUrl(url), encoding, isTempFile, /*activateView=*/true, c);
     if (!doc) {
         return QStringLiteral("ERROR");
     }
-    KateApp::self()->setCursor(line, column);
     return QStringLiteral("%1").arg(reinterpret_cast<qptrdiff>(doc));
 }
 //--------

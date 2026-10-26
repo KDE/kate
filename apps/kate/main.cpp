@@ -379,6 +379,8 @@ int main(int argc, char **argv)
             // support +xyz line number as first argument
             KTextEditor::Cursor firstLineNumberArgument = UrlInfo::parseLineNumberArgumentAndRemoveIt(urls);
 
+            KTextEditor::Cursor cliCursor = KateApp::cursorFromArgs(parser);
+
             // open given files...
             for (const QString &url : std::as_const(urls)) {
                 UrlInfo info{url};
@@ -387,10 +389,15 @@ int main(int argc, char **argv)
                                                                 QStringLiteral("org.kde.Kate.Application"),
                                                                 QStringLiteral("tokenOpenUrlAt"));
 
-                if (!info.cursor.isValid() && firstLineNumberArgument.isValid()) {
-                    // same semantics as e.g. in mcedit, just use for the first file
-                    info.cursor = firstLineNumberArgument;
-                    firstLineNumberArgument = KTextEditor::Cursor::invalid();
+                if (!info.cursor.isValid()) {
+                    if (cliCursor.isValid()) {
+                        info.cursor = cliCursor;
+                        cliCursor = KTextEditor::Cursor::invalid();
+                    } else if (firstLineNumberArgument.isValid()) {
+                        // same semantics as e.g. in mcedit, just use for the first file
+                        info.cursor = firstLineNumberArgument;
+                        firstLineNumberArgument = KTextEditor::Cursor::invalid();
+                    }
                 }
 
                 QVariantList dbusargs;
@@ -459,7 +466,7 @@ int main(int argc, char **argv)
                 nav = true;
             }
 
-            if (nav) {
+            if (nav && urls.isEmpty()) {
                 QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
                                                                 QStringLiteral("/MainApplication"),
                                                                 QStringLiteral("org.kde.Kate.Application"),
@@ -542,6 +549,8 @@ int main(int argc, char **argv)
             // support +xyz line number as first argument
             KTextEditor::Cursor firstLineNumberArgument = UrlInfo::parseLineNumberArgumentAndRemoveIt(urls);
 
+            KTextEditor::Cursor cliCursor = KateApp::cursorFromArgs(parser);
+
             /**
              * construct one big message with all urls to open
              * later we will add additional data to this
@@ -550,10 +559,15 @@ int main(int argc, char **argv)
             QVariantList messageUrls;
             for (const QString &url : std::as_const(urls)) {
                 UrlInfo info(url);
-                if (!info.cursor.isValid() && firstLineNumberArgument.isValid()) {
-                    // same semantics as e.g. in mcedit, just use for the first file
-                    info.cursor = firstLineNumberArgument;
-                    firstLineNumberArgument = KTextEditor::Cursor::invalid();
+                if (!info.cursor.isValid()) {
+                    if (cliCursor.isValid()) {
+                        info.cursor = cliCursor;
+                        cliCursor = KTextEditor::Cursor::invalid();
+                    } else if (firstLineNumberArgument.isValid()) {
+                        // same semantics as e.g. in mcedit, just use for the first file
+                        info.cursor = firstLineNumberArgument;
+                        firstLineNumberArgument = KTextEditor::Cursor::invalid();
+                    }
                 }
 
                 /**

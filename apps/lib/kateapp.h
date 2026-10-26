@@ -303,6 +303,7 @@ public:
      * returns the cursor for it
      */
     KTextEditor::Cursor cursorFromArgs();
+    static KTextEditor::Cursor cursorFromArgs(const QCommandLineParser &parser);
 
     /**
      * Checks if line or column were provided in query string

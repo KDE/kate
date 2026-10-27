@@ -2994,6 +2994,7 @@ To aid in the explanation below, an excerpt of that configuration is given here:
             "servers" : {
                 "pylsp" : {
                     "command": ["pylsp", "--check-parent-process"],
+                    "priority": 10,
                     "url": "https://github.com/python-lsp/python-lsp-server"
                 },
                 "pyrefly" : {
@@ -3028,6 +3029,9 @@ To aid in the explanation below, an excerpt of that configuration is given here:
 <para>
 One can actively disable a server by setting the "disabled" attribute to true.
 This allows to disable servers that are shipped in the default settings.
+
+If multiple servers are specified, they will be started in order of their priority and name.
+Highest priority will win, default priority if no "priority" integer property is set is 0.
 
 The "command" shall be an array and the first element is considered to be the binary to execute.
 

@@ -1044,8 +1044,9 @@ private:
             return (server && server->state() == LSPClientServer::State::Running) ? server : nullptr;
         };
 
-        // handle all servers, use the first one
+        // collect all servers that are specified and enabled
         const auto serversObject = servers.toObject();
+        std::vector<std::pair<int, QString>> serversWithPriority;
         for (const auto [serverKey, oneConfig] : serversObject.asKeyValueRange()) {
             // config must be an object
             if (!oneConfig.isObject()) {
@@ -1058,8 +1059,17 @@ private:
                 continue;
             }
 
+            // get priority, invert it to be able to just use the normal sort
+            serversWithPriority.emplace_back(-oneConfigObj.value(QStringLiteral("priority")).toInt(), serverKey.toString());
+        }
+
+        // sort by priority (is inverted to have highest first), then name
+        std::stable_sort(serversWithPriority.begin(), serversWithPriority.end());
+
+        // try to start servers in order of priority, highest first
+        for (const auto &serverIt : serversWithPriority) {
             // try to start server, use it if success
-            if (auto server = _findOneServer(view, document, serverKey.toString(), oneConfigObj, mergedConfig); server) {
+            if (auto server = _findOneServer(view, document, serverIt.second, serversObject.value(serverIt.second).toObject(), mergedConfig); server) {
                 return server;
             }
         }

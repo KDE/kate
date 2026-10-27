@@ -2998,6 +2998,7 @@ To aid in the explanation below, an excerpt of that configuration is given here:
                 },
                 "pyrefly" : {
                     "command": ["pyrefly", "lsp"],
+                    "disabled": true,
                     "rootIndicationFileNames": ["pyproject.toml"],
                     "url": "https://github.com/facebook/pyrefly"
                 }
@@ -3025,13 +3026,17 @@ To aid in the explanation below, an excerpt of that configuration is given here:
 </screen>
 
 <para>
+One can actively disable a server by setting the "disabled" attribute to true.
+This allows to disable servers that are shipped in the default settings.
+
 The "command" shall be an array and the first element is considered to be the binary to execute.
+
 Also, a top-level "global" entry (next to "server") is considered as well (see further below).
+
 The specified binary is searched for in the usual way, e.g. using <literal>PATH</literal>.
-If it is installed in some custom location, then the latter may have to be
-extended.  Or alternatively, a (sym)link or wrapper script may be used in a location
-that is within the usual <literal>PATH</literal>.  As illustrated above,
-one may also specify a "path" that will be searched for after the standard locations.
+If it is installed in some custom location, then the latter may have to be extended.
+Or alternatively, a (sym)link or wrapper script may be used in a location that is within the usual <literal>PATH</literal>.
+As illustrated above, one may also specify a "path" that will be searched for after the standard locations.
 </para>
 
 <para>

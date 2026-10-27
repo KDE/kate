@@ -1051,9 +1051,15 @@ private:
             if (!oneConfig.isObject()) {
                 continue;
             }
+            const auto oneConfigObj = oneConfig.toObject();
+
+            // skip servers that are not enabled, that means bool disabled is actively set to true
+            if (oneConfigObj.value(QStringLiteral("disabled")).toBool()) {
+                continue;
+            }
 
             // try to start server, use it if success
-            if (auto server = _findOneServer(view, document, serverKey.toString(), oneConfig.toObject(), mergedConfig); server) {
+            if (auto server = _findOneServer(view, document, serverKey.toString(), oneConfigObj, mergedConfig); server) {
                 return server;
             }
         }

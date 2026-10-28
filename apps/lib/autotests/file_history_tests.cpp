@@ -48,6 +48,7 @@ private Q_SLOTS:
     void testFiltering();
     void testAuthorAndDateFiltering();
     void testLargeHistoryParsedCompletely();
+    void testBranchesAndTagsAreShown();
 
 private:
     QWidget *getToolview()
@@ -285,7 +286,9 @@ void FileHistoryTest::testLargeHistoryParsedCompletely()
         stream += "commit refs/heads/master\nauthor " + ident + "committer " + ident;
         stream += "data " + QByteArray::number(msg.size()) + "\n" + msg;
         stream += "M 644 inline file.txt\ndata " + QByteArray::number(content.size()) + "\n" + content + "\n";
-        expectedTooltips.insert(QString::fromUtf8(name) + QStringLiteral("<br>") + QString::fromUtf8(email));
+        // the newest commit also shows the branch
+        const QString refs = i == commitCount - 1 ? QStringLiteral("<br>HEAD -&gt; master") : QString();
+        expectedTooltips.insert(QString::fromUtf8(name) + QStringLiteral("<br>") + QString::fromUtf8(email) + refs);
     }
     QVERIFY(git({QStringLiteral("fast-import"), QStringLiteral("--quiet")}, stream));
     QVERIFY(git({QStringLiteral("checkout"), QStringLiteral("-q"), QStringLiteral("master")}));
@@ -310,6 +313,70 @@ void FileHistoryTest::testLargeHistoryParsedCompletely()
         tooltips.insert(commitModel->index(row).data(Qt::ToolTipRole).toString());
     }
     QCOMPARE(tooltips, expectedTooltips);
+
+    auto closeBtn = getCloseButton(toolview);
+    QVERIFY(closeBtn);
+    closeBtn->click();
+}
+
+void FileHistoryTest::testBranchesAndTagsAreShown()
+{
+    if (!haveGit) {
+        QSKIP("Skipping the test, 'git' not found");
+    }
+
+    QTemporaryDir repo;
+    QVERIFY(repo.isValid());
+    auto git = [&repo](const QStringList &args, const QByteArray &input = {}) {
+        QProcess p;
+        if (!setupGitProcess(p, repo.path(), args)) {
+            return false;
+        }
+        startHostProcess(p, QProcess::ReadWrite);
+        if (!input.isEmpty()) {
+            p.write(input);
+        }
+        p.closeWriteChannel();
+        return p.waitForFinished(60000) && p.exitStatus() == QProcess::NormalExit && p.exitCode() == 0;
+    };
+    QVERIFY(git({QStringLiteral("init"), QStringLiteral("-q")}));
+
+    // three commits of file.txt
+    QByteArray stream;
+    for (int i = 0; i < 3; ++i) {
+        const QByteArray msg = "Commit " + QByteArray::number(i) + "\n";
+        const QByteArray content = "line " + QByteArray::number(i) + "\n";
+        const QByteArray ident = "Author <author@example.com> " + QByteArray::number(1700000000 + i) + " +0000\n";
+        stream += "commit refs/heads/master\nauthor " + ident + "committer " + ident;
+        stream += "data " + QByteArray::number(msg.size()) + "\n" + msg;
+        stream += "M 644 inline file.txt\ndata " + QByteArray::number(content.size()) + "\n" + content + "\n";
+    }
+    QVERIFY(git({QStringLiteral("fast-import"), QStringLiteral("--quiet")}, stream));
+    QVERIFY(git({QStringLiteral("checkout"), QStringLiteral("-q"), QStringLiteral("master")}));
+    QVERIFY(git({QStringLiteral("branch"), QStringLiteral("feature")}));
+    QVERIFY(git({QStringLiteral("tag"), QStringLiteral("v1"), QStringLiteral("HEAD~1")}));
+
+    const QString file = repo.filePath(QStringLiteral("file.txt"));
+    KateMainWindow *mw = app->activeKateMainWindow();
+    FileHistory::showFileHistory(file, mw->wrapper());
+
+    auto toolview = Utils::toolviewForName(mw->wrapper(), QStringLiteral("git_file_history_%1").arg(file));
+    QVERIFY(toolview);
+    auto fileHistoryWidget = toolview->findChild<QWidget *>(QStringLiteral("FileHistoryWidget"));
+    QVERIFY(fileHistoryWidget);
+    QSignalSpy spy(fileHistoryWidget, SIGNAL(gitLogDone()));
+    QVERIFY(spy.count() == 1 || spy.wait());
+
+    auto commitModel = toolview->findChild<QAbstractListModel *>();
+    QVERIFY(commitModel);
+    QCOMPARE(commitModel->rowCount(), 3);
+
+    const auto tooltip = [commitModel](int row) {
+        return commitModel->index(row).data(Qt::ToolTipRole).toString();
+    };
+    QCOMPARE(tooltip(0), QStringLiteral("Author<br>author@example.com<br>HEAD -&gt; master, feature"));
+    QCOMPARE(tooltip(1), QStringLiteral("Author<br>author@example.com<br>tag: v1"));
+    QCOMPARE(tooltip(2), QStringLiteral("Author<br>author@example.com"));
 
     auto closeBtn = getCloseButton(toolview);
     QVERIFY(closeBtn);

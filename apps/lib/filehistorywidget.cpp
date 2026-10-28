@@ -46,6 +46,8 @@ struct Commit {
     qint64 authorDate;
     qint64 commitDate;
     QStringView parentHash;
+    // branches and tags pointing to the commit, e.g. "HEAD -> master, origin/master, tag: v1"
+    QStringView refs;
     QStringView msg;
     QStringView fileName;
 };
@@ -79,8 +81,8 @@ static std::vector<Commit> parseCommits(const QString &raw, bool hasFiles)
             continue;
         }
 
-        const auto lines = QStringTokenizer(commitDetails, u'\n').toContainer<QVarLengthArray<QStringView, 7>>();
-        if (lines.length() < 7) {
+        const auto lines = QStringTokenizer(commitDetails, u'\n').toContainer<QVarLengthArray<QStringView, 8>>();
+        if (lines.length() < 8) {
             continue;
         }
 
@@ -100,7 +102,8 @@ static std::vector<Commit> parseCommits(const QString &raw, bool hasFiles)
         }
 
         QStringView parent = lines.at(5);
-        QStringView msg = lines.at(6);
+        QStringView refs = lines.at(6);
+        QStringView msg = lines.at(7);
 
         QStringView file;
         if (hasFiles) {
@@ -119,6 +122,7 @@ static std::vector<Commit> parseCommits(const QString &raw, bool hasFiles)
                  .authorDate = authorDate,
                  .commitDate = commitDate,
                  .parentHash = parent,
+                 .refs = refs,
                  .msg = msg,
                  .fileName = file};
         commits.push_back(c);
@@ -154,7 +158,11 @@ public:
         case Role::CommitRole:
             return QVariant::fromValue(m_rows.at(row));
         case Qt::ToolTipRole: {
-            QString ret = m_rows.at(row).authorName + QStringLiteral("<br>") + m_rows.at(row).email;
+            const Commit &commit = m_rows.at(row);
+            QString ret = commit.authorName + QStringLiteral("<br>") + commit.email;
+            if (!commit.refs.isEmpty()) {
+                ret += QStringLiteral("<br>") + commit.refs.toString().toHtmlEscaped();
+            }
             return ret;
         }
         }
@@ -357,7 +365,8 @@ public:
 
         auto primaryColor = options.palette.color(QPalette::ColorRole::Text);
         auto secondaryColor = QColor(Qt::gray);
-        if (options.state.testFlag(QStyle::State_Selected) && options.state.testFlag(QStyle::State_Active)) {
+        const bool selected = options.state.testFlag(QStyle::State_Selected) && options.state.testFlag(QStyle::State_Active);
+        if (selected) {
             primaryColor = options.palette.color(QPalette::ColorRole::HighlightedText);
             secondaryColor = primaryColor;
         }
@@ -387,6 +396,15 @@ public:
         painter->setPen(secondaryColor);
         prect.setY(prect.y() + fm.height() + LineHeight);
         painter->drawText(prect, Qt::AlignLeft, hash);
+
+        // draw branches and tags after the hash, like git log
+        if (!commit.refs.isEmpty()) {
+            QRect refsRect = prect;
+            refsRect.setX(prect.x() + fm.horizontalAdvance(hash) + fm.horizontalAdvance(u' '));
+            const QString refs = QStringLiteral("(%1)").arg(commit.refs);
+            painter->setPen(selected ? primaryColor : options.palette.color(QPalette::Link));
+            painter->drawText(refsRect, Qt::AlignLeft, fm.elidedText(refs, Qt::ElideRight, refsRect.width()));
+        }
         painter->setPen(fg);
 
         // draw msg
@@ -536,7 +554,7 @@ FileHistoryWidget::~FileHistoryWidget()
     m_git.waitForFinished();
 }
 
-// git log --format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B --author-date-order
+// git log --format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%D%n%B --author-date-order
 void FileHistoryWidget::getFileHistory(const QString &file)
 {
     const auto isDir = QFileInfo(file).isDir();
@@ -549,7 +567,7 @@ void FileHistoryWidget::getFileHistory(const QString &file)
     if (!isDir) {
         args << QStringLiteral("--name-only"); // get file name also, it could be different if renamed
     }
-    args << QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B");
+    args << QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%D%n%B");
     args << QStringLiteral("-z");
     args << file;
 

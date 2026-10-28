@@ -1,0 +1,371 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kdeorg\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"PO-Revision-Date: 2026-10-27 09:25\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: kdeorg\n"
+"X-Crowdin-Project-ID: 269464\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: /kf6-trunk/messages/kate/katedeployment.pot\n"
+"X-Crowdin-File-ID: 60531\n"
+
+#: deploymentconfig.cpp:108
+#, kde-format
+msgid "deployment must be an object"
+msgstr "部署必须是对象"
+
+#: deploymentconfig.cpp:123
+#, kde-format
+msgid "deployment host must not be empty"
+msgstr "部署主机不能为空"
+
+#: deploymentconfig.cpp:126 deploymentconfig.cpp:130 deploymentconfig.cpp:193
+#, kde-format
+msgid "deployment host is invalid"
+msgstr "部署主机无效"
+
+#: deploymentconfig.cpp:139
+#, kde-format
+msgid "deployment port must be between 1 and 65535"
+msgstr "部署端口必须介于 1 到 65535 之间"
+
+#: deploymentconfig.cpp:145
+#, kde-format
+msgid "project base must not be empty"
+msgstr "项目根目录不能为空"
+
+#: deploymentconfig.cpp:150
+#, kde-format
+msgid "project base must be an existing directory"
+msgstr "项目根目录必须是一个已存在的目录"
+
+#: deploymentconfig.cpp:157
+#, kde-format
+msgid "deployment localRoot must not contain traversal"
+msgstr "部署的本地根目录 (localRoot) 不得包含路径遍历"
+
+#: deploymentconfig.cpp:165
+#, kde-format
+msgid ""
+"deployment localRoot must be an existing directory inside the project base"
+msgstr "部署本地根目录 (localRoot) 必须是项目根目录中的已存在目录"
+
+#: deploymentconfig.cpp:170
+#, kde-format
+msgid "deployment remoteRoot must be an absolute path without traversal"
+msgstr "部署的远程根目录 (remoteRoot) 必须是不包含路径遍历的绝对路径"
+
+#: deploymentconfig.cpp:182
+#, kde-format
+msgid "deployment exclude entries must be strings"
+msgstr "部署排除条目必须是字符串"
+
+#: deploymentconfig.cpp:187
+#, kde-format
+msgid "deployment exclude must be a list of strings"
+msgstr "部署排除必须是字符串列表"
+
+#: deploymentplugin.cpp:115
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure Deployment"
+msgstr "配置部署"
+
+#: deploymentplugin.cpp:119
+#, kde-format
+msgid ""
+"Configure the SFTP destination for <filename>%1</filename>. Authentication "
+"is handled by KIO."
+msgstr "配置 <filename>%1</filename> 的 SFTP 目标。身份验证由 KIO 处理。"
+
+#: deploymentplugin.cpp:136
+#, kde-format
+msgid "One project-relative glob per line"
+msgstr "每行一个与项目相关的通配符"
+
+#: deploymentplugin.cpp:138
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Host:"
+msgstr "主机："
+
+#: deploymentplugin.cpp:139
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Port:"
+msgstr "端口："
+
+#: deploymentplugin.cpp:140
+#, kde-format
+msgctxt "@label:textbox"
+msgid "User:"
+msgstr "用户："
+
+#: deploymentplugin.cpp:141
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Local root:"
+msgstr "本地根目录："
+
+#: deploymentplugin.cpp:142
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Remote root:"
+msgstr "远程根目录："
+
+#: deploymentplugin.cpp:143
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Exclude:"
+msgstr "排除："
+
+#: deploymentplugin.cpp:170
+#, kde-format
+msgctxt "@title:window"
+msgid "Invalid Deployment Configuration"
+msgstr "无效的部署配置"
+
+#: deploymentplugin.cpp:210 deploymentplugin.cpp:853
+#, kde-format
+msgid "Deployment"
+msgstr "部署"
+
+#: deploymentplugin.cpp:214
+#, kde-format
+msgctxt "@action"
+msgid "Upload Current File"
+msgstr "上传当前文件"
+
+#: deploymentplugin.cpp:219
+#, kde-format
+msgctxt "@action"
+msgid "Upload Project"
+msgstr "上传项目"
+
+#: deploymentplugin.cpp:223 deploymentplugin.cpp:661
+#, kde-format
+msgctxt "@action"
+msgid "Cancel Deployment Transfers"
+msgstr "取消部署传输"
+
+#: deploymentplugin.cpp:227
+#, kde-format
+msgctxt "@action"
+msgid "Configure Deployment..."
+msgstr "配置部署..."
+
+#: deploymentplugin.cpp:231
+#, kde-format
+msgctxt "@action"
+msgid "Browse Remote Host"
+msgstr "浏览远程主机"
+
+#: deploymentplugin.cpp:238
+#, kde-format
+msgid "Remote Host"
+msgstr "远程主机"
+
+#: deploymentplugin.cpp:261
+#, kde-format
+msgctxt "@action"
+msgid "Deployment Root"
+msgstr "部署根目录"
+
+#: deploymentplugin.cpp:275
+#, kde-format
+msgid "File Transfer"
+msgstr "文件传输"
+
+#: deploymentplugin.cpp:281
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "取消"
+
+#: deploymentplugin.cpp:282
+#, kde-format
+msgctxt "@action:button"
+msgid "Clear"
+msgstr "清除"
+
+#: deploymentplugin.cpp:323
+#, kde-format
+msgid "Loading %1..."
+msgstr "正在加载 %1..."
+
+#: deploymentplugin.cpp:328
+#, kde-format
+msgid "Connected to %1"
+msgstr "已连接到 %1"
+
+#: deploymentplugin.cpp:335
+#, kde-format
+msgid "Failed to list %1 (KIO error %2): %3"
+msgstr "列出 %1 失败 (KIO 错误 %2)：%3"
+
+#: deploymentplugin.cpp:427
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload Folder to Remote Host"
+msgstr "上传文件夹到远程主机"
+
+#: deploymentplugin.cpp:427
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload to Remote Host"
+msgstr "上传到远程主机"
+
+#: deploymentplugin.cpp:467
+#, kde-format
+msgid "Open or select a Kate project before configuring deployment."
+msgstr "在配置部署之前，请先打开或选择一个Kate项目。"
+
+#: deploymentplugin.cpp:472
+#, kde-format
+msgid ""
+"Deployment configuration requires a file-backed <filename>.kateproject</"
+"filename>."
+msgstr ""
+"部署配置需要一个有文件的\n"
+"<filename>.kateproject</filename>。"
+
+#: deploymentplugin.cpp:487
+#, kde-format
+msgid "Could not read <filename>%1</filename>."
+msgstr "无法读取 <filename>%1</filename>。"
+
+#: deploymentplugin.cpp:493
+#, kde-format
+msgid "Could not update malformed JSON in <filename>%1</filename>: %2"
+msgstr "无法更新 <filename>%1</filename> 中格式错误的 JSON：%2"
+
+#: deploymentplugin.cpp:502
+#, kde-format
+msgid "Could not write <filename>%1</filename>."
+msgstr "无法写入 <filename>%1</filename>。"
+
+#: deploymentplugin.cpp:508
+#, kde-format
+msgid "Saved deployment configuration to %1"
+msgstr "已保存部署配置到 %1"
+
+#: deploymentplugin.cpp:520
+#, kde-format
+msgid "The current document is not a local file."
+msgstr "当前文档不是本地文件。"
+
+#: deploymentplugin.cpp:555
+#, kde-format
+msgid "The file could not be saved before upload."
+msgstr "无法在上传前保存文件。"
+
+#: deploymentplugin.cpp:571
+#, kde-format
+msgid "Deployment is not configured for this project."
+msgstr "没有为此项目配置部署。"
+
+#: deploymentplugin.cpp:575
+#, kde-format
+msgid "A deployment transfer is already running."
+msgstr "一个部署传输已经在运行。"
+
+#: deploymentplugin.cpp:586
+#, kde-format
+msgid "Cannot upload %1 because its remote version is open in Kate."
+msgstr "无法上传 %1 ，因为它的远程版本已在 Kate 中打开。"
+
+#: deploymentplugin.cpp:596
+#, kde-format
+msgid "No deployable files were selected."
+msgstr "没有选择可部署的文件。"
+
+#: deploymentplugin.cpp:602
+#, kde-format
+msgid "Queued one file for upload."
+msgid_plural "Queued %1 files for upload."
+msgstr[0] "已排队 %1 个文件进行上传。"
+
+#: deploymentplugin.cpp:620 deploymentplugin.cpp:674
+#, kde-format
+msgid "The remote file is open in Kate."
+msgstr "远程文件已在 Kate 中打开。"
+
+#: deploymentplugin.cpp:629
+#, kde-format
+msgid "Uploading %1 to %2"
+msgstr "正在将 %1 上传到 %2"
+
+#: deploymentplugin.cpp:657
+#, kde-format
+msgctxt "@action"
+msgid "Cancel Deployment Transfers (%1%)"
+msgstr "取消部署传输 (%1%)"
+
+#: deploymentplugin.cpp:697
+#, kde-format
+msgid "Failed to upload %1: %2"
+msgstr "上传 %1 失败：%2"
+
+#: deploymentplugin.cpp:699
+#, kde-format
+msgid "Uploaded %1"
+msgstr "已上传 %1"
+
+#: deploymentplugin.cpp:720
+#, kde-format
+msgid "Cancelled deployment transfers."
+msgstr "取消部署传输。"
+
+#: deploymentplugin.cpp:754
+#, kde-format
+msgid "Not connected"
+msgstr "未连接"
+
+#: deploymentplugin.cpp:772
+#, kde-format
+msgid ""
+"The SFTP KIO worker is not installed or does not support directory listing."
+msgstr "该 SFTP KIO 工作程序没有安装，或它不支持列出目录。"
+
+#: deploymentplugin.cpp:801
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Remote File"
+msgstr "打开远程文件"
+
+#: deploymentplugin.cpp:809
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Mapped Local File"
+msgstr "打开映射的本地文件"
+
+#: deploymentplugin.cpp:815
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload Mapped Local File"
+msgstr "上传映射的远程文件"
+
+#: deploymentplugin.cpp:823
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Remote URL"
+msgstr "复制远程 URL"
+
+#: deploymentplugin.cpp:827
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Remote Path"
+msgstr "复制远程路径"
+
+#: deploymentplugin.cpp:837
+#, kde-format
+msgid "No mapped local file exists for %1."
+msgstr "%1 没有映射的本地文件。"

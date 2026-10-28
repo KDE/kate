@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-25 00:54+0000\n"
-"PO-Revision-Date: 2026-08-31 16:45+0200\n"
+"PO-Revision-Date: 2026-10-27 15:55+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -126,7 +126,7 @@ msgstr "Branca Active: %1"
 #: git/gitforgeconfigwidget.cpp:32
 #, kde-format
 msgid "Detect Service"
-msgstr ""
+msgstr "Detege Servicio"
 
 #: git/gitforgeconfigwidget.cpp:37
 #, kde-format
@@ -135,47 +135,52 @@ msgid ""
 "host is taken from the clone URL; the website URL is used to open repository "
 "links in a browser."
 msgstr ""
+"Mappa hospites (hosts) remote de Git a lor sitos web de Forgejo, GitHub, o "
+"GitLab.  Le hospite remote es extrahite del URL de clonage; le URL del sito "
+"web es usate pro aperir ligamines de repositorio in un navigator."
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Git Remote Host"
-msgstr ""
+msgstr "Hospite (host) remote de Git"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Hosting Service"
-msgstr ""
+msgstr "Servicio de Hosting (albergamento)"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Website URL"
-msgstr ""
+msgstr "URL de Sito Web"
 
 #: git/gitforgeconfigwidget.cpp:46
 #, kde-format
 msgid "Host from the Git clone URL, optionally followed by its SSH port"
 msgstr ""
+"Hospite ab le URL de clonage Git, optionalmente sequite per su porto SSH."
 
 #: git/gitforgeconfigwidget.cpp:47
 #, kde-format
 msgid "Forgejo, GitHub, or GitLab software running on the server"
-msgstr ""
+msgstr "Software Forgejo, GitHub, o GitLab que es executante sur le servitor"
 
 #: git/gitforgeconfigwidget.cpp:48
 #, kde-format
 msgid "HTTP or HTTPS address used to open repository links in a web browser"
 msgstr ""
+"Adresse HTTP o HTTPS usate pro aperir ligamines de repositorio  in un "
+"navigator web."
 
 #: git/gitforgeconfigwidget.cpp:56
 #, kde-format
 msgid "Add Mapping"
-msgstr ""
+msgstr "Adde mappage"
 
 #: git/gitforgeconfigwidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Remove Selected Files"
+#, kde-format
 msgid "Remove Selected Mapping"
-msgstr "Remove files selectionate"
+msgstr "Remove Mappage Selectionate"
 
 #: git/gitforgeconfigwidget.cpp:61
 #, kde-format
@@ -183,58 +188,63 @@ msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
 msgstr ""
+"Tenta identificar Forgejo, GitHub, o GitLab ab le URL del sito web  del "
+"mappage seligite."
 
 #: git/gitforgeconfigwidget.cpp:107
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
-msgstr ""
+msgstr "Le servicio de hosting in rango %1 es invalide."
 
 #: git/gitforgeconfigwidget.cpp:112
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
 msgstr ""
+"Le hospite (host) remote  o le URL del sito web in rango %1 es invalide."
 
 #: git/gitforgeconfigwidget.cpp:139
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
-msgstr ""
+msgstr "git.example.com o git.example.com:2222"
 
 #: git/gitforgeconfigwidget.cpp:157
 #, kde-format
 msgid "https://git.example.com"
-msgstr ""
+msgstr "https://git.example.com"
 
 #: git/gitforgeconfigwidget.cpp:174
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
-msgstr ""
+msgstr "Selige un mappage pro deteger su servicio de hosting (albergamento)."
 
 #: git/gitforgeconfigwidget.cpp:181
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
 msgstr ""
+"Introduce un URL de sito web HTTP o HTTPS valide ante deteger le servicio  "
+"de albergamento (hosting)."
 
 #: git/gitforgeconfigwidget.cpp:192
 #, kde-format
 msgid "Detecting…"
-msgstr ""
+msgstr "Detegente..."
 
 #: git/gitforgeconfigwidget.cpp:238
 #, kde-format
 msgid "Detected %1."
-msgstr ""
+msgstr "Detegite %1."
 
 #: git/gitforgeconfigwidget.cpp:240
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
-msgstr ""
+msgstr "Le mappage cambiava: le exito de detection esseva ignorate."
 
 #: git/gitforgeconfigwidget.cpp:242
 #, kde-format
 msgid "Service could not be detected; select it manually."
-msgstr ""
+msgstr "Servicio nonpoteva esser detegite: selige lo manualmente."
 
 #: git/gitstatus.cpp:159
 #, kde-format
@@ -392,10 +402,9 @@ msgstr ""
 "correctemente: "
 
 #: gitwidget.cpp:593
-#, fuzzy, kde-format
-#| msgid "Failed to get stash list. Error: "
+#, kde-format
 msgid "Failed to get the git status"
-msgstr "Falleva a obtener lista de celario (stash). Error:"
+msgstr "Falleva a obtener le sttao de git"
 
 #: gitwidget.cpp:652
 #, kde-format
@@ -703,19 +712,17 @@ msgstr "Error"
 #: kateproject.cpp:317
 #, kde-format
 msgid "'%1' is not a valid file name."
-msgstr ""
+msgstr "'%1' non es un nomine valide."
 
 #: kateproject.cpp:328
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "A file named '%1' already exists."
-msgstr "Nomine de file ja existe"
+msgstr "Un file appellate '%1' ja existe."
 
 #: kateproject.cpp:350
-#, fuzzy, kde-format
-#| msgid "Failed to create file: %1, Error: %2"
+#, kde-format
 msgid "Failed to rename '%1' to '%2': %3"
-msgstr "Falleva a crear file : %1 Error:  %2"
+msgstr "Falleva a renominar '%1' a '%2': %3"
 
 #: kateproject.cpp:459
 #, kde-format
@@ -743,7 +750,7 @@ msgstr "Completion de projecto"
 #: kateprojectconfigpage.cpp:31
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
@@ -932,11 +939,10 @@ msgid "Double click action in the git status view"
 msgstr "Action de duple click in le vista de stato de git"
 
 #: kateprojectconfigpage.cpp:153
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
-msgstr "Instrumentos de Git"
+msgstr "Git Hosting (albergamento de Git)"
 
 #: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
 #, kde-format
@@ -1104,7 +1110,7 @@ msgstr ""
 #: kateprojectplugin.cpp:780
 #, kde-format
 msgid "File path relative to the project directory"
-msgstr ""
+msgstr "Perurso de file relative al directorio de projecto"
 
 #: kateprojectpluginview.cpp:66
 #, kde-format
@@ -1197,21 +1203,20 @@ msgid "Goto: %1"
 msgstr "Vade a: %1"
 
 #: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:189
-#, fuzzy, kde-format
-#| msgid "Git Tools"
+#, kde-format
 msgid "Git Hosting"
-msgstr "Instrumentos de Git"
+msgstr "Git Hosting (albergamento de Git)"
 
 #: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
 #: kateprojectpluginview.cpp:922
 #, kde-format
 msgid "Open on Git Hosting Service"
-msgstr ""
+msgstr "Aperi sur Git Hosting Service (Servicio de albergamento de  Git)"
 
 #: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
 #, kde-format
 msgid "Copy Git Hosting Link"
-msgstr ""
+msgstr "Copia ligamine de Git Hosting (albergamento de Git)"
 
 #: kateprojectpluginview.cpp:331
 #, kde-format
@@ -1221,18 +1226,17 @@ msgstr "Indice de Projectos"
 #: kateprojectpluginview.cpp:887 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
-msgstr ""
+msgstr "Detegente Servicio de Hosting (albergamento)…"
 
 #: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
 msgid "Open on %1"
-msgstr ""
+msgstr "Aperi sur %1"
 
 #: kateprojectpluginview.cpp:920 kateprojecttreeviewcontextmenu.cpp:206
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy %1 Link"
-msgstr "Copia location"
+msgstr "Copia Ligamine %1"
 
 #: kateprojectpluginview.cpp:985
 #, kde-format
@@ -1332,7 +1336,7 @@ msgstr "Incapace  a obtener directorio de flie: %1"
 #: kateprojectworker.cpp:318
 #, kde-format
 msgid "Invalid regex pattern in exclude_patterns %1"
-msgstr ""
+msgstr "Patrono de regex invalide in exclude_patterns %1"
 
 #: kateprojectworker.cpp:804
 #, kde-format
@@ -1377,10 +1381,9 @@ msgstr ""
 "abandonar."
 
 #: stashdialog.cpp:142 stashdialog.cpp:204
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgid "Failed to run git: %1"
-msgstr "Falleva a committer: %1"
+msgstr "Falleva a executar git: %1"
 
 #: stashdialog.cpp:168
 #, kde-format
@@ -1395,7 +1398,7 @@ msgstr "Modificationes ponite in celario (stash) con successo."
 #: stashdialog.cpp:189
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Cargante..."
 
 #: stashdialog.cpp:198
 #, kde-format

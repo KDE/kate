@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-20 00:56+0000\n"
-"PO-Revision-Date: 2026-10-09 16:07+0200\n"
+"PO-Revision-Date: 2026-10-27 15:28+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -20,64 +20,67 @@ msgstr ""
 #: deploymentconfig.cpp:108
 #, kde-format
 msgid "deployment must be an object"
-msgstr ""
+msgstr "displicamento debe esser un objecto"
 
 #: deploymentconfig.cpp:123
 #, kde-format
 msgid "deployment host must not be empty"
-msgstr ""
+msgstr "le host (hospite) de displicamento non debe esser vacue"
 
 #: deploymentconfig.cpp:126 deploymentconfig.cpp:130 deploymentconfig.cpp:193
 #, kde-format
 msgid "deployment host is invalid"
-msgstr ""
+msgstr "Le hospite (host) de displicamento es invalide"
 
 #: deploymentconfig.cpp:139
 #, kde-format
 msgid "deployment port must be between 1 and 65535"
-msgstr ""
+msgstr "leporto de displicamentodebe esser inter 1 e 65535"
 
 #: deploymentconfig.cpp:145
 #, kde-format
 msgid "project base must not be empty"
-msgstr ""
+msgstr "Le base de projecto non debe esser vacue"
 
 #: deploymentconfig.cpp:150
 #, kde-format
 msgid "project base must be an existing directory"
-msgstr ""
+msgstr "le base de projecto debe esser un directorio existente"
 
 #: deploymentconfig.cpp:157
 #, kde-format
 msgid "deployment localRoot must not contain traversal"
-msgstr ""
+msgstr "displicamento localRoot non debe continer transversamento"
 
 #: deploymentconfig.cpp:165
 #, kde-format
 msgid ""
 "deployment localRoot must be an existing directory inside the project base"
 msgstr ""
+"displicamento localRoot debe  esser un directorio existente intra le base de "
+"projecto"
 
 #: deploymentconfig.cpp:170
 #, kde-format
 msgid "deployment remoteRoot must be an absolute path without traversal"
 msgstr ""
+"displicamento remoreRoot debe esser un percurso absolute sin transversamento"
 
 #: deploymentconfig.cpp:182
 #, kde-format
 msgid "deployment exclude entries must be strings"
-msgstr ""
+msgstr "le entratas de exclusion de displicamento debe esser catenas"
 
 #: deploymentconfig.cpp:187
 #, kde-format
 msgid "deployment exclude must be a list of strings"
-msgstr ""
+msgstr "exclusion de displicamento debe esser un lista de catenas"
 
 #: deploymentplugin.cpp:115
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Deployment"
-msgstr ""
+msgstr "Configura Displicamento"
 
 #: deploymentplugin.cpp:119
 #, kde-format
@@ -85,11 +88,13 @@ msgid ""
 "Configure the SFTP destination for <filename>%1</filename>. Authentication "
 "is handled by KIO."
 msgstr ""
+"Configura le destination SFTP pro <filename>%1</filename>. Le authentication "
+"es maneate per KIO."
 
 #: deploymentplugin.cpp:136
 #, kde-format
 msgid "One project-relative glob per line"
-msgstr ""
+msgstr "Un glob relative al projecto per linea"
 
 #: deploymentplugin.cpp:138
 #, kde-format
@@ -113,13 +118,13 @@ msgstr "Usator:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Local root:"
-msgstr ""
+msgstr "Radice local (local root):"
 
 #: deploymentplugin.cpp:142
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Remote root:"
-msgstr ""
+msgstr "RAdice remote (remote root):"
 
 #: deploymentplugin.cpp:143
 #, kde-format
@@ -131,7 +136,7 @@ msgstr "Exclude:"
 #, kde-format
 msgctxt "@title:window"
 msgid "Invalid Deployment Configuration"
-msgstr ""
+msgstr "Configuration de Displicamento Invalide"
 
 #: deploymentplugin.cpp:210 deploymentplugin.cpp:853
 #, kde-format
@@ -142,42 +147,42 @@ msgstr "Dislocamento"
 #, kde-format
 msgctxt "@action"
 msgid "Upload Current File"
-msgstr ""
+msgstr "INcarga File Currente"
 
 #: deploymentplugin.cpp:219
 #, kde-format
 msgctxt "@action"
 msgid "Upload Project"
-msgstr ""
+msgstr "Incarga Projecto"
 
 #: deploymentplugin.cpp:223 deploymentplugin.cpp:661
 #, kde-format
 msgctxt "@action"
 msgid "Cancel Deployment Transfers"
-msgstr ""
+msgstr "Cancella transferentias de displicamento"
 
 #: deploymentplugin.cpp:227
 #, kde-format
 msgctxt "@action"
 msgid "Configure Deployment..."
-msgstr ""
+msgstr "Configura Displicamento..."
 
 #: deploymentplugin.cpp:231
 #, kde-format
 msgctxt "@action"
 msgid "Browse Remote Host"
-msgstr ""
+msgstr "Percurre Host (hospite) remote"
 
 #: deploymentplugin.cpp:238
 #, kde-format
 msgid "Remote Host"
-msgstr ""
+msgstr "Hospite (host) remote"
 
 #: deploymentplugin.cpp:261
 #, kde-format
 msgctxt "@action"
 msgid "Deployment Root"
-msgstr ""
+msgstr "Radice (root) de displicamento"
 
 #: deploymentplugin.cpp:275
 #, kde-format
@@ -209,24 +214,24 @@ msgstr "Connectite a %1"
 #: deploymentplugin.cpp:335
 #, kde-format
 msgid "Failed to list %1 (KIO error %2): %3"
-msgstr ""
+msgstr "Falleva a listar %1 (KIO error %2): %3"
 
 #: deploymentplugin.cpp:427
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Upload Folder to Remote Host"
-msgstr ""
+msgstr "Incarga Dossier a Hospite (host) Remote"
 
 #: deploymentplugin.cpp:427
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Upload to Remote Host"
-msgstr ""
+msgstr "Incarga a Hospite (host) remote"
 
 #: deploymentplugin.cpp:467
 #, kde-format
 msgid "Open or select a Kate project before configuring deployment."
-msgstr ""
+msgstr "Aperi o selige un projecto de Kate ante configurar le displicamento."
 
 #: deploymentplugin.cpp:472
 #, kde-format
@@ -234,84 +239,86 @@ msgid ""
 "Deployment configuration requires a file-backed <filename>.kateproject</"
 "filename>."
 msgstr ""
+"Configuration de disployamento require un <filename>.kateproject</filename> "
+"basate in un file."
 
 #: deploymentplugin.cpp:487
 #, kde-format
 msgid "Could not read <filename>%1</filename>."
-msgstr ""
+msgstr "Non poteva leger <filename>%1</filename>."
 
 #: deploymentplugin.cpp:493
 #, kde-format
 msgid "Could not update malformed JSON in <filename>%1</filename>: %2"
-msgstr ""
+msgstr "Non poteva actualisar JSON malformate in <filename>%1</filename>: %2"
 
 #: deploymentplugin.cpp:502
 #, kde-format
 msgid "Could not write <filename>%1</filename>."
-msgstr ""
+msgstr "Non poteva scriber<filename>%1</filename>."
 
 #: deploymentplugin.cpp:508
 #, kde-format
 msgid "Saved deployment configuration to %1"
-msgstr ""
+msgstr "Configuration de displicamento salveguardate in %1"
 
 #: deploymentplugin.cpp:520
 #, kde-format
 msgid "The current document is not a local file."
-msgstr ""
+msgstr "Le documento currente non es un file local."
 
 #: deploymentplugin.cpp:555
 #, kde-format
 msgid "The file could not be saved before upload."
-msgstr ""
+msgstr "Le file non poteva esser salveguardate  ante esser cargate."
 
 #: deploymentplugin.cpp:571
 #, kde-format
 msgid "Deployment is not configured for this project."
-msgstr ""
+msgstr "Displicamentonon es configurate pro iste projecto."
 
 #: deploymentplugin.cpp:575
 #, kde-format
 msgid "A deployment transfer is already running."
-msgstr ""
+msgstr "Un transferentia de displicament es ja executante."
 
 #: deploymentplugin.cpp:586
 #, kde-format
 msgid "Cannot upload %1 because its remote version is open in Kate."
-msgstr ""
+msgstr "Non pote incargar %1 perque su version remote es aperite in Kate."
 
 #: deploymentplugin.cpp:596
 #, kde-format
 msgid "No deployable files were selected."
-msgstr ""
+msgstr "Nulle files displicabile esseva seligite."
 
 #: deploymentplugin.cpp:602
 #, kde-format
 msgid "Queued one file for upload."
 msgid_plural "Queued %1 files for upload."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Mitteva un file in cauda pro incargamento."
+msgstr[1] "Mitteva %1 files in cauda pro incargamento."
 
 #: deploymentplugin.cpp:620 deploymentplugin.cpp:674
 #, kde-format
 msgid "The remote file is open in Kate."
-msgstr ""
+msgstr "Le file remote es aperite in KAte."
 
 #: deploymentplugin.cpp:629
 #, kde-format
 msgid "Uploading %1 to %2"
-msgstr ""
+msgstr "Incargante %1 a %2"
 
 #: deploymentplugin.cpp:657
 #, kde-format
 msgctxt "@action"
 msgid "Cancel Deployment Transfers (%1%)"
-msgstr ""
+msgstr "CAncella trensferentias de displicamento  (%1%)"
 
 #: deploymentplugin.cpp:697
 #, kde-format
 msgid "Failed to upload %1: %2"
-msgstr ""
+msgstr "Falleva a incargar %1: %2"
 
 #: deploymentplugin.cpp:699
 #, kde-format
@@ -321,7 +328,7 @@ msgstr "Cargate %1"
 #: deploymentplugin.cpp:720
 #, kde-format
 msgid "Cancelled deployment transfers."
-msgstr ""
+msgstr "CAncellava transferentias de displicamento."
 
 #: deploymentplugin.cpp:754
 #, kde-format
@@ -333,38 +340,40 @@ msgstr "Non connectite"
 msgid ""
 "The SFTP KIO worker is not installed or does not support directory listing."
 msgstr ""
+"Le assistente KIO de SFTP non es installate o non supporta le listar de "
+"directorios."
 
 #: deploymentplugin.cpp:801
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Remote File"
-msgstr ""
+msgstr "Aperi file remote"
 
 #: deploymentplugin.cpp:809
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Mapped Local File"
-msgstr ""
+msgstr "Aperi file local mappate "
 
 #: deploymentplugin.cpp:815
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Upload Mapped Local File"
-msgstr ""
+msgstr "Incarga file local mappate"
 
 #: deploymentplugin.cpp:823
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Remote URL"
-msgstr ""
+msgstr "Copia URL remote"
 
 #: deploymentplugin.cpp:827
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Remote Path"
-msgstr ""
+msgstr "Copia percurso remote"
 
 #: deploymentplugin.cpp:837
 #, kde-format
 msgid "No mapped local file exists for %1."
-msgstr ""
+msgstr "Nulle file local mappate existe pro %1."

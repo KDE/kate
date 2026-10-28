@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-15 00:49+0000\n"
-"PO-Revision-Date: 2026-07-29 11:43+0200\n"
+"PO-Revision-Date: 2026-10-27 14:51+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -86,12 +86,12 @@ msgstr ""
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 crashed"
-msgstr ""
+msgstr "%1 habeva un crash"
 
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 failed with exit code %2"
-msgstr ""
+msgstr "%1 falleva con codice de exito %2"
 
 #: Formatters.cpp:286
 #, kde-format

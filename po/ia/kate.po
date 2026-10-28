@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-20 00:56+0000\n"
-"PO-Revision-Date: 2026-10-09 16:06+0200\n"
+"PO-Revision-Date: 2026-10-27 14:55+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1515,6 +1515,8 @@ msgid ""
 "File \"%1\" is already open in another document. Please close that document "
 "first if you want to overwrite it or choose a different name."
 msgstr ""
+"Le file \"%1\" es ja aperte in un altere documento. Per favor claude ille  "
+"documento primo si tu vole superscriber lo o eliger un nomine differente."
 
 #: lib/katefileactions.cpp:130
 #, kde-format

@@ -8,6 +8,7 @@
         "Description[es]": "Enviar los archivos del proyecto usando SFTP y explorar la máquina remota",
         "Description[fr]": "Téléchargez les fichiers de projet grâce à SFTP et naviguez dans l'hôte distant",
         "Description[he]": "העלאת קובצי המיזם דרך SFTP ועיון במארח המרוחק",
+        "Description[ia]": "Cargar files de projecto via SFTP e percurrer le host (hospite) remote.",
         "Description[it]": "Carica i file di progetto tramite SFTP ed esplora l'host remoto",
         "Description[ka]": "ატვირთეთ პროექტის ფაილები SFTP-ით და დაათვალიერეთ დაშორებული ჰოსტი",
         "Description[ko]": "SFTP로 프로젝트 파일을 업로드하고 원격 호스트 탐색",

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"POT-Creation-Date: 2026-10-29 00:56+0000\n"
 "PO-Revision-Date: 2020-07-27 23:03+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -170,7 +170,7 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - Teksteditor"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
-#: lib/filehistorywidget.cpp:487 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Filtrér…"
@@ -187,7 +187,7 @@ msgid "Copy Location"
 msgstr "Kopiér placering"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -202,7 +202,7 @@ msgstr "Omdøbt %1 => %2"
 msgid "Invalid hash"
 msgstr "Ugyldig hash"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 findes ikke i et git-arkiv."
@@ -598,13 +598,13 @@ msgstr "Slettet fil %1"
 msgid "No differences found"
 msgstr "Ingen forskelle fundet"
 
-#: lib/filehistorywidget.cpp:271
+#: lib/filehistorywidget.cpp:279
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Ugyldig dato: %1"
 
-#: lib/filehistorywidget.cpp:495
+#: lib/filehistorywidget.cpp:513
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -633,31 +633,31 @@ msgstr ""
 "alle søgebegreber blive vist.</li></ul>Tryk på <b>Enter</b>-tasten for at "
 "udløse filtret."
 
-#: lib/filehistorywidget.cpp:557
+#: lib/filehistorywidget.cpp:575
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Kunne ikke hente filhistorik: den eksekverbare git-fil blev ikke fundet i "
 "PATH"
 
-#: lib/filehistorywidget.cpp:583
+#: lib/filehistorywidget.cpp:601
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Kunne ikke hente filhistorik: %1"
 
-#: lib/filehistorywidget.cpp:598
+#: lib/filehistorywidget.cpp:616
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Kopiér commit-hash"
 
-#: lib/filehistorywidget.cpp:606
+#: lib/filehistorywidget.cpp:624
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Vis fuld commit"
 
-#: lib/filehistorywidget.cpp:742
+#: lib/filehistorywidget.cpp:760
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"POT-Creation-Date: 2026-10-29 00:56+0000\n"
 "PO-Revision-Date: 2026-10-16 06:59+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -180,7 +180,7 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - Urejevalnik besedil"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
-#: lib/filehistorywidget.cpp:487 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Filter…"
@@ -197,7 +197,7 @@ msgid "Copy Location"
 msgstr "Kopiraj mesto"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -212,7 +212,7 @@ msgstr "Preimenovano %1 => %2"
 msgid "Invalid hash"
 msgstr "Neveljavno razpršilo"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 ne obstaja v git skladišču."
@@ -614,13 +614,13 @@ msgstr "Brisana datoteka %1"
 msgid "No differences found"
 msgstr "Ni najdenih razlik"
 
-#: lib/filehistorywidget.cpp:271
+#: lib/filehistorywidget.cpp:279
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Neveljavni datum: %1"
 
-#: lib/filehistorywidget.cpp:495
+#: lib/filehistorywidget.cpp:513
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -649,31 +649,31 @@ msgstr ""
 "ki ustrezajo vsem iskalnim izrazom.</li></ul>Za proženje filtra pritisnite "
 "tipko <b>Enter</b>."
 
-#: lib/filehistorywidget.cpp:557
+#: lib/filehistorywidget.cpp:575
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Pridobivanje zgodovine datoteke ni uspelo: izvršljive datoteke git ni mogoče "
 "najti na poti PATH"
 
-#: lib/filehistorywidget.cpp:583
+#: lib/filehistorywidget.cpp:601
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Pridobivanje zgodovine datoteke ni uspelo: %1"
 
-#: lib/filehistorywidget.cpp:598
+#: lib/filehistorywidget.cpp:616
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Kopiraj razpršilo potrdila"
 
-#: lib/filehistorywidget.cpp:606
+#: lib/filehistorywidget.cpp:624
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Prikaži celotno potrdilo"
 
-#: lib/filehistorywidget.cpp:742
+#: lib/filehistorywidget.cpp:760
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"

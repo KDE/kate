@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"POT-Creation-Date: 2026-10-29 00:56+0000\n"
 "PO-Revision-Date: 2026-09-23 06:56+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
@@ -166,7 +166,7 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - تېكىست تەھرىرلىگۈچ"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
-#: lib/filehistorywidget.cpp:487 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "سۈزگۈچ…"
@@ -183,7 +183,7 @@ msgid "Copy Location"
 msgstr "ئورنىنى كۆچۈر"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -198,7 +198,7 @@ msgstr "%1 => %2 ئات ئۆزگەرت"
 msgid "Invalid hash"
 msgstr "ئىناۋەتسىز hash"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "git خەزىنەدە %1 مەۋجۇت ئەمەس."
@@ -587,13 +587,13 @@ msgstr "ئۆچۈرۈلگەن ھۆججەت %1"
 msgid "No differences found"
 msgstr "ھېچقانداق پەرق تېپىلمىدى"
 
-#: lib/filehistorywidget.cpp:271
+#: lib/filehistorywidget.cpp:279
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "ئىناۋەتسىز چېسلا: %1"
 
-#: lib/filehistorywidget.cpp:495
+#: lib/filehistorywidget.cpp:513
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -610,31 +610,31 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:557
+#: lib/filehistorywidget.cpp:575
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "ھۆججەت تارىخىغا ئېرىشەلمىدى: git نىڭ ئىجرا قىلىشچان ھۆججىتىنى مۇھىت "
 "ئۆزگەرگۈچى مىقدار يولى يەنى PATH دە بەلگىلەنگەن جايدىن تاپالمىدى"
 
-#: lib/filehistorywidget.cpp:583
+#: lib/filehistorywidget.cpp:601
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "ھۆججەت تارىخىغا ئېرىشەلمىدى: %1"
 
-#: lib/filehistorywidget.cpp:598
+#: lib/filehistorywidget.cpp:616
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "تاپشۇرۇش Hash قىممىتىنى كۆچۈر"
 
-#: lib/filehistorywidget.cpp:606
+#: lib/filehistorywidget.cpp:624
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "تولۇق تاپشۇرمىنى كۆرسەت"
 
-#: lib/filehistorywidget.cpp:742
+#: lib/filehistorywidget.cpp:760
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"

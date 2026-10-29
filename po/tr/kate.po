@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"POT-Creation-Date: 2026-10-29 00:56+0000\n"
 "PO-Revision-Date: 2026-10-16 18:40+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -181,7 +181,7 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite — Metin Düzenleyicisi"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
-#: lib/filehistorywidget.cpp:487 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Süz…"
@@ -198,7 +198,7 @@ msgid "Copy Location"
 msgstr "Konumu Kopyala"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -213,7 +213,7 @@ msgstr "%1, %2 olarak yeniden adlandırıldı"
 msgid "Invalid hash"
 msgstr "Geçersiz sağlama"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1, bir Git deposunda yok."
@@ -609,13 +609,13 @@ msgstr "Silinen dosya %1"
 msgid "No differences found"
 msgstr "Fark bulunamadı."
 
-#: lib/filehistorywidget.cpp:271
+#: lib/filehistorywidget.cpp:279
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Geçersiz tarih: %1"
 
-#: lib/filehistorywidget.cpp:495
+#: lib/filehistorywidget.cpp:513
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -644,29 +644,29 @@ msgstr ""
 "terimi sağlanırsa tüm terimlerle eşleşen iletiler gösterilecektir.</li></"
 "ul>Süzgeci tetiklemek için <b>Giriş</b> düğmesine basın."
 
-#: lib/filehistorywidget.cpp:557
+#: lib/filehistorywidget.cpp:575
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "Dosya geçmişi alınamadı: PATH içinde git yürütülebiliri bulunamadı"
 
-#: lib/filehistorywidget.cpp:583
+#: lib/filehistorywidget.cpp:601
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Dosya geçmişi alınamadı: %1"
 
-#: lib/filehistorywidget.cpp:598
+#: lib/filehistorywidget.cpp:616
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "İşleme Sağlamasını Kopyala"
 
-#: lib/filehistorywidget.cpp:606
+#: lib/filehistorywidget.cpp:624
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Tüm İşlemeyi Göster"
 
-#: lib/filehistorywidget.cpp:742
+#: lib/filehistorywidget.cpp:760
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"

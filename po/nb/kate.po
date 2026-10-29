@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"POT-Creation-Date: 2026-10-29 00:56+0000\n"
 "PO-Revision-Date: 2026-03-01 12:27+0100\n"
 "Last-Translator: Kjetil Sørlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@nuug.no>\n"
@@ -172,7 +172,7 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite – skriveprogram"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
-#: lib/filehistorywidget.cpp:487 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Filter …"
@@ -189,7 +189,7 @@ msgid "Copy Location"
 msgstr "Kopier filadresse"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -204,7 +204,7 @@ msgstr "Endret navn %1 → %2"
 msgid "Invalid hash"
 msgstr "Ugyldig nøkkel"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:723
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 finnes ikke i et Gir-depot."
@@ -603,13 +603,13 @@ msgstr "Slettet fil %1"
 msgid "No differences found"
 msgstr "Fant ingen forskjeller"
 
-#: lib/filehistorywidget.cpp:271
+#: lib/filehistorywidget.cpp:279
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Ugyldig dato: %1"
 
-#: lib/filehistorywidget.cpp:495
+#: lib/filehistorywidget.cpp:513
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -638,31 +638,31 @@ msgstr ""
 "meldinger som samsvarer med alle søkeordene.</li></ul>Trykk <b>Enter</b>-"
 "tasten for å aktivere filteret."
 
-#: lib/filehistorywidget.cpp:557
+#: lib/filehistorywidget.cpp:575
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Klarte ikke hente filhistorikken: fant ikke programfila «git» i søkestien "
 "(PATH-variabelen)"
 
-#: lib/filehistorywidget.cpp:583
+#: lib/filehistorywidget.cpp:601
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Klarte ikke hente filhistorikken: %1"
 
-#: lib/filehistorywidget.cpp:598
+#: lib/filehistorywidget.cpp:616
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Kopier innmeldings-ID"
 
-#: lib/filehistorywidget.cpp:606
+#: lib/filehistorywidget.cpp:624
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Vis full innmelding"
 
-#: lib/filehistorywidget.cpp:742
+#: lib/filehistorywidget.cpp:760
 #, fuzzy, kde-format
 #| msgctxt "@title:tab"
 #| msgid "File History - %1"

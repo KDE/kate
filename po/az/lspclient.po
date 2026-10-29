@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-25 00:54+0000\n"
+"POT-Creation-Date: 2026-10-29 00:56+0000\n"
 "PO-Revision-Date: 2023-06-30 14:00+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -391,44 +391,51 @@ msgstr "Yenidən başladılmır"
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Server gözlənilmədən dayandı ...%1 [%2] [ev_səhifəsi: %3]"
 
-#: lspclientservermanager.cpp:927
+#: lspclientservermanager.cpp:734
+#, kde-format
+msgid ""
+"Found old LSP config format for language '%1', please migrate to the new "
+"format with a 'servers' sub-object."
+msgstr ""
+
+#: lspclientservermanager.cpp:950
 #, fuzzy, kde-format
 #| msgid "Failed to find server binary: %1"
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Server binar faylı tapılmadı: %1"
 
-#: lspclientservermanager.cpp:930 lspclientservermanager.cpp:995
+#: lspclientservermanager.cpp:953 lspclientservermanager.cpp:1018
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "İkili fayl üçün yolu (PATH) yoxlayın"
 
-#: lspclientservermanager.cpp:931 lspclientservermanager.cpp:996
+#: lspclientservermanager.cpp:954 lspclientservermanager.cpp:1019
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Quraşdırma və təfərrüatlar üçün həmçinin %1-ə/a baxın"
 
-#: lspclientservermanager.cpp:992
+#: lspclientservermanager.cpp:1015
 #, fuzzy, kde-format
 #| msgid "Failed to start server: %1"
 msgid "Failed to start server '%1' for language '%2'"
 msgstr "Server başladıla bilmədi: %1"
 
-#: lspclientservermanager.cpp:1000
+#: lspclientservermanager.cpp:1023
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Başladılan server %2: %1"
 
-#: lspclientservermanager.cpp:1047
+#: lspclientservermanager.cpp:1105
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "\"%1\" server tənzimləməsi təhlil edilə bilmədi: JSON obyekti yoxdur"
 
-#: lspclientservermanager.cpp:1050
+#: lspclientservermanager.cpp:1108
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "\"%1\" server tənzimləməsi təhlil edilə bilmədi: %2"
 
-#: lspclientservermanager.cpp:1054
+#: lspclientservermanager.cpp:1112
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Server tənzimləmələri oxuna bilmədi: %1"

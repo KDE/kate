@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-25 00:54+0000\n"
+"POT-Creation-Date: 2026-10-29 00:56+0000\n"
 "PO-Revision-Date: 2026-03-04 12:36+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -389,43 +389,50 @@ msgstr "NU se repornește"
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Serverul s-a terminat pe neașteptate ... %1 [%2] [pagină: %3] "
 
-#: lspclientservermanager.cpp:927
+#: lspclientservermanager.cpp:734
+#, kde-format
+msgid ""
+"Found old LSP config format for language '%1', please migrate to the new "
+"format with a 'servers' sub-object."
+msgstr ""
+
+#: lspclientservermanager.cpp:950
 #, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Binarul serverului „%1” pentru limbajul „%2” nu a fost găsit"
 
-#: lspclientservermanager.cpp:930 lspclientservermanager.cpp:995
+#: lspclientservermanager.cpp:953 lspclientservermanager.cpp:1018
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Verificați căile din PATH pentru prezența binarului"
 
-#: lspclientservermanager.cpp:931 lspclientservermanager.cpp:996
+#: lspclientservermanager.cpp:954 lspclientservermanager.cpp:1019
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Consultați și %1 pentru instalare sau detalii"
 
-#: lspclientservermanager.cpp:992
+#: lspclientservermanager.cpp:1015
 #, kde-format
 msgid "Failed to start server '%1' for language '%2'"
 msgstr "Pornirea serverului „%1” pentru limbajul „%2” a eșuat"
 
-#: lspclientservermanager.cpp:1000
+#: lspclientservermanager.cpp:1023
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "A fost pornit serverul %2: %1"
 
-#: lspclientservermanager.cpp:1047
+#: lspclientservermanager.cpp:1105
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Parcurgerea configurației „%1” a serverului a eșuat: niciun obiect JSON"
 
-#: lspclientservermanager.cpp:1050
+#: lspclientservermanager.cpp:1108
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Parcurgerea configurației „%1” a serverului a eșuat: %2"
 
-#: lspclientservermanager.cpp:1054
+#: lspclientservermanager.cpp:1112
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Citirea configurației serverului a eșuat: %1"

@@ -121,6 +121,12 @@
 </listitem>
 <listitem>
 <para
+><link linkend="kate-application-plugin-deployment"
+>Deployment-plug-in</link
+> - Projectbestanden uploaden en door een externe SFTP-host bladeren</para>
+</listitem>
+<listitem>
+<para
 >Replicode - Constructivist AI taal en runtime</para>
 </listitem>
 <listitem>
@@ -3849,6 +3855,172 @@ context menu Project->Lookup:xxx
 
 </sect1>
 
+<sect1 id="kate-application-plugin-deployment">
+<title
+>Deployment-plug-in</title>
+
+<para
+>De Deployment-plug-in uploadt bestanden van het actieve project naar een SFTP-server. Daarnaast biedt deze een <guilabel
+>Remote Host</guilabel
+>-weergave om door de geconfigureerde doelmap te bladeren en bestanden op de externe server direct in &kate; te openen. De <link linkend="kate-application-plugin-projects"
+>Project-plug-in</link
+> moet zijn ingeschakeld.</para>
+
+<sect2 id="deployment-configuration">
+<title
+>Projectconfiguratie:</title>
+
+<para
+>Voeg een <literal
+>deployment</literal
+>-object toe aan het <filename
+>.kateproject</filename
+>-bestand van het project:</para>
+
+<screen
+>{
+  "name": "Voorbeeld",
+  "files": [ { "git": 1 } ],
+  "deployment": {
+    "host": "example.org",
+    "port": 22,
+    "user": "deploy",
+    "localRoot": ".",
+    "remoteRoot": "/var/www/example",
+    "exclude": [
+      ".git",
+      ".kateproject*",
+      "build",
+      "*.tmp"
+    ]
+  }
+}
+</screen>
+
+<variablelist>
+<varlistentry>
+<term
+><literal
+>host</literal
+></term>
+<listitem
+><para
+>De vereiste hostnaam of het IP-adres van de server. Neem geen <literal
+>sftp://</literal
+>-schema of gebruikersnaam op.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>poort</literal
+></term>
+<listitem
+><para
+>De SSH-poort, van 1 tot en met 65535. Indien weggelaten, wordt standaard 22 gebruikt.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>gebruiker</literal
+></term>
+<listitem
+><para
+>De SSH-gebruikersnaam. Indien weggelaten, gebruikt KIO de standaardinstelling voor de host.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>localRoot</literal
+></term>
+<listitem
+><para
+>De lokale map waarvan de inhoud wordt toegewezen aan <literal
+>remoteRoot</literal
+>. Een relatief pad wordt bepaald vanuit de basis-map van het project. De standaardwaarde is de basis-map van het project. De map moet bestaan ​​en zich binnen het project bevinden.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>remoteRoot</literal
+></term>
+<listitem
+><para
+>De vereiste absolute doelmap op de server. Onderdelen voor navigatie naar bovenliggende mappen zijn niet toegestaan.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>exclude</literal
+></term>
+<listitem
+><para
+>Een optionele reeks wildcardpatronen die relatief zijn aan het project. Een patroon zonder slash komt overeen met elk padonderdeel; <literal
+>build</literal
+> sluit dus mappen of bestanden met die naam uit, ongeacht de diepte. Patronen die een slash bevatten, komen overeen met paden relatief aan <literal
+>localRoot</literal
+>.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<para
+>Wachtwoorden en privésleutels worden niet in de projectconfiguratie opgeslagen. Authenticatie, verificatie van hostsleutels en wallet-integratie worden afgehandeld door KIO.</para>
+
+<para
+>Gedeelde instellingen kunnen worden vastgelegd in <filename
+>.kateproject</filename
+>. Om machinespecifieke serverpaden of accounts buiten versiebeheer te houden, plaatst u een volledig <literal
+>deployment</literal
+>-object in <filename
+>.kateproject.local</filename
+>. Het lokale object krijgt voorrang boven het object in <filename
+>.kateproject</filename
+>. De actie <guimenuitem
+>Implementatie configureren...</guimenuitem
+> schrijft deze lokale overschrijving weg, terwijl niet-gerelateerde projectinstellingen behouden blijven.</para>
+</sect2>
+
+<sect2 id="deployment-usage">
+<title
+>Uploaden en bladeren</title>
+
+<para
+><guimenuitem
+>Huidig ​​bestand uploaden</guimenuitem
+> uploadt het actieve lokale bestand en heeft de standaard sneltoetscombinatie <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>S</keycap
+></keycombo
+>. <guimenuitem
+>Project uploaden</guimenuitem
+> uploadt alle bestanden van het actieve project die niet zijn uitgesloten. Het contextmenu van een projectbestand biedt de optie <guimenuitem
+>Uploaden naar externe host</guimenuitem
+>, terwijl het contextmenu van een map de optie <guimenuitem
+>Map uploaden naar externe host</guimenuitem
+> biedt om de inhoud ervan recursief te uploaden. Ontbrekende externe mappen worden automatisch aangemaakt.</para>
+
+<para
+>De hulpmiddelweergave <guilabel
+>Remote Host</guilabel
+> doorloopt de geconfigureerde externe rootmap. Bij het openen van een extern bestand wordt de bijbehorende <literal
+>sftp://</literal
+>-URL direct bewerkt. Via het contextmenu kan het bijbehorende lokale bestand worden geopend of geüpload, indien dit bestaat. De voortgang van overdrachten en eventuele fouten worden weergegeven in de hulpmiddelweergave <guilabel
+>Bestandsoverdracht</guilabel
+>.</para>
+</sect2>
+
+</sect1>
+
 <!--FIXME Replicode
 Projects Replicode run / stop-->
 
@@ -4310,76 +4482,81 @@ Projects Replicode run / stop-->
 <screen
 >{
     "servers": {
-        "bibtex": {
-            "use": "latex",
-            "highlightingModeRegex": "^BibTeX$"
-        },
         "c": {
-            "command": ["clangd", "-log=error", "--background-index"],
-            "commandDebug": ["clangd", "-log=verbose", "--background-index"],
-            "url": "https://clang.llvm.org/extra/clangd/",
-            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
+            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$",
+            "servers" : {
+                "clangd" : {
+                    "command": ["clangd", "-log=error", "--background-index", "--limit-results=500", "--completion-style=bundled"],
+                    "commandDebug": ["clangd", "-log=verbose", "--background-index"],
+                    "url": "https://clangd.llvm.org"
+                }
+            }
         },
         "cpp": {
             "use": "c",
             "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$"
         },
-        "d": {
-            "command": ["dls", "--stdio"],
-            "url": "https://github.com/d-language-server/dls",
-            "highlightingModeRegex": "^D$"
-        },
-        "fortran": {
-            "command": ["fortls"],
-            "rootIndicationFileNames": [".fortls"],
-            "url": "https://github.com/hansec/fortran-language-server",
-            "highlightingModeRegex": "^Fortran.*$"
-        },
-        "javascript": {
-            "command": ["typescript-language-server", "--stdio"],
-            "rootIndicationFileNames": ["package.json", "package-lock.json"],
-            "url": "https://github.com/theia-ide/typescript-language-server",
-            "highlightingModeRegex": "^JavaScript.*$",
-            "documentLanguageId": false
-        },
-        "latex": {
-            "command": ["texlab"],
-            "url": "https://texlab.netlify.com/",
-            "highlightingModeRegex": "^LaTeX$"
-        },
-        "go": {
-            "command": ["go-langserver"],
-            "commandDebug": ["go-langserver", "-trace"],
-            "url": "https://github.com/sourcegraph/go-langserver",
-            "highlightingModeRegex": "^Go$"
+        "dart": {
+            "highlightingModeRegex": "^Dart$",
+            "servers" : {
+                "dart-language-server" : {
+                    "command": ["dart", "language-server"],
+                    "rootIndicationFileNames": ["pubspec.yaml", "pubspec.lock"],
+                    "settings": {
+                        "dart": {
+                            "analysisExcludedFolders": ["%{ENV:HOME}/flutter"]
+                        }
+                    },
+                    "url": "https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec",
+                    "useWorkspace": true
+                }
+            }
         },
         "python": {
-            "command": ["python3", "-m", "pyls", "--check-parent-process"],
-            "url": "https://github.com/palantir/python-language-server",
-            "highlightingModeRegex": "^Python$"
+            "highlightingModeRegex": "^Python$",
+            "servers" : {
+                "pylsp" : {
+                    "command": ["pylsp", "--check-parent-process"],
+                    "priority": 10,
+                    "url": "https://github.com/python-lsp/python-lsp-server"
+                },
+                "pyrefly" : {
+                    "command": ["pyrefly", "lsp"],
+                    "disabled": true,
+                    "rootIndicationFileNames": ["pyproject.toml"],
+                    "url": "https://github.com/facebook/pyrefly"
+                }
+            }
         },
-        "rust": {
-            "command": ["rls"],
-            "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
-            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
-            "url": "https://github.com/rust-lang/rls",
-            "highlightingModeRegex": "^Rust$"
-        },
-        "ocaml": {
-            "command": ["ocamlmerlin-lsp"],
-            "url": "https://github.com/ocaml/merlin",
-            "highlightingModeRegex": "^Objective Caml.*$"
+        "rst": {
+            "highlightingModeRegex": "^reStructuredText$",
+            "servers" : {
+                "esbonio" : {
+                    "command": ["python", "-m", "esbonio"],
+                    "initializationOptions": {
+                        "server": {
+                            "completion": {
+                                "preferredInsertBehavior": "insert"
+                            }
+                        }
+                    },
+                    "rootIndicationFileNames": ["conf.py"],
+                    "url": "https://github.com/swyddfa/esbonio"
+                }
+            }
         }
     }
 }
 </screen>
 
 <para
->Merk op dat elk "commando" een array of een tekenreeks kan zijn (in welk geval het gesplitst wordt in een array). Ook een item op het hoogste niveau "global" (volgens op "server") wordt ook meegenomen (zie verder onderstaand). Het gespecificeerde binaire bestand wordt gezocht op de gebruikelijke manier, bijv. met <literal
+>Een server kan actief worden uitgeschakeld door het attribuut "disabled" in te stellen op `true`. Hiermee kunnen servers die in de standaardinstellingen zijn opgenomen, worden uitgeschakeld. Als er meerdere servers zijn opgegeven, worden deze gestart op basis van hun prioriteit en naam. De server met de hoogste prioriteit krijgt voorrang; als de eigenschap "priority" (een geheel getal) niet is ingesteld, geldt een standaardprioriteit van 0. Het veld "command" moet een array zijn, waarbij het eerste element wordt beschouwd als het uit te voeren binaire bestand. Daarnaast wordt er gekeken naar een "global"-item op het hoogste niveau (naast "server") – zie hiervoor verderop. Het opgegeven binaire bestand wordt op de gebruikelijke wijze gezocht, bijvoorbeeld via de omgevingsvariabele <literal
 >PATH</literal
->. Als het geïnstalleerd is in een aangepaste locatie, zal de laatste mogelijk uitgebreid moeten worden. Of anders, een (symbolische) koppeling of omslagscript kan gebruikt worden in een locatie die binnen het gebruikelijke <literal
+>. Als het bestand op een afwijkende locatie is geïnstalleerd, moet <literal
 >PATH</literal
-> valt. Zoals bovenstaand geïllustreerd, kan ook een "pad" gespecificeerd worden waarin gezocht zal worden na de standaard locaties. </para>
+> mogelijk worden uitgebreid. Een alternatief is het gebruik van een (symbolische) link of een wrapper-script op een locatie die al in het standaard <literal
+>PATH</literal
+> is opgenomen. Zoals hierboven aangegeven, is het ook mogelijk om een ​​"path"-waarde op te geven; deze locatie wordt dan doorzocht nadat de standaardlocaties zijn gecontroleerd. </para>
 
 <para
 >Alle items in "commando", "root" en "pad" zijn onderworpen aan expansie van variabelen. </para>

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:56+0000\n"
-"PO-Revision-Date: 2025-12-30 05:46+0100\n"
+"PO-Revision-Date: 2026-10-29 03:27+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.10\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:357
 #, kde-format
@@ -395,6 +395,8 @@ msgid ""
 "Found old LSP config format for language '%1', please migrate to the new "
 "format with a 'servers' sub-object."
 msgstr ""
+"აღმოჩენილია ძველი LSP-ის კონფიგურაციის ფორმატი ენისთვის '%1'. გადადით ახალ "
+"ფორმატზე ქვეობიექტით 'servers'."
 
 #: lspclientservermanager.cpp:950
 #, kde-format

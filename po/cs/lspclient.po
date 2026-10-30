@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:56+0000\n"
-"PO-Revision-Date: 2026-06-14 12:08+0200\n"
+"PO-Revision-Date: 2026-10-30 01:01+0100\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 26.04.2\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:357
 #, kde-format
@@ -396,6 +396,8 @@ msgid ""
 "Found old LSP config format for language '%1', please migrate to the new "
 "format with a 'servers' sub-object."
 msgstr ""
+"Byl nalezen starý formát nastavení LSP pro jazyk '%1'. Přejděte prosím na "
+"nový formát s podobjektem 'servers'."
 
 #: lspclientservermanager.cpp:950
 #, kde-format

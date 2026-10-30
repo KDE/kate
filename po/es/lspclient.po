@@ -1,15 +1,15 @@
 # Spanish translations for lspclient.po package.
-# Copyright (C) 2019-2025 This file is copyright:
+# Copyright (C) 2019-2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # Automatically generated, 2019.
 #
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2019-2026 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:56+0000\n"
-"PO-Revision-Date: 2025-12-31 18:14+0100\n"
+"PO-Revision-Date: 2026-10-29 12:32+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:357
 #, kde-format
@@ -398,6 +398,9 @@ msgid ""
 "Found old LSP config format for language '%1', please migrate to the new "
 "format with a 'servers' sub-object."
 msgstr ""
+"Se ha encontrado un formato de configuración de LSP antiguo para el lenguaje "
+"«%1». Debería migrarlo al nuevo formato que contiene un objeto «servers» "
+"anidado."
 
 #: lspclientservermanager.cpp:950
 #, kde-format
@@ -644,18 +647,3 @@ msgstr "Cliente &LSP"
 #, kde-format
 msgid "More Options"
 msgstr "Más opciones"
-
-#~ msgid "No JSON data to validate."
-#~ msgstr "No hay datos JSON para validar."
-
-#~ msgid "JSON data is valid."
-#~ msgstr "Los datos JSON son válidos."
-
-#~ msgid "JSON data is invalid: no JSON object"
-#~ msgstr "Los datos JSON no son válidos: ningún objeto JSON."
-
-#~ msgid "JSON data is invalid: %1"
-#~ msgstr "Los datos JSON no son válidos: %1"
-
-#~ msgid "Settings File:"
-#~ msgstr "Archivo de preferencias:"

@@ -4507,72 +4507,75 @@ Projects Replicode run / stop-->
 <screen
 >{
     "servers": {
-        "bibtex": {
-            "use": "latex",
-            "highlightingModeRegex": "^BibTeX$"
-        },
         "c": {
-            "command": ["clangd", "-log=error", "--background-index"],
-            "commandDebug": ["clangd", "-log=verbose", "--background-index"],
-            "url": "https://clang.llvm.org/extra/clangd/",
-            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
+            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$",
+            "servers" : {
+                "clangd" : {
+                    "command": ["clangd", "-log=error", "--background-index", "--limit-results=500", "--completion-style=bundled"],
+                    "commandDebug": ["clangd", "-log=verbose", "--background-index"],
+                    "url": "https://clangd.llvm.org"
+                }
+            }
         },
         "cpp": {
             "use": "c",
             "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$"
         },
-        "d": {
-            "command": ["dls", "--stdio"],
-            "url": "https://github.com/d-language-server/dls",
-            "highlightingModeRegex": "^D$"
-        },
-        "fortran": {
-            "command": ["fortls"],
-            "rootIndicationFileNames": [".fortls"],
-            "url": "https://github.com/hansec/fortran-language-server",
-            "highlightingModeRegex": "^Fortran.*$"
-        },
-        "javascript": {
-            "command": ["typescript-language-server", "--stdio"],
-            "rootIndicationFileNames": ["package.json", "package-lock.json"],
-            "url": "https://github.com/theia-ide/typescript-language-server",
-            "highlightingModeRegex": "^JavaScript.*$",
-            "documentLanguageId": false
-        },
-        "latex": {
-            "command": ["texlab"],
-            "url": "https://texlab.netlify.com/",
-            "highlightingModeRegex": "^LaTeX$"
-        },
-        "go": {
-            "command": ["go-langserver"],
-            "commandDebug": ["go-langserver", "-trace"],
-            "url": "https://github.com/sourcegraph/go-langserver",
-            "highlightingModeRegex": "^Go$"
+        "dart": {
+            "highlightingModeRegex": "^Dart$",
+            "servers" : {
+                "dart-language-server" : {
+                    "command": ["dart", "language-server"],
+                    "rootIndicationFileNames": ["pubspec.yaml", "pubspec.lock"],
+                    "settings": {
+                        "dart": {
+                            "analysisExcludedFolders": ["%{ENV:HOME}/flutter"]
+                        }
+                    },
+                    "url": "https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec",
+                    "useWorkspace": true
+                }
+            }
         },
         "python": {
-            "command": ["python3", "-m", "pyls", "--check-parent-process"],
-            "url": "https://github.com/palantir/python-language-server",
-            "highlightingModeRegex": "^Python$"
+            "highlightingModeRegex": "^Python$",
+            "servers" : {
+                "pylsp" : {
+                    "command": ["pylsp", "--check-parent-process"],
+                    "priority": 10,
+                    "url": "https://github.com/python-lsp/python-lsp-server"
+                },
+                "pyrefly" : {
+                    "command": ["pyrefly", "lsp"],
+                    "disabled": true,
+                    "rootIndicationFileNames": ["pyproject.toml"],
+                    "url": "https://github.com/facebook/pyrefly"
+                }
+            }
         },
-        "rust": {
-            "command": ["rls"],
-            "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
-            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
-            "url": "https://github.com/rust-lang/rls",
-            "highlightingModeRegex": "^Rust$"
-        },
-        "ocaml": {
-            "command": ["ocamlmerlin-lsp"],
-            "url": "https://github.com/ocaml/merlin",
-            "highlightingModeRegex": "^Objective Caml.*$"
+        "rst": {
+            "highlightingModeRegex": "^reStructuredText$",
+            "servers" : {
+                "esbonio" : {
+                    "command": ["python", "-m", "esbonio"],
+                    "initializationOptions": {
+                        "server": {
+                            "completion": {
+                                "preferredInsertBehavior": "insert"
+                            }
+                        }
+                    },
+                    "rootIndicationFileNames": ["conf.py"],
+                    "url": "https://github.com/swyddfa/esbonio"
+                }
+            }
         }
     }
 }
 </screen>
 
 <para
->Зауважте, що кожен запис команди («command») може масивом або рядком (який буде поділено на записи масиву). Крім того, буде взято до уваги запис верхнього рівня «global» (поряд із «server»)(докладніший опис наведено нижче). Пошук вказаного виконуваного файла відбуватиметься у звичний спосіб, наприклад, з використанням <literal
+>Сервер можна примусово вимкнути, встановивши для атрибута «disabled» значення «true». Це надає змогу вимикати сервери, які вже є у типових налаштуваннях. Якщо вказано кілька серверів, вони запускатимуться відповідно до їхнього пріоритету та назви. Перевагу має сервер із найвищим пріоритетом; якщо цілочисельна властивість «priority» не задана, типово буде використано значення 0. Параметр «command» має бути масивом, причому перший елемент вважається виконуваним файлом, який слід запустити. Крім того, буде взято до уваги запис верхнього рівня «global» (поряд із «server»)(докладніший опис наведено нижче). Пошук вказаного виконуваного файла відбуватиметься у звичний спосіб, наприклад, з використанням <literal
 >PATH</literal
 >. Якщо виконуваний файл встановлено у якомусь нетиповому місці, шлях до цього місця може бути згодом розгорнуто. Крім того, можна скористатися у записі місця (символічним) посиланням або скриптом-обгорткою, який зберігається у звичайному <literal
 >PATH</literal

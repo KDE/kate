@@ -4474,72 +4474,75 @@ Projects Replicode run / stop-->
 <screen
 >{
     "servers": {
-        "bibtex": {
-            "use": "latex",
-            "highlightingModeRegex": "^BibTeX$"
-        },
         "c": {
-            "command": ["clangd", "-log=error", "--background-index"],
-            "commandDebug": ["clangd", "-log=verbose", "--background-index"],
-            "url": "https://clang.llvm.org/extra/clangd/",
-            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
+            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$",
+            "servers" : {
+                "clangd" : {
+                    "command": ["clangd", "-log=error", "--background-index", "--limit-results=500", "--completion-style=bundled"],
+                    "commandDebug": ["clangd", "-log=verbose", "--background-index"],
+                    "url": "https://clangd.llvm.org"
+                }
+            }
         },
         "cpp": {
             "use": "c",
             "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$"
         },
-        "d": {
-            "command": ["dls", "--stdio"],
-            "url": "https://github.com/d-language-server/dls",
-            "highlightingModeRegex": "^D$"
-        },
-        "fortran": {
-            "command": ["fortls"],
-            "rootIndicationFileNames": [".fortls"],
-            "url": "https://github.com/hansec/fortran-language-server",
-            "highlightingModeRegex": "^Fortran.*$"
-        },
-        "javascript": {
-            "command": ["typescript-language-server", "--stdio"],
-            "rootIndicationFileNames": ["package.json", "package-lock.json"],
-            "url": "https://github.com/theia-ide/typescript-language-server",
-            "highlightingModeRegex": "^JavaScript.*$",
-            "documentLanguageId": false
-        },
-        "latex": {
-            "command": ["texlab"],
-            "url": "https://texlab.netlify.com/",
-            "highlightingModeRegex": "^LaTeX$"
-        },
-        "go": {
-            "command": ["go-langserver"],
-            "commandDebug": ["go-langserver", "-trace"],
-            "url": "https://github.com/sourcegraph/go-langserver",
-            "highlightingModeRegex": "^Go$"
+        "dart": {
+            "highlightingModeRegex": "^Dart$",
+            "servers" : {
+                "dart-language-server" : {
+                    "command": ["dart", "language-server"],
+                    "rootIndicationFileNames": ["pubspec.yaml", "pubspec.lock"],
+                    "settings": {
+                        "dart": {
+                            "analysisExcludedFolders": ["%{ENV:HOME}/flutter"]
+                        }
+                    },
+                    "url": "https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec",
+                    "useWorkspace": true
+                }
+            }
         },
         "python": {
-            "command": ["python3", "-m", "pyls", "--check-parent-process"],
-            "url": "https://github.com/palantir/python-language-server",
-            "highlightingModeRegex": "^Python$"
+            "highlightingModeRegex": "^Python$",
+            "servers" : {
+                "pylsp" : {
+                    "command": ["pylsp", "--check-parent-process"],
+                    "priority": 10,
+                    "url": "https://github.com/python-lsp/python-lsp-server"
+                },
+                "pyrefly" : {
+                    "command": ["pyrefly", "lsp"],
+                    "disabled": true,
+                    "rootIndicationFileNames": ["pyproject.toml"],
+                    "url": "https://github.com/facebook/pyrefly"
+                }
+            }
         },
-        "rust": {
-            "command": ["rls"],
-            "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
-            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
-            "url": "https://github.com/rust-lang/rls",
-            "highlightingModeRegex": "^Rust$"
-        },
-        "ocaml": {
-            "command": ["ocamlmerlin-lsp"],
-            "url": "https://github.com/ocaml/merlin",
-            "highlightingModeRegex": "^Objective Caml.*$"
+        "rst": {
+            "highlightingModeRegex": "^reStructuredText$",
+            "servers" : {
+                "esbonio" : {
+                    "command": ["python", "-m", "esbonio"],
+                    "initializationOptions": {
+                        "server": {
+                            "completion": {
+                                "preferredInsertBehavior": "insert"
+                            }
+                        }
+                    },
+                    "rootIndicationFileNames": ["conf.py"],
+                    "url": "https://github.com/swyddfa/esbonio"
+                }
+            }
         }
     }
 }
 </screen>
 
 <para
->Cal tenir en compte que cada «command» pot ser una matriu o una cadena (en aquest cas es divideix en una matriu). A més, una entrada «global» de nivell superior (al costat de «server») també es considerarà (vegeu més a baix). El binari especificat és la cerca de la forma habitual, &pex;, utilitzant <literal
+>Es pot desactivar deliberadament un servidor establint l'atribut «disabled» a «true». Això permet desactivar els servidors que s'envien amb la configuració predeterminada. Si s'especifiquen diversos servidors, s'iniciaran en l'ordre de la seva prioritat i nom. La prioritat més alta guanyarà, la prioritat predeterminada si no s'estableix cap propietat «priority» entera és 0. L'«ordre» ha de ser una matriu i el primer element es considera que és el binari a executar. A més, una entrada «global» de nivell superior (al costat de «server») també es considerarà (vegeu més avall). El binari especificat se cerca de manera habitual, &pex;, utilitzant <literal
 >PATH</literal
 >. Si està instal·lat en una ubicació personalitzada, és possible que s'hagi d'estendre aquest últim. O de manera alternativa, es pot utilitzar un enllaç (simbòlic) o un script d'embolcall en una ubicació que estigui dins del <literal
 >PATH</literal

@@ -1181,7 +1181,11 @@ void KatePluginSearchView::startSearch()
             m_infoMessage->setAutoHide(3000);
             m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
             m_infoMessage->setView(m_mainWindow->activeView());
-            m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+            if (!m_mainWindow->activeView() || !m_mainWindow->activeView()->document()) {
+                Utils::showMessage(msg, {}, i18n("Search"), MessageType::Error);
+            } else {
+                m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+            }
             searchDone();
             return;
         }

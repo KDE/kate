@@ -637,18 +637,3 @@ msgstr "Client &LSP"
 #, kde-format
 msgid "More Options"
 msgstr "Més opcions"
-
-#~ msgid "No JSON data to validate."
-#~ msgstr "No hi ha dades JSON a validar."
-
-#~ msgid "JSON data is valid."
-#~ msgstr "Les dades JSON són vàlides."
-
-#~ msgid "JSON data is invalid: no JSON object"
-#~ msgstr "Les dades JSON no són vàlides: no és un objecte JSON"
-
-#~ msgid "JSON data is invalid: %1"
-#~ msgstr "Les dades JSON no són vàlides: %1"
-
-#~ msgid "Settings File:"
-#~ msgstr "Fitxer de configuració:"

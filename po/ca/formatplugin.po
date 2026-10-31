@@ -103,18 +103,3 @@ msgstr "«formatterForYaml» desconegut: %1, es torna de nou al «yamlfmt»"
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Ha fallat en executar el formatador. Llenguatge %1 no implementat"
-
-#~ msgid "User Settings"
-#~ msgstr "Configuració de l'usuari"
-
-#~ msgid "Default Settings"
-#~ msgstr "Configuració predeterminada"
-
-#~ msgid "Please install node and prettier"
-#~ msgstr "Instal·leu el «note» i el «prettier»"
-
-#~ msgid "PrettierFormat: Failed to create temporary file"
-#~ msgstr "PrettierFormat: Ha fallat en crear el fitxer temporal"
-
-#~ msgid "PrettierFormat: Failed to start 'node': %1"
-#~ msgstr "PrettierFormat: Ha fallat en iniciar el «node»: %1"

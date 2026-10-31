@@ -1221,12 +1221,3 @@ msgstr "&Projectes"
 #, kde-format
 msgid "Project Plugin"
 msgstr "Connector de projecte"
-
-#~ msgid "Show Stash Content"
-#~ msgstr "Mostra el contingut de la modificació temporal"
-
-#~ msgid "Delete File"
-#~ msgstr "Suprimeix el fitxer"
-
-#~ msgid "Do you want to delete the file '%1'?"
-#~ msgstr "Voleu suprimir el fitxer «%1»?"

@@ -232,19 +232,3 @@ msgstr "Longitud de la clau"
 #, kde-format
 msgid "User IDs"
 msgstr "ID d'usuaris"
-
-#~ msgid "Save as ASCII encoded (.asc/.gpg)"
-#~ msgstr "Desa com a codificat ASCII (.asc/.gpg)"
-
-#~ msgid ""
-#~ "Attempted double encryption detected!\n"
-#~ "Encrypting more than once is disabled for now..."
-#~ msgstr ""
-#~ "S'ha detectat un intent d'encriptatge doble!\n"
-#~ "L'encriptatge més d'una vegada està desactivat de moment..."
-
-#~ msgid "Warning"
-#~ msgstr "Avís"
-
-#~ msgid "Error"
-#~ msgstr "Error"

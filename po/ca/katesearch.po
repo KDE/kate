@@ -751,6 +751,3 @@ msgstr "&Edita"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Variants de la cerca en els fitxers"
-
-#~ msgid "Export Pattern"
-#~ msgstr "Exporta el patró"

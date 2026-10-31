@@ -20,6 +20,7 @@ public:
     QRegularExpression regExp;
     bool useRegExp = false;
     bool matchCase = false;
+    bool smartCase = false;
     QString searchStr;
     QString replaceStr;
     int searchPlaceIndex = 0;

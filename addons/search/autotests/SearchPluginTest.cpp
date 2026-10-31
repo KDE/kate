@@ -22,6 +22,7 @@
 #include <QPushButton>
 #include <QStackedWidget>
 #include <QTest>
+#include <QToolButton>
 #include <QTreeView>
 #include <QUrl>
 
@@ -38,6 +39,7 @@ private Q_SLOTS:
     void init();
 
     void testSearchInOpenFiles();
+    void testSmartCase();
     void testGoToNextMatch();
     void testSearchInFolder();
     void testReplaceChecked();
@@ -202,6 +204,30 @@ void SearchPluginTest::testSearchInOpenFiles()
              u"  2:5: baz [Foo]\n"
              u"c.txt\n"
              u"  1:2: x[foo]\n"_s);
+}
+
+void SearchPluginTest::testSmartCase()
+{
+    auto smartCase = m_toolView->findChild<QToolButton *>(u"smartCase"_s);
+    QVERIFY(smartCase);
+    smartCase->setChecked(true);
+
+    QVERIFY(openText(u"foo bar\nbaz Foo\n"_s, u"a.txt"_s));
+
+    // lowercase pattern: case-insensitive
+    QVERIFY(search(u"foo"_s, MatchModel::OpenFiles));
+    QCOMPARE(results(),
+             u"a.txt\n"
+             u"  1:1: [foo] bar\n"
+             u"  2:5: baz [Foo]\n"_s);
+
+    // pattern with uppercase: case-sensitive
+    QVERIFY(search(u"Foo"_s, MatchModel::OpenFiles));
+    QCOMPARE(results(),
+             u"a.txt\n"
+             u"  2:5: baz [Foo]\n"_s);
+
+    smartCase->setChecked(false);
 }
 
 void SearchPluginTest::testGoToNextMatch()

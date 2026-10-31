@@ -10,6 +10,8 @@
 #include "MatchExportDialog.h"
 #include "MatchProxyModel.h"
 
+#include <algorithm>
+
 #include <KTextEditor/Document>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/movingrange.h>
@@ -367,6 +369,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     // Gnome does not seem to have all icons we want, so we use fall-back icons for those that are missing.
     QIcon dispOptIcon = QIcon::fromTheme(QStringLiteral("configure"), QIcon::fromTheme(QStringLiteral("preferences-system")));
     QIcon matchCaseIcon = QIcon::fromTheme(QStringLiteral("format-text-superscript"), QIcon::fromTheme(QStringLiteral("format-text-bold")));
+    QIcon smartCaseIcon = QIcon::fromTheme(QStringLiteral("format-text-capitalize"), matchCaseIcon);
     QIcon useRegExpIcon = QIcon::fromTheme(QStringLiteral("code-context"), QIcon::fromTheme(QStringLiteral("edit-find-replace")));
     QIcon expandResultsIcon = QIcon::fromTheme(QStringLiteral("view-list-tree"), QIcon::fromTheme(QStringLiteral("format-indent-more")));
 
@@ -380,6 +383,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     m_ui.nextButton->setIcon(QIcon::fromTheme(QStringLiteral("go-down-search")));
     m_ui.stopButton->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
     m_ui.matchCase->setIcon(matchCaseIcon);
+    m_ui.smartCase->setIcon(smartCaseIcon);
     m_ui.useRegExp->setIcon(useRegExpIcon);
     m_ui.expandResults->setIcon(expandResultsIcon);
     m_ui.filterBtn->setIcon(QIcon::fromTheme(QStringLiteral("view-filter")));
@@ -426,10 +430,16 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     connect(m_ui.searchCombo, &QComboBox::editTextChanged, &m_changeTimer, qOverload<>(&QTimer::start));
     connect(m_ui.matchCase, &QToolButton::toggled, &m_changeTimer, qOverload<>(&QTimer::start));
-    connect(m_ui.matchCase, &QToolButton::toggled, this, [this] {
-        Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
-        if (res) {
-            res->matchCase = m_ui.matchCase->isChecked();
+    connect(m_ui.matchCase, &QToolButton::toggled, this, [this](bool checked) {
+        m_ui.smartCase->setEnabled(!checked);
+        if (Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget())) {
+            res->matchCase = checked;
+        }
+    });
+    connect(m_ui.smartCase, &QToolButton::toggled, &m_changeTimer, qOverload<>(&QTimer::start));
+    connect(m_ui.smartCase, &QToolButton::toggled, this, [this](bool checked) {
+        if (Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget())) {
+            res->smartCase = checked;
         }
     });
 
@@ -1097,7 +1107,13 @@ void KatePluginSearchView::startSearch()
     QString pattern = (m_ui.useRegExp->isChecked() ? currentSearchText : QRegularExpression::escape(currentSearchText));
     QRegularExpression::PatternOptions patternOptions = QRegularExpression::UseUnicodePropertiesOption;
     if (!m_ui.matchCase->isChecked()) {
-        patternOptions |= QRegularExpression::CaseInsensitiveOption;
+        const bool smartCase = m_ui.smartCase->isChecked();
+        const bool hasUpper = std::any_of(currentSearchText.cbegin(), currentSearchText.cend(), [](QChar c) {
+            return c.isUpper();
+        });
+        if (!smartCase || !hasUpper) {
+            patternOptions |= QRegularExpression::CaseInsensitiveOption;
+        }
     }
 
     if (m_ui.useRegExp->isChecked() && pattern.contains(QLatin1String("\\n"))) {
@@ -1118,6 +1134,7 @@ void KatePluginSearchView::startSearch()
     m_searchingTab->regExp = reg;
     m_searchingTab->useRegExp = m_ui.useRegExp->isChecked();
     m_searchingTab->matchCase = m_ui.matchCase->isChecked();
+    m_searchingTab->smartCase = m_ui.smartCase->isChecked();
     m_searchingTab->searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
 
     m_ui.newTabButton->setDisabled(true);
@@ -1132,6 +1149,7 @@ void KatePluginSearchView::startSearch()
     m_ui.searchPlaceCombo->setDisabled(true);
     m_ui.useRegExp->setDisabled(true);
     m_ui.matchCase->setDisabled(true);
+    m_ui.smartCase->setDisabled(true);
     m_ui.expandResults->setDisabled(true);
     m_ui.currentFolderButton->setDisabled(true);
 
@@ -1296,7 +1314,13 @@ void KatePluginSearchView::startSearchWhileTyping()
     QString pattern = (m_ui.useRegExp->isChecked() ? currentSearchText : QRegularExpression::escape(currentSearchText));
     QRegularExpression::PatternOptions patternOptions = QRegularExpression::UseUnicodePropertiesOption;
     if (!m_ui.matchCase->isChecked()) {
-        patternOptions |= QRegularExpression::CaseInsensitiveOption;
+        const bool smartCase = m_ui.smartCase->isChecked();
+        const bool hasUpper = std::any_of(currentSearchText.cbegin(), currentSearchText.cend(), [](QChar c) {
+            return c.isUpper();
+        });
+        if (!smartCase || !hasUpper) {
+            patternOptions |= QRegularExpression::CaseInsensitiveOption;
+        }
     }
     if (m_searchingTab->useRegExp && pattern.contains(QLatin1String("\\n"))) {
         patternOptions |= QRegularExpression::MultilineOption;
@@ -1387,6 +1411,7 @@ void KatePluginSearchView::searchDone()
     m_ui.searchPlaceCombo->setDisabled(false);
     m_ui.useRegExp->setDisabled(false);
     m_ui.matchCase->setDisabled(false);
+    m_ui.smartCase->setEnabled(!m_ui.matchCase->isChecked());
     m_ui.expandResults->setDisabled(false);
     m_ui.currentFolderButton->setDisabled(m_ui.searchPlaceCombo->currentIndex() != MatchModel::Folder);
 
@@ -1586,6 +1611,7 @@ void KatePluginSearchView::replaceChecked()
     m_ui.searchPlaceCombo->setDisabled(true);
     m_ui.useRegExp->setDisabled(true);
     m_ui.matchCase->setDisabled(true);
+    m_ui.smartCase->setDisabled(true);
     m_ui.expandResults->setDisabled(true);
     m_ui.currentFolderButton->setDisabled(true);
 
@@ -1607,6 +1633,7 @@ void KatePluginSearchView::replaceDone()
     m_ui.searchPlaceCombo->setDisabled(false);
     m_ui.useRegExp->setDisabled(false);
     m_ui.matchCase->setDisabled(false);
+    m_ui.smartCase->setEnabled(!m_ui.matchCase->isChecked());
     m_ui.expandResults->setDisabled(false);
     m_ui.currentFolderButton->setDisabled(false);
     updateMatchMarks();
@@ -2009,6 +2036,8 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
     m_ui.replaceCombo->addItem(QString()); // Add empty Item
     m_ui.replaceCombo->addItems(cg.readEntry("Replaces", QStringList()));
     m_ui.matchCase->setChecked(cg.readEntry("MatchCase", false));
+    m_ui.smartCase->setChecked(cg.readEntry("SmartCase", false));
+    m_ui.smartCase->setEnabled(!m_ui.matchCase->isChecked());
     m_ui.useRegExp->setChecked(cg.readEntry("UseRegExp", false));
     m_ui.expandResults->setChecked(cg.readEntry("ExpandSearchResults", false));
 
@@ -2061,6 +2090,7 @@ void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
     cg.writeEntry("Replaces", replaceHistoy);
 
     cg.writeEntry("MatchCase", m_ui.matchCase->isChecked());
+    cg.writeEntry("SmartCase", m_ui.smartCase->isChecked());
     cg.writeEntry("UseRegExp", m_ui.useRegExp->isChecked());
     cg.writeEntry("ExpandSearchResults", m_ui.expandResults->isChecked());
 
@@ -2113,6 +2143,7 @@ void KatePluginSearchView::addTab()
     res->searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
     res->useRegExp = m_ui.useRegExp->isChecked();
     res->matchCase = m_ui.matchCase->isChecked();
+    res->smartCase = m_ui.smartCase->isChecked();
     m_ui.resultWidget->addWidget(res);
     m_tabBar->addTab(QString());
     m_tabBar->setCurrentIndex(m_tabBar->count() - 1);
@@ -2201,16 +2232,20 @@ void KatePluginSearchView::resultTabChanged(int index)
 
     m_ui.searchCombo->blockSignals(true);
     m_ui.matchCase->blockSignals(true);
+    m_ui.smartCase->blockSignals(true);
     m_ui.useRegExp->blockSignals(true);
     m_ui.searchPlaceCombo->blockSignals(true);
 
     m_ui.searchCombo->lineEdit()->setText(res->searchStr);
     m_ui.useRegExp->setChecked(res->useRegExp);
     m_ui.matchCase->setChecked(res->matchCase);
+    m_ui.smartCase->setChecked(res->smartCase);
+    m_ui.smartCase->setEnabled(!res->matchCase);
     m_ui.searchPlaceCombo->setCurrentIndex(res->searchPlaceIndex);
 
     m_ui.searchCombo->blockSignals(false);
     m_ui.matchCase->blockSignals(false);
+    m_ui.smartCase->blockSignals(false);
     m_ui.useRegExp->blockSignals(false);
     m_ui.searchPlaceCombo->blockSignals(false);
     searchPlaceChanged();

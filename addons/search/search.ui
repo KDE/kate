@@ -129,6 +129,22 @@
          </widget>
         </item>
         <item>
+         <widget class="QToolButton" name="smartCase">
+          <property name="toolTip">
+           <string>Smart case: Case-sensitive only when search pattern contains uppercase characters</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="autoRaise">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QToolButton" name="useRegExp">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable regular expressions. Find help for regex syntax by using the buttons in the search and replace text fields.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -525,6 +541,7 @@
   <tabstop>searchPlaceCombo</tabstop>
   <tabstop>currentFolderButton</tabstop>
   <tabstop>matchCase</tabstop>
+  <tabstop>smartCase</tabstop>
   <tabstop>useRegExp</tabstop>
   <tabstop>filterBtn</tabstop>
   <tabstop>expandResults</tabstop>

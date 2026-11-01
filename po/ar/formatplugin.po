@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2025-2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-15 00:49+0000\n"
-"PO-Revision-Date: 2025-08-23 16:59+0400\n"
+"PO-Revision-Date: 2026-10-31 21:21+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #: FormatApply.h:22 FormatApply.h:40 FormatApply.h:45 FormatPlugin.cpp:88
 #: FormatPlugin.cpp:234 Formatters.cpp:286 Formatters.cpp:306
@@ -84,12 +84,12 @@ msgstr "%1 غير مثبت، الرجاء تثبيته لتتمكن من تنس�
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 crashed"
-msgstr ""
+msgstr "%1 تحطمت"
 
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 failed with exit code %2"
-msgstr ""
+msgstr "فشل %1 برمز الخروج %2"
 
 #: Formatters.cpp:286
 #, kde-format

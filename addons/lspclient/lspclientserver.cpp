@@ -542,10 +542,10 @@ static void from_json(LSPServerCapabilities &caps, const rapidjson::Value &json)
     caps.diagnosticProvider = json.HasMember("diagnosticProvider");
 }
 
-static QUrl urlFromRemote(const QString &s, bool normalize = true)
+static QUrl urlFromRemote(const QString &s)
 {
     auto url = urlTransform(QUrl(s), false);
-    return normalize ? Utils::normalizeUrl(url) : url;
+    return Utils::normalizeUrl(url);
 }
 
 static void from_json(LSPVersionedTextDocumentIdentifier &id, const rapidjson::Value &json)
@@ -1007,7 +1007,7 @@ static LSPSignatureHelp parseSignatureHelp(const rapidjson::Value &result)
 static QUrl parseClangdSwitchSourceHeader(const rapidjson::Value &result)
 {
     auto surl = result.IsString() ? QString::fromUtf8(result.GetString(), result.GetStringLength()) : QString();
-    return urlFromRemote(surl, false);
+    return urlFromRemote(surl);
 }
 
 static LSPExpandedMacro parseExpandedMacro(const rapidjson::Value &result)
@@ -1242,7 +1242,7 @@ static std::vector<LSPInlayHint> parseInlayHints(const rapidjson::Value &result)
 static LSPPublishDiagnosticsParams parseDiagnostics(const rapidjson::Value &result)
 {
     return {
-        .uri = urlFromRemote(GetStringValue(result, MEMBER_URI), false),
+        .uri = urlFromRemote(GetStringValue(result, MEMBER_URI)),
         .diagnostics = parseDiagnosticsArray(GetJsonArrayForKey(result, MEMBER_DIAGNOSTICS)),
     };
 }

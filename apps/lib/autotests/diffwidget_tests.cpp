@@ -1,8 +1,13 @@
 #include "diffwidget_tests.h"
 #include "diffwidget.h"
 
+#include <QMenu>
 #include <QScrollBar>
+#include <QSignalSpy>
+#include <QStandardPaths>
 #include <QTest>
+
+#include <memory>
 
 QTEST_MAIN(DiffWidgetTests)
 
@@ -21,6 +26,12 @@ char *toString(const DiffWidget::ChangePair &p)
     buf[out] = 0;
     return qstrdup(buf);
 }
+}
+
+void DiffWidgetTests::initTestCase()
+{
+    // changing the diff style writes the config
+    QStandardPaths::setTestModeEnabled(true);
 }
 
 void DiffWidgetTests::test_scrollbarAtTopOnOpen()
@@ -86,6 +97,65 @@ void DiffWidgetTests::test_inlineDiff()
 
     QCOMPARE(DiffWidget::inlineDiff(left, right), expected);
     // qDebug() << result.left.pos << result.left.len << result.right.pos << result.right.len;
+}
+
+void DiffWidgetTests::test_editLineInMultiFileDiff_data()
+{
+    QTest::addColumn<int>("style");
+    QTest::addRow("side by side") << int(SideBySide);
+    QTest::addRow("unified") << int(Unified);
+}
+
+void DiffWidgetTests::test_editLineInMultiFileDiff()
+{
+    QFETCH(int, style);
+
+    // what GitWidget shows for "Show All" of the modified files: no file in the params, only the repository
+    const QByteArray diff =
+        "diff --git a/first.cpp b/first.cpp\n"
+        "index 1111111..2222222 100644\n"
+        "--- a/first.cpp\n"
+        "+++ b/first.cpp\n"
+        "@@ -1,2 +1,2 @@\n"
+        " int a;\n"
+        "-int b;\n"
+        "+int c;\n"
+        "diff --git a/dir/second.cpp b/dir/second.cpp\n"
+        "index 3333333..4444444 100644\n"
+        "--- a/dir/second.cpp\n"
+        "+++ b/dir/second.cpp\n"
+        "@@ -10,2 +10,3 @@\n"
+        " int x;\n"
+        "+int added;\n"
+        " int y;\n";
+
+    DiffParams params;
+    params.workingDir = QStringLiteral("/repo/");
+    params.flags.setFlag(DiffParams::ShowEditRightSide, true);
+    params.flags.setFlag(DiffParams::ShowFileName, true);
+    DiffWidget dw(params);
+    dw.openDiff(diff);
+    dw.handleStyleChange(style);
+
+    // edit the added line of the second file, it is shown in the right editor side by side and in the left one unified
+    DiffEditor *editor = style == SideBySide ? dw.m_right : dw.m_left;
+    const QTextBlock block = editor->document()->find(QStringLiteral("int added;")).block();
+    QVERIFY(block.isValid());
+    editor->setTextCursor(QTextCursor(block));
+
+    const std::unique_ptr<QMenu> menu(editor->createContextMenu());
+    const auto actions = menu->actions();
+    const auto editLine = std::find_if(actions.cbegin(), actions.cend(), [](QAction *action) {
+        return action->text() == QLatin1String("Edit Line");
+    });
+    QVERIFY(editLine != actions.cend());
+    QVERIFY((*editLine)->isEnabled());
+
+    QSignalSpy openRequests(&dw, &DiffWidget::openFileRequested);
+    (*editLine)->trigger();
+    QCOMPARE(openRequests.size(), 1);
+    QCOMPARE(openRequests.at(0).at(0).toString(), QStringLiteral("/repo/dir/second.cpp"));
+    QCOMPARE(openRequests.at(0).at(1).toInt(), 11);
 }
 
 #include "moc_diffwidget_tests.cpp"

@@ -187,6 +187,12 @@ void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
         setTextCursor(cursorForPosition(e->pos()));
     }
 
+    auto menu = createContextMenu();
+    menu->exec(viewport()->mapToGlobal(e->pos()));
+}
+
+QMenu *DiffEditor::createContextMenu()
+{
     auto menu = createStandardContextMenu();
     QAction *before = nullptr;
     if (!menu->actions().isEmpty()) {
@@ -214,11 +220,11 @@ void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
             int lineNumA = m_lineNumArea->lineNumForBlock(blockNumber);
             int lineNumB = m_lineNumArea->lineNumForBlockB(blockNumber);
             auto openFileAction = new QAction(i18n("Edit Line"), this);
-            connect(openFileAction, &QAction::triggered, this, [this, lineNumA, lineNumB] {
+            connect(openFileAction, &QAction::triggered, this, [this, blockNumber, lineNumA, lineNumB] {
                 if (m_openLineNumAEnabled && lineNumA != -1) {
-                    Q_EMIT openLineNumARequested(lineNumA, textCursor().positionInBlock());
+                    Q_EMIT openLineNumARequested(blockNumber, lineNumA, textCursor().positionInBlock());
                 } else if (m_openLineNumBEnabled && lineNumB != -1) {
-                    Q_EMIT openLineNumBRequested(lineNumB, textCursor().positionInBlock());
+                    Q_EMIT openLineNumBRequested(blockNumber, lineNumB, textCursor().positionInBlock());
                 }
             });
             menu->insertAction(before, openFileAction);
@@ -232,7 +238,7 @@ void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
 
     addStageUnstageDiscardActions(menu);
 
-    menu->exec(viewport()->mapToGlobal(e->pos()));
+    return menu;
 }
 
 void DiffEditor::mouseReleaseEvent(QMouseEvent *e)
@@ -246,12 +252,12 @@ void DiffEditor::mouseReleaseEvent(QMouseEvent *e)
             int lineNumA = m_lineNumArea->lineNumForBlock(block.blockNumber());
             int lineNumB = m_lineNumArea->lineNumForBlockB(block.blockNumber());
             if (m_openLineNumAEnabled && lineNumA != -1) {
-                Q_EMIT openLineNumARequested(lineNumA, cursor.positionInBlock());
+                Q_EMIT openLineNumARequested(block.blockNumber(), lineNumA, cursor.positionInBlock());
                 e->accept();
                 return;
 
             } else if (m_openLineNumBEnabled && lineNumB != -1) {
-                Q_EMIT openLineNumBRequested(lineNumB, cursor.positionInBlock());
+                Q_EMIT openLineNumBRequested(block.blockNumber(), lineNumB, cursor.positionInBlock());
                 e->accept();
                 return;
             }

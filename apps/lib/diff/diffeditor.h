@@ -5,6 +5,7 @@
 #pragma once
 
 #include "diffparams.h"
+#include "kateprivate_export.h"
 #include <KTextEditor/Range>
 #include <QPlainTextEdit>
 
@@ -78,6 +79,11 @@ public:
 
     bool isHunkLine(int line) const;
     void toggleFoldHunk(int block);
+
+    /**
+     * The context menu for the text cursor position, the caller owns it.
+     */
+    KATE_PRIVATE_EXPORT QMenu *createContextMenu();
     bool isHunkFolded(int blockNumber);
     const LineHighlight *highlightingForLine(int line);
 
@@ -138,6 +144,6 @@ private:
 Q_SIGNALS:
     void switchStyle(int);
     void actionTriggered(DiffEditor *e, int startLine, int endLine, int actionType, DiffParams::Flag);
-    void openLineNumARequested(int line, int columnNumber);
-    void openLineNumBRequested(int line, int columnNumber);
+    void openLineNumARequested(int blockNumber, int line, int columnNumber);
+    void openLineNumBRequested(int blockNumber, int line, int columnNumber);
 };

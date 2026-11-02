@@ -88,8 +88,12 @@ void DiffWidgetManager::openDiff(const QByteArray &diff, DiffParams p, class KTe
     if (!existing) {
         existing = new DiffWidget(p);
         mw->connect(existing, &DiffWidget::openFileRequested, mw, [mw](QString path, int line, int columnNumber) {
-            auto view = mw->openUrl(QUrl(path));
-            view->setCursorPosition(KTextEditor::Cursor(line - 1, columnNumber));
+            if (path.isEmpty()) {
+                return;
+            }
+            if (auto view = mw->openUrl(QUrl::fromLocalFile(path))) {
+                view->setCursorPosition(KTextEditor::Cursor(line - 1, columnNumber));
+            }
         });
         existing->setWindowTitle(getDiffWidgetWindowTitle(p));
         existing->setWindowIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
@@ -116,8 +120,12 @@ void DiffWidgetManager::diffDocs(KTextEditor::Document *l, KTextEditor::Document
     if (!existing) {
         existing = new DiffWidget(p);
         mw->connect(existing, &DiffWidget::openFileRequested, mw, [mw](QString path, int line, int columnNumber) {
-            auto view = mw->openUrl(QUrl(path));
-            view->setCursorPosition(KTextEditor::Cursor(line - 1, columnNumber));
+            if (path.isEmpty()) {
+                return;
+            }
+            if (auto view = mw->openUrl(QUrl::fromLocalFile(path))) {
+                view->setCursorPosition(KTextEditor::Cursor(line - 1, columnNumber));
+            }
         });
         existing->diffDocs(l, r);
         existing->setWindowTitle(i18n("Diff %1 .. %2", l->documentName(), r->documentName()));
@@ -317,18 +325,16 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     }
 
     // Connect both left and right editors to open line requests
-    connect(m_left, &DiffEditor::openLineNumARequested, this, [this](int line, int columnNumber) {
-        Q_EMIT openFileRequested(m_params.srcFile, line, columnNumber);
+    connect(m_left, &DiffEditor::openLineNumARequested, this, [this](int blockNumber, int line, int columnNumber) {
+        Q_EMIT openFileRequested(!m_params.srcFile.isEmpty() ? m_params.srcFile : fileForBlock(blockNumber), line, columnNumber);
     });
-    connect(m_left, &DiffEditor::openLineNumBRequested, this, [this](int line, int columnNumber) {
-        Q_EMIT openFileRequested(!m_params.destFile.isEmpty() ? m_params.destFile : m_params.srcFile, line, columnNumber);
-    });
-    connect(m_right, &DiffEditor::openLineNumARequested, this, [this](int line, int columnNumber) {
-        Q_EMIT openFileRequested(!m_params.destFile.isEmpty() ? m_params.destFile : m_params.srcFile, line, columnNumber);
-    });
-    connect(m_right, &DiffEditor::openLineNumBRequested, this, [this](int line, int columnNumber) {
-        Q_EMIT openFileRequested(!m_params.destFile.isEmpty() ? m_params.destFile : m_params.srcFile, line, columnNumber);
-    });
+    const auto openLineInDestFile = [this](int blockNumber, int line, int columnNumber) {
+        const QString &file = !m_params.destFile.isEmpty() ? m_params.destFile : m_params.srcFile;
+        Q_EMIT openFileRequested(!file.isEmpty() ? file : fileForBlock(blockNumber), line, columnNumber);
+    };
+    connect(m_left, &DiffEditor::openLineNumBRequested, this, openLineInDestFile);
+    connect(m_right, &DiffEditor::openLineNumARequested, this, openLineInDestFile);
+    connect(m_right, &DiffEditor::openLineNumBRequested, this, openLineInDestFile);
 
     m_commitInfo->hide();
     m_commitInfo->setWordWrapMode(QTextOption::WordWrap);
@@ -625,8 +631,21 @@ void DiffWidget::clearData()
     m_lineToDiffHunkLine.clear();
     m_params.clear();
     m_linesWithFileName.clear();
+    m_fileStartLines.clear();
     m_commitInfo->clear();
     m_commitInfo->hide();
+}
+
+QString DiffWidget::fileForBlock(int blockNumber) const
+{
+    // a diff of multiple files, e.g. git diff without a path, find the file the block belongs to
+    auto it = std::upper_bound(m_fileStartLines.cbegin(), m_fileStartLines.cend(), blockNumber, [](int block, const auto &file) {
+        return block < file.first;
+    });
+    if (it == m_fileStartLines.cbegin()) {
+        return {};
+    }
+    return QDir(m_params.workingDir).filePath(std::prev(it)->second);
 }
 
 QStringList DiffWidget::diffDocsGitArgs(KTextEditor::Document *l, KTextEditor::Document *r)
@@ -885,6 +904,8 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
             }
             i++;
 
+            m_fileStartLines.emplace_back(lineA, !tgtFile.isEmpty() ? tgtFile : srcFile);
+
             if (m_params.flags.testFlag(DiffParams::ShowFileName)) {
                 if (srcFile.isEmpty() && !tgtFile.isEmpty()) {
                     left.append(QStringLiteral("---"));
@@ -1089,6 +1110,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 }
             }
             i++;
+
+            m_fileStartLines.emplace_back(lineNo, !tgtFile.isEmpty() ? tgtFile : srcFile);
 
             if (m_params.flags.testFlag(DiffParams::ShowFileName)) {
                 if (srcFile.isEmpty() && !tgtFile.isEmpty()) {

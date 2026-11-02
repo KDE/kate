@@ -83,6 +83,7 @@ private:
     void onError(const QByteArray &error, int code);
     void parseAndShowDiff(const QByteArray &raw);
     void parseAndShowDiffUnified(const QByteArray &raw);
+    QString fileForBlock(int blockNumber) const;
     enum ApplyFlags {
         None = 0,
         Staged = 1,
@@ -122,6 +123,8 @@ private:
     std::vector<ViewLineToDiffLine> m_lineToRawDiffLine;
     std::vector<ViewLineToDiffLine> m_lineToDiffHunkLine;
     std::vector<int> m_linesWithFileName;
+    // first view line of each file => path of the file relative to m_params.workingDir
+    std::vector<std::pair<int, QString>> m_fileStartLines;
     bool m_stopScrollSync = false;
     bool m_blockShowEvent = true;
     int m_commitInfoHeight = -1;

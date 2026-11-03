@@ -8,6 +8,7 @@
 #include "diagnosticitem.h"
 #include "drawing_utils.h"
 #include "kateapp.h"
+#include "ktexteditor_utils.h"
 #include "session_diagnostic_suppression.h"
 #include "texthint/KateTextHintManager.h"
 
@@ -821,7 +822,7 @@ void DiagnosticsView::quickFix()
         return;
     }
 
-    QStandardItem *topItem = getItem(m_model, document->url());
+    QStandardItem *topItem = getItem(m_model, Utils::normalizeUrl(document->url()));
 
     // try to find current diagnostic based on cursor position
     auto pos = activeView->cursorPosition();
@@ -889,7 +890,7 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
     auto doc = view ? view->document() : nullptr;
     // We allow diagnostics for the active document always because it might be that diagnostic limit is reached
     // and the user doesn't know about it and thus won't get any further diagnostics at all while typing
-    const bool diagnosticsAreForActiveDoc = doc ? diagnostics.uri == doc->url() : false;
+    const bool diagnosticsAreForActiveDoc = doc ? diagnostics.uri == Utils::normalizeUrl(doc->url()) : false;
 
     const bool diagnosticsAreLimited = m_diagnosticLimit > -1;
     if (diagnosticsAreLimited && m_diagnosticsCount > m_diagnosticLimit && !diagnosticsAreForActiveDoc) {
@@ -1130,7 +1131,7 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
     }
 
     const auto url = item->data(DiagnosticModelRole::FileUrlRole).toUrl().toDisplayString(QUrl::PreferLocalFile | QUrl::PrettyDecoded | QUrl::RemovePassword);
-    const auto docUrl = doc->url().toDisplayString(QUrl::PreferLocalFile | QUrl::PrettyDecoded | QUrl::RemovePassword);
+    const auto docUrl = Utils::normalizeUrl(doc->url()).toDisplayString(QUrl::PreferLocalFile | QUrl::PrettyDecoded | QUrl::RemovePassword);
     // document url could end up empty while in intermediate reload state
     // (and then it might match a parent item with no RangeData at all)
     if (url != docUrl || url.isEmpty()) {
@@ -1248,7 +1249,7 @@ void DiagnosticsView::addMarksRec(KTextEditor::Document *doc, QStandardItem *ite
 {
     Q_ASSERT(item);
     // We only care about @p doc items
-    if (item->type() == DiagnosticItem_File && item->data(Qt::UserRole).toUrl() != doc->url()) {
+    if (item->type() == DiagnosticItem_File && item->data(Qt::UserRole).toUrl() != Utils::normalizeUrl(doc->url())) {
         return;
     }
     addMarks(doc, item);
@@ -1413,7 +1414,7 @@ void DiagnosticsView::filterViewTo(DiagnosticsProvider *provider)
 bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, KTextEditor::Cursor pos, bool allowTop, bool doShow)
 {
     auto hint = QAbstractItemView::PositionAtTop;
-    DocumentDiagnosticItem *topItem = getItem(m_model, document->url());
+    DocumentDiagnosticItem *topItem = getItem(m_model, Utils::normalizeUrl(document->url()));
     updateDiagnosticsSuppression(topItem, document);
     auto proxy = static_cast<DiagnosticsProxyModel *>(m_proxy);
     auto severity = proxy->activeSeverity();
@@ -1645,7 +1646,7 @@ void DiagnosticsView::onDocumentUrlChanged()
     const auto views = m_mainWindow->views();
     for (const auto view : views) {
         if (auto doc = view->document()) {
-            fpaths.insert(doc->url());
+            fpaths.insert(Utils::normalizeUrl(doc->url()));
         }
     }
     clearDiagnosticsForStaleDocs(fpaths, nullptr);

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-29 00:56+0000\n"
+"POT-Creation-Date: 2026-11-04 01:07+0000\n"
 "PO-Revision-Date: 2026-10-16 11:35+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -456,32 +456,32 @@ msgstr "Увімкнути придушення"
 msgid "Show fixes"
 msgstr "Показати виправлення"
 
-#: lib/diff/diffeditor.cpp:197
+#: lib/diff/diffeditor.cpp:203
 #, kde-format
 msgid "Change Style"
 msgstr "Змінити стиль"
 
-#: lib/diff/diffeditor.cpp:199 lib/kateconfigdialog.cpp:374
+#: lib/diff/diffeditor.cpp:205 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Side By Side"
 msgstr "Обабіч"
 
-#: lib/diff/diffeditor.cpp:202 lib/kateconfigdialog.cpp:375
+#: lib/diff/diffeditor.cpp:208 lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Unified"
 msgstr "Уніфікований"
 
-#: lib/diff/diffeditor.cpp:205 lib/kateconfigdialog.cpp:376
+#: lib/diff/diffeditor.cpp:211 lib/kateconfigdialog.cpp:376
 #, kde-format
 msgid "Raw"
 msgstr "Без обробки"
 
-#: lib/diff/diffeditor.cpp:216
+#: lib/diff/diffeditor.cpp:222
 #, kde-format
 msgid "Edit Line"
 msgstr "Редагувати рядок"
 
-#: lib/diff/diffeditor.cpp:281
+#: lib/diff/diffeditor.cpp:287
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
@@ -490,12 +490,12 @@ msgstr[1] "Позначити рядки"
 msgstr[2] "Позначити рядки"
 msgstr[3] "Позначити рядок"
 
-#: lib/diff/diffeditor.cpp:286
+#: lib/diff/diffeditor.cpp:292
 #, kde-format
 msgid "Stage Hunk"
 msgstr "Позначити блок"
 
-#: lib/diff/diffeditor.cpp:293
+#: lib/diff/diffeditor.cpp:299
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
@@ -504,12 +504,12 @@ msgstr[1] "Відкинути рядки"
 msgstr[2] "Відкинути рядки"
 msgstr[3] "Відкинути рядок"
 
-#: lib/diff/diffeditor.cpp:298
+#: lib/diff/diffeditor.cpp:304
 #, kde-format
 msgid "Discard Hunk"
 msgstr "Відкинути фрагмент"
 
-#: lib/diff/diffeditor.cpp:305
+#: lib/diff/diffeditor.cpp:311
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
@@ -518,7 +518,7 @@ msgstr[1] "Скасувати позначення рядків"
 msgstr[2] "Скасувати позначення рядків"
 msgstr[3] "Скасувати позначення рядка"
 
-#: lib/diff/diffeditor.cpp:310
+#: lib/diff/diffeditor.cpp:316
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "Скасувати позначення блоку"
@@ -544,65 +544,65 @@ msgstr ""
 "система git. Якщо git вже встановлено, переконайтеся, що відповідний каталог "
 "вказано у змінній PATH. Див. https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1283
+#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1306
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
 msgstr "Різниця"
 
-#: lib/diff/diffwidget.cpp:123
+#: lib/diff/diffwidget.cpp:131
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Різниця %1 .. %2"
 
-#: lib/diff/diffwidget.cpp:153
+#: lib/diff/diffwidget.cpp:161
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "Показати/Приховати відомості щодо внеску"
 
-#: lib/diff/diffwidget.cpp:158
+#: lib/diff/diffwidget.cpp:166
 #, kde-format
 msgid "Jump to Next File"
 msgstr "Перейти до наступного файла"
 
-#: lib/diff/diffwidget.cpp:162
+#: lib/diff/diffwidget.cpp:170
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "Перейти до попереднього файла"
 
-#: lib/diff/diffwidget.cpp:166
+#: lib/diff/diffwidget.cpp:174
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "Перейти до наступного фрагмента"
 
-#: lib/diff/diffwidget.cpp:170
+#: lib/diff/diffwidget.cpp:178
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "Перейти до попереднього фрагмента"
 
-#: lib/diff/diffwidget.cpp:174
+#: lib/diff/diffwidget.cpp:182
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Перезавантажити різницю"
 
-#: lib/diff/diffwidget.cpp:178
+#: lib/diff/diffwidget.cpp:186
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "Показувати різницю із повним контекстом, не лише змінені рядки"
 
-#: lib/diff/diffwidget.cpp:891 lib/diff/diffwidget.cpp:1095
+#: lib/diff/diffwidget.cpp:912 lib/diff/diffwidget.cpp:1118
 #, kde-format
 msgid "New file %1"
 msgstr "Новий файл %1"
 
-#: lib/diff/diffwidget.cpp:893 lib/diff/diffwidget.cpp:1097
+#: lib/diff/diffwidget.cpp:914 lib/diff/diffwidget.cpp:1120
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Вилучений файл %1"
 
-#: lib/diff/diffwidget.cpp:1266 lib/diff/diffwidget.cpp:1267
+#: lib/diff/diffwidget.cpp:1289 lib/diff/diffwidget.cpp:1290
 #, kde-format
 msgid "No differences found"
 msgstr "Відмінностей не знайдено"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-29 00:56+0000\n"
+"POT-Creation-Date: 2026-11-04 01:07+0000\n"
 "PO-Revision-Date: 2022-10-28 19:12+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
@@ -448,63 +448,63 @@ msgstr "Sessiones"
 msgid "Show fixes"
 msgstr "_Monstrar..."
 
-#: lib/diff/diffeditor.cpp:197
+#: lib/diff/diffeditor.cpp:203
 #, fuzzy, kde-format
 msgid "Change Style"
 msgstr "_Stil:"
 
-#: lib/diff/diffeditor.cpp:199 lib/kateconfigdialog.cpp:374
+#: lib/diff/diffeditor.cpp:205 lib/kateconfigdialog.cpp:374
 #, fuzzy, kde-format
 msgid "Side By Side"
 msgstr "Aperter un extra vise de fólder al latere"
 
-#: lib/diff/diffeditor.cpp:202 lib/kateconfigdialog.cpp:375
+#: lib/diff/diffeditor.cpp:208 lib/kateconfigdialog.cpp:375
 #, fuzzy, kde-format
 msgid "Unified"
 msgstr "Unificat"
 
-#: lib/diff/diffeditor.cpp:205 lib/kateconfigdialog.cpp:376
+#: lib/diff/diffeditor.cpp:211 lib/kateconfigdialog.cpp:376
 #, fuzzy, kde-format
 msgid "Raw"
 msgstr "RAW"
 
-#: lib/diff/diffeditor.cpp:216
+#: lib/diff/diffeditor.cpp:222
 #, kde-format
 msgid "Edit Line"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:281
+#: lib/diff/diffeditor.cpp:287
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/diff/diffeditor.cpp:286
+#: lib/diff/diffeditor.cpp:292
 #, fuzzy, kde-format
 msgid "Stage Hunk"
 msgstr "Lineas de portion"
 
-#: lib/diff/diffeditor.cpp:293
+#: lib/diff/diffeditor.cpp:299
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/diff/diffeditor.cpp:298
+#: lib/diff/diffeditor.cpp:304
 #, fuzzy, kde-format
 msgid "Discard Hunk"
 msgstr "Lineas de portion"
 
-#: lib/diff/diffeditor.cpp:305
+#: lib/diff/diffeditor.cpp:311
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/diff/diffeditor.cpp:310
+#: lib/diff/diffeditor.cpp:316
 #, fuzzy, kde-format
 msgid "Unstage Hunk"
 msgstr "Applicat portion"
@@ -527,67 +527,67 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1283
+#: lib/diff/diffwidget.cpp:64 lib/diff/diffwidget.cpp:1306
 #: lib/kateconfigdialog.cpp:368
 #, fuzzy, kde-format
 msgid "Diff"
 msgstr "Comparar (diff)"
 
-#: lib/diff/diffwidget.cpp:123
+#: lib/diff/diffwidget.cpp:131
 #, fuzzy, kde-format
 msgid "Diff %1 .. %2"
 msgstr "%1 %2"
 
-#: lib/diff/diffwidget.cpp:153
+#: lib/diff/diffwidget.cpp:161
 #, fuzzy, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "Monstrar diariums del comette"
 
-#: lib/diff/diffwidget.cpp:158
+#: lib/diff/diffwidget.cpp:166
 #, fuzzy, kde-format
 msgid "Jump to Next File"
 msgstr "Ear al sequent correspondentie"
 
-#: lib/diff/diffwidget.cpp:162
+#: lib/diff/diffwidget.cpp:170
 #, fuzzy, kde-format
 msgid "Jump to Previous File"
 msgstr "Ear al precedent correspondentie"
 
-#: lib/diff/diffwidget.cpp:166
+#: lib/diff/diffwidget.cpp:174
 #, fuzzy, kde-format
 msgid "Jump to Next Hunk"
 msgstr "Ear al sequent correspondentie"
 
-#: lib/diff/diffwidget.cpp:170
+#: lib/diff/diffwidget.cpp:178
 #, fuzzy, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "Ear al precedent correspondentie"
 
-#: lib/diff/diffwidget.cpp:174
+#: lib/diff/diffwidget.cpp:182
 #, fuzzy, kde-format
 #| msgid "&Reload"
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "&Recargar"
 
-#: lib/diff/diffwidget.cpp:178
+#: lib/diff/diffwidget.cpp:186
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:891 lib/diff/diffwidget.cpp:1095
+#: lib/diff/diffwidget.cpp:912 lib/diff/diffwidget.cpp:1118
 #, fuzzy, kde-format
 msgid "New file %1"
 msgstr "_Nov nómine del file:"
 
-#: lib/diff/diffwidget.cpp:893 lib/diff/diffwidget.cpp:1097
+#: lib/diff/diffwidget.cpp:914 lib/diff/diffwidget.cpp:1120
 #, fuzzy, kde-format
 #| msgid "Delete file"
 msgid "Deleted file %1"
 msgstr "Deleter li file"
 
-#: lib/diff/diffwidget.cpp:1266 lib/diff/diffwidget.cpp:1267
+#: lib/diff/diffwidget.cpp:1289 lib/diff/diffwidget.cpp:1290
 #, kde-format
 msgid "No differences found"
 msgstr ""

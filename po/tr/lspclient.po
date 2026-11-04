@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:56+0000\n"
-"PO-Revision-Date: 2026-10-12 11:48+0300\n"
+"PO-Revision-Date: 2026-11-03 21:48+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -395,6 +395,8 @@ msgid ""
 "Found old LSP config format for language '%1', please migrate to the new "
 "format with a 'servers' sub-object."
 msgstr ""
+"“%1” dili için eski bir LSP yapılandırma biçimi bulundu; lütfen, bir "
+"“servers” alt nesnesi içeren yeni biçime göç edin."
 
 #: lspclientservermanager.cpp:950
 #, kde-format

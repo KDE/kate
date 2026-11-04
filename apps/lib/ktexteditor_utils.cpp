@@ -178,6 +178,16 @@ QWidget *activeToolviewForSide(KTextEditor::MainWindow *mainWindow, int side)
     return toolView;
 }
 
+QString windowTitlePrefix(KTextEditor::MainWindow *mainWindow)
+{
+    return mainWindow->window()->property("windowTitlePrefix").toString();
+}
+
+void setWindowTitlePrefix(KTextEditor::MainWindow *mainWindow, const QString &prefix)
+{
+    mainWindow->window()->setProperty("windowTitlePrefix", prefix);
+}
+
 static void showMessage(KTextEditor::MainWindow *mainWindow, const QString &text, KTextEditor::Message::MessageType level)
 {
     KTextEditor::View *view = mainWindow->activeView();

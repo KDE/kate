@@ -2,6 +2,7 @@
 #include "kateapp.h"
 #include "katemainwindow.h"
 #include "katequickopen.h"
+#include "ktexteditor_utils.h"
 
 #include <KActionCollection>
 #include <KFontRequester>
@@ -94,7 +95,9 @@ void BasicUiTests::test_windowTitlePrefix()
     auto doc = view->document();
 
     const QString originalTitle = mainWindow->windowTitle();
-    QVERIFY(mainWindow->setProperty("windowTitlePrefix", QStringLiteral("Project: ")));
+    QCOMPARE(Utils::windowTitlePrefix(mainWindow->wrapper()), QString());
+    Utils::setWindowTitlePrefix(mainWindow->wrapper(), QStringLiteral("Project: "));
+    QCOMPARE(Utils::windowTitlePrefix(mainWindow->wrapper()), QStringLiteral("Project: "));
     QCOMPARE(mainWindow->windowTitle(), QStringLiteral("Project: ") + originalTitle);
 
     // Caption updates must retain the prefix and the document state.
@@ -107,9 +110,11 @@ void BasicUiTests::test_windowTitlePrefix()
     QVERIFY(mainWindow->windowTitle().startsWith(QStringLiteral("Project: ")));
     doc->setModified(false);
 
-    QVERIFY(mainWindow->setProperty("windowTitlePrefix", QStringLiteral("Other Project: ")));
+    Utils::setWindowTitlePrefix(mainWindow->wrapper(), QStringLiteral("Other Project: "));
+    QCOMPARE(Utils::windowTitlePrefix(mainWindow->wrapper()), QStringLiteral("Other Project: "));
     QCOMPARE(mainWindow->windowTitle(), QStringLiteral("Other Project: ") + originalTitle);
-    QVERIFY(mainWindow->setProperty("windowTitlePrefix", QString()));
+    Utils::setWindowTitlePrefix(mainWindow->wrapper(), QString());
+    QCOMPARE(Utils::windowTitlePrefix(mainWindow->wrapper()), QString());
     QCOMPARE(mainWindow->windowTitle(), originalTitle);
 
     // Non-document tabs also use the prefix, and clearing it updates immediately.
@@ -117,9 +122,9 @@ void BasicUiTests::test_windowTitlePrefix()
     widget->setWindowTitle(QStringLiteral("Tool"));
     QVERIFY(mainWindow->wrapper()->addWidget(widget));
     const QString widgetTitle = mainWindow->windowTitle();
-    mainWindow->setProperty("windowTitlePrefix", QStringLiteral("Project: "));
+    Utils::setWindowTitlePrefix(mainWindow->wrapper(), QStringLiteral("Project: "));
     QCOMPARE(mainWindow->windowTitle(), QStringLiteral("Project: ") + widgetTitle);
-    mainWindow->setProperty("windowTitlePrefix", QString());
+    Utils::setWindowTitlePrefix(mainWindow->wrapper(), QString());
     QCOMPARE(mainWindow->windowTitle(), widgetTitle);
     QVERIFY(mainWindow->wrapper()->removeWidget(widget));
 }

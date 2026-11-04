@@ -100,6 +100,19 @@ goToDocumentLocation(KTextEditor::MainWindow *mainWindow, const QUrl &uri, const
 KATE_PRIVATE_EXPORT void highlightLandingLocation(KTextEditor::View *view, const KTextEditor::Range &location);
 
 /*** BEGIN KTextEditor::MainWindow extensions **/
+/**
+ * Returns the prefix prepended to the title of @p mainWindow, or an empty string if none is set.
+ */
+[[nodiscard]] KATE_PRIVATE_EXPORT QString windowTitlePrefix(KTextEditor::MainWindow *mainWindow);
+
+/**
+ * Sets the prefix prepended to the title of @p mainWindow and updates the title immediately.
+ * The prefix is used verbatim, so callers must include any desired separator or trailing space.
+ * An empty @p prefix clears it. The session name, document name and state indicators are preserved.
+ * The prefix is per-window and is not persisted.
+ */
+KATE_PRIVATE_EXPORT void setWindowTitlePrefix(KTextEditor::MainWindow *mainWindow, const QString &prefix);
+
 KATE_PRIVATE_EXPORT void
 showMessage(const QString &message, const QIcon &icon, const QString &category, MessageType type, KTextEditor::MainWindow *mainWindow = nullptr);
 

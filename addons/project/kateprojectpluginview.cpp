@@ -285,7 +285,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
 
 KateProjectPluginView::~KateProjectPluginView()
 {
-    m_mainWindow->window()->setProperty("windowTitlePrefix", QString());
+    Utils::setWindowTitlePrefix(m_mainWindow, QString());
 
     // avoid that we trigger any view change or similar during destruction
     // might lead to crashes, in any case, it is unwanted
@@ -346,7 +346,7 @@ void KateProjectPluginView::slotConfigUpdated()
 void KateProjectPluginView::updateWindowTitle()
 {
     const QString name = m_plugin->prefixWindowTitle() ? projectName() : QString();
-    m_mainWindow->window()->setProperty("windowTitlePrefix", name.isEmpty() ? QString() : name + QStringLiteral(": "));
+    Utils::setWindowTitlePrefix(m_mainWindow, name.isEmpty() ? QString() : name + QStringLiteral(": "));
 }
 
 int KateProjectPluginView::findProjectActionIndex(const QString &filename) const

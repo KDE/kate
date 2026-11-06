@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-20 03:16+0000\n"
-"PO-Revision-Date: 2026-08-26 13:32+0300\n"
+"PO-Revision-Date: 2026-10-30 12:16+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -228,7 +228,7 @@ msgstr "Toimita %1"
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
-msgstr "Kätkö %1"
+msgstr "Jemma %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6

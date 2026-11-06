@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-20 03:16+0000\n"
-"PO-Revision-Date: 2026-08-26 13:42+0300\n"
+"PO-Revision-Date: 2026-10-30 12:15+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -352,7 +352,7 @@ msgstr "Avaa toimitus…"
 #: gitwidget.cpp:1121 gitwidget.cpp:1169
 #, kde-format
 msgid "Stash"
-msgstr "Kätkö"
+msgstr "Jemma"
 
 #: gitwidget.cpp:1125
 #, kde-format
@@ -402,12 +402,12 @@ msgstr "Hylkää jemma"
 #: gitwidget.cpp:1196
 #, kde-format
 msgid "Show Stash"
-msgstr "Näytä kätkö"
+msgstr "Näytä jemma"
 
 #: gitwidget.cpp:1200
 #, kde-format
 msgid "Show Stash Diff"
-msgstr "Näytä kätkön diff"
+msgstr "Näytä jemman diff"
 
 #: gitwidget.cpp:1238
 #, kde-format

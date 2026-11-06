@@ -636,8 +636,7 @@ msgstr "Hakua ei aloitettu, koska hakukansiota ”%1” ei ole olemassa."
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "Kirjoitettaessa tehtävä haku keskeytettiin, koska se olisi kestänyt liian "
-"kauan.Kirjoitettaessa tehtävä haku keskeytettiin, koska se olisi kestänyt "
-"liian kauan."
+"kauan."
 
 #: SearchPlugin.cpp:1680
 #, kde-format

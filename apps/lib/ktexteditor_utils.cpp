@@ -396,6 +396,16 @@ QUrl normalizeUrl(QUrl url)
     return url.adjusted(QUrl::NormalizePathSegments);
 }
 
+QUrl normalizeUrl(KTextEditor::Document *doc)
+{
+    if (!isKateApp()) {
+        return normalizeUrl(doc->url());
+    }
+
+    const auto docInfo = KateApp::self()->documentManager()->documentInfo(doc);
+    return docInfo ? docInfo->normalizedUrl : normalizeUrl(doc->url());
+}
+
 QUrl absoluteUrl(QUrl url)
 {
     // ensure proper file:// url if in doubt because no scheme set

@@ -150,6 +150,12 @@ KATE_PRIVATE_EXPORT void addPositionToHistory(const QUrl &url, KTextEditor::Curs
 [[nodiscard]] KATE_PRIVATE_EXPORT QUrl normalizeUrl(QUrl url);
 
 /**
+ * Convert the url of a document to a normalize one, used by the document manager and Co.
+ * Will use cached normalize url for Kate.
+ */
+[[nodiscard]] KATE_PRIVATE_EXPORT QUrl normalizeUrl(KTextEditor::Document *doc);
+
+/**
  * Convert an url to an absolute one, used by the document manager and Co.
  */
 [[nodiscard]] KATE_PRIVATE_EXPORT QUrl absoluteUrl(QUrl url);

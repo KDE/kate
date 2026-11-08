@@ -1684,6 +1684,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ca-valencia">Pugeu fitxers, carpetes o projectes sencers amb SFTP amb el connector Desplegament nou, amb progrés de transferència i una barra lateral per a navegar i editar fitxers remots.</li>
           <li xml:lang="cs">Pomocí nového modulu Deployment můžete přes SFTP nahrávat soubory, složky nebo celé projekty. K dispozici je přehled průběhu přenosu a postranní panel pro procházení a úpravy vzdálených souborů.</li>
           <li xml:lang="es">Enviar archivos, carpetas o proyectos completos sobre SFTP con el nuevo complemento de despliegue, con información sobre el avance de las transferencias y una barra lateral para explorar y editar archivos remotos.</li>
+          <li xml:lang="he">העלאת קבצים, תיקיות או מיזמים שלמים דרך SFTP עם תוסף ההטמעה החדש, עם מצב ההעברה וסרגל צד לעיון ועריכת קבצים מרוחקים.</li>
           <li xml:lang="ia">Carga files, dossiers, o projectos integre via SFTP con le nove plugin de  displicamento, con progresso de transferentia e un barra lateral pro  percurrer e editar files remote.</li>
           <li xml:lang="it">Carica file, cartelle o interi progetti tramite SFTP con la nuova estensione Deployment, che include un indicatore di avanzamento del trasferimento e una barra laterale per esplorare e modificare i file remoti.</li>
           <li xml:lang="ka">ატვირთეთ ფაილები, საქაღალდეები, ან მთელი პროექტები SFTP-ით ახალ გაშლის დამატებასთან ერთად, გადაცემის მიმდინარეობასთან და გვერდით პანელთან ერთად, რომლებიც დაშორებული ფაილების დასათვალიერებლად და ჩასასწორებლად გამოიყენება.</li>
@@ -1752,6 +1753,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ca-valencia">Format dels fitxers Perl amb «perltidy» i dels fitxers CMake amb «gersemi».</li>
           <li xml:lang="cs">Formátujte soubory v jazyce Perl pomocí nástroje perltidy a soubory CMake pomocí nástroje gersemi.</li>
           <li xml:lang="es">Formatear archivos Perl con «perltidy» y archivos CMake con «gersemi».</li>
+          <li xml:lang="he">עיצוב קובצי Perl עם perltidy וקובצי CMake עם gersemi.</li>
           <li xml:lang="ia">Formata files Perl con perltidy e files CMake con gersemi.</li>
           <li xml:lang="it">Formatta i file Perl con perltidy e i file CMake con gersemi.</li>
           <li xml:lang="ka">დააფორმატეთ Perl-ის ფაილები perltidy-ით და CMake-ის ფაილები gersemi-ით.</li>

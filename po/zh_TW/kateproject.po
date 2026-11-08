@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-25 00:54+0000\n"
+"POT-Creation-Date: 2026-11-08 03:01+0000\n"
 "PO-Revision-Date: 2026-10-01 02:36+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -584,7 +584,7 @@ msgid "Open .gitignore"
 msgstr "開啟 .gitignore"
 
 #: gitwidget.cpp:1242 gitwidget.cpp:1291 gitwidget.cpp:1342
-#: kateprojectconfigpage.cpp:128 kateprojectconfigpage.cpp:140
+#: kateprojectconfigpage.cpp:137 kateprojectconfigpage.cpp:149
 #, kde-format
 msgid "Show Diff"
 msgstr "顯示差異"
@@ -721,7 +721,7 @@ msgstr "建立檔案時失敗：%1，錯誤：%2"
 msgid "Malformed JSON file '%1': %2"
 msgstr "格式不正確的 JSON 檔案 '%1'：%2"
 
-#: kateproject.cpp:527 kateprojectplugin.cpp:893 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:906 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -893,49 +893,65 @@ msgstr "跨專案補完"
 msgid "Cross-Project Goto Symbol"
 msgstr "跨專案前往符號"
 
-#: kateprojectconfigpage.cpp:122
+#: kateprojectconfigpage.cpp:118
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Window Title"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:119
+#, kde-format
+msgid "Prefix window title with project name"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:121
+#, kde-format
+msgid "Show the current project's name before the existing window title."
+msgstr ""
+
+#: kateprojectconfigpage.cpp:131
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:125
+#: kateprojectconfigpage.cpp:134
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "git status 檢視中的單擊動作"
 
-#: kateprojectconfigpage.cpp:127 kateprojectconfigpage.cpp:139
+#: kateprojectconfigpage.cpp:136 kateprojectconfigpage.cpp:148
 #, kde-format
 msgid "No Action"
 msgstr "沒有動作"
 
-#: kateprojectconfigpage.cpp:129 kateprojectconfigpage.cpp:141
+#: kateprojectconfigpage.cpp:138 kateprojectconfigpage.cpp:150
 #, kde-format
 msgid "Open file"
 msgstr "開啟檔案"
 
-#: kateprojectconfigpage.cpp:130 kateprojectconfigpage.cpp:142
+#: kateprojectconfigpage.cpp:139 kateprojectconfigpage.cpp:151
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "暫存 / 取消暫存"
 
-#: kateprojectconfigpage.cpp:137
+#: kateprojectconfigpage.cpp:146
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "git status 檢視中的雙擊動作"
 
-#: kateprojectconfigpage.cpp:153
+#: kateprojectconfigpage.cpp:162
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
 msgstr "Git 託管"
 
-#: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
+#: kateprojectconfigpage.cpp:200 kateprojectpluginview.cpp:76
 #, kde-format
 msgid "Projects"
 msgstr "專案"
 
-#: kateprojectconfigpage.cpp:195
+#: kateprojectconfigpage.cpp:205
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
@@ -1076,12 +1092,12 @@ msgstr "確認關閉專案：%1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "您確定要關閉專案 %1 和它相關的 %2 個開啟中的文件嗎？"
 
-#: kateprojectplugin.cpp:746
+#: kateprojectplugin.cpp:759
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "指向目前專案的完整路徑 (不含檔名)。"
 
-#: kateprojectplugin.cpp:763
+#: kateprojectplugin.cpp:776
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1090,7 +1106,7 @@ msgstr ""
 "指向目前專案的完整路徑 (不含檔名，使用原生路徑分隔符 - 在 Windows 上是反斜"
 "線)。"
 
-#: kateprojectplugin.cpp:780
+#: kateprojectplugin.cpp:793
 #, kde-format
 msgid "File path relative to the project directory"
 msgstr ""
@@ -1175,12 +1191,12 @@ msgstr "重新載入所有專案"
 msgid "Checkout Git Branch"
 msgstr "簽出 Git 分支"
 
-#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:877
+#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:890
 #, kde-format
 msgid "Lookup: %1"
 msgstr "尋找：%1"
 
-#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:878
+#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:891
 #, kde-format
 msgid "Goto: %1"
 msgstr "前往：%1"
@@ -1190,38 +1206,38 @@ msgstr "前往：%1"
 msgid "Git Hosting"
 msgstr "Git 託管"
 
-#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
-#: kateprojectpluginview.cpp:922
+#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:905
+#: kateprojectpluginview.cpp:935
 #, kde-format
 msgid "Open on Git Hosting Service"
 msgstr "在 Git 託管服務上開啟"
 
-#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
+#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:901
 #, kde-format
 msgid "Copy Git Hosting Link"
 msgstr "複製 Git 託管服務連結"
 
-#: kateprojectpluginview.cpp:331
+#: kateprojectpluginview.cpp:336
 #, kde-format
 msgid "Projects Index"
 msgstr "專案索引"
 
-#: kateprojectpluginview.cpp:887 kateprojecttreeviewcontextmenu.cpp:190
+#: kateprojectpluginview.cpp:900 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
 msgstr "正在偵測 Git 託管服務…"
 
-#: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
+#: kateprojectpluginview.cpp:932 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
 msgid "Open on %1"
 msgstr "在 %1 開啟"
 
-#: kateprojectpluginview.cpp:920 kateprojecttreeviewcontextmenu.cpp:206
+#: kateprojectpluginview.cpp:933 kateprojecttreeviewcontextmenu.cpp:206
 #, kde-format
 msgid "Copy %1 Link"
 msgstr "複製 %1 連結"
 
-#: kateprojectpluginview.cpp:985
+#: kateprojectpluginview.cpp:998
 #, kde-format
 msgid "Choose a directory"
 msgstr "選擇目錄"

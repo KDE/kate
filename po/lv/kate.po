@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-04 01:07+0000\n"
+"POT-Creation-Date: 2026-11-08 03:01+0000\n"
 "PO-Revision-Date: 2025-11-07 18:21+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -170,6 +170,11 @@ msgstr "KWrite"
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "„KWrite“ — teksta redaktors"
+
+#: lib/autotests/basic_ui_tests.cpp:106 lib/katemainwindow.cpp:1399
+#, kde-format
+msgid " [read only]"
+msgstr " [tikai lasāms]"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
 #: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
@@ -1983,11 +1988,6 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Atvērt visas datnes"
 
-#: lib/katemainwindow.cpp:1393
-#, kde-format
-msgid " [read only]"
-msgstr " [tikai lasāms]"
-
 #: lib/katemdi.cpp:83
 #, kde-format
 msgid "Toolview Manager"
@@ -2717,7 +2717,7 @@ msgstr "Noņemt dokumenta piespraudi"
 msgid "Pin Document"
 msgstr "Piespraust dokumentu"
 
-#: lib/ktexteditor_utils.cpp:244
+#: lib/ktexteditor_utils.cpp:254
 #, kde-format
 msgid "Can not open %1"
 msgstr "Nevar atvērt „%1“"

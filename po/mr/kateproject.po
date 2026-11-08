@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-25 00:54+0000\n"
+"POT-Creation-Date: 2026-11-08 03:01+0000\n"
 "PO-Revision-Date: 2013-02-26 11:54+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -580,7 +580,7 @@ msgid "Open .gitignore"
 msgstr ""
 
 #: gitwidget.cpp:1242 gitwidget.cpp:1291 gitwidget.cpp:1342
-#: kateprojectconfigpage.cpp:128 kateprojectconfigpage.cpp:140
+#: kateprojectconfigpage.cpp:137 kateprojectconfigpage.cpp:149
 #, kde-format
 msgid "Show Diff"
 msgstr ""
@@ -716,7 +716,7 @@ msgstr ""
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:527 kateprojectplugin.cpp:893 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:906 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -884,50 +884,66 @@ msgstr "परियोजना पूर्णत्व"
 msgid "Cross-Project Goto Symbol"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:122
+#: kateprojectconfigpage.cpp:118
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Window Title"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:119
+#, kde-format
+msgid "Prefix window title with project name"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:121
+#, kde-format
+msgid "Show the current project's name before the existing window title."
+msgstr ""
+
+#: kateprojectconfigpage.cpp:131
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:125
+#: kateprojectconfigpage.cpp:134
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:127 kateprojectconfigpage.cpp:139
+#: kateprojectconfigpage.cpp:136 kateprojectconfigpage.cpp:148
 #, kde-format
 msgid "No Action"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:129 kateprojectconfigpage.cpp:141
+#: kateprojectconfigpage.cpp:138 kateprojectconfigpage.cpp:150
 #, fuzzy, kde-format
 #| msgid "Open With"
 msgid "Open file"
 msgstr "यामध्ये उघडा"
 
-#: kateprojectconfigpage.cpp:130 kateprojectconfigpage.cpp:142
+#: kateprojectconfigpage.cpp:139 kateprojectconfigpage.cpp:151
 #, kde-format
 msgid "Stage / Unstage"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:137
+#: kateprojectconfigpage.cpp:146
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:153
+#: kateprojectconfigpage.cpp:162
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
+#: kateprojectconfigpage.cpp:200 kateprojectpluginview.cpp:76
 #, kde-format
 msgid "Projects"
 msgstr "परियोजना"
 
-#: kateprojectconfigpage.cpp:195
+#: kateprojectconfigpage.cpp:205
 #, fuzzy, kde-format
 #| msgid "Project Completion"
 msgctxt "Groupbox title"
@@ -1072,19 +1088,19 @@ msgstr ""
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 
-#: kateprojectplugin.cpp:746
+#: kateprojectplugin.cpp:759
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr ""
 
-#: kateprojectplugin.cpp:763
+#: kateprojectplugin.cpp:776
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
 
-#: kateprojectplugin.cpp:780
+#: kateprojectplugin.cpp:793
 #, kde-format
 msgid "File path relative to the project directory"
 msgstr ""
@@ -1181,12 +1197,12 @@ msgstr "वर्तमान परियोजना"
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:877
+#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:890
 #, kde-format
 msgid "Lookup: %1"
 msgstr ""
 
-#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:878
+#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:891
 #, kde-format
 msgid "Goto: %1"
 msgstr ""
@@ -1196,39 +1212,39 @@ msgstr ""
 msgid "Git Hosting"
 msgstr ""
 
-#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
-#: kateprojectpluginview.cpp:922
+#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:905
+#: kateprojectpluginview.cpp:935
 #, kde-format
 msgid "Open on Git Hosting Service"
 msgstr ""
 
-#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
+#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:901
 #, kde-format
 msgid "Copy Git Hosting Link"
 msgstr ""
 
-#: kateprojectpluginview.cpp:331
+#: kateprojectpluginview.cpp:336
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "Projects Index"
 msgstr "परियोजना"
 
-#: kateprojectpluginview.cpp:887 kateprojecttreeviewcontextmenu.cpp:190
+#: kateprojectpluginview.cpp:900 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
 msgstr ""
 
-#: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
+#: kateprojectpluginview.cpp:932 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
 msgid "Open on %1"
 msgstr ""
 
-#: kateprojectpluginview.cpp:920 kateprojecttreeviewcontextmenu.cpp:206
+#: kateprojectpluginview.cpp:933 kateprojecttreeviewcontextmenu.cpp:206
 #, kde-format
 msgid "Copy %1 Link"
 msgstr ""
 
-#: kateprojectpluginview.cpp:985
+#: kateprojectpluginview.cpp:998
 #, kde-format
 msgid "Choose a directory"
 msgstr ""

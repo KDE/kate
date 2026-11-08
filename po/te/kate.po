@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-04 01:07+0000\n"
+"POT-Creation-Date: 2026-11-08 03:01+0000\n"
 "PO-Revision-Date: 2007-03-09 14:17+0530\n"
 "Last-Translator: pavithran <pavithran.s@gmail.com>\n"
 "Language-Team: Telugu <indlinux-telugu@lists.sourceforge.net>\n"
@@ -158,6 +158,11 @@ msgstr ""
 #: kwrite/main.cpp:49
 #, kde-format
 msgid "KWrite - Text Editor"
+msgstr ""
+
+#: lib/autotests/basic_ui_tests.cpp:106 lib/katemainwindow.cpp:1399
+#, kde-format
+msgid " [read only]"
 msgstr ""
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
@@ -1963,11 +1968,6 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1393
-#, kde-format
-msgid " [read only]"
-msgstr ""
-
 #: lib/katemdi.cpp:83
 #, kde-format
 msgid "Toolview Manager"
@@ -2692,7 +2692,7 @@ msgstr "పత్రాలను దాచు"
 msgid "Pin Document"
 msgstr "పత్రాలు"
 
-#: lib/ktexteditor_utils.cpp:244
+#: lib/ktexteditor_utils.cpp:254
 #, kde-format
 msgid "Can not open %1"
 msgstr ""

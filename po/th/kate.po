@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-04 01:07+0000\n"
+"POT-Creation-Date: 2026-11-08 03:01+0000\n"
 "PO-Revision-Date: 2010-03-01 22:47+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -165,6 +165,11 @@ msgstr "ผู้เขียน KWrite"
 #| msgid "Kate - Advanced Text Editor"
 msgid "KWrite - Text Editor"
 msgstr "Kate - เครื่องมือแก้ไขข้อความขั้นสูง"
+
+#: lib/autotests/basic_ui_tests.cpp:106 lib/katemainwindow.cpp:1399
+#, kde-format
+msgid " [read only]"
+msgstr ""
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
 #: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
@@ -1995,11 +2000,6 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "เปิดแฟ้ม"
 
-#: lib/katemainwindow.cpp:1393
-#, kde-format
-msgid " [read only]"
-msgstr ""
-
 #: lib/katemdi.cpp:83
 #, fuzzy, kde-format
 #| msgid "Plugin Manager"
@@ -2751,7 +2751,7 @@ msgstr "เปิดเอกสาร"
 msgid "Pin Document"
 msgstr "เอกสาร"
 
-#: lib/ktexteditor_utils.cpp:244
+#: lib/ktexteditor_utils.cpp:254
 #, kde-format
 msgid "Can not open %1"
 msgstr ""

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-04 01:07+0000\n"
+"POT-Creation-Date: 2026-11-08 03:01+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -165,6 +165,11 @@ msgstr "KWrite"
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "KWrite - 文本编辑器"
+
+#: lib/autotests/basic_ui_tests.cpp:106 lib/katemainwindow.cpp:1399
+#, kde-format
+msgid " [read only]"
+msgstr " [只读]"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
 #: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
@@ -1931,11 +1936,6 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "打开所有文件"
 
-#: lib/katemainwindow.cpp:1393
-#, kde-format
-msgid " [read only]"
-msgstr " [只读]"
-
 #: lib/katemdi.cpp:83
 #, kde-format
 msgid "Toolview Manager"
@@ -2642,7 +2642,7 @@ msgstr "取消固定文档"
 msgid "Pin Document"
 msgstr "固定文档"
 
-#: lib/ktexteditor_utils.cpp:244
+#: lib/ktexteditor_utils.cpp:254
 #, kde-format
 msgid "Can not open %1"
 msgstr "无法打开 %1"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-04 01:07+0000\n"
+"POT-Creation-Date: 2026-11-08 03:01+0000\n"
 "PO-Revision-Date: 2025-09-16 15:43+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -155,6 +155,11 @@ msgstr "KWrite"
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "KWrite - စာသားတည်းဖြတ်ကိရိယာ"
+
+#: lib/autotests/basic_ui_tests.cpp:106 lib/katemainwindow.cpp:1399
+#, kde-format
+msgid " [read only]"
+msgstr " [ဖတ်၍သာရ]"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
 #: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
@@ -1905,11 +1910,6 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "ဖိုင်အားလုံးဖွင့်"
 
-#: lib/katemainwindow.cpp:1393
-#, kde-format
-msgid " [read only]"
-msgstr " [ဖတ်၍သာရ]"
-
 #: lib/katemdi.cpp:83
 #, kde-format
 msgid "Toolview Manager"
@@ -2615,7 +2615,7 @@ msgstr "မှတ်တမ်းစာအုပ်ကိုမတွဲတော
 msgid "Pin Document"
 msgstr "မှတ်တမ်းစာအုပ်ကိုတွဲထားမည်"
 
-#: lib/ktexteditor_utils.cpp:244
+#: lib/ktexteditor_utils.cpp:254
 #, kde-format
 msgid "Can not open %1"
 msgstr ""

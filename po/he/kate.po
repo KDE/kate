@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-04 01:07+0000\n"
-"PO-Revision-Date: 2026-10-09 11:19+0300\n"
+"POT-Creation-Date: 2026-11-08 03:01+0000\n"
+"PO-Revision-Date: 2026-11-07 21:46+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -178,6 +178,11 @@ msgstr "KWrite"
 #, kde-format
 msgid "KWrite - Text Editor"
 msgstr "Kate - עורך טקסט"
+
+#: lib/autotests/basic_ui_tests.cpp:106 lib/katemainwindow.cpp:1399
+#, kde-format
+msgid " [read only]"
+msgstr " [קריאה בלבד]"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
 #: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
@@ -1506,6 +1511,8 @@ msgid ""
 "File \"%1\" is already open in another document. Please close that document "
 "first if you want to overwrite it or choose a different name."
 msgstr ""
+"הקובץ „%1” כבר פתוח במסמך אחר. נא לסגור את המסמך הזה קודם כדי לדרוס או לבחור "
+"בשם אחר."
 
 #: lib/katefileactions.cpp:130
 #, kde-format
@@ -1963,11 +1970,6 @@ msgstr "פתיחת קבצים ברקורסיה"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "פתיחת כל הקבצים"
-
-#: lib/katemainwindow.cpp:1393
-#, kde-format
-msgid " [read only]"
-msgstr " [קריאה בלבד]"
 
 #: lib/katemdi.cpp:83
 #, kde-format
@@ -2689,7 +2691,7 @@ msgstr "שחרור נעיצת מסמך"
 msgid "Pin Document"
 msgstr "נעיצת מסמך"
 
-#: lib/ktexteditor_utils.cpp:244
+#: lib/ktexteditor_utils.cpp:254
 #, kde-format
 msgid "Can not open %1"
 msgstr "לא ניתן לפתוח את %1"

@@ -1,0 +1,373 @@
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2026 Yaron Shahrabani <sh.yaron@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"PO-Revision-Date: 2026-11-07 21:53+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
+"2 : 3);\n"
+"X-Generator: Poedit 3.10\n"
+
+#: deploymentconfig.cpp:108
+#, kde-format
+msgid "deployment must be an object"
+msgstr "ההטמעה חייבת להיות עצם"
+
+#: deploymentconfig.cpp:123
+#, kde-format
+msgid "deployment host must not be empty"
+msgstr "מארח ההטמעה לא יכול להיות ריק"
+
+#: deploymentconfig.cpp:126 deploymentconfig.cpp:130 deploymentconfig.cpp:193
+#, kde-format
+msgid "deployment host is invalid"
+msgstr "מארח ההטמעה שגוי"
+
+#: deploymentconfig.cpp:139
+#, kde-format
+msgid "deployment port must be between 1 and 65535"
+msgstr "פתחת ההטמעה חייבת להיות בין 1 ל־65536"
+
+#: deploymentconfig.cpp:145
+#, kde-format
+msgid "project base must not be empty"
+msgstr "בסיס המיזם לא יכול להיות ריק"
+
+#: deploymentconfig.cpp:150
+#, kde-format
+msgid "project base must be an existing directory"
+msgstr "בסיס המיזם חייב להיות תיקייה קיימת"
+
+#: deploymentconfig.cpp:157
+#, kde-format
+msgid "deployment localRoot must not contain traversal"
+msgstr ""
+
+#: deploymentconfig.cpp:165
+#, kde-format
+msgid ""
+"deployment localRoot must be an existing directory inside the project base"
+msgstr ""
+
+#: deploymentconfig.cpp:170
+#, kde-format
+msgid "deployment remoteRoot must be an absolute path without traversal"
+msgstr ""
+
+#: deploymentconfig.cpp:182
+#, kde-format
+msgid "deployment exclude entries must be strings"
+msgstr ""
+
+#: deploymentconfig.cpp:187
+#, kde-format
+msgid "deployment exclude must be a list of strings"
+msgstr ""
+
+#: deploymentplugin.cpp:115
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure Deployment"
+msgstr "הגדרת הטמעה"
+
+#: deploymentplugin.cpp:119
+#, kde-format
+msgid ""
+"Configure the SFTP destination for <filename>%1</filename>. Authentication "
+"is handled by KIO."
+msgstr ""
+
+#: deploymentplugin.cpp:136
+#, kde-format
+msgid "One project-relative glob per line"
+msgstr ""
+
+#: deploymentplugin.cpp:138
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Host:"
+msgstr "מארח:"
+
+#: deploymentplugin.cpp:139
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Port:"
+msgstr "פתחה:"
+
+#: deploymentplugin.cpp:140
+#, kde-format
+msgctxt "@label:textbox"
+msgid "User:"
+msgstr "משתמש:"
+
+#: deploymentplugin.cpp:141
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Local root:"
+msgstr "משתמש על (root) מקומי:"
+
+#: deploymentplugin.cpp:142
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Remote root:"
+msgstr "משתמש על (root) מרוחק:"
+
+#: deploymentplugin.cpp:143
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Exclude:"
+msgstr "החרגה:"
+
+#: deploymentplugin.cpp:170
+#, kde-format
+msgctxt "@title:window"
+msgid "Invalid Deployment Configuration"
+msgstr "הגדרות הטמעה שגויות"
+
+#: deploymentplugin.cpp:210 deploymentplugin.cpp:853
+#, kde-format
+msgid "Deployment"
+msgstr "הטמעה"
+
+#: deploymentplugin.cpp:214
+#, kde-format
+msgctxt "@action"
+msgid "Upload Current File"
+msgstr "העלאת הקובץ הנוכחי"
+
+#: deploymentplugin.cpp:219
+#, kde-format
+msgctxt "@action"
+msgid "Upload Project"
+msgstr "העלאת מיזם"
+
+#: deploymentplugin.cpp:223 deploymentplugin.cpp:661
+#, kde-format
+msgctxt "@action"
+msgid "Cancel Deployment Transfers"
+msgstr "ביטול העברות הטמעה"
+
+#: deploymentplugin.cpp:227
+#, kde-format
+msgctxt "@action"
+msgid "Configure Deployment..."
+msgstr "הגדרת הטמעה…"
+
+#: deploymentplugin.cpp:231
+#, kde-format
+msgctxt "@action"
+msgid "Browse Remote Host"
+msgstr "עיון במארח המרוחק"
+
+#: deploymentplugin.cpp:238
+#, kde-format
+msgid "Remote Host"
+msgstr "מארח מרוחק"
+
+#: deploymentplugin.cpp:261
+#, kde-format
+msgctxt "@action"
+msgid "Deployment Root"
+msgstr "שורש הטמעה"
+
+#: deploymentplugin.cpp:275
+#, kde-format
+msgid "File Transfer"
+msgstr "העברת קבצים"
+
+#: deploymentplugin.cpp:281
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "ביטול"
+
+#: deploymentplugin.cpp:282
+#, kde-format
+msgctxt "@action:button"
+msgid "Clear"
+msgstr "פינוי"
+
+#: deploymentplugin.cpp:323
+#, kde-format
+msgid "Loading %1..."
+msgstr "%1 בטעינה…"
+
+#: deploymentplugin.cpp:328
+#, kde-format
+msgid "Connected to %1"
+msgstr "מחובר אל %1"
+
+#: deploymentplugin.cpp:335
+#, kde-format
+msgid "Failed to list %1 (KIO error %2): %3"
+msgstr ""
+
+#: deploymentplugin.cpp:427
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload Folder to Remote Host"
+msgstr ""
+
+#: deploymentplugin.cpp:427
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload to Remote Host"
+msgstr "העלאה למארח מרוחק"
+
+#: deploymentplugin.cpp:467
+#, kde-format
+msgid "Open or select a Kate project before configuring deployment."
+msgstr ""
+
+#: deploymentplugin.cpp:472
+#, kde-format
+msgid ""
+"Deployment configuration requires a file-backed <filename>.kateproject</"
+"filename>."
+msgstr ""
+
+#: deploymentplugin.cpp:487
+#, kde-format
+msgid "Could not read <filename>%1</filename>."
+msgstr "לא ניתן לקרוא את <filename>%1</filename>."
+
+#: deploymentplugin.cpp:493
+#, kde-format
+msgid "Could not update malformed JSON in <filename>%1</filename>: %2"
+msgstr "לא ניתן לעדכן JSON פגום ב־<filename>%1</filename>‏: %2"
+
+#: deploymentplugin.cpp:502
+#, kde-format
+msgid "Could not write <filename>%1</filename>."
+msgstr "לא ניתן לכתוב את <filename>%1</filename>."
+
+#: deploymentplugin.cpp:508
+#, kde-format
+msgid "Saved deployment configuration to %1"
+msgstr "שמירת הגדרות ההטמעה אל %1"
+
+#: deploymentplugin.cpp:520
+#, kde-format
+msgid "The current document is not a local file."
+msgstr "המסמך הנוכחי אינו קובץ מקומי."
+
+#: deploymentplugin.cpp:555
+#, kde-format
+msgid "The file could not be saved before upload."
+msgstr "לא ניתן לשמור את הקובץ לפני ההעלאה."
+
+#: deploymentplugin.cpp:571
+#, kde-format
+msgid "Deployment is not configured for this project."
+msgstr "לא מוגדרת הטמעה למיזם הזה."
+
+#: deploymentplugin.cpp:575
+#, kde-format
+msgid "A deployment transfer is already running."
+msgstr "העברת הטמעה כבר רצה."
+
+#: deploymentplugin.cpp:586
+#, kde-format
+msgid "Cannot upload %1 because its remote version is open in Kate."
+msgstr ""
+
+#: deploymentplugin.cpp:596
+#, kde-format
+msgid "No deployable files were selected."
+msgstr ""
+
+#: deploymentplugin.cpp:602
+#, kde-format
+msgid "Queued one file for upload."
+msgid_plural "Queued %1 files for upload."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: deploymentplugin.cpp:620 deploymentplugin.cpp:674
+#, kde-format
+msgid "The remote file is open in Kate."
+msgstr ""
+
+#: deploymentplugin.cpp:629
+#, kde-format
+msgid "Uploading %1 to %2"
+msgstr ""
+
+#: deploymentplugin.cpp:657
+#, kde-format
+msgctxt "@action"
+msgid "Cancel Deployment Transfers (%1%)"
+msgstr ""
+
+#: deploymentplugin.cpp:697
+#, kde-format
+msgid "Failed to upload %1: %2"
+msgstr ""
+
+#: deploymentplugin.cpp:699
+#, kde-format
+msgid "Uploaded %1"
+msgstr "%1 הועלה"
+
+#: deploymentplugin.cpp:720
+#, kde-format
+msgid "Cancelled deployment transfers."
+msgstr ""
+
+#: deploymentplugin.cpp:754
+#, kde-format
+msgid "Not connected"
+msgstr ""
+
+#: deploymentplugin.cpp:772
+#, kde-format
+msgid ""
+"The SFTP KIO worker is not installed or does not support directory listing."
+msgstr ""
+
+#: deploymentplugin.cpp:801
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Remote File"
+msgstr ""
+
+#: deploymentplugin.cpp:809
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Mapped Local File"
+msgstr ""
+
+#: deploymentplugin.cpp:815
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload Mapped Local File"
+msgstr ""
+
+#: deploymentplugin.cpp:823
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Remote URL"
+msgstr "העתקת כתובת מרוחקת"
+
+#: deploymentplugin.cpp:827
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Remote Path"
+msgstr ""
+
+#: deploymentplugin.cpp:837
+#, kde-format
+msgid "No mapped local file exists for %1."
+msgstr ""

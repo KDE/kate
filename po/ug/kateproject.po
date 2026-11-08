@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-25 00:54+0000\n"
+"POT-Creation-Date: 2026-11-08 03:01+0000\n"
 "PO-Revision-Date: 2026-09-23 06:56+0900\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur <kde-i18n-doc@kde.org>\n"
@@ -581,7 +581,7 @@ msgid "Open .gitignore"
 msgstr ".gitignore نى ئاچ"
 
 #: gitwidget.cpp:1242 gitwidget.cpp:1291 gitwidget.cpp:1342
-#: kateprojectconfigpage.cpp:128 kateprojectconfigpage.cpp:140
+#: kateprojectconfigpage.cpp:137 kateprojectconfigpage.cpp:149
 #, kde-format
 msgid "Show Diff"
 msgstr "پەرقنى كۆرسەت"
@@ -718,7 +718,7 @@ msgstr "ھۆججەت قۇرالمىدى: %1، خاتالىق: %2"
 msgid "Malformed JSON file '%1': %2"
 msgstr "پىچىمى خاتا JSON ھۆججەت «%1»: %2"
 
-#: kateproject.cpp:527 kateprojectplugin.cpp:893 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:906 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -886,50 +886,66 @@ msgstr "قۇرۇلۇش ھالقىغان تاماملاش"
 msgid "Cross-Project Goto Symbol"
 msgstr "قۇرۇلۇش ھالقىغان يۆتكىلىش بەلگىسى"
 
-#: kateprojectconfigpage.cpp:122
+#: kateprojectconfigpage.cpp:118
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Window Title"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:119
+#, kde-format
+msgid "Prefix window title with project name"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:121
+#, kde-format
+msgid "Show the current project's name before the existing window title."
+msgstr ""
+
+#: kateprojectconfigpage.cpp:131
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:125
+#: kateprojectconfigpage.cpp:134
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "git ھالەت كۆرۈنۈشىدىكى يەككە چېكىش مەشغۇلاتى"
 
-#: kateprojectconfigpage.cpp:127 kateprojectconfigpage.cpp:139
+#: kateprojectconfigpage.cpp:136 kateprojectconfigpage.cpp:148
 #, kde-format
 msgid "No Action"
 msgstr "مەشغۇلات يوق"
 
-#: kateprojectconfigpage.cpp:129 kateprojectconfigpage.cpp:141
+#: kateprojectconfigpage.cpp:138 kateprojectconfigpage.cpp:150
 #, kde-format
 msgid "Open file"
 msgstr "ھۆججەت ئاچ"
 
-#: kateprojectconfigpage.cpp:130 kateprojectconfigpage.cpp:142
+#: kateprojectconfigpage.cpp:139 kateprojectconfigpage.cpp:151
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "ۋاقىتلىق ساقلا/ساقلىما"
 
-#: kateprojectconfigpage.cpp:137
+#: kateprojectconfigpage.cpp:146
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "git ھالەت كۆرۈنۈشىدىكى قوش چېكىش مەشغۇلاتى"
 
-#: kateprojectconfigpage.cpp:153
+#: kateprojectconfigpage.cpp:162
 #, fuzzy, kde-format
 #| msgid "Git Tools"
 msgctxt "Groupbox title"
 msgid "Git Hosting"
 msgstr "Git قورالى"
 
-#: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
+#: kateprojectconfigpage.cpp:200 kateprojectpluginview.cpp:76
 #, kde-format
 msgid "Projects"
 msgstr "قۇرۇلۇش"
 
-#: kateprojectconfigpage.cpp:195
+#: kateprojectconfigpage.cpp:205
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
@@ -1066,12 +1082,12 @@ msgstr "قۇرۇلۇش تاقالغانلىقىنى جەزملەش: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "%1 قۇرۇلۇش ۋە  ئۇنىڭغا مۇناسىۋەتلىك %2 ئوچۇق پۈتۈكنى تاقامسىز؟"
 
-#: kateprojectplugin.cpp:746
+#: kateprojectplugin.cpp:759
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "ھۆججەت ئاتىنى ئۆز ئىچىگە ئالمىغان نۆۋەتتىكى قۇرۇلۇشنىڭ تولۇق يولى."
 
-#: kateprojectplugin.cpp:763
+#: kateprojectplugin.cpp:776
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1080,7 +1096,7 @@ msgstr ""
 "ھۆججەت ئاتىنى ئۆز ئىچىگە ئالمىغان نۆۋەتتىكى قۇرۇلۇشنىڭ تولۇق يولى، ئەسلى يول "
 "ئايرىغۇچ (Windows تىكى ئوڭ يانتۇ سىزىق)"
 
-#: kateprojectplugin.cpp:780
+#: kateprojectplugin.cpp:793
 #, kde-format
 msgid "File path relative to the project directory"
 msgstr ""
@@ -1165,12 +1181,12 @@ msgstr ""
 msgid "Checkout Git Branch"
 msgstr "Git شاخ تەكشۈرۈپ چىقار"
 
-#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:877
+#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:890
 #, kde-format
 msgid "Lookup: %1"
 msgstr "ئىزدە: %1"
 
-#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:878
+#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:891
 #, kde-format
 msgid "Goto: %1"
 msgstr "يۆتكەل: %1"
@@ -1181,39 +1197,39 @@ msgstr "يۆتكەل: %1"
 msgid "Git Hosting"
 msgstr "Git قورالى"
 
-#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
-#: kateprojectpluginview.cpp:922
+#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:905
+#: kateprojectpluginview.cpp:935
 #, kde-format
 msgid "Open on Git Hosting Service"
 msgstr ""
 
-#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
+#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:901
 #, kde-format
 msgid "Copy Git Hosting Link"
 msgstr ""
 
-#: kateprojectpluginview.cpp:331
+#: kateprojectpluginview.cpp:336
 #, kde-format
 msgid "Projects Index"
 msgstr "قۇرۇلۇش ئىندېكسى"
 
-#: kateprojectpluginview.cpp:887 kateprojecttreeviewcontextmenu.cpp:190
+#: kateprojectpluginview.cpp:900 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
 msgstr ""
 
-#: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
+#: kateprojectpluginview.cpp:932 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
 msgid "Open on %1"
 msgstr ""
 
-#: kateprojectpluginview.cpp:920 kateprojecttreeviewcontextmenu.cpp:206
+#: kateprojectpluginview.cpp:933 kateprojecttreeviewcontextmenu.cpp:206
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgid "Copy %1 Link"
 msgstr "ئورنىنى كۆچۈر"
 
-#: kateprojectpluginview.cpp:985
+#: kateprojectpluginview.cpp:998
 #, kde-format
 msgid "Choose a directory"
 msgstr "مۇندەرىجە تاللىنىدۇ"

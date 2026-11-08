@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-25 00:54+0000\n"
+"POT-Creation-Date: 2026-11-08 03:01+0000\n"
 "PO-Revision-Date: 2026-10-03 23:15+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -585,7 +585,7 @@ msgid "Open .gitignore"
 msgstr ".gitignore 열기"
 
 #: gitwidget.cpp:1242 gitwidget.cpp:1291 gitwidget.cpp:1342
-#: kateprojectconfigpage.cpp:128 kateprojectconfigpage.cpp:140
+#: kateprojectconfigpage.cpp:137 kateprojectconfigpage.cpp:149
 #, kde-format
 msgid "Show Diff"
 msgstr "차이점 표시"
@@ -722,7 +722,7 @@ msgstr "파일을 만들 수 없음: %1, 오류: %2"
 msgid "Malformed JSON file '%1': %2"
 msgstr "잘못된 JSON 파일 '%1': %2"
 
-#: kateproject.cpp:527 kateprojectplugin.cpp:893 kateprojectpluginview.cpp:82
+#: kateproject.cpp:527 kateprojectplugin.cpp:906 kateprojectpluginview.cpp:82
 #: kateprojectpluginview.cpp:238 kateprojectviewtree.cpp:384
 #: kateprojectviewtree.cpp:395 kateprojectviewtree.cpp:425
 #: kateprojectviewtree.cpp:432
@@ -898,49 +898,65 @@ msgstr "교차 프로젝트 자동 완성"
 msgid "Cross-Project Goto Symbol"
 msgstr "교차 프로젝트 심볼로 이동"
 
-#: kateprojectconfigpage.cpp:122
+#: kateprojectconfigpage.cpp:118
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Window Title"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:119
+#, kde-format
+msgid "Prefix window title with project name"
+msgstr ""
+
+#: kateprojectconfigpage.cpp:121
+#, kde-format
+msgid "Show the current project's name before the existing window title."
+msgstr ""
+
+#: kateprojectconfigpage.cpp:131
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
 msgstr "Git"
 
-#: kateprojectconfigpage.cpp:125
+#: kateprojectconfigpage.cpp:134
 #, kde-format
 msgid "Single click action in the git status view"
 msgstr "git 상태 보기에서 한 번 클릭했을 때 동작"
 
-#: kateprojectconfigpage.cpp:127 kateprojectconfigpage.cpp:139
+#: kateprojectconfigpage.cpp:136 kateprojectconfigpage.cpp:148
 #, kde-format
 msgid "No Action"
 msgstr "동작 없음"
 
-#: kateprojectconfigpage.cpp:129 kateprojectconfigpage.cpp:141
+#: kateprojectconfigpage.cpp:138 kateprojectconfigpage.cpp:150
 #, kde-format
 msgid "Open file"
 msgstr "파일 열기"
 
-#: kateprojectconfigpage.cpp:130 kateprojectconfigpage.cpp:142
+#: kateprojectconfigpage.cpp:139 kateprojectconfigpage.cpp:151
 #, kde-format
 msgid "Stage / Unstage"
 msgstr "스테이지/해제"
 
-#: kateprojectconfigpage.cpp:137
+#: kateprojectconfigpage.cpp:146
 #, kde-format
 msgid "Double click action in the git status view"
 msgstr "git 상태 보기에서 두 번 클릭했을 때 동작"
 
-#: kateprojectconfigpage.cpp:153
+#: kateprojectconfigpage.cpp:162
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
 msgstr "Git 호스팅"
 
-#: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
+#: kateprojectconfigpage.cpp:200 kateprojectpluginview.cpp:76
 #, kde-format
 msgid "Projects"
 msgstr "프로젝트"
 
-#: kateprojectconfigpage.cpp:195
+#: kateprojectconfigpage.cpp:205
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
@@ -1083,12 +1099,12 @@ msgstr "프로젝트 닫기 확인: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "프로젝트 %1 및 열린 문서 %2개를 닫으시겠습니까?"
 
-#: kateprojectplugin.cpp:746
+#: kateprojectplugin.cpp:759
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "파일 이름을 제외한 현재 프로젝트의 전체 경로입니다."
 
-#: kateprojectplugin.cpp:763
+#: kateprojectplugin.cpp:776
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1097,7 +1113,7 @@ msgstr ""
 "네이티브 경로 구분자를 사용하는 파일 이름을 제외한 현재 프로젝트의 전체 경로"
 "입니다(Windows의 경우 백슬래시)."
 
-#: kateprojectplugin.cpp:780
+#: kateprojectplugin.cpp:793
 #, kde-format
 msgid "File path relative to the project directory"
 msgstr ""
@@ -1182,12 +1198,12 @@ msgstr "모든 프로젝트 새로 고침"
 msgid "Checkout Git Branch"
 msgstr "Git 브랜치 체크아웃"
 
-#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:877
+#: kateprojectpluginview.cpp:241 kateprojectpluginview.cpp:890
 #, kde-format
 msgid "Lookup: %1"
 msgstr "찾아보기: %1"
 
-#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:878
+#: kateprojectpluginview.cpp:242 kateprojectpluginview.cpp:891
 #, kde-format
 msgid "Goto: %1"
 msgstr "이동: %1"
@@ -1197,38 +1213,38 @@ msgstr "이동: %1"
 msgid "Git Hosting"
 msgstr "Git 호스팅"
 
-#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
-#: kateprojectpluginview.cpp:922
+#: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:905
+#: kateprojectpluginview.cpp:935
 #, kde-format
 msgid "Open on Git Hosting Service"
 msgstr "Git 호스팅 서비스에서 열기"
 
-#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
+#: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:901
 #, kde-format
 msgid "Copy Git Hosting Link"
 msgstr "Git 호스팅 링크 복사"
 
-#: kateprojectpluginview.cpp:331
+#: kateprojectpluginview.cpp:336
 #, kde-format
 msgid "Projects Index"
 msgstr "프로젝트 색인"
 
-#: kateprojectpluginview.cpp:887 kateprojecttreeviewcontextmenu.cpp:190
+#: kateprojectpluginview.cpp:900 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
 msgstr "Git 호스팅 서비스 감지 중…"
 
-#: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
+#: kateprojectpluginview.cpp:932 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
 msgid "Open on %1"
 msgstr "%1에서 열기"
 
-#: kateprojectpluginview.cpp:920 kateprojecttreeviewcontextmenu.cpp:206
+#: kateprojectpluginview.cpp:933 kateprojecttreeviewcontextmenu.cpp:206
 #, kde-format
 msgid "Copy %1 Link"
 msgstr "%1 링크 복사"
 
-#: kateprojectpluginview.cpp:985
+#: kateprojectpluginview.cpp:998
 #, kde-format
 msgid "Choose a directory"
 msgstr "디렉터리 선택"

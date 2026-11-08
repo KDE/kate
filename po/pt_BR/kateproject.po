@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-25 00:54+0000\n"
-"PO-Revision-Date: 2026-10-25 09:07-0300\n"
+"PO-Revision-Date: 2026-11-08 06:53-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.08.2\n"
+"X-Generator: Lokalize 26.08.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -514,7 +514,7 @@ msgstr "Mostrar commit"
 #: gitwidget.cpp:1112
 #, kde-format
 msgid "Show Last Commit"
-msgstr "Exibir último commit"
+msgstr "Mostrar último commit"
 
 #: gitwidget.cpp:1130
 #, kde-format
@@ -569,12 +569,12 @@ msgstr "Soltar modificação temporária"
 #: gitwidget.cpp:1194
 #, kde-format
 msgid "Show Stash"
-msgstr "Exibir modificação temporária"
+msgstr "Mostrar modificação temporária"
 
 #: gitwidget.cpp:1198
 #, kde-format
 msgid "Show Stash Diff"
-msgstr "Exibir diferença da modificação temporária"
+msgstr "Mostrar diferença da modificação temporária"
 
 #: gitwidget.cpp:1236
 #, kde-format
@@ -826,14 +826,14 @@ msgid ""
 "Show all files in the project directory including files not tracked by the "
 "version control system, such as those excluded via .gitignore."
 msgstr ""
-"Exibe todos os arquivos no diretório do projeto, incluindo arquivos não "
+"Mostra todos os arquivos no diretório do projeto, incluindo arquivos não "
 "rastreados pelo sistema de controle de versão, como aqueles excluídos via ."
 "gitignore."
 
 #: kateprojectconfigpage.cpp:72
 #, kde-format
 msgid "Show hidden files in non-VCS projects"
-msgstr "Exibir arquivos ocultos em projetos sem controle de versão"
+msgstr "Mostrar arquivos ocultos em projetos sem controle de versão"
 
 #: kateprojectconfigpage.cpp:73
 #, kde-format
@@ -841,7 +841,7 @@ msgid ""
 "Show hidden files (dotfiles) in the project file tree for projects not "
 "loaded using version control."
 msgstr ""
-"Exibe arquivos ocultos (dotfiles) na árvore de arquivos do projeto para "
+"Mostra arquivos ocultos (dotfiles) na árvore de arquivos do projeto para "
 "projetos que não foram carregados usando controle de versão."
 
 #: kateprojectconfigpage.cpp:82
@@ -1443,7 +1443,7 @@ msgstr "Modificações temporárias exibidas com sucesso."
 #: stashdialog.cpp:266
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr "Exibir modificações temporárias falhou. Erro:"
+msgstr "A mostra de modificações temporárias falhou. Erro:"
 
 #: stashdialog.cpp:269
 #, kde-format

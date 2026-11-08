@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-25 00:54+0000\n"
-"PO-Revision-Date: 2026-09-27 10:03+0300\n"
+"PO-Revision-Date: 2026-11-07 21:49+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -396,10 +396,9 @@ msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr "לא ניתן למצוא תיקיית ‎.git עבור ‚%1’, ייתכן שדברים לא יעבדו כראוי"
 
 #: gitwidget.cpp:593
-#, fuzzy, kde-format
-#| msgid "Failed to get stash list. Error: "
+#, kde-format
 msgid "Failed to get the git status"
-msgstr "משיכת רשימת הטמנות (Stash) נכשלה. שגיאה: "
+msgstr "משיכת מצב ה־git נכשלה"
 
 #: gitwidget.cpp:652
 #, kde-format
@@ -705,19 +704,17 @@ msgstr "שגיאה"
 #: kateproject.cpp:317
 #, kde-format
 msgid "'%1' is not a valid file name."
-msgstr ""
+msgstr "‚%1’ הוא לא שם תקף לקובץ."
 
 #: kateproject.cpp:328
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "A file named '%1' already exists."
-msgstr "שם הקובץ כבר קיים"
+msgstr "כבר קיים קובץ בשם ‚%1’."
 
 #: kateproject.cpp:350
-#, fuzzy, kde-format
-#| msgid "Failed to create file: %1, Error: %2"
+#, kde-format
 msgid "Failed to rename '%1' to '%2': %3"
-msgstr "יצירת הקובץ נכשלה: %1. שגיאה: %2"
+msgstr "שינוי שם הקובץ ‚%1’ ל־‚%2’: %3"
 
 #: kateproject.cpp:459
 #, kde-format
@@ -1101,7 +1098,7 @@ msgstr ""
 #: kateprojectplugin.cpp:780
 #, kde-format
 msgid "File path relative to the project directory"
-msgstr ""
+msgstr "נתיב הקובץ ביחס לתיקיית המיזם"
 
 #: kateprojectpluginview.cpp:66
 #, kde-format
@@ -1327,7 +1324,7 @@ msgstr "לא ניתן לאתר תיקייה: %1"
 #: kateprojectworker.cpp:318
 #, kde-format
 msgid "Invalid regex pattern in exclude_patterns %1"
-msgstr ""
+msgstr "תבנית ביטוי רגולרי שגויה ב־exclude_patterns %1"
 
 #: kateprojectworker.cpp:804
 #, kde-format
@@ -1367,10 +1364,9 @@ msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "נא להקליד כדי לסנן, Enter כדי לשלוף הטמנה (stash), Esc לנטישה."
 
 #: stashdialog.cpp:142 stashdialog.cpp:204
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgid "Failed to run git: %1"
-msgstr "קיבוע נכשל: %1"
+msgstr "הרצת git נכשלה: %1"
 
 #: stashdialog.cpp:168
 #, kde-format
@@ -1385,7 +1381,7 @@ msgstr "השינויים הוטמנו (stashed) בהצלחה."
 #: stashdialog.cpp:189
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "טעינה…"
 
 #: stashdialog.cpp:198
 #, kde-format

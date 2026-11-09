@@ -44,7 +44,7 @@ SQLManager::~SQLManager()
     delete m_model;
 }
 
-void SQLManager::createConnection(const Connection &conn)
+bool SQLManager::registerConnection(const Connection &conn)
 {
     if (QSqlDatabase::contains(conn.name)) {
         qDebug("connection %ls already exist", qUtf16Printable(conn.name));
@@ -56,7 +56,7 @@ void SQLManager::createConnection(const Connection &conn)
     if (!db.isValid()) {
         Q_EMIT error(db.lastError().text());
         QSqlDatabase::removeDatabase(conn.name);
-        return;
+        return false;
     }
 
     db.setHostName(conn.hostname);
@@ -70,6 +70,16 @@ void SQLManager::createConnection(const Connection &conn)
     }
 
     m_model->addConnection(conn);
+    return true;
+}
+
+void SQLManager::createConnection(const Connection &conn)
+{
+    if (!registerConnection(conn)) {
+        return;
+    }
+
+    QSqlDatabase db = QSqlDatabase::database(conn.name, false);
 
     // try to open connection, with or without password
     if (db.open()) {
@@ -118,7 +128,7 @@ bool SQLManager::testConnection(const Connection &conn, QSqlError &error)
 
 bool SQLManager::isValidAndOpen(const QString &connection)
 {
-    QSqlDatabase db = QSqlDatabase::database(connection);
+    QSqlDatabase db = QSqlDatabase::database(connection, false);
 
     if (!db.isValid()) {
         m_model->setStatus(connection, Connection::OFFLINE);
@@ -157,7 +167,7 @@ void SQLManager::reopenConnection(const QString &name)
 {
     Q_EMIT connectionAboutToBeClosed(name);
 
-    QSqlDatabase db = QSqlDatabase::database(name);
+    QSqlDatabase db = QSqlDatabase::database(name, false);
 
     db.close();
     isValidAndOpen(name);
@@ -237,7 +247,6 @@ void SQLManager::removeConnection(const QString &name)
 
 void SQLManager::loadConnections(const KConfigGroup &connectionsGroup)
 {
-    Connection c;
     const auto groupList = connectionsGroup.groupList();
 
     for (const QString &groupName : groupList) {
@@ -245,6 +254,8 @@ void SQLManager::loadConnections(const KConfigGroup &connectionsGroup)
 
         KConfigGroup group = connectionsGroup.group(groupName);
 
+        Connection c{};
+        c.status = Connection::UNKNOWN;
         c.name = groupName;
         c.driver = group.readEntry(KateSQLConstants::Connection::Driver);
         c.options = group.readEntry(KateSQLConstants::Connection::Options);
@@ -261,13 +272,17 @@ void SQLManager::loadConnections(const KConfigGroup &connectionsGroup)
             // were stored in config file instead of kwallet
             c.password = group.readEntry(KateSQLConstants::Connection::Password);
 
-            if (!c.password.isEmpty()) {
-                c.status = Connection::ONLINE;
-            } else {
+            if (c.password.isEmpty()) {
                 c.status = Connection::REQUIRE_PASSWORD;
             }
         }
-        createConnection(c);
+
+        // Don't open the connection here: this runs while the session is being
+        // restored and a remote server can block the GUI for a long time.
+        // The connection is opened on first use (see isValidAndOpen()).
+        if (registerConnection(c)) {
+            Q_EMIT connectionCreated(c.name);
+        }
     }
 }
 

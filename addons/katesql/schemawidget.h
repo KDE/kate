@@ -70,6 +70,7 @@ private:
     void keyPressEvent(QKeyEvent *event) override;
     bool isConnectionValidAndOpen() const;
     void loadForeignKeys();
+    void ensureForeignKeysLoaded();
     void fillTableToColumnMap();
     bool canUseRelationalModel(const QString &tableName) const;
     bool isRelationalTablesEnabled() const;
@@ -83,6 +84,7 @@ private:
 
     bool m_tablesLoaded;
     bool m_viewsLoaded;
+    bool m_foreignKeysLoaded = false;
 
     SQLManager *m_manager;
 

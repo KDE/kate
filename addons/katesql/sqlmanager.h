@@ -64,5 +64,8 @@ Q_SIGNALS:
     void success(const QString &message);
 
 private:
+    // Adds the connection to QSqlDatabase and the model without opening it
+    bool registerConnection(const Connection &conn);
+
     ConnectionModel *m_model;
 };

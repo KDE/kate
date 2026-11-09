@@ -81,8 +81,10 @@ public:
      * @param arg command line parser, reference will be stored, needs to survive as long as application object is alive
      * @param mode application mode, either Kate or KWrite
      * @param sessionDir directory used to store the session config files
+     * @param plugins plugins to load per default instead of the usual ones, e.g. {"kateprojectplugin"},
+     *                only used in test mode where no plugins get loaded otherwise
      */
-    KateApp(const QCommandLineParser &arg, const ApplicationMode mode, const QString &sessionsDir);
+    KateApp(const QCommandLineParser &arg, const ApplicationMode mode, const QString &sessionsDir, const QStringList &plugins = {});
 
     /**
      * return current application mode

@@ -242,11 +242,12 @@ void KateApp::initPreApplicationCreation(bool detach)
 #endif
 }
 
-KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, const QString &sessionsDir)
+KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, const QString &sessionsDir, const QStringList &plugins)
     : m_args(args)
     , m_mode(mode)
     , m_wrapper(appSelf = this)
     , m_docManager(this)
+    , m_pluginManager(plugins)
     , m_sessionManager(this, sessionsDir)
 #ifdef WITH_KUSERFEEDBACK
     , m_userFeedbackProvider(new KUserFeedback::Provider(this))

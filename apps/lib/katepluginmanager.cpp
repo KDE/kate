@@ -37,7 +37,8 @@ bool KatePluginInfo::operator<(const KatePluginInfo &other) const
     return saveName() < other.saveName();
 }
 
-KatePluginManager::KatePluginManager()
+KatePluginManager::KatePluginManager(const QStringList &testPlugins)
+    : m_testPlugins(testPlugins)
 {
     setupPluginList();
 }
@@ -94,12 +95,16 @@ void KatePluginManager::setupPluginList()
 
         for (auto dp : defaultPlugins) {
             if (QLatin1String(dp.name) == saveName) {
-                // ensure during unit tests, the plugins don't interfere
-                // the lsp stuff for example might want to start lsp servers
-                info.defaultLoad = !QStandardPaths::isTestModeEnabled();
+                info.defaultLoad = true;
                 info.sortOrder = dp.sortOrder;
                 break;
             }
+        }
+
+        // during unit tests only load the plugins a test asks for, so they don't interfere
+        // the lsp stuff for example might want to start lsp servers
+        if (QStandardPaths::isTestModeEnabled()) {
+            info.defaultLoad = m_testPlugins.contains(saveName);
         }
 
         info.load = info.defaultLoad; // keep this in load, too, to avoid new sessions kill that info on writeConfig

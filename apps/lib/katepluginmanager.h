@@ -35,7 +35,10 @@ typedef std::vector<KatePluginInfo> KatePluginList;
 class KatePluginManager
 {
 public:
-    explicit KatePluginManager();
+    /**
+     * @param testPlugins plugins to load per default in test mode, where no plugins get loaded otherwise
+     */
+    explicit KatePluginManager(const QStringList &testPlugins = {});
     ~KatePluginManager();
 
     void unloadAllPlugins();
@@ -79,4 +82,9 @@ private:
      * If this is true it will load all plugins regardless of config
      */
     bool m_selfTestEnabled = false;
+
+    /**
+     * plugins to load per default in test mode
+     */
+    const QStringList m_testPlugins;
 };

@@ -100,6 +100,11 @@ if (WARNINGS_AS_ERRORS)
     endif()
 endif()
 
+# kate_add_app_test() for whole app tests of the addons
+if(BUILD_TESTING)
+    include(apps/lib/autotests/apptest/KateAppTest.cmake)
+endif()
+
 # addons for Kate
 ecm_optional_add_subdirectory(addons)
 

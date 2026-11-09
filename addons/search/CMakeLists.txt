@@ -38,3 +38,7 @@ target_sources(
 if (ENABLE_PCH)
     target_precompile_headers(katesearchplugin REUSE_FROM katepch)
 endif()
+
+if(BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()

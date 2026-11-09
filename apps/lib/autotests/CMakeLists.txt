@@ -2,6 +2,9 @@ include(ECMMarkAsTest)
 
 find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
 
+# utilities for whole app tests
+add_subdirectory(apptest)
+
 # add given tests to run in offscreen rendering
 macro(kate_executable_tests)
     foreach(_testname ${ARGN})

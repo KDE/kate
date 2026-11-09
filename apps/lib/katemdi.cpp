@@ -274,6 +274,9 @@ ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent, const
     , id(identifier)
     , m_toolVisible(false)
 {
+    // allows to find the tool view by its identifier, e.g. in tests
+    setObjectName(identifier);
+
     // try to fix resize policy
     QSizePolicy policy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     policy.setRetainSizeWhenHidden(true);

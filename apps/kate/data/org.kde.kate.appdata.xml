@@ -1667,6 +1667,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ca-valencia">Vegeu les línies afegides, modificades i eliminades als marges de l'editor amb el connector Git Decorations nou.</li>
           <li xml:lang="cs">Díky novému modulu Git Decorations můžete v okrajích editoru sledovat přidané, upravené a odstraněné řádky.</li>
           <li xml:lang="es">Ver las líneas añadidas, modificadas y eliminadas en los márgenes del editor con el nuevo complemento de decoraciones de Git.</li>
+          <li xml:lang="he">אפשר לראות שורות שנוספו, נערכו והוסרו בשולי העורך עם תוסף עיטורי ה־Git החדש.</li>
           <li xml:lang="ia">Vide lineas addite, modificate, e removite in le margines del editor  con le nove plugin Git Decorations.</li>
           <li xml:lang="it">Visualizza le righe aggiunte, modificate e rimosse nei margini dell'editor con la nuova estensione Git Decorations.</li>
           <li xml:lang="ka">იხილეთ დამატებული, შეცვლილი და წაშლილი ხაზები რედაქტორის მინდვრებში ახალი დამატებით Git Decorations.</li>
@@ -1702,6 +1703,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ca-valencia">Obriu fitxers i línies seleccionades a GitHub, GitLab o Forgejo, o copieu els seus enllaços, amb suport per a mapatges personalitzats de l'amfitrió Git a nivell global i per projecte.</li>
           <li xml:lang="cs">Otevírejte soubory a vybrané řádky na GitHubu, GitLabu nebo Forgejo, případně zkopírujte jejich odkazy, a to s podporou vlastních přiřazení hostitelů Git, a to globálně i pro jednotlivé projekty.</li>
           <li xml:lang="es">Abrir archivos y líneas seleccionadas en GitHub, GitLab o Forgejo, o copiar sus enlaces, con compatibilidad para mapas de máquinas Git personalizados a nivel global y por proyecto.</li>
+          <li xml:lang="he">אפשר לפתוח קבצים ושורות נבחרות ב־GitHub,‏ GitLab או Forgejo או להעתיק את הקישורים שלהם, עם תמיכה במיפויי מארחי Git מותאמים אישית ולפי מיזם.</li>
           <li xml:lang="ia">Aperir files e lineas seligite in GitHub, GitLab, o Forgejo, o copiar lor ligamines, con supporto pro mappages de host Git personalisate globalmente e per projecto.</li>
           <li xml:lang="it">Apri file e righe selezionate su GitHub, GitLab o Forgejo, oppure copiane i collegamenti; il sistema supporta le associazioni personalizzate degli host Git, configurabili a livello globale o per singolo progetto.</li>
           <li xml:lang="ka">გახსენით ფაილები და მონიშნული ხაზები GitHub-ზე, GitLab-ზე, ან Forgejo-ზე, ან დააკოპირეთ მათი ბმულები მორგებული Git ჰოსტის ასახვების მხარდაჭერით გლობალურად, ან თითოეული პროექტისთვის.</li>

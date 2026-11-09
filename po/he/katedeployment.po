@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-20 00:56+0000\n"
-"PO-Revision-Date: 2026-11-07 21:53+0200\n"
+"PO-Revision-Date: 2026-11-08 09:24+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: צוות התרגום של KDE ישראל\n"
+"Language-Team: Hebrew <kde-l10n-he@kde.org>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
-"2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Poedit 3.10\n"
 
 #: deploymentconfig.cpp:108
@@ -67,12 +67,12 @@ msgstr ""
 #: deploymentconfig.cpp:182
 #, kde-format
 msgid "deployment exclude entries must be strings"
-msgstr ""
+msgstr "רשומות החרגה של הטמעה חייבות להיות מחרוזות"
 
 #: deploymentconfig.cpp:187
 #, kde-format
 msgid "deployment exclude must be a list of strings"
-msgstr ""
+msgstr "החרגה של הטמעה חייבת להיות רשימת מחרוזות"
 
 #: deploymentplugin.cpp:115
 #, kde-format
@@ -86,6 +86,8 @@ msgid ""
 "Configure the SFTP destination for <filename>%1</filename>. Authentication "
 "is handled by KIO."
 msgstr ""
+"נא להגדיר את יעד ה־SFTP עבור <filename>%1</filename>. האימות מנוהל על ידי "
+"KIO."
 
 #: deploymentplugin.cpp:136
 #, kde-format
@@ -216,7 +218,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Upload Folder to Remote Host"
-msgstr ""
+msgstr "העלאת תיקייה למארח מרוחק."
 
 #: deploymentplugin.cpp:427
 #, kde-format
@@ -298,23 +300,23 @@ msgstr[3] ""
 #: deploymentplugin.cpp:620 deploymentplugin.cpp:674
 #, kde-format
 msgid "The remote file is open in Kate."
-msgstr ""
+msgstr "הקובץ המרוחק פתוח ב־Kate."
 
 #: deploymentplugin.cpp:629
 #, kde-format
 msgid "Uploading %1 to %2"
-msgstr ""
+msgstr "%1 מועלה אל %2"
 
 #: deploymentplugin.cpp:657
 #, kde-format
 msgctxt "@action"
 msgid "Cancel Deployment Transfers (%1%)"
-msgstr ""
+msgstr "ביטול העברות הטמעה (%1%)"
 
 #: deploymentplugin.cpp:697
 #, kde-format
 msgid "Failed to upload %1: %2"
-msgstr ""
+msgstr "ההעלאה של %1 נכשלה: %2"
 
 #: deploymentplugin.cpp:699
 #, kde-format
@@ -324,12 +326,12 @@ msgstr "%1 הועלה"
 #: deploymentplugin.cpp:720
 #, kde-format
 msgid "Cancelled deployment transfers."
-msgstr ""
+msgstr "העברות הטמעה בוטלהו"
 
 #: deploymentplugin.cpp:754
 #, kde-format
 msgid "Not connected"
-msgstr ""
+msgstr "לא מחובר"
 
 #: deploymentplugin.cpp:772
 #, kde-format
@@ -341,13 +343,13 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Remote File"
-msgstr ""
+msgstr "פתיחת קובץ מרוחק"
 
 #: deploymentplugin.cpp:809
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Mapped Local File"
-msgstr ""
+msgstr "פתיחת קובץ מקומי ממופה"
 
 #: deploymentplugin.cpp:815
 #, kde-format
@@ -365,7 +367,7 @@ msgstr "העתקת כתובת מרוחקת"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Remote Path"
-msgstr ""
+msgstr "העתקת נתיב מרוחק"
 
 #: deploymentplugin.cpp:837
 #, kde-format

@@ -175,7 +175,7 @@ void DiagnosticInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote
     QRectF bg(gapChars * charWidth, 0., fm.horizontalAdvance(text) + 2 * padding, fm.height());
     bg.moveTop((note.lineHeight() - bg.height()) / 2.);
     QColor bgColor = color;
-    bgColor.setAlphaF(0.12);
+    bgColor.setAlphaF(0.12f);
     painter.setPen(Qt::NoPen);
     painter.setBrush(bgColor);
     painter.drawRoundedRect(bg, 3., 3.);

@@ -588,11 +588,7 @@ void GitWidget::slotUpdateStatus()
             if (m_refreshButton) {
                 m_refreshButton->setBusy(false);
             }
-            QString error = QString::fromUtf8(git->readAllStandardError()).trimmed();
-            if (error.isEmpty()) {
-                error = i18n("Failed to get the git status");
-            }
-            sendMessage(error, true);
+            // no error on status failure, e.g., the folder is not a git repo
         } else {
             auto future = QtConcurrent::run(GitUtils::parseStatus, git->readAllStandardOutput(), m_activeGitDirPath);
             m_gitStatusWatcher->setFuture(future);

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-25 00:49+0000\n"
+"POT-Creation-Date: 2026-11-10 01:00+0000\n"
 "PO-Revision-Date: 2026-06-04 05:26+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -598,68 +598,68 @@ msgctxt "@title:column"
 msgid "Database schema"
 msgstr "Shema podatkovne zbirke"
 
-#: schemawidget.cpp:138
+#: schemawidget.cpp:144
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "Razpredelnice"
 
-#: schemawidget.cpp:143
+#: schemawidget.cpp:149
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "Pogledi"
 
-#: schemawidget.cpp:157
+#: schemawidget.cpp:163
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "Sistemske razpredelnice"
 
-#: schemawidget.cpp:357
+#: schemawidget.cpp:363
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "Izberi podatke"
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:367
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "Ustvari"
 
-#: schemawidget.cpp:362
+#: schemawidget.cpp:368
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:363
+#: schemawidget.cpp:369
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:364
+#: schemawidget.cpp:370
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:365
+#: schemawidget.cpp:371
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:369
+#: schemawidget.cpp:375
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Osveži"
 
-#: sqlmanager.cpp:320
+#: sqlmanager.cpp:335
 #, kde-format
 msgid "Prepare Statement Failure"
 msgstr "Pripravi neuspeh ukaza"
 
-#: sqlmanager.cpp:321
+#: sqlmanager.cpp:336
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
@@ -668,13 +668,13 @@ msgstr ""
 "<p>Priprava poizvedbe ni uspela zaradi naslednje napake: %1</p><p>Ali želite "
 "nadaljevati brez priprave poizvedbe?</p>"
 
-#: sqlmanager.cpp:351
+#: sqlmanager.cpp:366
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Poizvedba se je uspešno zaključila"
 
-#: sqlmanager.cpp:354 sqlmanager.cpp:392 sqlmanager.cpp:453
+#: sqlmanager.cpp:369 sqlmanager.cpp:407 sqlmanager.cpp:468
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -684,7 +684,7 @@ msgstr[1] "Izbran je %1 zapis"
 msgstr[2] "Izbrana sta %1 zapisa"
 msgstr[3] "Izbrani so %1 zapisi"
 
-#: sqlmanager.cpp:358
+#: sqlmanager.cpp:373
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

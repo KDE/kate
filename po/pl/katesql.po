@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-25 00:49+0000\n"
+"POT-Creation-Date: 2026-11-10 01:00+0000\n"
 "PO-Revision-Date: 2026-08-08 12:55+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -595,68 +595,68 @@ msgctxt "@title:column"
 msgid "Database schema"
 msgstr "Schemat bazy danych"
 
-#: schemawidget.cpp:138
+#: schemawidget.cpp:144
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "Tabele"
 
-#: schemawidget.cpp:143
+#: schemawidget.cpp:149
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "Widoki"
 
-#: schemawidget.cpp:157
+#: schemawidget.cpp:163
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "Tabele systemowe"
 
-#: schemawidget.cpp:357
+#: schemawidget.cpp:363
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "Zaznacz dane"
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:367
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "Generuj"
 
-#: schemawidget.cpp:362
+#: schemawidget.cpp:368
 #, kde-format
 msgid "SELECT"
 msgstr "WYBIERZ"
 
-#: schemawidget.cpp:363
+#: schemawidget.cpp:369
 #, kde-format
 msgid "UPDATE"
 msgstr "UAKTUALNIJ"
 
-#: schemawidget.cpp:364
+#: schemawidget.cpp:370
 #, kde-format
 msgid "INSERT"
 msgstr "WSTAW"
 
-#: schemawidget.cpp:365
+#: schemawidget.cpp:371
 #, kde-format
 msgid "DELETE"
 msgstr "USUŃ"
 
-#: schemawidget.cpp:369
+#: schemawidget.cpp:375
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Odśwież"
 
-#: sqlmanager.cpp:320
+#: sqlmanager.cpp:335
 #, kde-format
 msgid "Prepare Statement Failure"
 msgstr "Niepowodzenie wyrażenia przygotowującego"
 
-#: sqlmanager.cpp:321
+#: sqlmanager.cpp:336
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
@@ -665,13 +665,13 @@ msgstr ""
 "<p>Przygotowanie zapytania zwróciło następujący błąd: %1</p><p>Czy "
 "kontynuować przygotowywanie zapytania?</p>"
 
-#: sqlmanager.cpp:351
+#: sqlmanager.cpp:366
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Zapytanie zakończono pomyślnie"
 
-#: sqlmanager.cpp:354 sqlmanager.cpp:392 sqlmanager.cpp:453
+#: sqlmanager.cpp:369 sqlmanager.cpp:407 sqlmanager.cpp:468
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -680,7 +680,7 @@ msgstr[0] "Zaznaczono %1 wpis"
 msgstr[1] "Zaznaczono %1 wpisy"
 msgstr[2] "Zaznaczono %1 wpisów"
 
-#: sqlmanager.cpp:358
+#: sqlmanager.cpp:373
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

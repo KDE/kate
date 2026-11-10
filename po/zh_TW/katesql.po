@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-25 00:49+0000\n"
+"POT-Creation-Date: 2026-11-10 01:00+0000\n"
 "PO-Revision-Date: 2026-06-07 16:47+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -595,68 +595,68 @@ msgctxt "@title:column"
 msgid "Database schema"
 msgstr "資料庫綱要"
 
-#: schemawidget.cpp:138
+#: schemawidget.cpp:144
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "表格"
 
-#: schemawidget.cpp:143
+#: schemawidget.cpp:149
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "檢視"
 
-#: schemawidget.cpp:157
+#: schemawidget.cpp:163
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "系統表格"
 
-#: schemawidget.cpp:357
+#: schemawidget.cpp:363
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "選擇資料"
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:367
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "產生"
 
-#: schemawidget.cpp:362
+#: schemawidget.cpp:368
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:363
+#: schemawidget.cpp:369
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:364
+#: schemawidget.cpp:370
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:365
+#: schemawidget.cpp:371
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:369
+#: schemawidget.cpp:375
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "重新整理"
 
-#: sqlmanager.cpp:320
+#: sqlmanager.cpp:335
 #, kde-format
 msgid "Prepare Statement Failure"
 msgstr "準備陳述式失敗"
 
-#: sqlmanager.cpp:321
+#: sqlmanager.cpp:336
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
@@ -664,20 +664,20 @@ msgid ""
 msgstr ""
 "<p>準備查詢時失敗，錯誤如下：%1</p><p>您要不將查詢進行準備而直接繼續嗎？</p>"
 
-#: sqlmanager.cpp:351
+#: sqlmanager.cpp:366
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "查詢已成功完成"
 
-#: sqlmanager.cpp:354 sqlmanager.cpp:392 sqlmanager.cpp:453
+#: sqlmanager.cpp:369 sqlmanager.cpp:407 sqlmanager.cpp:468
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
 msgstr[0] "已選擇 %1 筆紀錄"
 
-#: sqlmanager.cpp:358
+#: sqlmanager.cpp:373
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

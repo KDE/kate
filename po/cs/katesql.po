@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-09-25 00:49+0000\n"
+"POT-Creation-Date: 2026-11-10 01:00+0000\n"
 "PO-Revision-Date: 2026-06-12 23:32+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -596,68 +596,68 @@ msgctxt "@title:column"
 msgid "Database schema"
 msgstr "Schéma databáze"
 
-#: schemawidget.cpp:138
+#: schemawidget.cpp:144
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "Tabulky"
 
-#: schemawidget.cpp:143
+#: schemawidget.cpp:149
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "Pohledy"
 
-#: schemawidget.cpp:157
+#: schemawidget.cpp:163
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "Systémové tabulky"
 
-#: schemawidget.cpp:357
+#: schemawidget.cpp:363
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "Vyberte data"
 
-#: schemawidget.cpp:361
+#: schemawidget.cpp:367
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "Vygenerovat"
 
-#: schemawidget.cpp:362
+#: schemawidget.cpp:368
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:363
+#: schemawidget.cpp:369
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:364
+#: schemawidget.cpp:370
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:365
+#: schemawidget.cpp:371
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:369
+#: schemawidget.cpp:375
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Obnovit"
 
-#: sqlmanager.cpp:320
+#: sqlmanager.cpp:335
 #, kde-format
 msgid "Prepare Statement Failure"
 msgstr "Chyba při přípravě výpisu"
 
-#: sqlmanager.cpp:321
+#: sqlmanager.cpp:336
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
@@ -666,13 +666,13 @@ msgstr ""
 "<p>Při přípravě dotazu došlo k chybě: %1</p><p>Chcete pokračovat bez "
 "přípravy dotazu?</p>"
 
-#: sqlmanager.cpp:351
+#: sqlmanager.cpp:366
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Dotaz byl úspěšně dokončen"
 
-#: sqlmanager.cpp:354 sqlmanager.cpp:392 sqlmanager.cpp:453
+#: sqlmanager.cpp:369 sqlmanager.cpp:407 sqlmanager.cpp:468
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -681,7 +681,7 @@ msgstr[0] "Vybrán %1 záznam"
 msgstr[1] "Vybrány %1 záznamy"
 msgstr[2] "Vybráno %1 záznamů"
 
-#: sqlmanager.cpp:358
+#: sqlmanager.cpp:373
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

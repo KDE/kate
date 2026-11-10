@@ -8,15 +8,16 @@
 # Thomas Vergnaud <thomas.vergnaud@gmx.fr>, 2020.
 # SPDX-FileCopyrightText: 2021-2026 Xavier Besnard <xavier.besnard@kde.org>
 # Xavier Besnard <xavier.besnard@kde.org>, 2023.
+# SPDX-FileCopyrightText: 2026 Olivier Delaune <olivier.delaune@wanadoo.fr>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 03:01+0000\n"
-"PO-Revision-Date: 2026-10-08 13:33+0200\n"
-"Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
-"Language-Team: fr\n"
+"POT-Creation-Date: 2026-11-10 01:01+0000\n"
+"PO-Revision-Date: 2026-10-17 11:56+0200\n"
+"Last-Translator: Olivier Delaune <olivier.delaune@wanadoo.fr>\n"
+"Language-Team: French <kde-francophone@kde.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 25.12.1\n"
 "X-Text-Markup: kde4\n"
 
 #: branchcheckoutdialog.cpp:29
@@ -130,7 +131,7 @@ msgstr "HEAD à cette validation %1"
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr "HEAD est à cette balise %1"
+msgstr "HEAD est à cette étiquette %1"
 
 #: currentgitbranchbutton.cpp:126
 #, kde-format
@@ -150,6 +151,9 @@ msgid ""
 "host is taken from the clone URL; the website URL is used to open repository "
 "links in a browser."
 msgstr ""
+"Mappez les hôtes distants Git à leur site Web Forgejo, GitHub ou GitLab. "
+"L'hôte distant est extrait de l'URL du clone ; l'URL du site Web est "
+"utilisée pour ouvrir les liens du référentiel dans un navigateur."
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
@@ -169,17 +173,19 @@ msgstr "URL du site Internet"
 #: git/gitforgeconfigwidget.cpp:46
 #, kde-format
 msgid "Host from the Git clone URL, optionally followed by its SSH port"
-msgstr ""
+msgstr "Hôte de l'URL du clone Git, éventuellement suivi de son port SSH"
 
 #: git/gitforgeconfigwidget.cpp:47
 #, kde-format
 msgid "Forgejo, GitHub, or GitLab software running on the server"
-msgstr ""
+msgstr "Logiciel Forgejo, GitHub ou GitLab exécuté sur le serveur"
 
 #: git/gitforgeconfigwidget.cpp:48
 #, kde-format
 msgid "HTTP or HTTPS address used to open repository links in a web browser"
 msgstr ""
+"Adresse HTTP ou HTTPS utilisée pour ouvrir les liens du référentiel dans un "
+"navigateur Web"
 
 #: git/gitforgeconfigwidget.cpp:56
 #, kde-format
@@ -197,22 +203,25 @@ msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
 msgstr ""
+"Essayez d'identifier Forgejo, GitHub ou GitLab à partir de l'URL du site Web "
+"du mappage sélectionné."
 
 #: git/gitforgeconfigwidget.cpp:107
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
-msgstr ""
+msgstr "Le service d'hébergement de la ligne %1 n'est pas valide."
 
 #: git/gitforgeconfigwidget.cpp:112
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
 msgstr ""
+"L'URL de l'hôte distant ou du site Web Git dans la ligne %1 n'est pas valide."
 
 #: git/gitforgeconfigwidget.cpp:139
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
-msgstr ""
+msgstr "git.example.com ou git.example.com:2222"
 
 #: git/gitforgeconfigwidget.cpp:157
 #, kde-format
@@ -222,13 +231,15 @@ msgstr "https://git.exemple.com"
 #: git/gitforgeconfigwidget.cpp:174
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
-msgstr ""
+msgstr "Sélectionnez un mappage pour détecter son service d'hébergement."
 
 #: git/gitforgeconfigwidget.cpp:181
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
 msgstr ""
+"Saisissez une URL de site Web HTTP ou HTTPS valide avant de détecter le "
+"service d'hébergement."
 
 #: git/gitforgeconfigwidget.cpp:192
 #, kde-format
@@ -243,12 +254,12 @@ msgstr "%1 détecté."
 #: git/gitforgeconfigwidget.cpp:240
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
-msgstr ""
+msgstr "La cartographie a changé ; le résultat de la détection a été ignoré."
 
 #: git/gitforgeconfigwidget.cpp:242
 #, kde-format
 msgid "Service could not be detected; select it manually."
-msgstr ""
+msgstr "Le service n'a pas pu être détecté ; sélectionnez-le manuellement."
 
 #: git/gitstatus.cpp:159
 #, kde-format
@@ -296,7 +307,7 @@ msgid "Commit Changes"
 msgstr "Valider les modifications"
 
 #: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:265
-#: gitwidget.cpp:1100
+#: gitwidget.cpp:1096
 #, kde-format
 msgid "Commit"
 msgstr "Valider"
@@ -309,7 +320,7 @@ msgstr "Annuler"
 #: gitcommitdialog.cpp:77
 #, kde-format
 msgid "Write commit message..."
-msgstr "Écrire un message de validation"
+msgstr "Écrire un message de validation..."
 
 #: gitcommitdialog.cpp:84
 #, kde-format
@@ -326,15 +337,15 @@ msgstr "Approuver"
 msgid "Amend"
 msgstr "Amender"
 
-#: gitcommitdialog.cpp:113 gitwidget.cpp:1053
+#: gitcommitdialog.cpp:113 gitwidget.cpp:1049
 #, kde-format
 msgid "Amend Last Commit"
-msgstr "Amender le dernier commit"
+msgstr "Amender la dernière validation"
 
 #: gitcommitdialog.cpp:127
 #, kde-format
 msgid "Amending Commit"
-msgstr "Amendement du commit"
+msgstr "Amendement de la validation"
 
 #: gitcommitdialog.cpp:210
 #, kde-format
@@ -351,7 +362,7 @@ msgstr "<span style=\"color:%1;\">%2</span> / 52"
 #: gitstatusmodel.cpp:97
 #, kde-format
 msgid "Staged"
-msgstr "Organisé"
+msgstr "Référencé"
 
 #: gitstatusmodel.cpp:99
 #, kde-format
@@ -361,7 +372,7 @@ msgstr "Non tracé"
 #: gitstatusmodel.cpp:101
 #, kde-format
 msgid "Conflict"
-msgstr "Conflit"
+msgstr "En conflit"
 
 #: gitstatusmodel.cpp:103
 #, kde-format
@@ -371,7 +382,7 @@ msgstr "Modifié"
 #: gitwidget.cpp:273
 #, kde-format
 msgid "Git Push"
-msgstr "git push"
+msgstr "Git push"
 
 #: gitwidget.cpp:286
 #, kde-format
@@ -386,7 +397,7 @@ msgstr "Annuler l'opération"
 #: gitwidget.cpp:307
 #, kde-format
 msgid " canceled."
-msgstr "annulée"
+msgstr " annulée."
 
 #: gitwidget.cpp:315
 #, kde-format
@@ -396,7 +407,7 @@ msgstr "Rafraichir l'état « git »"
 #: gitwidget.cpp:337 kateprojectview.cpp:61
 #, kde-format
 msgid "Filter…"
-msgstr "Filtrer..."
+msgstr "Filtrer…"
 
 #: gitwidget.cpp:428
 #, kde-format
@@ -405,296 +416,290 @@ msgstr ""
 "Impossible de trouver un dossier « .git » pour « %1 ». Les choses pourraient "
 "ne pas fonctionner correctement."
 
-#: gitwidget.cpp:593
-#, fuzzy, kde-format
-#| msgid "Failed to get stash list. Error: "
-msgid "Failed to get the git status"
-msgstr "Impossible d'obtenir la liste des rangements. Erreur : "
-
-#: gitwidget.cpp:652
+#: gitwidget.cpp:648
 #, kde-format
 msgid " error: %1"
-msgstr "Erreur : %1"
+msgstr " erreur : %1"
 
-#: gitwidget.cpp:658
+#: gitwidget.cpp:654
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "Lancement de « %1 » effectué avec succès :%2"
 
-#: gitwidget.cpp:678
+#: gitwidget.cpp:674
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr "Impossible de classer un fichier. Erreur :"
+msgstr "Impossible de référencer un fichier. Erreur :"
 
-#: gitwidget.cpp:691
+#: gitwidget.cpp:687
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr "Impossible d'extraire un fichier. Erreur :"
+msgstr "Impossible de dé-référencer un fichier. Erreur :"
 
-#: gitwidget.cpp:702
+#: gitwidget.cpp:698
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Impossible d'annuler les modifications. Erreur :"
 
-#: gitwidget.cpp:713
+#: gitwidget.cpp:709
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Impossible de supprimer. Erreur :"
 
-#: gitwidget.cpp:728
+#: gitwidget.cpp:724
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr "Impossible d'ouvrir le fichier en en-tête : %1"
+msgstr "Impossible d'ouvrir le fichier à HEAD : %1"
 
-#: gitwidget.cpp:761
+#: gitwidget.cpp:757
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Impossible de réaliser une comparaison des fichiers : %1"
 
-#: gitwidget.cpp:830
+#: gitwidget.cpp:826
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Impossible de valider : %1"
 
-#: gitwidget.cpp:834
+#: gitwidget.cpp:830
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Les modifications ont été correctement validées."
 
-#: gitwidget.cpp:844
+#: gitwidget.cpp:840
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr ""
-"Il n'y a rien à valider. Veuillez tout d'abord ranger vos modifications."
+"Il n'y a rien à valider. Veuillez tout d'abord référencer vos modifications."
 
-#: gitwidget.cpp:858
+#: gitwidget.cpp:854
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Le message de validation ne peut être vide."
 
-#: gitwidget.cpp:989
+#: gitwidget.cpp:985
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr "Aucune différence entre %1...%2"
+msgstr "Aucune différence entre %1…%2"
 
 # unreviewed-context
-#: gitwidget.cpp:995
+#: gitwidget.cpp:991
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr "Impossible de comparer %1... %2"
+msgstr "Impossible de comparer %1…%2"
 
-#: gitwidget.cpp:1010
+#: gitwidget.cpp:1006
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr "Impossible d'obtenir « numstat » lors de comparaison %1... %2"
+msgstr "Impossible d'obtenir « numstat » lors de comparaison %1…%2"
 
-#: gitwidget.cpp:1045
+#: gitwidget.cpp:1041
 #, kde-format
 msgid "Refresh"
 msgstr "Rafraichir"
 
-#: gitwidget.cpp:1062
+#: gitwidget.cpp:1058
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Extraire une branche"
 
-#: gitwidget.cpp:1074
+#: gitwidget.cpp:1070
 #, kde-format
 msgid "Delete Branch"
 msgstr "Supprimer une branche"
 
-#: gitwidget.cpp:1088
+#: gitwidget.cpp:1084
 #, kde-format
 msgid "Compare Branch with..."
-msgstr "Comparer une branche avec..."
+msgstr "Comparer une branche avec…"
 
-#: gitwidget.cpp:1094
+#: gitwidget.cpp:1090
 #, kde-format
 msgid "Show Commit"
-msgstr "Afficher un Commit"
+msgstr "Afficher une validation"
 
-#: gitwidget.cpp:1112
+#: gitwidget.cpp:1108
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Afficher la dernière validation"
 
-#: gitwidget.cpp:1130
+#: gitwidget.cpp:1126
 #, kde-format
 msgid "Open Commit..."
-msgstr "Ouvrir un Commit..."
+msgstr "Ouvrir une validation…"
 
-#: gitwidget.cpp:1133 gitwidget.cpp:1167
+#: gitwidget.cpp:1129 gitwidget.cpp:1163
 #, kde-format
 msgid "Stash"
-msgstr "Mettre de côté"
+msgstr "Mettre en cache"
 
-#: gitwidget.cpp:1137
+#: gitwidget.cpp:1133
 #, kde-format
 msgid "Show history"
 msgstr "Afficher l'historique de Git"
 
-#: gitwidget.cpp:1171
+#: gitwidget.cpp:1167
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Supprimer du cache"
 
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1171
 #, kde-format
 msgid "Pop Stash"
 msgstr "Supprimer du cache"
 
-#: gitwidget.cpp:1179
+#: gitwidget.cpp:1175
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Appliquer la dernière provision"
 
-#: gitwidget.cpp:1181
+#: gitwidget.cpp:1177
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr "Ranger (Conserver rangé)"
+msgstr "Mettre en cache (conserver le référencement)"
+
+#: gitwidget.cpp:1181
+#, kde-format
+msgid "Stash (Include Untracked)"
+msgstr "Mettre en cache (inclure le non suivi)"
 
 #: gitwidget.cpp:1185
 #, kde-format
-msgid "Stash (Include Untracked)"
-msgstr "Ranger (Inclusion non suivie)"
-
-#: gitwidget.cpp:1189
-#, kde-format
 msgid "Apply Stash"
-msgstr "Appliquer la réserve"
+msgstr "Appliquer le cache"
+
+#: gitwidget.cpp:1186
+#, kde-format
+msgid "Drop Stash"
+msgstr "Abandonner le cache"
 
 #: gitwidget.cpp:1190
 #, kde-format
-msgid "Drop Stash"
-msgstr "Abandonner la réserve"
+msgid "Show Stash"
+msgstr "Afficher le cache"
 
 #: gitwidget.cpp:1194
-#, kde-format
-msgid "Show Stash"
-msgstr "Supprimer du cache"
-
-#: gitwidget.cpp:1198
 #, kde-format
 msgid "Show Stash Diff"
 msgstr "Afficher les différences du cache"
 
-#: gitwidget.cpp:1236
+#: gitwidget.cpp:1232
 #, kde-format
 msgid "Stage All"
-msgstr "Tout ranger"
+msgstr "Tout référencer"
 
-#: gitwidget.cpp:1238
+#: gitwidget.cpp:1234
 #, kde-format
 msgid "Remove All"
 msgstr "Tout supprimer"
 
-#: gitwidget.cpp:1238
+#: gitwidget.cpp:1234
 #, kde-format
 msgid "Discard All"
-msgstr "Tout ignorer"
+msgstr "Tout annuler"
 
-#: gitwidget.cpp:1241
+#: gitwidget.cpp:1237
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Ouvrir « .gitignore »"
 
-#: gitwidget.cpp:1242 gitwidget.cpp:1291 gitwidget.cpp:1342
+#: gitwidget.cpp:1238 gitwidget.cpp:1287 gitwidget.cpp:1338
 #: kateprojectconfigpage.cpp:137 kateprojectconfigpage.cpp:149
 #, kde-format
 msgid "Show Diff"
 msgstr "Afficher les différences"
 
-#: gitwidget.cpp:1259
+#: gitwidget.cpp:1255
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Voulez-vous vraiment annuler toutes les modifications ?"
 
-#: gitwidget.cpp:1264
+#: gitwidget.cpp:1260
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Voulez-vous vraiment supprimer ces fichiers ?"
 
-#: gitwidget.cpp:1282
+#: gitwidget.cpp:1278
 #, kde-format
 msgid "Open File"
 msgstr "Ouvrir un fichier"
 
-#: gitwidget.cpp:1283
+#: gitwidget.cpp:1279
 #, kde-format
 msgid "Unstage File"
-msgstr "Désorganiser un fichier"
+msgstr "Déréférencer un fichier"
 
-#: gitwidget.cpp:1283
+#: gitwidget.cpp:1279
 #, kde-format
 msgid "Stage File"
-msgstr "Organiser un fichier"
+msgstr "Référencer un fichier"
 
-#: gitwidget.cpp:1284
+#: gitwidget.cpp:1280
 #, kde-format
 msgid "Remove"
 msgstr "Supprimer"
 
-#: gitwidget.cpp:1284
+#: gitwidget.cpp:1280
 #, kde-format
 msgid "Discard"
-msgstr "Abandonner"
+msgstr "Annuler"
 
-#: gitwidget.cpp:1292
+#: gitwidget.cpp:1288
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Afficher dans un outil externe de comparaison pour git"
 
-#: gitwidget.cpp:1293
+#: gitwidget.cpp:1289
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Ouvrir comme « HEAD »"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1293
 #, kde-format
 msgid "Show History"
 msgstr "Afficher l'historique"
 
-#: gitwidget.cpp:1313
+#: gitwidget.cpp:1309
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Voulez-vous vraiment annuler les modifications dans ce fichier ?"
 
-#: gitwidget.cpp:1324
+#: gitwidget.cpp:1320
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Voulez-vous vraiment supprimer ce fichier ?"
 
-#: gitwidget.cpp:1341
+#: gitwidget.cpp:1337
 #, kde-format
 msgid "Unstage All"
-msgstr "Tout désorganisé"
+msgstr "Tout dé-référencer"
 
-#: gitwidget.cpp:1408
+#: gitwidget.cpp:1404
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr "Sortir les fichiers sélectionnés"
+msgstr "Dé-référencer les fichiers sélectionnés"
 
-#: gitwidget.cpp:1408
+#: gitwidget.cpp:1404
 #, kde-format
 msgid "Stage Selected Files"
-msgstr "Organiser les fichiers sélectionnés"
+msgstr "Référencer les fichiers sélectionnés"
 
-#: gitwidget.cpp:1409
+#: gitwidget.cpp:1405
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Annuler les fichiers sélectionnés"
 
-#: gitwidget.cpp:1413
+#: gitwidget.cpp:1409
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Supprimer les fichiers sélectionnés."
 
-#: gitwidget.cpp:1426
+#: gitwidget.cpp:1422
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Voulez-vous vraiment annuler les modifications ?"
 
-#: gitwidget.cpp:1431
+#: gitwidget.cpp:1427
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Voulez-vous vraiment supprimer ces modifications non tracées ?"
@@ -707,7 +712,7 @@ msgstr "(Modifié)"
 #: kateproject.cpp:238
 #, kde-format
 msgid "(Staged)"
-msgstr "(Préparé)"
+msgstr "(Référencé)"
 
 #: kateproject.cpp:312
 #, kde-format
@@ -804,7 +809,7 @@ msgstr "&CMake"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Directory Listing"
-msgstr "Liste du dossier"
+msgstr "Liste des dossiers"
 
 #: kateprojectconfigpage.cpp:63
 #, kde-format
@@ -905,8 +910,8 @@ msgstr "Fonctionnalité inter-projets"
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
 msgstr ""
-"Le module d'extension projet est capable d'effectuer certaines opérations "
-"sur plusieurs projets"
+"Le module externe de projet est capable d'effectuer certaines opérations sur "
+"plusieurs projets"
 
 #: kateprojectconfigpage.cpp:109
 #, kde-format
@@ -958,7 +963,7 @@ msgstr "Ouvrir un fichier"
 #: kateprojectconfigpage.cpp:139 kateprojectconfigpage.cpp:151
 #, kde-format
 msgid "Stage / Unstage"
-msgstr "Indexer / Désindexer"
+msgstr "Référencer / Dé-référencer"
 
 #: kateprojectconfigpage.cpp:146
 #, kde-format
@@ -1024,7 +1029,7 @@ msgstr "Remarques"
 #: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
-msgstr "Démarrer une analyse..."
+msgstr "Démarrer une analyse…"
 
 #: kateprojectinfoviewcodeanalysis.cpp:42
 #, kde-format
@@ -1067,7 +1072,7 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "[%1] Analyse terminée sur le fichier %2."
+msgstr[0] "[%1] Analyse terminée sur un fichier."
 msgstr[1] "[%1] Analyse terminée sur les %2 fichiers."
 
 #: kateprojectinfoviewcodeanalysis.cpp:211
@@ -1144,12 +1149,12 @@ msgstr ""
 #: kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Project Manager"
-msgstr "Chef de projet"
+msgstr "Gestionnaire de projet"
 
 #: kateprojectpluginview.cpp:87
 #, kde-format
 msgid "Current Project"
-msgstr "Projet courant"
+msgstr "Projet actuel"
 
 #: kateprojectpluginview.cpp:89
 #, kde-format
@@ -1169,7 +1174,7 @@ msgstr "Fermer un projet"
 #: kateprojectpluginview.cpp:176
 #, kde-format
 msgid "Open &Folder..."
-msgstr "Ouvrir un &dossier..."
+msgstr "Ouvrir un &dossier…"
 
 #: kateprojectpluginview.cpp:182
 #, kde-format
@@ -1255,7 +1260,7 @@ msgstr "Index des projets"
 #: kateprojectpluginview.cpp:900 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
-msgstr ""
+msgstr "Détection du service d'hébergement Git…"
 
 #: kateprojectpluginview.cpp:932 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
@@ -1290,7 +1295,7 @@ msgstr "Nouveau fichier…"
 #: kateprojecttreeviewcontextmenu.cpp:127
 #, kde-format
 msgid "New Folder…"
-msgstr "Nouveau dossier..."
+msgstr "Nouveau dossier…"
 
 #: kateprojecttreeviewcontextmenu.cpp:134
 #, kde-format
@@ -1340,7 +1345,7 @@ msgstr "Nouveau dossier"
 #: kateprojectviewtree.cpp:384
 #, kde-format
 msgid "The file already exists"
-msgstr "Le fichier existe déjà."
+msgstr "Le fichier existe déjà"
 
 #: kateprojectviewtree.cpp:395
 #, kde-format
@@ -1350,7 +1355,7 @@ msgstr "Impossible de créer un fichier : %1. Erreur : %2"
 #: kateprojectviewtree.cpp:425
 #, kde-format
 msgid "The directory already exists"
-msgstr "Le dossier existe déjà."
+msgstr "Le dossier existe déjà"
 
 #: kateprojectviewtree.cpp:432
 #, kde-format
@@ -1365,7 +1370,7 @@ msgstr "Impossible de trouver un dossier : %1"
 #: kateprojectworker.cpp:318
 #, kde-format
 msgid "Invalid regex pattern in exclude_patterns %1"
-msgstr ""
+msgstr "Modèle d'expression régulière non valide dans Exclud_patterns %1"
 
 #: kateprojectworker.cpp:804
 #, kde-format
@@ -1376,7 +1381,7 @@ msgid ""
 "project settings."
 msgstr ""
 "Impossible de charger le projet reposant sur %1 car soit %1 n'est pas "
-"installé ou il a été impossible de le trouver dans la variable "
+"installé ou il n'a pas été possible de le trouver dans la variable "
 "d'environnement « PATH ». Veuillez installer %1 ou alternativement "
 "désactiver l'option « Auto-chargement des dépôts et des arborescences de "
 "compilation » dans la configuration du projet."
@@ -1389,7 +1394,7 @@ msgstr "Exécutez une commande dans le terminal du projet actif."
 #: project_commands.cpp:47
 #, kde-format
 msgid "No cmd provided"
-msgstr "Aucun commande fournie"
+msgstr "Aucune commande fournie"
 
 #: project_commands.cpp:60
 #, kde-format
@@ -1400,14 +1405,14 @@ msgstr "Commande du projet"
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
-"Ranger le message (optionnel). Appuyez sur « Entrée » pour confirmer et "
-"« Échap » pour quitter."
+"Mettre en cache le message (optionnel). Appuyez sur « Entrée » pour "
+"confirmer et « Échap » pour quitter."
 
 #: stashdialog.cpp:48
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
-"Type à filtrer. Saisissez d'empiler la provision et « Échap » pour quitter."
+"Type à filtrer. Saisissez pour supprimer du cache et « Échap » pour quitter."
 
 #: stashdialog.cpp:142 stashdialog.cpp:204
 #, fuzzy, kde-format
@@ -1418,12 +1423,12 @@ msgstr "Impossible de valider : %1"
 #: stashdialog.cpp:168
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr "Impossible de ranger les modifications %1"
+msgstr "Impossible de mettre en cache les modifications %1"
 
 #: stashdialog.cpp:170
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr "Les modifications ont été correctement rangées."
+msgstr "Les modifications ont été correctement mises en cache."
 
 #: stashdialog.cpp:189
 #, kde-format
@@ -1433,42 +1438,42 @@ msgstr ""
 #: stashdialog.cpp:198
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr "Impossible d'obtenir la liste des rangements. Erreur : "
+msgstr "Impossible d'obtenir la liste des caches. Erreur : "
 
 #: stashdialog.cpp:224
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr "Impossible d'appliquer le rangement. Erreur : "
+msgstr "Impossible d'appliquer le cache. Erreur : "
 
 #: stashdialog.cpp:226
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr "Impossible d'abandonner le rangement. Erreur : "
+msgstr "Impossible d'abandonner le cache. Erreur : "
 
 #: stashdialog.cpp:228
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr "Impossible de différer le rangement. Erreur : "
+msgstr "Impossible de supprimer du cache. Erreur : "
 
 #: stashdialog.cpp:232
 #, kde-format
 msgid "Stash applied successfully."
-msgstr "La réserve a été appliquée avec succès."
+msgstr "Le cache a été appliqué avec succès."
 
 #: stashdialog.cpp:234
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr "La réserve a été abandonnée avec succès."
+msgstr "Le cache a été abandonnée avec succès."
 
 #: stashdialog.cpp:236
 #, kde-format
 msgid "Stash popped successfully."
-msgstr "La réserve a été empilée avec succès."
+msgstr "La suppression du cache a été effectuée avec succès."
 
 #: stashdialog.cpp:266
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr "Échec de l'affichage du rangement. Erreur :"
+msgstr "Échec de l'affichage du cache. Erreur :"
 
 #: stashdialog.cpp:269
 #, kde-format
@@ -1493,7 +1498,7 @@ msgstr "Veuillez installer « clazy »."
 #: tools/clazycurrent.h:24
 #, kde-format
 msgid "Clazy - Current File"
-msgstr "Clazy - Fichier courant"
+msgstr "Clazy - Fichier actuel"
 
 #: tools/clazycurrent.h:29
 #, kde-format
@@ -1612,7 +1617,7 @@ msgstr "HTML Tidy"
 #: tools/tidy.h:29
 #, kde-format
 msgid "Runs html tidy on current file"
-msgstr "Exécute l'application « HTML Tidy » sur le fichier courant"
+msgstr "Exécute l'application « HTML Tidy » sur le fichier actuel"
 
 #: tools/tidy.h:64
 #, kde-format
@@ -1635,6 +1640,11 @@ msgstr "&Projets"
 #, kde-format
 msgid "Project Plugin"
 msgstr "Module externe de projet"
+
+#, fuzzy
+#~| msgid "Failed to get stash list. Error: "
+#~ msgid "Failed to get the git status"
+#~ msgstr "Impossible d'obtenir la liste des rangements. Erreur : "
 
 #~ msgid "Show Stash Content"
 #~ msgstr "Afficher le contenu de la réserve"

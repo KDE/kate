@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 03:01+0000\n"
+"POT-Creation-Date: 2026-11-10 01:01+0000\n"
 "PO-Revision-Date: 2026-02-23 23:03+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@nuug.no>\n"
@@ -285,7 +285,7 @@ msgid "Commit Changes"
 msgstr "Lever inn endringer"
 
 #: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:265
-#: gitwidget.cpp:1100
+#: gitwidget.cpp:1096
 #, kde-format
 msgid "Commit"
 msgstr "Lever inn"
@@ -315,7 +315,7 @@ msgstr "Signer"
 msgid "Amend"
 msgstr "Endre"
 
-#: gitcommitdialog.cpp:113 gitwidget.cpp:1053
+#: gitcommitdialog.cpp:113 gitwidget.cpp:1049
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Endre sist innmelding"
@@ -394,294 +394,288 @@ msgstr ""
 "Klarte ikke finne .git-mappe for «%1», det er mulig at ting ikke virker som "
 "det skal"
 
-#: gitwidget.cpp:593
-#, fuzzy, kde-format
-#| msgid "Failed to get stash list. Error: "
-msgid "Failed to get the git status"
-msgstr "Klarte ikke å hente liste over mellomlager. Feil: "
-
-#: gitwidget.cpp:652
+#: gitwidget.cpp:648
 #, kde-format
 msgid " error: %1"
 msgstr " feil: %1"
 
-#: gitwidget.cpp:658
+#: gitwidget.cpp:654
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "«%1» ble utført vellykket: %2"
 
-#: gitwidget.cpp:678
+#: gitwidget.cpp:674
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Klarte ikke å forberede fila. Feil:"
 
-#: gitwidget.cpp:691
+#: gitwidget.cpp:687
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Klarte ikke å droppe den forberedte fila. Feil:"
 
-#: gitwidget.cpp:702
+#: gitwidget.cpp:698
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Klarte ikke å forkaste endringer: Feil:"
 
-#: gitwidget.cpp:713
+#: gitwidget.cpp:709
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Fjerning feilet. Feil:"
 
-#: gitwidget.cpp:728
+#: gitwidget.cpp:724
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Klarte ikke åpne fila fra HEAD: %1"
 
-#: gitwidget.cpp:761
+#: gitwidget.cpp:757
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Klarte ikke å hente Diff for fila: %1"
 
-#: gitwidget.cpp:830
+#: gitwidget.cpp:826
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Klarte ikke å melde inn: %1"
 
-#: gitwidget.cpp:834
+#: gitwidget.cpp:830
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Endringer meldt inn korrekt."
 
-#: gitwidget.cpp:844
+#: gitwidget.cpp:840
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Ingenting å melde inn. Forbered endringene først."
 
-#: gitwidget.cpp:858
+#: gitwidget.cpp:854
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Loggmeldinga kan ikke være tom."
 
-#: gitwidget.cpp:989
+#: gitwidget.cpp:985
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Ingen diff for %1…%2"
 
-#: gitwidget.cpp:995
+#: gitwidget.cpp:991
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Klarte ikke sammenligne %1…%2"
 
-#: gitwidget.cpp:1010
+#: gitwidget.cpp:1006
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "Klarte ikke å hente numstat ved diffing %1…%2"
 
-#: gitwidget.cpp:1045
+#: gitwidget.cpp:1041
 #, kde-format
 msgid "Refresh"
 msgstr "Oppdater"
 
-#: gitwidget.cpp:1062
+#: gitwidget.cpp:1058
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Sjekk ut gren"
 
-#: gitwidget.cpp:1074
+#: gitwidget.cpp:1070
 #, kde-format
 msgid "Delete Branch"
 msgstr "Slett gren"
 
-#: gitwidget.cpp:1088
+#: gitwidget.cpp:1084
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Sammenlign gren med …"
 
-#: gitwidget.cpp:1094
+#: gitwidget.cpp:1090
 #, kde-format
 msgid "Show Commit"
 msgstr "Vis innmelding"
 
-#: gitwidget.cpp:1112
+#: gitwidget.cpp:1108
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Vis siste innmelding"
 
-#: gitwidget.cpp:1130
+#: gitwidget.cpp:1126
 #, kde-format
 msgid "Open Commit..."
 msgstr "Åpne innmelding …"
 
-#: gitwidget.cpp:1133 gitwidget.cpp:1167
+#: gitwidget.cpp:1129 gitwidget.cpp:1163
 #, kde-format
 msgid "Stash"
 msgstr "Mellomlager"
 
-#: gitwidget.cpp:1137
+#: gitwidget.cpp:1133
 #, kde-format
 msgid "Show history"
 msgstr "Vis historikk"
 
-#: gitwidget.cpp:1171
+#: gitwidget.cpp:1167
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Hent og fjern sist mellomlagring"
 
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1171
 #, kde-format
 msgid "Pop Stash"
 msgstr "Hent og fjern mellomlagring"
 
-#: gitwidget.cpp:1179
+#: gitwidget.cpp:1175
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Bruk sist mellomlagring"
 
-#: gitwidget.cpp:1181
+#: gitwidget.cpp:1177
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Mellomlagre (Behold forberedt)"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1181
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Mellomlagre (inkluder usporet)"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1185
 #, kde-format
 msgid "Apply Stash"
 msgstr "Bruk mellomlager"
 
-#: gitwidget.cpp:1190
+#: gitwidget.cpp:1186
 #, kde-format
 msgid "Drop Stash"
 msgstr "Dropp mellomlager"
 
-#: gitwidget.cpp:1194
+#: gitwidget.cpp:1190
 #, fuzzy, kde-format
 msgid "Show Stash"
 msgstr "Hent og fjern mellomlagring"
 
-#: gitwidget.cpp:1198
+#: gitwidget.cpp:1194
 #, fuzzy, kde-format
 msgid "Show Stash Diff"
 msgstr "Vis Diff"
 
-#: gitwidget.cpp:1236
+#: gitwidget.cpp:1232
 #, kde-format
 msgid "Stage All"
 msgstr "Forbered alle"
 
-#: gitwidget.cpp:1238
+#: gitwidget.cpp:1234
 #, kde-format
 msgid "Remove All"
 msgstr "Fjern alle"
 
-#: gitwidget.cpp:1238
+#: gitwidget.cpp:1234
 #, kde-format
 msgid "Discard All"
 msgstr "Forkast alle"
 
-#: gitwidget.cpp:1241
+#: gitwidget.cpp:1237
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Åpne .gitignore"
 
-#: gitwidget.cpp:1242 gitwidget.cpp:1291 gitwidget.cpp:1342
+#: gitwidget.cpp:1238 gitwidget.cpp:1287 gitwidget.cpp:1338
 #: kateprojectconfigpage.cpp:137 kateprojectconfigpage.cpp:149
 #, kde-format
 msgid "Show Diff"
 msgstr "Vis Diff"
 
-#: gitwidget.cpp:1259
+#: gitwidget.cpp:1255
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Er du sikker på at du vil forkaste alle endringer?"
 
-#: gitwidget.cpp:1264
+#: gitwidget.cpp:1260
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Er du sikker på at du vil fjerne disse filene?"
 
-#: gitwidget.cpp:1282
+#: gitwidget.cpp:1278
 #, kde-format
 msgid "Open File"
 msgstr "Åpne fil"
 
-#: gitwidget.cpp:1283
+#: gitwidget.cpp:1279
 #, kde-format
 msgid "Unstage File"
 msgstr "Dropp forberedt fil"
 
-#: gitwidget.cpp:1283
+#: gitwidget.cpp:1279
 #, kde-format
 msgid "Stage File"
 msgstr "Forbered fil"
 
-#: gitwidget.cpp:1284
+#: gitwidget.cpp:1280
 #, kde-format
 msgid "Remove"
 msgstr "Fjern"
 
-#: gitwidget.cpp:1284
+#: gitwidget.cpp:1280
 #, kde-format
 msgid "Discard"
 msgstr "Forkast"
 
-#: gitwidget.cpp:1292
+#: gitwidget.cpp:1288
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Vis i eksternt Git diff-verktøy"
 
-#: gitwidget.cpp:1293
+#: gitwidget.cpp:1289
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Åpne fra HEAD"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1293
 #, kde-format
 msgid "Show History"
 msgstr "Vis historikk"
 
-#: gitwidget.cpp:1313
+#: gitwidget.cpp:1309
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Er du sikker på at du vil forkaste endringene i denne fila?"
 
-#: gitwidget.cpp:1324
+#: gitwidget.cpp:1320
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Er du sikker på at du vil fjerne denne fila?"
 
-#: gitwidget.cpp:1341
+#: gitwidget.cpp:1337
 #, kde-format
 msgid "Unstage All"
 msgstr "Dropp alle forberedte filer"
 
-#: gitwidget.cpp:1408
+#: gitwidget.cpp:1404
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Dropp alle valgte forberedte filer"
 
-#: gitwidget.cpp:1408
+#: gitwidget.cpp:1404
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Forbered valgte filer"
 
-#: gitwidget.cpp:1409
+#: gitwidget.cpp:1405
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Forkast valgte filer"
 
-#: gitwidget.cpp:1413
+#: gitwidget.cpp:1409
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Fjern valgte filer"
 
-#: gitwidget.cpp:1426
+#: gitwidget.cpp:1422
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Er du sikker på at du vil forkaste alle endringene?"
 
-#: gitwidget.cpp:1431
+#: gitwidget.cpp:1427
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Er du sikker på at du vil fjerne disse usporede endringene?"
@@ -1592,3 +1586,8 @@ msgstr "&Prosjekter"
 #, fuzzy, kde-format
 msgid "Project Plugin"
 msgstr "Prosjektfullføring"
+
+#, fuzzy
+#~| msgid "Failed to get stash list. Error: "
+#~ msgid "Failed to get the git status"
+#~ msgstr "Klarte ikke å hente liste over mellomlager. Feil: "

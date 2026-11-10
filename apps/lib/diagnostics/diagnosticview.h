@@ -8,6 +8,7 @@
 #include "kateprivate_export.h"
 
 #include "diagnostic_types.h"
+#include "diagnosticinlinenotes.h"
 
 #include <QJsonObject>
 #include <QPointer>
@@ -245,6 +246,9 @@ private:
     QHash<KTextEditor::Document *, QList<KTextEditor::MovingRange *>> m_diagnosticsRanges;
     // applied marks
     QSet<KTextEditor::Document *> m_diagnosticsMarks;
+    // end-of-line messages; they use the ranges in m_diagnosticsRanges, so must go first
+    std::unordered_map<KTextEditor::Document *, std::unique_ptr<DiagnosticInlineNoteProvider>> m_inlineNotes;
+    bool m_inlineMessages = false;
 
     QPointer<DiagTabOverlay> m_tabButtonOverlay;
 

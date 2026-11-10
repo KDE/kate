@@ -37,6 +37,7 @@ kate_executable_tests(
     doc_or_widget_test
     file_history_tests
     exec_tests
+    diagnostic_inline_notes_test
 )
 
 # expects some Linux specific idioms

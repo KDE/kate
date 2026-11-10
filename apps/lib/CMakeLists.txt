@@ -161,6 +161,7 @@ target_sources(
     kateoutputview.cpp
     katestashmanager.cpp
     diagnostics/diagnosticview.cpp
+    diagnostics/diagnosticinlinenotes.cpp
     diagnostics/diagnosticview.qrc
     texthint/KateTextHintManager.cpp
     texthint/tooltip.cpp

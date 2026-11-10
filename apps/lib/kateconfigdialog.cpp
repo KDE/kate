@@ -406,6 +406,11 @@ void KateConfigDialog::addBehaviorPage()
     hlayout->addWidget(label);
     hlayout->addWidget(m_diagnosticsLimit);
     connect(m_diagnosticsLimit, &QSpinBox::valueChanged, this, &KateConfigDialog::slotChanged);
+    m_diagnosticsInlineMessages = new QCheckBox(i18n("Show diagnostic messages at the end of the line"), buttonGroup);
+    m_diagnosticsInlineMessages->setChecked(cgGeneral.readEntry("Diagnostics Inline Messages", false));
+    m_diagnosticsInlineMessages->setToolTip(i18n("Show the message of the most severe diagnostic of a line after its text."));
+    vbox->addWidget(m_diagnosticsInlineMessages);
+    connect(m_diagnosticsInlineMessages, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     buttonGroup = new QGroupBox(i18n("Context"), generalFrame);
     vbox = new QVBoxLayout(buttonGroup);
@@ -690,6 +695,7 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Show Symbol In Navigation Bar", m_urlBarShowSymbols->isChecked());
 
         cg.writeEntry("Diagnostics Limit", m_diagnosticsLimit->value());
+        cg.writeEntry("Diagnostics Inline Messages", m_diagnosticsInlineMessages->isChecked());
         cg.writeEntry("Output With Date", m_withDate->isChecked());
 
         cg.writeEntry("Enable Context ToolView", m_hintViewEnabled->isChecked());

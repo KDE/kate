@@ -444,6 +444,17 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
         KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
         m_diagnosticLimit = cgGeneral.readEntry("Diagnostics Limit", 12000);
 
+        const bool inlineMessages = cgGeneral.readEntry("Diagnostics Inline Messages", false);
+        if (inlineMessages != m_inlineMessages) {
+            m_inlineMessages = inlineMessages;
+            // re-add the marks of every document that has some, with or without the messages
+            const auto docs = m_diagnosticsRanges.keys();
+            for (auto doc : docs) {
+                clearAllMarks(doc);
+                addMarks(doc);
+            }
+        }
+
         const bool diagnosticsAreLimited = m_diagnosticLimit > -1;
         if (!diagnosticsAreLimited && m_diagLimitReachedWarning->isVisible()) {
             m_diagLimitReachedWarning->hide();
@@ -1207,6 +1218,15 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
         mr->setAttribute(attr);
         mr->setAttributeOnlyForViews(true);
         m_diagnosticsRanges[doc].push_back(mr);
+
+        // message at the end of the line; only real diagnostics, not their related-info children
+        if (m_inlineMessages && item->type() == DiagnosticItem_Diag) {
+            auto &notes = m_inlineNotes[doc];
+            if (!notes) {
+                notes = std::make_unique<DiagnosticInlineNoteProvider>(doc);
+            }
+            notes->addDiagnostic(mr, static_cast<DiagnosticItem *>(item)->m_diagnostic.message, kind);
+        }
     }
 
     auto iface = doc;
@@ -1264,6 +1284,9 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc)
         return;
     }
     addMarksRec(doc, m_model.invisibleRootItem());
+    if (auto it = m_inlineNotes.find(doc); it != m_inlineNotes.end()) {
+        it->second->notifyChanged();
+    }
 }
 
 void DiagnosticsView::clearAllMarks(KTextEditor::Document *doc)
@@ -1277,6 +1300,9 @@ void DiagnosticsView::clearAllMarks(KTextEditor::Document *doc)
         }
         m_diagnosticsMarks.remove(doc);
     }
+
+    // the notes point into the ranges deleted below
+    m_inlineNotes.erase(doc);
 
     auto it = m_diagnosticsRanges.find(doc);
     if (it != m_diagnosticsRanges.end()) {

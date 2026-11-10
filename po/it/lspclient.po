@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2019-2026 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-29 00:56+0000\n"
-"PO-Revision-Date: 2026-01-03 18:06+0100\n"
+"PO-Revision-Date: 2026-11-04 18:44+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:357
 #, kde-format
@@ -395,6 +395,9 @@ msgid ""
 "Found old LSP config format for language '%1', please migrate to the new "
 "format with a 'servers' sub-object."
 msgstr ""
+"È stato rilevato un vecchio formato di configurazione LSP per il linguaggio "
+"«%1»: effettua la migrazione al nuovo formato utilizzando il sotto-oggetto "
+"“servers”."
 
 #: lspclientservermanager.cpp:950
 #, kde-format

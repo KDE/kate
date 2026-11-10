@@ -1,18 +1,19 @@
-# SPDX-FileCopyrightText: 2023-2026 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2023, 2024, 2025 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2026 Olivier Delaune <olivier.delaune@wanadoo.fr>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-15 00:49+0000\n"
-"PO-Revision-Date: 2026-10-17 18:11+0200\n"
-"Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
-"Language-Team: fr\n"
+"PO-Revision-Date: 2026-10-17 09:34+0200\n"
+"Last-Translator: Olivier Delaune <olivier.delaune@wanadoo.fr>\n"
+"Language-Team: French <kde-francophone@kde.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #: FormatApply.h:22 FormatApply.h:40 FormatApply.h:45 FormatPlugin.cpp:88
 #: FormatPlugin.cpp:234 Formatters.cpp:286 Formatters.cpp:306
@@ -67,7 +68,7 @@ msgstr "Formatage de l'enregistrement"
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
-"Désactiver le formatage lors de l'enregistrement sans le mettant à jour dans "
+"Désactiver le formatage lors de l'enregistrement sans le mettre à jour dans "
 "la configuration"
 
 #: Formatters.cpp:130
@@ -86,7 +87,7 @@ msgstr ""
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 crashed"
-msgstr "%1 s'est planté."
+msgstr "%1 a planté"
 
 #: Formatters.cpp:154
 #, kde-format
@@ -96,7 +97,7 @@ msgstr "%1 a échoué avec le code de sortie %2"
 #: Formatters.cpp:286
 #, kde-format
 msgid "Unknown formatterForJson: %1"
-msgstr "Formateur « json » inconnu : %1"
+msgstr "Formateur pour JSON inconnu : %1"
 
 #: Formatters.cpp:306
 #, kde-format
@@ -106,13 +107,12 @@ msgstr "Formateur pour Python inconnu : %1"
 #: Formatters.cpp:329
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr ""
-"Module « formatterForYaml » inconnu : %1. Retour au module « yamlfmt »."
+msgstr "Formateur pour Yaml inconnu : %1. Retour au module « yamlfmt »."
 
 #: Formatters.cpp:361
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
-msgstr "Impossible de lancer le formateur. Langue non prise en charge %1"
+msgstr "Impossible de lancer le formateur. Langage non pris en charge %1"
 
 #~ msgid "User Settings"
 #~ msgstr "Configuration utilisateur"

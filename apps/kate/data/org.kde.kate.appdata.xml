@@ -479,7 +479,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="et">Regulaaravaldiste põhine otsimine ja asendamine</li>
       <li xml:lang="eu">Adierazpen erregularretan oinarritutako aurkitu eta ordeztea</li>
       <li xml:lang="fi">Säännöllisiin lausekkeisiin perustuva Etsi ja korvaa</li>
-      <li xml:lang="fr">Rechercher &amp; remplacé utilisant les expressions rationnelles</li>
+      <li xml:lang="fr">Rechercher &amp; remplacer utilisant les expressions rationnelles</li>
       <li xml:lang="ga">Aimsigh &amp; athsholáthar bunaithe ar shloinn rialta</li>
       <li xml:lang="gl">Funcionalidade de atopar e substituír baseada en expresións regulares.</li>
       <li xml:lang="he">חיפוש והחלפה מבוססי ביטויים רגולריים</li>
@@ -527,7 +527,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="es">Resaltado de sintaxis para más de 300 lenguajes</li>
       <li xml:lang="eu">Sintaxia nabarmentzea 300+ lengoaietarako</li>
       <li xml:lang="fi">Syntaksikorostus 300+ kielelle</li>
-      <li xml:lang="fr">Coloration syntaxique pour plus de 300 langues</li>
+      <li xml:lang="fr">Coloration syntaxique pour plus de 300 langages</li>
       <li xml:lang="ga">Aibhsiú comhréire do bhreis is 300 teanga</li>
       <li xml:lang="gl">Realce de sintaxe para máis de 300 linguaxes.</li>
       <li xml:lang="he">הדגשת תחביר ללמעלה מ־300 שפות</li>
@@ -1667,6 +1667,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ca-valencia">Vegeu les línies afegides, modificades i eliminades als marges de l'editor amb el connector Git Decorations nou.</li>
           <li xml:lang="cs">Díky novému modulu Git Decorations můžete v okrajích editoru sledovat přidané, upravené a odstraněné řádky.</li>
           <li xml:lang="es">Ver las líneas añadidas, modificadas y eliminadas en los márgenes del editor con el nuevo complemento de decoraciones de Git.</li>
+          <li xml:lang="fr">Consultez les lignes ajoutées, modifiées et supprimées dans les marges de l'éditeur avec le nouveau module Git Decorations.</li>
           <li xml:lang="he">אפשר לראות שורות שנוספו, נערכו והוסרו בשולי העורך עם תוסף עיטורי ה־Git החדש.</li>
           <li xml:lang="ia">Vide lineas addite, modificate, e removite in le margines del editor  con le nove plugin Git Decorations.</li>
           <li xml:lang="it">Visualizza le righe aggiunte, modificate e rimosse nei margini dell'editor con la nuova estensione Git Decorations.</li>
@@ -1685,6 +1686,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ca-valencia">Pugeu fitxers, carpetes o projectes sencers amb SFTP amb el connector Desplegament nou, amb progrés de transferència i una barra lateral per a navegar i editar fitxers remots.</li>
           <li xml:lang="cs">Pomocí nového modulu Deployment můžete přes SFTP nahrávat soubory, složky nebo celé projekty. K dispozici je přehled průběhu přenosu a postranní panel pro procházení a úpravy vzdálených souborů.</li>
           <li xml:lang="es">Enviar archivos, carpetas o proyectos completos sobre SFTP con el nuevo complemento de despliegue, con información sobre el avance de las transferencias y una barra lateral para explorar y editar archivos remotos.</li>
+          <li xml:lang="fr">Téléchargez des fichiers, des dossiers ou des projets entiers via SFTP avec le nouveau module de déploiement, avec la progression du transfert et une barre latérale pour parcourir et modifier les fichiers distants.</li>
           <li xml:lang="he">העלאת קבצים, תיקיות או מיזמים שלמים דרך SFTP עם תוסף ההטמעה החדש, עם מצב ההעברה וסרגל צד לעיון ועריכת קבצים מרוחקים.</li>
           <li xml:lang="ia">Carga files, dossiers, o projectos integre via SFTP con le nove plugin de  displicamento, con progresso de transferentia e un barra lateral pro  percurrer e editar files remote.</li>
           <li xml:lang="it">Carica file, cartelle o interi progetti tramite SFTP con la nuova estensione Deployment, che include un indicatore di avanzamento del trasferimento e una barra laterale per esplorare e modificare i file remoti.</li>
@@ -1703,6 +1705,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ca-valencia">Obriu fitxers i línies seleccionades a GitHub, GitLab o Forgejo, o copieu els seus enllaços, amb suport per a mapatges personalitzats de l'amfitrió Git a nivell global i per projecte.</li>
           <li xml:lang="cs">Otevírejte soubory a vybrané řádky na GitHubu, GitLabu nebo Forgejo, případně zkopírujte jejich odkazy, a to s podporou vlastních přiřazení hostitelů Git, a to globálně i pro jednotlivé projekty.</li>
           <li xml:lang="es">Abrir archivos y líneas seleccionadas en GitHub, GitLab o Forgejo, o copiar sus enlaces, con compatibilidad para mapas de máquinas Git personalizados a nivel global y por proyecto.</li>
+          <li xml:lang="fr">Ouvrez les fichiers et les lignes sélectionnées sur GitHub, GitLab ou Forgejo, ou copiez leurs liens, avec la prise en charge des mappages d'hôtes Git personnalisés à l'échelle mondiale et par projet.</li>
           <li xml:lang="he">אפשר לפתוח קבצים ושורות נבחרות ב־GitHub,‏ GitLab או Forgejo או להעתיק את הקישורים שלהם, עם תמיכה במיפויי מארחי Git מותאמים אישית ולפי מיזם.</li>
           <li xml:lang="ia">Aperir files e lineas seligite in GitHub, GitLab, o Forgejo, o copiar lor ligamines, con supporto pro mappages de host Git personalisate globalmente e per projecto.</li>
           <li xml:lang="it">Apri file e righe selezionate su GitHub, GitLab o Forgejo, oppure copiane i collegamenti; il sistema supporta le associazioni personalizzate degli host Git, configurabili a livello globale o per singolo progetto.</li>
@@ -1721,6 +1724,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ca-valencia">Seguiu els enllaços de fitxer relatius amb el connector Obri l'enllaç, ara activat de manera predeterminada, amb un reconeixement millorat dels camins de fitxers i els URL.</li>
           <li xml:lang="cs">Procházejte odkazy na soubory pomocí modulu Open Link, který je nyní ve výchozím nastavení zapnutý a nabízí vylepšené rozpoznávání cest k souborům a adres URL.</li>
           <li xml:lang="es">Seguir enlaces de archivos relativos con el complemento Open Link, ahora activado de forma predeterminada, que ofrece un reconocimiento mejorado de rutas de archivo y URL.</li>
+          <li xml:lang="fr">Suivez les liens de fichiers relatifs avec le module Open Link, désormais activé par défaut, avec une reconnaissance améliorée des chemins de fichiers et des URL.</li>
           <li xml:lang="ia">Seque ligamines de file relative con le plugin Open Link, ora activate  per defecto, con recognoscimento meliorate de percursos de file e URLs.</li>
           <li xml:lang="it">Segui i collegamenti ai file relativi con l'estensione Open Link, ora abilitata in modo predefinito, con un migliore riconoscimento dei percorsi dei file e degli URL.</li>
           <li xml:lang="ka">მიჰყევით ფარდობით ფაილის ბმულებს ბმულის გახსნის დამატებით, რომელიც ახლა ნაგულისხმევადაა ჩართული და აქვს გაუმჯობესებული მხარდაჭერა ფაილის ბილიკებისა და URL-ების ამოსაცნობად.</li>
@@ -1738,6 +1742,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ca-valencia">Manteniu l'editor fluid durant la compleció de codi del projecte buscant coincidències en segon pla.</li>
           <li xml:lang="cs">Zachovejte odezvu editoru během doplňování kódu v projektu tím, že budete vyhledávat shody na pozadí.</li>
           <li xml:lang="es">Mantener la capacidad de respuesta del editor durante la terminación de código del proyecto buscando coincidencias en segundo plano.</li>
+          <li xml:lang="fr">Gardez l'éditeur réactif pendant le complètement du code du projet en recherchant les correspondances en arrière-plan.</li>
           <li xml:lang="ia">Mantene le editor responsive durante le completamento de codice del projecto per cercar correspondentias in le fundo (secunde plano).</li>
           <li xml:lang="it">Mantieni l'editor reattivo durante il completamento del codice del progetto, eseguendo la ricerca delle corrispondenze in background.</li>
           <li xml:lang="ka">რედაქტორის ცოცხლად დატოვება პროექტის კოდის დასრულებისას დამთხვევების ფონურად ძებნით.</li>
@@ -1755,6 +1760,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ca-valencia">Format dels fitxers Perl amb «perltidy» i dels fitxers CMake amb «gersemi».</li>
           <li xml:lang="cs">Formátujte soubory v jazyce Perl pomocí nástroje perltidy a soubory CMake pomocí nástroje gersemi.</li>
           <li xml:lang="es">Formatear archivos Perl con «perltidy» y archivos CMake con «gersemi».</li>
+          <li xml:lang="fr">Formatez les fichiers Perl avec perltidy et les fichiers CMake avec gersemi.</li>
           <li xml:lang="he">עיצוב קובצי Perl עם perltidy וקובצי CMake עם gersemi.</li>
           <li xml:lang="ia">Formata files Perl con perltidy e files CMake con gersemi.</li>
           <li xml:lang="it">Formatta i file Perl con perltidy e i file CMake con gersemi.</li>

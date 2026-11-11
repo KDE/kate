@@ -165,15 +165,21 @@
 </listitem>
 <listitem>
 <para
-><link linkend="kate-application-plugin-gdb"
->&gdb;</link
-> - Oferece uma interface simples para o &gdb;</para>
+><link linkend="kate-application-plugin-debugger"
+>Plugin de depuração do &kate;</link
+> - Fornece uma interface simples para o &gdb;</para>
 </listitem>
 <listitem>
 <para
 ><link linkend="kate-application-plugin-projects"
 >Plugin do projeto</link
 > - Integração com &git; e outros sistemas de controle de versão</para>
+</listitem>
+<listitem>
+<para
+><link linkend="kate-application-plugin-deployment"
+>Plugin de implantação</link
+> - Envie arquivos de projeto e navegue em um host SFTP remoto</para>
 </listitem>
 <listitem>
 <para
@@ -2673,7 +2679,7 @@ folder if possible.</para
 
 </sect1>
 
-<sect1 id="kate-application-plugin-gdb">
+<sect1 id="kate-application-plugin-debugger">
 <!--https://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
 <sect1info>
 <authorgroup>
@@ -2688,16 +2694,16 @@ folder if possible.</para
 </authorgroup>
 </sect1info>
 <title
->Plugin do &gdb;</title>
+>Plugin de depuração do &kate;</title>
 
 <sect2 id="gdb-intro">
 <title
 >Introdução</title>
 
 <para
->O plugin &gdb; do &kate; fornece uma interface simples para qualquer depurador que suporte o <ulink url="https://microsoft.github.io/debug-adapter-protocol/"
->Protocolo de Adaptador de Depurador</ulink
->. Em particular, isso inclui o GNU Project Debugger, também conhecido como GDB, conforme <ulink url="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Debugger-Adapter-Protocol.html"
+>O plugin do depurador do &kate; fornece uma interface simples para qualquer depurador que suporte o <ulink url="https://microsoft.github.io/debug-adapter-protocol/"
+>Debugger Adapter Protocol</ulink
+>. Isso inclui, em particular, o GNU Project Debugger (também conhecido como GDB), conforme <ulink url="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Debugger-Adapter-Protocol.html"
 >descrito aqui</ulink
 >. </para>
 
@@ -2709,7 +2715,7 @@ folder if possible.</para
 </important>
 
 <para
->Você poderá ativar o plugin do &gdb; na <link linkend="config-dialog-plugins"
+>Você poderá ativar o plugin do depurador do &kate; na <link linkend="config-dialog-plugins"
 >seção plugins da configuração do &kate;</link
 >.</para>
 
@@ -2973,7 +2979,7 @@ folder if possible.</para
 ><guisubmenu
 >Barras de ferramentas visíveis</guisubmenu
 ><guimenuitem
->plugin do &gdb;</guimenuitem
+>plugin do depurador</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -3177,7 +3183,7 @@ folder if possible.</para
 ><para
 >A área da <guilabel
 >Pilha de chamadas</guilabel
-> do plugin do &gdb;. </para
+> do plugin do depurador do &kate;. </para
 ></caption>
 </mediaobject>
 </screenshot>
@@ -3200,8 +3206,8 @@ folder if possible.</para
 <caption
 ><para
 >A área de <guilabel
->Variáveis locais</guilabel
-> do plugin do &gdb;. </para
+>Locais</guilabel
+> do plugin do depurador do &kate;. </para
 ></caption>
 </mediaobject>
 </screenshot>
@@ -3629,6 +3635,44 @@ kate /caminho/para/pasta
 >build</filename
 > a partir da raiz serão excluídos. </para>
 
+<para
+>Mapeamentos de hospedagem do Git também podem ser configurados para um projeto. Um mapeamento de projeto substitui um mapeamento global com o mesmo host e porta, enquanto mapeamentos para outros hosts permanecem disponíveis como alternativas de fallback: </para>
+
+<screen
+>{
+  "name": "Kate",
+  "files": [
+    {
+      "git": 1
+    }
+  ],
+  "git": {
+    "hostMappings": [
+      {
+        "host": "git.exemplo.com:2222",
+        "provider": "Forgejo",
+        "webBaseUrl": "https://code.exemplo.com"
+      }
+    ]
+  }
+}
+</screen>
+
+<para
+>O valor de <code
+>"provider"</code
+> deve ser <code
+>"Forgejo"</code
+>, <code
+>"GitHub"</code
+> ou <code
+>"GitLab"</code
+>. O <code
+>"host"</code
+> pode incluir a porta SSH usada pelo remoto do Git, e <code
+>"webBaseUrl"</code
+> é o endereço HTTP ou HTTPS usado para abrir links do repositório. </para>
+
 <para id="projects-build-support"
 >Se você quiser adicionar suporte para compilação, pode escrever um <filename
 >.kateproject</filename
@@ -3868,6 +3912,172 @@ kate /caminho/para/pasta
 <!--
 context menu Project->Lookup:xxx
 -->
+
+</sect1>
+
+<sect1 id="kate-application-plugin-deployment">
+<title
+>Plugin de implantação</title>
+
+<para
+>O plugin de implantação carrega arquivos do projeto ativo para um servidor SFTP. Ele também disponibiliza uma visualização da ferramenta <guilabel
+>Host remoto</guilabel
+> para navegar pelo destino configurado e abrir arquivos remotos diretamente no &kate;. O <link linkend="kate-application-plugin-projects"
+>plugin de Projetos</link
+> deve estar habilitado.</para>
+
+<sect2 id="deployment-configuration">
+<title
+>Configuração do projeto</title>
+
+<para
+>Adicione um objeto <literal
+>deployment</literal
+> ao arquivo <filename
+>.kateproject</filename
+> do projeto:</para>
+
+<screen
+>{
+  "name": "Exemplo",
+  "files": [ { "git": 1 } ],
+  "deployment": {
+    "host": "exemplo.org",
+    "port": 22,
+    "user": "deploy",
+    "localRoot": ".",
+    "remoteRoot": "/var/www/exemplo",
+    "exclude": [
+      ".git",
+      ".kateproject*",
+      "build",
+      "*.tmp"
+    ]
+  }
+}
+</screen>
+
+<variablelist>
+<varlistentry>
+<term
+><literal
+>host</literal
+></term>
+<listitem
+><para
+>O nome de host ou endereço IP do servidor necessário. Não inclua o esquema <literal
+>sftp://</literal
+> nem o nome de usuário.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>port</literal
+></term>
+<listitem
+><para
+>A porta SSH, de 1 a 65535. Se omitida, o padrão é 22.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>user</literal
+></term>
+<listitem
+><para
+>O nome de usuário SSH. Se omitido, o KIO utiliza o padrão habitual para o host.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>localRoot</literal
+></term>
+<listitem
+><para
+>O diretório local cujo conteúdo é mapeado para <literal
+>remoteRoot</literal
+>. Um caminho relativo é resolvido a partir do diretório base do projeto. O padrão é o diretório base do projeto. O diretório deve existir e estar dentro do projeto.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>remoteRoot</literal
+></term>
+<listitem
+><para
+>O diretório de destino absoluto obrigatório no servidor. Não são permitidos componentes de navegação para diretórios pai.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><literal
+>exclude</literal
+></term>
+<listitem
+><para
+>Uma lista opcional de padrões curinga relativos ao projeto. Um padrão sem barra corresponde a qualquer componente de caminho; assim, <literal
+>build</literal
+> exclui diretórios ou arquivos com esse nome em qualquer nível de profundidade. Padrões que contêm uma barra correspondem a caminhos relativos a <literal
+>localRoot</literal
+>.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<para
+>Senhas e chaves privadas não são armazenadas na configuração do projeto. A autenticação, a verificação da chave do host e a integração com a carteira são gerenciadas pelo KIO.</para>
+
+<para
+>As configurações compartilhadas podem ser armazenadas no arquivo <filename
+>.kateproject</filename
+>. Para manter caminhos de servidor ou contas específicos da máquina fora do controle de versão, coloque um objeto <literal
+>deployment</literal
+> completo no arquivo <filename
+>.kateproject.local</filename
+>. O objeto local tem precedência sobre aquele presente no arquivo <filename
+>.kateproject</filename
+>. A ação <guimenuitem
+>Configurar implantação...</guimenuitem
+> grava essa substituição local, preservando as demais configurações do projeto.</para>
+</sect2>
+
+<sect2 id="deployment-usage">
+<title
+>Envio e navegação</title>
+
+<para
+><guimenuitem
+>Enviar arquivo atual</guimenuitem
+> envia o arquivo local ativo e possui o atalho padrão <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>S</keycap
+></keycombo
+>. <guimenuitem
+>Enviar projeto</guimenuitem
+> envia todos os arquivos não excluídos que fazem parte do projeto ativo. O menu de contexto de um arquivo de projeto disponibiliza a opção <guimenuitem
+>Enviar para host remoto</guimenuitem
+>, enquanto o menu de contexto de uma pasta oferece <guimenuitem
+>Enviar pasta para host remoto</guimenuitem
+> para enviar seu conteúdo recursivamente. Diretórios remotos inexistentes são criados automaticamente.</para>
+
+<para
+>A visualização da ferramenta <guilabel
+>Host remoto</guilabel
+> navega pela raiz remota configurada. Abrir um arquivo remoto permite editar diretamente sua URL <literal
+>sftp://</literal
+>. O menu de contexto permite abrir ou enviar o arquivo local correspondente, caso ele exista. O progresso da transferência e os erros são exibidos na visualização da ferramenta <guilabel
+>Transferência de arquivos</guilabel
+>.</para>
+</sect2>
 
 </sect1>
 
@@ -4332,76 +4542,81 @@ Projects Replicode run / stop-->
 <screen
 >{
     "servers": {
-        "bibtex": {
-            "use": "latex",
-            "highlightingModeRegex": "^BibTeX$"
-        },
         "c": {
-            "command": ["clangd", "-log=error", "--background-index"],
-            "commandDebug": ["clangd", "-log=verbose", "--background-index"],
-            "url": "https://clang.llvm.org/extra/clangd/",
-            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
+            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$",
+            "servers" : {
+                "clangd" : {
+                    "command": ["clangd", "-log=error", "--background-index", "--limit-results=500", "--completion-style=bundled"],
+                    "commandDebug": ["clangd", "-log=verbose", "--background-index"],
+                    "url": "https://clangd.llvm.org"
+                }
+            }
         },
         "cpp": {
             "use": "c",
             "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$"
         },
-        "d": {
-            "command": ["dls", "--stdio"],
-            "url": "https://github.com/d-language-server/dls",
-            "highlightingModeRegex": "^D$"
-        },
-        "fortran": {
-            "command": ["fortls"],
-            "rootIndicationFileNames": [".fortls"],
-            "url": "https://github.com/hansec/fortran-language-server",
-            "highlightingModeRegex": "^Fortran.*$"
-        },
-        "javascript": {
-            "command": ["typescript-language-server", "--stdio"],
-            "rootIndicationFileNames": ["package.json", "package-lock.json"],
-            "url": "https://github.com/theia-ide/typescript-language-server",
-            "highlightingModeRegex": "^JavaScript.*$",
-            "documentLanguageId": false
-        },
-        "latex": {
-            "command": ["texlab"],
-            "url": "https://texlab.netlify.com/",
-            "highlightingModeRegex": "^LaTeX$"
-        },
-        "go": {
-            "command": ["go-langserver"],
-            "commandDebug": ["go-langserver", "-trace"],
-            "url": "https://github.com/sourcegraph/go-langserver",
-            "highlightingModeRegex": "^Go$"
+        "dart": {
+            "highlightingModeRegex": "^Dart$",
+            "servers" : {
+                "dart-language-server" : {
+                    "command": ["dart", "language-server"],
+                    "rootIndicationFileNames": ["pubspec.yaml", "pubspec.lock"],
+                    "settings": {
+                        "dart": {
+                            "analysisExcludedFolders": ["%{ENV:HOME}/flutter"]
+                        }
+                    },
+                    "url": "https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec",
+                    "useWorkspace": true
+                }
+            }
         },
         "python": {
-            "command": ["python3", "-m", "pyls", "--check-parent-process"],
-            "url": "https://github.com/palantir/python-language-server",
-            "highlightingModeRegex": "^Python$"
+            "highlightingModeRegex": "^Python$",
+            "servers" : {
+                "pylsp" : {
+                    "command": ["pylsp", "--check-parent-process"],
+                    "priority": 10,
+                    "url": "https://github.com/python-lsp/python-lsp-server"
+                },
+                "pyrefly" : {
+                    "command": ["pyrefly", "lsp"],
+                    "disabled": true,
+                    "rootIndicationFileNames": ["pyproject.toml"],
+                    "url": "https://github.com/facebook/pyrefly"
+                }
+            }
         },
-        "rust": {
-            "command": ["rls"],
-            "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
-            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
-            "url": "https://github.com/rust-lang/rls",
-            "highlightingModeRegex": "^Rust$"
-        },
-        "ocaml": {
-            "command": ["ocamlmerlin-lsp"],
-            "url": "https://github.com/ocaml/merlin",
-            "highlightingModeRegex": "^Objective Caml.*$"
+        "rst": {
+            "highlightingModeRegex": "^reStructuredText$",
+            "servers" : {
+                "esbonio" : {
+                    "command": ["python", "-m", "esbonio"],
+                    "initializationOptions": {
+                        "server": {
+                            "completion": {
+                                "preferredInsertBehavior": "insert"
+                            }
+                        }
+                    },
+                    "rootIndicationFileNames": ["conf.py"],
+                    "url": "https://github.com/swyddfa/esbonio"
+                }
+            }
         }
     }
 }
 </screen>
 
 <para
->Observe que cada "command" pode ser uma matriz ou uma string (nesse caso, ele é dividido em uma matriz). Além disso, uma entrada "global" de nível superior (ao lado de "server") também é considerada (veja mais abaixo). O binário especificado é procurado da maneira usual, por exemplo, usando <literal
+>É possível desativar um servidor definindo o atributo "disabled" como true. Isso permite desativar servidores que já vêm configurados por padrão. Caso múltiplos servidores sejam especificados, eles serão iniciados com base em sua prioridade e nome. A maior prioridade tem precedência; se a propriedade numérica "priority" não for definida, o valor padrão é 0. O campo "command" deve ser um array, no qual o primeiro elemento é considerado o binário a ser executado. Além disso, existe uma entrada de nível superior chamada "global" (ao lado de "server"), que também é levada em consideração (veja mais detalhes abaixo). O binário especificado é buscado da maneira habitual — por exemplo, utilizando a variável <literal
 >PATH</literal
->. Se ele estiver instalado em um local personalizado, este último pode precisar ser estendido. Ou, alternativamente, um link simbólico ou um script wrapper pode ser usado em um local que esteja dentro do <literal
+>. Se ele estiver instalado em um local personalizado, pode ser necessário estender o <literal
 >PATH</literal
-> usual. Como ilustrado acima, também é possível especificar um "caminho" que será procurado após os locais padrão. </para>
+>. Alternativamente, é possível utilizar um link simbólico ou um script "wrapper" (script de encapsulamento) em um diretório que já faça parte do <literal
+>PATH</literal
+>. Como ilustrado anteriormente, também é possível especificar um "path" que será consultado após a verificação dos locais padrão. </para>
 
 <para
 >Todas as entradas em "command", "root" e "path" estão sujeitas à expansão de variáveis. </para>
@@ -7473,7 +7688,7 @@ VALUES ("<replaceable
 <listitem
 ><para
 >CMake - <command
->cmake-format</command
+>gersemi</command
 ></para
 ></listitem>
 <listitem
@@ -7528,6 +7743,12 @@ VALUES ("<replaceable
 ><para
 >Godot Script - <command
 >gdformat</command
+></para
+></listitem>
+<listitem
+><para
+>Perl - <command
+>perltidy</command
 ></para
 ></listitem>
 
@@ -7602,7 +7823,7 @@ VALUES ("<replaceable
 >{
     "formatOnSave": true,
     "formatterForJson": "jq",
-    "cmake-format": {
+    "gersemi": {
         "formatOnSave": false
     },
     "autopep8": {
@@ -7623,7 +7844,7 @@ VALUES ("<replaceable
 ></listitem>
 <listitem
 ><para
->desativa a opção "formatar ao salvar" para cmake-format e autopep8</para
+>desativa a opção "formatar ao salvar" para gersemi e autopep8</para
 ></listitem>
 </itemizedlist>
 </para>

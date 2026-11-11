@@ -1188,7 +1188,9 @@
 <para
 >Para voltar mais passos, a palavra-chave #pop pode ser repetida: <userinput
 >#pop#pop#pop</userinput
-></para>
+> ou seguida por um número entre parênteses: <userinput
+>#pop(3)</userinput
+>.</para>
 </listitem>
 <listitem>
 <para
@@ -1206,9 +1208,9 @@
 >!</emphasis
 >) e um <emphasis
 >identificador</emphasis
->`, por exemplo, <userinput
+>, por exemplo, <userinput
 >ContextA!ContextB!ContextC</userinput
->. O último contexto da lista fica ativo imediatamente; os outros serão acessados ​​usando `#pop`.</para>
+>. O último contexto da lista fica ativo imediatamente; os outros serão acessados ​​usando #pop.</para>
 </listitem>
 <listitem>
 <para
@@ -3136,8 +3138,8 @@
 >)</term>
 <listitem
 ><para
->Esta cor é usada pelo plugin GDB para indicar um ponto de parada ativo. Observe que esta cor tem opacidade em relação ao fundo. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-gdb.html"
->a documentação do plugin GDB</ulink
+>Esta cor é usada pelo plugin do depurador do &kate; para indicar um ponto de parada ativo. Observe que esta cor tem opacidade em relação ao fundo. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>a documentação do plugin do depurador do &kate;</ulink
 >.</para
 ></listitem>
 </varlistentry>
@@ -3151,8 +3153,8 @@
 >)</term>
 <listitem
 ><para
->Esta cor é usada pelo plugin GDB para indicar um ponto de parada que você atingiu durante a depuração. Observe que esta cor tem opacidade em relação ao fundo. Para obter mais informações, consulte <ulink url="help:/kate/kate-application-plugin-gdb.html"
->a documentação do plugin GDB</ulink
+>Esta cor é usada pelo plugin do depurador do &kate; para indicar um ponto de parada que você atingiu durante a depuração. Observe que esta cor tem opacidade em relação ao fundo. Para obter mais informações, consulte <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>a documentação do plugin do depurador do &kate;</ulink
 >.</para
 ></listitem>
 </varlistentry>
@@ -3166,8 +3168,8 @@
 >)</term>
 <listitem
 ><para
->Esta cor é usada pelo plugin GDB para indicar um ponto de parada inativo. Observe que esta cor tem opacidade em relação ao fundo. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-gdb.html"
->a documentação do plugin GDB</ulink
+>Esta cor é usada pelo plugin do depurador do &kate; para indicar um ponto de parada inativo. Observe que esta cor tem opacidade em relação ao fundo. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>a documentação do plugin do depurador do &kate;</ulink
 >.</para
 ></listitem>
 </varlistentry>
@@ -3181,8 +3183,8 @@
 >)</term>
 <listitem
 ><para
->Esta cor é usada pelo plugin GDB na linha que está sendo executada no momento. Observe que esta cor tem opacidade em relação ao fundo. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-gdb.html"
->a documentação do plugin GDB</ulink
+>Esta cor é usada pelo plugin do depurador do &kate; na linha que está sendo executada no momento. Observe que esta cor tem opacidade em relação ao fundo. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-debugger.html"
+>a documentação do plugin do depurador do &kate;</ulink
 >.</para
 ></listitem>
 </varlistentry>

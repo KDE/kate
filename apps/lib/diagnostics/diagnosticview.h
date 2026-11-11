@@ -8,7 +8,6 @@
 #include "kateprivate_export.h"
 
 #include "diagnostic_types.h"
-#include "diagnosticinlinenotes.h"
 
 #include <QJsonObject>
 #include <QPointer>
@@ -21,6 +20,7 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/Range>
 #include <span>
+#include <unordered_map>
 #include <unordered_set>
 
 class KConfigGroup;
@@ -28,6 +28,7 @@ class SessionDiagnosticSuppressions;
 class KateMainWindow;
 class QSortFilterProxyModel;
 class KateTextHintProvider;
+class DiagnosticInlineNoteProvider;
 
 namespace KTextEditor
 {

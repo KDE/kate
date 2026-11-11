@@ -5,6 +5,7 @@
 */
 #include "diagnosticview.h"
 
+#include "diagnosticinlinenotes.h"
 #include "diagnosticitem.h"
 #include "drawing_utils.h"
 #include "kateapp.h"

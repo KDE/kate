@@ -34,6 +34,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
+#include <KColorScheme>
 #include <KLocalizedString>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
@@ -335,6 +336,7 @@ class CommitDelegate : public QStyledItemDelegate
 {
     static constexpr int Margin = 5; // Is there a pixel metric for this?
     static constexpr int LineHeight = 2;
+    static constexpr int BadgeSpacing = 4;
 
 public:
     CommitDelegate(QObject *parent)
@@ -399,12 +401,10 @@ public:
 
         // draw branches and tags after the hash, like git log
         if (!commit.refs.isEmpty()) {
-            QRect refsRect = prect;
-            refsRect.setX(prect.x() + fm.horizontalAdvance(hash) + fm.horizontalAdvance(u' '));
-            const QString refs = QStringLiteral("(%1)").arg(commit.refs);
-            painter->setPen(selected ? primaryColor : options.palette.color(QPalette::Link));
-            painter->drawText(refsRect, Qt::AlignLeft, fm.elidedText(refs, Qt::ElideRight, refsRect.width()));
+            QPoint position = QPoint(prect.x() + fm.horizontalAdvance(hash) + BadgeSpacing, prect.y() + fm.height() / 2);
+            drawCommitRefs(painter, options, prect, position, commit.refs);
         }
+
         painter->setPen(fg);
 
         // draw msg
@@ -422,6 +422,81 @@ public:
     {
         auto height = opt.fontMetrics.height();
         return QSize(0, (height * 3) + (Margin * 2) + (LineHeight * 2));
+    }
+
+    void drawCommitRefs(QPainter *painter, const QStyleOptionViewItem &opt, const QRect &prect, const QPoint &pos, QStringView commitRefs) const
+    {
+        constexpr int paddingX = 5;
+        constexpr int paddingY = 1;
+        constexpr int radius = 6;
+
+        int x = pos.x();
+
+        QFont badgeFont = opt.font;
+        badgeFont.setPointSizeF(badgeFont.pointSizeF() * 0.80);
+
+        QFontMetrics badgeFm(badgeFont);
+        KColorScheme scheme(opt.palette.currentColorGroup(), KColorScheme::View);
+
+        painter->save();
+        painter->setRenderHint(QPainter::Antialiasing, true);
+        painter->setFont(badgeFont);
+
+        const auto refs = commitRefs.split(u',', Qt::SkipEmptyParts);
+        for (const QStringView ref : refs) {
+            const QStringView name = ref.trimmed();
+            QString badgeText = name.toString();
+
+            const bool hasHeadPrefix = badgeText.startsWith(u"HEAD -> ");
+            const bool isHead = hasHeadPrefix || badgeText == u"HEAD";
+            if (hasHeadPrefix) {
+                badgeText = badgeText.mid(8); // Strip prefix
+            }
+
+            QColor bg = scheme.background(KColorScheme::AlternateBackground).color();
+            QColor fg = scheme.foreground(KColorScheme::NormalText).color();
+            if (badgeText.startsWith(u"refs/heads/")) {
+                bg = scheme.background(KColorScheme::PositiveBackground).color();
+                fg = scheme.foreground(KColorScheme::PositiveText).color();
+                badgeText = badgeText.mid(11);
+            } else if (badgeText.startsWith(u"refs/remotes/")) {
+                bg = scheme.background(KColorScheme::NegativeBackground).color();
+                fg = scheme.foreground(KColorScheme::NegativeText).color();
+                badgeText = badgeText.mid(13);
+            } else if (badgeText.startsWith(u"refs/tags/")) {
+                bg = scheme.background(KColorScheme::NeutralBackground).color();
+                fg = scheme.foreground(KColorScheme::NeutralText).color();
+                badgeText = badgeText.mid(10);
+            } else if (badgeText.startsWith(u"refs/stash")) {
+                badgeText = badgeText.mid(5);
+            }
+
+            if (isHead) {
+                bg = scheme.background(KColorScheme::ActiveBackground).color();
+                fg = scheme.foreground(KColorScheme::ActiveText).color();
+            }
+
+            const int badgeWidth = badgeFm.horizontalAdvance(badgeText) + paddingX * 2;
+            const int badgeHeight = badgeFm.height() + paddingY * 2;
+
+            // Do not draw the badge if it does not fit completely
+            if (x + badgeWidth > prect.right()) {
+                break;
+            }
+
+            QRect badgeRect(x, pos.y() - badgeHeight / 2, badgeWidth, badgeHeight);
+            QRectF drawRect = QRectF(badgeRect).adjusted(0.5, 0.5, -0.5, -0.5);
+
+            painter->setPen(QPen(fg, 1.0));
+            painter->setBrush(bg);
+            painter->drawRoundedRect(drawRect, radius, radius);
+
+            painter->setPen(fg);
+            painter->drawText(badgeRect, Qt::AlignCenter, badgeText);
+            x += badgeWidth + BadgeSpacing;
+        }
+
+        painter->restore();
     }
 };
 
@@ -568,6 +643,7 @@ void FileHistoryWidget::getFileHistory(const QString &file)
         args << QStringLiteral("--name-only"); // get file name also, it could be different if renamed
     }
     args << QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%D%n%B");
+    args << QStringLiteral("--decorate=full"); // Also print refs prefixes
     args << QStringLiteral("-z");
     args << file;
 

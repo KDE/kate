@@ -30,15 +30,15 @@ fi
 
 # cmake step
 if [[ -n "$DO_CMAKE" ]]; then
-    flatpak build $FLATPAK_BUILD cmake -S $SCRIPT_PATH -B $KATE_BUILD -GNinja
+    flatpak build --filesystem=$SCRIPT_PATH $FLATPAK_BUILD cmake -S $SCRIPT_PATH -B $KATE_BUILD -GNinja
 fi
 
 # build step
-flatpak build $FLATPAK_BUILD ninja -C $KATE_BUILD
+flatpak build --filesystem=$SCRIPT_PATH $FLATPAK_BUILD ninja -C $KATE_BUILD
 
 # run tests or kate
 if [[ -n "$DO_TEST" ]]; then
-    flatpak build $FLATPAK_BUILD ctest --test-dir $KATE_BUILD
+    flatpak build --filesystem=$SCRIPT_PATH $FLATPAK_BUILD ctest --test-dir $KATE_BUILD
 else
     # run kate
     flatpak build --with-appdir --allow=devel --bind-mount=/run/host/fonts=/usr/share/fonts --device=dri --filesystem=host --share=ipc --socket=cups --socket=fallback-x11 --socket=wayland --system-talk-name=org.freedesktop.UDisks2 --talk-name=org.freedesktop.Flatpak --talk-name=org.freedesktop.portal.* --talk-name=org.a11y.Bus --env=COLORTERM=$COLORTERM --env=LANG=$LANG --env=XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP --env=XDG_SEAT=$XDG_SEAT --env=XDG_SESSION_DESKTOP=$XDG_SESSION_DESKTOP --env=XDG_SESSION_ID=$XDG_SESSION_ID --env=XDG_SESSION_TYPE=$XDG_SESSION_TYPE --env=XDG_VTNR=$XDG_VTNR $FLATPAK_BUILD $KATE_BUILD/bin/kate -b

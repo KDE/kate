@@ -71,9 +71,10 @@ void SearchOpenFiles::doSearchNextFile(int startLine)
             m_nextFileIndex = -1;
             m_cancelSearch = true;
             Q_EMIT searchDone();
-        } else {
-            m_nextLine = 0;
+            // done, running again would only emit searchDone() a second time
+            return;
         }
+        m_nextLine = 0;
     } else {
         m_nextLine = line;
     }

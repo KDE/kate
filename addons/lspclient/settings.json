@@ -405,6 +405,11 @@
                     "command": ["pyrefly", "lsp"],
                     "rootIndicationFileNames": ["pyproject.toml"],
                     "url": "https://github.com/facebook/pyrefly"
+                },
+                "ty" : {
+                    "command": ["ty", "server"],
+                    "rootIndicationFileNames": ["pyproject.toml"],
+                    "url": "https://github.com/astral-sh/ty"
                 }
             }
         },

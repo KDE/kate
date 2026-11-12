@@ -287,7 +287,7 @@ void FileHistoryTest::testLargeHistoryParsedCompletely()
         stream += "data " + QByteArray::number(msg.size()) + "\n" + msg;
         stream += "M 644 inline file.txt\ndata " + QByteArray::number(content.size()) + "\n" + content + "\n";
         // the newest commit also shows the branch
-        const QString refs = i == commitCount - 1 ? QStringLiteral("<br>HEAD -&gt; master") : QString();
+        const QString refs = i == commitCount - 1 ? QStringLiteral("<br>HEAD -&gt; refs/heads/master") : QString();
         expectedTooltips.insert(QString::fromUtf8(name) + QStringLiteral("<br>") + QString::fromUtf8(email) + refs);
     }
     QVERIFY(git({QStringLiteral("fast-import"), QStringLiteral("--quiet")}, stream));
@@ -374,8 +374,8 @@ void FileHistoryTest::testBranchesAndTagsAreShown()
     const auto tooltip = [commitModel](int row) {
         return commitModel->index(row).data(Qt::ToolTipRole).toString();
     };
-    QCOMPARE(tooltip(0), QStringLiteral("Author<br>author@example.com<br>HEAD -&gt; master, feature"));
-    QCOMPARE(tooltip(1), QStringLiteral("Author<br>author@example.com<br>tag: v1"));
+    QCOMPARE(tooltip(0), QStringLiteral("Author<br>author@example.com<br>HEAD -&gt; refs/heads/master, refs/heads/feature"));
+    QCOMPARE(tooltip(1), QStringLiteral("Author<br>author@example.com<br>tag: refs/tags/v1"));
     QCOMPARE(tooltip(2), QStringLiteral("Author<br>author@example.com"));
 
     auto closeBtn = getCloseButton(toolview);

@@ -868,6 +868,20 @@ private:
 
             QStringList cmdline;
             if (!server) {
+                const auto parseCommandLine = [this, &serverId](const QJsonValue &val) {
+                    QStringList parsed;
+                    if (val.isString()) {
+                        QString message = i18n("Found old LSP command format for '%1', please migrate to a JSON array of strings.", serverId);
+                        showMessage(message, KTextEditor::Message::Warning);
+                        return parsed;
+                    }
+                    const auto cmdOpts = val.toArray();
+                    for (const auto &c : cmdOpts) {
+                        parsed.push_back(c.toString());
+                    }
+                    return parsed;
+                };
+
                 // need to find command line for server
                 // choose debug command line for debug mode, fallback to command
                 auto vcmdline = serverConfig.value(m_plugin->m_debugMode ? QStringLiteral("commandDebug") : QStringLiteral("command"));
@@ -875,13 +889,19 @@ private:
                     vcmdline = serverConfig.value(QStringLiteral("command"));
                 }
 
-                auto scmdline = vcmdline.toString();
-                if (!scmdline.isEmpty()) {
-                    cmdline = scmdline.split(u' ');
-                } else {
-                    const auto cmdOpts = vcmdline.toArray();
-                    for (const auto &c : cmdOpts) {
-                        cmdline.push_back(c.toString());
+                QList<QStringList> candidateCmdlines;
+                if (auto primary = parseCommandLine(vcmdline); !primary.isEmpty()) {
+                    candidateCmdlines.push_back(std::move(primary));
+                }
+
+                auto vfallbacks = serverConfig.value(m_plugin->m_debugMode ? QStringLiteral("fallbackCommandsDebug") : QStringLiteral("fallbackCommands"));
+                if (vfallbacks.isUndefined()) {
+                    vfallbacks = serverConfig.value(QStringLiteral("fallbackCommands"));
+                }
+                const auto fallbackArray = vfallbacks.toArray();
+                for (const auto &fb : fallbackArray) {
+                    if (auto fallback = parseCommandLine(fb); !fallback.isEmpty()) {
+                        candidateCmdlines.push_back(std::move(fallback));
                     }
                 }
 
@@ -897,57 +917,62 @@ private:
                     }
                 }
 
-                // NOTE no substitution in execPrefix itself
-                // only as part of cmdline below
-                // it may be used elsewhere,
-                // so up to user to ensure it also makes sense there
-                if (!execPrefix.isEmpty()) {
-                    cmdline = execPrefix + cmdline;
-                }
+                if (!candidateCmdlines.isEmpty()) {
+                    // always update some info
+                    // (even if eventually no server found/started)
+                    serverinfo.settings = expandSettings(serverConfig.value(QStringLiteral("settings")), view);
+                    serverinfo.started = QTime::currentTime();
+                    serverinfo.url = serverConfig.value(QStringLiteral("url")).toString();
+                    // leave failcount as-is
+                    serverinfo.useWorkspace = useWorkspace;
+                    serverinfo.execPrefix = execPrefix;
 
-                // some more expansion and substitution
-                // unlikely to be used here, but anyway
-                for (auto &e : cmdline) {
-                    e = editor->expandText(e, view);
-                }
-            }
-
-            if (!cmdline.empty()) {
-                // always update some info
-                // (even if eventually no server found/started)
-                serverinfo.settings = expandSettings(serverConfig.value(QStringLiteral("settings")), view);
-                serverinfo.started = QTime::currentTime();
-                serverinfo.url = serverConfig.value(QStringLiteral("url")).toString();
-                // leave failcount as-is
-                serverinfo.useWorkspace = useWorkspace;
-                serverinfo.execPrefix = execPrefix;
-
-                // ensure we always only take the server executable from the PATH or user defined paths
-                // QProcess will take the executable even just from current working directory without this => BAD
-                auto cmd = safeExecutableName(cmdline[0]);
-
-                // optionally search in supplied path(s)
-                const auto vpath = serverConfig.value(QStringLiteral("path")).toArray();
-                if (cmd.isEmpty() && !vpath.isEmpty()) {
-                    // collect and expand in case home dir or other (environment) variable reference is used
-                    QStringList path;
+                    // optionally collect supplied path(s) once
+                    QStringList customPaths;
+                    const auto vpath = serverConfig.value(QStringLiteral("path")).toArray();
                     for (const auto &e : vpath) {
-                        auto p = e.toString();
-                        p = editor->expandText(p, view);
-                        path.push_back(p);
+                        customPaths.push_back(editor->expandText(e.toString(), view));
                     }
-                    cmd = safeExecutableName(cmdline[0], path);
-                }
 
-                // we can only start the stuff if we did find the binary in the paths
-                if (!cmd.isEmpty()) {
-                    // use full path to avoid security issues
-                    cmdline[0] = cmd;
-                } else {
-                    if (!m_failedToFindServers.contains(cmdline[0])) {
-                        m_failedToFindServers.insert(cmdline[0]);
+                    QString primaryBinary;
+                    for (auto &cand : candidateCmdlines) {
+                        // NOTE no substitution in execPrefix itself
+                        // only as part of cmdline below
+                        // it may be used elsewhere,
+                        // so up to user to ensure it also makes sense there
+                        if (!execPrefix.isEmpty()) {
+                            cand = execPrefix + cand;
+                        }
+
+                        // some more expansion and substitution
+                        // unlikely to be used here, but anyway
+                        for (auto &e : cand) {
+                            e = editor->expandText(e, view);
+                        }
+
+                        if (primaryBinary.isEmpty()) {
+                            primaryBinary = cand[0];
+                        }
+
+                        // ensure we always only take the server executable from the PATH or user defined paths
+                        // QProcess will take the executable even just from current working directory without this => BAD
+                        auto cmd = safeExecutableName(cand[0]);
+                        if (cmd.isEmpty() && !customPaths.isEmpty()) {
+                            cmd = safeExecutableName(cand[0], customPaths);
+                        }
+
+                        if (!cmd.isEmpty()) {
+                            // use full path to avoid security issues
+                            cand[0] = cmd;
+                            cmdline = std::move(cand);
+                            break;
+                        }
+                    }
+
+                    if (cmdline.isEmpty() && !primaryBinary.isEmpty() && !m_failedToFindServers.contains(primaryBinary)) {
+                        m_failedToFindServers.insert(primaryBinary);
                         // we didn't find the server binary at all!
-                        QString message = i18n("Failed to find server binary '%1' for language '%2'", cmdline[0], langId);
+                        QString message = i18n("Failed to find server binary '%1' for language '%2'", primaryBinary, langId);
                         const auto url = serverConfig.value(QStringLiteral("url")).toString();
                         if (!url.isEmpty()) {
                             message += QStringLiteral("\n") + i18n("Please check your PATH for the binary");
@@ -955,8 +980,6 @@ private:
                         }
                         showMessage(message, KTextEditor::Message::Warning);
                     }
-                    // clear to cut branch below
-                    cmdline.clear();
                 }
             }
 

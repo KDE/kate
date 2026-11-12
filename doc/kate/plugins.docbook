@@ -3034,6 +3034,7 @@ If multiple servers are specified, they will be started in order of their priori
 Highest priority will win, default priority if no "priority" integer property is set is 0.
 
 The "command" shall be an array and the first element is considered to be the binary to execute.
+Optional "fallbackCommands" (and "fallbackCommandsDebug") arrays of command arrays may also be specified; each fallback is tried in order if the primary binary is not found.
 
 Also, a top-level "global" entry (next to "server") is considered as well (see further below).
 

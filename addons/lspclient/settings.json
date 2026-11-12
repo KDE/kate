@@ -427,6 +427,7 @@
             "servers" : {
                 "qmlls" : {
                     "command": ["qmlls"],
+                    "fallbackCommands": [["qmlls6"], ["qmlls-qt6"]],
                     "url": "https://code.qt.io/cgit/qt/qtdeclarative.git/tree/src/qmlls"
                 }
             }

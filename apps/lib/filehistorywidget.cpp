@@ -442,7 +442,7 @@ public:
         painter->setRenderHint(QPainter::Antialiasing, true);
         painter->setFont(badgeFont);
 
-        const auto refs = commitRefs.split(u',', Qt::SkipEmptyParts);
+        const QStringTokenizer refs{commitRefs, u','};
         for (const QStringView ref : refs) {
             const QStringView name = ref.trimmed();
             QString badgeText = name.toString();

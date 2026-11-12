@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-10 01:01+0000\n"
-"PO-Revision-Date: 2026-10-26 13:51+0200\n"
+"PO-Revision-Date: 2026-11-11 17:54+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.08.2\n"
+"X-Generator: Lokalize 26.08.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -908,17 +908,19 @@ msgstr "Междупроектов Goto символ"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Window Title"
-msgstr ""
+msgstr "Заглавие на прозорец"
 
 #: kateprojectconfigpage.cpp:119
 #, kde-format
 msgid "Prefix window title with project name"
-msgstr ""
+msgstr "Добавяне на името на проекта в началото на заглавието на прозореца"
 
 #: kateprojectconfigpage.cpp:121
 #, kde-format
 msgid "Show the current project's name before the existing window title."
 msgstr ""
+"Показване на името на текущия проект преди съществуващото заглавие на "
+"прозореца."
 
 #: kateprojectconfigpage.cpp:131
 #, kde-format

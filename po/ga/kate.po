@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 03:01+0000\n"
+"POT-Creation-Date: 2026-11-12 01:06+0000\n"
 "PO-Revision-Date: 2026-07-04 12:52+0100\n"
 "Last-Translator: deck <altronic25@protonmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -733,330 +733,330 @@ msgstr ""
 "eagarthóir seo de ghnáth agus iarrfar ort ceadanna ardaithe a thabhairt agus "
 "doiciméid á sábháil agat más gá."
 
-#: lib/kateapp.cpp:386
+#: lib/kateapp.cpp:387
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr "Christoph Cullmann"
 
-#: lib/kateapp.cpp:386
+#: lib/kateapp.cpp:387
 #, kde-format
 msgid "Maintainer"
 msgstr "Cothaitheoir"
 
-#: lib/kateapp.cpp:387
+#: lib/kateapp.cpp:388
 #, kde-format
 msgid "Dominik Haumann"
 msgstr "Dominik Haumann"
 
-#: lib/kateapp.cpp:387 lib/kateapp.cpp:390 lib/kateapp.cpp:391
-#: lib/kateapp.cpp:392 lib/kateapp.cpp:393 lib/kateapp.cpp:399
+#: lib/kateapp.cpp:388 lib/kateapp.cpp:391 lib/kateapp.cpp:392
+#: lib/kateapp.cpp:393 lib/kateapp.cpp:394 lib/kateapp.cpp:400
 #, kde-format
 msgid "Core Developer"
 msgstr "Bunfhorbróir"
 
-#: lib/kateapp.cpp:388
+#: lib/kateapp.cpp:389
 #, kde-format
 msgid "Sven Brauch"
 msgstr "Sven Brauch"
 
-#: lib/kateapp.cpp:388 lib/kateapp.cpp:389 lib/kateapp.cpp:394
+#: lib/kateapp.cpp:389 lib/kateapp.cpp:390 lib/kateapp.cpp:395
 #, kde-format
 msgid "Developer"
 msgstr "Forbróir"
 
-#: lib/kateapp.cpp:389
+#: lib/kateapp.cpp:390
 #, kde-format
 msgid "Kåre Särs"
 msgstr "Kåre Särs"
 
-#: lib/kateapp.cpp:390
+#: lib/kateapp.cpp:391
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr "Waqar Ahmed"
 
-#: lib/kateapp.cpp:391
+#: lib/kateapp.cpp:392
 #, kde-format
 msgid "Anders Lund"
 msgstr "Anders Lund"
 
-#: lib/kateapp.cpp:392
+#: lib/kateapp.cpp:393
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "Joseph Wenninger"
 
-#: lib/kateapp.cpp:393
+#: lib/kateapp.cpp:394
 #, kde-format
 msgid "Hamish Rodda"
 msgstr "Hamish Rodda"
 
-#: lib/kateapp.cpp:394
+#: lib/kateapp.cpp:395
 #, kde-format
 msgid "Alexander Neundorf"
 msgstr "Alexander Neundorf"
 
-#: lib/kateapp.cpp:395
+#: lib/kateapp.cpp:396
 #, kde-format
 msgid "Waldo Bastian"
 msgstr "Waldo Bastian"
 
-#: lib/kateapp.cpp:395
+#: lib/kateapp.cpp:396
 #, kde-format
 msgid "The cool buffersystem"
 msgstr "An córas maoláin thar barr"
 
-#: lib/kateapp.cpp:396
+#: lib/kateapp.cpp:397
 #, kde-format
 msgid "Charles Samuels"
 msgstr "Charles Samuels"
 
-#: lib/kateapp.cpp:396
+#: lib/kateapp.cpp:397
 #, kde-format
 msgid "The Editing Commands"
 msgstr "Na hOrduithe Eagarthóireachta"
 
-#: lib/kateapp.cpp:397
+#: lib/kateapp.cpp:398
 #, kde-format
 msgid "Matt Newell"
 msgstr "Matt Newell"
 
-#: lib/kateapp.cpp:397
+#: lib/kateapp.cpp:398
 #, kde-format
 msgid "Testing, ..."
 msgstr "Tástáil, ..."
 
-#: lib/kateapp.cpp:398
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "Michael Bartl"
 msgstr "Michael Bartl"
 
-#: lib/kateapp.cpp:398
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "Former Core Developer"
 msgstr "Iar-bhunfhorbhróir"
 
-#: lib/kateapp.cpp:399
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "Michael McCallum"
 msgstr "Michael McCallum"
 
-#: lib/kateapp.cpp:400
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "Jochen Wilhemly"
 msgstr "Jochen Wilhemly"
 
-#: lib/kateapp.cpp:400
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "KWrite Author"
 msgstr "Údar KWrite"
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:402
 #, kde-format
 msgid "Michael Koch"
 msgstr "Michael Koch"
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:402
 #, kde-format
 msgid "KWrite port to KParts"
 msgstr "Leagan KWrite le haghaidh KParts"
 
-#: lib/kateapp.cpp:402
+#: lib/kateapp.cpp:403
 #, kde-format
 msgid "Christian Gebauer"
 msgstr "Christian Gebauer"
 
-#: lib/kateapp.cpp:403
+#: lib/kateapp.cpp:404
 #, kde-format
 msgid "Simon Hausmann"
 msgstr "Simon Hausmann"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:405
 #, kde-format
 msgid "Glen Parker"
 msgstr "Glen Parker"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:405
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
 msgstr "Stair Cealaithe KWrite, Comhtháthú Kspell"
 
-#: lib/kateapp.cpp:405
+#: lib/kateapp.cpp:406
 #, kde-format
 msgid "Scott Manson"
 msgstr "Scott Manson"
 
-#: lib/kateapp.cpp:405
+#: lib/kateapp.cpp:406
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
 msgstr "Aibhsiú Comhréire XML i KWrite"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:407
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:407
 #, kde-format
 msgid "Patches and more"
 msgstr "Paistí agus tuilleadh"
 
-#: lib/kateapp.cpp:407
+#: lib/kateapp.cpp:408
 #, kde-format
 msgid "Pablo Martín"
 msgstr "Pablo Martín"
 
-#: lib/kateapp.cpp:408
+#: lib/kateapp.cpp:409
 #, kde-format
 msgid "Python Plugin Developer"
 msgstr "Forbróir Breiseán Python"
 
-#: lib/kateapp.cpp:411
+#: lib/kateapp.cpp:412
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
 msgstr "Gearóid Seanclens de Grancy"
 
-#: lib/kateapp.cpp:411
+#: lib/kateapp.cpp:412
 #, kde-format
 msgid "QA and Scripting"
 msgstr "QA agus Scriptiú"
 
-#: lib/kateapp.cpp:414
+#: lib/kateapp.cpp:415
 #, kde-format
 msgid "Tyson Tan"
 msgstr "Tyson Tan"
 
-#: lib/kateapp.cpp:415
+#: lib/kateapp.cpp:416
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr "Dearthóir mascot Kate 'Kate the Cyber ​​Woodpecker'"
 
-#: lib/kateapp.cpp:418
+#: lib/kateapp.cpp:419
 #, kde-format
 msgid "Matteo Merli"
 msgstr "Matteo Merli"
 
-#: lib/kateapp.cpp:418
+#: lib/kateapp.cpp:419
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "Aibhsiú le haghaidh comhad RPM, Perl, Diff, agus cinn eile"
 
-#: lib/kateapp.cpp:419
+#: lib/kateapp.cpp:420
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "Rocky Scaletta"
 
-#: lib/kateapp.cpp:419
+#: lib/kateapp.cpp:420
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "Aibhsiú VHDL"
 
-#: lib/kateapp.cpp:420
+#: lib/kateapp.cpp:421
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "Yury Lebedev"
 
-#: lib/kateapp.cpp:420
+#: lib/kateapp.cpp:421
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "Aibhsiú SQL"
 
-#: lib/kateapp.cpp:421
+#: lib/kateapp.cpp:422
 #, kde-format
 msgid "Chris Ross"
 msgstr "Chris Ross"
 
-#: lib/kateapp.cpp:421
+#: lib/kateapp.cpp:422
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "Aibhsiú Ferite"
 
-#: lib/kateapp.cpp:422
+#: lib/kateapp.cpp:423
 #, kde-format
 msgid "Nick Roux"
 msgstr "Nick Roux"
 
-#: lib/kateapp.cpp:422
+#: lib/kateapp.cpp:423
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "Aibhsiú ILERPG"
 
-#: lib/kateapp.cpp:423
+#: lib/kateapp.cpp:424
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "Carsten Niehaus"
 
-#: lib/kateapp.cpp:423
+#: lib/kateapp.cpp:424
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "Aibhsiú LaTeX"
 
-#: lib/kateapp.cpp:424
+#: lib/kateapp.cpp:425
 #, kde-format
 msgid "Per Wigren"
 msgstr "Per Wigren"
 
-#: lib/kateapp.cpp:424
+#: lib/kateapp.cpp:425
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "Aibhsiú Makefile, Python"
 
-#: lib/kateapp.cpp:425
+#: lib/kateapp.cpp:426
 #, kde-format
 msgid "Jan Fritz"
 msgstr "Jan Fritz"
 
-#: lib/kateapp.cpp:425
+#: lib/kateapp.cpp:426
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "Aibhsiú Python"
 
-#: lib/kateapp.cpp:426
+#: lib/kateapp.cpp:427
 #, kde-format
 msgid "Daniel Naber"
 msgstr "Daniel Naber"
 
-#: lib/kateapp.cpp:427
+#: lib/kateapp.cpp:428
 #, kde-format
 msgid "Roland Pabel"
 msgstr "Roland Pabel"
 
-#: lib/kateapp.cpp:427
+#: lib/kateapp.cpp:428
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "Aibhsiú Scheme"
 
-#: lib/kateapp.cpp:428
+#: lib/kateapp.cpp:429
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "Cristi Dumitrescu"
 
-#: lib/kateapp.cpp:428
+#: lib/kateapp.cpp:429
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "Liosta lorgfhocal/cineálacha sonraí le haghaidh PHP"
 
-#: lib/kateapp.cpp:429
+#: lib/kateapp.cpp:430
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: lib/kateapp.cpp:429
+#: lib/kateapp.cpp:430
 #, kde-format
 msgid "Very nice help"
 msgstr "Cabhair an-deas"
 
-#: lib/kateapp.cpp:430
+#: lib/kateapp.cpp:431
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Na rannpháirtithe uile a rinne mé dearmaid glan iad a lua"
 
-#: lib/kateapp.cpp:600
+#: lib/kateapp.cpp:601
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 "Ní féidir fillteáin a oscailt ach amháin nuair a bhíonn an breiseán "
 "tionscadal cumasaithe"
 
-#: lib/kateapp.cpp:693
+#: lib/kateapp.cpp:694
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2064,67 +2064,67 @@ msgstr "Taispeáin Cnaipe %1"
 msgid "Focus %1"
 msgstr "Fócas %1"
 
-#: lib/katemdi.cpp:1124
+#: lib/katemdi.cpp:1127
 #, kde-format
 msgid "Configure..."
 msgstr "Cumraigh..."
 
-#: lib/katemdi.cpp:1128
+#: lib/katemdi.cpp:1131
 #, kde-format
 msgid "Hide Button"
 msgstr "Folaigh an Cnaipe"
 
-#: lib/katemdi.cpp:1130
+#: lib/katemdi.cpp:1133
 #, kde-format
 msgid "Move To"
 msgstr "Bog Go"
 
-#: lib/katemdi.cpp:1135
+#: lib/katemdi.cpp:1138
 #, kde-format
 msgid "Own Section"
 msgstr "Roinn Féin"
 
-#: lib/katemdi.cpp:1141 lib/katemdi.cpp:1149
+#: lib/katemdi.cpp:1144 lib/katemdi.cpp:1152
 #, kde-format
 msgid "One Down"
 msgstr "Ceann Síos"
 
-#: lib/katemdi.cpp:1143 lib/katemdi.cpp:1154
+#: lib/katemdi.cpp:1146 lib/katemdi.cpp:1157
 #, kde-format
 msgid "One Right"
 msgstr "Aon Cheart"
 
-#: lib/katemdi.cpp:1147
+#: lib/katemdi.cpp:1150
 #, kde-format
 msgid "One Up"
 msgstr "Ceann Suas"
 
-#: lib/katemdi.cpp:1152
+#: lib/katemdi.cpp:1155
 #, kde-format
 msgid "One Left"
 msgstr "Ceann amháin ar chlé"
 
-#: lib/katemdi.cpp:1161
+#: lib/katemdi.cpp:1164
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Barra Taoibh Ar Chlé"
 
-#: lib/katemdi.cpp:1165
+#: lib/katemdi.cpp:1168
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Barra Taoibh Ar Dheis"
 
-#: lib/katemdi.cpp:1169
+#: lib/katemdi.cpp:1172
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Barra Taobh"
 
-#: lib/katemdi.cpp:1173
+#: lib/katemdi.cpp:1176
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Barra Taobh Bun"
 
-#: lib/katemdi.cpp:1790
+#: lib/katemdi.cpp:1793
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

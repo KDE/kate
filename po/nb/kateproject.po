@@ -1586,8 +1586,3 @@ msgstr "&Prosjekter"
 #, fuzzy, kde-format
 msgid "Project Plugin"
 msgstr "Prosjektfullføring"
-
-#, fuzzy
-#~| msgid "Failed to get stash list. Error: "
-#~ msgid "Failed to get the git status"
-#~ msgstr "Klarte ikke å hente liste over mellomlager. Feil: "

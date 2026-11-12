@@ -3,21 +3,21 @@
 #
 # Volkan Gezer <volkangezer@gmail.com>, 2014, 2017, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022-2026 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-11 00:55+0000\n"
-"PO-Revision-Date: 2025-08-23 17:29+0300\n"
-"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
+"PO-Revision-Date: 2026-11-10 21:38+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #: katefiletree.cpp:315
 #, kde-format
@@ -147,7 +147,7 @@ msgstr "Ağaç Kipi"
 #: katefiletree.cpp:376
 #, kde-format
 msgid "Set view style to Tree Mode"
-msgstr "Görünüm biçemini Ağaç Kipi olarak ayarla"
+msgstr "Görünüm stilini Ağaç Kipi olarak ayarla"
 
 #: katefiletree.cpp:382
 #, kde-format
@@ -158,7 +158,7 @@ msgstr "Liste Kipi"
 #: katefiletree.cpp:383
 #, kde-format
 msgid "Set view style to List Mode"
-msgstr "Görünüm biçemini Liste Kipi olarak ayarla"
+msgstr "Görünüm stilini Liste Kipi olarak ayarla"
 
 #: katefiletree.cpp:390
 #, kde-format

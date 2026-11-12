@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-11 03:15+0000\n"
-"PO-Revision-Date: 2026-10-25 08:51+0100\n"
+"PO-Revision-Date: 2026-11-11 19:05+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 26.08.2\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1455,7 +1455,7 @@ msgstr "Clazy (Qt/C++)"
 #: tools/clazy.h:30
 #, kde-format
 msgid "Clazy is a static analysis tool for Qt/C++ code"
-msgstr "Clazy és una eina d'anàlisi estàtic per a codi en Qt/C++"
+msgstr "Clazy és una eina d'anàlisi estàtica per a codi en Qt/C++"
 
 #: tools/clazy.h:71
 #, kde-format
@@ -1480,7 +1480,7 @@ msgstr "Clippy (Rust)"
 #: tools/clippy.h:32
 #, kde-format
 msgid "Clippy is a static analysis tool for Rust code"
-msgstr "Clippy és una eina d'anàlisi estàtic per a codi en Rust"
+msgstr "Clippy és una eina d'anàlisi estàtica per a codi en Rust"
 
 #: tools/clippy.h:95
 #, kde-format
@@ -1495,7 +1495,7 @@ msgstr "Cppcheck (C++)"
 #: tools/cppcheck.h:31
 #, kde-format
 msgid "Cppcheck is a static analysis tool for C/C++ code"
-msgstr "Cppcheck és una eina d'anàlisi estàtic per a codi en C/C++"
+msgstr "Cppcheck és una eina d'anàlisi estàtica per a codi en C/C++"
 
 #: tools/cppcheck.h:64
 #, kde-format
@@ -1513,7 +1513,7 @@ msgid ""
 "ESLint is a static analysis tool & style guide enforcer for JavaScript/"
 "Typescript code"
 msgstr ""
-"ESLint és una eina d'anàlisi estàtic i aplicador de guia d'estil de codi en "
+"ESLint és una eina d'anàlisi estàtica i aplicador de guia d'estil de codi en "
 "JavaScript/Typescript"
 
 #: tools/eslint.h:67
@@ -1564,7 +1564,8 @@ msgstr "ShellCheck (sh/bash)"
 #, kde-format
 msgid "ShellCheck is a static analysis and linting tool for sh/bash scripts"
 msgstr ""
-"ShellCheck és una eina d'anàlisi estàtic i «linting» per a scripts en sh/bash"
+"ShellCheck és una eina d'anàlisi estàtica i «linting» per a scripts en sh/"
+"bash"
 
 #: tools/shellcheck.h:73
 #, kde-format

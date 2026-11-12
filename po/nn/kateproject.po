@@ -1557,8 +1557,3 @@ msgstr "&Prosjekt"
 #, fuzzy, kde-format
 msgid "Project Plugin"
 msgstr "Prosjektfullføring"
-
-#, fuzzy
-#~| msgid "Refresh git status"
-#~ msgid "Failed to get the git status"
-#~ msgstr "Oppdater Git-status"

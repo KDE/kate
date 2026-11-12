@@ -424,6 +424,7 @@ public:
         return QSize(0, (height * 3) + (Margin * 2) + (LineHeight * 2));
     }
 
+private:
     void drawCommitRefs(QPainter *painter, const QStyleOptionViewItem &opt, const QRect &prect, const QPoint &pos, QStringView commitRefs) const
     {
         constexpr int paddingX = 5;

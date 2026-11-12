@@ -334,13 +334,16 @@ private:
 
 class CommitDelegate : public QStyledItemDelegate
 {
+private:
     static constexpr int Margin = 5; // Is there a pixel metric for this?
     static constexpr int LineHeight = 2;
     static constexpr int BadgeSpacing = 4;
+    KColorScheme m_colorScheme;
 
 public:
     CommitDelegate(QObject *parent)
         : QStyledItemDelegate(parent)
+        , m_colorScheme(QPalette::Active, KColorScheme::View)
     {
     }
 
@@ -435,9 +438,7 @@ private:
 
         QFont badgeFont = opt.font;
         badgeFont.setPointSizeF(badgeFont.pointSizeF() * 0.80);
-
         QFontMetrics badgeFm(badgeFont);
-        KColorScheme scheme(opt.palette.currentColorGroup(), KColorScheme::View);
 
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing, true);
@@ -454,27 +455,27 @@ private:
                 badgeText = badgeText.mid(8); // Strip prefix
             }
 
-            QColor bg = scheme.background(KColorScheme::AlternateBackground).color();
-            QColor fg = scheme.foreground(KColorScheme::NormalText).color();
+            QColor bg = m_colorScheme.background(KColorScheme::AlternateBackground).color();
+            QColor fg = m_colorScheme.foreground(KColorScheme::NormalText).color();
             if (badgeText.startsWith(u"refs/heads/")) {
-                bg = scheme.background(KColorScheme::PositiveBackground).color();
-                fg = scheme.foreground(KColorScheme::PositiveText).color();
+                bg = m_colorScheme.background(KColorScheme::PositiveBackground).color();
+                fg = m_colorScheme.foreground(KColorScheme::PositiveText).color();
                 badgeText = badgeText.mid(11);
             } else if (badgeText.startsWith(u"refs/remotes/")) {
-                bg = scheme.background(KColorScheme::NegativeBackground).color();
-                fg = scheme.foreground(KColorScheme::NegativeText).color();
+                bg = m_colorScheme.background(KColorScheme::NegativeBackground).color();
+                fg = m_colorScheme.foreground(KColorScheme::NegativeText).color();
                 badgeText = badgeText.mid(13);
             } else if (badgeText.startsWith(u"refs/tags/")) {
-                bg = scheme.background(KColorScheme::NeutralBackground).color();
-                fg = scheme.foreground(KColorScheme::NeutralText).color();
+                bg = m_colorScheme.background(KColorScheme::NeutralBackground).color();
+                fg = m_colorScheme.foreground(KColorScheme::NeutralText).color();
                 badgeText = badgeText.mid(10);
             } else if (badgeText.startsWith(u"refs/stash")) {
                 badgeText = badgeText.mid(5);
             }
 
             if (isHead) {
-                bg = scheme.background(KColorScheme::ActiveBackground).color();
-                fg = scheme.foreground(KColorScheme::ActiveText).color();
+                bg = m_colorScheme.background(KColorScheme::ActiveBackground).color();
+                fg = m_colorScheme.foreground(KColorScheme::ActiveText).color();
             }
 
             const int badgeWidth = badgeFm.horizontalAdvance(badgeText) + paddingX * 2;

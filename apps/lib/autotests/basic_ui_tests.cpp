@@ -3,6 +3,7 @@
 #include "katemainwindow.h"
 #include "katequickopen.h"
 #include "ktexteditor_utils.h"
+#include "welcomeview/welcomeview.h"
 
 #include <KActionCollection>
 #include <KFontRequester>
@@ -15,7 +16,10 @@
 #include <QDir>
 #include <QFile>
 #include <QLineEdit>
+#include <QListView>
+#include <QPointer>
 #include <QPushButton>
+#include <QScopeGuard>
 #include <QTest>
 #include <QTreeView>
 
@@ -43,6 +47,7 @@ private Q_SLOTS:
     void test_windowTitlePrefix();
     void test_windowGeometrySaveRestore();
     void test_sessionGeometrySaveRestore();
+    void test_welcomeViewSessionSwitchClosingItsWindow();
     void test_openFontDialog();
     void test_settingPATH();
     void test_quickOpenMatchesFolderName_data();
@@ -258,6 +263,52 @@ void BasicUiTests::test_sessionGeometrySaveRestore()
     auto s = app->sessionManager()->activeSession();
     app->sessionManager()->activateAnonymousSession();
     app->sessionManager()->deleteSession(s);
+}
+
+// Switching to a session with one window deletes the other windows. When the session is
+// activated from the welcome view of such a window, the switch must not delete the list
+// view while it handles the key press, Qt still uses the list view after emitting activated().
+void BasicUiTests::test_welcomeViewSessionSwitchClosingItsWindow()
+{
+    const QString targetName = QStringLiteral("TestWelcomeViewSwitchTarget");
+    const QString sourceName = QStringLiteral("TestWelcomeViewSwitchSource");
+
+    // a saved session with a single window
+    app->sessionManager()->activateSession(targetName, false, true);
+    QCOMPARE(app->mainWindows().size(), 1);
+    app->sessionManager()->saveActiveSession();
+    KateSession::Ptr target = app->sessionManager()->activeSession();
+
+    // the current session gets a second window that shows the welcome view
+    app->sessionManager()->activateSession(sourceName, false, true);
+    KateSession::Ptr source = app->sessionManager()->activeSession();
+    auto cleanup = qScopeGuard([this, target, source] {
+        app->sessionManager()->activateAnonymousSession();
+        app->sessionManager()->deleteSession(target);
+        app->sessionManager()->deleteSession(source);
+    });
+    QCOMPARE(app->mainWindows().size(), 1);
+    auto secondWindow = KateApp::newMainWindow();
+    secondWindow->show();
+    QPointer<QListView> listView;
+    QTRY_VERIFY(listView = secondWindow->findChild<QListView *>(QStringLiteral("listViewSavedSessions")));
+    QModelIndex index;
+    for (int row = 0; row < listView->model()->rowCount(); ++row) {
+        if (listView->model()->index(row, 0).data().toString() == targetName) {
+            index = listView->model()->index(row, 0);
+        }
+    }
+    QVERIFY(index.isValid());
+
+    listView->setCurrentIndex(index);
+    QTest::keyClick(listView, Qt::Key_Return);
+    // the list view must survive its own key event
+    QVERIFY(listView);
+
+    // the session is switched afterwards, which closes the second window
+    QTRY_COMPARE(app->sessionManager()->activeSession(), target);
+    QTRY_VERIFY(!listView);
+    QCOMPARE(app->mainWindows().size(), 1);
 }
 
 void BasicUiTests::test_openFontDialog()

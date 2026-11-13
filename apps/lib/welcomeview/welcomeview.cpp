@@ -134,15 +134,22 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
         });
 
         listViewSavedSessions->setModel(m_savedSessionsModel);
+        // Switching the session may delete this window with the list view while it emits the
+        // signal, so switch afterwards. See bug #227008.
         connect(listViewSavedSessions, &QListView::activated, this, [sessionManager](const QModelIndex &index) {
             if (index.isValid()) {
                 const QString sessionName = index.data().toString();
                 Q_ASSERT(!sessionName.isEmpty());
-                sessionManager->activateSession(sessionName);
+                QMetaObject::invokeMethod(
+                    sessionManager,
+                    [sessionManager, sessionName] {
+                        sessionManager->activateSession(sessionName);
+                    },
+                    Qt::QueuedConnection);
             }
         });
 
-        connect(buttonNewSession, &QPushButton::clicked, sessionManager, &KateSessionManager::sessionNew);
+        connect(buttonNewSession, &QPushButton::clicked, sessionManager, &KateSessionManager::sessionNew, Qt::QueuedConnection);
         connect(buttonManageSessions, &QPushButton::clicked, this, []() {
             KateSessionManager::sessionManage();
         });

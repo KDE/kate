@@ -489,7 +489,10 @@ private:
             QRect badgeRect(x, pos.y() - badgeHeight / 2, badgeWidth, badgeHeight);
             QRectF drawRect = QRectF(badgeRect).adjusted(0.5, 0.5, -0.5, -0.5);
 
-            painter->setPen(QPen(fg, 1.0));
+            const bool selected = opt.state.testFlag(QStyle::State_Selected) && opt.state.testFlag(QStyle::State_Active);
+            QColor borderColor = selected ? opt.palette.color(QPalette::ColorRole::HighlightedText) : fg;
+
+            painter->setPen(QPen(borderColor, 1.0));
             painter->setBrush(bg);
             painter->drawRoundedRect(drawRect, radius, radius);
 

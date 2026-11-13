@@ -22,6 +22,19 @@ static QString stashPath(const QString &sessionFile)
     return QStringLiteral("%1/stash/%2").arg(appDataPath, QFileInfo(sessionFile).fileName());
 }
 
+// the session refers to the stash files with their absolute path
+static void rebaseStashedFiles(KConfig *config, const QString &oldPath, const QString &newPath)
+{
+    const auto groups = config->groupList();
+    for (const auto &group : groups) {
+        KConfigGroup cg(config, group);
+        const QString stashedFile = cg.readEntry("stashedFile");
+        if (stashedFile.startsWith(oldPath + u'/')) {
+            cg.writeEntry("stashedFile", QString(newPath + stashedFile.mid(oldPath.size())));
+        }
+    }
+}
+
 void KateStashManager::clearStashForSession(const KateSession::Ptr &session)
 {
     // we should avoid to kill stuff for these, they can't be stashed
@@ -51,16 +64,38 @@ void KateStashManager::moveStashForSession(const KateSession::Ptr &session, cons
         return;
     }
 
-    // the session refers to the stash files with their absolute path
-    KConfig *config = session->config();
-    const auto groups = config->groupList();
-    for (const auto &group : groups) {
-        KConfigGroup cg(config, group);
-        const QString stashedFile = cg.readEntry("stashedFile");
-        if (stashedFile.startsWith(oldPath + u'/')) {
-            cg.writeEntry("stashedFile", QString(newPath + stashedFile.mid(oldPath.size())));
+    rebaseStashedFiles(session->config(), oldPath, newPath);
+}
+
+void KateStashManager::copyStashForSession(const KateSession::Ptr &session, const QString &sourceSessionFile)
+{
+    if (session->isAnonymous() || session->file().isEmpty() || sourceSessionFile.isEmpty()) {
+        return;
+    }
+
+    const QString sourcePath = stashPath(sourceSessionFile);
+    const QString newPath = stashPath(session->file());
+    if (sourcePath == newPath || !QDir(sourcePath).exists()) {
+        return;
+    }
+
+    // a left over stash of an older session with the new name is of no use
+    QDir(newPath).removeRecursively();
+    if (!QDir().mkpath(newPath)) {
+        qCWarning(LOG_KATE, "Could not create the stash %ls", qUtf16Printable(newPath));
+        return;
+    }
+
+    // the copy gets its own stash files, opening one session removes the files it pops
+    const QDir sourceDir(sourcePath);
+    const auto files = sourceDir.entryList(QDir::Files);
+    for (const auto &file : files) {
+        if (!QFile::copy(sourceDir.filePath(file), newPath + u'/' + file)) {
+            qCWarning(LOG_KATE, "Could not copy the stash file %ls to %ls", qUtf16Printable(sourceDir.filePath(file)), qUtf16Printable(newPath));
         }
     }
+
+    rebaseStashedFiles(session->config(), sourcePath, newPath);
 }
 
 void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Document *const> documents)
@@ -197,7 +232,11 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
         // use dummy document to have proper encoding and line ending handling, see bug 489360
         std::unique_ptr<KTextEditor::Document> tmpDoc(KTextEditor::Editor::instance()->createDocument(nullptr));
         tmpDoc->setEncoding(doc->encoding());
-        tmpDoc->openUrl(QUrl::fromLocalFile(stashedFile));
+        if (!tmpDoc->openUrl(QUrl::fromLocalFile(stashedFile))) {
+            // keep the document and the stash file, the stashed content is not lost
+            qCWarning(LOG_KATE, "Could not read stash file %ls", qUtf16Printable(stashedFile));
+            return;
+        }
         doc->setText(tmpDoc->text());
 
         // clean stashed file

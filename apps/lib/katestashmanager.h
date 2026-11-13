@@ -43,6 +43,9 @@ public:
     // move the stash of a renamed session, the session already uses its new file
     static void moveStashForSession(const KateSession::Ptr &session, const QString &oldSessionFile);
 
+    // copy the stash of a session to its copy, the copy already uses its new file
+    static void copyStashForSession(const KateSession::Ptr &session, const QString &sourceSessionFile);
+
 private:
     struct StashedDocument {
         QPointer<KTextEditor::Document> doc;

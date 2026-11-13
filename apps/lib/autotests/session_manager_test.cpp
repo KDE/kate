@@ -190,3 +190,51 @@ void KateSessionManagerTest::renameSessionMovesStash()
     QVERIFY(m_manager->deleteSession(s));
     QVERIFY(!QDir(newStashPath).exists());
 }
+
+// A copied session gets its own stash. Opening the copy removes the stash files it pops,
+// so a shared stash would lose the unsaved content of the original session.
+void KateSessionManagerTest::copySessionCopiesStash()
+{
+    m_manager->activateSession(QStringLiteral("copySource"), false, false);
+    KateSession::Ptr s = m_manager->activeSession();
+
+    // the stash of the session, see KateStashManager::stashDocuments
+    const auto stashPath = [](const QString &sessionFile) {
+        return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/stash/") + QFileInfo(sessionFile).fileName();
+    };
+    const QString sourceStashPath = stashPath(s->file());
+    QVERIFY(QDir().mkpath(sourceStashPath));
+    QFile stashFile(sourceStashPath + QStringLiteral("/Document 0"));
+    QVERIFY(stashFile.open(QIODevice::WriteOnly));
+    stashFile.write("unsaved\n");
+    stashFile.close();
+    KConfigGroup(s->config(), QStringLiteral("Document 0")).writeEntry("stashedFile", stashFile.fileName());
+    s->config()->sync();
+    QVERIFY(m_manager->activateAnonymousSession());
+
+    QCOMPARE(m_manager->copySession(s, QStringLiteral("copyTarget")), QStringLiteral("copyTarget"));
+    const auto copies = m_manager->sessionList();
+    const auto it = std::find_if(copies.cbegin(), copies.cend(), [](const KateSession::Ptr &session) {
+        return session->name() == QStringLiteral("copyTarget");
+    });
+    QVERIFY(it != copies.cend());
+    KateSession::Ptr copy = *it;
+    auto cleanup = qScopeGuard([this, s, copy] {
+        m_manager->deleteSession(s);
+        m_manager->deleteSession(copy);
+    });
+
+    // both sessions have their own stash file with the content
+    const QString copyStashPath = stashPath(copy->file());
+    QVERIFY(copyStashPath != sourceStashPath);
+    QVERIFY(QFile::exists(sourceStashPath + QStringLiteral("/Document 0")));
+    QFile copiedFile(copyStashPath + QStringLiteral("/Document 0"));
+    QVERIFY(copiedFile.open(QIODevice::ReadOnly));
+    QCOMPARE(copiedFile.readAll(), QByteArrayLiteral("unsaved\n"));
+
+    QCOMPARE(KConfigGroup(s->config(), QStringLiteral("Document 0")).readEntry("stashedFile"), sourceStashPath + QStringLiteral("/Document 0"));
+    QCOMPARE(KConfigGroup(copy->config(), QStringLiteral("Document 0")).readEntry("stashedFile"), copyStashPath + QStringLiteral("/Document 0"));
+    // the copy is written with the rewritten entry
+    KConfig copyOnDisk(copy->file(), KConfig::SimpleConfig);
+    QCOMPARE(KConfigGroup(&copyOnDisk, QStringLiteral("Document 0")).readEntry("stashedFile"), copyStashPath + QStringLiteral("/Document 0"));
+}

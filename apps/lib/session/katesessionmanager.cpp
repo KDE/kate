@@ -343,6 +343,7 @@ QString KateSessionManager::copySession(const KateSession::Ptr &session, const Q
     const QString newFile = sessionFileForName(name);
 
     KateSession::Ptr ns = KateSession::createFrom(session, newFile, name);
+    KateStashManager::copyStashForSession(ns, session->file());
     ns->config()->sync();
 
     // ensure session list is updated

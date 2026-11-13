@@ -26,6 +26,7 @@ private Q_SLOTS:
     void renameSessionUpdatesLastSession();
     void deleteSessionRemovesStash();
     void renameSessionMovesStash();
+    void copySessionCopiesStash();
 
 private:
     class QTemporaryDir *m_tempdir;

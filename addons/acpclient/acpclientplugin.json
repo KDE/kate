@@ -1,0 +1,6 @@
+{
+    "KPlugin": {
+        "Description": "Agent Client Protocol Client",
+        "Name": "ACP Client"
+    }
+}

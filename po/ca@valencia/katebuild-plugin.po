@@ -1,24 +1,24 @@
 # Translation of katebuild-plugin.po to Catalan (Valencian)
-# Copyright (C) 2009-2025 This_file_is_part_of_KDE
+# Copyright (C) 2009-2026 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # SPDX-FileCopyrightText: 2009-2010 Manuel Tortosa <manutortosa@chakra-project.org>
 # SPDX-FileCopyrightText: 2014, 2019-2021 Antoni Bella Pérez <antonibella5@yahoo.com>
-# SPDX-FileCopyrightText: 2010-2012, 2014-2015, 2018, 2020, 2022-2025 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2010-2012, 2014-2015, 2018, 2020, 2022-2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-14 00:51+0000\n"
-"PO-Revision-Date: 2025-08-26 09:43+0200\n"
+"PO-Revision-Date: 2026-11-11 19:01+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 25.04.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -105,7 +105,7 @@ msgstr ""
 #, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
 msgstr ""
-"Mostra el progres de construcció com a missatge quan s'oculte la subfinestra "
+"Mostra el progrés de construcció com a missatge quan s'oculte la subfinestra "
 "d'eixida"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)

@@ -14,6 +14,7 @@
 #include <KSharedConfig>
 
 #include <QCommandLineParser>
+#include <QInputDialog>
 #include <QScopeGuard>
 #include <QTemporaryDir>
 #include <QtTestWidgets>
@@ -237,4 +238,44 @@ void KateSessionManagerTest::copySessionCopiesStash()
     // the copy is written with the rewritten entry
     KConfig copyOnDisk(copy->file(), KConfig::SimpleConfig);
     QCOMPARE(KConfigGroup(&copyOnDisk, QStringLiteral("Document 0")).readEntry("stashedFile"), copyStashPath + QStringLiteral("/Document 0"));
+}
+
+// Renaming onto the name of an existing session asks for another name. The session must
+// get that name, and the existing session must stay in the session list.
+void KateSessionManagerTest::renameSessionOntoExistingNameKeepsBothSessions()
+{
+    QVERIFY(m_manager->activateSession(QStringLiteral("A"), false, false));
+    KateSession::Ptr a = m_manager->activeSession();
+    QVERIFY(m_manager->activateSession(QStringLiteral("B"), false, false));
+    KateSession::Ptr b = m_manager->activeSession();
+    QVERIFY(m_manager->activateAnonymousSession());
+    auto cleanup = qScopeGuard([this, a, b] {
+        m_manager->deleteSession(a);
+        m_manager->deleteSession(b);
+    });
+
+    // accept the suggested name in the collision prompt
+    QString suggested;
+    QMetaObject::invokeMethod(
+        this,
+        [&suggested] {
+            auto *dlg = qobject_cast<QInputDialog *>(qApp->activeModalWidget());
+            QVERIFY(dlg);
+            suggested = dlg->textValue();
+            dlg->accept();
+        },
+        Qt::QueuedConnection);
+
+    const QString name = m_manager->renameSession(b, QStringLiteral("A"));
+    QCOMPARE(suggested, QStringLiteral("A (2)"));
+    QCOMPARE(name, QStringLiteral("A (2)"));
+    QCOMPARE(b->name(), name);
+    QCOMPARE(a->name(), QStringLiteral("A"));
+
+    const auto sessions = m_manager->sessionList();
+    QCOMPARE(sessions.size(), 2);
+    QVERIFY(sessions.contains(a));
+    QVERIFY(sessions.contains(b));
+    QVERIFY(QFile::exists(a->file()));
+    QVERIFY(QFile::exists(b->file()));
 }

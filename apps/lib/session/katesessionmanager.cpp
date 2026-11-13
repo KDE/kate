@@ -366,7 +366,7 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
 
     if (!QFile::rename(session->file(), newFile)) {
         KMessageBox::error(QApplication::activeWindow(),
-                           i18n("The session could not be renamed to \"%1\". Failed to write to \"%2\"", newName, newFile),
+                           i18n("The session could not be renamed to \"%1\". Failed to write to \"%2\"", name, newFile),
                            i18n("Session Renaming"));
         return {};
     }
@@ -374,13 +374,14 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
     // update session name and sync
     const auto oldName = session->name();
     const auto oldFile = session->file();
-    session->setName(newName);
+    session->setName(name);
     session->setFile(newFile);
     KateStashManager::moveStashForSession(session, oldFile);
     session->config()->sync();
 
     // ensure session list is updated
-    m_sessions[session->name()] = m_sessions.take(oldName);
+    m_sessions.remove(oldName);
+    m_sessions.insert(name, session);
     Q_EMIT sessionListChanged();
 
     // keep the last session pointing to this session, else the next start

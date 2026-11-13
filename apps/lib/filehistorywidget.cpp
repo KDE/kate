@@ -339,12 +339,29 @@ private:
     static constexpr int LineHeight = 2;
     static constexpr int BadgeSpacing = 4;
     KColorScheme m_colorScheme;
+    QWidget *m_parent;
 
 public:
-    CommitDelegate(QObject *parent)
+    CommitDelegate(QWidget *parent)
         : QStyledItemDelegate(parent)
         , m_colorScheme(QPalette::Active, KColorScheme::View)
+        , m_parent(parent)
     {
+        m_parent->installEventFilter(this);
+    }
+
+    ~CommitDelegate()
+    {
+        m_parent->removeEventFilter(this);
+    }
+
+    bool eventFilter(QObject *watched, QEvent *event) override
+    {
+        if (watched == m_parent && event->type() == QEvent::PaletteChange) {
+            m_colorScheme = KColorScheme(QPalette::Active, KColorScheme::View);
+        }
+
+        return QObject::eventFilter(watched, event);
     }
 
     void paint(QPainter *painter, const QStyleOptionViewItem &opt, const QModelIndex &index) const override

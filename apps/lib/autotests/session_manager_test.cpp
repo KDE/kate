@@ -279,3 +279,34 @@ void KateSessionManagerTest::renameSessionOntoExistingNameKeepsBothSessions()
     QVERIFY(QFile::exists(a->file()));
     QVERIFY(QFile::exists(b->file()));
 }
+
+// "Save Session As" must add the new active session to the session list. Else the list
+// gets a second session object for the same file, and renaming or copying that one
+// doesn't affect the active session.
+void KateSessionManagerTest::saveAsAddsActiveSessionToList()
+{
+    QVERIFY(m_manager->activateAnonymousSession());
+
+    // name the anonymous session in the prompt
+    QMetaObject::invokeMethod(
+        this,
+        [] {
+            auto *dlg = qobject_cast<QInputDialog *>(qApp->activeModalWidget());
+            QVERIFY(dlg);
+            dlg->setTextValue(QStringLiteral("savedAs"));
+            dlg->accept();
+        },
+        Qt::QueuedConnection);
+
+    m_manager->sessionSaveAs();
+    KateSession::Ptr s = m_manager->activeSession();
+    auto cleanup = qScopeGuard([this, s] {
+        m_manager->activateAnonymousSession();
+        m_manager->deleteSession(s);
+    });
+
+    QCOMPARE(s->name(), QStringLiteral("savedAs"));
+    QVERIFY(QFile::exists(s->file()));
+    QCOMPARE(m_manager->sessionList().size(), 1);
+    QCOMPARE(m_manager->sessionList().constFirst(), s);
+}

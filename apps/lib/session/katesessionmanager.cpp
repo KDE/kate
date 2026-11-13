@@ -537,6 +537,11 @@ void KateSessionManager::sessionSaveAs()
     qCDebug(LOG_KATE, "%s", __func__);
     saveActiveSession();
 
+    // the active session must be part of the session list, else the dir watcher adds a second
+    // session object for the same file, see giveSession
+    m_sessions[newName] = ns;
+    Q_EMIT sessionListChanged();
+
     Q_EMIT sessionChanged();
 }
 

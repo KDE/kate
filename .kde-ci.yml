@@ -17,7 +17,7 @@ Dependencies:
 Options:
   test-before-installing: True
   require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
-  cmake-options: '-DWARNINGS_AS_ERRORS=ON'
+  cmake-options: '-DWARNINGS_AS_ERRORS=ON -DENABLE_ACP_CLIENT=ON'
   enable-lsan: True
 
   # tests with ASAN on FreeBSD are very slow

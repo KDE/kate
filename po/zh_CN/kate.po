@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-12 01:06+0000\n"
+"POT-Creation-Date: 2026-11-14 01:07+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -166,12 +166,12 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "KWrite - 文本编辑器"
 
-#: lib/autotests/basic_ui_tests.cpp:106 lib/katemainwindow.cpp:1399
+#: lib/autotests/basic_ui_tests.cpp:111 lib/katemainwindow.cpp:1399
 #, kde-format
 msgid " [read only]"
 msgstr " [只读]"
 
-#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
+#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
 #: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -271,7 +271,7 @@ msgstr "工具(&T)"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:317
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:318
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -317,138 +317,138 @@ msgstr ""
 "正则表达式错误：%1\n"
 "偏移 %2：%3"
 
-#: lib/diagnostics/diagnosticview.cpp:63
+#: lib/diagnostics/diagnosticview.cpp:64
 #, kde-format
 msgid "All"
 msgstr "全部"
 
-#: lib/diagnostics/diagnosticview.cpp:324
+#: lib/diagnostics/diagnosticview.cpp:325
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr "已达到诊断数量上限。诊断数量上限可在设置中配置。"
 
-#: lib/diagnostics/diagnosticview.cpp:367
+#: lib/diagnostics/diagnosticview.cpp:368
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "诊断视图"
 
-#: lib/diagnostics/diagnosticview.cpp:372
+#: lib/diagnostics/diagnosticview.cpp:373
 #, kde-format
 msgid "Quick Fix"
 msgstr "快速修复"
 
-#: lib/diagnostics/diagnosticview.cpp:378
+#: lib/diagnostics/diagnosticview.cpp:379
 #, kde-format
 msgid "Next Item"
 msgstr "下一项"
 
-#: lib/diagnostics/diagnosticview.cpp:386
+#: lib/diagnostics/diagnosticview.cpp:387
 #, kde-format
 msgid "Previous Item"
 msgstr "上一项"
 
-#: lib/diagnostics/diagnosticview.cpp:396
+#: lib/diagnostics/diagnosticview.cpp:397
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "清除诊断信息过滤器"
 
-#: lib/diagnostics/diagnosticview.cpp:406
+#: lib/diagnostics/diagnosticview.cpp:407
 #, kde-format
 msgid "Show Hover Info"
 msgstr "显示悬停信息"
 
-#: lib/diagnostics/diagnosticview.cpp:465 lib/kateconfigdialog.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:477 lib/kateconfigdialog.cpp:394
 #, kde-format
 msgid "Diagnostics"
 msgstr "诊断"
 
-#: lib/diagnostics/diagnosticview.cpp:511
+#: lib/diagnostics/diagnosticview.cpp:523
 #, kde-format
 msgid "Errors"
 msgstr "错误"
 
-#: lib/diagnostics/diagnosticview.cpp:527
+#: lib/diagnostics/diagnosticview.cpp:539
 #, kde-format
 msgid "Warnings"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:547
+#: lib/diagnostics/diagnosticview.cpp:559
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "清除诊断信息"
 
-#: lib/diagnostics/diagnosticview.cpp:1216 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1237 lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Error"
 msgstr "错误"
 
-#: lib/diagnostics/diagnosticview.cpp:1220 lib/kateconfigdialog.cpp:167
-#: lib/kateconfigdialog.cpp:804
+#: lib/diagnostics/diagnosticview.cpp:1241 lib/kateconfigdialog.cpp:167
+#: lib/kateconfigdialog.cpp:810
 #, kde-format
 msgid "Warning"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:1224
+#: lib/diagnostics/diagnosticview.cpp:1245
 #, kde-format
 msgid "Information"
 msgstr "信息"
 
-#: lib/diagnostics/diagnosticview.cpp:1353
+#: lib/diagnostics/diagnosticview.cpp:1380
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [已抑制：%2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1479
+#: lib/diagnostics/diagnosticview.cpp:1506
 #, kde-format
 msgid "Expand All"
 msgstr "全部展开"
 
-#: lib/diagnostics/diagnosticview.cpp:1480
+#: lib/diagnostics/diagnosticview.cpp:1507
 #, kde-format
 msgid "Collapse All"
 msgstr "全部折叠"
 
-#: lib/diagnostics/diagnosticview.cpp:1486
+#: lib/diagnostics/diagnosticview.cpp:1513
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "复制到剪贴板"
 
-#: lib/diagnostics/diagnosticview.cpp:1528
+#: lib/diagnostics/diagnosticview.cpp:1555
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "删除全局抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1530
+#: lib/diagnostics/diagnosticview.cpp:1557
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "添加全局抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1534
+#: lib/diagnostics/diagnosticview.cpp:1561
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "移除本地抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1536
+#: lib/diagnostics/diagnosticview.cpp:1563
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "添加本地抑制项"
 
-#: lib/diagnostics/diagnosticview.cpp:1551
+#: lib/diagnostics/diagnosticview.cpp:1578
 #, kde-format
 msgid "Disable Suppression"
 msgstr "禁用抑制"
 
-#: lib/diagnostics/diagnosticview.cpp:1553
+#: lib/diagnostics/diagnosticview.cpp:1580
 #, kde-format
 msgid "Enable Suppression"
 msgstr "启用抑制"
 
-#: lib/diagnostics/diagnosticview.cpp:1620
+#: lib/diagnostics/diagnosticview.cpp:1647
 #, kde-format
 msgid "Show fixes"
 msgstr "显示修复"
@@ -1346,79 +1346,90 @@ msgstr "诊断数量上限："
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "诊断工具视图允许的最大诊断数量。"
 
-#: lib/kateconfigdialog.cpp:410 lib/texthint/hintview.cpp:25
+#: lib/kateconfigdialog.cpp:409
+#, kde-format
+msgid "Show diagnostic messages at the end of the line"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:411
+#, kde-format
+msgid ""
+"Show the message of the most severe diagnostic of a line after its text."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:415 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
 msgstr "上下文"
 
-#: lib/kateconfigdialog.cpp:415
+#: lib/kateconfigdialog.cpp:420
 #, kde-format
 msgid "Enable tool view"
 msgstr "启用工具视图"
 
-#: lib/kateconfigdialog.cpp:417
+#: lib/kateconfigdialog.cpp:422
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr "用于显示与当前光标位置相关联的上下文的工具视图 (LSP 提示、诊断信息)"
 
-#: lib/kateconfigdialog.cpp:432
+#: lib/kateconfigdialog.cpp:437
 #, kde-format
 msgid "Session"
 msgstr "会话"
 
-#: lib/kateconfigdialog.cpp:434
+#: lib/kateconfigdialog.cpp:439
 #, kde-format
 msgid "Session Management"
 msgstr "会话管理"
 
-#: lib/kateconfigdialog.cpp:446
+#: lib/kateconfigdialog.cpp:451
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(从不)"
 
-#: lib/kateconfigdialog.cpp:448
+#: lib/kateconfigdialog.cpp:453
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
 msgstr[0] "%v 天"
 
-#: lib/kateconfigdialog.cpp:478
+#: lib/kateconfigdialog.cpp:483
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr "当一个窗口被关闭时，仅在此窗口中打开的文档也将会被关闭。"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:518
 #, kde-format
 msgid "Plugins"
 msgstr "插件"
 
-#: lib/kateconfigdialog.cpp:515
+#: lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "Plugin Manager"
 msgstr "插件管理器"
 
-#: lib/kateconfigdialog.cpp:533 lib/kateconfigdialog.cpp:535
+#: lib/kateconfigdialog.cpp:538 lib/kateconfigdialog.cpp:540
 #, kde-format
 msgid "User Feedback"
 msgstr "用户反馈"
 
-#: lib/kateconfigdialog.cpp:727
+#: lib/kateconfigdialog.cpp:733
 #, kde-format
 msgid "Bad PATH value"
 msgstr "错误的 PATH 值"
 
-#: lib/kateconfigdialog.cpp:727
+#: lib/kateconfigdialog.cpp:733
 #, kde-format
 msgid "The path '%1' doesn't exist"
 msgstr "路径“%1”不存在"
 
-#: lib/kateconfigdialog.cpp:803
+#: lib/kateconfigdialog.cpp:809
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1634,7 +1645,7 @@ msgstr "复制文件名"
 msgid "Copies the file name of the current file to clipboard."
 msgstr "复制当前文件的路径到剪贴板。"
 
-#: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
+#: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:275
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "打开所在文件夹(&O)"
@@ -2836,22 +2847,22 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr "重新打开会话"
 
-#: lib/session/katesessionmanager.cpp:368
+#: lib/session/katesessionmanager.cpp:369
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "此会话无法被重命名为“%1”，无法写入“%2”"
 
-#: lib/session/katesessionmanager.cpp:369
+#: lib/session/katesessionmanager.cpp:370
 #, kde-format
 msgid "Session Renaming"
 msgstr "会话重命名"
 
-#: lib/session/katesessionmanager.cpp:547
+#: lib/session/katesessionmanager.cpp:554
 #, kde-format
 msgid "Session name:"
 msgstr "会话名称："
 
-#: lib/session/katesessionmanager.cpp:549
+#: lib/session/katesessionmanager.cpp:556
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2860,17 +2871,17 @@ msgstr ""
 "已经有了一个和您选择的同名的会话：%1\n"
 "请选择其他会话名称。"
 
-#: lib/session/katesessionmanager.cpp:551
+#: lib/session/katesessionmanager.cpp:558
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "要保存会话，您必须指定名称。"
 
-#: lib/session/katesessionmanager.cpp:578
+#: lib/session/katesessionmanager.cpp:585
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "指定此会话的名称"
 
-#: lib/session/katesessionmanager.cpp:580
+#: lib/session/katesessionmanager.cpp:587
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "为会话指定新名称：%1"
@@ -3047,17 +3058,17 @@ msgstr "没有最近文档"
 msgid "No saved sessions"
 msgstr "没有已保存的会话"
 
-#: lib/welcomeview/welcomeview.cpp:248
+#: lib/welcomeview/welcomeview.cpp:255
 #, kde-format
 msgid "Open Selected Files..."
 msgstr "打开选中的文件..."
 
-#: lib/welcomeview/welcomeview.cpp:261
+#: lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "Copy &Location"
 msgstr "复制位置(&L)"
 
-#: lib/welcomeview/welcomeview.cpp:276
+#: lib/welcomeview/welcomeview.cpp:283
 #, kde-format
 msgid "&Remove"
 msgstr "移除(&R)"

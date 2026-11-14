@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-12 01:06+0000\n"
+"POT-Creation-Date: 2026-11-14 01:07+0000\n"
 "PO-Revision-Date: 2009-03-01 09:45+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -168,12 +168,12 @@ msgstr "के-राइट लेखक"
 msgid "KWrite - Text Editor"
 msgstr "के-एटीई- विकसित पाठ संपादक"
 
-#: lib/autotests/basic_ui_tests.cpp:106 lib/katemainwindow.cpp:1399
+#: lib/autotests/basic_ui_tests.cpp:111 lib/katemainwindow.cpp:1399
 #, kde-format
 msgid " [read only]"
 msgstr ""
 
-#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
+#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
 #: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 #| msgid "&Other..."
@@ -279,7 +279,7 @@ msgstr "औजार (&T)"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:317
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:318
 #: lib/diagnostics/ui.rc:8
 #, fuzzy, kde-format
 #| msgid "Split Ve&rtical"
@@ -324,148 +324,148 @@ msgid ""
 "offset %2: %3"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:63
+#: lib/diagnostics/diagnosticview.cpp:64
 #, kde-format
 msgid "All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:324
+#: lib/diagnostics/diagnosticview.cpp:325
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:367
+#: lib/diagnostics/diagnosticview.cpp:368
 #, fuzzy, kde-format
 #| msgid "Split Ve&rtical"
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "खड़ा विभाजित करव (&r)"
 
-#: lib/diagnostics/diagnosticview.cpp:372
+#: lib/diagnostics/diagnosticview.cpp:373
 #, fuzzy, kde-format
 #| msgid "&Quick Open"
 msgid "Quick Fix"
 msgstr "जल्दी खोलव (&Q)"
 
-#: lib/diagnostics/diagnosticview.cpp:378
+#: lib/diagnostics/diagnosticview.cpp:379
 #, kde-format
 msgid "Next Item"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:386
+#: lib/diagnostics/diagnosticview.cpp:387
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "Previous Item"
 msgstr "कागद (&D)"
 
-#: lib/diagnostics/diagnosticview.cpp:396
+#: lib/diagnostics/diagnosticview.cpp:397
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:406
+#: lib/diagnostics/diagnosticview.cpp:407
 #, kde-format
 msgid "Show Hover Info"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:465 lib/kateconfigdialog.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:477 lib/kateconfigdialog.cpp:394
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:511
+#: lib/diagnostics/diagnosticview.cpp:523
 #, kde-format
 msgid "Errors"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:527
+#: lib/diagnostics/diagnosticview.cpp:539
 #, kde-format
 msgid "Warnings"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:547
+#: lib/diagnostics/diagnosticview.cpp:559
 #, fuzzy, kde-format
 #| msgid "Split Ve&rtical"
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "खड़ा विभाजित करव (&r)"
 
-#: lib/diagnostics/diagnosticview.cpp:1216 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1237 lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1220 lib/kateconfigdialog.cpp:167
-#: lib/kateconfigdialog.cpp:804
+#: lib/diagnostics/diagnosticview.cpp:1241 lib/kateconfigdialog.cpp:167
+#: lib/kateconfigdialog.cpp:810
 #, kde-format
 msgid "Warning"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1224
+#: lib/diagnostics/diagnosticview.cpp:1245
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "मेटा-जानकारी"
 
-#: lib/diagnostics/diagnosticview.cpp:1353
+#: lib/diagnostics/diagnosticview.cpp:1380
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1479
+#: lib/diagnostics/diagnosticview.cpp:1506
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1480
+#: lib/diagnostics/diagnosticview.cpp:1507
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "सब्बो बन्द करव (&e)"
 
-#: lib/diagnostics/diagnosticview.cpp:1486
+#: lib/diagnostics/diagnosticview.cpp:1513
 #, fuzzy, kde-format
 #| msgid "Use Clipboard"
 msgid "Copy to Clipboard"
 msgstr "क्लिपबोर्ड उपयोग करव"
 
-#: lib/diagnostics/diagnosticview.cpp:1528
+#: lib/diagnostics/diagnosticview.cpp:1555
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1530
+#: lib/diagnostics/diagnosticview.cpp:1557
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "सत्र (&i)"
 
-#: lib/diagnostics/diagnosticview.cpp:1534
+#: lib/diagnostics/diagnosticview.cpp:1561
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1536
+#: lib/diagnostics/diagnosticview.cpp:1563
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1551
+#: lib/diagnostics/diagnosticview.cpp:1578
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Disable Suppression"
 msgstr "सत्र"
 
-#: lib/diagnostics/diagnosticview.cpp:1553
+#: lib/diagnostics/diagnosticview.cpp:1580
 #, fuzzy, kde-format
 #| msgid "Manage Sessions"
 msgid "Enable Suppression"
 msgstr "सत्र मन के प्रबंधन करव"
 
-#: lib/diagnostics/diagnosticview.cpp:1620
+#: lib/diagnostics/diagnosticview.cpp:1647
 #, fuzzy, kde-format
 #| msgid "Show Side&bars"
 msgid "Show fixes"
@@ -1363,43 +1363,54 @@ msgstr "खड़ा विभाजित करव (&r)"
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:410 lib/texthint/hintview.cpp:25
+#: lib/kateconfigdialog.cpp:409
+#, kde-format
+msgid "Show diagnostic messages at the end of the line"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:411
+#, kde-format
+msgid ""
+"Show the message of the most severe diagnostic of a line after its text."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:415 lib/texthint/hintview.cpp:25
 #, fuzzy, kde-format
 #| msgid "Configure"
 msgid "Context"
 msgstr "कान्फिगर"
 
-#: lib/kateconfigdialog.cpp:415
+#: lib/kateconfigdialog.cpp:420
 #, kde-format
 msgid "Enable tool view"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:417
+#: lib/kateconfigdialog.cpp:422
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:432
+#: lib/kateconfigdialog.cpp:437
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Session"
 msgstr "सत्र"
 
-#: lib/kateconfigdialog.cpp:434
+#: lib/kateconfigdialog.cpp:439
 #, kde-format
 msgid "Session Management"
 msgstr "सत्र प्रबंधन"
 
-#: lib/kateconfigdialog.cpp:446
+#: lib/kateconfigdialog.cpp:451
 #, fuzzy, kde-format
 #| msgid "(never)"
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(कभू नइ)"
 
-#: lib/kateconfigdialog.cpp:448
+#: lib/kateconfigdialog.cpp:453
 #, fuzzy, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
@@ -1407,39 +1418,39 @@ msgid_plural "%v days"
 msgstr[0] "दिन"
 msgstr[1] "दिन"
 
-#: lib/kateconfigdialog.cpp:478
+#: lib/kateconfigdialog.cpp:483
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:518
 #, kde-format
 msgid "Plugins"
 msgstr "प्लगइन्स"
 
-#: lib/kateconfigdialog.cpp:515
+#: lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "Plugin Manager"
 msgstr "प्लगइन प्रबंधक"
 
-#: lib/kateconfigdialog.cpp:533 lib/kateconfigdialog.cpp:535
+#: lib/kateconfigdialog.cpp:538 lib/kateconfigdialog.cpp:540
 #, kde-format
 msgid "User Feedback"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:727
+#: lib/kateconfigdialog.cpp:733
 #, kde-format
 msgid "Bad PATH value"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:727
+#: lib/kateconfigdialog.cpp:733
 #, kde-format
 msgid "The path '%1' doesn't exist"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:803
+#: lib/kateconfigdialog.cpp:809
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
@@ -1679,7 +1690,7 @@ msgstr "फाइलनाम"
 msgid "Copies the file name of the current file to clipboard."
 msgstr "अगला विभाजित दृस्य ल सक्रिय करव"
 
-#: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
+#: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:275
 #, fuzzy, kde-format
 #| msgid "Opening Order"
 msgid "&Open Containing Folder"
@@ -2962,40 +2973,40 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:368
+#: lib/session/katesessionmanager.cpp:369
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:369
+#: lib/session/katesessionmanager.cpp:370
 #, kde-format
 msgid "Session Renaming"
 msgstr "सत्र नाम बदलना"
 
-#: lib/session/katesessionmanager.cpp:547
+#: lib/session/katesessionmanager.cpp:554
 #, kde-format
 msgid "Session name:"
 msgstr "सत्र नाम:"
 
-#: lib/session/katesessionmanager.cpp:549
+#: lib/session/katesessionmanager.cpp:556
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
 "Please choose a different one."
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:551
+#: lib/session/katesessionmanager.cpp:558
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "सत्र सहेजे बर आप मन ल एक नाम निरधारित करना होही."
 
-#: lib/session/katesessionmanager.cpp:578
+#: lib/session/katesessionmanager.cpp:585
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "सत्र बर नवा नाम निरधारित करव"
 
-#: lib/session/katesessionmanager.cpp:580
+#: lib/session/katesessionmanager.cpp:587
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"
@@ -3187,19 +3198,19 @@ msgstr "कागद खोलव"
 msgid "No saved sessions"
 msgstr "सत्र सहेजव नइ (&D)"
 
-#: lib/welcomeview/welcomeview.cpp:248
+#: lib/welcomeview/welcomeview.cpp:255
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Open Selected Files..."
 msgstr "फाइल खोलव"
 
-#: lib/welcomeview/welcomeview.cpp:261
+#: lib/welcomeview/welcomeview.cpp:268
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy &Location"
 msgstr "जगह"
 
-#: lib/welcomeview/welcomeview.cpp:276
+#: lib/welcomeview/welcomeview.cpp:283
 #, kde-format
 msgid "&Remove"
 msgstr ""

@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-12 01:06+0000\n"
+"POT-Creation-Date: 2026-11-14 01:07+0000\n"
 "PO-Revision-Date: 2026-11-10 21:38+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -180,12 +180,12 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "KWrite — Metin Düzenleyicisi"
 
-#: lib/autotests/basic_ui_tests.cpp:106 lib/katemainwindow.cpp:1399
+#: lib/autotests/basic_ui_tests.cpp:111 lib/katemainwindow.cpp:1399
 #, kde-format
 msgid " [read only]"
 msgstr " [saltokunur]"
 
-#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
+#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
 #: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -285,7 +285,7 @@ msgstr "&Araçlar"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:317
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:318
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -331,12 +331,12 @@ msgstr ""
 "Düzenli ifadede hata: %1\n"
 "ofset %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:63
+#: lib/diagnostics/diagnosticview.cpp:64
 #, kde-format
 msgid "All"
 msgstr "Tümü"
 
-#: lib/diagnostics/diagnosticview.cpp:324
+#: lib/diagnostics/diagnosticview.cpp:325
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
@@ -345,126 +345,126 @@ msgstr ""
 "Tanı sınırına erişildi; bundan sonraki tanılar yok sayılıyor. Sınır, "
 "ayarlarda yapılandırılabilir."
 
-#: lib/diagnostics/diagnosticview.cpp:367
+#: lib/diagnostics/diagnosticview.cpp:368
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Tanılar Görünümü"
 
-#: lib/diagnostics/diagnosticview.cpp:372
+#: lib/diagnostics/diagnosticview.cpp:373
 #, kde-format
 msgid "Quick Fix"
 msgstr "Tez Düzelt"
 
-#: lib/diagnostics/diagnosticview.cpp:378
+#: lib/diagnostics/diagnosticview.cpp:379
 #, kde-format
 msgid "Next Item"
 msgstr "Sonraki Öge"
 
-#: lib/diagnostics/diagnosticview.cpp:386
+#: lib/diagnostics/diagnosticview.cpp:387
 #, kde-format
 msgid "Previous Item"
 msgstr "Önceki Öge"
 
-#: lib/diagnostics/diagnosticview.cpp:396
+#: lib/diagnostics/diagnosticview.cpp:397
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Tanılar Süzgecini Temizle"
 
-#: lib/diagnostics/diagnosticview.cpp:406
+#: lib/diagnostics/diagnosticview.cpp:407
 #, kde-format
 msgid "Show Hover Info"
 msgstr "Üzerine Gelince Bilgi Göster"
 
-#: lib/diagnostics/diagnosticview.cpp:465 lib/kateconfigdialog.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:477 lib/kateconfigdialog.cpp:394
 #, kde-format
 msgid "Diagnostics"
 msgstr "Tanılar"
 
-#: lib/diagnostics/diagnosticview.cpp:511
+#: lib/diagnostics/diagnosticview.cpp:523
 #, kde-format
 msgid "Errors"
 msgstr "Hatalar"
 
-#: lib/diagnostics/diagnosticview.cpp:527
+#: lib/diagnostics/diagnosticview.cpp:539
 #, kde-format
 msgid "Warnings"
 msgstr "Uyarılar"
 
-#: lib/diagnostics/diagnosticview.cpp:547
+#: lib/diagnostics/diagnosticview.cpp:559
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "Tanıları temizle"
 
-#: lib/diagnostics/diagnosticview.cpp:1216 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1237 lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Error"
 msgstr "Hata"
 
-#: lib/diagnostics/diagnosticview.cpp:1220 lib/kateconfigdialog.cpp:167
-#: lib/kateconfigdialog.cpp:804
+#: lib/diagnostics/diagnosticview.cpp:1241 lib/kateconfigdialog.cpp:167
+#: lib/kateconfigdialog.cpp:810
 #, kde-format
 msgid "Warning"
 msgstr "Uyarı"
 
-#: lib/diagnostics/diagnosticview.cpp:1224
+#: lib/diagnostics/diagnosticview.cpp:1245
 #, kde-format
 msgid "Information"
 msgstr "Bilgi"
 
-#: lib/diagnostics/diagnosticview.cpp:1353
+#: lib/diagnostics/diagnosticview.cpp:1380
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [susturulmuş: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1479
+#: lib/diagnostics/diagnosticview.cpp:1506
 #, kde-format
 msgid "Expand All"
 msgstr "Tümünü Genişlet"
 
-#: lib/diagnostics/diagnosticview.cpp:1480
+#: lib/diagnostics/diagnosticview.cpp:1507
 #, kde-format
 msgid "Collapse All"
 msgstr "Tümünü Daralt"
 
-#: lib/diagnostics/diagnosticview.cpp:1486
+#: lib/diagnostics/diagnosticview.cpp:1513
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Panoya Kopyala"
 
-#: lib/diagnostics/diagnosticview.cpp:1528
+#: lib/diagnostics/diagnosticview.cpp:1555
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Global Susturmayı Kaldır"
 
-#: lib/diagnostics/diagnosticview.cpp:1530
+#: lib/diagnostics/diagnosticview.cpp:1557
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Global Susturma Ekle"
 
-#: lib/diagnostics/diagnosticview.cpp:1534
+#: lib/diagnostics/diagnosticview.cpp:1561
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Yerel Susturmayı Kaldır"
 
-#: lib/diagnostics/diagnosticview.cpp:1536
+#: lib/diagnostics/diagnosticview.cpp:1563
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Yerel Susturma Ekle"
 
-#: lib/diagnostics/diagnosticview.cpp:1551
+#: lib/diagnostics/diagnosticview.cpp:1578
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Susturmayı Devre Dışı Bırak"
 
-#: lib/diagnostics/diagnosticview.cpp:1553
+#: lib/diagnostics/diagnosticview.cpp:1580
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Susturmayı Etkinleştir"
 
-#: lib/diagnostics/diagnosticview.cpp:1620
+#: lib/diagnostics/diagnosticview.cpp:1647
 #, kde-format
 msgid "Show fixes"
 msgstr "Düzeltmeleri Göster"
@@ -1382,17 +1382,28 @@ msgstr "Tanı sınırı:"
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "Tanılar araç görünümünde izin verilen en çok tanı sayısı"
 
-#: lib/kateconfigdialog.cpp:410 lib/texthint/hintview.cpp:25
+#: lib/kateconfigdialog.cpp:409
+#, kde-format
+msgid "Show diagnostic messages at the end of the line"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:411
+#, kde-format
+msgid ""
+"Show the message of the most severe diagnostic of a line after its text."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:415 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
 msgstr "Bağlam"
 
-#: lib/kateconfigdialog.cpp:415
+#: lib/kateconfigdialog.cpp:420
 #, kde-format
 msgid "Enable tool view"
 msgstr "Ağaç görünümünü etkinleştir"
 
-#: lib/kateconfigdialog.cpp:417
+#: lib/kateconfigdialog.cpp:422
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
@@ -1401,23 +1412,23 @@ msgstr ""
 "Geçerli imlaç konumu ile ilişkili bağlamı (LSP ipuçları, tanılar) "
 "görüntülemek için bir araç görünümü"
 
-#: lib/kateconfigdialog.cpp:432
+#: lib/kateconfigdialog.cpp:437
 #, kde-format
 msgid "Session"
 msgstr "Oturum"
 
-#: lib/kateconfigdialog.cpp:434
+#: lib/kateconfigdialog.cpp:439
 #, kde-format
 msgid "Session Management"
 msgstr "Oturum Yönetimi"
 
-#: lib/kateconfigdialog.cpp:446
+#: lib/kateconfigdialog.cpp:451
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(asla)"
 
-#: lib/kateconfigdialog.cpp:448
+#: lib/kateconfigdialog.cpp:453
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
@@ -1425,7 +1436,7 @@ msgid_plural "%v days"
 msgstr[0] "%v gün"
 msgstr[1] "%v gün"
 
-#: lib/kateconfigdialog.cpp:478
+#: lib/kateconfigdialog.cpp:483
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1434,32 +1445,32 @@ msgstr ""
 "Bir pencere kapatıldığında, yalnızca bu pencerede açılmış olan belgeler de "
 "kapatılır."
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:518
 #, kde-format
 msgid "Plugins"
 msgstr "Eklentiler"
 
-#: lib/kateconfigdialog.cpp:515
+#: lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Eklenti Yöneticisi"
 
-#: lib/kateconfigdialog.cpp:533 lib/kateconfigdialog.cpp:535
+#: lib/kateconfigdialog.cpp:538 lib/kateconfigdialog.cpp:540
 #, kde-format
 msgid "User Feedback"
 msgstr "Kullanıcı Geri Bildirimi"
 
-#: lib/kateconfigdialog.cpp:727
+#: lib/kateconfigdialog.cpp:733
 #, kde-format
 msgid "Bad PATH value"
 msgstr "Hatalı PATH değeri"
 
-#: lib/kateconfigdialog.cpp:727
+#: lib/kateconfigdialog.cpp:733
 #, kde-format
 msgid "The path '%1' doesn't exist"
 msgstr "“%1” yolu yok"
 
-#: lib/kateconfigdialog.cpp:803
+#: lib/kateconfigdialog.cpp:809
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1680,7 +1691,7 @@ msgstr "Dosya Adını Kopyala"
 msgid "Copies the file name of the current file to clipboard."
 msgstr "Geçerli dosyanın dosya adını panoya kopyalar."
 
-#: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
+#: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:275
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "İçeren K&lasörü Aç"
@@ -2922,22 +2933,22 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Yeniden Aç"
 
-#: lib/session/katesessionmanager.cpp:368
+#: lib/session/katesessionmanager.cpp:369
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "Oturum, “%1“ olarak yeniden adlandırılamadı; “%2“ konumuna yazılamadı"
 
-#: lib/session/katesessionmanager.cpp:369
+#: lib/session/katesessionmanager.cpp:370
 #, kde-format
 msgid "Session Renaming"
 msgstr "Oturum Yeniden Adlandırma"
 
-#: lib/session/katesessionmanager.cpp:547
+#: lib/session/katesessionmanager.cpp:554
 #, kde-format
 msgid "Session name:"
 msgstr "Oturum adı:"
 
-#: lib/session/katesessionmanager.cpp:549
+#: lib/session/katesessionmanager.cpp:556
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2946,17 +2957,17 @@ msgstr ""
 "Seçtiğiniz ad başka bir oturum tarafından kullanılıyor: %1\n"
 "Lütfen başka bir ad seçin."
 
-#: lib/session/katesessionmanager.cpp:551
+#: lib/session/katesessionmanager.cpp:558
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Bir oturumu kaydetmek için bir ad belirtmelisiniz."
 
-#: lib/session/katesessionmanager.cpp:578
+#: lib/session/katesessionmanager.cpp:585
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Bu oturum için yeni bir ad girin"
 
-#: lib/session/katesessionmanager.cpp:580
+#: lib/session/katesessionmanager.cpp:587
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Oturum için yeni ad girin: %1"
@@ -3139,17 +3150,17 @@ msgstr "Son kullanılan belge yok"
 msgid "No saved sessions"
 msgstr "Kayıtlı oturum yok"
 
-#: lib/welcomeview/welcomeview.cpp:248
+#: lib/welcomeview/welcomeview.cpp:255
 #, kde-format
 msgid "Open Selected Files..."
 msgstr "Seçili Dosyaları Aç…"
 
-#: lib/welcomeview/welcomeview.cpp:261
+#: lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "Copy &Location"
 msgstr "Konu&mu Kopyala"
 
-#: lib/welcomeview/welcomeview.cpp:276
+#: lib/welcomeview/welcomeview.cpp:283
 #, kde-format
 msgid "&Remove"
 msgstr "&Kaldır"

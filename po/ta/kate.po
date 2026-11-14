@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-12 01:06+0000\n"
+"POT-Creation-Date: 2026-11-14 01:07+0000\n"
 "PO-Revision-Date: 2026-01-04 15:30+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -170,12 +170,12 @@ msgstr "கேரைட்"
 msgid "KWrite - Text Editor"
 msgstr "கேரைட் -  உரைதொகுப்பாளர் உறுப்பு"
 
-#: lib/autotests/basic_ui_tests.cpp:106 lib/katemainwindow.cpp:1399
+#: lib/autotests/basic_ui_tests.cpp:111 lib/katemainwindow.cpp:1399
 #, kde-format
 msgid " [read only]"
 msgstr " [படித்தல் மட்டும்]"
 
-#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:541
+#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
 #: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -275,7 +275,7 @@ msgstr "&கருவிகள்"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:317
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:318
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -321,12 +321,12 @@ msgstr ""
 "சுருங்குறித் தொடரில் சிக்கல்: %1\n"
 "எழுத்தெண் %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:63
+#: lib/diagnostics/diagnosticview.cpp:64
 #, kde-format
 msgid "All"
 msgstr "அனைத்தும்"
 
-#: lib/diagnostics/diagnosticview.cpp:324
+#: lib/diagnostics/diagnosticview.cpp:325
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
@@ -335,126 +335,126 @@ msgstr ""
 "பிழைநீக்க செய்திகளின் வரம்பு அடையப்பட்டதால் இதற்கு மேல் வரும் பிழைநீக்க செய்திகள் காட்டப்படா. "
 "இவ்வரம்பை அமைப்புகளில் மாற்றலாம்."
 
-#: lib/diagnostics/diagnosticview.cpp:367
+#: lib/diagnostics/diagnosticview.cpp:368
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "பிழைநீக்க காட்சிப்பகுதி"
 
-#: lib/diagnostics/diagnosticview.cpp:372
+#: lib/diagnostics/diagnosticview.cpp:373
 #, kde-format
 msgid "Quick Fix"
 msgstr "விரைவில் திருத்தக்கூடியவை"
 
-#: lib/diagnostics/diagnosticview.cpp:378
+#: lib/diagnostics/diagnosticview.cpp:379
 #, kde-format
 msgid "Next Item"
 msgstr "அடுத்த உருப்படி"
 
-#: lib/diagnostics/diagnosticview.cpp:386
+#: lib/diagnostics/diagnosticview.cpp:387
 #, kde-format
 msgid "Previous Item"
 msgstr "முந்தைய உருப்படி"
 
-#: lib/diagnostics/diagnosticview.cpp:396
+#: lib/diagnostics/diagnosticview.cpp:397
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "பிழைநீக்க விவர வடிகட்டியை காலியாக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:406
+#: lib/diagnostics/diagnosticview.cpp:407
 #, kde-format
 msgid "Show Hover Info"
 msgstr "சுட்டியை மேல்வைக்கும்போது விவரங்களைக் காட்டு"
 
-#: lib/diagnostics/diagnosticview.cpp:465 lib/kateconfigdialog.cpp:394
+#: lib/diagnostics/diagnosticview.cpp:477 lib/kateconfigdialog.cpp:394
 #, kde-format
 msgid "Diagnostics"
 msgstr "பிழைநீக்க விவரங்கள்"
 
-#: lib/diagnostics/diagnosticview.cpp:511
+#: lib/diagnostics/diagnosticview.cpp:523
 #, kde-format
 msgid "Errors"
 msgstr "பிழைகள்"
 
-#: lib/diagnostics/diagnosticview.cpp:527
+#: lib/diagnostics/diagnosticview.cpp:539
 #, kde-format
 msgid "Warnings"
 msgstr "எச்சரிக்கைகள்"
 
-#: lib/diagnostics/diagnosticview.cpp:547
+#: lib/diagnostics/diagnosticview.cpp:559
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "பிழைநீக்க விவரங்களை காலியாக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1216 lib/kateconfigdialog.cpp:167
+#: lib/diagnostics/diagnosticview.cpp:1237 lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Error"
 msgstr "பிழை"
 
-#: lib/diagnostics/diagnosticview.cpp:1220 lib/kateconfigdialog.cpp:167
-#: lib/kateconfigdialog.cpp:804
+#: lib/diagnostics/diagnosticview.cpp:1241 lib/kateconfigdialog.cpp:167
+#: lib/kateconfigdialog.cpp:810
 #, kde-format
 msgid "Warning"
 msgstr "எச்சரிக்கை"
 
-#: lib/diagnostics/diagnosticview.cpp:1224
+#: lib/diagnostics/diagnosticview.cpp:1245
 #, kde-format
 msgid "Information"
 msgstr "தகவல்"
 
-#: lib/diagnostics/diagnosticview.cpp:1353
+#: lib/diagnostics/diagnosticview.cpp:1380
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [மறைத்துள்ளவை: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1479
+#: lib/diagnostics/diagnosticview.cpp:1506
 #, kde-format
 msgid "Expand All"
 msgstr "அனைத்தையும் விரிவாக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1480
+#: lib/diagnostics/diagnosticview.cpp:1507
 #, kde-format
 msgid "Collapse All"
 msgstr "அனைத்தையும் சுருக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1486
+#: lib/diagnostics/diagnosticview.cpp:1513
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "பிடிப்புப்பலகைக்கு நகலெடு"
 
-#: lib/diagnostics/diagnosticview.cpp:1528
+#: lib/diagnostics/diagnosticview.cpp:1555
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "பொதுவான அடக்கல்விதியை நீக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1530
+#: lib/diagnostics/diagnosticview.cpp:1557
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "பொதுவான அடக்கல்விதியை சேர்"
 
-#: lib/diagnostics/diagnosticview.cpp:1534
+#: lib/diagnostics/diagnosticview.cpp:1561
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "வட்டார அடக்கல்விதியை நீக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1536
+#: lib/diagnostics/diagnosticview.cpp:1563
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "வட்டார அடக்கல்விதியை சேர்"
 
-#: lib/diagnostics/diagnosticview.cpp:1551
+#: lib/diagnostics/diagnosticview.cpp:1578
 #, kde-format
 msgid "Disable Suppression"
 msgstr "அடக்கலை முடக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1553
+#: lib/diagnostics/diagnosticview.cpp:1580
 #, kde-format
 msgid "Enable Suppression"
 msgstr "அடக்கலை இயக்கு"
 
-#: lib/diagnostics/diagnosticview.cpp:1620
+#: lib/diagnostics/diagnosticview.cpp:1647
 #, fuzzy, kde-format
 #| msgid "Show Side&bars"
 msgid "Show fixes"
@@ -1380,17 +1380,28 @@ msgstr "பிழைநீக்க வரம்பு:"
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "பிழைநீக்கக் காட்சிப்பகுதியில் அனுமதிக்கப்படும் அதிகபட்ச செய்திகள்"
 
-#: lib/kateconfigdialog.cpp:410 lib/texthint/hintview.cpp:25
+#: lib/kateconfigdialog.cpp:409
+#, kde-format
+msgid "Show diagnostic messages at the end of the line"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:411
+#, kde-format
+msgid ""
+"Show the message of the most severe diagnostic of a line after its text."
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:415 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
 msgstr "சூழல்"
 
-#: lib/kateconfigdialog.cpp:415
+#: lib/kateconfigdialog.cpp:420
 #, kde-format
 msgid "Enable tool view"
 msgstr "கருவி காட்சிப்பகுதியை இயக்கு"
 
-#: lib/kateconfigdialog.cpp:417
+#: lib/kateconfigdialog.cpp:422
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
@@ -1399,23 +1410,23 @@ msgstr ""
 "இடஞ்சுட்டியின் தற்போதைய இருப்பிடத்தைச் சார்ந்த கூடுதல் விவரங்களைக் காட்டும் கருவி "
 "காட்சிப்பகுதி (LSP துப்புகள், பிழைநீக்க விவரங்கள்)"
 
-#: lib/kateconfigdialog.cpp:432
+#: lib/kateconfigdialog.cpp:437
 #, kde-format
 msgid "Session"
 msgstr "அமர்வு"
 
-#: lib/kateconfigdialog.cpp:434
+#: lib/kateconfigdialog.cpp:439
 #, kde-format
 msgid "Session Management"
 msgstr "அமர்வு மேலாண்மை"
 
-#: lib/kateconfigdialog.cpp:446
+#: lib/kateconfigdialog.cpp:451
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(ஒருபோதும் வேண்டாம்)"
 
-#: lib/kateconfigdialog.cpp:448
+#: lib/kateconfigdialog.cpp:453
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
@@ -1423,39 +1434,39 @@ msgid_plural "%v days"
 msgstr[0] "%v நாள்"
 msgstr[1] "%v நாட்கள்"
 
-#: lib/kateconfigdialog.cpp:478
+#: lib/kateconfigdialog.cpp:483
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr "ஓர் சாளரம் மூடப்படும்போது அச்சாளரத்திலுள்ள ஆவணங்களும் மூடப்படும்."
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:518
 #, kde-format
 msgid "Plugins"
 msgstr "செருகுநிரல்கள்"
 
-#: lib/kateconfigdialog.cpp:515
+#: lib/kateconfigdialog.cpp:520
 #, kde-format
 msgid "Plugin Manager"
 msgstr "செருகுநிரல் மேலாளர்"
 
-#: lib/kateconfigdialog.cpp:533 lib/kateconfigdialog.cpp:535
+#: lib/kateconfigdialog.cpp:538 lib/kateconfigdialog.cpp:540
 #, kde-format
 msgid "User Feedback"
 msgstr "பயனர் பின்னூட்டம்"
 
-#: lib/kateconfigdialog.cpp:727
+#: lib/kateconfigdialog.cpp:733
 #, kde-format
 msgid "Bad PATH value"
 msgstr "செல்லுபடியாகா PATH மதிப்பு"
 
-#: lib/kateconfigdialog.cpp:727
+#: lib/kateconfigdialog.cpp:733
 #, kde-format
 msgid "The path '%1' doesn't exist"
 msgstr "'%1' எனும் பாதை இல்லை."
 
-#: lib/kateconfigdialog.cpp:803
+#: lib/kateconfigdialog.cpp:809
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1674,7 +1685,7 @@ msgstr "கோப்புப்பெயரை நகலெடு"
 msgid "Copies the file name of the current file to clipboard."
 msgstr "தற்போதைய கோப்பின் பாதையை பிடிப்புப்பலகைக்கு நகலெடுக்கும்."
 
-#: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
+#: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:275
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&கொண்டுள்ள அடைவை திற"
@@ -2907,23 +2918,23 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr "மீண்டும் திற"
 
-#: lib/session/katesessionmanager.cpp:368
+#: lib/session/katesessionmanager.cpp:369
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "\"%1\" என்று அமர்வின் பெயரை மாற்ற முடியவில்லை. \"%2\" என்பதற்கு எழுத முடியவில்லை."
 
-#: lib/session/katesessionmanager.cpp:369
+#: lib/session/katesessionmanager.cpp:370
 #, kde-format
 msgid "Session Renaming"
 msgstr "அமர்வின் பெயரை மாற்றல்"
 
-#: lib/session/katesessionmanager.cpp:547
+#: lib/session/katesessionmanager.cpp:554
 #, kde-format
 msgid "Session name:"
 msgstr "அமர்வின் பெயர்:"
 
-#: lib/session/katesessionmanager.cpp:549
+#: lib/session/katesessionmanager.cpp:556
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2932,17 +2943,17 @@ msgstr ""
 "இப்பெயரில் ஏற்கனவே ஒரு அமர்வு உள்ளது: %1\n"
 "வேறு பெயரை தேர்ந்தெடுங்கள்."
 
-#: lib/session/katesessionmanager.cpp:551
+#: lib/session/katesessionmanager.cpp:558
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ஒரு அமர்வை சேமிக்க, நீங்கள் அதற்குரிய பெயரை குறிப்பிடவேண்டும்."
 
-#: lib/session/katesessionmanager.cpp:578
+#: lib/session/katesessionmanager.cpp:585
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "இந்த அமர்வுக்கான பெயரைக் குறிப்பிடவும்"
 
-#: lib/session/katesessionmanager.cpp:580
+#: lib/session/katesessionmanager.cpp:587
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "பின்வரும் அமர்வுக்கான பெயரைக் குறிப்பிடவும்: %1"
@@ -3122,17 +3133,17 @@ msgstr "சமீப ஆவணங்கள் இல்லை"
 msgid "No saved sessions"
 msgstr "எந்த அமர்வும் சேமிக்கப்படவில்லை"
 
-#: lib/welcomeview/welcomeview.cpp:248
+#: lib/welcomeview/welcomeview.cpp:255
 #, kde-format
 msgid "Open Selected Files..."
 msgstr "தேர்ந்தெடுத்த கோப்புகளை திற..."
 
-#: lib/welcomeview/welcomeview.cpp:261
+#: lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "Copy &Location"
 msgstr "&இருப்பிடத்தை நகலெடு"
 
-#: lib/welcomeview/welcomeview.cpp:276
+#: lib/welcomeview/welcomeview.cpp:283
 #, kde-format
 msgid "&Remove"
 msgstr "&நீக்கு"

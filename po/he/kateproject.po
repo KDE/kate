@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-10 01:01+0000\n"
-"PO-Revision-Date: 2026-11-07 21:49+0200\n"
+"PO-Revision-Date: 2026-11-13 13:51+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: צוות התרגום של KDE ישראל\n"
+"Language-Team: Hebrew <kde-l10n-he@kde.org>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 26.08.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -894,17 +894,17 @@ msgstr "סמל קפיצה (Goto) חוצה מיזמים"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Window Title"
-msgstr ""
+msgstr "כותרת חלון"
 
 #: kateprojectconfigpage.cpp:119
 #, kde-format
 msgid "Prefix window title with project name"
-msgstr ""
+msgstr "להוסיף את שם המיזם לפני כותרת החלון"
 
 #: kateprojectconfigpage.cpp:121
 #, kde-format
 msgid "Show the current project's name before the existing window title."
-msgstr ""
+msgstr "הצגת שם המיזם הנוכחי לפני כותרת החלון הנוכחית."
 
 #: kateprojectconfigpage.cpp:131
 #, kde-format

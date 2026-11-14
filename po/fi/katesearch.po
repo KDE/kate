@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-08 03:01+0000\n"
+"POT-Creation-Date: 2026-11-14 01:07+0000\n"
 "PO-Revision-Date: 2026-08-26 13:35+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -218,7 +218,7 @@ msgstr ""
 "näppäintä pohjassa."
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:40 SearchPlugin.cpp:293 SearchPlugin.cpp:1185
+#: search.ui:40 SearchPlugin.cpp:295 SearchPlugin.cpp:1203
 #, kde-format
 msgid "Search"
 msgstr "Etsi"
@@ -253,8 +253,16 @@ msgstr "Pysäytä"
 msgid "Match case"
 msgstr "Erota pien- ja suuraakkoset"
 
-#. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
+#. i18n: ectx: property (toolTip), widget (QToolButton, smartCase)
 #: search.ui:134
+#, kde-format
+msgid ""
+"Smart case: Case-sensitive only when search pattern contains uppercase "
+"characters"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
+#: search.ui:150
 #, kde-format
 msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
@@ -264,7 +272,7 @@ msgstr ""
 "etsi ja korvaa -tekstikenttien painikkein.</p></body></html>"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
-#: search.ui:163
+#: search.ui:179
 #, kde-format
 msgid "Expand results"
 msgstr "Laajenna tulokset"
@@ -272,311 +280,311 @@ msgstr "Laajenna tulokset"
 #. i18n: ectx: property (text), widget (QToolButton, filterBtn)
 #. i18n: ectx: property (text), widget (QToolButton, displayOptions)
 #. i18n: ectx: property (text), widget (QToolButton, newTabButton)
-#: search.ui:179 search.ui:249 search.ui:262
+#: search.ui:195 search.ui:265 search.ui:278
 #, kde-format
 msgid "..."
 msgstr "…"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:195 SearchPlugin.cpp:510
+#: search.ui:211 SearchPlugin.cpp:520
 #, kde-format
 msgid "Replace"
 msgstr "Korvaa"
 
 # Konteksti: ”Etsi” ”projektista”
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:218
+#: search.ui:234
 #, kde-format
 msgid "In Current File"
 msgstr "nykyisestä tiedostosta"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:223
+#: search.ui:239
 #, kde-format
 msgid "In Open Files"
 msgstr "Avoimista tiedostoista"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
-#: search.ui:228
+#: search.ui:244
 #, kde-format
 msgid "In Folder"
 msgstr "Kansiosta"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
-#: search.ui:236
+#: search.ui:252
 #, kde-format
 msgid "Use the current document's path."
 msgstr "Käytä nykyisen tiedoston sijaintia."
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
-#: search.ui:246
+#: search.ui:262
 #, kde-format
 msgid "Show more search options"
 msgstr "Näytä lisää hakuasetuksia"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
-#: search.ui:259
+#: search.ui:275
 #, kde-format
 msgid "Add new search tab"
 msgstr "Lisää uusi hakuvälilehti"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
-#: search.ui:350
+#: search.ui:366
 #, kde-format
 msgid "Folder:"
 msgstr "Kansio:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
-#: search.ui:368
+#: search.ui:384
 #, kde-format
 msgid "Go one folder up."
 msgstr "Siirry kansiota ylemmäs."
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
-#: search.ui:377
+#: search.ui:393
 #, kde-format
 msgid "Filter:"
 msgstr "Suodatin:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
-#: search.ui:399
+#: search.ui:415
 #, kde-format
 msgid "*"
 msgstr "*"
 
 #. i18n: ectx: property (text), widget (QLabel, excludeLabel)
-#: search.ui:407
+#: search.ui:423
 #, kde-format
 msgid "Exclude:"
 msgstr "Jätä pois:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
-#: search.ui:428
+#: search.ui:444
 #, kde-format
 msgid "Recursive"
 msgstr "Rekursiivinen"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
-#: search.ui:438
+#: search.ui:454
 #, kde-format
 msgid "Include hidden"
 msgstr "Myös piilotiedostoista"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
-#: search.ui:445
+#: search.ui:461
 #, kde-format
 msgid "Follow symbolic links"
 msgstr "Seuraa symbolisia linkkejä"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
-#: search.ui:452
+#: search.ui:468
 #, kde-format
 msgid "Include binary files"
 msgstr "Sisällytä binaaritiedostot"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
-#: search.ui:459
+#: search.ui:475
 #, kde-format
 msgid "MB"
 msgstr " Mt"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: search.ui:472
+#: search.ui:488
 #, kde-format
 msgid "Size limit"
 msgstr "Kokorajoitus"
 
-#: SearchPlugin.cpp:80 SearchPlugin.cpp:113
+#: SearchPlugin.cpp:82 SearchPlugin.cpp:115
 #, kde-format
 msgid "Line break"
 msgstr "Rivinvaihto"
 
-#: SearchPlugin.cpp:81 SearchPlugin.cpp:114
+#: SearchPlugin.cpp:83 SearchPlugin.cpp:116
 #, kde-format
 msgid "Tab"
 msgstr "Sarkain"
 
-#: SearchPlugin.cpp:92
+#: SearchPlugin.cpp:94
 #, kde-format
 msgid "Beginning of line"
 msgstr "Rivin alku"
 
-#: SearchPlugin.cpp:93
+#: SearchPlugin.cpp:95
 #, kde-format
 msgid "End of line"
 msgstr "Rivin loppu"
 
-#: SearchPlugin.cpp:95
+#: SearchPlugin.cpp:97
 #, kde-format
 msgid "Any single character (excluding line breaks)"
 msgstr "Mikä tahansa yksittäinen merkki (paitsi rivinvaihdot)"
 
-#: SearchPlugin.cpp:96
+#: SearchPlugin.cpp:98
 #, kde-format
 msgid "Literal dot"
 msgstr "Piste (”.”) sellaisenaan"
 
-#: SearchPlugin.cpp:98
+#: SearchPlugin.cpp:100
 #, kde-format
 msgid "One or more occurrences"
 msgstr "Yksi tai useampi esiintymä"
 
-#: SearchPlugin.cpp:99
+#: SearchPlugin.cpp:101
 #, kde-format
 msgid "Zero or more occurrences"
 msgstr "Nolla tai useampi esiintymä"
 
-#: SearchPlugin.cpp:100
+#: SearchPlugin.cpp:102
 #, kde-format
 msgid "Zero or one occurrences"
 msgstr "Nolla tai yksi esiintymä"
 
-#: SearchPlugin.cpp:102
+#: SearchPlugin.cpp:104
 #, kde-format
 msgid "<a> through <b> occurrences"
 msgstr "<a>–<b> esiintymää"
 
-#: SearchPlugin.cpp:104
+#: SearchPlugin.cpp:106
 #, kde-format
 msgid "Group, capturing"
 msgstr "Ryhmä, kaapataan"
 
-#: SearchPlugin.cpp:105
+#: SearchPlugin.cpp:107
 #, kde-format
 msgid "Or"
 msgstr "Tai"
 
-#: SearchPlugin.cpp:106
+#: SearchPlugin.cpp:108
 #, kde-format
 msgid "Set of characters"
 msgstr "Merkkijoukko"
 
-#: SearchPlugin.cpp:107
+#: SearchPlugin.cpp:109
 #, kde-format
 msgid "Negative set of characters"
 msgstr "Negatiivinen merkkijoukko"
 
-#: SearchPlugin.cpp:108
+#: SearchPlugin.cpp:110
 #, kde-format
 msgid "Group, non-capturing"
 msgstr "Ryhmä, ei kaapata"
 
-#: SearchPlugin.cpp:109
+#: SearchPlugin.cpp:111
 #, kde-format
 msgid "Lookahead"
 msgstr "Katso eteenpäin osumasta"
 
-#: SearchPlugin.cpp:110
+#: SearchPlugin.cpp:112
 #, kde-format
 msgid "Negative lookahead"
 msgstr "Älä katso eteenpäin osumasta"
 
-#: SearchPlugin.cpp:115
+#: SearchPlugin.cpp:117
 #, kde-format
 msgid "Word boundary"
 msgstr "Sananraja"
 
-#: SearchPlugin.cpp:116
+#: SearchPlugin.cpp:118
 #, kde-format
 msgid "Not word boundary"
 msgstr "Ei sananraja"
 
-#: SearchPlugin.cpp:117
+#: SearchPlugin.cpp:119
 #, kde-format
 msgid "Digit"
 msgstr "Numero"
 
-#: SearchPlugin.cpp:118
+#: SearchPlugin.cpp:120
 #, kde-format
 msgid "Non-digit"
 msgstr "Ei-numero"
 
-#: SearchPlugin.cpp:119
+#: SearchPlugin.cpp:121
 #, kde-format
 msgid "Whitespace (excluding line breaks)"
 msgstr "Tyhjemerkki (paitsi rivinvaihdot)"
 
-#: SearchPlugin.cpp:120
+#: SearchPlugin.cpp:122
 #, kde-format
 msgid "Non-whitespace (excluding line breaks)"
 msgstr "Ei-tyhjemerkki (paitsi rivinvaihdot)"
 
-#: SearchPlugin.cpp:121
+#: SearchPlugin.cpp:123
 #, kde-format
 msgid "Word character (alphanumerics plus '_')"
 msgstr "Sanamerkki (aakkosnumeeriset sekä ”_”)"
 
-#: SearchPlugin.cpp:122
+#: SearchPlugin.cpp:124
 #, kde-format
 msgid "Non-word character"
 msgstr "Ei-sanamerkki"
 
-#: SearchPlugin.cpp:134
+#: SearchPlugin.cpp:136
 #, kde-format
 msgid "Regular expression capture 0 (whole match)"
 msgstr "Säännöllisen lausekkeen kaappaus 0 (koko osuma)"
 
-#: SearchPlugin.cpp:135
+#: SearchPlugin.cpp:137
 #, kde-format
 msgid "Regular expression capture 1-9"
 msgstr "Säännöllisen lausekkeen kaappaus 1–9"
 
-#: SearchPlugin.cpp:136
+#: SearchPlugin.cpp:138
 #, kde-format
 msgid "Regular expression capture 0-999"
 msgstr "Säännöllisen lausekkeen kaappaus 0–999"
 
-#: SearchPlugin.cpp:138
+#: SearchPlugin.cpp:140
 #, kde-format
 msgid "Upper-cased capture 0-9"
 msgstr "Suuraakkoskaappaus 0–9"
 
-#: SearchPlugin.cpp:139
+#: SearchPlugin.cpp:141
 #, kde-format
 msgid "Upper-cased capture 0-999"
 msgstr "Suuraakkoskaappaus 0–999"
 
-#: SearchPlugin.cpp:140
+#: SearchPlugin.cpp:142
 #, kde-format
 msgid "Lower-cased capture 0-9"
 msgstr "Pienaakkoskaappaus 0–9"
 
-#: SearchPlugin.cpp:141
+#: SearchPlugin.cpp:143
 #, kde-format
 msgid "Lower-cased capture 0-999"
 msgstr "Pienaakkoskaappaus 0–999"
 
-#: SearchPlugin.cpp:286
+#: SearchPlugin.cpp:288
 #, kde-format
 msgid "Search & Replace"
 msgstr "Etsi ja korvaa"
 
-#: SearchPlugin.cpp:327
+#: SearchPlugin.cpp:329
 #, kde-format
 msgid "Find in Files"
 msgstr "Etsi tiedostoista"
 
-#: SearchPlugin.cpp:333
+#: SearchPlugin.cpp:335
 #, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "Etsi tiedostoista (uudessa välilehdessä)"
 
-#: SearchPlugin.cpp:339
+#: SearchPlugin.cpp:341
 #, kde-format
 msgid "Go to Next Match"
 msgstr "Siirry seuraavaan osumaan"
 
-#: SearchPlugin.cpp:345
+#: SearchPlugin.cpp:347
 #, kde-format
 msgid "Go to Previous Match"
 msgstr "Siirry edelliseen osumaan"
 
-#: SearchPlugin.cpp:351
+#: SearchPlugin.cpp:353
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr "Leikkaa täsmäävät rivit"
 
-#: SearchPlugin.cpp:353
+#: SearchPlugin.cpp:355
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
@@ -584,12 +592,12 @@ msgid ""
 msgstr ""
 "Leikkaa kaikki korostetut hakutulosrivit nykyisestä tiedostosta leikepöydälle"
 
-#: SearchPlugin.cpp:358
+#: SearchPlugin.cpp:360
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr "Kopioi täsmäävät rivit"
 
-#: SearchPlugin.cpp:360
+#: SearchPlugin.cpp:362
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
@@ -597,13 +605,13 @@ msgid ""
 msgstr ""
 "Kopioi kaikki korostetut hakutulosrivit nykyisestä tiedostosta leikepöydälle"
 
-#: SearchPlugin.cpp:393
+#: SearchPlugin.cpp:397
 #, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
 "Etsittävien tiedostojen luettelo pilkuin eroteltuna. Esimerkiksi ”*.cpp,*.h”"
 
-#: SearchPlugin.cpp:395
+#: SearchPlugin.cpp:399
 #, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
@@ -616,80 +624,80 @@ msgstr ""
 "Esimerkiksi: ”build*”\n"
 "Jos kuvio sisältää vinoviivan ”/”, etsitään osumaa koko polusta."
 
-#: SearchPlugin.cpp:400
+#: SearchPlugin.cpp:404
 #, kde-format
 msgid "Click to filter through results"
 msgstr "Suodata tuloksia napsauttamalla"
 
-#: SearchPlugin.cpp:490
+#: SearchPlugin.cpp:500
 #, kde-format
 msgid "Find"
 msgstr "Etsi"
 
-#: SearchPlugin.cpp:1178
+#: SearchPlugin.cpp:1196
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "Hakua ei aloitettu, koska hakukansiota ”%1” ei ole olemassa."
 
-#: SearchPlugin.cpp:1355
+#: SearchPlugin.cpp:1379
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "Kirjoitettaessa tehtävä haku keskeytettiin, koska se olisi kestänyt liian "
 "kauan."
 
-#: SearchPlugin.cpp:1688
+#: SearchPlugin.cpp:1715
 #, kde-format
 msgid "Search Match"
 msgstr "Etsi osumaa"
 
-#: SearchPlugin.cpp:1865 SearchPlugin.cpp:1941
+#: SearchPlugin.cpp:1892 SearchPlugin.cpp:1968
 #, kde-format
 msgid "Next from cursor"
 msgstr "Kohdistimesta seuraava"
 
-#: SearchPlugin.cpp:1882
+#: SearchPlugin.cpp:1909
 #, kde-format
 msgid "Starting from first match"
 msgstr "Jatketaan ensimmäisestä osumasta"
 
-#: SearchPlugin.cpp:1902
+#: SearchPlugin.cpp:1929
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Jatketaan ensimmäisestä osumasta"
 
-#: SearchPlugin.cpp:1958
+#: SearchPlugin.cpp:1985
 #, kde-format
 msgid "Starting from last match"
 msgstr "Aloitetaan viimeisestä osumasta"
 
-#: SearchPlugin.cpp:1978
+#: SearchPlugin.cpp:2005
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Jatketaan viimeisestä osumasta"
 
-#: SearchPlugin.cpp:2139
+#: SearchPlugin.cpp:2170
 #, kde-format
 msgid "Search: %1"
 msgstr "Etsi: %1"
 
-#: SearchPlugin.cpp:2282
+#: SearchPlugin.cpp:2317
 #, kde-format
 msgid "Copy all"
 msgstr "Kopioi kaikki"
 
 # *** TARKISTA: Mihin ”expanded” tässä viittaa?
-#: SearchPlugin.cpp:2287
+#: SearchPlugin.cpp:2322
 #, kde-format
 msgid "Copy expanded"
 msgstr "Kopioi laajennettu"
 
-#: SearchPlugin.cpp:2290
+#: SearchPlugin.cpp:2325
 #, kde-format
 msgid "Export matches"
 msgstr "Vie tulokset"
 
-#: SearchPlugin.cpp:2292
+#: SearchPlugin.cpp:2327
 #, kde-format
 msgid ""
 "Transform and export search matches using a replacement pattern. To export "
@@ -700,39 +708,39 @@ msgstr ""
 "vievät säännöllisten lausekkeiden kaappaukset. Muu kuvion teksti palautetaan "
 "vientituloksina."
 
-#: SearchPlugin.cpp:2298
+#: SearchPlugin.cpp:2333
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Avaa muokkainvälilehtenä"
 
-#: SearchPlugin.cpp:2306
+#: SearchPlugin.cpp:2341
 #, kde-format
 msgid "Clear"
 msgstr "Tyhjennä"
 
-#: SearchPlugin.cpp:2415 SearchPlugin.cpp:2457
+#: SearchPlugin.cpp:2450 SearchPlugin.cpp:2492
 #, kde-format
 msgid "Clear history"
 msgstr "Tyhjennä historia"
 
-#: SearchPlugin.cpp:2423 SearchPlugin.cpp:2464
+#: SearchPlugin.cpp:2458 SearchPlugin.cpp:2499
 #, kde-format
 msgid "Add..."
 msgstr "Lisää…"
 
-#: SearchPlugin.cpp:2435
+#: SearchPlugin.cpp:2470
 #, kde-format
 msgid "Search As You Type"
 msgstr "Etsi kirjoittaessasi"
 
 # Konteksti: ”Etsi” ”projektista”
-#: SearchPlugin.cpp:2513
+#: SearchPlugin.cpp:2548
 #, kde-format
 msgid "In Current Project"
 msgstr "nykyisestä projektista"
 
 # Konteksti: ”Etsi” ”projektista”
-#: SearchPlugin.cpp:2515
+#: SearchPlugin.cpp:2550
 #, kde-format
 msgid "In All Open Projects"
 msgstr "kaikista avoimista projekteista"

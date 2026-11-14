@@ -63,3 +63,36 @@ if(ENABLE_PCH)
   # plugin objects were compiled with katepch, MSVC needs its PCH object
   target_link_libraries(test_exportdata PRIVATE katepch)
 endif()
+
+# ── SQL manager tests ─────────────────────────────────────────────────────────
+
+add_executable(test_sqlmanager "")
+target_include_directories(test_sqlmanager PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+
+target_link_libraries(
+  test_sqlmanager
+  PRIVATE
+    Qt::Test
+    Qt::Widgets
+    Qt::Sql
+    KF6::I18n
+    KF6::TextEditor
+    KF6::KIOWidgets
+    KF6::WindowSystem
+    qt6keychain
+    $<TARGET_OBJECTS:katesqlplugin>
+)
+
+target_sources(
+  test_sqlmanager
+  PRIVATE
+    test_sqlmanager.cpp
+)
+
+add_test(NAME katesql-test_sqlmanager COMMAND test_sqlmanager)
+ecm_mark_as_test(test_sqlmanager)
+
+if(ENABLE_PCH)
+  # plugin objects were compiled with katepch, MSVC needs its PCH object
+  target_link_libraries(test_sqlmanager PRIVATE katepch)
+endif()

@@ -72,6 +72,9 @@ void SchemaWidget::deleteChildren(QTreeWidgetItem *item)
 
 void SchemaWidget::buildTree(const QString &connection)
 {
+    if (connection != m_connectionName) {
+        m_tableToDisplayColumnMap.clear();
+    }
     m_connectionName = connection;
     m_searchFilter.clear();
     m_systemTablesCache.clear();
@@ -83,8 +86,12 @@ void SchemaWidget::buildTree(const QString &connection)
     m_tablesLoaded = false;
     m_viewsLoaded = false;
 
+    // Foreign keys need an open connection, load them on first use instead of
+    // here so that selecting a connection (e.g. on session restore) doesn't block.
+    m_foreignKeysLoaded = false;
+    m_columnToForeignKeysMap.clear();
+
     if (!m_connectionName.isEmpty()) {
-        loadForeignKeys();
         buildDatabase(new QTreeWidgetItem(this));
     }
 }
@@ -119,8 +126,7 @@ void SchemaWidget::rebuildTreeWithFilter(const QString &filter)
 
 void SchemaWidget::refresh()
 {
-    // Force a live re-query of foreign keys and enums, and update the cache
-    m_columnToForeignKeysMap.clear();
+    // Force a live re-query of foreign keys on next use
     m_tableToDisplayColumnMap.clear();
 
     buildTree(m_connectionName);
@@ -128,7 +134,7 @@ void SchemaWidget::refresh()
 
 void SchemaWidget::buildDatabase(QTreeWidgetItem *databaseItem)
 {
-    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName, false);
     QString dbname = (db.isValid() ? db.databaseName() : m_connectionName);
 
     databaseItem->setText(0, dbname);
@@ -493,6 +499,7 @@ void SchemaWidget::browseData()
         config.readEntry(KateSQLConstants::Config::EnableEditableTable, KateSQLConstants::Config::DefaultValues::EnableEditableTable);
 
     if (enableEditableTable) {
+        ensureForeignKeysLoaded();
         if (canUseRelationalModel(tableName)) {
             m_manager->runEditableRelationalQuery(tableName, m_connectionName, m_columnToForeignKeysMap, m_tableToDisplayColumnMap);
         } else {
@@ -543,6 +550,13 @@ void SchemaWidget::reloadDisplayColumnMap(const QString &tableName, const QStrin
     m_tableToDisplayColumnMap[tableName] = columnName;
 }
 
+void SchemaWidget::ensureForeignKeysLoaded()
+{
+    if (!m_foreignKeysLoaded) {
+        loadForeignKeys();
+    }
+}
+
 void SchemaWidget::loadForeignKeys()
 {
     if (!isConnectionValidAndOpen()) {
@@ -551,6 +565,7 @@ void SchemaWidget::loadForeignKeys()
         return;
     }
 
+    m_foreignKeysLoaded = true;
     m_columnToForeignKeysMap.clear();
     if (isRelationalTablesEnabled()) {
         QSqlDatabase db = QSqlDatabase::database(m_connectionName);

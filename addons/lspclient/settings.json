@@ -340,6 +340,15 @@
                 }
             }
         },
+        "pascal": {
+            "highlightingModeRegex": "^Pascal$",
+            "servers" : {
+                "pasls" : {
+                    "command": ["pasls"],
+                    "url": "https://github.com/genericptr/pascal-language-server"
+                }
+            }
+        },
         "ocaml": {
             "highlightingModeRegex": "^Objective Caml.*$",
             "servers" : {

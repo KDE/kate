@@ -1,3 +1,8 @@
+/*
+    SPDX-FileCopyrightText: 2026 Waqar Ahmed <waqar.17a@gmail.com>
+    SPDX-License-Identifier: LGPL-2.0-or-later
+ */
+
 #pragma once
 #include <QBitArray>
 #include <QByteArray>

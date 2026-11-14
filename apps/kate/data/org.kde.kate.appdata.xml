@@ -1723,6 +1723,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="cs">Procházejte odkazy na soubory pomocí modulu Open Link, který je nyní ve výchozím nastavení zapnutý a nabízí vylepšené rozpoznávání cest k souborům a adres URL.</li>
           <li xml:lang="es">Seguir enlaces de archivos relativos con el complemento Open Link, ahora activado de forma predeterminada, que ofrece un reconocimiento mejorado de rutas de archivo y URL.</li>
           <li xml:lang="fr">Suivez les liens de fichiers relatifs avec le module Open Link, désormais activé par défaut, avec une reconnaissance améliorée des chemins de fichiers et des URL.</li>
+          <li xml:lang="he">מעקב אחר קישורי קבצים יחסיים עם תוסף פתיחת הקישורים, פעיל מעתה כברירת מחדל, עם זיהוי נתיבי קבצים וכתובות משופר.</li>
           <li xml:lang="ia">Seque ligamines de file relative con le plugin Open Link, ora activate  per defecto, con recognoscimento meliorate de percursos de file e URLs.</li>
           <li xml:lang="it">Segui i collegamenti ai file relativi con l'estensione Open Link, ora abilitata in modo predefinito, con un migliore riconoscimento dei percorsi dei file e degli URL.</li>
           <li xml:lang="ka">მიჰყევით ფარდობით ფაილის ბმულებს ბმულის გახსნის დამატებით, რომელიც ახლა ნაგულისხმევადაა ჩართული და აქვს გაუმჯობესებული მხარდაჭერა ფაილის ბილიკებისა და URL-ების ამოსაცნობად.</li>
@@ -1741,6 +1742,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="cs">Zachovejte odezvu editoru během doplňování kódu v projektu tím, že budete vyhledávat shody na pozadí.</li>
           <li xml:lang="es">Mantener la capacidad de respuesta del editor durante la terminación de código del proyecto buscando coincidencias en segundo plano.</li>
           <li xml:lang="fr">Gardez l'éditeur réactif pendant le complètement du code du projet en recherchant les correspondances en arrière-plan.</li>
+          <li xml:lang="he">להשאיר את העורך זמין במהלך השלמת קוד במיזם על ידי חיפוש התאמות ברקע.</li>
           <li xml:lang="ia">Mantene le editor responsive durante le completamento de codice del projecto per cercar correspondentias in le fundo (secunde plano).</li>
           <li xml:lang="it">Mantieni l'editor reattivo durante il completamento del codice del progetto, eseguendo la ricerca delle corrispondenze in background.</li>
           <li xml:lang="ka">რედაქტორის ცოცხლად დატოვება პროექტის კოდის დასრულებისას დამთხვევების ფონურად ძებნით.</li>

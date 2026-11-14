@@ -700,6 +700,12 @@ KTextEditor::Document *KateApp::openDocUrl(const QUrl &url, const QString &encod
         if (isTempFile) {
             m_tempFilesToDelete[doc].push_back(url.toLocalFile());
         }
+        if (c.isValid() && activateView) {
+            if (auto *v = mainWindow->viewManager()->activeView(); v && v->document() == doc) {
+                v->removeSelection();
+                v->setCursorPosition(c);
+            }
+        }
     }
 
     // unable to open document, directly dispose of the temporary file
@@ -729,15 +735,20 @@ void KateApp::openDocUrlDocumentDestroyed(QObject *document)
 
 KTextEditor::Cursor KateApp::cursorFromArgs()
 {
-    bool hasLine = m_args.isSet(QStringLiteral("line"));
-    bool hasColumn = m_args.isSet(QStringLiteral("column"));
+    return cursorFromArgs(m_args);
+}
+
+KTextEditor::Cursor KateApp::cursorFromArgs(const QCommandLineParser &parser)
+{
+    bool hasLine = parser.isSet(QStringLiteral("line"));
+    bool hasColumn = parser.isSet(QStringLiteral("column"));
 
     if (!hasLine && !hasColumn) {
         return KTextEditor::Cursor::invalid();
     }
 
-    int line = qMax(m_args.value(QStringLiteral("line")).toInt() - 1, 0);
-    int column = qMax(m_args.value(QStringLiteral("column")).toInt() - 1, 0);
+    int line = qMax(parser.value(QStringLiteral("line")).toInt() - 1, 0);
+    int column = qMax(parser.value(QStringLiteral("column")).toInt() - 1, 0);
 
     return {line, column};
 }

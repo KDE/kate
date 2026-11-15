@@ -552,9 +552,8 @@ would be clipped by the stale item height.
 ### Measuring Messages
 
 Messages live in a `QListWidget` as item widgets, so every message has to be
-measured by hand and the result stored as the item's size hint. Two details
-make this easy to get wrong, both handled by
-`ACPClientChatWidget::updateItemSizeHint()`:
+measured by hand and the result stored as the item's size hint. Three details
+make this easy to get wrong:
 
 - **Measure at the displayed width.** Message text is word wrapped, so its
   height only exists relative to a width. The item is measured with
@@ -568,6 +567,21 @@ make this easy to get wrong, both handled by
   and the content gets clipped. The file-local `invalidateLayouts()` helper
   invalidates and re-activates the layouts of the message subtree bottom up,
   which makes the measurement correct synchronously.
+- **Show rebuilt content before measuring it.** A widget added to a layout only
+  becomes visible once the posted layout request is delivered, again after
+  control returns to the event loop, and a layout skips widgets that are not
+  visible yet. A message measured right after its content was rebuilt
+  therefore reports no `heightForWidth()` at all and a size hint that fits none
+  of its content, which collapses the item to an empty strip.
+  `ACPChatMessageWidget::updateContentDisplay()` shows the widgets it created
+  before returning, so that whoever rebuilt the content can measure it.
+
+The first two are handled by `ACPClientChatWidget::updateItemSizeHint()`, the
+third by `ACPChatMessageWidget::updateContentDisplay()`. The distinction
+matters: a block that only changes its own labels, such as a collapsible text
+block being toggled, needs the first two, while anything that recreates content
+widgets, such as a tool call update or the global reasoning toggle, needs the
+third as well.
 
 ## Configuration
 

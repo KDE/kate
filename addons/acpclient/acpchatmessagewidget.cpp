@@ -1087,6 +1087,20 @@ void ACPChatMessageWidget::updateContentDisplay()
     }
     }
 
+    // A widget added to a layout only becomes visible once the posted layout
+    // request is delivered, which happens after control returns to the event
+    // loop. Until then it is skipped by the layout, so the message reports no
+    // heightForWidth and a size hint that fits none of its content. Whoever
+    // rebuilt the content measures it right afterwards, so show the new
+    // widgets now instead of letting them be measured as if they were absent.
+    if (!isHidden()) {
+        for (int i = 0; i < contentLayout->count(); ++i) {
+            if (QWidget *child = contentLayout->itemAt(i)->widget()) {
+                child->show();
+            }
+        }
+    }
+
     m_typeLabel->setText(getTypeLabel());
     m_timestampLabel->setText(formatTimestamp(m_timestamp));
 

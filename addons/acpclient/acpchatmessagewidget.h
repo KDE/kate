@@ -213,6 +213,14 @@ Q_SIGNALS:
      */
     void permissionResponse(const QJsonValue &requestId, const QString &optionId);
 
+    /**
+     * @brief Emitted when the displayed content changed its height
+     *
+     * The container needs to re-measure the message, for example after the
+     * user expanded a collapsed tool call input or output.
+     */
+    void contentSizeChanged();
+
 protected:
     /** @brief Paint event for custom background drawing */
     void paintEvent(QPaintEvent *event) override;
@@ -292,6 +300,14 @@ private:
     QString m_toolStatus; ///< Current status
     QString m_toolContent; ///< Status content text
     QString m_toolCommand; ///< Full command line for tool calls
+
+    /**
+     * Expansion state of the collapsible input and output blocks. The content
+     * widgets are rebuilt on every tool call update, so the state the user
+     * chose has to be remembered here.
+     */
+    bool m_toolCommandExpanded = false; ///< Whether the tool call input is expanded
+    bool m_toolContentExpanded = false; ///< Whether the tool call output is expanded
 
     // ========================================================================
     // USAGE-SPECIFIC DATA

@@ -8,6 +8,7 @@
 #include "acpchatmessagewidget.h"
 #include "acpclient_debug.h"
 #include "acpclientprotocol.h"
+#include "acpcollapsibletextwidget.h"
 
 #include <KLocalizedString>
 
@@ -609,29 +610,34 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         // Second row: command line if available
         if (!m_toolCommand.isEmpty()) {
-            QLabel *commandLabel = new QLabel(m_toolCommand, toolWidget);
-            // Use a monospace font for command display
-            QFont monoFont(QStringLiteral("monospace"));
-            monoFont.setPointSize(monoFont.pointSize() - 1);
-            commandLabel->setFont(monoFont);
+            ACPCollapsibleTextWidget *commandWidget = new ACPCollapsibleTextWidget(i18n("Input"), toolWidget);
+            commandWidget->setMonospace(true);
+            commandWidget->setExpanded(m_toolCommandExpanded);
+            commandWidget->setText(m_toolCommand);
             // Use alternate background for command display with proper text color
-            QPalette cmdPal = commandLabel->palette();
-            cmdPal.setColor(QPalette::Base, cmdPal.color(QPalette::AlternateBase));
+            QPalette cmdPal = commandWidget->palette();
+            cmdPal.setColor(QPalette::Window, cmdPal.color(QPalette::AlternateBase));
             cmdPal.setColor(QPalette::WindowText, cmdPal.color(QPalette::Text));
-            commandLabel->setPalette(cmdPal);
-            commandLabel->setAutoFillBackground(true);
-            commandLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-            commandLabel->setWordWrap(true);
-            commandLabel->setContentsMargins(4, 4, 4, 4);
-            toolLayout->addWidget(commandLabel);
+            commandWidget->setPalette(cmdPal);
+            commandWidget->setAutoFillBackground(true);
+            commandWidget->setContentsMargins(4, 4, 4, 4);
+            connect(commandWidget, &ACPCollapsibleTextWidget::expandedChanged, this, [this](bool expanded) {
+                m_toolCommandExpanded = expanded;
+                Q_EMIT contentSizeChanged();
+            });
+            toolLayout->addWidget(commandWidget);
         }
 
         // Third row: content if available (from tool call updates)
         if (!m_toolContent.isEmpty()) {
-            QLabel *contentLabel = new QLabel(m_toolContent, toolWidget);
-            contentLabel->setWordWrap(true);
-            contentLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-            toolLayout->addWidget(contentLabel);
+            ACPCollapsibleTextWidget *contentWidget = new ACPCollapsibleTextWidget(i18n("Output"), toolWidget);
+            contentWidget->setExpanded(m_toolContentExpanded);
+            contentWidget->setText(m_toolContent);
+            connect(contentWidget, &ACPCollapsibleTextWidget::expandedChanged, this, [this](bool expanded) {
+                m_toolContentExpanded = expanded;
+                Q_EMIT contentSizeChanged();
+            });
+            toolLayout->addWidget(contentWidget);
         }
 
         contentLayout->addWidget(toolWidget);
@@ -696,10 +702,14 @@ void ACPChatMessageWidget::updateContentDisplay()
         }
 
         if (!m_toolContent.isEmpty()) {
-            QLabel *contentLabel = new QLabel(m_toolContent, updateWidget);
-            contentLabel->setWordWrap(true);
-            contentLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-            updateLayout->addWidget(contentLabel, 1);
+            ACPCollapsibleTextWidget *contentWidget = new ACPCollapsibleTextWidget(i18n("Output"), updateWidget);
+            contentWidget->setExpanded(m_toolContentExpanded);
+            contentWidget->setText(m_toolContent);
+            connect(contentWidget, &ACPCollapsibleTextWidget::expandedChanged, this, [this](bool expanded) {
+                m_toolContentExpanded = expanded;
+                Q_EMIT contentSizeChanged();
+            });
+            updateLayout->addWidget(contentWidget, 1);
         }
 
         contentLayout->addWidget(updateWidget);

@@ -286,6 +286,12 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
     widget->show();
     m_messageWidgets.append(widget);
 
+    // Re-measure the item when the message changes height, e.g. when the user
+    // expands a collapsed tool call input or output
+    connect(widget, &ACPChatMessageWidget::contentSizeChanged, this, [this, widget]() {
+        updateWidgetSizeHint(widget);
+    });
+
     // Schedule update of item size hint after the widget has been fully laid out
     QTimer::singleShot(50, this, [this, item, container]() {
         // Force container to layout and calculate proper size

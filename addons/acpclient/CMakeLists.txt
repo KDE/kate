@@ -22,6 +22,8 @@ target_sources(
     acpclientprotocol.cpp
     acpclientchatwidget.cpp
     acpchatmessagewidget.cpp
+    acpcollapsibletextwidget.cpp
+    acpcollapsibletextwidget.h
     acpsessionlistwidget.cpp
     acpsessionlistwidget.h
     acpserverlistwidget.cpp

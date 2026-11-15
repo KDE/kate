@@ -113,6 +113,7 @@ ACPClientPlugin (KTextEditor::Plugin)
 | `acpclientprotocol.h/.cpp` | ACP v1 protocol implementation, message creation/parsing, constants |
 | `acpclientchatwidget.h/.cpp` | Chat UI widget, message display, user input handling |
 | `acpchatmessagewidget.h/.cpp` | Individual message widget with rich formatting, styling |
+| `acpcollapsibletextwidget.h/.cpp` | Collapsible text block used for long tool call input and output |
 | `acpclientconfigpage.h/.cpp` | Configuration page for Kate settings |
 | `acpserverlistwidget.h/.cpp` | Server list management UI |
 | `acpsessionlistwidget.h/.cpp` | Session list management UI with context menu |
@@ -338,6 +339,26 @@ copied into Kate. The Kate version only shares the behavior, implemented with
 - **ToolCallUpdate** - Tool call progress (blue styling)
 - **Usage** - Usage/token information (purple styling)
 - **PermissionRequest** - Inline permission prompts with buttons for all permission options (allow_once, allow_always, reject_once, reject_always)
+
+### Collapsing Long Tool Call Input and Output
+
+Tool call input (the command) and output are displayed with
+`ACPCollapsibleTextWidget`. Text longer than 10 lines, or longer than 2000
+characters, is collapsed to a preview: the first two lines, a button stating
+how many lines are hidden, and the last two lines. Text with few but very long
+lines is previewed by characters instead, since it has no useful last lines.
+
+Both the header and the separator are `QToolButton`s, so the text can be
+expanded and collapsed with the mouse or the keyboard, and the collapsed state
+is visible rather than implied. Preview lines are also shortened to 400
+characters so a single huge line cannot blow up the message height.
+
+`ACPChatMessageWidget` rebuilds its content widgets on every tool call update,
+so the expansion state is stored in the message widget (`m_toolCommandExpanded`
+and `m_toolContentExpanded`) and reapplied. Toggling emits
+`ACPChatMessageWidget::contentSizeChanged()`, which `ACPClientChatWidget` uses
+to re-measure the `QListWidgetItem` size hint. Without that, the expanded text
+would be clipped by the stale item height.
 
 ## Configuration
 

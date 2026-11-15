@@ -214,6 +214,25 @@
       </widget>
      </item>
      <item>
+      <widget class="QToolButton" name="commandsButton">
+       <property name="text">
+        <string>/</string>
+       </property>
+       <property name="toolTip">
+        <string>Insert a slash command</string>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+       <property name="visible">
+        <bool>false</bool>
+       </property>
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="sendButton">
        <property name="icon">
         <iconset theme="mail-send"/>

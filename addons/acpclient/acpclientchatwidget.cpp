@@ -27,7 +27,10 @@
 #include <QMenu>
 #include <QScrollBar>
 #include <QSignalBlocker>
+#include <QTextCursor>
 #include <QTimer>
+
+#include <utility>
 
 #include "ui_acpclientchat.h"
 
@@ -66,6 +69,7 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     connect(m_ui->sendButton, &QPushButton::clicked, this, &ACPClientChatWidget::sendMessage);
     connect(m_ui->newSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::startNewSession);
     connect(m_ui->endSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::endSession);
+    connect(m_ui->commandsButton, &QToolButton::clicked, this, &ACPClientChatWidget::showCommandsMenu);
 
     // Apply session mode and model changes selected by the user
     connect(m_ui->modeCombo, QOverload<int>::of(&QComboBox::activated), this, [this](int index) {
@@ -181,8 +185,9 @@ void ACPClientChatWidget::setSessionId(const QString &sessionId)
         m_sessionId = sessionId;
         // Clear stored tool calls when session changes
         m_toolCalls.clear();
-        // Drop configuration state from the previous session
+        // Drop configuration and command state from the previous session
         clearSessionConfigUi();
+        clearAvailableCommands();
         updateSessionState();
     }
 }
@@ -960,6 +965,8 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
                     handleCurrentModeUpdate(update);
                 } else if (updateType == ACP::sessionUpdateConfigOption()) {
                     handleConfigOptionUpdate(update);
+                } else if (updateType == ACP::sessionUpdateAvailableCommandsUpdate() || updateType == ACP::sessionUpdateAvailableCommands()) {
+                    handleAvailableCommandsUpdate(update);
                 }
             }
             // Fallback for legacy status-based messages
@@ -1459,6 +1466,59 @@ void ACPClientChatWidget::handleConfigOptionUpdate(const QJsonObject &update)
     }
 }
 
+void ACPClientChatWidget::handleAvailableCommandsUpdate(const QJsonObject &update)
+{
+    QList<ACP::AvailableCommand> commands;
+    if (ACP::ACPProtocol::parseAvailableCommands(update[u"availableCommands"].toArray(), commands)) {
+        updateAvailableCommands(commands);
+    }
+}
+
+void ACPClientChatWidget::updateAvailableCommands(const QList<ACP::AvailableCommand> &commands)
+{
+    m_availableCommands = commands;
+    m_ui->commandsButton->setVisible(!m_availableCommands.isEmpty());
+    updateActionStates();
+}
+
+void ACPClientChatWidget::clearAvailableCommands()
+{
+    m_availableCommands.clear();
+    m_ui->commandsButton->setVisible(false);
+}
+
+void ACPClientChatWidget::showCommandsMenu()
+{
+    if (m_availableCommands.isEmpty()) {
+        return;
+    }
+
+    QMenu menu(this);
+    menu.setToolTipsVisible(true);
+
+    for (const ACP::AvailableCommand &command : std::as_const(m_availableCommands)) {
+        QAction *action = menu.addAction(QStringLiteral("/") + command.name);
+
+        QString toolTip = command.description;
+        if (!command.inputHint.isEmpty()) {
+            if (!toolTip.isEmpty()) {
+                toolTip += QLatin1Char('\n');
+            }
+            toolTip += i18n("Input: %1", command.inputHint);
+        }
+        action->setToolTip(toolTip);
+
+        connect(action, &QAction::triggered, this, [this, name = command.name] {
+            m_ui->messageInput->setPlainText(QStringLiteral("/") + name + QLatin1Char(' '));
+            m_ui->messageInput->moveCursor(QTextCursor::End);
+            m_ui->messageInput->setFocus();
+        });
+    }
+
+    const QPoint topLeft = m_ui->commandsButton->mapToGlobal(QPoint(0, 0));
+    menu.exec(QPoint(topLeft.x(), topLeft.y() - menu.sizeHint().height()));
+}
+
 void ACPClientChatWidget::updateSessionState()
 {
     if (m_sessionId.isEmpty()) {
@@ -1487,6 +1547,7 @@ void ACPClientChatWidget::updateActionStates()
     m_ui->messageInput->setEnabled(sessionActive);
     m_ui->modeCombo->setEnabled(sessionActive && m_ui->modeCombo->count() > 0);
     m_ui->modelCombo->setEnabled(sessionActive && m_ui->modelCombo->count() > 0);
+    m_ui->commandsButton->setEnabled(sessionActive && !m_availableCommands.isEmpty());
 }
 
 bool ACPClientChatWidget::eventFilter(QObject *watched, QEvent *event)

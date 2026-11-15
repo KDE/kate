@@ -244,6 +244,15 @@ private:
     /** @brief Clear the session configuration selectors */
     void clearSessionConfigUi();
 
+    /** @brief Update the slash command menu from the agent's command list */
+    void updateAvailableCommands(const QList<ACP::AvailableCommand> &commands);
+
+    /** @brief Clear the slash command menu */
+    void clearAvailableCommands();
+
+    /** @brief Show the slash command menu above the input field */
+    void showCommandsMenu();
+
     /** @brief Add a message widget to the display */
     void addMessageWidget(ACPChatMessageWidget *widget);
 
@@ -290,6 +299,9 @@ private:
     /** @brief Handle config_option_update session update */
     void handleConfigOptionUpdate(const QJsonObject &update);
 
+    /** @brief Handle available_commands_update session update */
+    void handleAvailableCommandsUpdate(const QJsonObject &update);
+
     // ========================================================================
     // REFERENCES
     // ========================================================================
@@ -307,6 +319,12 @@ private:
     bool m_hasConfigOptions = false; ///< True once config options have been received
     QString m_modeConfigId; ///< Config option ID for the mode selector (empty for legacy modes)
     QString m_modelConfigId; ///< Config option ID for the model selector (empty for legacy models)
+
+    // ========================================================================
+    // SLASH COMMANDS
+    // ========================================================================
+
+    QList<ACP::AvailableCommand> m_availableCommands; ///< Commands advertised by the agent
 
     // ========================================================================
     // TOOL CALL TRACKING

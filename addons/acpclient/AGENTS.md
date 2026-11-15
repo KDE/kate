@@ -26,6 +26,7 @@ The plugin implements the ACP v1 specification with JSON-RPC 2.0 over stdin/stdo
 - Session list with context menu
 - Message input widget with proper state management
 - Agent mode and model selectors (ACP config options, with legacy fallbacks)
+- Slash command menu populated from agent-advertised commands
 - Support for all ACP v1 session update types
 
 ### Supported ACP v1 Methods
@@ -89,6 +90,7 @@ ACPClientPlugin (KTextEditor::Plugin)
 │   │       ├── QTextEdit (message input, disabled when no session)
 │   │       ├── Agent mode selector (hidden unless the agent exposes modes)
 │   │       ├── Model selector (hidden unless the agent exposes models)
+│   │       ├── Commands button (hidden unless the agent exposes commands)
 │   │       ├── Send button
 │   │       ├── New Session button
 │   │       ├── End Session button
@@ -297,6 +299,20 @@ If no `configOptions` are present, the client falls back to the legacy
 `session/set_model`. Current selections are kept in sync through
 `current_mode_update`. Per the ACP specification, legacy `modes` are ignored
 once an agent sends `configOptions`.
+
+### Slash Commands
+
+Agents advertise slash commands through the `available_commands_update`
+session update (and the legacy `available_commands` update). Each command has
+a `name`, an optional `description` and an optional `input.hint` describing
+the expected arguments.
+
+When at least one command is available, the chat widget shows a `/` button
+next to the message input. The button opens a menu listing the commands with
+their descriptions as tooltips. Selecting a command replaces the input text
+with `/name ` and focuses the input so the user can add arguments and send
+the prompt. The command list is cleared when the session changes and the
+button is only enabled while a session is active.
 
 ## Message Widget Types
 

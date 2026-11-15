@@ -360,6 +360,7 @@ private:
     // ========================================================================
 
     QListWidget *m_chatListWidget = nullptr; ///< List widget for messages
+    bool m_followChatBottom = true; ///< Keep scrolling to new messages while the view is at the bottom
     QHash<ACPChatMessageWidget *, QWidget *> m_widgetToContainerMap; ///< Map from widgets to container widgets
     QHash<QWidget *, QListWidgetItem *> m_containerToItemMap; ///< Map from container widgets to list items
     QList<ACPChatMessageWidget *> m_messageWidgets; ///< All displayed message widgets

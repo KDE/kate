@@ -140,6 +140,14 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     m_chatListWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
     m_chatListWidget->verticalScrollBar()->setSingleStep(m_chatListWidget->fontMetrics().height());
 
+    // Only follow new messages while the view is at the bottom. Appending
+    // content does not change the scrollbar value, so this keeps the state the
+    // user left the view in, and programmatic scrolling re-arms it.
+    connect(m_chatListWidget->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int value) {
+        QScrollBar *scrollBar = m_chatListWidget->verticalScrollBar();
+        m_followChatBottom = value >= scrollBar->maximum() - scrollBar->singleStep();
+    });
+
     // Install event filter on chat list widget for context menu
     m_chatListWidget->installEventFilter(this);
 
@@ -350,18 +358,15 @@ void ACPClientChatWidget::scrollToBottom()
         return;
     }
 
-    // Ensure the last message is fully visible
+    // Do not drag the view along while the user is reading further up
+    if (!m_followChatBottom) {
+        return;
+    }
+
     // Use a small delay to ensure layout is complete
     QTimer::singleShot(0, this, [this]() {
-        m_chatListWidget->scrollToBottom();
-
-        // Also ensure the last item is visible at the bottom
-        int count = m_chatListWidget->count();
-        if (count > 0) {
-            QListWidgetItem *lastItem = m_chatListWidget->item(count - 1);
-            if (lastItem) {
-                m_chatListWidget->scrollToItem(lastItem, QAbstractItemView::PositionAtBottom);
-            }
+        if (m_followChatBottom) {
+            m_chatListWidget->scrollToBottom();
         }
     });
 }

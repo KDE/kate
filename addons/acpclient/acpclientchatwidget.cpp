@@ -384,6 +384,17 @@ void ACPClientChatWidget::scrollToBottom()
     });
 }
 
+void ACPClientChatWidget::jumpToBottom()
+{
+    if (!m_chatListWidget) {
+        return;
+    }
+
+    // The user asked for this, so follow new messages again from here on
+    m_followChatBottom = true;
+    m_chatListWidget->scrollToBottom();
+}
+
 void ACPClientChatWidget::updateAllItemSizeHints()
 {
     if (!m_chatListWidget) {
@@ -1915,6 +1926,17 @@ bool ACPClientChatWidget::eventFilter(QObject *watched, QEvent *event)
         menu->exec(contextEvent->globalPos());
         delete menu;
         return true;
+    }
+
+    // The list does not select anything, so its own End handling, which moves
+    // the current item, does nothing visible. Scroll to the newest message
+    // instead, which is what the key is expected to do in a chat.
+    if (watched == m_chatListWidget && event->type() == QEvent::KeyPress) {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        if (keyEvent->key() == Qt::Key_End && (keyEvent->modifiers() == Qt::NoModifier || keyEvent->modifiers() == Qt::ControlModifier)) {
+            jumpToBottom();
+            return true;
+        }
     }
 
     // Messages wrap to the width of the viewport, so they have to be measured

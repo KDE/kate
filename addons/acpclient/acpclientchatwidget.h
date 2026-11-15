@@ -342,6 +342,14 @@ private:
     /** @brief Scroll the chat to the bottom to show the last message */
     void scrollToBottom();
 
+    /**
+     * @brief Scroll the chat to the newest message and follow it again
+     *
+     * Unlike scrollToBottom(), this ignores whether the user had scrolled up,
+     * because it is only called when the user asked for it.
+     */
+    void jumpToBottom();
+
     /** @brief Get all chat text for copying */
     QString getAllChatText() const;
 

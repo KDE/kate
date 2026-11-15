@@ -387,9 +387,10 @@ public:
 
         auto primaryColor = options.palette.color(QPalette::ColorRole::Text);
         auto secondaryColor = QColor(Qt::gray);
-        const bool selected = options.state.testFlag(QStyle::State_Selected) && options.state.testFlag(QStyle::State_Active);
+        const bool selected = options.state.testFlag(QStyle::State_Selected);
+        const bool active = options.state.testFlag(QStyle::State_Active);
         if (selected) {
-            primaryColor = options.palette.color(QPalette::ColorRole::HighlightedText);
+            primaryColor = options.palette.color(active ? QPalette::Active : QPalette::Inactive, QPalette::ColorRole::HighlightedText);
             secondaryColor = primaryColor;
         }
 

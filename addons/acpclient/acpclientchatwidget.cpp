@@ -171,8 +171,10 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
         m_followChatBottom = value >= scrollBar->maximum() - scrollBar->singleStep();
     });
 
-    // Install event filter on chat list widget for context menu
+    // Install event filter on chat list widget for context menu, and on its
+    // viewport to learn about the width available to messages
     m_chatListWidget->installEventFilter(this);
+    m_chatListWidget->viewport()->installEventFilter(this);
 
     // Update UI state - initialize actions as disabled (no server yet)
     updateSessionState();
@@ -384,25 +386,19 @@ void ACPClientChatWidget::updateAllItemSizeHints()
     }
 
     // Update all item size hints based on the current viewport width
-    int availableWidth = m_chatListWidget->viewport()->width();
-    if (availableWidth <= 0) {
+    if (m_chatListWidget->viewport()->width() <= 0) {
         return;
     }
 
     for (int i = 0; i < m_chatListWidget->count(); ++i) {
         QListWidgetItem *item = m_chatListWidget->item(i);
-        if (item) {
-            QWidget *widget = m_chatListWidget->itemWidget(item);
-            if (widget) {
-                // Find the container for this item
-                auto it = m_containerToItemMap.begin();
-                for (; it != m_containerToItemMap.end(); ++it) {
-                    if (it.key() == widget) {
-                        updateItemSizeHint(item, it.key());
-                        break;
-                    }
-                }
-            }
+        if (!item) {
+            continue;
+        }
+
+        // The item widget is the container the message was measured with
+        if (QWidget *container = m_chatListWidget->itemWidget(item)) {
+            updateItemSizeHint(item, container);
         }
     }
 
@@ -1692,18 +1688,12 @@ bool ACPClientChatWidget::eventFilter(QObject *watched, QEvent *event)
         return true;
     }
 
-    // Handle resize events on the list widget to update item sizes
-    if (watched == m_chatListWidget && event->type() == QEvent::Resize) {
-        // When the chat list is resized, we need to update all item sizes
-        // to account for the new width and proper word wrapping
-        updateAllItemSizeHints();
-        return true;
-    }
-
-    // Handle resize events on the viewport as well
+    // Messages wrap to the width of the viewport, so they have to be measured
+    // again whenever it changes. The event must not be consumed: the list
+    // widget lays out its viewport and scroll bars in its own resize handler.
     if (watched == m_chatListWidget->viewport() && event->type() == QEvent::Resize) {
         updateAllItemSizeHints();
-        return true;
+        return false;
     }
 
     return QWidget::eventFilter(watched, event);

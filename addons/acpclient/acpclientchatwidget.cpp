@@ -71,6 +71,11 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
 
     m_ui->setupUi(this);
 
+    // Keep the buttons next to the input packed at its top edge. A box layout
+    // spreads items that cannot grow over the space it was given, which would
+    // scatter them down the side of the input.
+    m_ui->inputLayout->setAlignment(m_ui->inputButtonLayout, Qt::AlignTop);
+
     // Complete slash commands while the user types in the message input
     m_commandCompletionModel = new QStringListModel(this);
     m_commandCompleter = new QCompleter(m_commandCompletionModel, this);
@@ -2102,11 +2107,15 @@ void ACPClientChatWidget::updatePromptState()
     m_ui->cancelPromptButton->setVisible(m_promptRunning);
     m_ui->cancelPromptButton->setEnabled(m_promptRunning && !m_cancelRequested);
 
-    // A message sent while the agent works is queued rather than rejected
+    // A message sent while the agent works is queued rather than rejected, so
+    // the button says what it is about to do
     const bool hasInput = !m_ui->messageInput->toPlainText().trimmed().isEmpty();
+    const bool queueing = m_promptRunning || !m_queuedMessages.isEmpty();
     m_ui->sendButton->setEnabled(sessionActive && hasInput);
-    m_ui->sendButton->setToolTip(m_promptRunning ? i18nc("@info:tooltip", "Queue message, it is sent when the agent is done (Ctrl+Enter)")
-                                                 : i18nc("@info:tooltip", "Send message (Ctrl+Enter)"));
+    m_ui->sendButton->setText(queueing ? i18nc("@action:button add the message to the queue", "Queue")
+                                       : i18nc("@action:button send the message to the agent", "Send"));
+    m_ui->sendButton->setToolTip(queueing ? i18nc("@info:tooltip", "Queue message, it is sent when the agent is done (Ctrl+Enter)")
+                                          : i18nc("@info:tooltip", "Send message (Ctrl+Enter)"));
 
     if (!sessionActive) {
         m_ui->promptStatusLabel->clear();

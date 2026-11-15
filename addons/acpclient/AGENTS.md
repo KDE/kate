@@ -91,10 +91,11 @@ ACPClientPlugin (KTextEditor::Plugin)
 │   │       ├── QTextEdit (message input, disabled when no session)
 │   │       ├── Thinking toggle (expand agent reasoning by default)
 │   │       ├── Session selectors, one per setting the agent exposes
-│   │       ├── Stop button (shown while the agent is working)
+│   │       ├── Button column beside the input
+│   │       │   ├── "/ Commands" (hidden unless the agent exposes commands)
+│   │       │   ├── "Send", "Queue" while the agent is working
+│   │       │   └── "Stop" (shown while the agent is working)
 │   │       ├── Prompt state and usage labels
-│   │       ├── Commands button (hidden unless the agent exposes commands)
-│   │       ├── Send button
 │   │       ├── New Session button
 │   │       ├── End Session button
 │   │       └── ACPChatMessageWidget list (conversation history)
@@ -396,6 +397,14 @@ the answer being worked on always sits above the messages waiting for it.
 
 The queue is dropped when the session changes or the server disconnects, since
 those messages were meant for a conversation that is gone.
+
+The send button says `Queue` instead of `Send` whenever pressing it would queue
+rather than send, that is while the agent works or while messages are already
+waiting. It sits in a column beside the input together with the commands and
+the stop button, aligned to the top of the input: a box layout spreads items
+that cannot grow over the space it was given, so the column is explicitly
+aligned rather than padded with a spacer, which would make the whole input row
+claim the height and scatter the buttons down the side of it.
 
 While a turn runs, a placeholder message with an indeterminate progress bar is
 kept as the last entry of the chat, so that the conversation shows that an

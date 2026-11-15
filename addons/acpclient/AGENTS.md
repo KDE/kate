@@ -25,7 +25,8 @@ The plugin implements the ACP v1 specification with JSON-RPC 2.0 over stdin/stdo
 - Server configuration and management
 - Session list with context menu
 - Message input widget with proper state management
-- Agent mode and model selectors (ACP config options, with legacy fallbacks)
+- A dropdown per session setting the agent exposes, such as mode, model and
+  reasoning level (ACP config options, with legacy mode and model fallbacks)
 - Slash command menu and inline completion populated from agent-advertised commands
 - Support for all ACP v1 session update types
 
@@ -88,8 +89,7 @@ ACPClientPlugin (KTextEditor::Plugin)
 │   │   │   └── Reload button
 │   │   └── ACPClientChatWidget - Chat interface
 │   │       ├── QTextEdit (message input, disabled when no session)
-│   │       ├── Agent mode selector (hidden unless the agent exposes modes)
-│   │       ├── Model selector (hidden unless the agent exposes models)
+│   │       ├── Session selectors, one per setting the agent exposes
 │   │       ├── Commands button (hidden unless the agent exposes commands)
 │   │       ├── Send button
 │   │       ├── New Session button
@@ -282,24 +282,43 @@ All session update types from ACP v1 spec are defined in `acpclientprotocol.h`:
 
 ### Session Configuration Selectors
 
-The chat widget shows two dropdowns above the conversation when the agent
-advertises the corresponding settings:
+The chat widget shows a row of dropdowns above the conversation, one per
+setting the agent exposes. The row is hidden when the agent exposes none.
 
-- **Agent** - the session mode (for example `build` or `plan`)
-- **Model** - the model the agent should use
+Modern agents expose their settings as `configOptions`, in the `session/new`,
+`session/load` and `session/resume` responses and in `config_option_update`.
+Every select option becomes one dropdown, labelled with the option's name,
+including options this client knows nothing about: the specification states
+that the category is a UX hint which "MUST NOT be required for correctness"
+and that clients "MUST handle missing or unknown categories gracefully".
+Hardcoding a dropdown per known category would silently hide everything else,
+such as the reasoning level.
 
-Modern agents expose both through `configOptions` in the `session/new`,
-`session/load` and `session/resume` responses. Options with
-`category: "mode"` populate the Agent selector; options with
-`category: "model"` (or the ID/name `model`) populate the Model selector.
-Selecting a value sends `session/set_config_option` and the agent's new state
-arrives through `config_option_update` or the request result.
+`selectorRank()` only decides the placement, so that the well known
+categories appear in a predictable order:
 
-If no `configOptions` are present, the client falls back to the legacy
-`modes` and `models` response fields and sends `session/set_mode` or
-`session/set_model`. Current selections are kept in sync through
-`current_mode_update`. Per the ACP specification, legacy `modes` are ignored
-once an agent sends `configOptions`.
+| Category | Placement |
+|----------|-----------|
+| `mode` | first |
+| `model` | second |
+| `thought_level` | third, next to the model it applies to |
+| `model_config` | fourth |
+| anything else | last, in the order the agent sent them |
+
+Picking a value sends `session/set_config_option`, and the agent answers with
+its new complete state, which rebuilds the row. Settings that depend on the
+model, such as the reasoning level, therefore update themselves when the model
+changes, without the client having to know about the relation.
+
+If no `configOptions` are present, the client falls back to the legacy `modes`
+and `models` response fields, which become an **Agent** and a **Model**
+dropdown applied with `session/set_mode` and `session/set_model`. The current
+mode is kept in sync through `current_mode_update`. Per the ACP specification,
+legacy `modes` are ignored once an agent sends `configOptions`.
+
+The selectors are rebuilt rather than patched
+(`ACPClientChatWidget::rebuildSessionSelectors()`), because an agent reports
+its complete configuration state on every update.
 
 ### Slash Commands
 

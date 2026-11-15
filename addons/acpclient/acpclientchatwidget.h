@@ -12,6 +12,7 @@
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QMap>
+#include <QPair>
 #include <QPointer>
 #include <QPushButton>
 #include <QSet>
@@ -23,6 +24,7 @@
 
 #include "acpclientprotocol.h"
 
+class QComboBox;
 class QCompleter;
 class QMenu;
 
@@ -226,6 +228,33 @@ public Q_SLOTS:
 
 private:
     // ========================================================================
+    // SESSION SELECTORS
+    // ========================================================================
+
+    /**
+     * @brief A dropdown that changes one setting of the session
+     *
+     * Agents expose their settings as configuration options, which this client
+     * shows as one dropdown each. Agents that only implement the legacy API
+     * get a dropdown for their modes and one for their models instead, which
+     * have to be applied with the respective legacy request.
+     */
+    struct SessionSelector {
+        /** @brief Request used to apply a value picked by the user */
+        enum class Kind {
+            ConfigOption, ///< session/set_config_option
+            LegacyMode, ///< session/set_mode
+            LegacyModel ///< session/set_model
+        };
+
+        Kind kind = Kind::ConfigOption;
+        QString configId; ///< Configuration option to set, for Kind::ConfigOption
+        QString category; ///< Semantic category of the option, may be empty
+        QLabel *label = nullptr; ///< Name shown in front of the dropdown
+        QComboBox *combo = nullptr; ///< The dropdown itself
+    };
+
+    // ========================================================================
     // INTERNAL STATE MANAGEMENT
     // ========================================================================
 
@@ -235,17 +264,34 @@ private:
     /** @brief Update action enablement based on server initialization state */
     void updateActionStates();
 
-    /** @brief Populate the agent mode selector from legacy session modes */
-    void updateModeCombo(const ACP::SessionModeState &modes);
+    /**
+     * @brief Rebuild the session selectors from the state of the session
+     *
+     * Creates one dropdown per configuration option the agent exposes, or one
+     * for the modes and one for the models when the agent only supports the
+     * legacy API.
+     */
+    void rebuildSessionSelectors();
 
-    /** @brief Populate the model selector from legacy session models */
-    void updateModelCombo(const ACP::SessionModelState &models);
+    /**
+     * @brief Add one dropdown to the row of session selectors
+     * @param name Label shown in front of the dropdown
+     * @param description Tooltip of the dropdown, may be empty
+     * @param values Selectable values, as display name and value pairs
+     * @param currentValue Value to preselect
+     * @param selector Identification used when the user picks a value
+     */
+    void addSessionSelector(const QString &name,
+                            const QString &description,
+                            const QList<QPair<QString, QString>> &values,
+                            const QString &currentValue,
+                            const SessionSelector &selector);
 
-    /** @brief Populate the mode and model selectors from session configuration options */
-    void updateConfigOptionCombos(const QList<ACP::SessionConfigOption> &options);
-
-    /** @brief Clear the session configuration selectors */
+    /** @brief Remove all session selectors and forget the session state */
     void clearSessionConfigUi();
+
+    /** @brief The dropdown of the mode selector, or nullptr if there is none */
+    QComboBox *modeSelectorCombo() const;
 
     /** @brief Update the slash command menu from the agent's command list */
     void updateAvailableCommands(const QList<ACP::AvailableCommand> &commands);
@@ -335,8 +381,10 @@ private:
     // ========================================================================
 
     bool m_hasConfigOptions = false; ///< True once config options have been received
-    QString m_modeConfigId; ///< Config option ID for the mode selector (empty for legacy modes)
-    QString m_modelConfigId; ///< Config option ID for the model selector (empty for legacy models)
+    QList<ACP::SessionConfigOption> m_configOptions; ///< Configuration options of the session
+    ACP::SessionModeState m_legacyModes; ///< Modes of the session, legacy API
+    ACP::SessionModelState m_legacyModels; ///< Models of the session, legacy API
+    QList<SessionSelector> m_sessionSelectors; ///< Dropdowns currently shown for the session
 
     // ========================================================================
     // SLASH COMMANDS

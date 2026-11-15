@@ -99,63 +99,28 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="configLayout">
-     <property name="spacing">
-      <number>6</number>
+    <widget class="QWidget" name="configWidget" native="true">
+     <property name="visible">
+      <bool>false</bool>
      </property>
-     <item>
-      <widget class="QLabel" name="modeLabel">
-       <property name="text">
-        <string>Agent:</string>
-       </property>
-       <property name="visible">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="modeCombo">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>1</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>Select the agent mode (for example build or plan)</string>
-       </property>
-       <property name="visible">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="modelLabel">
-       <property name="text">
-        <string>Model:</string>
-       </property>
-       <property name="visible">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="modelCombo">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>1</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="toolTip">
-        <string>Select the model used by the agent</string>
-       </property>
-       <property name="visible">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
+     <layout class="QHBoxLayout" name="configLayout">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="QListWidget" name="chatListWidget">

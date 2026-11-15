@@ -33,6 +33,7 @@
 #include <QTextCursor>
 #include <QTimer>
 
+#include <algorithm>
 #include <utility>
 
 #include "ui_acpclientchat.h"
@@ -106,40 +107,8 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     connect(m_ui->messageInput, &QTextEdit::textChanged, this, &ACPClientChatWidget::updateCommandCompletion);
     connect(m_ui->messageInput, &QTextEdit::cursorPositionChanged, this, &ACPClientChatWidget::updateCommandCompletion);
 
-    // Apply session mode and model changes selected by the user
-    connect(m_ui->modeCombo, QOverload<int>::of(&QComboBox::activated), this, [this](int index) {
-        if (index < 0 || !m_serverManager || m_sessionId.isEmpty()) {
-            return;
-        }
-
-        const QString modeId = m_ui->modeCombo->itemData(index).toString();
-        if (modeId.isEmpty()) {
-            return;
-        }
-
-        if (!m_modeConfigId.isEmpty()) {
-            m_serverManager->setSessionConfigOption(m_sessionId, m_modeConfigId, modeId);
-        } else {
-            m_serverManager->setSessionMode(m_sessionId, modeId);
-        }
-    });
-
-    connect(m_ui->modelCombo, QOverload<int>::of(&QComboBox::activated), this, [this](int index) {
-        if (index < 0 || !m_serverManager || m_sessionId.isEmpty()) {
-            return;
-        }
-
-        const QString modelId = m_ui->modelCombo->itemData(index).toString();
-        if (modelId.isEmpty()) {
-            return;
-        }
-
-        if (!m_modelConfigId.isEmpty()) {
-            m_serverManager->setSessionConfigOption(m_sessionId, m_modelConfigId, modelId);
-        } else {
-            m_serverManager->setSessionModel(m_sessionId, modelId);
-        }
-    });
+    // The session selectors are created when the agent reports its settings,
+    // see rebuildSessionSelectors()
 
     // Set up QTextEdit for message input
     m_ui->messageInput->setPlaceholderText(i18n("Type your message here... (Ctrl+Enter to send, Shift+Enter for new line)"));
@@ -851,14 +820,16 @@ void ACPClientChatWidget::setupServerConnections()
         if (sessionId != m_sessionId || m_hasConfigOptions) {
             return;
         }
-        updateModeCombo(modes);
+        m_legacyModes = modes;
+        rebuildSessionSelectors();
     });
 
     connect(m_serverManager, &ACPClientServerManager::sessionModelsChanged, this, [this](const QString &sessionId, const ACP::SessionModelState &models) {
         if (sessionId != m_sessionId || m_hasConfigOptions) {
             return;
         }
-        updateModelCombo(models);
+        m_legacyModels = models;
+        rebuildSessionSelectors();
     });
 
     connect(m_serverManager,
@@ -869,7 +840,8 @@ void ACPClientChatWidget::setupServerConnections()
                     return;
                 }
                 m_hasConfigOptions = true;
-                updateConfigOptionCombos(configOptions);
+                m_configOptions = configOptions;
+                rebuildSessionSelectors();
             });
 }
 
@@ -1402,144 +1374,176 @@ void ACPClientChatWidget::handleUsageUpdate(const QJsonObject &update)
     updateStatus(statusText);
 }
 
-void ACPClientChatWidget::updateModeCombo(const ACP::SessionModeState &modes)
+/**
+ * @brief Placement of a configuration option in the row of selectors
+ *
+ * Agents may send their options in any order, so the well known categories are
+ * placed in a fixed order. Everything the client does not know about keeps the
+ * order the agent sent it in, after the known ones.
+ */
+static int selectorRank(const QString &category)
 {
-    m_modeConfigId.clear();
+    if (category == QStringLiteral("mode")) {
+        return 0;
+    }
+    if (category == QStringLiteral("model")) {
+        return 1;
+    }
+    // The reasoning level belongs next to the model it applies to
+    if (category == QStringLiteral("thought_level")) {
+        return 2;
+    }
+    if (category == QStringLiteral("model_config")) {
+        return 3;
+    }
+    return 4;
+}
 
-    const QSignalBlocker blocker(m_ui->modeCombo);
-    m_ui->modeCombo->clear();
-
-    for (const ACP::SessionMode &mode : modes.availableModes) {
-        m_ui->modeCombo->addItem(mode.name, mode.id);
-        if (!mode.description.isEmpty()) {
-            m_ui->modeCombo->setItemData(m_ui->modeCombo->count() - 1, mode.description, Qt::ToolTipRole);
-        }
+void ACPClientChatWidget::addSessionSelector(const QString &name,
+                                             const QString &description,
+                                             const QList<QPair<QString, QString>> &values,
+                                             const QString &currentValue,
+                                             const SessionSelector &selector)
+{
+    if (values.isEmpty()) {
+        return;
     }
 
-    const int currentIndex = m_ui->modeCombo->findData(modes.currentModeId);
+    SessionSelector added = selector;
+
+    added.label = new QLabel(i18nc("@label:listbox name of a session setting", "%1:", name), m_ui->configWidget);
+    m_ui->configLayout->addWidget(added.label);
+
+    added.combo = new QComboBox(m_ui->configWidget);
+    added.combo->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    if (!description.isEmpty()) {
+        added.combo->setToolTip(description);
+    }
+
+    for (const QPair<QString, QString> &value : values) {
+        added.combo->addItem(value.first, value.second);
+    }
+
+    const int currentIndex = added.combo->findData(currentValue);
     if (currentIndex >= 0) {
-        m_ui->modeCombo->setCurrentIndex(currentIndex);
+        added.combo->setCurrentIndex(currentIndex);
     }
 
-    const bool visible = m_ui->modeCombo->count() > 0;
-    m_ui->modeLabel->setVisible(visible);
-    m_ui->modeCombo->setVisible(visible);
+    // Only react to the user picking a value, not to the selectors being
+    // populated from the state the agent reported
+    connect(added.combo, &QComboBox::activated, this, [this, added](int index) {
+        if (index < 0 || !m_serverManager || m_sessionId.isEmpty()) {
+            return;
+        }
+
+        const QString value = added.combo->itemData(index).toString();
+        if (value.isEmpty()) {
+            return;
+        }
+
+        switch (added.kind) {
+        case SessionSelector::Kind::ConfigOption:
+            m_serverManager->setSessionConfigOption(m_sessionId, added.configId, value);
+            break;
+        case SessionSelector::Kind::LegacyMode:
+            m_serverManager->setSessionMode(m_sessionId, value);
+            break;
+        case SessionSelector::Kind::LegacyModel:
+            m_serverManager->setSessionModel(m_sessionId, value);
+            break;
+        }
+    });
+
+    m_ui->configLayout->addWidget(added.combo);
+    m_sessionSelectors.append(added);
+}
+
+void ACPClientChatWidget::rebuildSessionSelectors()
+{
+    // The agent reports its complete state on every update, so the selectors
+    // are rebuilt rather than patched
+    for (const SessionSelector &selector : std::as_const(m_sessionSelectors)) {
+        delete selector.label;
+        delete selector.combo;
+    }
+    m_sessionSelectors.clear();
+
+    if (m_hasConfigOptions) {
+        // One dropdown per configuration option, in a predictable order
+        QList<ACP::SessionConfigOption> options = m_configOptions;
+        std::stable_sort(options.begin(), options.end(), [](const ACP::SessionConfigOption &left, const ACP::SessionConfigOption &right) {
+            return selectorRank(left.category) < selectorRank(right.category);
+        });
+
+        for (const ACP::SessionConfigOption &option : std::as_const(options)) {
+            QList<QPair<QString, QString>> values;
+            values.reserve(option.options.size());
+            for (const ACP::SessionConfigSelectOption &value : option.options) {
+                values.append({value.name, value.value});
+            }
+
+            SessionSelector selector;
+            selector.kind = SessionSelector::Kind::ConfigOption;
+            selector.configId = option.id;
+            selector.category = option.category;
+            addSessionSelector(option.name.isEmpty() ? option.id : option.name, option.description, values, option.currentValue, selector);
+        }
+    } else {
+        // Legacy API, which only knows about modes and models
+        QList<QPair<QString, QString>> modeValues;
+        modeValues.reserve(m_legacyModes.availableModes.size());
+        for (const ACP::SessionMode &mode : std::as_const(m_legacyModes.availableModes)) {
+            modeValues.append({mode.name, mode.id});
+        }
+
+        SessionSelector modeSelector;
+        modeSelector.kind = SessionSelector::Kind::LegacyMode;
+        modeSelector.category = QStringLiteral("mode");
+        addSessionSelector(i18nc("@label:listbox the mode the agent operates in", "Agent"),
+                           i18nc("@info:tooltip", "Select the agent mode, for example build or plan"),
+                           modeValues,
+                           m_legacyModes.currentModeId,
+                           modeSelector);
+
+        QList<QPair<QString, QString>> modelValues;
+        modelValues.reserve(m_legacyModels.availableModels.size());
+        for (const ACP::SessionModel &model : std::as_const(m_legacyModels.availableModels)) {
+            modelValues.append({model.name, model.modelId});
+        }
+
+        SessionSelector modelSelector;
+        modelSelector.kind = SessionSelector::Kind::LegacyModel;
+        modelSelector.category = QStringLiteral("model");
+        addSessionSelector(i18nc("@label:listbox the model the agent uses", "Model"),
+                           i18nc("@info:tooltip", "Select the model used by the agent"),
+                           modelValues,
+                           m_legacyModels.currentModelId,
+                           modelSelector);
+    }
+
+    m_ui->configWidget->setVisible(!m_sessionSelectors.isEmpty());
 
     updateActionStates();
 }
 
-void ACPClientChatWidget::updateModelCombo(const ACP::SessionModelState &models)
+QComboBox *ACPClientChatWidget::modeSelectorCombo() const
 {
-    m_modelConfigId.clear();
-
-    const QSignalBlocker blocker(m_ui->modelCombo);
-    m_ui->modelCombo->clear();
-
-    for (const ACP::SessionModel &model : models.availableModels) {
-        m_ui->modelCombo->addItem(model.name, model.modelId);
-        if (!model.description.isEmpty()) {
-            m_ui->modelCombo->setItemData(m_ui->modelCombo->count() - 1, model.description, Qt::ToolTipRole);
+    for (const SessionSelector &selector : std::as_const(m_sessionSelectors)) {
+        if (selector.kind == SessionSelector::Kind::LegacyMode || selector.category == QStringLiteral("mode")) {
+            return selector.combo;
         }
     }
 
-    const int currentIndex = m_ui->modelCombo->findData(models.currentModelId);
-    if (currentIndex >= 0) {
-        m_ui->modelCombo->setCurrentIndex(currentIndex);
-    }
-
-    const bool visible = m_ui->modelCombo->count() > 0;
-    m_ui->modelLabel->setVisible(visible);
-    m_ui->modelCombo->setVisible(visible);
-
-    updateActionStates();
-}
-
-void ACPClientChatWidget::updateConfigOptionCombos(const QList<ACP::SessionConfigOption> &options)
-{
-    const ACP::SessionConfigOption *modeOption = nullptr;
-    const ACP::SessionConfigOption *modelOption = nullptr;
-
-    for (const ACP::SessionConfigOption &option : options) {
-        if (!modeOption && option.category == QStringLiteral("mode")) {
-            modeOption = &option;
-        }
-        if (!modelOption
-            && (option.category == QStringLiteral("model") || option.id == QStringLiteral("model")
-                || option.name.compare(QStringLiteral("model"), Qt::CaseInsensitive) == 0)) {
-            modelOption = &option;
-        }
-    }
-
-    m_modeConfigId.clear();
-    {
-        const QSignalBlocker blocker(m_ui->modeCombo);
-        m_ui->modeCombo->clear();
-
-        if (modeOption) {
-            m_modeConfigId = modeOption->id;
-            for (const ACP::SessionConfigSelectOption &value : modeOption->options) {
-                m_ui->modeCombo->addItem(value.name, value.value);
-                if (!value.description.isEmpty()) {
-                    m_ui->modeCombo->setItemData(m_ui->modeCombo->count() - 1, value.description, Qt::ToolTipRole);
-                }
-            }
-            const int currentIndex = m_ui->modeCombo->findData(modeOption->currentValue);
-            if (currentIndex >= 0) {
-                m_ui->modeCombo->setCurrentIndex(currentIndex);
-            }
-        }
-
-        const bool visible = m_ui->modeCombo->count() > 0;
-        m_ui->modeLabel->setVisible(visible);
-        m_ui->modeCombo->setVisible(visible);
-    }
-
-    m_modelConfigId.clear();
-    {
-        const QSignalBlocker blocker(m_ui->modelCombo);
-        m_ui->modelCombo->clear();
-
-        if (modelOption) {
-            m_modelConfigId = modelOption->id;
-            for (const ACP::SessionConfigSelectOption &value : modelOption->options) {
-                m_ui->modelCombo->addItem(value.name, value.value);
-                if (!value.description.isEmpty()) {
-                    m_ui->modelCombo->setItemData(m_ui->modelCombo->count() - 1, value.description, Qt::ToolTipRole);
-                }
-            }
-            const int currentIndex = m_ui->modelCombo->findData(modelOption->currentValue);
-            if (currentIndex >= 0) {
-                m_ui->modelCombo->setCurrentIndex(currentIndex);
-            }
-        }
-
-        const bool visible = m_ui->modelCombo->count() > 0;
-        m_ui->modelLabel->setVisible(visible);
-        m_ui->modelCombo->setVisible(visible);
-    }
-
-    updateActionStates();
+    return nullptr;
 }
 
 void ACPClientChatWidget::clearSessionConfigUi()
 {
     m_hasConfigOptions = false;
-    m_modeConfigId.clear();
-    m_modelConfigId.clear();
-
-    {
-        const QSignalBlocker blocker(m_ui->modeCombo);
-        m_ui->modeCombo->clear();
-        m_ui->modeCombo->setVisible(false);
-        m_ui->modeLabel->setVisible(false);
-    }
-
-    {
-        const QSignalBlocker blocker(m_ui->modelCombo);
-        m_ui->modelCombo->clear();
-        m_ui->modelCombo->setVisible(false);
-        m_ui->modelLabel->setVisible(false);
-    }
+    m_configOptions.clear();
+    m_legacyModes = ACP::SessionModeState();
+    m_legacyModels = ACP::SessionModelState();
+    rebuildSessionSelectors();
 }
 
 void ACPClientChatWidget::handleCurrentModeUpdate(const QJsonObject &update)
@@ -1549,10 +1553,17 @@ void ACPClientChatWidget::handleCurrentModeUpdate(const QJsonObject &update)
         return;
     }
 
-    const QSignalBlocker blocker(m_ui->modeCombo);
-    const int index = m_ui->modeCombo->findData(modeId);
+    m_legacyModes.currentModeId = modeId;
+
+    QComboBox *combo = modeSelectorCombo();
+    if (!combo) {
+        return;
+    }
+
+    const QSignalBlocker blocker(combo);
+    const int index = combo->findData(modeId);
     if (index >= 0) {
-        m_ui->modeCombo->setCurrentIndex(index);
+        combo->setCurrentIndex(index);
     }
 }
 
@@ -1565,7 +1576,8 @@ void ACPClientChatWidget::handleConfigOptionUpdate(const QJsonObject &update)
     QList<ACP::SessionConfigOption> configOptions;
     if (ACP::ACPProtocol::parseSessionConfigOptions(update[u"configOptions"].toArray(), configOptions)) {
         m_hasConfigOptions = true;
-        updateConfigOptionCombos(configOptions);
+        m_configOptions = configOptions;
+        rebuildSessionSelectors();
     }
 }
 
@@ -1737,8 +1749,9 @@ void ACPClientChatWidget::updateActionStates()
     m_ui->sendButton->setEnabled(sessionActive);
     m_ui->endSessionButton->setEnabled(sessionActive);
     m_ui->messageInput->setEnabled(sessionActive);
-    m_ui->modeCombo->setEnabled(sessionActive && m_ui->modeCombo->count() > 0);
-    m_ui->modelCombo->setEnabled(sessionActive && m_ui->modelCombo->count() > 0);
+    for (const SessionSelector &selector : std::as_const(m_sessionSelectors)) {
+        selector.combo->setEnabled(sessionActive);
+    }
     m_ui->commandsButton->setEnabled(sessionActive && !m_availableCommands.isEmpty());
 }
 

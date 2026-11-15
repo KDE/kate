@@ -135,19 +135,24 @@ void ACPCollapsibleTextWidget::setContextLineCount(int lines)
     updateDisplay();
 }
 
-void ACPCollapsibleTextWidget::setAlwaysCollapsible(bool always)
+void ACPCollapsibleTextWidget::setCollapseMode(CollapseMode mode)
 {
-    if (m_alwaysCollapsible == always) {
+    if (m_collapseMode == mode) {
         return;
     }
 
-    m_alwaysCollapsible = always;
+    m_collapseMode = mode;
     updateDisplay();
 }
 
 bool ACPCollapsibleTextWidget::isCollapsible() const
 {
-    if (m_alwaysCollapsible && !m_text.isEmpty()) {
+    if (m_text.isEmpty()) {
+        return false;
+    }
+
+    // Text that is hidden as a whole is worth hiding at any size
+    if (m_collapseMode == CollapseMode::HideAll) {
         return true;
     }
 
@@ -219,10 +224,22 @@ void ACPCollapsibleTextWidget::updateDisplay()
     // Short text, or text the user expanded, is shown as it is
     if (!collapsible || m_expanded) {
         m_headLabel->setText(m_text);
+        m_headLabel->setVisible(true);
         m_moreButton->setVisible(false);
         m_tailLabel->setVisible(false);
         return;
     }
+
+    // Text that is secondary as a whole shows nothing but its header, because
+    // a few lines ripped out of the middle of it say nothing useful
+    if (m_collapseMode == CollapseMode::HideAll) {
+        m_headLabel->setVisible(false);
+        m_moreButton->setVisible(false);
+        m_tailLabel->setVisible(false);
+        return;
+    }
+
+    m_headLabel->setVisible(true);
 
     const int hiddenLines = hiddenLineCount();
     if (hiddenLines > 0) {

@@ -445,10 +445,20 @@ conversations at once.
 
 `agent_thought_chunk` carries the internal reasoning of the agent. It is shown
 in messages of its own, of type `ACPChatMessageWidget::MessageType::Thought`,
-whose text lives in an `ACPCollapsibleTextWidget` with `setAlwaysCollapsible()`
-so that it can be collapsed no matter how short it is. Reasoning is secondary
-to the answer, so it is collapsed by default and the bubble is toned down to
-`AlternateBase`.
+whose text lives in an `ACPCollapsibleTextWidget` set to
+`CollapseMode::HideAll`. Reasoning is secondary to the answer, so it is
+collapsed by default and the bubble is toned down to `AlternateBase`.
+
+The two collapse modes differ in what a collapsed block shows:
+
+| Mode | Collapses when | Collapsed shows |
+|------|----------------|-----------------|
+| `Preview` | the text is long | first and last lines, and how many are hidden |
+| `HideAll` | there is any text | nothing but the header, which states the line count |
+
+Reasoning uses `HideAll` because it is read as a whole or not at all: a couple
+of lines taken out of the middle of a train of thought are noise rather than a
+summary, unlike the beginning and the end of a tool call's output.
 
 The **Thinking** button in the chat header switches the default. The state
 belongs to the plugin (`ACPClientPlugin::expandThoughts()`), not the widget, so

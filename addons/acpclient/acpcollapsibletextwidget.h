@@ -20,7 +20,9 @@ class QToolButton;
  * Tool call inputs and outputs can be arbitrarily long and would otherwise
  * push the rest of the conversation out of view. Long text is therefore shown
  * as a preview consisting of the first and last few lines, separated by a
- * button that states how much is hidden.
+ * button that states how much is hidden. Text that is secondary as a whole,
+ * such as the reasoning of an agent, is hidden entirely instead, see
+ * @ref CollapseMode.
  *
  * Both the header and the separator are buttons, so the text can be expanded
  * and collapsed again with the mouse or the keyboard. Short text is displayed
@@ -64,14 +66,29 @@ public:
      */
     void setContextLineCount(int lines);
 
+    /** @brief How a block is presented while it is collapsed */
+    enum class CollapseMode {
+        /**
+         * Collapse text that is too long, and show its first and last lines.
+         * Used for tool call input and output, where the beginning and the end
+         * of the text usually say what happened.
+         */
+        Preview,
+
+        /**
+         * Always offer the toggle and show nothing of the text while it is
+         * collapsed. Used for text that is secondary as a whole, such as the
+         * reasoning of an agent, where a few lines out of context are noise
+         * rather than a summary.
+         */
+        HideAll
+    };
+
     /**
-     * @brief Allow collapsing the text no matter how short it is
-     * @param always true to always offer the toggle
-     *
-     * Used for text that is secondary regardless of its size, such as the
-     * reasoning of an agent.
+     * @brief Set how the block is presented while it is collapsed
+     * @param mode Presentation to use
      */
-    void setAlwaysCollapsible(bool always);
+    void setCollapseMode(CollapseMode mode);
 
     /** @brief Whether the text is long enough to be collapsed */
     bool isCollapsible() const;
@@ -106,7 +123,7 @@ private:
     int m_collapsedLineLimit = 10; ///< Collapse above this many lines
     int m_contextLines = 2; ///< Lines kept visible at each end
     int m_collapsedCharLimit = 2000; ///< Collapse above this many characters
-    bool m_alwaysCollapsible = false; ///< Offer the toggle regardless of the size of the text
+    CollapseMode m_collapseMode = CollapseMode::Preview; ///< Presentation while collapsed
 
     QLabel *m_nameLabel = nullptr; ///< Always visible name of the block
     QToolButton *m_headerButton = nullptr; ///< Expands and collapses the text

@@ -660,7 +660,7 @@ void ACPChatMessageWidget::updateContentDisplay()
         // Reasoning is secondary, so it is collapsible no matter how short it
         // is, and the chat decides whether it starts out expanded
         ACPCollapsibleTextWidget *thoughtWidget = new ACPCollapsibleTextWidget(i18n("Reasoning"), m_contentWidget);
-        thoughtWidget->setAlwaysCollapsible(true);
+        thoughtWidget->setCollapseMode(ACPCollapsibleTextWidget::CollapseMode::HideAll);
         thoughtWidget->setExpanded(m_thoughtExpanded);
         thoughtWidget->setText(m_content);
         connect(thoughtWidget, &ACPCollapsibleTextWidget::expandedChanged, this, [this](bool expanded) {

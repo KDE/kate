@@ -357,6 +357,7 @@ copied into Kate. The Kate version only shares the behavior, implemented with
 - **Agent** - Agent's text responses (green styling)
 - **Thought** - Agent's internal reasoning, collapsed by default
 - **Pending** - Placeholder with a busy indicator, shown while the agent works
+- **Queued** - User's message waiting for the agent to become free
 - **System** - System messages (gray styling)
 - **Plan** - Plan/step updates (blue border, structured display)
 - **ToolCall** - Tool call notifications (orange styling)
@@ -384,6 +385,18 @@ session changes or the server disconnects, since no response will arrive then.
 The widget used to derive the end of a turn from any response that happened to
 contain a `stopReason`, which is why responses now stop at the manager.
 
+### Queued Messages
+
+Sending while the agent works does not fail: the message is appended to
+`m_queuedMessages`, shown at the very bottom of the chat as a message of type
+`Queued`, and sent when the running turn ends, one message per turn. The
+placeholder and the queued messages together form the trailing part of the
+chat, which `rebuildTrailingMessages()` recreates whenever it changes, so that
+the answer being worked on always sits above the messages waiting for it.
+
+The queue is dropped when the session changes or the server disconnects, since
+those messages were meant for a conversation that is gone.
+
 While a turn runs, a placeholder message with an indeterminate progress bar is
 kept as the last entry of the chat, so that the conversation shows that an
 answer is on its way. `addMessageWidget()` takes it out and puts it back when a
@@ -392,8 +405,9 @@ message is added, which keeps arriving content above it, and
 
 Two consequences worth knowing when touching the chat:
 
-- The placeholder is a regular message widget, so code looking for the newest
-  message must use `lastContentMessage()` rather than `m_messageWidgets.last()`,
+- The placeholder and the queued messages are regular message widgets, so code
+  looking for the newest message must use `lastContentMessage()`, which skips
+  them, rather than `m_messageWidgets.last()`,
   otherwise streamed chunks start a new message instead of extending the one
   they belong to.
 - Messages are measured from a zero timer after they were laid out, and the

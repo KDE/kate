@@ -237,6 +237,8 @@ void ACPClientChatWidget::setSessionId(const QString &sessionId)
         m_promptRunning = false;
         m_cancelRequested = false;
         removePendingMessage();
+        // Messages were queued for the previous session
+        clearQueuedMessages();
         // Drop configuration and command state from the previous session
         clearSessionConfigUi();
         clearAvailableCommands();
@@ -294,11 +296,12 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
         return;
     }
 
-    // Keep the placeholder of the answer at the bottom, so that the content
-    // arriving for it appears above instead of below it
-    const bool restorePending = m_pendingMessage && widget != m_pendingMessage;
-    if (restorePending) {
-        removePendingMessage();
+    // The placeholder and the queued messages belong at the bottom, so they
+    // have to make room for a message that arrives now
+    const bool manageTrailing = !m_updatingTrailingMessages;
+    if (manageTrailing) {
+        m_updatingTrailingMessages = true;
+        takeTrailingMessages();
     }
 
     // Create a container widget to hold the message widget
@@ -347,9 +350,96 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
         scrollToBottom();
     });
 
-    if (restorePending) {
+    if (manageTrailing) {
+        restoreTrailingMessages();
+        m_updatingTrailingMessages = false;
+    }
+}
+
+void ACPClientChatWidget::takeTrailingMessages()
+{
+    removePendingMessage();
+
+    for (const QPointer<ACPChatMessageWidget> &widget : std::as_const(m_queuedMessageWidgets)) {
+        if (widget) {
+            removeMessageWidget(widget);
+        }
+    }
+    m_queuedMessageWidgets.clear();
+}
+
+void ACPClientChatWidget::restoreTrailingMessages()
+{
+    if (m_promptRunning) {
         showPendingMessage();
     }
+
+    for (const QString &message : std::as_const(m_queuedMessages)) {
+        ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Queued, m_chatListWidget);
+        msgWidget->setTimestamp(QDateTime::currentDateTime());
+        msgWidget->setSender(i18n("You"));
+        msgWidget->setContent(message);
+        m_queuedMessageWidgets.append(msgWidget);
+        addMessageWidget(msgWidget);
+    }
+}
+
+void ACPClientChatWidget::rebuildTrailingMessages()
+{
+    if (m_updatingTrailingMessages) {
+        return;
+    }
+
+    m_updatingTrailingMessages = true;
+    takeTrailingMessages();
+    restoreTrailingMessages();
+    m_updatingTrailingMessages = false;
+}
+
+void ACPClientChatWidget::queueMessage(const QString &message)
+{
+    m_queuedMessages.append(message);
+
+    // Rebuild the bottom of the chat, which creates the bubble for it
+    rebuildTrailingMessages();
+
+    updatePromptState();
+}
+
+void ACPClientChatWidget::clearQueuedMessages()
+{
+    if (m_queuedMessages.isEmpty() && m_queuedMessageWidgets.isEmpty()) {
+        return;
+    }
+
+    m_queuedMessages.clear();
+
+    for (const QPointer<ACPChatMessageWidget> &widget : std::as_const(m_queuedMessageWidgets)) {
+        if (widget) {
+            removeMessageWidget(widget);
+        }
+    }
+    m_queuedMessageWidgets.clear();
+}
+
+void ACPClientChatWidget::sendNextQueuedMessage()
+{
+    if (m_queuedMessages.isEmpty() || m_promptRunning) {
+        return;
+    }
+
+    const QString message = m_queuedMessages.takeFirst();
+
+    // Drop the bubble of the queued message, deliverMessage() shows it as the
+    // user message it has become
+    if (!m_queuedMessageWidgets.isEmpty()) {
+        QPointer<ACPChatMessageWidget> widget = m_queuedMessageWidgets.takeFirst();
+        if (widget) {
+            removeMessageWidget(widget);
+        }
+    }
+
+    deliverMessage(message);
 }
 
 void ACPClientChatWidget::removeMessageWidget(ACPChatMessageWidget *widget)
@@ -404,7 +494,10 @@ void ACPClientChatWidget::removePendingMessage()
 ACPChatMessageWidget *ACPClientChatWidget::lastContentMessage() const
 {
     for (auto it = m_messageWidgets.rbegin(); it != m_messageWidgets.rend(); ++it) {
-        if (*it != m_pendingMessage) {
+        // The placeholder and the queued messages are kept at the bottom, but
+        // they are not part of the conversation yet
+        const ACPChatMessageWidget::MessageType type = (*it)->type();
+        if (type != ACPChatMessageWidget::MessageType::Pending && type != ACPChatMessageWidget::MessageType::Queued) {
             return *it;
         }
     }
@@ -426,6 +519,7 @@ void ACPClientChatWidget::clearMessages()
     m_widgetToContainerMap.clear();
     m_containerToItemMap.clear();
     m_pendingMessage = nullptr;
+    m_queuedMessageWidgets.clear();
 
     // Clear the list widget
     if (m_chatListWidget) {
@@ -851,10 +945,9 @@ void ACPClientChatWidget::clearChat()
     m_echoedUserMessageIds.clear();
     updateStatus(QString());
 
-    // The agent keeps working on the prompt even if its conversation is gone
-    if (m_promptRunning) {
-        showPendingMessage();
-    }
+    // The agent keeps working on the prompt even if its conversation is gone,
+    // and the messages waiting for it are still going to be sent
+    rebuildTrailingMessages();
 }
 
 void ACPClientChatWidget::setServer(ACPClientServer *server)
@@ -881,6 +974,7 @@ void ACPClientChatWidget::setServer(ACPClientServer *server)
                 m_promptRunning = false;
                 m_cancelRequested = false;
                 removePendingMessage();
+                clearQueuedMessages();
                 setSessionId(QString());
                 updateSessionState();
             });
@@ -953,7 +1047,8 @@ void ACPClientChatWidget::setupServerConnections()
         }
         m_promptRunning = true;
         m_cancelRequested = false;
-        showPendingMessage();
+        // Shows the placeholder, above any message still waiting to be sent
+        rebuildTrailingMessages();
         updatePromptState();
     });
 
@@ -976,6 +1071,7 @@ void ACPClientChatWidget::setupServerConnections()
         }
 
         updatePromptState();
+        sendNextQueuedMessage();
     });
 
     connect(m_serverManager, &ACPClientServerManager::promptFailed, this, [this](const QString &sessionId, const QString &errorMessage) {
@@ -990,6 +1086,9 @@ void ACPClientChatWidget::setupServerConnections()
         appendMessage(QStringLiteral("System"),
                       errorMessage.isEmpty() ? i18n("The agent rejected the prompt") : i18n("The agent rejected the prompt: %1", errorMessage));
         updatePromptState();
+
+        // The turn ended, so whatever was waiting for it can go out now
+        sendNextQueuedMessage();
     });
 
     // Connect to session configuration signals
@@ -1038,11 +1137,24 @@ void ACPClientChatWidget::sendMessage()
         }
     }
 
+    m_ui->messageInput->clear();
+
+    // Agents reject a prompt while they are working on the previous one, so
+    // the message waits for the running turn to end
+    if (m_promptRunning) {
+        queueMessage(message);
+        return;
+    }
+
+    deliverMessage(message);
+}
+
+void ACPClientChatWidget::deliverMessage(const QString &message)
+{
     // Display user message, and remember it so that the echo the agent may
     // send back for it is not displayed a second time
     appendMessage(i18n("You"), message, true);
     m_locallyShownUserMessage = lastContentMessage();
-    m_ui->messageInput->clear();
 
     // Mark the user message as running (prompt turn started)
     updateLastUserMessageStatus(MessageStatus::Running);
@@ -1990,11 +2102,17 @@ void ACPClientChatWidget::updatePromptState()
     m_ui->cancelPromptButton->setVisible(m_promptRunning);
     m_ui->cancelPromptButton->setEnabled(m_promptRunning && !m_cancelRequested);
 
-    // Agents reject a prompt while they are working on the previous one
-    m_ui->sendButton->setEnabled(sessionActive && !m_promptRunning && !m_ui->messageInput->toPlainText().trimmed().isEmpty());
+    // A message sent while the agent works is queued rather than rejected
+    const bool hasInput = !m_ui->messageInput->toPlainText().trimmed().isEmpty();
+    m_ui->sendButton->setEnabled(sessionActive && hasInput);
+    m_ui->sendButton->setToolTip(m_promptRunning ? i18nc("@info:tooltip", "Queue message, it is sent when the agent is done (Ctrl+Enter)")
+                                                 : i18nc("@info:tooltip", "Send message (Ctrl+Enter)"));
 
     if (!sessionActive) {
         m_ui->promptStatusLabel->clear();
+    } else if (!m_queuedMessages.isEmpty()) {
+        m_ui->promptStatusLabel->setText(
+            i18ncp("@info messages are waiting for the agent", "⏳ Working, %1 message queued", "⏳ Working, %1 messages queued", m_queuedMessages.size()));
     } else if (m_promptRunning && m_cancelRequested) {
         m_ui->promptStatusLabel->setText(i18nc("@info the agent was asked to stop", "⏳ Stopping…"));
     } else if (m_promptRunning) {

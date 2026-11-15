@@ -488,6 +488,9 @@ QColor ACPChatMessageWidget::getBackgroundColor() const
     case MessageType::Pending:
         // Placeholder, kept quiet until it is replaced by real content
         return alternateBase;
+    case MessageType::Queued:
+        // Not sent yet, so it is toned down compared to a user message
+        return alternateBase;
     case MessageType::System:
         // System messages: alternate base color
         return alternateBase;
@@ -532,6 +535,8 @@ QColor ACPChatMessageWidget::getBorderColor() const
         return pal.color(QPalette::Mid);
     case MessageType::Pending:
         return pal.color(QPalette::Mid);
+    case MessageType::Queued:
+        return pal.color(QPalette::Link);
     case MessageType::System:
         return pal.color(QPalette::Mid);
     case MessageType::Plan:
@@ -562,6 +567,7 @@ void ACPChatMessageWidget::applyTypeSpecificStyling()
     case MessageType::Agent:
     case MessageType::Thought:
     case MessageType::Pending:
+    case MessageType::Queued:
     case MessageType::System:
     case MessageType::Plan:
     case MessageType::ToolCall:
@@ -592,6 +598,7 @@ void ACPChatMessageWidget::updateContentDisplay()
 
     switch (m_type) {
     case MessageType::User:
+    case MessageType::Queued:
     case MessageType::Agent:
     case MessageType::System:
     case MessageType::Error: {
@@ -1104,6 +1111,8 @@ QString ACPChatMessageWidget::getTypeLabel() const
         return i18n("Thinking");
     case MessageType::Pending:
         return i18n("Working");
+    case MessageType::Queued:
+        return i18n("Queued");
     case MessageType::System:
         return i18n("System");
     case MessageType::Plan:

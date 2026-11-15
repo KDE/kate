@@ -342,6 +342,48 @@ private:
     void removePendingMessage();
 
     /**
+     * @brief Remember a message to send once the agent is free again
+     * @param message Text the user wants to send
+     *
+     * Agents reject a prompt while they are working on the previous one, so
+     * the message is shown at the bottom of the chat and sent when the
+     * running prompt turn ends.
+     */
+    void queueMessage(const QString &message);
+
+    /** @brief Send the next queued message, if the agent is free */
+    void sendNextQueuedMessage();
+
+    /**
+     * @brief Send a message and show it in the chat
+     * @param message Text to send
+     */
+    void deliverMessage(const QString &message);
+
+    /**
+     * @brief Remove the placeholder and the queued messages from the chat
+     *
+     * They are kept at the bottom, so they have to make room whenever a
+     * message arrives. The queued texts themselves are not forgotten.
+     */
+    void takeTrailingMessages();
+
+    /** @brief Put the placeholder and the queued messages back at the bottom */
+    void restoreTrailingMessages();
+
+    /**
+     * @brief Rebuild the bottom of the chat
+     *
+     * Used when the placeholder or the queued messages changed, which has to
+     * keep them in order: the answer being worked on first, then the messages
+     * waiting for it.
+     */
+    void rebuildTrailingMessages();
+
+    /** @brief Forget the queued messages and remove them from the chat */
+    void clearQueuedMessages();
+
+    /**
      * @brief The newest real message, ignoring the pending placeholder
      * @return Last message widget, or nullptr if there is none
      *
@@ -461,6 +503,9 @@ private:
     // ========================================================================
 
     QPointer<ACPChatMessageWidget> m_pendingMessage; ///< Placeholder for the answer being worked on
+    QStringList m_queuedMessages; ///< Messages waiting for the agent to become free
+    QList<QPointer<ACPChatMessageWidget>> m_queuedMessageWidgets; ///< Bubbles showing the queued messages
+    bool m_updatingTrailingMessages = false; ///< Guards against recursing while the bottom is rebuilt
 
     QPointer<ACPChatMessageWidget> m_locallyShownUserMessage; ///< Message displayed when sending, awaiting its echo
     QSet<QString> m_echoedUserMessageIds; ///< IDs of user messages the agent echoed back

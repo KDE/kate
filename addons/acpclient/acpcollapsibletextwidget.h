@@ -55,6 +55,15 @@ public:
     void setMonospace(bool monospace);
 
     /**
+     * @brief Paint the block with a background of its own
+     * @param color Background to use
+     *
+     * Sets the color the block is filled with, so that it reads as a region
+     * that the agent produced rather than as part of the message around it.
+     */
+    void setBlockBackground(const QColor &color);
+
+    /**
      * @brief Set the number of lines that are displayed without collapsing
      * @param lines Line count above which the text is collapsed
      */

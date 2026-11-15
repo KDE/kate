@@ -290,6 +290,14 @@ private:
     /** @brief Get the appropriate background color for this message type */
     QColor getBackgroundColor() const;
 
+    /**
+     * @brief The background of code and of tool call input and output
+     *
+     * Derived from the background of the message, so that it follows the color
+     * scheme and stays distinguishable from the message around it.
+     */
+    QColor codeBackgroundColor() const;
+
     /** @brief Get the appropriate border color for this message type */
     QColor getBorderColor() const;
 

@@ -473,32 +473,57 @@ Note that the protocol constant for this used to be named
 `sessionUpdateThoughtMessageChunk()` and returned `thought_message_chunk`,
 which is not a discriminator the specification defines, and nothing handled it.
 
-### Code Blocks in Messages
+### Code and Tool Call Blocks
 
-Fenced code blocks in agent messages are painted with a background of their
-own, so that they can be told apart from the prose around them.
+Code is painted with a background of its own, so that it can be told apart
+from the prose around it. This covers fenced code blocks, inline code spans,
+and the input and output of a tool call, which are text the agent produced
+rather than text it wrote.
+
+The color comes from `ACPChatMessageWidget::codeBackgroundColor()`, which mixes
+the palette's text color into the background of the message, the same way
+failures are tinted. `QPalette::AlternateBase` would be the obvious choice but
+is unusable here: the message background is already a tinted `Base`, so on a
+light theme the two differ by a contrast ratio of 1.03 and nothing can be seen.
 
 `QLabel` cannot style parts of the Markdown it renders itself, so
-`markdownWithHighlightedCode()` parses the text into a `QTextDocument`, sets a
-background on every block carrying `QTextFormat::BlockCodeFence`, and hands the
-result to the label as rich text. Messages without code blocks return an empty
-string from it and keep using `Qt::MarkdownText`, which avoids the conversion
-for the common case.
+`markdownWithHighlightedCode()` parses the text into a `QTextDocument`, styles
+the code in it and hands the result to the label as rich text. Text without any
+code returns an empty string from it and keeps using `Qt::MarkdownText`, which
+avoids the conversion for the common case.
 
-Two things are worth knowing before changing this:
+Inline code only needs a background on its characters. Fenced blocks are moved
+into a one cell table instead, for one reason: **a table cell is the only
+container Qt pads inside its background whose padding survives `toHtml()`**.
+This was measured, the alternatives do not work:
+
+| Approach | Result |
+|----------|--------|
+| background on the block | text starts 1 px from the edge of its background |
+| block left margin | moves the background along with the text |
+| block indent | moves the background along with the text |
+| CSS `padding` on `<pre>` | ignored by the rich text engine |
+| `QTextFrameFormat::setPadding()` | correct in the document, lost by `toHtml()` |
+| one cell table, `setCellPadding()` | padded, full width, survives `toHtml()` |
+
+The background has to be set on the **cell**, not on the table: a table paints
+its background behind the cells only, so the padding would stay in the color of
+the message.
+
+Two more things are worth knowing:
 
 - **Only fenced blocks can be found.** Qt's Markdown parser marks ``` and `~~~`
   blocks, with or without a language, but not code indented by four spaces,
   which ends up indistinguishable from prose.
-- **The blocks must not get vertical margins.** Margins are painted in the
-  color of the surrounding text, so a top or bottom margin cuts the background
-  of a block into one stripe per line. Only left and right padding is set.
+- **The document must not be edited while it is walked.** The code spans and
+  the runs of fenced blocks are collected first and applied afterwards, back to
+  front, so that the positions still to be used stay valid.
 
-The color is mixed from the background of the message and the palette's text
-color, the same way failures are tinted. `QPalette::AlternateBase` would be the
-obvious choice but is unusable here: the message background is already a tinted
-`Base`, so on a light theme the two differ by a contrast ratio of 1.03 and the
-block is invisible.
+Tool call input and output are not Markdown, they live in an
+`ACPCollapsibleTextWidget`, which is filled with the same color through
+`setBlockBackground()` and pads its contents through its layout margins. The
+reasoning of an agent deliberately keeps the background of its message: it is
+what the agent thought, not what it produced.
 
 ### Accenting Failures
 

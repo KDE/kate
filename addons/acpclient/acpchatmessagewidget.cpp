@@ -26,6 +26,7 @@
 #include <QTextCursor>
 #include <QTextDocument>
 #include <QTextEdit>
+#include <QTextTable>
 #include <QVBoxLayout>
 #include <QVariant>
 
@@ -411,15 +412,39 @@ static QColor mixColors(const QColor &base, const QColor &accent, qreal weight)
                             base.blueF() * rest + accent.blueF() * weight);
 }
 
+/** @brief Whether a piece of text was rendered as code by the Markdown parser */
+static bool isCodeFormat(const QTextCharFormat &format)
+{
+    const QFont font = format.font();
+    if (font.fixedPitch()) {
+        return true;
+    }
+
+    const QStringList families = font.families();
+    for (const QString &family : families) {
+        if (family.compare(QStringLiteral("monospace"), Qt::CaseInsensitive) == 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 /**
- * @brief Render Markdown with the code blocks given a background of their own
+ * @brief Render Markdown with the code given a background of its own
  * @param markdown Message text, may be plain text
- * @param codeBackground Background to paint behind fenced code blocks
- * @return Rich text to display
+ * @param codeBackground Background to paint behind code
+ * @return Rich text to display, empty if the text contains no code
  *
  * QLabel cannot style parts of the Markdown it renders itself, so the text is
- * parsed into a document here, which lets the fenced code blocks be painted
- * with a background before the result is handed to the label as rich text.
+ * parsed into a document here, which lets the code be painted with a
+ * background before the result is handed to the label as rich text.
+ *
+ * Fenced blocks are moved into a one cell table, which is the only container
+ * Qt lays out with padding inside its background and whose padding survives
+ * being written out as rich text. A background set on the blocks themselves
+ * starts right at the first letter, and neither block margins, block indent
+ * nor the padding of a text frame change that.
  *
  * Only fenced blocks can be found this way. Qt's Markdown parser does not mark
  * code that is indented by four spaces, and that form is indistinguishable
@@ -431,27 +456,111 @@ static QString markdownWithHighlightedCode(const QString &markdown, const QColor
     document.setMarkdown(markdown);
 
     bool foundCode = false;
+
+    // Collect the code spans of the running text before anything is changed,
+    // because editing the document invalidates the iterators walking it
+    QList<QPair<int, int>> inlineRanges;
+    QList<QPair<int, int>> fencedRuns;
+    int runStart = -1;
+    int runEnd = -1;
+
     for (QTextBlock block = document.begin(); block.isValid(); block = block.next()) {
-        if (!block.blockFormat().hasProperty(QTextFormat::BlockCodeFence)) {
+        if (block.blockFormat().hasProperty(QTextFormat::BlockCodeFence)) {
+            // Consecutive fenced blocks are the lines of one code block
+            if (runStart < 0) {
+                runStart = block.blockNumber();
+            }
+            runEnd = block.blockNumber();
             continue;
         }
 
-        QTextBlockFormat format = block.blockFormat();
+        if (runStart >= 0) {
+            fencedRuns.append({runStart, runEnd});
+            runStart = -1;
+        }
+
+        for (QTextBlock::iterator it = block.begin(); !it.atEnd(); ++it) {
+            const QTextFragment fragment = it.fragment();
+            if (fragment.isValid() && isCodeFormat(fragment.charFormat())) {
+                inlineRanges.append({fragment.position(), fragment.length()});
+            }
+        }
+    }
+
+    if (runStart >= 0) {
+        fencedRuns.append({runStart, runEnd});
+    }
+
+    // Inline code only needs the background, it is part of a line of prose
+    for (const QPair<int, int> &range : std::as_const(inlineRanges)) {
+        QTextCursor cursor(&document);
+        cursor.setPosition(range.first);
+        cursor.setPosition(range.first + range.second, QTextCursor::KeepAnchor);
+
+        QTextCharFormat format;
         format.setBackground(codeBackground);
-
-        // Horizontal padding only. Vertical margins are painted in the color
-        // of the surrounding text, which would cut the background of a block
-        // into one stripe per line.
-        format.setLeftMargin(6);
-        format.setRightMargin(6);
-
-        QTextCursor cursor(block);
-        cursor.setBlockFormat(format);
+        cursor.mergeCharFormat(format);
         foundCode = true;
     }
 
-    // Leave text without code blocks to the Markdown renderer of the label,
-    // which avoids a conversion to rich text for most messages
+    // Replace the runs from the back, so that the positions of the ones still
+    // to be replaced stay valid
+    for (int i = fencedRuns.size() - 1; i >= 0; --i) {
+        const QTextBlock first = document.findBlockByNumber(fencedRuns.at(i).first);
+        const QTextBlock last = document.findBlockByNumber(fencedRuns.at(i).second);
+        if (!first.isValid() || !last.isValid()) {
+            continue;
+        }
+
+        QStringList code;
+        for (QTextBlock block = first; block.isValid(); block = block.next()) {
+            code.append(block.text());
+            if (block.blockNumber() == last.blockNumber()) {
+                break;
+            }
+        }
+
+        QTextCursor cursor(&document);
+        cursor.setPosition(first.position());
+        cursor.setPosition(last.position() + last.length() - 1, QTextCursor::KeepAnchor);
+        cursor.removeSelectedText();
+
+        QTextTableFormat tableFormat;
+        tableFormat.setBorder(0);
+        tableFormat.setBorderStyle(QTextFrameFormat::BorderStyle_None);
+        tableFormat.setCellSpacing(0);
+        tableFormat.setCellPadding(6);
+        tableFormat.setWidth(QTextLength(QTextLength::PercentageLength, 100));
+        tableFormat.setTopMargin(4);
+        tableFormat.setBottomMargin(4);
+
+        QTextTable *table = cursor.insertTable(1, 1, tableFormat);
+
+        // The background belongs on the cell. A table paints it behind the
+        // cells only, so the padding would stay in the color of the message.
+        QTextTableCell cell = table->cellAt(0, 0);
+        QTextCharFormat cellFormat = cell.format();
+        cellFormat.setBackground(codeBackground);
+        cell.setFormat(cellFormat);
+
+        QTextCharFormat codeFormat;
+        codeFormat.setFontFamilies({QStringLiteral("monospace")});
+        codeFormat.setFontFixedPitch(true);
+
+        QTextCursor cellCursor = cell.firstCursorPosition();
+        cellCursor.setCharFormat(codeFormat);
+        for (int line = 0; line < code.size(); ++line) {
+            if (line > 0) {
+                cellCursor.insertBlock(cellCursor.blockFormat(), codeFormat);
+            }
+            cellCursor.insertText(code.at(line));
+        }
+
+        foundCode = true;
+    }
+
+    // Leave text without code to the Markdown renderer of the label, which
+    // avoids a conversion to rich text for most messages
     if (!foundCode) {
         return QString();
     }
@@ -592,6 +701,14 @@ bool ACPChatMessageWidget::isNegative() const
     // "failed" is the status defined by ACP, "error" is accepted as well
     // because agents have been seen to report it
     return m_toolStatus == QStringLiteral("failed") || m_toolStatus == QStringLiteral("error");
+}
+
+QColor ACPChatMessageWidget::codeBackgroundColor() const
+{
+    // Mixed into the background of the message rather than taken from
+    // QPalette::AlternateBase, which differs from a message background by a
+    // contrast ratio of about 1.03 and cannot be seen
+    return mixColors(getBackgroundColor(), palette().color(QPalette::Text), 0.13);
 }
 
 QColor ACPChatMessageWidget::getBackgroundColor() const
@@ -750,7 +867,7 @@ void ACPChatMessageWidget::updateContentDisplay()
         // Give code blocks a background of their own, so that they can be told
         // apart from the prose around them. The tint is derived from the
         // background of this message, which keeps it theme independent.
-        const QString highlighted = markdownWithHighlightedCode(m_content, mixColors(getBackgroundColor(), palette().color(QPalette::Text), 0.13));
+        const QString highlighted = markdownWithHighlightedCode(m_content, codeBackgroundColor());
         if (highlighted.isEmpty()) {
             // No code blocks, let the label render the Markdown itself
             contentLabel->setTextFormat(Qt::MarkdownText);
@@ -903,14 +1020,9 @@ void ACPChatMessageWidget::updateContentDisplay()
         if (!m_toolCommand.isEmpty()) {
             ACPCollapsibleTextWidget *commandWidget = new ACPCollapsibleTextWidget(i18n("Input"), toolWidget);
             commandWidget->setMonospace(true);
+            commandWidget->setBlockBackground(codeBackgroundColor());
             commandWidget->setExpanded(m_toolCommandExpanded);
             commandWidget->setText(m_toolCommand);
-            // Use alternate background for command display with proper text color
-            QPalette cmdPal = commandWidget->palette();
-            cmdPal.setColor(QPalette::Window, cmdPal.color(QPalette::AlternateBase));
-            cmdPal.setColor(QPalette::WindowText, cmdPal.color(QPalette::Text));
-            commandWidget->setPalette(cmdPal);
-            commandWidget->setAutoFillBackground(true);
             connect(commandWidget, &ACPCollapsibleTextWidget::expandedChanged, this, [this](bool expanded) {
                 m_toolCommandExpanded = expanded;
                 Q_EMIT contentSizeChanged();
@@ -921,6 +1033,7 @@ void ACPChatMessageWidget::updateContentDisplay()
         // Third row: content if available (from tool call updates)
         if (!m_toolContent.isEmpty()) {
             ACPCollapsibleTextWidget *contentWidget = new ACPCollapsibleTextWidget(i18n("Output"), toolWidget);
+            contentWidget->setBlockBackground(codeBackgroundColor());
             contentWidget->setExpanded(m_toolContentExpanded);
             contentWidget->setText(m_toolContent);
             connect(contentWidget, &ACPCollapsibleTextWidget::expandedChanged, this, [this](bool expanded) {
@@ -945,6 +1058,7 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         if (!m_toolContent.isEmpty()) {
             ACPCollapsibleTextWidget *contentWidget = new ACPCollapsibleTextWidget(i18n("Output"), updateWidget);
+            contentWidget->setBlockBackground(codeBackgroundColor());
             contentWidget->setExpanded(m_toolContentExpanded);
             contentWidget->setText(m_toolContent);
             connect(contentWidget, &ACPCollapsibleTextWidget::expandedChanged, this, [this](bool expanded) {

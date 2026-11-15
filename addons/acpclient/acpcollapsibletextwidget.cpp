@@ -27,7 +27,10 @@ ACPCollapsibleTextWidget::ACPCollapsibleTextWidget(const QString &label, QWidget
     setFrameShadow(QFrame::Plain);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(6, 4, 6, 4);
+
+    // Keep the text off the edge of the block, the same way the code blocks of
+    // a message are padded
+    layout->setContentsMargins(8, 4, 8, 4);
     layout->setSpacing(2);
 
     // Header, naming the block and toggling the preview
@@ -121,6 +124,17 @@ void ACPCollapsibleTextWidget::setMonospace(bool monospace)
 
     m_headLabel->setFont(textFont);
     m_tailLabel->setFont(textFont);
+}
+
+void ACPCollapsibleTextWidget::setBlockBackground(const QColor &color)
+{
+    QPalette blockPalette = palette();
+    blockPalette.setColor(QPalette::Window, color);
+    setPalette(blockPalette);
+
+    // The labels and buttons of the block are transparent, so filling the
+    // frame is enough to color the whole block
+    setAutoFillBackground(true);
 }
 
 void ACPCollapsibleTextWidget::setCollapsedLineLimit(int lines)

@@ -203,6 +203,28 @@ public:
      */
     void sendPrompt(const QString &sessionId, const QString &message);
 
+    /**
+     * @brief Change the active mode of a session (legacy API)
+     * @param sessionId Target session ID
+     * @param modeId Mode to activate
+     */
+    void setSessionMode(const QString &sessionId, const QString &modeId);
+
+    /**
+     * @brief Change the active model of a session (legacy API)
+     * @param sessionId Target session ID
+     * @param modelId Model to activate
+     */
+    void setSessionModel(const QString &sessionId, const QString &modelId);
+
+    /**
+     * @brief Change a session configuration option (e.g. mode or model)
+     * @param sessionId Target session ID
+     * @param configId Configuration option identifier
+     * @param value New value for the option
+     */
+    void setSessionConfigOption(const QString &sessionId, const QString &configId, const QString &value);
+
     /** @brief Request list of all sessions from the active server */
     void listSessions();
 
@@ -265,6 +287,15 @@ Q_SIGNALS:
 
     /** @brief Emitted when a session is deleted */
     void sessionDeleted(const QString &sessionId);
+
+    /** @brief Emitted when a session provides its available modes and current mode */
+    void sessionModesChanged(const QString &sessionId, const ACP::SessionModeState &modes);
+
+    /** @brief Emitted when a session provides its available models and current model (legacy API) */
+    void sessionModelsChanged(const QString &sessionId, const ACP::SessionModelState &models);
+
+    /** @brief Emitted when a session provides its configuration options */
+    void sessionConfigOptionsChanged(const QString &sessionId, const QList<ACP::SessionConfigOption> &configOptions);
 
     // ========================================================================
     // TOOL SIGNALS
@@ -352,6 +383,13 @@ private:
      */
     void handlePermissionRequest(const QJsonDocument &doc);
 
+    /**
+     * @brief Emit mode, model and config option state found in a session response
+     * @param sessionId Session the state belongs to
+     * @param result Session response result object
+     */
+    void emitSessionStateFromResult(const QString &sessionId, const QJsonObject &result);
+
     // ========================================================================
     // MEMBER VARIABLES
     // ========================================================================
@@ -372,14 +410,6 @@ private:
     QString m_activeServerName; ///< Name of the active server
 
     /**
-     * @brief Track pending session creation requests
-     *
-     * Maps request IDs to... (note: current implementation stores requestId twice)
-     * @todo Clean up this mapping - currently stores requestId as both key and value
-     */
-    std::map<qint64, qint64> m_pendingSessionRequests;
-
-    /**
      * @brief Request types for tracking pending requests
      */
     enum class PendingRequestType {
@@ -389,9 +419,20 @@ private:
         SessionClose,
         SessionList,
         SessionDelete,
+        SessionSetMode,
+        SessionSetModel,
+        SessionSetConfigOption,
         ToolsList,
         ToolsCall
     };
+
+    /**
+     * @brief Session IDs for pending load/resume requests
+     *
+     * Maps request IDs to the session ID supplied by the client. Needed
+     * because session/load and session/resume responses usually do not echo it.
+     */
+    std::map<qint64, QString> m_pendingSessionIds;
 
     /**
      * @brief Track all pending requests by type

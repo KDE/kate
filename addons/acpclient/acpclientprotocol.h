@@ -10,6 +10,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QList>
 #include <QString>
 #include <QVariant>
 
@@ -95,6 +96,18 @@ inline QString methodSessionClose()
 inline QString methodSessionSetMode()
 {
     return QStringLiteral("session/set_mode");
+}
+
+/** @brief Set the session model (legacy, superseded by session/set_config_option) */
+inline QString methodSessionSetModel()
+{
+    return QStringLiteral("session/set_model");
+}
+
+/** @brief Set a session configuration option (e.g. mode or model) */
+inline QString methodSessionSetConfigOption()
+{
+    return QStringLiteral("session/set_config_option");
 }
 
 /** @brief Logout from the current authenticated state */
@@ -239,10 +252,16 @@ inline QString sessionUpdateMode()
     return QStringLiteral("mode");
 }
 
-/** @brief Available commands/actions update */
+/** @brief Legacy available commands/actions update */
 inline QString sessionUpdateAvailableCommands()
 {
     return QStringLiteral("available_commands");
+}
+
+/** @brief Available slash commands update */
+inline QString sessionUpdateAvailableCommandsUpdate()
+{
+    return QStringLiteral("available_commands_update");
 }
 
 /** @brief Agent mode change notification */
@@ -544,6 +563,72 @@ struct ListSessionsRequest {
 };
 
 // ============================================================================
+// SESSION MODE AND MODEL STRUCTURES
+// ============================================================================
+
+/** @brief A single session mode advertised by the agent */
+struct SessionMode {
+    QString id; ///< Unique mode identifier (e.g. "build" or "plan")
+    QString name; ///< Human-readable mode name
+    QString description; ///< Optional description
+};
+
+/** @brief The set of modes and the currently active mode */
+struct SessionModeState {
+    QString currentModeId; ///< ID of the currently active mode
+    QList<SessionMode> availableModes; ///< Modes the agent can operate in
+};
+
+/**
+ * @brief A single model advertised by the agent
+ *
+ * This is part of the legacy model API. New agents expose models through
+ * SessionConfigOption entries with category "model".
+ */
+struct SessionModel {
+    QString modelId; ///< Unique model identifier
+    QString name; ///< Human-readable model name
+    QString description; ///< Optional description
+};
+
+/** @brief The set of models and the currently active model (legacy API) */
+struct SessionModelState {
+    QString currentModelId; ///< ID of the currently active model
+    QList<SessionModel> availableModels; ///< Models the agent can use
+};
+
+/** @brief A selectable value of a session configuration option */
+struct SessionConfigSelectOption {
+    QString value; ///< Value identifier used when setting the option
+    QString name; ///< Human-readable name
+    QString description; ///< Optional description
+};
+
+/**
+ * @brief A session configuration option exposed by the agent
+ *
+ * Agents use these for models, modes, reasoning levels and other session
+ * settings. Only select options are represented here; boolean options are
+ * not advertised by this client.
+ */
+struct SessionConfigOption {
+    QString id; ///< Unique configuration option identifier
+    QString name; ///< Human-readable label
+    QString description; ///< Optional description
+    QString category; ///< Optional semantic category (e.g. "mode" or "model")
+    QString type; ///< Option type (currently only "select")
+    QString currentValue; ///< Currently selected value
+    QList<SessionConfigSelectOption> options; ///< Available values
+};
+
+/** @brief A slash command advertised by the agent */
+struct AvailableCommand {
+    QString name; ///< Command name without the leading slash
+    QString description; ///< Human-readable description
+    QString inputHint; ///< Optional hint for the command input
+};
+
+// ============================================================================
 // CONTENT TYPES
 // ============================================================================
 
@@ -817,6 +902,25 @@ public:
     static QJsonDocument createSessionSetModeRequest(const QString &sessionId, const QString &mode, qint64 requestId);
 
     /**
+     * @brief Create a session/set_model request to change the active model (legacy API)
+     * @param sessionId Target session
+     * @param modelId Model to select
+     * @param requestId Unique request identifier
+     * @return JSON-RPC 2.0 session/set_model request document
+     */
+    static QJsonDocument createSessionSetModelRequest(const QString &sessionId, const QString &modelId, qint64 requestId);
+
+    /**
+     * @brief Create a session/set_config_option request to change a session option
+     * @param sessionId Target session
+     * @param configId Configuration option identifier
+     * @param value New value for the option
+     * @param requestId Unique request identifier
+     * @return JSON-RPC 2.0 session/set_config_option request document
+     */
+    static QJsonDocument createSessionSetConfigOptionRequest(const QString &sessionId, const QString &configId, const QString &value, qint64 requestId);
+
+    /**
      * @brief Create a logout request
      * @param requestId Unique request identifier
      * @return JSON-RPC 2.0 logout request document
@@ -936,6 +1040,38 @@ public:
      * @return true if parsing succeeded, false otherwise
      */
     static bool parseSessionUpdate(const QJsonDocument &doc, SessionUpdateNotification &update);
+
+    /**
+     * @brief Parse a session mode state object
+     * @param modesObject Object containing currentModeId and availableModes
+     * @param state Output structure for the parsed mode state
+     * @return true if at least a current mode or available modes were found
+     */
+    static bool parseSessionModes(const QJsonObject &modesObject, SessionModeState &state);
+
+    /**
+     * @brief Parse a legacy session model state object
+     * @param modelsObject Object containing currentModelId and availableModels
+     * @param state Output structure for the parsed model state
+     * @return true if available models were found
+     */
+    static bool parseSessionModels(const QJsonObject &modelsObject, SessionModelState &state);
+
+    /**
+     * @brief Parse session configuration options
+     * @param configOptionsArray Array of configuration option objects
+     * @param options Output list of parsed select options
+     * @return true if the array was parsed (it may produce an empty list)
+     */
+    static bool parseSessionConfigOptions(const QJsonArray &configOptionsArray, QList<SessionConfigOption> &options);
+
+    /**
+     * @brief Parse available slash commands
+     * @param commandsArray Array of available command objects
+     * @param commands Output list of parsed commands
+     * @return true if the array was parsed (it may produce an empty list)
+     */
+    static bool parseAvailableCommands(const QJsonArray &commandsArray, QList<AvailableCommand> &commands);
 
     /**
      * @brief Parse a progress notification

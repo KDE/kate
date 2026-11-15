@@ -289,9 +289,8 @@ QString ACPClientServerManager::createSession()
     qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionNewRequest(params, requestId);
 
-    // Track the request for response - store the requestId and emit signal when response arrives
-    // We use a map to track pending session creations
-    m_pendingSessionRequests[requestId] = requestId;
+    // Track the request type so the response can create the session
+    m_pendingRequests[requestId] = PendingRequestType::SessionNew;
 
     server->sendMessage(request);
 
@@ -315,8 +314,9 @@ QString ACPClientServerManager::loadSession(const QString &sessionId)
     qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionLoadRequest(params, requestId);
 
-    // Track the request
-    m_pendingSessionRequests[requestId] = requestId;
+    // Track the request and remember which session it refers to
+    m_pendingRequests[requestId] = PendingRequestType::SessionLoad;
+    m_pendingSessionIds[requestId] = sessionId;
 
     server->sendMessage(request);
 
@@ -339,8 +339,9 @@ QString ACPClientServerManager::resumeSession(const QString &sessionId)
     qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionResumeRequest(params, requestId);
 
-    // Track the request
-    m_pendingSessionRequests[requestId] = requestId;
+    // Track the request and remember which session it refers to
+    m_pendingRequests[requestId] = PendingRequestType::SessionResume;
+    m_pendingSessionIds[requestId] = sessionId;
 
     server->sendMessage(request);
 
@@ -384,6 +385,57 @@ void ACPClientServerManager::sendPrompt(const QString &sessionId, const QString 
 
     qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionPromptRequest(params, requestId);
+
+    server->sendMessage(request);
+}
+
+void ACPClientServerManager::setSessionMode(const QString &sessionId, const QString &modeId)
+{
+    ACPClientServer *server = activeServer();
+    if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
+        Q_EMIT errorOccurred(tr("No active ACP server available"));
+        return;
+    }
+
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
+    QJsonDocument request = ACP::ACPProtocol::createSessionSetModeRequest(sessionId, modeId, requestId);
+
+    m_pendingRequests[requestId] = PendingRequestType::SessionSetMode;
+    m_pendingSessionIds[requestId] = sessionId;
+
+    server->sendMessage(request);
+}
+
+void ACPClientServerManager::setSessionModel(const QString &sessionId, const QString &modelId)
+{
+    ACPClientServer *server = activeServer();
+    if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
+        Q_EMIT errorOccurred(tr("No active ACP server available"));
+        return;
+    }
+
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
+    QJsonDocument request = ACP::ACPProtocol::createSessionSetModelRequest(sessionId, modelId, requestId);
+
+    m_pendingRequests[requestId] = PendingRequestType::SessionSetModel;
+    m_pendingSessionIds[requestId] = sessionId;
+
+    server->sendMessage(request);
+}
+
+void ACPClientServerManager::setSessionConfigOption(const QString &sessionId, const QString &configId, const QString &value)
+{
+    ACPClientServer *server = activeServer();
+    if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
+        Q_EMIT errorOccurred(tr("No active ACP server available"));
+        return;
+    }
+
+    qint64 requestId = ACP::ACPProtocol::generateRequestId();
+    QJsonDocument request = ACP::ACPProtocol::createSessionSetConfigOptionRequest(sessionId, configId, value, requestId);
+
+    m_pendingRequests[requestId] = PendingRequestType::SessionSetConfigOption;
+    m_pendingSessionIds[requestId] = sessionId;
 
     server->sendMessage(request);
 }
@@ -508,69 +560,87 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
 
     ACP::ACPMessage parsedMessage;
     if (ACP::ACPProtocol::parseMessage(message, parsedMessage)) {
-        // Check for session responses by matching the request ID
+        // Check for responses we are waiting for by matching the request ID
         if (parsedMessage.isResponse && parsedMessage.id != 0) {
-            // Check if this is a response to a session request
-            auto sessionIt = m_pendingSessionRequests.find(parsedMessage.id);
-            if (sessionIt != m_pendingSessionRequests.end()) {
-                QJsonObject result = parsedMessage.result;
-                if (result.contains(u"sessionId")) {
-                    QString sessionId = result[u"sessionId"].toString();
-                    qCDebug(ACPCLIENT) << "Session response received for ID:" << sessionId;
-                    m_pendingSessionRequests.erase(sessionIt);
-                    Q_EMIT sessionCreated(sessionId);
+            auto requestIt = m_pendingRequests.find(parsedMessage.id);
+            if (requestIt != m_pendingRequests.end()) {
+                const PendingRequestType requestType = requestIt->second;
+                const QJsonObject result = parsedMessage.result;
+
+                // Session IDs are remembered for requests whose response does not echo them
+                QString requestedSessionId;
+                auto sessionIdIt = m_pendingSessionIds.find(parsedMessage.id);
+                if (sessionIdIt != m_pendingSessionIds.end()) {
+                    requestedSessionId = sessionIdIt->second;
+                    m_pendingSessionIds.erase(sessionIdIt);
+                }
+
+                switch (requestType) {
+                case PendingRequestType::SessionNew: {
+                    m_pendingRequests.erase(requestIt);
+                    const QString sessionId = result[u"sessionId"].toString();
+                    if (!sessionId.isEmpty()) {
+                        qCDebug(ACPCLIENT) << "Session response received for ID:" << sessionId;
+                        Q_EMIT sessionCreated(sessionId);
+                        emitSessionStateFromResult(sessionId, result);
+                    }
                     return;
                 }
-                // Remove from pending even if there was an error
-                m_pendingSessionRequests.erase(sessionIt);
-            }
-
-            // Check for session/load response
-            if (parsedMessage.method == ACP::methodSessionLoad() && parsedMessage.isResponse && parsedMessage.id != 0) {
-                m_pendingSessionRequests.erase(parsedMessage.id);
-                // session/load response has null result on success
-                Q_EMIT sessionLoaded(parsedMessage.id != 0 ? QString() : QString());
-                return;
-            }
-
-            // Check for session/resume response
-            if (parsedMessage.method == ACP::methodSessionResume() && parsedMessage.isResponse && parsedMessage.id != 0) {
-                m_pendingSessionRequests.erase(parsedMessage.id);
-                Q_EMIT sessionResumed(parsedMessage.id != 0 ? QString() : QString());
-                return;
-            }
-
-            // Check for session/close response
-            if (parsedMessage.method == ACP::methodSessionClose() && parsedMessage.isResponse) {
-                Q_EMIT sessionClosed(parsedMessage.id != 0 ? QString() : QString());
-                return;
-            }
-
-            // Check for session/list response
-            if (parsedMessage.isResponse && parsedMessage.id != 0) {
-                auto it = m_pendingRequests.find(parsedMessage.id);
-                if (it != m_pendingRequests.end()) {
-                    if (it->second == PendingRequestType::SessionList) {
-                        qCDebug(ACPCLIENT) << "Received session/list response:" << parsedMessage.result;
-
-                        // Try to extract sessions from different possible locations
-                        QJsonArray sessions;
-                        if (parsedMessage.result.contains(u"sessions") && parsedMessage.result[u"sessions"].isArray()) {
-                            sessions = parsedMessage.result[u"sessions"].toArray();
-                        } else {
-                            // Some servers might return the sessions array directly as the result
-                            // But result is a QJsonObject, not an array, so this shouldn't happen
-                            // Just emit empty array
-                            qCDebug(ACPCLIENT) << "Received session list response without sessions array";
-                        }
-
-                        if (!sessions.isEmpty()) {
-                            qCDebug(ACPCLIENT) << "Received session list with" << sessions.size() << "sessions";
-                        }
-                        Q_EMIT sessionListReceived(sessions);
-                        m_pendingRequests.erase(it);
-                        return;
+                case PendingRequestType::SessionLoad:
+                case PendingRequestType::SessionResume: {
+                    m_pendingRequests.erase(requestIt);
+                    QString sessionId = result[u"sessionId"].toString();
+                    if (sessionId.isEmpty()) {
+                        sessionId = requestedSessionId;
                     }
+                    if (!sessionId.isEmpty()) {
+                        if (requestType == PendingRequestType::SessionLoad) {
+                            Q_EMIT sessionLoaded(sessionId);
+                        } else {
+                            Q_EMIT sessionResumed(sessionId);
+                        }
+                        emitSessionStateFromResult(sessionId, result);
+                    }
+                    return;
+                }
+                case PendingRequestType::SessionList: {
+                    qCDebug(ACPCLIENT) << "Received session/list response:" << result;
+
+                    // Try to extract sessions from different possible locations
+                    QJsonArray sessions;
+                    if (result.contains(u"sessions") && result[u"sessions"].isArray()) {
+                        sessions = result[u"sessions"].toArray();
+                    } else {
+                        qCDebug(ACPCLIENT) << "Received session list response without sessions array";
+                    }
+
+                    if (!sessions.isEmpty()) {
+                        qCDebug(ACPCLIENT) << "Received session list with" << sessions.size() << "sessions";
+                    }
+                    Q_EMIT sessionListReceived(sessions);
+                    m_pendingRequests.erase(requestIt);
+                    return;
+                }
+                case PendingRequestType::SessionSetConfigOption: {
+                    m_pendingRequests.erase(requestIt);
+                    if (result.contains(u"configOptions") && result[u"configOptions"].isArray()) {
+                        QList<ACP::SessionConfigOption> configOptions;
+                        if (ACP::ACPProtocol::parseSessionConfigOptions(result[u"configOptions"].toArray(), configOptions) && !requestedSessionId.isEmpty()) {
+                            Q_EMIT sessionConfigOptionsChanged(requestedSessionId, configOptions);
+                        }
+                    }
+                    return;
+                }
+                case PendingRequestType::SessionSetMode:
+                case PendingRequestType::SessionSetModel: {
+                    m_pendingRequests.erase(requestIt);
+                    if (!requestedSessionId.isEmpty()) {
+                        emitSessionStateFromResult(requestedSessionId, result);
+                    }
+                    return;
+                }
+                default:
+                    break;
                 }
             }
         }
@@ -669,6 +739,34 @@ void ACPClientServerManager::handleProgressNotification(const QJsonDocument &doc
     qCDebug(ACPCLIENT) << "Handling progress notification:" << doc.toJson();
     // For now, just emit the message
     Q_EMIT messageReceived(doc);
+}
+
+void ACPClientServerManager::emitSessionStateFromResult(const QString &sessionId, const QJsonObject &result)
+{
+    if (sessionId.isEmpty()) {
+        return;
+    }
+
+    if (result.contains(u"modes") && result[u"modes"].isObject()) {
+        ACP::SessionModeState modes;
+        if (ACP::ACPProtocol::parseSessionModes(result[u"modes"].toObject(), modes)) {
+            Q_EMIT sessionModesChanged(sessionId, modes);
+        }
+    }
+
+    if (result.contains(u"models") && result[u"models"].isObject()) {
+        ACP::SessionModelState models;
+        if (ACP::ACPProtocol::parseSessionModels(result[u"models"].toObject(), models)) {
+            Q_EMIT sessionModelsChanged(sessionId, models);
+        }
+    }
+
+    if (result.contains(u"configOptions") && result[u"configOptions"].isArray()) {
+        QList<ACP::SessionConfigOption> configOptions;
+        if (ACP::ACPProtocol::parseSessionConfigOptions(result[u"configOptions"].toArray(), configOptions)) {
+            Q_EMIT sessionConfigOptionsChanged(sessionId, configOptions);
+        }
+    }
 }
 
 // Static method to create a server manager

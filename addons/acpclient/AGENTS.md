@@ -25,6 +25,7 @@ The plugin implements the ACP v1 specification with JSON-RPC 2.0 over stdin/stdo
 - Server configuration and management
 - Session list with context menu
 - Message input widget with proper state management
+- Agent mode and model selectors (ACP config options, with legacy fallbacks)
 - Support for all ACP v1 session update types
 
 ### Supported ACP v1 Methods
@@ -40,7 +41,9 @@ The plugin implements the ACP v1 specification with JSON-RPC 2.0 over stdin/stdo
 - `session/delete` - Delete session (if agent supports `sessionCapabilities.delete`)
 - `session/list` - List all available sessions
 - `session/prompt` - Send message to session
-- `session/set_mode` - Set session mode (if agent supports it)
+- `session/set_mode` - Set session mode (legacy API)
+- `session/set_model` - Set session model (legacy API)
+- `session/set_config_option` - Set a session configuration option (e.g. mode or model)
 - `session/cancel` - Cancel current operation (**notification**, not a method)
 - `session/request_permission` - Request user permission for tool calls
 - `tools/list` - List available tools
@@ -84,6 +87,8 @@ ACPClientPlugin (KTextEditor::Plugin)
 │   │   │   └── Reload button
 │   │   └── ACPClientChatWidget - Chat interface
 │   │       ├── QTextEdit (message input, disabled when no session)
+│   │       ├── Agent mode selector (hidden unless the agent exposes modes)
+│   │       ├── Model selector (hidden unless the agent exposes models)
 │   │       ├── Send button
 │   │       ├── New Session button
 │   │       ├── End Session button
@@ -220,7 +225,9 @@ All methods are implemented in `ACPProtocol` class with corresponding `create*Re
 - `session/prompt` - Send prompt/message to a session
 - `session/cancel` - Cancel current operation (**notification**, not a request-response method)
 - `session/request_permission` - Request user permission for tool calls
-- `session/set_mode` - Set session mode (if agent supports it)
+- `session/set_mode` - Set session mode (legacy API)
+- `session/set_model` - Set session model (legacy API)
+- `session/set_config_option` - Set a session configuration option (e.g. mode or model)
 - `tools/list` - List available tools
 - `tools/call` - Call a specific tool
 
@@ -269,6 +276,27 @@ All session update types from ACP v1 spec are defined in `acpclientprotocol.h`:
 - `compaction_update` - Context compaction (requires `session.compaction` capability)
 - `compaction_summary_chunk` - Compaction summary (requires `session.compaction` capability)
 - `config_option_update` - Session configuration update
+
+### Session Configuration Selectors
+
+The chat widget shows two dropdowns above the conversation when the agent
+advertises the corresponding settings:
+
+- **Agent** - the session mode (for example `build` or `plan`)
+- **Model** - the model the agent should use
+
+Modern agents expose both through `configOptions` in the `session/new`,
+`session/load` and `session/resume` responses. Options with
+`category: "mode"` populate the Agent selector; options with
+`category: "model"` (or the ID/name `model`) populate the Model selector.
+Selecting a value sends `session/set_config_option` and the agent's new state
+arrives through `config_option_update` or the request result.
+
+If no `configOptions` are present, the client falls back to the legacy
+`modes` and `models` response fields and sends `session/set_mode` or
+`session/set_model`. Current selections are kept in sync through
+`current_mode_update`. Per the ACP specification, legacy `modes` are ignored
+once an agent sends `configOptions`.
 
 ## Message Widget Types
 

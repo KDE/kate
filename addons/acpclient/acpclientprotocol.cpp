@@ -231,6 +231,39 @@ QJsonDocument ACPProtocol::createSessionSetModeRequest(const QString &sessionId,
     return QJsonDocument(request);
 }
 
+QJsonDocument ACPProtocol::createSessionSetModelRequest(const QString &sessionId, const QString &modelId, qint64 requestId)
+{
+    QJsonObject request;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodSessionSetModel();
+
+    QJsonObject paramsObj;
+    paramsObj[u"sessionId"] = sessionId;
+    paramsObj[u"modelId"] = modelId;
+
+    request[jsonrpcParams()] = paramsObj;
+
+    return QJsonDocument(request);
+}
+
+QJsonDocument ACPProtocol::createSessionSetConfigOptionRequest(const QString &sessionId, const QString &configId, const QString &value, qint64 requestId)
+{
+    QJsonObject request;
+    request[jsonrpcVersionKey()] = jsonrpcVersionValue();
+    request[jsonrpcId()] = QJsonValue(static_cast<qint64>(requestId));
+    request[jsonrpcMethod()] = methodSessionSetConfigOption();
+
+    QJsonObject paramsObj;
+    paramsObj[u"sessionId"] = sessionId;
+    paramsObj[u"configId"] = configId;
+    paramsObj[u"value"] = value;
+
+    request[jsonrpcParams()] = paramsObj;
+
+    return QJsonDocument(request);
+}
+
 QJsonDocument ACPProtocol::createSessionListRequest(const ListSessionsRequest &params, qint64 requestId)
 {
     QJsonObject request;
@@ -677,6 +710,170 @@ bool ACPProtocol::parseSessionUpdate(const QJsonDocument &doc, SessionUpdateNoti
         return false;
     }
     update.update = params[u"update"].toObject();
+
+    return true;
+}
+
+static void appendSelectOptions(const QJsonArray &values, QList<ACP::SessionConfigSelectOption> &options)
+{
+    for (const QJsonValue &value : values) {
+        if (!value.isObject()) {
+            continue;
+        }
+
+        const QJsonObject valueObject = value.toObject();
+
+        // Select options may be grouped; flatten the groups for the UI.
+        if (valueObject.contains(u"group") && valueObject[u"options"].isArray()) {
+            appendSelectOptions(valueObject[u"options"].toArray(), options);
+            continue;
+        }
+
+        if (!valueObject.contains(u"value")) {
+            continue;
+        }
+
+        ACP::SessionConfigSelectOption option;
+        option.value = valueObject[u"value"].toString();
+        option.name = valueObject[u"name"].toString();
+        option.description = valueObject[u"description"].toString();
+        if (option.name.isEmpty()) {
+            option.name = option.value;
+        }
+
+        if (!option.value.isEmpty()) {
+            options.append(option);
+        }
+    }
+}
+
+bool ACPProtocol::parseSessionModes(const QJsonObject &modesObject, SessionModeState &state)
+{
+    state = SessionModeState();
+
+    if (modesObject.isEmpty()) {
+        return false;
+    }
+
+    state.currentModeId = modesObject[u"currentModeId"].toString();
+
+    const QJsonArray availableModes = modesObject[u"availableModes"].toArray();
+    for (const QJsonValue &modeValue : availableModes) {
+        if (!modeValue.isObject()) {
+            continue;
+        }
+
+        const QJsonObject modeObject = modeValue.toObject();
+        SessionMode mode;
+        mode.id = modeObject[u"id"].toString();
+        mode.name = modeObject[u"name"].toString();
+        mode.description = modeObject[u"description"].toString();
+        if (mode.name.isEmpty()) {
+            mode.name = mode.id;
+        }
+
+        if (!mode.id.isEmpty()) {
+            state.availableModes.append(mode);
+        }
+    }
+
+    return !state.currentModeId.isEmpty() || !state.availableModes.isEmpty();
+}
+
+bool ACPProtocol::parseSessionModels(const QJsonObject &modelsObject, SessionModelState &state)
+{
+    state = SessionModelState();
+
+    if (modelsObject.isEmpty()) {
+        return false;
+    }
+
+    state.currentModelId = modelsObject[u"currentModelId"].toString();
+
+    const QJsonArray availableModels = modelsObject[u"availableModels"].toArray();
+    for (const QJsonValue &modelValue : availableModels) {
+        if (!modelValue.isObject()) {
+            continue;
+        }
+
+        const QJsonObject modelObject = modelValue.toObject();
+        SessionModel model;
+        model.modelId = modelObject[u"modelId"].toString();
+        model.name = modelObject[u"name"].toString();
+        model.description = modelObject[u"description"].toString();
+        if (model.name.isEmpty()) {
+            model.name = model.modelId;
+        }
+
+        if (!model.modelId.isEmpty()) {
+            state.availableModels.append(model);
+        }
+    }
+
+    return !state.availableModels.isEmpty();
+}
+
+bool ACPProtocol::parseSessionConfigOptions(const QJsonArray &configOptionsArray, QList<SessionConfigOption> &options)
+{
+    options.clear();
+
+    for (const QJsonValue &configValue : configOptionsArray) {
+        if (!configValue.isObject()) {
+            continue;
+        }
+
+        const QJsonObject configObject = configValue.toObject();
+        const QString type = configObject[u"type"].toString();
+
+        // This client only advertises support for select options.
+        if (!type.isEmpty() && type != QStringLiteral("select")) {
+            continue;
+        }
+
+        SessionConfigOption option;
+        option.id = configObject[u"id"].toString();
+        option.name = configObject[u"name"].toString();
+        option.description = configObject[u"description"].toString();
+        option.category = configObject[u"category"].toString();
+        option.type = QStringLiteral("select");
+        option.currentValue = configObject[u"currentValue"].toString();
+
+        if (option.id.isEmpty()) {
+            continue;
+        }
+
+        appendSelectOptions(configObject[u"options"].toArray(), option.options);
+
+        if (!option.options.isEmpty()) {
+            options.append(option);
+        }
+    }
+
+    return true;
+}
+
+bool ACPProtocol::parseAvailableCommands(const QJsonArray &commandsArray, QList<AvailableCommand> &commands)
+{
+    commands.clear();
+
+    for (const QJsonValue &commandValue : commandsArray) {
+        if (!commandValue.isObject()) {
+            continue;
+        }
+
+        const QJsonObject commandObject = commandValue.toObject();
+        AvailableCommand command;
+        command.name = commandObject[u"name"].toString();
+        command.description = commandObject[u"description"].toString();
+
+        if (commandObject.contains(u"input") && commandObject[u"input"].isObject()) {
+            command.inputHint = commandObject[u"input"].toObject()[u"hint"].toString();
+        }
+
+        if (!command.name.isEmpty()) {
+            commands.append(command);
+        }
+    }
 
     return true;
 }

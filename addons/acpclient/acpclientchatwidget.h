@@ -19,6 +19,8 @@
 
 #include <KTextEditor/MainWindow>
 
+#include "acpclientprotocol.h"
+
 class QMenu;
 
 class ACPClientPlugin;
@@ -230,6 +232,18 @@ private:
     /** @brief Update action enablement based on server initialization state */
     void updateActionStates();
 
+    /** @brief Populate the agent mode selector from legacy session modes */
+    void updateModeCombo(const ACP::SessionModeState &modes);
+
+    /** @brief Populate the model selector from legacy session models */
+    void updateModelCombo(const ACP::SessionModelState &models);
+
+    /** @brief Populate the mode and model selectors from session configuration options */
+    void updateConfigOptionCombos(const QList<ACP::SessionConfigOption> &options);
+
+    /** @brief Clear the session configuration selectors */
+    void clearSessionConfigUi();
+
     /** @brief Add a message widget to the display */
     void addMessageWidget(ACPChatMessageWidget *widget);
 
@@ -270,6 +284,12 @@ private:
     /** @brief Handle usage_update session update */
     void handleUsageUpdate(const QJsonObject &update);
 
+    /** @brief Handle current_mode_update session update */
+    void handleCurrentModeUpdate(const QJsonObject &update);
+
+    /** @brief Handle config_option_update session update */
+    void handleConfigOptionUpdate(const QJsonObject &update);
+
     // ========================================================================
     // REFERENCES
     // ========================================================================
@@ -279,6 +299,14 @@ private:
     ACPClientServerManager *m_serverManager = nullptr; ///< Server manager (shared)
     ACPClientServer *m_server = nullptr; ///< Active server for this chat
     QString m_sessionId; ///< Current session ID
+
+    // ========================================================================
+    // SESSION CONFIGURATION
+    // ========================================================================
+
+    bool m_hasConfigOptions = false; ///< True once config options have been received
+    QString m_modeConfigId; ///< Config option ID for the mode selector (empty for legacy modes)
+    QString m_modelConfigId; ///< Config option ID for the model selector (empty for legacy models)
 
     // ========================================================================
     // TOOL CALL TRACKING

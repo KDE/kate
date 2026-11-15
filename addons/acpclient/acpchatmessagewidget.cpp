@@ -548,11 +548,21 @@ void ACPChatMessageWidget::updateContentDisplay()
         firstRowLayout->setSpacing(8);
 
         if (!m_toolTitle.isEmpty()) {
-            QLabel *titleLabel = new QLabel(m_toolTitle, firstRow);
+            // Agents commonly put the whole command into the title, which the
+            // input block below already shows in full, so only a short version
+            // is displayed here. The untouched title stays in the tooltip.
+            static constexpr int maxTitleLength = 120;
+            QString titleText = m_toolTitle.simplified();
+            if (titleText.size() > maxTitleLength) {
+                titleText = titleText.left(maxTitleLength) + QStringLiteral("…");
+            }
+
+            QLabel *titleLabel = new QLabel(titleText, firstRow);
             titleLabel->setWordWrap(true);
             QFont boldFont = titleLabel->font();
             boldFont.setBold(true);
             titleLabel->setFont(boldFont);
+            titleLabel->setToolTip(m_toolTitle);
             titleLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
             firstRowLayout->addWidget(titleLabel);
         }

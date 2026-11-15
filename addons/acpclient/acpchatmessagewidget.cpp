@@ -10,6 +10,7 @@
 #include "acpclientprotocol.h"
 #include "acpcollapsibletextwidget.h"
 
+#include <KColorScheme>
 #include <KLocalizedString>
 #include <KSqueezedTextLabel>
 
@@ -342,12 +343,16 @@ void ACPChatMessageWidget::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    // Draw rounded background
-    QRect rect = this->rect();
-
     // Get colors based on message type
-    QColor bgColor = getBackgroundColor();
-    QColor borderColor = getBorderColor();
+    const QColor bgColor = getBackgroundColor();
+    const QColor borderColor = getBorderColor();
+
+    // Failures get a heavier border so they stand out while scrolling
+    const qreal borderWidth = isNegative() ? 2.0 : 1.0;
+
+    // Inset by half the pen width, otherwise the outer half of the border is
+    // drawn outside the widget and clipped away
+    const QRectF rect = QRectF(this->rect()).adjusted(borderWidth / 2.0, borderWidth / 2.0, -borderWidth / 2.0, -borderWidth / 2.0);
 
     // Draw background with rounded corners
     painter.setPen(Qt::NoPen);
@@ -355,14 +360,51 @@ void ACPChatMessageWidget::paintEvent(QPaintEvent *event)
     painter.drawRoundedRect(rect, 8, 8);
 
     // Draw border
-    painter.setPen(QPen(borderColor, 1));
+    painter.setPen(QPen(borderColor, borderWidth));
     painter.setBrush(Qt::NoBrush);
     painter.drawRoundedRect(rect, 8, 8);
+}
+
+/**
+ * @brief Mix two colors
+ * @param base Color to start from
+ * @param accent Color to mix in
+ * @param weight Share of @p accent, between 0 and 1
+ */
+static QColor mixColors(const QColor &base, const QColor &accent, qreal weight)
+{
+    const qreal rest = 1.0 - weight;
+    return QColor::fromRgbF(base.redF() * rest + accent.redF() * weight,
+                            base.greenF() * rest + accent.greenF() * weight,
+                            base.blueF() * rest + accent.blueF() * weight);
+}
+
+bool ACPChatMessageWidget::isNegative() const
+{
+    if (m_type == MessageType::Error) {
+        return true;
+    }
+
+    if (m_type != MessageType::ToolCall && m_type != MessageType::ToolCallUpdate) {
+        return false;
+    }
+
+    // "failed" is the status defined by ACP, "error" is accepted as well
+    // because agents have been seen to report it
+    return m_toolStatus == QStringLiteral("failed") || m_toolStatus == QStringLiteral("error");
 }
 
 QColor ACPChatMessageWidget::getBackgroundColor() const
 {
     QPalette pal = palette();
+
+    // Tint failures red. The tint is mixed into the normal background instead
+    // of using KColorScheme::NegativeBackground, because that color is meant
+    // to be combined with the color scheme's own text color while the message
+    // text follows the widget palette. Mixing keeps the contrast of the theme.
+    if (isNegative()) {
+        return mixColors(pal.color(QPalette::Base), KColorScheme().foreground(KColorScheme::NegativeText).color(), 0.12);
+    }
 
     // Use palette colors that work in both light and dark modes
     // Base colors that adapt to the theme
@@ -396,9 +438,8 @@ QColor ACPChatMessageWidget::getBackgroundColor() const
         // Permission request messages: slightly tinted
         return baseColor.lighter(104);
     case MessageType::Error:
-        // Error messages: use a subtle red tint that works in dark mode
-        // Mix red with base color
-        return QColor(200, 100, 100, 50).lighter(150);
+        // Handled by isNegative() above
+        return baseColor;
     default:
         return baseColor;
     }
@@ -406,6 +447,10 @@ QColor ACPChatMessageWidget::getBackgroundColor() const
 
 QColor ACPChatMessageWidget::getBorderColor() const
 {
+    if (isNegative()) {
+        return KColorScheme().foreground(KColorScheme::NegativeText).color();
+    }
+
     QPalette pal = palette();
 
     // Use palette colors for borders that work in both light and dark modes
@@ -426,7 +471,8 @@ QColor ACPChatMessageWidget::getBorderColor() const
     case MessageType::PermissionRequest:
         return pal.color(QPalette::Text).lighter(120);
     case MessageType::Error:
-        return pal.color(QPalette::BrightText);
+        // Handled by isNegative() above
+        return pal.color(QPalette::Mid);
     default:
         return pal.color(QPalette::Mid);
     }
@@ -600,7 +646,7 @@ void ACPChatMessageWidget::updateContentDisplay()
             statusColor = palette().color(QPalette::LinkVisited);
         } else if (m_toolStatus == QStringLiteral("error") || m_toolStatus == QStringLiteral("failed")) {
             statusText = QStringLiteral("✗");
-            statusColor = palette().color(QPalette::BrightText);
+            statusColor = KColorScheme().foreground(KColorScheme::NegativeText).color();
         }
 
         QLabel *statusLabel = new QLabel(statusText, firstRow);
@@ -677,6 +723,8 @@ void ACPChatMessageWidget::updateContentDisplay()
             statusColor = updatePal.color(QPalette::Link);
         } else if (m_toolStatus == QStringLiteral("completed")) {
             statusColor = updatePal.color(QPalette::LinkVisited);
+        } else if (m_toolStatus == QStringLiteral("error") || m_toolStatus == QStringLiteral("failed")) {
+            statusColor = KColorScheme().foreground(KColorScheme::NegativeText).color();
         }
         svPal.setColor(QPalette::WindowText, statusColor);
 
@@ -907,6 +955,10 @@ void ACPChatMessageWidget::updateContentDisplay()
 
     m_typeLabel->setText(getTypeLabel());
     m_timestampLabel->setText(formatTimestamp(m_timestamp));
+
+    // The bubble is painted from the current status, so a tool call that just
+    // failed has to repaint its background and border
+    update();
 }
 
 QString ACPChatMessageWidget::formatTimestamp(const QDateTime &dt) const

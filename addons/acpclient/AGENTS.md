@@ -340,6 +340,21 @@ copied into Kate. The Kate version only shares the behavior, implemented with
 - **Usage** - Usage/token information (purple styling)
 - **PermissionRequest** - Inline permission prompts with buttons for all permission options (allow_once, allow_always, reject_once, reject_always)
 
+### Accenting Failures
+
+Error messages, and tool calls whose status is `failed` (or the non-standard
+`error` some agents send), are drawn with a two pixel border in
+`KColorScheme::NegativeText` and a background tinted towards that color. The
+tint is mixed into the type's normal background rather than taken from
+`KColorScheme::NegativeBackground`, because that color is meant to be paired
+with the color scheme's own text color, while message text follows the widget
+palette; on a dark theme it would put near-white behind light text. Mixing
+from `QPalette::Base` keeps the text contrast of the active theme.
+
+`ACPChatMessageWidget::isNegative()` decides this, and `updateContentDisplay()`
+repaints, since a tool call usually only turns out to have failed after it was
+first displayed.
+
 ### Collapsing Long Tool Call Input and Output
 
 Tool call input (the command) and output are displayed with

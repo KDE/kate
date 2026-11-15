@@ -267,6 +267,14 @@ private:
     /** @brief Get the appropriate border color for this message type */
     QColor getBorderColor() const;
 
+    /**
+     * @brief Whether this message reports something that went wrong
+     *
+     * True for error messages and for tool calls that failed. Such messages
+     * are accented with the color scheme's negative colors.
+     */
+    bool isNegative() const;
+
     // ========================================================================
     // CORE DATA
     // ========================================================================

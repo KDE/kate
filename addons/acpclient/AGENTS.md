@@ -61,7 +61,7 @@ The plugin implements the ACP v1 specification with JSON-RPC 2.0 over stdin/stdo
 #### Session Update Types:
 - `user_message_chunk` - Streaming user message (replay or echo)
 - `agent_message_chunk` - Streaming agent response
-- `agent_thought_chunk` - Streaming agent reasoning
+- `agent_thought_chunk` - Streaming agent reasoning (collapsible, see below)
 - `tool_call` - Tool call notification
 - `tool_call_update` - Tool call progress/update
 - `plan` - Agent execution plan
@@ -89,6 +89,7 @@ ACPClientPlugin (KTextEditor::Plugin)
 │   │   │   └── Reload button
 │   │   └── ACPClientChatWidget - Chat interface
 │   │       ├── QTextEdit (message input, disabled when no session)
+│   │       ├── Thinking toggle (expand agent reasoning by default)
 │   │       ├── Session selectors, one per setting the agent exposes
 │   │       ├── Stop button (shown while the agent is working)
 │   │       ├── Prompt state and usage labels
@@ -269,7 +270,7 @@ All session update types from ACP v1 spec are defined in `acpclientprotocol.h`:
 
 - `agent_message_chunk` - Streaming agent message
 - `user_message_chunk` - Streaming user message (echo)
-- `agent_thought_chunk` - Streaming agent reasoning
+- `agent_thought_chunk` - Streaming agent reasoning (collapsible, see below)
 - `plan` - Agent execution plan
 - `tool_call` - Tool call notification
 - `tool_call_update` - Tool call progress/update
@@ -354,6 +355,7 @@ copied into Kate. The Kate version only shares the behavior, implemented with
 
 - **User** - User's messages (blue styling)
 - **Agent** - Agent's text responses (green styling)
+- **Thought** - Agent's internal reasoning, collapsed by default
 - **System** - System messages (gray styling)
 - **Plan** - Plan/step updates (blue border, structured display)
 - **ToolCall** - Tool call notifications (orange styling)
@@ -407,6 +409,28 @@ session, and a new bubble is created for it.
 `initializeWithSession()` clears the chat before loading, because the agent
 replays the whole conversation and the view would otherwise show two
 conversations at once.
+
+### Agent Reasoning
+
+`agent_thought_chunk` carries the internal reasoning of the agent. It is shown
+in messages of its own, of type `ACPChatMessageWidget::MessageType::Thought`,
+whose text lives in an `ACPCollapsibleTextWidget` with `setAlwaysCollapsible()`
+so that it can be collapsed no matter how short it is. Reasoning is secondary
+to the answer, so it is collapsed by default and the bubble is toned down to
+`AlternateBase`.
+
+The **Thinking** button in the chat header switches the default. The state
+belongs to the plugin (`ACPClientPlugin::expandThoughts()`), not the widget, so
+that it is remembered across restarts and shared by the chat widgets of all
+main windows, which follow it through the `update()` signal.
+
+Chunks are coalesced by `messageId`, the way agent messages are: a chunk
+extends the last reasoning message if the ID matches and starts a new one
+otherwise.
+
+Note that the protocol constant for this used to be named
+`sessionUpdateThoughtMessageChunk()` and returned `thought_message_chunk`,
+which is not a discriminator the specification defines, and nothing handled it.
 
 ### Code Blocks in Messages
 
@@ -516,6 +540,7 @@ Stored in KConfig (`acpclient` group):
 - `ShowProgress` - Display progress updates
 - `DebugMode` - Enable debug logging
 - `ToolCallPermission` - Permission mode: AllowAll, DenyAll, AskEachTime
+- `ExpandThoughts` - Show agent reasoning expanded instead of collapsed, toggled from the chat header
 - `AllowedServerCommandLines` - Whitelist of allowed server commands
 - `BlockedServerCommandLines` - Blacklist of blocked server commands
 

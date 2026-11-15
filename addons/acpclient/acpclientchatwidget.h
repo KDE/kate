@@ -353,6 +353,22 @@ private:
     void handleAgentMessageChunk(const QJsonObject &update);
 
     /**
+     * @brief Handle agent_thought_chunk session update
+     *
+     * The reasoning of the agent is displayed in messages of its own, which
+     * are collapsed unless the user asked for them to be expanded.
+     */
+    void handleAgentThoughtChunk(const QJsonObject &update);
+
+    /**
+     * @brief Apply the reasoning setting of the plugin to this chat
+     *
+     * Expands or collapses the reasoning of the messages on screen and
+     * decides how the ones arriving afterwards start out.
+     */
+    void applyThoughtVisibility();
+
+    /**
      * @brief Handle user_message_chunk session update
      *
      * Agents replay these when a session is loaded, and may echo the prompt
@@ -392,6 +408,7 @@ private:
     ACPClientServer *m_server = nullptr; ///< Active server for this chat
     QString m_sessionId; ///< Current session ID
     bool m_promptRunning = false; ///< True while the agent works on a prompt
+    bool m_expandThoughts = false; ///< Whether reasoning starts out expanded
     bool m_cancelRequested = false; ///< True once the agent was asked to stop the running prompt
 
     // ========================================================================

@@ -81,6 +81,28 @@
       </widget>
      </item>
      <item>
+      <widget class="QToolButton" name="showThinkingButton">
+       <property name="text">
+        <string>Thinking</string>
+       </property>
+       <property name="icon">
+        <iconset theme="help-hint"/>
+       </property>
+       <property name="toolTip">
+        <string>Show the reasoning of the agent expanded instead of collapsed</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoRaise">
+        <bool>true</bool>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="clearChatButton">
        <property name="text">
         <string>Clear</string>

@@ -203,6 +203,17 @@ void ACPChatMessageWidget::addPlanEntry(const QString &content, const QString &p
     updateContentDisplay();
 }
 
+void ACPChatMessageWidget::setThoughtExpanded(bool expanded)
+{
+    if (m_type != MessageType::Thought || m_thoughtExpanded == expanded) {
+        return;
+    }
+
+    m_thoughtExpanded = expanded;
+    updateContentDisplay();
+    Q_EMIT contentSizeChanged();
+}
+
 void ACPChatMessageWidget::setToolCallInfo(const QString &toolCallId, const QString &title, const QString &kind, const QString &status, const QString &command)
 {
     m_toolCallId = toolCallId;
@@ -470,6 +481,9 @@ QColor ACPChatMessageWidget::getBackgroundColor() const
     case MessageType::Agent:
         // Agent messages: slightly tinted with link color (green/blue depending on theme)
         return baseColor.lighter(103);
+    case MessageType::Thought:
+        // Reasoning is secondary, so it stays closer to the surroundings
+        return alternateBase;
     case MessageType::System:
         // System messages: alternate base color
         return alternateBase;
@@ -510,6 +524,8 @@ QColor ACPChatMessageWidget::getBorderColor() const
         return pal.color(QPalette::Link);
     case MessageType::Agent:
         return pal.color(QPalette::LinkVisited);
+    case MessageType::Thought:
+        return pal.color(QPalette::Mid);
     case MessageType::System:
         return pal.color(QPalette::Mid);
     case MessageType::Plan:
@@ -538,6 +554,7 @@ void ACPChatMessageWidget::applyTypeSpecificStyling()
     switch (m_type) {
     case MessageType::User:
     case MessageType::Agent:
+    case MessageType::Thought:
     case MessageType::System:
     case MessageType::Plan:
     case MessageType::ToolCall:
@@ -597,6 +614,21 @@ void ACPChatMessageWidget::updateContentDisplay()
         }
 
         contentLayout->addWidget(contentLabel);
+        break;
+    }
+    case MessageType::Thought: {
+        // Reasoning is secondary, so it is collapsible no matter how short it
+        // is, and the chat decides whether it starts out expanded
+        ACPCollapsibleTextWidget *thoughtWidget = new ACPCollapsibleTextWidget(i18n("Reasoning"), m_contentWidget);
+        thoughtWidget->setAlwaysCollapsible(true);
+        thoughtWidget->setExpanded(m_thoughtExpanded);
+        thoughtWidget->setText(m_content);
+        connect(thoughtWidget, &ACPCollapsibleTextWidget::expandedChanged, this, [this](bool expanded) {
+            m_thoughtExpanded = expanded;
+            Q_EMIT contentSizeChanged();
+        });
+
+        contentLayout->addWidget(thoughtWidget);
         break;
     }
     case MessageType::Plan: {
@@ -1035,6 +1067,8 @@ QString ACPChatMessageWidget::getTypeLabel() const
         return i18n("User");
     case MessageType::Agent:
         return i18n("Agent");
+    case MessageType::Thought:
+        return i18n("Thinking");
     case MessageType::System:
         return i18n("System");
     case MessageType::Plan:

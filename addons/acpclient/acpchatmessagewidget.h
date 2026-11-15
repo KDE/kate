@@ -48,6 +48,7 @@ public:
     enum class MessageType {
         User, ///< User's message (blue styling)
         Agent, ///< Agent's text message (green styling)
+        Thought, ///< Agent's internal reasoning, collapsible
         System, ///< System messages (gray styling)
         Plan, ///< Plan/step updates (structured display)
         ToolCall, ///< Tool call notification (orange styling)
@@ -185,6 +186,12 @@ public:
     // ACCESSORS
     // ========================================================================
 
+    /**
+     * @brief Show or hide the reasoning of a Thought message
+     * @param expanded true to show the whole text
+     */
+    void setThoughtExpanded(bool expanded);
+
     /** @brief Get the message type */
     MessageType type() const;
 
@@ -316,6 +323,12 @@ private:
      */
     bool m_toolCommandExpanded = false; ///< Whether the tool call input is expanded
     bool m_toolContentExpanded = false; ///< Whether the tool call output is expanded
+
+    // ========================================================================
+    // THOUGHT-SPECIFIC DATA
+    // ========================================================================
+
+    bool m_thoughtExpanded = false; ///< Whether the reasoning is shown in full
 
     // ========================================================================
     // USAGE-SPECIFIC DATA

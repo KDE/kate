@@ -42,6 +42,14 @@ struct ACPClientPluginOptions {
         AskEachTime ///< Ask user for permission each time a tool is called
     };
     ToolCallPermission m_toolCallPermission = AskEachTime; ///< Default: ask user each time
+
+    /**
+     * @brief Whether the reasoning of the agent starts out expanded
+     *
+     * Reasoning is secondary to the answer, so it is collapsed by default.
+     * Toggled from the chat view rather than the settings dialog.
+     */
+    bool m_expandThoughts = false;
 };
 
 /**
@@ -151,6 +159,21 @@ public:
     {
         return m_toolCallPermission;
     }
+
+    /** @brief Whether the reasoning of the agent starts out expanded */
+    bool expandThoughts() const
+    {
+        return m_expandThoughts;
+    }
+
+    /**
+     * @brief Set whether the reasoning of the agent starts out expanded
+     * @param expand true to show reasoning in full
+     *
+     * Stores the choice and notifies the views, so that all chat widgets
+     * agree on it.
+     */
+    void setExpandThoughts(bool expand);
 
     QUrl m_configPath; ///< Current configuration file path (may be overridden)
 

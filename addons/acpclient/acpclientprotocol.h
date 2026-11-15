@@ -222,10 +222,10 @@ inline QString sessionUpdateUserMessageChunk()
     return QStringLiteral("user_message_chunk");
 }
 
-/** @brief Streaming chunk of agent's thought process */
-inline QString sessionUpdateThoughtMessageChunk()
+/** @brief Streaming chunk of the agent's internal reasoning */
+inline QString sessionUpdateAgentThoughtChunk()
 {
-    return QStringLiteral("thought_message_chunk");
+    return QStringLiteral("agent_thought_chunk");
 }
 
 /** @brief Notification that agent is calling a tool */

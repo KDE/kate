@@ -32,6 +32,7 @@
 #include <QSignalBlocker>
 #include <QTextCursor>
 #include <QTimer>
+#include <QToolButton>
 
 #include <algorithm>
 #include <utility>
@@ -105,6 +106,30 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     connect(m_ui->endSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::endSession);
     connect(m_ui->commandsButton, &QToolButton::clicked, this, &ACPClientChatWidget::showCommandsMenu);
     connect(m_ui->cancelPromptButton, &QPushButton::clicked, this, &ACPClientChatWidget::cancelPrompt);
+
+    // Whether reasoning is shown expanded is stored by the plugin, so that it
+    // is remembered and shared by all chat widgets
+    if (m_plugin) {
+        m_expandThoughts = m_plugin->expandThoughts();
+        m_ui->showThinkingButton->setChecked(m_expandThoughts);
+
+        connect(m_ui->showThinkingButton, &QToolButton::toggled, this, [this](bool checked) {
+            m_plugin->setExpandThoughts(checked);
+        });
+
+        connect(m_plugin, &ACPClientPlugin::update, this, [this]() {
+            if (m_expandThoughts == m_plugin->expandThoughts()) {
+                return;
+            }
+
+            m_expandThoughts = m_plugin->expandThoughts();
+
+            const QSignalBlocker blocker(m_ui->showThinkingButton);
+            m_ui->showThinkingButton->setChecked(m_expandThoughts);
+
+            applyThoughtVisibility();
+        });
+    }
     connect(m_ui->messageInput, &QTextEdit::textChanged, this, &ACPClientChatWidget::updateCommandCompletion);
     connect(m_ui->messageInput, &QTextEdit::cursorPositionChanged, this, &ACPClientChatWidget::updateCommandCompletion);
 
@@ -1017,6 +1042,8 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
                 // Handle different update types
                 if (updateType == ACP::sessionUpdateUserMessageChunk()) {
                     handleUserMessageChunk(update);
+                } else if (updateType == ACP::sessionUpdateAgentThoughtChunk()) {
+                    handleAgentThoughtChunk(update);
                 } else if (updateType == ACP::sessionUpdateAgentMessageChunk()) {
                     handleAgentMessageChunk(update);
                 } else if (updateType == ACP::sessionUpdatePlan()) {
@@ -1143,6 +1170,55 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
                 msgWidget->setContent(text);
                 addMessageWidget(msgWidget);
             }
+        }
+    }
+}
+
+void ACPClientChatWidget::handleAgentThoughtChunk(const QJsonObject &update)
+{
+    if (!update[u"content"].isObject()) {
+        return;
+    }
+
+    const QJsonObject content = update[u"content"].toObject();
+    if (content[u"type"].toString() != QStringLiteral("text")) {
+        return;
+    }
+
+    const QString text = content[u"text"].toString();
+    if (text.isEmpty()) {
+        return;
+    }
+
+    const QString messageId = update[u"messageId"].toString();
+
+    // Reasoning arrives in chunks, which belong to one message as long as the
+    // message ID stays the same. Chunks without an ID extend the message that
+    // is currently being streamed.
+    if (!m_messageWidgets.isEmpty()) {
+        ACPChatMessageWidget *lastWidget = m_messageWidgets.last();
+        if (lastWidget->type() == ACPChatMessageWidget::MessageType::Thought && lastWidget->messageId() == messageId) {
+            lastWidget->setContent(lastWidget->content() + text);
+            updateWidgetSizeHint(lastWidget);
+            scrollToBottom();
+            return;
+        }
+    }
+
+    ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Thought, m_chatListWidget);
+    msgWidget->setTimestamp(QDateTime::currentDateTime());
+    msgWidget->setSender(i18n("Agent"));
+    msgWidget->setMessageId(messageId);
+    msgWidget->setThoughtExpanded(m_expandThoughts);
+    msgWidget->setContent(text);
+    addMessageWidget(msgWidget);
+}
+
+void ACPClientChatWidget::applyThoughtVisibility()
+{
+    for (ACPChatMessageWidget *widget : std::as_const(m_messageWidgets)) {
+        if (widget->type() == ACPChatMessageWidget::MessageType::Thought) {
+            widget->setThoughtExpanded(m_expandThoughts);
         }
     }
 }

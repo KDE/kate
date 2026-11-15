@@ -135,8 +135,22 @@ void ACPCollapsibleTextWidget::setContextLineCount(int lines)
     updateDisplay();
 }
 
+void ACPCollapsibleTextWidget::setAlwaysCollapsible(bool always)
+{
+    if (m_alwaysCollapsible == always) {
+        return;
+    }
+
+    m_alwaysCollapsible = always;
+    updateDisplay();
+}
+
 bool ACPCollapsibleTextWidget::isCollapsible() const
 {
+    if (m_alwaysCollapsible && !m_text.isEmpty()) {
+        return true;
+    }
+
     return m_lines.size() > m_collapsedLineLimit || m_text.size() > m_collapsedCharLimit;
 }
 
@@ -159,7 +173,12 @@ void ACPCollapsibleTextWidget::setExpanded(bool expanded)
 
 int ACPCollapsibleTextWidget::hiddenLineCount() const
 {
-    if (m_lines.size() <= m_collapsedLineLimit || m_lines.size() <= 2 * m_contextLines) {
+    if (!isCollapsible()) {
+        return 0;
+    }
+
+    // Nothing to hide if the preview would show every line anyway
+    if (m_lines.size() <= 2 * m_contextLines) {
         return 0;
     }
 
@@ -211,11 +230,18 @@ void ACPCollapsibleTextWidget::updateDisplay()
         m_tailLabel->setText(previewBlock(lineCount - m_contextLines, m_contextLines));
         m_tailLabel->setVisible(true);
         m_moreButton->setText(i18ncp("@action:button", "… %1 more line …", "… %1 more lines …", hiddenLines));
-    } else {
+    } else if (m_text.size() > m_collapsedCharLimit) {
         // Few but very long lines: show the beginning of the text only
         m_headLabel->setText(m_text.left(m_collapsedCharLimit / 2) + QStringLiteral("…"));
         m_tailLabel->setVisible(false);
         m_moreButton->setText(i18ncp("@action:button", "… %1 more character …", "… %1 more characters …", hiddenCharacterCount()));
+    } else {
+        // Text that is collapsible only because it is secondary, and short
+        // enough that the preview would show all of it anyway
+        m_headLabel->setText(m_text);
+        m_tailLabel->setVisible(false);
+        m_moreButton->setVisible(false);
+        return;
     }
 
     m_moreButton->setToolTip(m_headerButton->toolTip());

@@ -64,6 +64,15 @@ public:
      */
     void setContextLineCount(int lines);
 
+    /**
+     * @brief Allow collapsing the text no matter how short it is
+     * @param always true to always offer the toggle
+     *
+     * Used for text that is secondary regardless of its size, such as the
+     * reasoning of an agent.
+     */
+    void setAlwaysCollapsible(bool always);
+
     /** @brief Whether the text is long enough to be collapsed */
     bool isCollapsible() const;
 
@@ -97,6 +106,7 @@ private:
     int m_collapsedLineLimit = 10; ///< Collapse above this many lines
     int m_contextLines = 2; ///< Lines kept visible at each end
     int m_collapsedCharLimit = 2000; ///< Collapse above this many characters
+    bool m_alwaysCollapsible = false; ///< Offer the toggle regardless of the size of the text
 
     QLabel *m_nameLabel = nullptr; ///< Always visible name of the block
     QToolButton *m_headerButton = nullptr; ///< Expands and collapses the text

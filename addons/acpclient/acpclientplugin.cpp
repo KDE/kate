@@ -30,6 +30,7 @@ QString acpClientConfigGroup()
 
 static constexpr char CONFIG_SERVER_CONFIG[] = "ServerConfiguration";
 static constexpr char CONFIG_TOOL_CALL_PERMISSION[] = "ToolCallPermission";
+static constexpr char CONFIG_EXPAND_THOUGHTS[] = "ExpandThoughts";
 
 K_PLUGIN_FACTORY_WITH_JSON(ACPClientPluginFactory, "acpclientplugin.json", registerPlugin<ACPClientPlugin>();)
 
@@ -103,6 +104,7 @@ void ACPClientPlugin::writeConfig() const
     KConfigGroup config(KSharedConfig::openConfig(), acpClientConfigGroup());
     config.writeEntry(CONFIG_SERVER_CONFIG, m_configPath);
     config.writeEntry(CONFIG_TOOL_CALL_PERMISSION, static_cast<int>(m_toolCallPermission));
+    config.writeEntry(CONFIG_EXPAND_THOUGHTS, m_expandThoughts);
 
     // trigger that we react on config changes in the server manager and Co.
     Q_EMIT update();
@@ -113,9 +115,22 @@ void ACPClientPlugin::readConfig()
     KConfigGroup config(KSharedConfig::openConfig(), acpClientConfigGroup());
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
     m_toolCallPermission = static_cast<ToolCallPermission>(config.readEntry(CONFIG_TOOL_CALL_PERMISSION, static_cast<int>(AskEachTime)));
+    m_expandThoughts = config.readEntry(CONFIG_EXPAND_THOUGHTS, false);
 
     // trigger that we react on config changes in the server manager and Co.
     Q_EMIT update();
+}
+
+void ACPClientPlugin::setExpandThoughts(bool expand)
+{
+    if (m_expandThoughts == expand) {
+        return;
+    }
+
+    m_expandThoughts = expand;
+
+    // Stores the option and notifies the views through update()
+    writeConfig();
 }
 
 #include "acpclientplugin.moc"

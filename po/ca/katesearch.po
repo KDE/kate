@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-14 01:07+0000\n"
-"PO-Revision-Date: 2026-02-22 10:01+0100\n"
+"PO-Revision-Date: 2026-11-14 10:44+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -254,7 +254,7 @@ msgstr "Atura"
 #: search.ui:118
 #, kde-format
 msgid "Match case"
-msgstr "Fes concordar les majúscules"
+msgstr "Coincidència de majúscules/minúscules"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, smartCase)
 #: search.ui:134
@@ -263,6 +263,8 @@ msgid ""
 "Smart case: Case-sensitive only when search pattern contains uppercase "
 "characters"
 msgstr ""
+"Majúscules/minúscules intel·ligents: només distingeix entre majúscules i "
+"minúscules quan el patró de cerca conté caràcters en majúscules"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
 #: search.ui:150

@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-14 01:07+0000\n"
-"PO-Revision-Date: 2026-10-31 18:41+0400\n"
+"PO-Revision-Date: 2026-11-14 16:58+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1380,13 +1380,13 @@ msgstr "الحد الأقصى لعدد التشخيصات المسموح بها 
 #: lib/kateconfigdialog.cpp:409
 #, kde-format
 msgid "Show diagnostic messages at the end of the line"
-msgstr ""
+msgstr "اعرض رسائل التشخيص في نهاية السطر"
 
 #: lib/kateconfigdialog.cpp:411
 #, kde-format
 msgid ""
 "Show the message of the most severe diagnostic of a line after its text."
-msgstr ""
+msgstr "اعرض رسالة التشخيص الأكثر خطورة لسطرٍ ما بعد نص ذلك السطر."
 
 #: lib/kateconfigdialog.cpp:415 lib/texthint/hintview.cpp:25
 #, kde-format

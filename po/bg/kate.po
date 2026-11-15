@@ -1383,15 +1383,16 @@ msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "Максимален брой на диагностики, разрешени в toolview на Диагностика."
 
 #: lib/kateconfigdialog.cpp:409
-#, kde-format
+#, fuzzy, kde-format
 msgid "Show diagnostic messages at the end of the line"
-msgstr ""
+msgstr "Показване на диагностични съобщения в края на реда"
 
 #: lib/kateconfigdialog.cpp:411
-#, kde-format
+#, fuzzy, kde-format
 msgid ""
 "Show the message of the most severe diagnostic of a line after its text."
 msgstr ""
+"Показване на съобщението за най-тежката диагностика на реда след текста му."
 
 #: lib/kateconfigdialog.cpp:415 lib/texthint/hintview.cpp:25
 #, kde-format

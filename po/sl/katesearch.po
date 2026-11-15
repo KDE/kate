@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-14 01:07+0000\n"
-"PO-Revision-Date: 2026-02-22 12:01+0100\n"
+"PO-Revision-Date: 2026-11-14 07:09+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.10\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
@@ -292,6 +292,8 @@ msgid ""
 "Smart case: Case-sensitive only when search pattern contains uppercase "
 "characters"
 msgstr ""
+"Pametno razlikovanje velikih in malih: Razlikovanje med velikimi in malimi "
+"črkami samo, če iskalni vzorec vsebuje velike črke"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
 #: search.ui:150

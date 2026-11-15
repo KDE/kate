@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.03.70\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 26.03.70\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: KateSearchCommand.cpp:88
@@ -246,11 +246,13 @@ msgstr "Зачитане на регистъра"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, smartCase)
 #: search.ui:134
-#, kde-format
+#, fuzzy, kde-format
 msgid ""
 "Smart case: Case-sensitive only when search pattern contains uppercase "
 "characters"
 msgstr ""
+"Интелигентен регистър: Различаване на главни и малки букви само при наличие "
+"на главни букви в търсената фраза"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
 #: search.ui:150

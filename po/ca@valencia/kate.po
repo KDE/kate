@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-14 01:07+0000\n"
-"PO-Revision-Date: 2026-10-16 08:43+0200\n"
+"PO-Revision-Date: 2026-11-14 10:41+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -1390,13 +1390,14 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:409
 #, kde-format
 msgid "Show diagnostic messages at the end of the line"
-msgstr ""
+msgstr "Mostra els missatges de diagnòstics al final de la línia"
 
 #: lib/kateconfigdialog.cpp:411
 #, kde-format
 msgid ""
 "Show the message of the most severe diagnostic of a line after its text."
 msgstr ""
+"Mostra el missatge del diagnòstic més greu d'una línia després del seu text."
 
 #: lib/kateconfigdialog.cpp:415 lib/texthint/hintview.cpp:25
 #, kde-format

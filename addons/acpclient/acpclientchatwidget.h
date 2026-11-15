@@ -265,6 +265,14 @@ private:
     void updateActionStates();
 
     /**
+     * @brief Show whether the agent is working and offer to stop it
+     *
+     * Agents usually reject a prompt while they are still working on the
+     * previous one, so the state has to be visible next to the input.
+     */
+    void updatePromptState();
+
+    /**
      * @brief Rebuild the session selectors from the state of the session
      *
      * Creates one dropdown per configuration option the agent exposes, or one
@@ -375,6 +383,7 @@ private:
     ACPClientServerManager *m_serverManager = nullptr; ///< Server manager (shared)
     ACPClientServer *m_server = nullptr; ///< Active server for this chat
     QString m_sessionId; ///< Current session ID
+    bool m_promptRunning = false; ///< True while the agent works on a prompt
 
     // ========================================================================
     // SESSION CONFIGURATION

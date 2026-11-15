@@ -386,7 +386,13 @@ void ACPClientServerManager::sendPrompt(const QString &sessionId, const QString 
     qint64 requestId = ACP::ACPProtocol::generateRequestId();
     QJsonDocument request = ACP::ACPProtocol::createSessionPromptRequest(params, requestId);
 
+    // The response ends the prompt turn, so it has to be recognized
+    m_pendingRequests[requestId] = PendingRequestType::SessionPrompt;
+    m_pendingSessionIds[requestId] = sessionId;
+
     server->sendMessage(request);
+
+    Q_EMIT promptStarted(sessionId);
 }
 
 void ACPClientServerManager::setSessionMode(const QString &sessionId, const QString &modeId)
@@ -575,7 +581,20 @@ void ACPClientServerManager::onServerMessageReceived(const QJsonDocument &messag
                     m_pendingSessionIds.erase(sessionIdIt);
                 }
 
+                // An error response carries no result, so it has to be told
+                // apart from a successful one before reading the result
+                const bool isErrorResponse = obj.contains(u"error");
+
                 switch (requestType) {
+                case PendingRequestType::SessionPrompt: {
+                    m_pendingRequests.erase(requestIt);
+                    if (isErrorResponse) {
+                        Q_EMIT promptFailed(requestedSessionId, parsedMessage.error.message);
+                    } else {
+                        Q_EMIT promptFinished(requestedSessionId, result[u"stopReason"].toString());
+                    }
+                    return;
+                }
                 case PendingRequestType::SessionNew: {
                     m_pendingRequests.erase(requestIt);
                     const QString sessionId = result[u"sessionId"].toString();

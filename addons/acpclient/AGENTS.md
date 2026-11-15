@@ -359,6 +359,26 @@ copied into Kate. The Kate version only shares the behavior, implemented with
 - **Usage** - Usage/token information (purple styling)
 - **PermissionRequest** - Inline permission prompts with buttons for all permission options (allow_once, allow_always, reject_once, reject_always)
 
+### Prompt Turn State
+
+Agents reject a new prompt while they are still working on the previous one,
+so the chat has to know whether a turn is running. Only the server manager can
+tell: the turn starts when `session/prompt` is sent and ends when its response
+arrives, which is the only message carrying the `stopReason`. The manager
+therefore tracks the request as `PendingRequestType::SessionPrompt` and emits:
+
+- `promptStarted(sessionId)` when the request goes out
+- `promptFinished(sessionId, stopReason)` on a successful response
+- `promptFailed(sessionId, errorMessage)` when the agent answered with an error
+
+`ACPClientChatWidget` keeps the resulting state in `m_promptRunning` and shows
+it in `promptStatusLabel`, next to the usage information below the input. While
+a turn runs, the send button is disabled. The state is also reset when the
+session changes or the server disconnects, since no response will arrive then.
+
+The widget used to derive the end of a turn from any response that happened to
+contain a `stopReason`, which is why responses now stop at the manager.
+
 ### User Messages and Echoes
 
 `user_message_chunk` serves two purposes: an agent replays the conversation

@@ -288,6 +288,28 @@ Q_SIGNALS:
     /** @brief Emitted when a session is deleted */
     void sessionDeleted(const QString &sessionId);
 
+    /**
+     * @brief Emitted when a prompt turn starts
+     *
+     * The agent is working from here until promptFinished() or promptFailed()
+     * is emitted, and will usually refuse further prompts in the meantime.
+     */
+    void promptStarted(const QString &sessionId);
+
+    /**
+     * @brief Emitted when the agent finished working on a prompt
+     * @param sessionId Session the prompt belongs to
+     * @param stopReason Why the turn ended, for example end_turn or cancelled
+     */
+    void promptFinished(const QString &sessionId, const QString &stopReason);
+
+    /**
+     * @brief Emitted when a prompt was rejected or failed
+     * @param sessionId Session the prompt belongs to
+     * @param errorMessage Human-readable reason reported by the agent
+     */
+    void promptFailed(const QString &sessionId, const QString &errorMessage);
+
     /** @brief Emitted when a session provides its available modes and current mode */
     void sessionModesChanged(const QString &sessionId, const ACP::SessionModeState &modes);
 
@@ -419,6 +441,7 @@ private:
         SessionClose,
         SessionList,
         SessionDelete,
+        SessionPrompt,
         SessionSetMode,
         SessionSetModel,
         SessionSetConfigOption,

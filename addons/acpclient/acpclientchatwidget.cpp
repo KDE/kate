@@ -207,6 +207,8 @@ void ACPClientChatWidget::setSessionId(const QString &sessionId)
         // Echo tracking refers to messages of the previous session
         m_locallyShownUserMessage = nullptr;
         m_echoedUserMessageIds.clear();
+        // Whatever the agent was working on does not belong to this session
+        m_promptRunning = false;
         // Drop configuration and command state from the previous session
         clearSessionConfigUi();
         clearAvailableCommands();
@@ -468,10 +470,9 @@ void ACPClientChatWidget::updateStatus(const QString &text)
 
 void ACPClientChatWidget::onInputTextChanged()
 {
-    // Enable/disable send button based on whether there's text
-    if (m_ui->sendButton) {
-        m_ui->sendButton->setEnabled(!m_ui->messageInput->toPlainText().trimmed().isEmpty());
-    }
+    // The send button depends on the input being non-empty, on a session being
+    // active and on the agent not already working
+    updatePromptState();
 }
 
 void ACPClientChatWidget::onPermissionRequested(const QJsonValue &requestId, const QJsonObject &toolCall, const QJsonArray &options)
@@ -750,6 +751,7 @@ void ACPClientChatWidget::setServer(ACPClientServer *server)
             // to avoid duplicate messages
             connect(m_server, &ACPClientServer::disconnected, this, [this]() {
                 appendMessage(QStringLiteral("System"), i18n("Server disconnected"));
+                m_promptRunning = false;
                 setSessionId(QString());
                 updateSessionState();
             });
@@ -813,6 +815,46 @@ void ACPClientChatWidget::setupServerConnections()
             appendMessage(QStringLiteral("System"), i18n("Session resumed: %1", sessionId));
             updateSessionState();
         }
+    });
+
+    // Connect to prompt turn signals, which tell whether the agent is working
+    connect(m_serverManager, &ACPClientServerManager::promptStarted, this, [this](const QString &sessionId) {
+        if (sessionId != m_sessionId) {
+            return;
+        }
+        m_promptRunning = true;
+        updatePromptState();
+    });
+
+    connect(m_serverManager, &ACPClientServerManager::promptFinished, this, [this](const QString &sessionId, const QString &stopReason) {
+        if (sessionId != m_sessionId) {
+            return;
+        }
+
+        m_promptRunning = false;
+
+        if (stopReason == QStringLiteral("cancelled")) {
+            updateLastUserMessageStatus(MessageStatus::Cancelled);
+        } else if (stopReason == QStringLiteral("refusal")) {
+            updateLastUserMessageStatus(MessageStatus::Error);
+        } else {
+            // end_turn, max_tokens and max_turn_requests all end the turn
+            updateLastUserMessageStatus(MessageStatus::Completed);
+        }
+
+        updatePromptState();
+    });
+
+    connect(m_serverManager, &ACPClientServerManager::promptFailed, this, [this](const QString &sessionId, const QString &errorMessage) {
+        if (sessionId != m_sessionId) {
+            return;
+        }
+
+        m_promptRunning = false;
+        updateLastUserMessageStatus(MessageStatus::Error);
+        appendMessage(QStringLiteral("System"),
+                      errorMessage.isEmpty() ? i18n("The agent rejected the prompt") : i18n("The agent rejected the prompt: %1", errorMessage));
+        updatePromptState();
     });
 
     // Connect to session configuration signals
@@ -927,24 +969,9 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
         return;
     }
 
-    // Handle successful responses
+    // Responses are routed by the server manager, which knows what was
+    // requested. The end of a prompt turn arrives as promptFinished().
     if (obj.contains(u"id") && !obj.contains(u"method")) {
-        if (obj.contains(u"result")) {
-            QJsonObject result = obj[u"result"].toObject();
-            if (result.contains(u"stopReason")) {
-                QString stopReason = result[u"stopReason"].toString();
-
-                // Mark the last user message as completed or error based on stopReason
-                if (stopReason == QStringLiteral("cancelled")) {
-                    updateLastUserMessageStatus(MessageStatus::Cancelled);
-                } else if (stopReason == QStringLiteral("refusal")) {
-                    updateLastUserMessageStatus(MessageStatus::Error);
-                } else {
-                    // end_turn, max_tokens, max_turn_requests - all indicate completion
-                    updateLastUserMessageStatus(MessageStatus::Completed);
-                }
-            }
-        }
         return;
     }
 
@@ -1746,13 +1773,31 @@ void ACPClientChatWidget::updateActionStates()
 
     // Enable/disable actions based on server availability and session state
     m_ui->newSessionButton->setEnabled(hasActiveServer);
-    m_ui->sendButton->setEnabled(sessionActive);
     m_ui->endSessionButton->setEnabled(sessionActive);
     m_ui->messageInput->setEnabled(sessionActive);
     for (const SessionSelector &selector : std::as_const(m_sessionSelectors)) {
         selector.combo->setEnabled(sessionActive);
     }
     m_ui->commandsButton->setEnabled(sessionActive && !m_availableCommands.isEmpty());
+
+    // The send button also depends on whether the agent is busy
+    updatePromptState();
+}
+
+void ACPClientChatWidget::updatePromptState()
+{
+    const bool sessionActive = m_serverManager && m_serverManager->activeServer() && !m_sessionId.isEmpty();
+
+    // Agents reject a prompt while they are working on the previous one
+    m_ui->sendButton->setEnabled(sessionActive && !m_promptRunning && !m_ui->messageInput->toPlainText().trimmed().isEmpty());
+
+    if (!sessionActive) {
+        m_ui->promptStatusLabel->clear();
+    } else if (m_promptRunning) {
+        m_ui->promptStatusLabel->setText(i18nc("@info the agent is working on a prompt", "⏳ Working…"));
+    } else {
+        m_ui->promptStatusLabel->setText(i18nc("@info the agent is idle and waits for a prompt", "✓ Ready"));
+    }
 }
 
 bool ACPClientChatWidget::eventFilter(QObject *watched, QEvent *event)

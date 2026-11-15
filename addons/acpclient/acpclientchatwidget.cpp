@@ -235,6 +235,9 @@ void ACPClientChatWidget::setSessionId(const QString &sessionId)
         m_sessionId = sessionId;
         // Clear stored tool calls when session changes
         m_toolCalls.clear();
+        // Echo tracking refers to messages of the previous session
+        m_locallyShownUserMessage = nullptr;
+        m_echoedUserMessageIds.clear();
         // Drop configuration and command state from the previous session
         clearSessionConfigUi();
         clearAvailableCommands();
@@ -263,6 +266,10 @@ void ACPClientChatWidget::initializeWithSession(const QString &sessionId)
     // Set the server and establish connections
     setServer(server);
     setupServerConnections();
+
+    // The agent replays the conversation of the session being loaded, so drop
+    // what is on screen instead of mixing two conversations
+    clearChat();
 
     // Set the session ID
     setSessionId(sessionId);
@@ -748,6 +755,8 @@ void ACPClientChatWidget::clearChat()
         m_historyModel->setStringList(m_messageHistory);
     }
     m_toolCalls.clear();
+    m_locallyShownUserMessage = nullptr;
+    m_echoedUserMessageIds.clear();
     updateStatus(QString());
 }
 
@@ -880,8 +889,10 @@ void ACPClientChatWidget::sendMessage()
         }
     }
 
-    // Display user message
+    // Display user message, and remember it so that the echo the agent may
+    // send back for it is not displayed a second time
     appendMessage(i18n("You"), message, true);
+    m_locallyShownUserMessage = m_messageWidgets.isEmpty() ? nullptr : m_messageWidgets.last();
     m_ui->messageInput->clear();
 
     // Mark the user message as running (prompt turn started)
@@ -985,7 +996,9 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
                                    << "== TOOL_CALL_UPDATE?" << (updateType == ACP::sessionUpdateToolCallUpdate());
 
                 // Handle different update types
-                if (updateType == ACP::sessionUpdateAgentMessageChunk()) {
+                if (updateType == ACP::sessionUpdateUserMessageChunk()) {
+                    handleUserMessageChunk(update);
+                } else if (updateType == ACP::sessionUpdateAgentMessageChunk()) {
                     handleAgentMessageChunk(update);
                 } else if (updateType == ACP::sessionUpdatePlan()) {
                     handlePlanUpdate(update);
@@ -1113,6 +1126,62 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
             }
         }
     }
+}
+
+void ACPClientChatWidget::handleUserMessageChunk(const QJsonObject &update)
+{
+    if (!update[u"content"].isObject()) {
+        return;
+    }
+
+    const QJsonObject content = update[u"content"].toObject();
+    if (content[u"type"].toString() != QStringLiteral("text")) {
+        return;
+    }
+
+    const QString text = content[u"text"].toString();
+    if (text.isEmpty()) {
+        return;
+    }
+
+    const QString messageId = update[u"messageId"].toString();
+
+    // Further chunks of a message that we recognized as our own echo
+    if (!messageId.isEmpty() && m_echoedUserMessageIds.contains(messageId)) {
+        return;
+    }
+
+    // The agent echoes the prompt that was just sent. It is on screen already,
+    // so remember its ID to drop the remaining chunks and keep the local copy.
+    if (m_locallyShownUserMessage && m_locallyShownUserMessage->content().startsWith(text)) {
+        if (!messageId.isEmpty()) {
+            m_echoedUserMessageIds.insert(messageId);
+            m_locallyShownUserMessage->setMessageId(messageId);
+        }
+        m_locallyShownUserMessage = nullptr;
+        return;
+    }
+
+    // Continuation of a message we are displaying, for example while a loaded
+    // session is replayed in chunks
+    if (!messageId.isEmpty() && !m_messageWidgets.isEmpty()) {
+        ACPChatMessageWidget *lastWidget = m_messageWidgets.last();
+        if (lastWidget->type() == ACPChatMessageWidget::MessageType::User && lastWidget->messageId() == messageId) {
+            lastWidget->setContent(lastWidget->content() + text);
+            updateWidgetSizeHint(lastWidget);
+            scrollToBottom();
+            return;
+        }
+    }
+
+    // A user message we have not shown yet, so it comes from the history of a
+    // loaded session or from another client of the same session
+    ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::User, m_chatListWidget);
+    msgWidget->setTimestamp(QDateTime::currentDateTime());
+    msgWidget->setSender(i18n("You"));
+    msgWidget->setMessageId(messageId);
+    msgWidget->setContent(text);
+    addMessageWidget(msgWidget);
 }
 
 void ACPClientChatWidget::handlePlanUpdate(const QJsonObject &update)

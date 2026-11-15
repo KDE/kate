@@ -58,7 +58,7 @@ The plugin implements the ACP v1 specification with JSON-RPC 2.0 over stdin/stdo
 - `elicitation/complete` - Elicitation complete notification
 
 #### Session Update Types:
-- `user_message_chunk` - Streaming user message (echo)
+- `user_message_chunk` - Streaming user message (replay or echo)
 - `agent_message_chunk` - Streaming agent response
 - `agent_thought_chunk` - Streaming agent reasoning
 - `tool_call` - Tool call notification
@@ -339,6 +339,25 @@ copied into Kate. The Kate version only shares the behavior, implemented with
 - **ToolCallUpdate** - Tool call progress (blue styling)
 - **Usage** - Usage/token information (purple styling)
 - **PermissionRequest** - Inline permission prompts with buttons for all permission options (allow_once, allow_always, reject_once, reject_always)
+
+### User Messages and Echoes
+
+`user_message_chunk` serves two purposes: an agent replays the conversation
+with it when a session is loaded, and it may echo back the prompt that was
+just sent. A prompt is displayed locally the moment it is sent, so echoes must
+not be displayed again.
+
+`ACPClientChatWidget::handleUserMessageChunk()` therefore remembers the message
+added by `sendMessage()` in `m_locallyShownUserMessage`. If an arriving chunk
+is a prefix of it, the chunk is an echo: its message ID is recorded in
+`m_echoedUserMessageIds` so the remaining chunks are dropped too, and the local
+message is kept. Anything else is a message that has not been displayed yet,
+so it comes from a replayed session or from another client of the same
+session, and a new bubble is created for it.
+
+`initializeWithSession()` clears the chat before loading, because the agent
+replays the whole conversation and the view would otherwise show two
+conversations at once.
 
 ### Accenting Failures
 

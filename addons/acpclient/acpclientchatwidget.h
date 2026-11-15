@@ -12,7 +12,9 @@
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QMap>
+#include <QPointer>
 #include <QPushButton>
+#include <QSet>
 #include <QStringListModel>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -288,6 +290,15 @@ private:
     /** @brief Handle agent_message_chunk session update */
     void handleAgentMessageChunk(const QJsonObject &update);
 
+    /**
+     * @brief Handle user_message_chunk session update
+     *
+     * Agents replay these when a session is loaded, and may echo the prompt
+     * that was just sent. The echo is recognized and dropped, because the
+     * message is displayed already when it is sent.
+     */
+    void handleUserMessageChunk(const QJsonObject &update);
+
     /** @brief Handle plan session update */
     void handlePlanUpdate(const QJsonObject &update);
 
@@ -330,6 +341,13 @@ private:
     // ========================================================================
     // SLASH COMMANDS
     // ========================================================================
+
+    // ========================================================================
+    // USER MESSAGE ECHO TRACKING
+    // ========================================================================
+
+    QPointer<ACPChatMessageWidget> m_locallyShownUserMessage; ///< Message displayed when sending, awaiting its echo
+    QSet<QString> m_echoedUserMessageIds; ///< IDs of user messages the agent echoed back
 
     QList<ACP::AvailableCommand> m_availableCommands; ///< Commands advertised by the agent
     QStringListModel *m_commandCompletionModel = nullptr; ///< Command names for input completion

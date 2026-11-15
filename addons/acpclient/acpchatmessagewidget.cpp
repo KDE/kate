@@ -100,6 +100,17 @@ void ACPChatMessageWidget::setupUI()
     m_statusIconLabel->setWordWrap(false);
     headerLayout->addWidget(m_statusIconLabel);
 
+    // Details that depend on the content of the message, such as the kind, the
+    // status and the identifier of a tool call. They belong next to the type of
+    // the message rather than next to its content, and are filled in by
+    // updateHeaderDetails() because the content can change.
+    m_headerDetailsWidget = new QWidget(m_headerWidget);
+    QHBoxLayout *headerDetailsLayout = new QHBoxLayout(m_headerDetailsWidget);
+    headerDetailsLayout->setContentsMargins(0, 0, 0, 0);
+    headerDetailsLayout->setSpacing(8);
+    m_headerDetailsWidget->setVisible(false);
+    headerLayout->addWidget(m_headerDetailsWidget);
+
     headerLayout->addStretch();
 
     m_mainLayout->addWidget(m_headerWidget);
@@ -111,6 +122,12 @@ void ACPChatMessageWidget::setupUI()
     contentLayout->setContentsMargins(0, 0, 0, 0);
     contentLayout->setSpacing(4);
     m_mainLayout->addWidget(m_contentWidget);
+
+    // A message is given the height it was measured with, but a measurement
+    // taken before the layout settled can come out too large. Collect that
+    // slack here rather than letting it stretch the header, which would space
+    // the timestamp, the sender and the type of a message apart for no reason.
+    m_mainLayout->addStretch();
 
     // Set initial values
     m_timestampLabel->setText(formatTimestamp(m_timestamp));
@@ -486,6 +503,82 @@ static KSqueezedTextLabel *createToolCallIdLabel(const QString &toolCallId, QWid
     return idLabel;
 }
 
+void ACPChatMessageWidget::toolStatusIndicator(const QString &status, QString &glyph, QColor &color) const
+{
+    glyph = status;
+    color = palette().color(QPalette::Text);
+
+    if (status == QStringLiteral("pending") || status == QStringLiteral("in_progress")) {
+        glyph = QStringLiteral("⏳");
+        color = palette().color(QPalette::Link);
+    } else if (status == QStringLiteral("completed")) {
+        glyph = QStringLiteral("✓");
+        color = palette().color(QPalette::LinkVisited);
+    } else if (status == QStringLiteral("error") || status == QStringLiteral("failed")) {
+        glyph = QStringLiteral("✗");
+        color = KColorScheme().foreground(KColorScheme::NegativeText).color();
+    }
+}
+
+void ACPChatMessageWidget::updateHeaderDetails()
+{
+    QLayout *detailsLayout = m_headerDetailsWidget->layout();
+
+    QLayoutItem *child;
+    while ((child = detailsLayout->takeAt(0)) != nullptr) {
+        delete child->widget();
+        delete child;
+    }
+
+    if (m_type != MessageType::ToolCall && m_type != MessageType::ToolCallUpdate) {
+        m_headerDetailsWidget->setVisible(false);
+        return;
+    }
+
+    if (!m_toolKind.isEmpty()) {
+        QLabel *kindLabel = new QLabel(QStringLiteral("(%1)").arg(m_toolKind), m_headerDetailsWidget);
+        keepOnOneLine(kindLabel);
+        QFont smallFont = kindLabel->font();
+        smallFont.setPointSize(qMax(1, smallFont.pointSize() - 1));
+        kindLabel->setFont(smallFont);
+        detailsLayout->addWidget(kindLabel);
+    }
+
+    if (!m_toolStatus.isEmpty()) {
+        QString glyph;
+        QColor color;
+        toolStatusIndicator(m_toolStatus, glyph, color);
+
+        QLabel *statusLabel = new QLabel(glyph, m_headerDetailsWidget);
+        keepOnOneLine(statusLabel);
+        QFont boldFont = statusLabel->font();
+        boldFont.setBold(true);
+        statusLabel->setFont(boldFont);
+        QPalette statusPal = statusLabel->palette();
+        statusPal.setColor(QPalette::WindowText, color);
+        statusLabel->setPalette(statusPal);
+        statusLabel->setToolTip(m_toolStatus);
+        detailsLayout->addWidget(statusLabel);
+    }
+
+    if (!m_toolCallId.isEmpty()) {
+        detailsLayout->addWidget(createToolCallIdLabel(m_toolCallId, m_headerDetailsWidget));
+    }
+
+    const bool hasDetails = detailsLayout->count() > 0;
+    m_headerDetailsWidget->setVisible(hasDetails);
+
+    // Newly created widgets are only shown once the event loop ran, see
+    // updateContentDisplay()
+    if (hasDetails && !isHidden()) {
+        for (int i = 0; i < detailsLayout->count(); ++i) {
+            if (QWidget *detail = detailsLayout->itemAt(i)->widget()) {
+                detail->show();
+            }
+        }
+    }
+}
+
 bool ACPChatMessageWidget::isNegative() const
 {
     if (m_type == MessageType::Error) {
@@ -629,6 +722,9 @@ void ACPChatMessageWidget::updateContentDisplay()
     // Update status icon visibility and pixmap
     updateStatusIcon();
 
+    // Parts of the header describe the content, so they follow it
+    updateHeaderDetails();
+
     // Clear existing content
     QLayoutItem *child;
     while ((child = m_contentWidget->layout()->takeAt(0)) != nullptr) {
@@ -767,13 +863,14 @@ void ACPChatMessageWidget::updateContentDisplay()
         // Keep the input and output blocks visibly apart
         toolLayout->setSpacing(8);
 
-        // First row: title, kind, status
-        QWidget *firstRow = new QWidget(toolWidget);
-        QHBoxLayout *firstRowLayout = new QHBoxLayout(firstRow);
-        firstRowLayout->setContentsMargins(0, 0, 0, 0);
-        firstRowLayout->setSpacing(8);
-
+        // First row: the title. The kind, the status and the identifier
+        // describe the message as a whole and live in its header.
         if (!m_toolTitle.isEmpty()) {
+            QWidget *firstRow = new QWidget(toolWidget);
+            QHBoxLayout *firstRowLayout = new QHBoxLayout(firstRow);
+            firstRowLayout->setContentsMargins(0, 0, 0, 0);
+            firstRowLayout->setSpacing(8);
+
             // Agents commonly put the whole command into the title, which the
             // input block below already shows in full. Keep the title on one
             // line and elide it, so that it never dominates the message.
@@ -798,50 +895,9 @@ void ACPChatMessageWidget::updateContentDisplay()
             titleLabel->setMaximumWidth(titleLabel->fontMetrics().averageCharWidth() * maxTitleCharsShown);
 
             firstRowLayout->addWidget(titleLabel);
+            firstRowLayout->addStretch();
+            toolLayout->addWidget(firstRow);
         }
-
-        if (!m_toolKind.isEmpty()) {
-            QLabel *kindLabel = new QLabel(QStringLiteral("(%1)").arg(m_toolKind), firstRow);
-            keepOnOneLine(kindLabel);
-            QFont smallFont = kindLabel->font();
-            smallFont.setPointSize(qMax(1, smallFont.pointSize() - 2));
-            kindLabel->setFont(smallFont);
-            firstRowLayout->addWidget(kindLabel);
-        }
-
-        // Map status text to appropriate icons
-        QString statusText = m_toolStatus;
-        QColor statusColor = palette().color(QPalette::Text);
-        if (m_toolStatus == QStringLiteral("in_progress")) {
-            statusText = QStringLiteral("⏳");
-            statusColor = palette().color(QPalette::Link);
-        } else if (m_toolStatus == QStringLiteral("pending")) {
-            statusText = QStringLiteral("⏳");
-            statusColor = palette().color(QPalette::Link);
-        } else if (m_toolStatus == QStringLiteral("completed")) {
-            statusText = QStringLiteral("✓");
-            statusColor = palette().color(QPalette::LinkVisited);
-        } else if (m_toolStatus == QStringLiteral("error") || m_toolStatus == QStringLiteral("failed")) {
-            statusText = QStringLiteral("✗");
-            statusColor = KColorScheme().foreground(KColorScheme::NegativeText).color();
-        }
-
-        QLabel *statusLabel = new QLabel(statusText, firstRow);
-        keepOnOneLine(statusLabel);
-        QFont boldFont2 = statusLabel->font();
-        boldFont2.setBold(true);
-        statusLabel->setFont(boldFont2);
-        QPalette statusPal = statusLabel->palette();
-        statusPal.setColor(QPalette::WindowText, statusColor);
-        statusLabel->setPalette(statusPal);
-        firstRowLayout->addWidget(statusLabel);
-
-        if (!m_toolCallId.isEmpty()) {
-            firstRowLayout->addWidget(createToolCallIdLabel(m_toolCallId, firstRow));
-        }
-
-        firstRowLayout->addStretch();
-        toolLayout->addWidget(firstRow);
 
         // Second row: command line if available
         if (!m_toolCommand.isEmpty()) {
@@ -878,56 +934,14 @@ void ACPChatMessageWidget::updateContentDisplay()
         break;
     }
     case MessageType::ToolCallUpdate: {
+        // The status and the identifier are shown in the header, and the type
+        // of the message already says that this is an update, so all that is
+        // left for the content is the output the update carries
         QWidget *updateWidget = new QWidget(m_contentWidget);
         updateWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
-        QHBoxLayout *updateLayout = new QHBoxLayout(updateWidget);
+        QVBoxLayout *updateLayout = new QVBoxLayout(updateWidget);
         updateLayout->setContentsMargins(4, 2, 4, 2);
         updateLayout->setSpacing(8);
-
-        // Status color
-        QPalette updatePal = updateWidget->palette();
-        QPalette svPal = updateWidget->palette();
-        QColor statusColor = updatePal.color(QPalette::Text);
-
-        if (m_toolStatus == QStringLiteral("pending") || m_toolStatus == QStringLiteral("in_progress")) {
-            statusColor = updatePal.color(QPalette::Link);
-        } else if (m_toolStatus == QStringLiteral("completed")) {
-            statusColor = updatePal.color(QPalette::LinkVisited);
-        } else if (m_toolStatus == QStringLiteral("error") || m_toolStatus == QStringLiteral("failed")) {
-            statusColor = KColorScheme().foreground(KColorScheme::NegativeText).color();
-        }
-        svPal.setColor(QPalette::WindowText, statusColor);
-
-        QLabel *statusLabel = new QLabel(i18n("Tool Update:"), updateWidget);
-        keepOnOneLine(statusLabel);
-        QFont boldFont = statusLabel->font();
-        boldFont.setBold(true);
-        statusLabel->setFont(boldFont);
-        updateLayout->addWidget(statusLabel);
-
-        // Map status text to appropriate icons
-        QString statusValueText = m_toolStatus;
-        if (m_toolStatus == QStringLiteral("in_progress")) {
-            statusValueText = QStringLiteral("⏳");
-        } else if (m_toolStatus == QStringLiteral("pending")) {
-            statusValueText = QStringLiteral("⏳");
-        } else if (m_toolStatus == QStringLiteral("completed")) {
-            statusValueText = QStringLiteral("✓");
-        } else if (m_toolStatus == QStringLiteral("error") || m_toolStatus == QStringLiteral("failed")) {
-            statusValueText = QStringLiteral("✗");
-        }
-
-        QLabel *statusValueLabel = new QLabel(statusValueText, updateWidget);
-        keepOnOneLine(statusValueLabel);
-        QFont boldFont2 = statusValueLabel->font();
-        boldFont2.setBold(true);
-        statusValueLabel->setFont(boldFont2);
-        statusValueLabel->setPalette(svPal);
-        updateLayout->addWidget(statusValueLabel);
-
-        if (!m_toolCallId.isEmpty()) {
-            updateLayout->addWidget(createToolCallIdLabel(m_toolCallId, updateWidget));
-        }
 
         if (!m_toolContent.isEmpty()) {
             ACPCollapsibleTextWidget *contentWidget = new ACPCollapsibleTextWidget(i18n("Output"), updateWidget);
@@ -937,7 +951,7 @@ void ACPChatMessageWidget::updateContentDisplay()
                 m_toolContentExpanded = expanded;
                 Q_EMIT contentSizeChanged();
             });
-            updateLayout->addWidget(contentWidget, 1);
+            updateLayout->addWidget(contentWidget);
         }
 
         contentLayout->addWidget(updateWidget);

@@ -542,13 +542,22 @@ roughly 60 characters. `KSqueezedTextLabel` manages its own tooltip, so the
 tooltip holds the normalized title rather than the verbatim one; the verbatim
 command remains in the input block.
 
-The decorations that follow the title, the kind, the status glyph and the
-identifier, are kept on that same line by `keepOnOneLine()`. They must not be
-word wrapped: a wrapped label breaks at any space it contains, so `[ID: 42]`
-used to be displayed as `[ID:` with the identifier on a line of its own, which
-doubled the height of every tool call header. The identifier is additionally
-elided in the middle and capped in width, since it is only of interest when
-matching a message against a log.
+The kind, the status glyph and the identifier describe the message rather than
+its content, so they are not shown next to the title but in the header of the
+message, after its type, where `updateHeaderDetails()` rebuilds them whenever
+the content changes. A tool call therefore reads as
+`12:00:00 Agent Tool Call (edit) ✓ [ID: …]` on one line, with the command
+below it.
+
+Those labels must not be word wrapped: a wrapped label breaks at any space it
+contains, so `[ID: 42]` used to be displayed as `[ID:` with the identifier on a
+line of its own, which doubled the height of the row. `keepOnOneLine()` turns
+wrapping off and keeps them from giving up width, and the identifier is
+additionally elided in the middle and capped in width, since it is only of
+interest when matching a message against a log.
+
+A tool call update carries nothing else, as its type already says what it is,
+so its content is only the output it brings.
 
 `ACPChatMessageWidget` rebuilds its content widgets on every tool call update,
 so the expansion state is stored in the message widget (`m_toolCommandExpanded`

@@ -264,6 +264,23 @@ private:
     void updateContentDisplay();
 
     /**
+     * @brief Rebuild the content-dependent details of the header
+     *
+     * The kind, the status and the identifier of a tool call describe the
+     * message as a whole, so they are shown next to its type rather than next
+     * to its content. They change while a tool call runs, hence the rebuild.
+     */
+    void updateHeaderDetails();
+
+    /**
+     * @brief The glyph and color standing for a tool call status
+     * @param status Status reported by the agent
+     * @param glyph Output for the glyph to display
+     * @param color Output for the color to display it in
+     */
+    void toolStatusIndicator(const QString &status, QString &glyph, QColor &color) const;
+
+    /**
      * @brief Update the status icon based on the current message status
      *
      * Shows/hides the status icon and sets the appropriate symbol and color.
@@ -362,6 +379,7 @@ private:
     QLabel *m_senderLabel; ///< Display: sender name
     QLabel *m_typeLabel; ///< Display: message type label
     QLabel *m_statusIconLabel; ///< Display: status icon (spinner, checkmark, etc.)
+    QWidget *m_headerDetailsWidget; ///< Container for content-dependent header details
     QWidget *m_contentWidget; ///< Container for message content
     QVBoxLayout *m_mainLayout; ///< Main widget layout
     QColor m_backgroundColor; ///< Cached background color

@@ -9,6 +9,7 @@ target_link_libraries(
     acpclientplugin
     PRIVATE
     kateprivate
+    KF6::WidgetsAddons
 )
 
 target_sources(

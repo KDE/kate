@@ -11,6 +11,7 @@
 #include "acpcollapsibletextwidget.h"
 
 #include <KLocalizedString>
+#include <KSqueezedTextLabel>
 
 #include <QApplication>
 #include <QHBoxLayout>
@@ -549,21 +550,28 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         if (!m_toolTitle.isEmpty()) {
             // Agents commonly put the whole command into the title, which the
-            // input block below already shows in full, so only a short version
-            // is displayed here. The untouched title stays in the tooltip.
-            static constexpr int maxTitleLength = 120;
+            // input block below already shows in full. Keep the title on one
+            // line and elide it, so that it never dominates the message.
+            // Guard against pathological titles, eliding those costs a text
+            // layout of the whole string on every resize.
+            static constexpr int maxTitleLength = 2000;
             QString titleText = m_toolTitle.simplified();
             if (titleText.size() > maxTitleLength) {
                 titleText = titleText.left(maxTitleLength) + QStringLiteral("…");
             }
 
-            QLabel *titleLabel = new QLabel(titleText, firstRow);
-            titleLabel->setWordWrap(true);
+            KSqueezedTextLabel *titleLabel = new KSqueezedTextLabel(titleText, firstRow);
+            titleLabel->setTextElideMode(Qt::ElideRight);
             QFont boldFont = titleLabel->font();
             boldFont.setBold(true);
             titleLabel->setFont(boldFont);
-            titleLabel->setToolTip(m_toolTitle);
             titleLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+
+            // Show no more than this many characters even in a wide window,
+            // the rest of the header row stays readable that way
+            static constexpr int maxTitleCharsShown = 60;
+            titleLabel->setMaximumWidth(titleLabel->fontMetrics().averageCharWidth() * maxTitleCharsShown);
+
             firstRowLayout->addWidget(titleLabel);
         }
 

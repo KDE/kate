@@ -353,6 +353,14 @@ expanded and collapsed with the mouse or the keyboard, and the collapsed state
 is visible rather than implied. Preview lines are also shortened to 400
 characters so a single huge line cannot blow up the message height.
 
+The tool call title is treated the same way. `title` is required by the
+protocol and agents commonly put the whole shell command into it, which the
+input block then repeats, so the title is whitespace-normalized and displayed
+in a `KSqueezedTextLabel` that elides to the available width and is capped at
+roughly 60 characters. `KSqueezedTextLabel` manages its own tooltip, so the
+tooltip holds the normalized title rather than the verbatim one; the verbatim
+command remains in the input block.
+
 `ACPChatMessageWidget` rebuilds its content widgets on every tool call update,
 so the expansion state is stored in the message widget (`m_toolCommandExpanded`
 and `m_toolContentExpanded`) and reapplied. Toggling emits

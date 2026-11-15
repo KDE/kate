@@ -395,6 +395,21 @@ void ACPClientServerManager::sendPrompt(const QString &sessionId, const QString 
     Q_EMIT promptStarted(sessionId);
 }
 
+void ACPClientServerManager::cancelPrompt(const QString &sessionId)
+{
+    ACPClientServer *server = activeServer();
+    if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
+        Q_EMIT errorOccurred(tr("No active ACP server available"));
+        return;
+    }
+
+    qCDebug(ACPCLIENT) << "Cancelling the prompt turn of session" << sessionId;
+
+    // A notification, so the turn only ends once the agent answers the prompt
+    // request it is still holding
+    server->sendMessage(ACP::ACPProtocol::createSessionCancelNotification(sessionId));
+}
+
 void ACPClientServerManager::setSessionMode(const QString &sessionId, const QString &modeId)
 {
     ACPClientServer *server = activeServer();

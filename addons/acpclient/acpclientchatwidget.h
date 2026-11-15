@@ -226,6 +226,14 @@ public Q_SLOTS:
      */
     void onInputTextChanged();
 
+    /**
+     * @brief Ask the agent to stop working on the current prompt
+     *
+     * Nothing is rolled back, the agent just stops where it is. The turn ends
+     * when the agent answers the prompt request it is still holding.
+     */
+    void cancelPrompt();
+
 private:
     // ========================================================================
     // SESSION SELECTORS
@@ -384,6 +392,7 @@ private:
     ACPClientServer *m_server = nullptr; ///< Active server for this chat
     QString m_sessionId; ///< Current session ID
     bool m_promptRunning = false; ///< True while the agent works on a prompt
+    bool m_cancelRequested = false; ///< True once the agent was asked to stop the running prompt
 
     // ========================================================================
     // SESSION CONFIGURATION

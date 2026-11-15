@@ -198,6 +198,25 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="cancelPromptButton">
+       <property name="text">
+        <string>Stop</string>
+       </property>
+       <property name="icon">
+        <iconset theme="process-stop"/>
+       </property>
+       <property name="toolTip">
+        <string>Stop the agent working on the current prompt</string>
+       </property>
+       <property name="visible">
+        <bool>false</bool>
+       </property>
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="sendButton">
        <property name="icon">
         <iconset theme="mail-send"/>

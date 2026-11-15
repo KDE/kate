@@ -90,6 +90,8 @@ ACPClientPlugin (KTextEditor::Plugin)
 │   │   └── ACPClientChatWidget - Chat interface
 │   │       ├── QTextEdit (message input, disabled when no session)
 │   │       ├── Session selectors, one per setting the agent exposes
+│   │       ├── Stop button (shown while the agent is working)
+│   │       ├── Prompt state and usage labels
 │   │       ├── Commands button (hidden unless the agent exposes commands)
 │   │       ├── Send button
 │   │       ├── New Session button
@@ -378,6 +380,14 @@ session changes or the server disconnects, since no response will arrive then.
 
 The widget used to derive the end of a turn from any response that happened to
 contain a `stopReason`, which is why responses now stop at the manager.
+
+A **Stop** button appears next to Send while the agent works and sends
+`session/cancel`. That is a notification, so the turn does not end with it:
+the agent stops where it is and answers the `session/prompt` request it is
+still holding with the stop reason `cancelled`. Until that response arrives
+the turn is still running, which `m_cancelRequested` reflects by showing
+`Stopping…` and disabling the button, rather than pretending the turn ended.
+Nothing is rolled back, as with ending the session.
 
 ### User Messages and Echoes
 

@@ -104,6 +104,7 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     connect(m_ui->newSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::startNewSession);
     connect(m_ui->endSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::endSession);
     connect(m_ui->commandsButton, &QToolButton::clicked, this, &ACPClientChatWidget::showCommandsMenu);
+    connect(m_ui->cancelPromptButton, &QPushButton::clicked, this, &ACPClientChatWidget::cancelPrompt);
     connect(m_ui->messageInput, &QTextEdit::textChanged, this, &ACPClientChatWidget::updateCommandCompletion);
     connect(m_ui->messageInput, &QTextEdit::cursorPositionChanged, this, &ACPClientChatWidget::updateCommandCompletion);
 
@@ -209,6 +210,7 @@ void ACPClientChatWidget::setSessionId(const QString &sessionId)
         m_echoedUserMessageIds.clear();
         // Whatever the agent was working on does not belong to this session
         m_promptRunning = false;
+        m_cancelRequested = false;
         // Drop configuration and command state from the previous session
         clearSessionConfigUi();
         clearAvailableCommands();
@@ -752,6 +754,7 @@ void ACPClientChatWidget::setServer(ACPClientServer *server)
             connect(m_server, &ACPClientServer::disconnected, this, [this]() {
                 appendMessage(QStringLiteral("System"), i18n("Server disconnected"));
                 m_promptRunning = false;
+                m_cancelRequested = false;
                 setSessionId(QString());
                 updateSessionState();
             });
@@ -823,6 +826,7 @@ void ACPClientChatWidget::setupServerConnections()
             return;
         }
         m_promptRunning = true;
+        m_cancelRequested = false;
         updatePromptState();
     });
 
@@ -832,6 +836,7 @@ void ACPClientChatWidget::setupServerConnections()
         }
 
         m_promptRunning = false;
+        m_cancelRequested = false;
 
         if (stopReason == QStringLiteral("cancelled")) {
             updateLastUserMessageStatus(MessageStatus::Cancelled);
@@ -851,6 +856,7 @@ void ACPClientChatWidget::setupServerConnections()
         }
 
         m_promptRunning = false;
+        m_cancelRequested = false;
         updateLastUserMessageStatus(MessageStatus::Error);
         appendMessage(QStringLiteral("System"),
                       errorMessage.isEmpty() ? i18n("The agent rejected the prompt") : i18n("The agent rejected the prompt: %1", errorMessage));
@@ -921,6 +927,20 @@ void ACPClientChatWidget::sendMessage()
         updateLastUserMessageStatus(MessageStatus::Error);
         appendMessage(QStringLiteral("System"), i18n("No active session. Please start a new session first."));
     }
+}
+
+void ACPClientChatWidget::cancelPrompt()
+{
+    if (!m_promptRunning || !m_serverManager || m_sessionId.isEmpty()) {
+        return;
+    }
+
+    m_serverManager->cancelPrompt(m_sessionId);
+
+    // Cancelling is a notification, so the turn keeps running until the agent
+    // answers the prompt request. Reflect that instead of pretending it ended.
+    m_cancelRequested = true;
+    updatePromptState();
 }
 
 void ACPClientChatWidget::onInputReturnPressed()
@@ -1788,11 +1808,17 @@ void ACPClientChatWidget::updatePromptState()
 {
     const bool sessionActive = m_serverManager && m_serverManager->activeServer() && !m_sessionId.isEmpty();
 
+    // Offer to stop the agent only while it is actually working
+    m_ui->cancelPromptButton->setVisible(m_promptRunning);
+    m_ui->cancelPromptButton->setEnabled(m_promptRunning && !m_cancelRequested);
+
     // Agents reject a prompt while they are working on the previous one
     m_ui->sendButton->setEnabled(sessionActive && !m_promptRunning && !m_ui->messageInput->toPlainText().trimmed().isEmpty());
 
     if (!sessionActive) {
         m_ui->promptStatusLabel->clear();
+    } else if (m_promptRunning && m_cancelRequested) {
+        m_ui->promptStatusLabel->setText(i18nc("@info the agent was asked to stop", "⏳ Stopping…"));
     } else if (m_promptRunning) {
         m_ui->promptStatusLabel->setText(i18nc("@info the agent is working on a prompt", "⏳ Working…"));
     } else {

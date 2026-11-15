@@ -204,6 +204,17 @@ public:
     void sendPrompt(const QString &sessionId, const QString &message);
 
     /**
+     * @brief Ask the agent to stop working on the current prompt
+     * @param sessionId Target session ID
+     *
+     * session/cancel is a notification, so there is no reply to it. The agent
+     * ends the prompt turn and answers the still pending session/prompt
+     * request with the stop reason "cancelled", which arrives as
+     * promptFinished(). Nothing is rolled back.
+     */
+    void cancelPrompt(const QString &sessionId);
+
+    /**
      * @brief Change the active mode of a session (legacy API)
      * @param sessionId Target session ID
      * @param modeId Mode to activate

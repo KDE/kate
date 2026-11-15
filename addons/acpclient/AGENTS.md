@@ -542,6 +542,14 @@ roughly 60 characters. `KSqueezedTextLabel` manages its own tooltip, so the
 tooltip holds the normalized title rather than the verbatim one; the verbatim
 command remains in the input block.
 
+The decorations that follow the title, the kind, the status glyph and the
+identifier, are kept on that same line by `keepOnOneLine()`. They must not be
+word wrapped: a wrapped label breaks at any space it contains, so `[ID: 42]`
+used to be displayed as `[ID:` with the identifier on a line of its own, which
+doubled the height of every tool call header. The identifier is additionally
+elided in the middle and capped in width, since it is only of interest when
+matching a message against a log.
+
 `ACPChatMessageWidget` rebuilds its content widgets on every tool call update,
 so the expansion state is stored in the message widget (`m_toolCommandExpanded`
 and `m_toolContentExpanded`) and reapplied. Toggling emits

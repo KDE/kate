@@ -442,6 +442,50 @@ static QString markdownWithHighlightedCode(const QString &markdown, const QColor
     return document.toHtml();
 }
 
+/**
+ * @brief Keep a short label of a header row on one line
+ *
+ * The kind, the status and the identifier of a tool call belong next to its
+ * title. They are short, but they were word wrapped, so the layout was free to
+ * break them at any space they contain: "[ID: 42]" ended up as "[ID:" with the
+ * identifier on a line of its own.
+ */
+static void keepOnOneLine(QLabel *label)
+{
+    label->setWordWrap(false);
+
+    // Never give up width that the title can use instead
+    label->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+    label->setTextInteractionFlags(Qt::TextBrowserInteraction);
+}
+
+/**
+ * @brief Create the label showing the identifier of a tool call
+ * @param toolCallId Identifier to display
+ * @param parent Parent widget, which the label is added to
+ *
+ * Identifiers are generated, so they are of no interest until one has to be
+ * matched against a log. The label is elided in the middle, which keeps the
+ * prefix and the tail of an identifier readable, and the whole identifier is
+ * available as its tooltip.
+ */
+static KSqueezedTextLabel *createToolCallIdLabel(const QString &toolCallId, QWidget *parent)
+{
+    KSqueezedTextLabel *idLabel = new KSqueezedTextLabel(QStringLiteral("[ID: %1]").arg(toolCallId), parent);
+    idLabel->setTextElideMode(Qt::ElideMiddle);
+    idLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+
+    QFont smallFont = idLabel->font();
+    smallFont.setPointSize(qMax(1, smallFont.pointSize() - 2));
+    idLabel->setFont(smallFont);
+
+    // Long identifiers must not push the rest of the row out of the message
+    static constexpr int maxIdCharsShown = 28;
+    idLabel->setMaximumWidth(idLabel->fontMetrics().averageCharWidth() * maxIdCharsShown);
+
+    return idLabel;
+}
+
 bool ACPChatMessageWidget::isNegative() const
 {
     if (m_type == MessageType::Error) {
@@ -758,11 +802,10 @@ void ACPChatMessageWidget::updateContentDisplay()
 
         if (!m_toolKind.isEmpty()) {
             QLabel *kindLabel = new QLabel(QStringLiteral("(%1)").arg(m_toolKind), firstRow);
-            kindLabel->setWordWrap(true);
+            keepOnOneLine(kindLabel);
             QFont smallFont = kindLabel->font();
-            smallFont.setPointSize(smallFont.pointSize() - 2);
+            smallFont.setPointSize(qMax(1, smallFont.pointSize() - 2));
             kindLabel->setFont(smallFont);
-            kindLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
             firstRowLayout->addWidget(kindLabel);
         }
 
@@ -784,24 +827,17 @@ void ACPChatMessageWidget::updateContentDisplay()
         }
 
         QLabel *statusLabel = new QLabel(statusText, firstRow);
-        statusLabel->setWordWrap(true);
+        keepOnOneLine(statusLabel);
         QFont boldFont2 = statusLabel->font();
         boldFont2.setBold(true);
         statusLabel->setFont(boldFont2);
         QPalette statusPal = statusLabel->palette();
         statusPal.setColor(QPalette::WindowText, statusColor);
         statusLabel->setPalette(statusPal);
-        statusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
         firstRowLayout->addWidget(statusLabel);
 
         if (!m_toolCallId.isEmpty()) {
-            QLabel *idLabel = new QLabel(QStringLiteral("[ID: %1]").arg(m_toolCallId), firstRow);
-            idLabel->setWordWrap(true);
-            QFont smallFont = idLabel->font();
-            smallFont.setPointSize(smallFont.pointSize() - 2);
-            idLabel->setFont(smallFont);
-            idLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-            firstRowLayout->addWidget(idLabel);
+            firstRowLayout->addWidget(createToolCallIdLabel(m_toolCallId, firstRow));
         }
 
         firstRowLayout->addStretch();
@@ -863,11 +899,10 @@ void ACPChatMessageWidget::updateContentDisplay()
         svPal.setColor(QPalette::WindowText, statusColor);
 
         QLabel *statusLabel = new QLabel(i18n("Tool Update:"), updateWidget);
-        statusLabel->setWordWrap(true);
+        keepOnOneLine(statusLabel);
         QFont boldFont = statusLabel->font();
         boldFont.setBold(true);
         statusLabel->setFont(boldFont);
-        statusLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
         updateLayout->addWidget(statusLabel);
 
         // Map status text to appropriate icons
@@ -883,22 +918,15 @@ void ACPChatMessageWidget::updateContentDisplay()
         }
 
         QLabel *statusValueLabel = new QLabel(statusValueText, updateWidget);
-        statusValueLabel->setWordWrap(true);
+        keepOnOneLine(statusValueLabel);
         QFont boldFont2 = statusValueLabel->font();
         boldFont2.setBold(true);
         statusValueLabel->setFont(boldFont2);
         statusValueLabel->setPalette(svPal);
-        statusValueLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
         updateLayout->addWidget(statusValueLabel);
 
         if (!m_toolCallId.isEmpty()) {
-            QLabel *idLabel = new QLabel(QStringLiteral("[ID: %1]").arg(m_toolCallId), updateWidget);
-            idLabel->setWordWrap(true);
-            QFont smallFont2 = idLabel->font();
-            smallFont2.setPointSize(smallFont2.pointSize() - 2);
-            idLabel->setFont(smallFont2);
-            idLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
-            updateLayout->addWidget(idLabel);
+            updateLayout->addWidget(createToolCallIdLabel(m_toolCallId, updateWidget));
         }
 
         if (!m_toolContent.isEmpty()) {

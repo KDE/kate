@@ -147,6 +147,18 @@ ACPClientServer *ACPClientServerManager::createServer(const ACPClientServer::Ser
     connect(serverPtr, &ACPClientServer::errorOccurred, this, &ACPClientServerManager::onServerError);
     connect(serverPtr, &ACPClientServer::messageReceived, this, &ACPClientServerManager::onServerMessageReceived);
 
+    // Forward the traffic and the process output for logging, with the server
+    // it belongs to, which the views have no other way of knowing
+    connect(serverPtr, &ACPClientServer::messageReceived, this, [this, serverPtr](const QJsonDocument &message) {
+        Q_EMIT serverMessageLogged(serverPtr, message, false);
+    });
+    connect(serverPtr, &ACPClientServer::messageSent, this, [this, serverPtr](const QJsonDocument &message) {
+        Q_EMIT serverMessageLogged(serverPtr, message, true);
+    });
+    connect(serverPtr, &ACPClientServer::logMessage, this, [this, serverPtr](const QString &text, bool isError) {
+        Q_EMIT serverTextLogged(serverPtr, text, isError);
+    });
+
     m_servers[info.name] = std::move(server);
 
     Q_EMIT serverAdded(serverPtr);

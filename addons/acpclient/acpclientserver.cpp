@@ -45,11 +45,17 @@ void ACPClientServer::stop()
     qCDebug(ACPCLIENT) << "Stopping ACP server:" << m_info.name;
 
     if (m_process && m_process->state() != QProcess::NotRunning) {
+        Q_EMIT logMessage(tr("Stopping agent process"), false);
+
         m_process->terminate();
         if (!m_process->waitForFinished(1000)) {
+            Q_EMIT logMessage(tr("Agent process did not terminate, killing it"), true);
             m_process->kill();
         }
     }
+
+    // Whatever the agent complained about on its way out is still interesting
+    reportErrorOutput(true);
 
     setState(ServerState::Disconnected);
 }
@@ -61,6 +67,7 @@ void ACPClientServer::sendMessage(const QJsonDocument &message)
 
     if (m_process && m_process->isWritable()) {
         m_process->write(data + "\n");
+        Q_EMIT messageSent(message);
     }
 }
 
@@ -82,11 +89,15 @@ void ACPClientServer::setupProcessConnection()
 
     // handle start done
     connect(m_process.get(), &QProcess::started, this, [this]() {
+        Q_EMIT logMessage(tr("Agent started with process id %1").arg(m_process->processId()), false);
         setState(ServerState::Connected);
         initializeServer();
     });
 
-    // trigger starting
+    // trigger starting. A failure to start arrives as QProcess::FailedToStart
+    // in onProcessError(), which logs the reason along with the error output.
+    const QString commandLine = (QStringList{m_info.command} + m_info.arguments).join(QLatin1Char(' '));
+    Q_EMIT logMessage(tr("Starting agent: %1").arg(commandLine), false);
     m_process->start();
 }
 
@@ -159,25 +170,74 @@ void ACPClientServer::readFromProcess()
 
 void ACPClientServer::onProcessErrorOutput()
 {
-    if (m_process) {
-        QByteArray errorData = m_process->readAllStandardError();
-        if (!errorData.isEmpty()) {
-            qCWarning(ACPCLIENT) << "ACP server stderr:" << errorData;
-            Q_EMIT errorOccurred(QString::fromUtf8(errorData));
-        }
+    if (!m_process) {
+        return;
     }
+
+    m_errorOutput.append(QString::fromUtf8(m_process->readAllStandardError()));
+    reportErrorOutput();
+}
+
+void ACPClientServer::reportErrorOutput(bool flush)
+{
+    // Cut out the complete lines, so that a line is never reported in pieces
+    const int lastBreak = m_errorOutput.lastIndexOf(QLatin1Char('\n'));
+    QString text;
+    if (lastBreak >= 0) {
+        text = m_errorOutput.left(lastBreak);
+        m_errorOutput.remove(0, lastBreak + 1);
+    }
+
+    if (flush && !m_errorOutput.isEmpty()) {
+        if (!text.isEmpty()) {
+            text.append(QLatin1Char('\n'));
+        }
+        text.append(m_errorOutput);
+        m_errorOutput.clear();
+    }
+
+    if (text.isEmpty()) {
+        return;
+    }
+
+    qCWarning(ACPCLIENT) << "ACP server stderr:" << text;
+
+    // Agents use their error output for ordinary logging as well, so it is
+    // reported as a log line rather than as an error, which would pull the
+    // output view open for every line they write
+    Q_EMIT logMessage(text, false);
 }
 
 void ACPClientServer::onProcessError(QProcess::ProcessError error)
 {
     qCWarning(ACPCLIENT) << "Process error:" << error << ":" << m_process->errorString();
+
+    // An agent that cannot be launched is the case this log exists for, so it
+    // is told apart from an agent that ran into trouble later
+    if (error == QProcess::FailedToStart) {
+        Q_EMIT logMessage(tr("Failed to start agent: %1").arg(m_process->errorString()), true);
+    } else {
+        Q_EMIT logMessage(tr("Agent process error: %1").arg(m_process->errorString()), true);
+    }
+    reportErrorOutput(true);
+
     setState(ServerState::Error);
     Q_EMIT errorOccurred(m_process->errorString());
 }
 
-void ACPClientServer::onProcessFinished(int exitCode, QProcess::ExitStatus)
+void ACPClientServer::onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     qCDebug(ACPCLIENT) << "Process finished with exit code:" << exitCode;
+
+    // Anything the agent said before exiting usually explains why
+    reportErrorOutput(true);
+
+    if (exitStatus == QProcess::CrashExit) {
+        Q_EMIT logMessage(tr("Agent process crashed"), true);
+    } else {
+        Q_EMIT logMessage(tr("Agent process exited with code %1").arg(exitCode), exitCode != 0);
+    }
+
     setState(ServerState::Disconnected);
     Q_EMIT disconnected();
 }

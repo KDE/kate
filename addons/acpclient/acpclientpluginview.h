@@ -16,6 +16,7 @@
 #include <memory>
 
 class ACPClientPlugin;
+class ACPClientServer;
 class ACPClientServerManager;
 class ACPClientChatWidget;
 class ACPSessionListWidget;
@@ -90,6 +91,20 @@ private:
 
     /** @brief Set up the user interface */
     void setupUI();
+
+    // ========================================================================
+    // LOGGING
+    // ========================================================================
+
+    /**
+     * @brief Write a line to Kate's output view
+     * @param server Agent the line belongs to, may be nullptr
+     * @param text Line to write
+     * @param isError Whether the line reports a problem
+     *
+     * Does nothing unless logging is enabled in the plugin settings.
+     */
+    void logToOutputView(ACPClientServer *server, const QString &text, bool isError);
 
     // ========================================================================
     // MEMBER VARIABLES

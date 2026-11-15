@@ -9,6 +9,7 @@
 #include "acpclient_debug.h"
 #include "acpclientchatwidget.h"
 #include "acpclientplugin.h"
+#include "acpclientserver.h"
 #include "acpclientservermanager.h"
 #include "acpserverlistwidget.h"
 #include "acpsessionlistwidget.h"
@@ -35,6 +36,30 @@ ACPClientPluginView::ACPClientPluginView(ACPClientPlugin *plugin, KTextEditor::M
 
     setupUI();
 
+    // Log the traffic with the agents, if the user asked for it
+    connect(m_serverManager, &ACPClientServerManager::serverMessageLogged, this, [this](ACPClientServer *server, const QJsonDocument &message, bool outgoing) {
+        if (!m_plugin->logMessages()) {
+            return;
+        }
+
+        const QJsonDocument::JsonFormat format = m_plugin->prettyPrintLog() ? QJsonDocument::Indented : QJsonDocument::Compact;
+        QString json = QString::fromUtf8(message.toJson(format));
+
+        // Indented output ends with a line break, which would show up
+        // as an empty line in the output view
+        while (json.endsWith(QLatin1Char('\n'))) {
+            json.chop(1);
+        }
+
+        // The direction is the first thing one looks for in a log
+        const QString direction = outgoing ? QStringLiteral("-->") : QStringLiteral("<--");
+        logToOutputView(server, QStringLiteral("%1 %2").arg(direction, json), false);
+    });
+
+    connect(m_serverManager, &ACPClientServerManager::serverTextLogged, this, [this](ACPClientServer *server, const QString &text, bool isError) {
+        logToOutputView(server, text, isError);
+    });
+
     m_mainWindow->guiFactory()->addClient(this);
 }
 
@@ -46,6 +71,22 @@ ACPClientPluginView::~ACPClientPluginView()
 
     // ensure we deregister
     m_mainWindow->guiFactory()->removeClient(this);
+}
+
+void ACPClientPluginView::logToOutputView(ACPClientServer *server, const QString &text, bool isError)
+{
+    if (!m_plugin->logMessages() || text.isEmpty()) {
+        return;
+    }
+
+    // The host application owns the output view, including when to show it
+    QVariantMap message;
+    message.insert(QStringLiteral("category"), server ? i18nc("@info", "ACP: %1", server->info().name) : i18nc("@info", "ACP Client"));
+    message.insert(QStringLiteral("categoryIcon"), QIcon::fromTheme(QStringLiteral("utilities-terminal")));
+    message.insert(QStringLiteral("type"), isError ? QStringLiteral("Error") : QStringLiteral("Log"));
+    message.insert(QStringLiteral("text"), text);
+
+    m_mainWindow->showMessage(message);
 }
 
 void ACPClientPluginView::setupUI()

@@ -31,6 +31,8 @@ QString acpClientConfigGroup()
 static constexpr char CONFIG_SERVER_CONFIG[] = "ServerConfiguration";
 static constexpr char CONFIG_TOOL_CALL_PERMISSION[] = "ToolCallPermission";
 static constexpr char CONFIG_EXPAND_THOUGHTS[] = "ExpandThoughts";
+static constexpr char CONFIG_LOG_MESSAGES[] = "LogMessages";
+static constexpr char CONFIG_PRETTY_PRINT_LOG[] = "PrettyPrintLog";
 
 K_PLUGIN_FACTORY_WITH_JSON(ACPClientPluginFactory, "acpclientplugin.json", registerPlugin<ACPClientPlugin>();)
 
@@ -105,6 +107,8 @@ void ACPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_SERVER_CONFIG, m_configPath);
     config.writeEntry(CONFIG_TOOL_CALL_PERMISSION, static_cast<int>(m_toolCallPermission));
     config.writeEntry(CONFIG_EXPAND_THOUGHTS, m_expandThoughts);
+    config.writeEntry(CONFIG_LOG_MESSAGES, m_logMessages);
+    config.writeEntry(CONFIG_PRETTY_PRINT_LOG, m_prettyPrintLog);
 
     // trigger that we react on config changes in the server manager and Co.
     Q_EMIT update();
@@ -116,6 +120,8 @@ void ACPClientPlugin::readConfig()
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
     m_toolCallPermission = static_cast<ToolCallPermission>(config.readEntry(CONFIG_TOOL_CALL_PERMISSION, static_cast<int>(AskEachTime)));
     m_expandThoughts = config.readEntry(CONFIG_EXPAND_THOUGHTS, false);
+    m_logMessages = config.readEntry(CONFIG_LOG_MESSAGES, false);
+    m_prettyPrintLog = config.readEntry(CONFIG_PRETTY_PRINT_LOG, false);
 
     // trigger that we react on config changes in the server manager and Co.
     Q_EMIT update();

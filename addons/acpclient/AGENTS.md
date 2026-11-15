@@ -572,6 +572,8 @@ Stored in KConfig (`acpclient` group):
 - `DebugMode` - Enable debug logging
 - `ToolCallPermission` - Permission mode: AllowAll, DenyAll, AskEachTime
 - `ExpandThoughts` - Show agent reasoning expanded instead of collapsed, toggled from the chat header
+- `LogMessages` - Write the traffic with the agents to Kate's output view
+- `PrettyPrintLog` - Indent the logged JSON instead of writing it on one line
 - `AllowedServerCommandLines` - Whitelist of allowed server commands
 - `BlockedServerCommandLines` - Blacklist of blocked server commands
 
@@ -632,6 +634,39 @@ When adding new ACP protocol features:
    - Add to appropriate widget (chat, session list, server list)
    - Connect signals and slots properly
    - Ensure proper enabled/disabled state based on session/server availability
+
+### Logging to the Output View
+
+With **Log ACP messages to the output view** enabled in the plugin settings,
+every message exchanged with an agent is written to Kate's output view, the
+same place the LSP client logs to, prefixed with `-->` for messages sent to
+the agent and `<--` for messages received from it. **Pretty print the logged
+JSON** switches between `QJsonDocument::Compact`, one message per line, and
+`QJsonDocument::Indented`.
+
+Logged alongside the messages, and the reason the log exists: the command line
+the agent is started with, its process id, its exit code or crash, and its
+standard error output, which is where an agent that fails to start explains
+itself.
+
+The chain is `ACPClientServer` → `ACPClientServerManager` →
+`ACPClientPluginView`:
+
+- The server emits `messageSent()` next to `messageReceived()`, and
+  `logMessage()` for everything that is not a message.
+- The manager re-emits both as `serverMessageLogged()` and `serverTextLogged()`
+  with the server they belong to, which the views cannot know otherwise. These
+  report the traffic as it is, including the messages the manager consumes
+  itself.
+- The view formats them and calls `KTextEditor::MainWindow::showMessage()`,
+  because the output view belongs to the host application. The settings are
+  checked there, so nothing is formatted while logging is off.
+
+Error output is reported as a log line rather than as an error, since agents
+use it for ordinary logging and an error would pull the output view open for
+every line. Only a failed start, a process error, a crash and a non-zero exit
+code are logged as errors. Lines are buffered until a line break, so a line is
+never reported in pieces.
 
 ### Debugging
 

@@ -50,6 +50,21 @@ struct ACPClientPluginOptions {
      * Toggled from the chat view rather than the settings dialog.
      */
     bool m_expandThoughts = false;
+
+    /**
+     * @brief Whether the traffic with the agents is written to the output view
+     *
+     * Every message sent and received is logged as JSON, along with the
+     * startup, the exit and the standard error output of the agent process.
+     */
+    bool m_logMessages = false;
+
+    /**
+     * @brief Whether logged JSON is indented instead of written on one line
+     *
+     * Only has an effect while @ref m_logMessages is set.
+     */
+    bool m_prettyPrintLog = false;
 };
 
 /**
@@ -158,6 +173,18 @@ public:
     ToolCallPermission toolCallPermission() const
     {
         return m_toolCallPermission;
+    }
+
+    /** @brief Whether the traffic with the agents is written to the output view */
+    bool logMessages() const
+    {
+        return m_logMessages;
+    }
+
+    /** @brief Whether logged JSON is indented instead of written on one line */
+    bool prettyPrintLog() const
+    {
+        return m_prettyPrintLog;
     }
 
     /** @brief Whether the reasoning of the agent starts out expanded */

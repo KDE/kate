@@ -300,6 +300,25 @@ Q_SIGNALS:
     void sessionDeleted(const QString &sessionId);
 
     /**
+     * @brief Emitted for every message exchanged with an agent
+     * @param server Agent the message belongs to
+     * @param message The message itself
+     * @param outgoing true if the client sent it, false if the agent did
+     *
+     * Meant for logging, so this reports the traffic as it is, including the
+     * messages the manager handles itself.
+     */
+    void serverMessageLogged(ACPClientServer *server, const QJsonDocument &message, bool outgoing);
+
+    /**
+     * @brief Emitted for anything worth logging that is not a message
+     * @param server Agent the line belongs to
+     * @param text Human-readable line
+     * @param isError Whether the line reports a problem
+     */
+    void serverTextLogged(ACPClientServer *server, const QString &text, bool isError);
+
+    /**
      * @brief Emitted when a prompt turn starts
      *
      * The agent is working from here until promptFinished() or promptFailed()

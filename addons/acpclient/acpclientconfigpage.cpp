@@ -12,6 +12,7 @@
 
 #include <KLocalizedString>
 
+#include <QCheckBox>
 #include <QVBoxLayout>
 
 ACPClientConfigPage::ACPClientConfigPage(ACPClientPlugin *plugin, QWidget *parent)
@@ -35,6 +36,11 @@ ACPClientConfigPage::ACPClientConfigPage(ACPClientPlugin *plugin, QWidget *paren
     reset();
 
     connect(ui->toolCallPermissionComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ACPClientConfigPage::changed);
+    connect(ui->logMessagesCheckBox, &QCheckBox::toggled, this, &ACPClientConfigPage::changed);
+    connect(ui->prettyPrintLogCheckBox, &QCheckBox::toggled, this, &ACPClientConfigPage::changed);
+
+    // Pretty printing only has an effect on messages that are logged
+    connect(ui->logMessagesCheckBox, &QCheckBox::toggled, ui->prettyPrintLogCheckBox, &QWidget::setEnabled);
 }
 
 ACPClientConfigPage::~ACPClientConfigPage()
@@ -73,6 +79,9 @@ void ACPClientConfigPage::apply()
         break;
     }
 
+    m_plugin->m_logMessages = ui->logMessagesCheckBox->isChecked();
+    m_plugin->m_prettyPrintLog = ui->prettyPrintLogCheckBox->isChecked();
+
     m_plugin->m_configPath = m_jsonSettings->userConfigPath();
 
     m_jsonSettings->saveUserConfig();
@@ -96,6 +105,10 @@ void ACPClientConfigPage::resetUiTo()
         break;
     }
     ui->toolCallPermissionComboBox->setCurrentIndex(permissionIndex);
+
+    ui->logMessagesCheckBox->setChecked(m_plugin->m_logMessages);
+    ui->prettyPrintLogCheckBox->setChecked(m_plugin->m_prettyPrintLog);
+    ui->prettyPrintLogCheckBox->setEnabled(m_plugin->m_logMessages);
 }
 
 void ACPClientConfigPage::reset()

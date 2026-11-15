@@ -102,6 +102,29 @@
                                 </layout>
                             </item>
                             <item>
+                                <widget class="QCheckBox" name="logMessagesCheckBox">
+                                    <property name="text">
+                                        <string>Log ACP messages to the output view</string>
+                                    </property>
+                                    <property name="toolTip">
+                                        <string>Write every message exchanged with an agent, and the startup, exit and error output of the agent process, to Kate's output view.</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item>
+                                <widget class="QCheckBox" name="prettyPrintLogCheckBox">
+                                    <property name="text">
+                                        <string>Pretty print the logged JSON</string>
+                                    </property>
+                                    <property name="toolTip">
+                                        <string>Log messages indented over several lines instead of on a single line.</string>
+                                    </property>
+                                    <property name="enabled">
+                                        <bool>false</bool>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item>
                                 <spacer name="verticalSpacer">
                                     <property name="orientation">
                                         <enum>Qt::Vertical</enum>

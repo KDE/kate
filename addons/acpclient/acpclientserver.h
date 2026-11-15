@@ -155,6 +155,24 @@ Q_SIGNALS:
     /** @brief Emitted when a message is received from the server */
     void messageReceived(const QJsonDocument &message);
 
+    /**
+     * @brief Emitted when a message was written to the server
+     *
+     * Kept separate from sendMessage() so that logging sees the traffic in
+     * both directions without the senders having to care.
+     */
+    void messageSent(const QJsonDocument &message);
+
+    /**
+     * @brief Emitted for anything worth logging that is not a message
+     * @param text Human-readable line, for example the agent's error output
+     * @param isError Whether the line reports a problem
+     *
+     * Covers the startup, the exit and the standard error output of the agent
+     * process, which is where the reason for a failed start shows up.
+     */
+    void logMessage(const QString &text, bool isError);
+
     /** @brief Emitted when an error occurs */
     void errorOccurred(const QString &error);
 
@@ -206,6 +224,15 @@ private:
     void handleMessage(const QJsonDocument &doc);
 
     /**
+     * @brief Emit the error output buffered so far, up to the last line break
+     * @param flush Emit the remainder as well, even without a trailing break
+     *
+     * Agents write their error output in arbitrary chunks, so it is buffered
+     * and reported line wise instead of cut in the middle of a line.
+     */
+    void reportErrorOutput(bool flush = false);
+
+    /**
      * @brief Update the server state
      * @param state New state to transition to
      *
@@ -225,6 +252,7 @@ private:
 
     // Connection objects
     std::unique_ptr<QProcess> m_process; ///< Server process (stdin/stdout connected)
+    QString m_errorOutput; ///< Incomplete line of error output, waiting to be reported
 
     // Request tracking
     /**

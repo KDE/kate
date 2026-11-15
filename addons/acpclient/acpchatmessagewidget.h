@@ -49,6 +49,7 @@ public:
         User, ///< User's message (blue styling)
         Agent, ///< Agent's text message (green styling)
         Thought, ///< Agent's internal reasoning, collapsible
+        Pending, ///< Placeholder shown while the agent works on the prompt
         System, ///< System messages (gray styling)
         Plan, ///< Plan/step updates (structured display)
         ToolCall, ///< Tool call notification (orange styling)

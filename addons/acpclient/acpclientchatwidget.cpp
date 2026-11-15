@@ -236,6 +236,7 @@ void ACPClientChatWidget::setSessionId(const QString &sessionId)
         // Whatever the agent was working on does not belong to this session
         m_promptRunning = false;
         m_cancelRequested = false;
+        removePendingMessage();
         // Drop configuration and command state from the previous session
         clearSessionConfigUi();
         clearAvailableCommands();
@@ -293,6 +294,13 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
         return;
     }
 
+    // Keep the placeholder of the answer at the bottom, so that the content
+    // arriving for it appears above instead of below it
+    const bool restorePending = m_pendingMessage && widget != m_pendingMessage;
+    if (restorePending) {
+        removePendingMessage();
+    }
+
     // Create a container widget to hold the message widget
     // This ensures proper size calculation
     QWidget *container = new QWidget(m_chatListWidget);
@@ -322,11 +330,86 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
         updateWidgetSizeHint(widget);
     });
 
-    // Measure once the widget has been laid out by the event loop
-    QTimer::singleShot(0, this, [this, item, container]() {
-        updateItemSizeHint(item, container);
+    // Measure once the widget has been laid out by the event loop. The message
+    // may be gone by then, for example the placeholder that is removed as soon
+    // as the answer arrives, so look it up again instead of capturing it.
+    QTimer::singleShot(0, this, [this, container = QPointer<QWidget>(container)]() {
+        if (!container) {
+            return;
+        }
+
+        auto itemIt = m_containerToItemMap.constFind(container);
+        if (itemIt == m_containerToItemMap.constEnd()) {
+            return;
+        }
+
+        updateItemSizeHint(itemIt.value(), container);
         scrollToBottom();
     });
+
+    if (restorePending) {
+        showPendingMessage();
+    }
+}
+
+void ACPClientChatWidget::removeMessageWidget(ACPChatMessageWidget *widget)
+{
+    if (!widget || !m_chatListWidget) {
+        return;
+    }
+
+    m_messageWidgets.removeAll(widget);
+
+    QWidget *container = m_widgetToContainerMap.take(widget);
+    if (!container) {
+        widget->deleteLater();
+        return;
+    }
+
+    QListWidgetItem *item = m_containerToItemMap.take(container);
+    if (item) {
+        // Destroys the container, and with it the message widget inside it
+        m_chatListWidget->removeItemWidget(item);
+        delete m_chatListWidget->takeItem(m_chatListWidget->row(item));
+    } else {
+        container->deleteLater();
+    }
+}
+
+void ACPClientChatWidget::showPendingMessage()
+{
+    if (m_pendingMessage || !m_chatListWidget) {
+        return;
+    }
+
+    ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::Pending, m_chatListWidget);
+    msgWidget->setTimestamp(QDateTime::currentDateTime());
+    msgWidget->setSender(i18n("Agent"));
+
+    m_pendingMessage = msgWidget;
+    addMessageWidget(msgWidget);
+}
+
+void ACPClientChatWidget::removePendingMessage()
+{
+    if (!m_pendingMessage) {
+        return;
+    }
+
+    ACPChatMessageWidget *widget = m_pendingMessage;
+    m_pendingMessage = nullptr;
+    removeMessageWidget(widget);
+}
+
+ACPChatMessageWidget *ACPClientChatWidget::lastContentMessage() const
+{
+    for (auto it = m_messageWidgets.rbegin(); it != m_messageWidgets.rend(); ++it) {
+        if (*it != m_pendingMessage) {
+            return *it;
+        }
+    }
+
+    return nullptr;
 }
 
 void ACPClientChatWidget::clearMessages()
@@ -342,6 +425,7 @@ void ACPClientChatWidget::clearMessages()
     m_messageWidgets.clear();
     m_widgetToContainerMap.clear();
     m_containerToItemMap.clear();
+    m_pendingMessage = nullptr;
 
     // Clear the list widget
     if (m_chatListWidget) {
@@ -766,6 +850,11 @@ void ACPClientChatWidget::clearChat()
     m_locallyShownUserMessage = nullptr;
     m_echoedUserMessageIds.clear();
     updateStatus(QString());
+
+    // The agent keeps working on the prompt even if its conversation is gone
+    if (m_promptRunning) {
+        showPendingMessage();
+    }
 }
 
 void ACPClientChatWidget::setServer(ACPClientServer *server)
@@ -791,6 +880,7 @@ void ACPClientChatWidget::setServer(ACPClientServer *server)
                 appendMessage(QStringLiteral("System"), i18n("Server disconnected"));
                 m_promptRunning = false;
                 m_cancelRequested = false;
+                removePendingMessage();
                 setSessionId(QString());
                 updateSessionState();
             });
@@ -863,6 +953,7 @@ void ACPClientChatWidget::setupServerConnections()
         }
         m_promptRunning = true;
         m_cancelRequested = false;
+        showPendingMessage();
         updatePromptState();
     });
 
@@ -873,6 +964,7 @@ void ACPClientChatWidget::setupServerConnections()
 
         m_promptRunning = false;
         m_cancelRequested = false;
+        removePendingMessage();
 
         if (stopReason == QStringLiteral("cancelled")) {
             updateLastUserMessageStatus(MessageStatus::Cancelled);
@@ -893,6 +985,7 @@ void ACPClientChatWidget::setupServerConnections()
 
         m_promptRunning = false;
         m_cancelRequested = false;
+        removePendingMessage();
         updateLastUserMessageStatus(MessageStatus::Error);
         appendMessage(QStringLiteral("System"),
                       errorMessage.isEmpty() ? i18n("The agent rejected the prompt") : i18n("The agent rejected the prompt: %1", errorMessage));
@@ -948,7 +1041,7 @@ void ACPClientChatWidget::sendMessage()
     // Display user message, and remember it so that the echo the agent may
     // send back for it is not displayed a second time
     appendMessage(i18n("You"), message, true);
-    m_locallyShownUserMessage = m_messageWidgets.isEmpty() ? nullptr : m_messageWidgets.last();
+    m_locallyShownUserMessage = lastContentMessage();
     m_ui->messageInput->clear();
 
     // Mark the user message as running (prompt turn started)
@@ -1129,8 +1222,7 @@ void ACPClientChatWidget::handleAgentMessageChunk(const QJsonObject &update)
                 addMessageWidget(msgWidget);
             } else if (!messageId.isEmpty()) {
                 // Continuation - try to find the last agent message and append
-                if (!m_messageWidgets.isEmpty()) {
-                    ACPChatMessageWidget *lastWidget = m_messageWidgets.last();
+                if (ACPChatMessageWidget *lastWidget = lastContentMessage()) {
                     if (lastWidget->type() == ACPChatMessageWidget::MessageType::Agent && lastWidget->messageId() == messageId) {
                         // Append to existing message
                         QString existingContent = lastWidget->content();
@@ -1206,8 +1298,7 @@ void ACPClientChatWidget::handleAgentThoughtChunk(const QJsonObject &update)
     // Reasoning arrives in chunks, which belong to one message as long as the
     // message ID stays the same. Chunks without an ID extend the message that
     // is currently being streamed.
-    if (!m_messageWidgets.isEmpty()) {
-        ACPChatMessageWidget *lastWidget = m_messageWidgets.last();
+    if (ACPChatMessageWidget *lastWidget = lastContentMessage()) {
         if (lastWidget->type() == ACPChatMessageWidget::MessageType::Thought && lastWidget->messageId() == messageId) {
             lastWidget->setContent(lastWidget->content() + text);
             updateWidgetSizeHint(lastWidget);
@@ -1270,9 +1361,9 @@ void ACPClientChatWidget::handleUserMessageChunk(const QJsonObject &update)
 
     // Continuation of a message we are displaying, for example while a loaded
     // session is replayed in chunks
-    if (!messageId.isEmpty() && !m_messageWidgets.isEmpty()) {
-        ACPChatMessageWidget *lastWidget = m_messageWidgets.last();
-        if (lastWidget->type() == ACPChatMessageWidget::MessageType::User && lastWidget->messageId() == messageId) {
+    if (!messageId.isEmpty()) {
+        ACPChatMessageWidget *lastWidget = lastContentMessage();
+        if (lastWidget && lastWidget->type() == ACPChatMessageWidget::MessageType::User && lastWidget->messageId() == messageId) {
             lastWidget->setContent(lastWidget->content() + text);
             updateWidgetSizeHint(lastWidget);
             scrollToBottom();

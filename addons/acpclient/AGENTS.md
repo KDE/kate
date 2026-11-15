@@ -356,6 +356,7 @@ copied into Kate. The Kate version only shares the behavior, implemented with
 - **User** - User's messages (blue styling)
 - **Agent** - Agent's text responses (green styling)
 - **Thought** - Agent's internal reasoning, collapsed by default
+- **Pending** - Placeholder with a busy indicator, shown while the agent works
 - **System** - System messages (gray styling)
 - **Plan** - Plan/step updates (blue border, structured display)
 - **ToolCall** - Tool call notifications (orange styling)
@@ -382,6 +383,22 @@ session changes or the server disconnects, since no response will arrive then.
 
 The widget used to derive the end of a turn from any response that happened to
 contain a `stopReason`, which is why responses now stop at the manager.
+
+While a turn runs, a placeholder message with an indeterminate progress bar is
+kept as the last entry of the chat, so that the conversation shows that an
+answer is on its way. `addMessageWidget()` takes it out and puts it back when a
+message is added, which keeps arriving content above it, and
+`promptFinished()`/`promptFailed()` remove it.
+
+Two consequences worth knowing when touching the chat:
+
+- The placeholder is a regular message widget, so code looking for the newest
+  message must use `lastContentMessage()` rather than `m_messageWidgets.last()`,
+  otherwise streamed chunks start a new message instead of extending the one
+  they belong to.
+- Messages are measured from a zero timer after they were laid out, and the
+  placeholder may be gone by then. The timer therefore looks the message up
+  again instead of capturing the item.
 
 A **Stop** button appears next to Send while the agent works and sends
 `session/cancel`. That is a notification, so the turn does not end with it:

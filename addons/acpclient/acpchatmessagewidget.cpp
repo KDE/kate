@@ -20,6 +20,7 @@
 #include <QLabel>
 #include <QPainter>
 #include <QPalette>
+#include <QProgressBar>
 #include <QPushButton>
 #include <QTextBlock>
 #include <QTextCursor>
@@ -484,6 +485,9 @@ QColor ACPChatMessageWidget::getBackgroundColor() const
     case MessageType::Thought:
         // Reasoning is secondary, so it stays closer to the surroundings
         return alternateBase;
+    case MessageType::Pending:
+        // Placeholder, kept quiet until it is replaced by real content
+        return alternateBase;
     case MessageType::System:
         // System messages: alternate base color
         return alternateBase;
@@ -526,6 +530,8 @@ QColor ACPChatMessageWidget::getBorderColor() const
         return pal.color(QPalette::LinkVisited);
     case MessageType::Thought:
         return pal.color(QPalette::Mid);
+    case MessageType::Pending:
+        return pal.color(QPalette::Mid);
     case MessageType::System:
         return pal.color(QPalette::Mid);
     case MessageType::Plan:
@@ -555,6 +561,7 @@ void ACPChatMessageWidget::applyTypeSpecificStyling()
     case MessageType::User:
     case MessageType::Agent:
     case MessageType::Thought:
+    case MessageType::Pending:
     case MessageType::System:
     case MessageType::Plan:
     case MessageType::ToolCall:
@@ -614,6 +621,32 @@ void ACPChatMessageWidget::updateContentDisplay()
         }
 
         contentLayout->addWidget(contentLabel);
+        break;
+    }
+    case MessageType::Pending: {
+        QWidget *pendingWidget = new QWidget(m_contentWidget);
+        pendingWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+        QHBoxLayout *pendingLayout = new QHBoxLayout(pendingWidget);
+        pendingLayout->setContentsMargins(0, 0, 0, 0);
+        pendingLayout->setSpacing(8);
+
+        // An indeterminate progress bar animates itself and follows the style,
+        // which avoids both a timer and a hand drawn spinner
+        QProgressBar *busyIndicator = new QProgressBar(pendingWidget);
+        busyIndicator->setRange(0, 0);
+        busyIndicator->setTextVisible(false);
+        busyIndicator->setFixedWidth(120);
+        busyIndicator->setFixedHeight(qMax(6, fontMetrics().height() / 2));
+        pendingLayout->addWidget(busyIndicator);
+
+        QLabel *pendingLabel = new QLabel(m_content.isEmpty() ? i18n("Waiting for the agent…") : m_content, pendingWidget);
+        pendingLabel->setWordWrap(true);
+        QPalette pendingPal = pendingLabel->palette();
+        pendingPal.setColor(QPalette::WindowText, pendingPal.color(QPalette::Mid));
+        pendingLabel->setPalette(pendingPal);
+        pendingLayout->addWidget(pendingLabel, 1);
+
+        contentLayout->addWidget(pendingWidget);
         break;
     }
     case MessageType::Thought: {
@@ -1069,6 +1102,8 @@ QString ACPChatMessageWidget::getTypeLabel() const
         return i18n("Agent");
     case MessageType::Thought:
         return i18n("Thinking");
+    case MessageType::Pending:
+        return i18n("Working");
     case MessageType::System:
         return i18n("System");
     case MessageType::Plan:

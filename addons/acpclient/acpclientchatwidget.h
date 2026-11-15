@@ -327,6 +327,29 @@ private:
     /** @brief Add a message widget to the display */
     void addMessageWidget(ACPChatMessageWidget *widget);
 
+    /** @brief Remove a single message widget from the display */
+    void removeMessageWidget(ACPChatMessageWidget *widget);
+
+    /**
+     * @brief Show the placeholder that stands for the answer being worked on
+     *
+     * Kept as the last message, so that it moves down as the answer arrives
+     * piece by piece, and removed when the prompt turn ends.
+     */
+    void showPendingMessage();
+
+    /** @brief Remove the placeholder of the answer being worked on */
+    void removePendingMessage();
+
+    /**
+     * @brief The newest real message, ignoring the pending placeholder
+     * @return Last message widget, or nullptr if there is none
+     *
+     * Streamed chunks are appended to the message they belong to, which is
+     * usually the last one. The placeholder must not be mistaken for it.
+     */
+    ACPChatMessageWidget *lastContentMessage() const;
+
     /** @brief Clear all message widgets */
     void clearMessages();
 
@@ -436,6 +459,8 @@ private:
     // ========================================================================
     // USER MESSAGE ECHO TRACKING
     // ========================================================================
+
+    QPointer<ACPChatMessageWidget> m_pendingMessage; ///< Placeholder for the answer being worked on
 
     QPointer<ACPChatMessageWidget> m_locallyShownUserMessage; ///< Message displayed when sending, awaiting its echo
     QSet<QString> m_echoedUserMessageIds; ///< IDs of user messages the agent echoed back

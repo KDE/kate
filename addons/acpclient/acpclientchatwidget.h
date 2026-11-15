@@ -21,6 +21,7 @@
 
 #include "acpclientprotocol.h"
 
+class QCompleter;
 class QMenu;
 
 class ACPClientPlugin;
@@ -253,6 +254,12 @@ private:
     /** @brief Show the slash command menu above the input field */
     void showCommandsMenu();
 
+    /** @brief Show slash command suggestions while typing a command */
+    void updateCommandCompletion();
+
+    /** @brief Replace the leading command token with the given command */
+    void insertCommand(const QString &name);
+
     /** @brief Add a message widget to the display */
     void addMessageWidget(ACPChatMessageWidget *widget);
 
@@ -325,6 +332,8 @@ private:
     // ========================================================================
 
     QList<ACP::AvailableCommand> m_availableCommands; ///< Commands advertised by the agent
+    QStringListModel *m_commandCompletionModel = nullptr; ///< Command names for input completion
+    QCompleter *m_commandCompleter = nullptr; ///< Completion popup for slash commands
 
     // ========================================================================
     // TOOL CALL TRACKING

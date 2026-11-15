@@ -15,8 +15,10 @@
 
 #include <KLocalizedString>
 
+#include <QAbstractItemView>
 #include <QClipboard>
 #include <QComboBox>
+#include <QCompleter>
 #include <QContextMenuEvent>
 #include <QDateTime>
 #include <QJsonArray>
@@ -44,6 +46,14 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
 
     m_ui->setupUi(this);
 
+    // Complete slash commands while the user types in the message input
+    m_commandCompletionModel = new QStringListModel(this);
+    m_commandCompleter = new QCompleter(m_commandCompletionModel, this);
+    m_commandCompleter->setCaseSensitivity(Qt::CaseSensitive);
+    m_commandCompleter->setCompletionMode(QCompleter::PopupCompletion);
+    m_commandCompleter->setWidget(m_ui->messageInput);
+    connect(m_commandCompleter, QOverload<const QString &>::of(&QCompleter::activated), this, &ACPClientChatWidget::insertCommand);
+
     // Get server manager
     if (m_plugin) {
         m_serverManager = m_plugin->serverManager();
@@ -70,6 +80,8 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     connect(m_ui->newSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::startNewSession);
     connect(m_ui->endSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::endSession);
     connect(m_ui->commandsButton, &QToolButton::clicked, this, &ACPClientChatWidget::showCommandsMenu);
+    connect(m_ui->messageInput, &QTextEdit::textChanged, this, &ACPClientChatWidget::updateCommandCompletion);
+    connect(m_ui->messageInput, &QTextEdit::cursorPositionChanged, this, &ACPClientChatWidget::updateCommandCompletion);
 
     // Apply session mode and model changes selected by the user
     connect(m_ui->modeCombo, QOverload<int>::of(&QComboBox::activated), this, [this](int index) {
@@ -1477,6 +1489,14 @@ void ACPClientChatWidget::handleAvailableCommandsUpdate(const QJsonObject &updat
 void ACPClientChatWidget::updateAvailableCommands(const QList<ACP::AvailableCommand> &commands)
 {
     m_availableCommands = commands;
+
+    QStringList commandNames;
+    commandNames.reserve(m_availableCommands.size());
+    for (const ACP::AvailableCommand &command : std::as_const(m_availableCommands)) {
+        commandNames.append(command.name);
+    }
+    m_commandCompletionModel->setStringList(commandNames);
+
     m_ui->commandsButton->setVisible(!m_availableCommands.isEmpty());
     updateActionStates();
 }
@@ -1484,6 +1504,8 @@ void ACPClientChatWidget::updateAvailableCommands(const QList<ACP::AvailableComm
 void ACPClientChatWidget::clearAvailableCommands()
 {
     m_availableCommands.clear();
+    m_commandCompletionModel->setStringList(QStringList());
+    m_commandCompleter->popup()->hide();
     m_ui->commandsButton->setVisible(false);
 }
 
@@ -1509,14 +1531,93 @@ void ACPClientChatWidget::showCommandsMenu()
         action->setToolTip(toolTip);
 
         connect(action, &QAction::triggered, this, [this, name = command.name] {
-            m_ui->messageInput->setPlainText(QStringLiteral("/") + name + QLatin1Char(' '));
-            m_ui->messageInput->moveCursor(QTextCursor::End);
-            m_ui->messageInput->setFocus();
+            insertCommand(name);
         });
     }
 
     const QPoint topLeft = m_ui->commandsButton->mapToGlobal(QPoint(0, 0));
     menu.exec(QPoint(topLeft.x(), topLeft.y() - menu.sizeHint().height()));
+}
+
+void ACPClientChatWidget::updateCommandCompletion()
+{
+    if (!m_commandCompleter) {
+        return;
+    }
+
+    if (m_availableCommands.isEmpty() || m_sessionId.isEmpty()) {
+        m_commandCompleter->popup()->hide();
+        return;
+    }
+
+    const QTextEdit *input = m_ui->messageInput;
+    const QString text = input->toPlainText();
+    const int cursorPosition = input->textCursor().position();
+
+    // Commands are only recognized at the start of the prompt.
+    if (text.isEmpty() || text.at(0) != QLatin1Char('/')) {
+        m_commandCompleter->popup()->hide();
+        return;
+    }
+
+    // Stop suggesting once the cursor is past the command token.
+    int tokenEnd = text.size();
+    for (int i = 1; i < text.size(); ++i) {
+        if (text.at(i).isSpace()) {
+            tokenEnd = i;
+            break;
+        }
+    }
+    if (cursorPosition > tokenEnd) {
+        m_commandCompleter->popup()->hide();
+        return;
+    }
+
+    const QString prefix = cursorPosition > 1 ? text.mid(1, cursorPosition - 1) : QString();
+    if (m_commandCompleter->popup()->isVisible() && m_commandCompleter->completionPrefix() == prefix) {
+        return;
+    }
+
+    m_commandCompleter->setCompletionPrefix(prefix);
+    if (m_commandCompleter->completionCount() == 0) {
+        m_commandCompleter->popup()->hide();
+        return;
+    }
+
+    QRect popupRect = input->cursorRect();
+    popupRect.translate(input->viewport()->mapTo(input, QPoint(0, 0)));
+    popupRect.setWidth(qMax(popupRect.width(), 200));
+    m_commandCompleter->complete(popupRect);
+}
+
+void ACPClientChatWidget::insertCommand(const QString &name)
+{
+    const QString text = m_ui->messageInput->toPlainText();
+
+    int tokenStart = 0;
+    while (tokenStart < text.size() && text.at(tokenStart).isSpace()) {
+        ++tokenStart;
+    }
+
+    int tokenEnd = tokenStart;
+    while (tokenEnd < text.size() && !text.at(tokenEnd).isSpace()) {
+        ++tokenEnd;
+    }
+
+    // Replace an existing command token, otherwise insert at the cursor.
+    if (tokenStart < text.size() && text.at(tokenStart) == QLatin1Char('/')) {
+        QTextCursor cursor = m_ui->messageInput->textCursor();
+        cursor.setPosition(tokenStart);
+        cursor.setPosition(tokenEnd, QTextCursor::KeepAnchor);
+        cursor.insertText(QStringLiteral("/") + name + QLatin1Char(' '));
+        m_ui->messageInput->setTextCursor(cursor);
+    } else {
+        QTextCursor cursor = m_ui->messageInput->textCursor();
+        cursor.insertText(QStringLiteral("/") + name + QLatin1Char(' '));
+        m_ui->messageInput->setTextCursor(cursor);
+    }
+
+    m_ui->messageInput->setFocus();
 }
 
 void ACPClientChatWidget::updateSessionState()

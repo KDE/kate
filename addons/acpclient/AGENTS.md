@@ -26,7 +26,7 @@ The plugin implements the ACP v1 specification with JSON-RPC 2.0 over stdin/stdo
 - Session list with context menu
 - Message input widget with proper state management
 - Agent mode and model selectors (ACP config options, with legacy fallbacks)
-- Slash command menu populated from agent-advertised commands
+- Slash command menu and inline completion populated from agent-advertised commands
 - Support for all ACP v1 session update types
 
 ### Supported ACP v1 Methods
@@ -313,6 +313,18 @@ their descriptions as tooltips. Selecting a command replaces the input text
 with `/name ` and focuses the input so the user can add arguments and send
 the prompt. The command list is cleared when the session changes and the
 button is only enabled while a session is active.
+
+The message input also completes commands while typing. When the input starts
+with `/` and the cursor is still inside the command token, a `QCompleter`
+popup suggests matching command names. Accepting a suggestion replaces the
+token with `/name ` and keeps any text that follows it. Completion stops as
+soon as the cursor moves past the command token, so arguments are never
+filtered against command names.
+
+Note: Qt Creator's chat input uses the same behavior, but its implementation
+is tied to Qt Creator's `TextEditor` completion framework and cannot be
+copied into Kate. The Kate version only shares the behavior, implemented with
+`QCompleter` against the `QTextEdit` input widget.
 
 ## Message Widget Types
 

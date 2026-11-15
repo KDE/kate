@@ -374,6 +374,26 @@ and `m_toolContentExpanded`) and reapplied. Toggling emits
 to re-measure the `QListWidgetItem` size hint. Without that, the expanded text
 would be clipped by the stale item height.
 
+### Measuring Messages
+
+Messages live in a `QListWidget` as item widgets, so every message has to be
+measured by hand and the result stored as the item's size hint. Two details
+make this easy to get wrong, both handled by
+`ACPClientChatWidget::updateItemSizeHint()`:
+
+- **Measure at the displayed width.** Message text is word wrapped, so its
+  height only exists relative to a width. The item is measured with
+  `heightForWidth(viewport width)`, not with `sizeHint()`, which reports the
+  height the message would like at its own preferred width.
+- **Drop cached heights first.** Changing the text of a label invalidates the
+  layout of its immediate parent only. The box layouts further up keep the
+  height they cached for a given width until the posted layout request is
+  delivered, which happens after control returns to the event loop. Measuring
+  a message immediately after it changed therefore reports its previous height
+  and the content gets clipped. The file-local `invalidateLayouts()` helper
+  invalidates and re-activates the layouts of the message subtree bottom up,
+  which makes the measurement correct synchronously.
+
 ## Configuration
 
 ### Plugin Options

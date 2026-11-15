@@ -25,6 +25,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QKeyEvent>
+#include <QLayout>
 #include <QListWidgetItem>
 #include <QMenu>
 #include <QScrollBar>
@@ -35,6 +36,28 @@
 #include <utility>
 
 #include "ui_acpclientchat.h"
+
+/**
+ * @brief Drop the cached layout measurements of a widget and its children
+ *
+ * Changing the text of a label invalidates the layout of its immediate parent
+ * only. The box layouts further up keep the height they cached for a given
+ * width until the posted layout request is delivered, which happens after
+ * control returns to the event loop. Measuring a message right after it
+ * changed therefore yields its previous height, and the message gets clipped.
+ */
+static void invalidateLayouts(QWidget *widget)
+{
+    const QList<QWidget *> children = widget->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
+    for (QWidget *child : children) {
+        invalidateLayouts(child);
+    }
+
+    if (QLayout *layout = widget->layout()) {
+        layout->invalidate();
+        layout->activate();
+    }
+}
 
 ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::MainWindow *mainWindow, QWidget *parent)
     : QWidget(parent)
@@ -292,32 +315,9 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
         updateWidgetSizeHint(widget);
     });
 
-    // Schedule update of item size hint after the widget has been fully laid out
-    QTimer::singleShot(50, this, [this, item, container]() {
-        // Force container to layout and calculate proper size
-        container->adjustSize();
-        container->ensurePolished();
-
-        // Get the available width from the list widget's viewport
-        // We need to use the viewport width for proper word wrapping
-        int availableWidth = m_chatListWidget->viewport()->width();
-        if (availableWidth <= 0) {
-            // Fallback: use the container's natural size hint
-            item->setSizeHint(container->sizeHint());
-        } else {
-            // Set the container width to match the available width
-            // This allows text to wrap properly
-            container->resize(availableWidth, container->height());
-            container->adjustSize();
-
-            // Use the container's adjusted size
-            QSize hint = container->sizeHint();
-            // Ensure width matches available width for proper wrapping
-            hint.setWidth(availableWidth);
-            item->setSizeHint(hint);
-        }
-
-        // Scroll to bottom to show the new message
+    // Measure once the widget has been laid out by the event loop
+    QTimer::singleShot(0, this, [this, item, container]() {
+        updateItemSizeHint(item, container);
         scrollToBottom();
     });
 }
@@ -416,24 +416,34 @@ void ACPClientChatWidget::updateItemSizeHint(QListWidgetItem *item, QWidget *con
         return;
     }
 
-    // Force container to layout and calculate proper size
-    container->adjustSize();
     container->ensurePolished();
 
-    // Get the available width from the list widget's viewport
-    int availableWidth = m_chatListWidget->viewport()->width();
+    const int availableWidth = m_chatListWidget->viewport()->width();
     if (availableWidth <= 0) {
-        item->setSizeHint(container->sizeHint());
-    } else {
-        // Set the container width to match the available width
-        container->resize(availableWidth, container->height());
+        // Not laid out yet, the natural size is the best guess available
         container->adjustSize();
-
-        // Use the container's adjusted size
-        QSize hint = container->sizeHint();
-        hint.setWidth(availableWidth);
-        item->setSizeHint(hint);
+        item->setSizeHint(container->sizeHint());
+        return;
     }
+
+    // Lay the message out at the width it is displayed with, otherwise word
+    // wrapped text reports the height of a single long line
+    if (container->width() != availableWidth) {
+        container->resize(availableWidth, container->height());
+    }
+
+    // Discard heights cached for the previous content
+    invalidateLayouts(container);
+
+    // Ask for the height the message needs at this width, rather than the
+    // height it would like at its preferred width
+    int height = container->heightForWidth(availableWidth);
+    if (height <= 0) {
+        container->adjustSize();
+        height = container->sizeHint().height();
+    }
+
+    item->setSizeHint(QSize(availableWidth, height));
 }
 
 void ACPClientChatWidget::updateLastUserMessageStatus(MessageStatus status)

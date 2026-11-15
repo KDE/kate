@@ -8,6 +8,7 @@
 
 #include <KLocalizedString>
 
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QToolButton>
 #include <QVBoxLayout>
@@ -16,17 +17,36 @@
 static constexpr int s_maxPreviewLineLength = 400;
 
 ACPCollapsibleTextWidget::ACPCollapsibleTextWidget(const QString &label, QWidget *parent)
-    : QWidget(parent)
+    : QFrame(parent)
     , m_label(label)
 {
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 
+    // A border separates this block from the one next to it
+    setFrameShape(QFrame::StyledPanel);
+    setFrameShadow(QFrame::Plain);
+
     QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setContentsMargins(6, 4, 6, 4);
     layout->setSpacing(2);
 
-    // Header, stating the size of the text block and toggling the preview
-    m_headerButton = new QToolButton(this);
+    // Header, naming the block and toggling the preview
+    QWidget *header = new QWidget(this);
+    QHBoxLayout *headerLayout = new QHBoxLayout(header);
+    headerLayout->setContentsMargins(0, 0, 0, 0);
+    headerLayout->setSpacing(6);
+
+    // The name is shown even when the text is too short to be collapsed, so
+    // that input and output blocks can always be told apart
+    m_nameLabel = new QLabel(m_label, header);
+    QFont nameFont = m_nameLabel->font();
+    nameFont.setBold(true);
+    nameFont.setPointSize(qMax(1, nameFont.pointSize() - 1));
+    m_nameLabel->setFont(nameFont);
+    m_nameLabel->setVisible(!m_label.isEmpty());
+    headerLayout->addWidget(m_nameLabel);
+
+    m_headerButton = new QToolButton(header);
     m_headerButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_headerButton->setAutoRaise(true);
     m_headerButton->setCursor(Qt::PointingHandCursor);
@@ -35,7 +55,10 @@ ACPCollapsibleTextWidget::ACPCollapsibleTextWidget(const QString &label, QWidget
     connect(m_headerButton, &QToolButton::clicked, this, [this]() {
         setExpanded(!m_expanded);
     });
-    layout->addWidget(m_headerButton, 0, Qt::AlignLeft);
+    headerLayout->addWidget(m_headerButton);
+    headerLayout->addStretch();
+
+    layout->addWidget(header);
 
     // The whole text, or the leading lines of the preview
     m_headLabel = new QLabel(this);
@@ -167,12 +190,11 @@ void ACPCollapsibleTextWidget::updateDisplay()
     const bool collapsible = isCollapsible();
     const int lineCount = m_lines.size();
 
+    // Only collapsible text needs a toggle, the name of the block is shown
+    // either way so that adjacent blocks stay distinguishable
     m_headerButton->setVisible(collapsible);
     m_headerButton->setArrowType(collapsible && !m_expanded ? Qt::RightArrow : Qt::DownArrow);
-
-    const QString sizeText = i18ncp("@item:intext size of a text block", "%1 line", "%1 lines", lineCount);
-    m_headerButton->setText(m_label.isEmpty() ? sizeText
-                                              : i18nc("@action:button name and size of a text block, e.g. 'Output, 42 lines'", "%1, %2", m_label, sizeText));
+    m_headerButton->setText(i18ncp("@action:button size of a text block", "%1 line", "%1 lines", lineCount));
     m_headerButton->setToolTip(m_expanded ? i18nc("@info:tooltip", "Click to collapse the text") : i18nc("@info:tooltip", "Click to show the whole text"));
 
     // Short text, or text the user expanded, is shown as it is

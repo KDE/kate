@@ -6,9 +6,9 @@
 
 #pragma once
 
+#include <QFrame>
 #include <QString>
 #include <QStringList>
-#include <QWidget>
 
 class QLabel;
 class QToolButton;
@@ -24,11 +24,14 @@ class QToolButton;
  *
  * Both the header and the separator are buttons, so the text can be expanded
  * and collapsed again with the mouse or the keyboard. Short text is displayed
- * as-is, without any header or separator.
+ * in full, without a separator.
+ *
+ * The block is framed and always labelled, so that adjacent blocks such as the
+ * input and the output of a tool call can be told apart.
  *
  * @see ACPChatMessageWidget which uses this for tool call input and output
  */
-class ACPCollapsibleTextWidget : public QWidget
+class ACPCollapsibleTextWidget : public QFrame
 {
     Q_OBJECT
 
@@ -95,6 +98,7 @@ private:
     int m_contextLines = 2; ///< Lines kept visible at each end
     int m_collapsedCharLimit = 2000; ///< Collapse above this many characters
 
+    QLabel *m_nameLabel = nullptr; ///< Always visible name of the block
     QToolButton *m_headerButton = nullptr; ///< Expands and collapses the text
     QLabel *m_headLabel = nullptr; ///< Full text, or its leading lines
     QToolButton *m_moreButton = nullptr; ///< States how much text is hidden

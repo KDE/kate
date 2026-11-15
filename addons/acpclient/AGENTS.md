@@ -353,6 +353,12 @@ expanded and collapsed with the mouse or the keyboard, and the collapsed state
 is visible rather than implied. Preview lines are also shortened to 400
 characters so a single huge line cannot blow up the message height.
 
+Each block is a `QFrame` with a styled panel border and is always labelled
+with its name, even when the text is too short to be collapsed. The toggle
+button, which states the line count, only appears for collapsible text. Input
+and output are therefore separated by two borders, a gap and two names rather
+than by a change of font alone.
+
 The tool call title is treated the same way. `title` is required by the
 protocol and agents commonly put the whole shell command into it, which the
 input block then repeats, so the title is whitespace-normalized and displayed

@@ -540,7 +540,8 @@ void ACPChatMessageWidget::updateContentDisplay()
         toolWidget->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
         QVBoxLayout *toolLayout = new QVBoxLayout(toolWidget);
         toolLayout->setContentsMargins(4, 2, 4, 2);
-        toolLayout->setSpacing(4);
+        // Keep the input and output blocks visibly apart
+        toolLayout->setSpacing(8);
 
         // First row: title, kind, status
         QWidget *firstRow = new QWidget(toolWidget);
@@ -638,7 +639,6 @@ void ACPChatMessageWidget::updateContentDisplay()
             cmdPal.setColor(QPalette::WindowText, cmdPal.color(QPalette::Text));
             commandWidget->setPalette(cmdPal);
             commandWidget->setAutoFillBackground(true);
-            commandWidget->setContentsMargins(4, 4, 4, 4);
             connect(commandWidget, &ACPCollapsibleTextWidget::expandedChanged, this, [this](bool expanded) {
                 m_toolCommandExpanded = expanded;
                 Q_EMIT contentSizeChanged();

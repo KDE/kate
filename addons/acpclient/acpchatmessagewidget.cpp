@@ -21,6 +21,9 @@
 #include <QPainter>
 #include <QPalette>
 #include <QPushButton>
+#include <QTextBlock>
+#include <QTextCursor>
+#include <QTextDocument>
 #include <QTextEdit>
 #include <QVBoxLayout>
 #include <QVariant>
@@ -379,6 +382,54 @@ static QColor mixColors(const QColor &base, const QColor &accent, qreal weight)
                             base.blueF() * rest + accent.blueF() * weight);
 }
 
+/**
+ * @brief Render Markdown with the code blocks given a background of their own
+ * @param markdown Message text, may be plain text
+ * @param codeBackground Background to paint behind fenced code blocks
+ * @return Rich text to display
+ *
+ * QLabel cannot style parts of the Markdown it renders itself, so the text is
+ * parsed into a document here, which lets the fenced code blocks be painted
+ * with a background before the result is handed to the label as rich text.
+ *
+ * Only fenced blocks can be found this way. Qt's Markdown parser does not mark
+ * code that is indented by four spaces, and that form is indistinguishable
+ * from prose afterwards.
+ */
+static QString markdownWithHighlightedCode(const QString &markdown, const QColor &codeBackground)
+{
+    QTextDocument document;
+    document.setMarkdown(markdown);
+
+    bool foundCode = false;
+    for (QTextBlock block = document.begin(); block.isValid(); block = block.next()) {
+        if (!block.blockFormat().hasProperty(QTextFormat::BlockCodeFence)) {
+            continue;
+        }
+
+        QTextBlockFormat format = block.blockFormat();
+        format.setBackground(codeBackground);
+
+        // Horizontal padding only. Vertical margins are painted in the color
+        // of the surrounding text, which would cut the background of a block
+        // into one stripe per line.
+        format.setLeftMargin(6);
+        format.setRightMargin(6);
+
+        QTextCursor cursor(block);
+        cursor.setBlockFormat(format);
+        foundCode = true;
+    }
+
+    // Leave text without code blocks to the Markdown renderer of the label,
+    // which avoids a conversion to rich text for most messages
+    if (!foundCode) {
+        return QString();
+    }
+
+    return document.toHtml();
+}
+
 bool ACPChatMessageWidget::isNegative() const
 {
     if (m_type == MessageType::Error) {
@@ -520,12 +571,23 @@ void ACPChatMessageWidget::updateContentDisplay()
     case MessageType::Agent:
     case MessageType::System:
     case MessageType::Error: {
-        // Use QLabel with MarkdownText format for native Markdown rendering
-        QLabel *contentLabel = new QLabel(m_content, m_contentWidget);
+        QLabel *contentLabel = new QLabel(m_contentWidget);
         contentLabel->setWordWrap(true);
-        contentLabel->setTextFormat(Qt::MarkdownText);
         contentLabel->setOpenExternalLinks(true);
         contentLabel->setTextInteractionFlags(Qt::TextBrowserInteraction);
+
+        // Give code blocks a background of their own, so that they can be told
+        // apart from the prose around them. The tint is derived from the
+        // background of this message, which keeps it theme independent.
+        const QString highlighted = markdownWithHighlightedCode(m_content, mixColors(getBackgroundColor(), palette().color(QPalette::Text), 0.13));
+        if (highlighted.isEmpty()) {
+            // No code blocks, let the label render the Markdown itself
+            contentLabel->setTextFormat(Qt::MarkdownText);
+            contentLabel->setText(m_content);
+        } else {
+            contentLabel->setTextFormat(Qt::RichText);
+            contentLabel->setText(highlighted);
+        }
 
         // Set appropriate text color for error messages
         if (m_type == MessageType::Error) {

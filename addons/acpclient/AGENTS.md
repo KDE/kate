@@ -408,6 +408,33 @@ session, and a new bubble is created for it.
 replays the whole conversation and the view would otherwise show two
 conversations at once.
 
+### Code Blocks in Messages
+
+Fenced code blocks in agent messages are painted with a background of their
+own, so that they can be told apart from the prose around them.
+
+`QLabel` cannot style parts of the Markdown it renders itself, so
+`markdownWithHighlightedCode()` parses the text into a `QTextDocument`, sets a
+background on every block carrying `QTextFormat::BlockCodeFence`, and hands the
+result to the label as rich text. Messages without code blocks return an empty
+string from it and keep using `Qt::MarkdownText`, which avoids the conversion
+for the common case.
+
+Two things are worth knowing before changing this:
+
+- **Only fenced blocks can be found.** Qt's Markdown parser marks ``` and `~~~`
+  blocks, with or without a language, but not code indented by four spaces,
+  which ends up indistinguishable from prose.
+- **The blocks must not get vertical margins.** Margins are painted in the
+  color of the surrounding text, so a top or bottom margin cuts the background
+  of a block into one stripe per line. Only left and right padding is set.
+
+The color is mixed from the background of the message and the palette's text
+color, the same way failures are tinted. `QPalette::AlternateBase` would be the
+obvious choice but is unusable here: the message background is already a tinted
+`Base`, so on a light theme the two differ by a contrast ratio of 1.03 and the
+block is invisible.
+
 ### Accenting Failures
 
 Error messages, and tool calls whose status is `failed` (or the non-standard

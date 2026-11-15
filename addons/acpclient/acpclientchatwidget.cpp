@@ -135,6 +135,11 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     m_chatListWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_chatListWidget->setUniformItemSizes(false);
 
+    // Scroll smoothly: the default per-item scrolling jumps a whole message
+    // per wheel notch, which is unusable for long messages.
+    m_chatListWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_chatListWidget->verticalScrollBar()->setSingleStep(m_chatListWidget->fontMetrics().height());
+
     // Install event filter on chat list widget for context menu
     m_chatListWidget->installEventFilter(this);
 

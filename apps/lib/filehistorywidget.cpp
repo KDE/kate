@@ -339,10 +339,10 @@ private:
     static constexpr int LineHeight = 2;
     static constexpr int BadgeSpacing = 4;
     KColorScheme m_colorScheme;
-    QWidget *m_parent;
+    QObject *m_parent;
 
 public:
-    CommitDelegate(QWidget *parent)
+    CommitDelegate(QObject *parent)
         : QStyledItemDelegate(parent)
         , m_colorScheme(QPalette::Active, KColorScheme::View)
         , m_parent(parent)

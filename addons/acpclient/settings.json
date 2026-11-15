@@ -126,6 +126,13 @@
             "repository": "https://github.com/mistralai/vibe",
             "website": "https://vibe.mistral.ai/"
         },
+        "OpenCode": {
+            "command": "opencode",
+            "arguments": ["acp"],
+            "description": "Open source coding agent",
+            "repository": "https://github.com/anomalyco/opencode",
+            "website": "https://opencode.ai"
+        },
         "Qwen Code": {
             "command": "qwen",
             "arguments": ["--acp"],

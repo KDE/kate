@@ -111,6 +111,17 @@ ACPClientChatWidget::ACPClientChatWidget(ACPClientPlugin *plugin, KTextEditor::M
     connect(m_ui->endSessionButton, &QPushButton::clicked, this, &ACPClientChatWidget::endSession);
     connect(m_ui->commandsButton, &QToolButton::clicked, this, &ACPClientChatWidget::showCommandsMenu);
     connect(m_ui->cancelPromptButton, &QPushButton::clicked, this, &ACPClientChatWidget::cancelPrompt);
+    connect(m_ui->loadEarlierButton, &QPushButton::clicked, this, &ACPClientChatWidget::loadEarlierMessages);
+
+    // An agent is expected to answer session/load once it replayed the
+    // conversation, but the replay must not be left hanging if it does not
+    m_replayIdleTimer = new QTimer(this);
+    m_replayIdleTimer->setSingleShot(true);
+    m_replayIdleTimer->setInterval(1000);
+    connect(m_replayIdleTimer, &QTimer::timeout, this, [this]() {
+        qCDebug(ACPCLIENT) << "Session replay timed out, displaying what arrived";
+        flushHistoryBuffer();
+    });
 
     // Whether reasoning is shown expanded is stored by the plugin, so that it
     // is remembered and shared by all chat widgets
@@ -236,6 +247,12 @@ void ACPClientChatWidget::setSessionId(const QString &sessionId)
         // Clear stored tool calls when session changes
         m_toolCalls.clear();
         m_runningToolCalls.clear();
+        // The conversation belongs to the previous session
+        m_replayingSession = false;
+        m_replayIdleTimer->stop();
+        m_historyUpdates.clear();
+        m_firstRenderedUpdate = 0;
+        updateHistoryButton();
         // Echo tracking refers to messages of the previous session
         m_locallyShownUserMessage = nullptr;
         m_echoedUserMessageIds.clear();
@@ -283,6 +300,9 @@ void ACPClientChatWidget::initializeWithSession(const QString &sessionId)
     setSessionId(sessionId);
     appendMessage(QStringLiteral("System"), i18n("Using session: %1", sessionId));
     updateSessionState();
+
+    // Collect the conversation the agent is about to replay
+    beginSessionReplay();
 }
 
 void ACPClientChatWidget::appendMessage(const QString &sender, const QString &message, bool isUser)
@@ -495,6 +515,98 @@ void ACPClientChatWidget::cancelQueuedMessage(ACPChatMessageWidget *widget)
     updatePromptState();
 }
 
+void ACPClientChatWidget::beginSessionReplay()
+{
+    // Everything the agent replays is collected here until the replay is over,
+    // so that a long conversation does not have to be built message by message
+    // only to have most of it end up far out of view
+    m_replayingSession = true;
+    m_historyUpdates.clear();
+    m_firstRenderedUpdate = 0;
+    m_replayIdleTimer->start();
+    updateHistoryButton();
+}
+
+void ACPClientChatWidget::flushHistoryBuffer()
+{
+    if (!m_replayingSession) {
+        return;
+    }
+
+    m_replayingSession = false;
+    m_replayIdleTimer->stop();
+
+    // Only the end of the conversation is built, the rest stays here and is
+    // built on demand, see loadEarlierMessages()
+    const int start = qMax(0, m_historyUpdates.size() - s_historyRenderCap);
+    renderHistoryFrom(start);
+}
+
+void ACPClientChatWidget::renderHistoryFrom(int index)
+{
+    index = qBound(0, index, m_historyUpdates.size());
+
+    // The messages are rebuilt from the updates they were built from, so the
+    // conversation on screen is replaced rather than extended
+    clearMessages();
+    m_lastMessageId.clear();
+    m_toolCalls.clear();
+    m_runningToolCalls.clear();
+    m_locallyShownUserMessage = nullptr;
+    m_echoedUserMessageIds.clear();
+
+    m_firstRenderedUpdate = index;
+
+    // Replaying updates must not look like the agent doing something now: it
+    // must neither interrupt a running turn nor apply the state the session
+    // had back then
+    m_renderingHistory = true;
+    for (int i = index; i < m_historyUpdates.size(); ++i) {
+        dispatchSessionUpdate(m_historyUpdates.at(i));
+    }
+    m_renderingHistory = false;
+
+    updateHistoryButton();
+
+    // The messages waiting to be sent belong at the end of the conversation
+    rebuildTrailingMessages();
+}
+
+void ACPClientChatWidget::loadEarlierMessages()
+{
+    if (m_firstRenderedUpdate <= 0) {
+        return;
+    }
+
+    // Keep the message the user is looking at in place. It is the first one
+    // that is currently built, which ends up this far down after the rebuild.
+    const int alreadyBuilt = m_messageWidgets.size();
+
+    renderHistoryFrom(m_firstRenderedUpdate - s_historyRenderCap);
+
+    // Measuring happens from a zero timer, so the scroll position can only be
+    // restored once the messages that were added have a height
+    const int firstKept = m_messageWidgets.size() - alreadyBuilt;
+    QTimer::singleShot(0, this, [this, firstKept]() {
+        if (firstKept <= 0 || firstKept >= m_chatListWidget->count()) {
+            return;
+        }
+
+        m_followChatBottom = false;
+        m_chatListWidget->scrollToItem(m_chatListWidget->item(firstKept), QAbstractItemView::PositionAtTop);
+    });
+}
+
+void ACPClientChatWidget::updateHistoryButton()
+{
+    const int hidden = m_firstRenderedUpdate;
+
+    m_ui->loadEarlierButton->setVisible(hidden > 0);
+    // The count is the whole remainder, while pressing the button displays one
+    // batch of it, so it states what is hidden rather than what is loaded
+    m_ui->loadEarlierButton->setText(i18ncp("@action:button", "Load earlier message (%1 hidden)", "Load earlier messages (%1 hidden)", hidden));
+}
+
 bool ACPClientChatWidget::isToolCallFinished(const QString &status)
 {
     // "completed" and "failed" are the terminal statuses defined by ACP,
@@ -506,6 +618,11 @@ bool ACPClientChatWidget::isToolCallFinished(const QString &status)
 
 void ACPClientChatWidget::noteTurnBoundary()
 {
+    // Messages rebuilt from the history are not the agent doing something now
+    if (m_renderingHistory) {
+        return;
+    }
+
     // Nothing to inject, or the agent is already on its way out of the turn
     if (m_queuedMessages.isEmpty() || !m_promptRunning || m_cancelRequested) {
         return;
@@ -1121,6 +1238,10 @@ void ACPClientChatWidget::setupServerConnections()
     // Connect to sessionLoaded signal to update state
     connect(m_serverManager, &ACPClientServerManager::sessionLoaded, this, [this](const QString &sessionId) {
         if (m_sessionId == sessionId || m_sessionId.isEmpty()) {
+            // The agent answers session/load once it replayed the whole
+            // conversation, so the collected history is complete here. It is
+            // displayed before the notice, which rebuilds the conversation.
+            flushHistoryBuffer();
             appendMessage(QStringLiteral("System"), i18n("Session loaded: %1", sessionId));
             updateSessionState();
         }
@@ -1129,6 +1250,9 @@ void ACPClientChatWidget::setupServerConnections()
     // Connect to sessionResumed signal to update state
     connect(m_serverManager, &ACPClientServerManager::sessionResumed, this, [this](const QString &sessionId) {
         if (m_sessionId == sessionId || m_sessionId.isEmpty()) {
+            // session/resume does not replay anything, so this only ends a
+            // collection that was started for it
+            flushHistoryBuffer();
             appendMessage(QStringLiteral("System"), i18n("Session resumed: %1", sessionId));
             updateSessionState();
         }
@@ -1351,34 +1475,21 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
 
             // Check for sessionUpdate type
             if (params.contains(u"update") && params[u"update"].isObject()) {
-                QJsonObject update = params[u"update"].toObject();
-                QString updateType = update[u"sessionUpdate"].toString();
+                const QJsonObject update = params[u"update"].toObject();
 
-                qCDebug(ACPCLIENT) << "Session update type:" << updateType << "== TOOL_CALL?" << (updateType == ACP::sessionUpdateToolCall())
-                                   << "== TOOL_CALL_UPDATE?" << (updateType == ACP::sessionUpdateToolCallUpdate());
-
-                // Handle different update types
-                if (updateType == ACP::sessionUpdateUserMessageChunk()) {
-                    handleUserMessageChunk(update);
-                } else if (updateType == ACP::sessionUpdateAgentThoughtChunk()) {
-                    handleAgentThoughtChunk(update);
-                } else if (updateType == ACP::sessionUpdateAgentMessageChunk()) {
-                    handleAgentMessageChunk(update);
-                } else if (updateType == ACP::sessionUpdatePlan()) {
-                    handlePlanUpdate(update);
-                } else if (updateType == ACP::sessionUpdateToolCall()) {
-                    handleToolCallUpdate(update);
-                } else if (updateType == ACP::sessionUpdateToolCallUpdate()) {
-                    handleToolCallStatusUpdate(update);
-                } else if (updateType == ACP::sessionUpdateUsageUpdate()) {
-                    handleUsageUpdate(update);
-                } else if (updateType == ACP::sessionUpdateCurrentMode()) {
-                    handleCurrentModeUpdate(update);
-                } else if (updateType == ACP::sessionUpdateConfigOption()) {
-                    handleConfigOptionUpdate(update);
-                } else if (updateType == ACP::sessionUpdateAvailableCommandsUpdate() || updateType == ACP::sessionUpdateAvailableCommands()) {
-                    handleAvailableCommandsUpdate(update);
+                // While a session is being replayed the updates are collected
+                // instead of displayed, so that only the end of a long
+                // conversation has to be built, see flushHistoryBuffer()
+                if (m_replayingSession) {
+                    m_historyUpdates.append(update);
+                    m_replayIdleTimer->start();
+                    return;
                 }
+
+                // Remembered as well, so that the conversation can be rebuilt
+                // from it when earlier messages are displayed
+                m_historyUpdates.append(update);
+                dispatchSessionUpdate(update);
             }
             // Fallback for legacy status-based messages
             else if (params.contains(u"status")) {
@@ -1412,6 +1523,46 @@ void ACPClientChatWidget::onServerMessageReceived(const QJsonDocument &message)
                 }
             }
         }
+    }
+}
+
+void ACPClientChatWidget::dispatchSessionUpdate(const QJsonObject &update)
+{
+    const QString updateType = update[u"sessionUpdate"].toString();
+
+    qCDebug(ACPCLIENT) << "Session update type:" << updateType << "== TOOL_CALL?" << (updateType == ACP::sessionUpdateToolCall()) << "== TOOL_CALL_UPDATE?"
+                       << (updateType == ACP::sessionUpdateToolCallUpdate());
+
+    // Updates that carry the state of the session rather than a part of the
+    // conversation. Replaying them would apply the state the session had back
+    // then, overwriting the one it has now.
+    if (m_renderingHistory) {
+        if (updateType == ACP::sessionUpdateUsageUpdate() || updateType == ACP::sessionUpdateCurrentMode() || updateType == ACP::sessionUpdateConfigOption()
+            || updateType == ACP::sessionUpdateAvailableCommandsUpdate() || updateType == ACP::sessionUpdateAvailableCommands()) {
+            return;
+        }
+    }
+
+    if (updateType == ACP::sessionUpdateUserMessageChunk()) {
+        handleUserMessageChunk(update);
+    } else if (updateType == ACP::sessionUpdateAgentThoughtChunk()) {
+        handleAgentThoughtChunk(update);
+    } else if (updateType == ACP::sessionUpdateAgentMessageChunk()) {
+        handleAgentMessageChunk(update);
+    } else if (updateType == ACP::sessionUpdatePlan()) {
+        handlePlanUpdate(update);
+    } else if (updateType == ACP::sessionUpdateToolCall()) {
+        handleToolCallUpdate(update);
+    } else if (updateType == ACP::sessionUpdateToolCallUpdate()) {
+        handleToolCallStatusUpdate(update);
+    } else if (updateType == ACP::sessionUpdateUsageUpdate()) {
+        handleUsageUpdate(update);
+    } else if (updateType == ACP::sessionUpdateCurrentMode()) {
+        handleCurrentModeUpdate(update);
+    } else if (updateType == ACP::sessionUpdateConfigOption()) {
+        handleConfigOptionUpdate(update);
+    } else if (updateType == ACP::sessionUpdateAvailableCommandsUpdate() || updateType == ACP::sessionUpdateAvailableCommands()) {
+        handleAvailableCommandsUpdate(update);
     }
 }
 

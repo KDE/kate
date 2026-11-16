@@ -388,6 +388,44 @@ private:
      */
     static bool isToolCallFinished(const QString &status);
 
+    // ========================================================================
+    // CONVERSATION HISTORY
+    // ========================================================================
+
+    /**
+     * @brief Display one session update
+     * @param update The update object as the agent sent it
+     *
+     * Shared by the updates arriving now and the ones replayed from the
+     * history of a loaded session.
+     */
+    void dispatchSessionUpdate(const QJsonObject &update);
+
+    /**
+     * @brief Start collecting the conversation an agent is replaying
+     *
+     * The specification has no way of asking for part of a conversation: an
+     * agent answers session/load by streaming the whole history back. The
+     * updates are therefore collected rather than displayed, so that only the
+     * end of a long conversation has to be built.
+     */
+    void beginSessionReplay();
+
+    /** @brief Stop collecting and display the end of the replayed history */
+    void flushHistoryBuffer();
+
+    /**
+     * @brief Rebuild the conversation from the collected updates
+     * @param index First update to display, earlier ones stay hidden
+     */
+    void renderHistoryFrom(int index);
+
+    /** @brief Display one more batch of the messages that are still hidden */
+    void loadEarlierMessages();
+
+    /** @brief Show how much of the conversation is hidden, or hide the button */
+    void updateHistoryButton();
+
     /**
      * @brief Send a message and show it in the chat
      * @param message Text to send
@@ -542,6 +580,19 @@ private:
     bool m_updatingTrailingMessages = false; ///< Guards against recursing while the bottom is rebuilt
     bool m_cancellingForQueue = false; ///< True while the running turn is cancelled to send queued messages
     QSet<QString> m_runningToolCalls; ///< Tool calls that were started and have not reported a result yet
+
+    // ========================================================================
+    // CONVERSATION HISTORY
+    // ========================================================================
+
+    /** @brief How many updates are displayed at once, and loaded per batch */
+    static constexpr int s_historyRenderCap = 300;
+
+    QList<QJsonObject> m_historyUpdates; ///< The replayed conversation, as the agent sent it
+    int m_firstRenderedUpdate = 0; ///< Index of the oldest update that is displayed
+    bool m_replayingSession = false; ///< True while an agent is replaying a conversation
+    bool m_renderingHistory = false; ///< True while messages are rebuilt from the history
+    QTimer *m_replayIdleTimer = nullptr; ///< Ends a replay that is not followed by a response
 
     QPointer<ACPChatMessageWidget> m_locallyShownUserMessage; ///< Message displayed when sending, awaiting its echo
     QSet<QString> m_echoedUserMessageIds; ///< IDs of user messages the agent echoed back

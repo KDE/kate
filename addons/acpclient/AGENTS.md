@@ -90,6 +90,7 @@ ACPClientPlugin (KTextEditor::Plugin)
 │   │   └── ACPClientChatWidget - Chat interface
 │   │       ├── QTextEdit (message input, disabled when no session)
 │   │       ├── Thinking toggle (expand agent reasoning by default)
+│   │       ├── "Load earlier messages" (shown when history is capped)
 │   │       ├── Session selectors, one per setting the agent exposes
 │   │       ├── Button column beside the input
 │   │       │   ├── "/ Commands" (hidden unless the agent exposes commands)
@@ -480,6 +481,49 @@ session, and a new bubble is created for it.
 `initializeWithSession()` clears the chat before loading, because the agent
 replays the whole conversation and the view would otherwise show two
 conversations at once.
+
+### Capped Conversation History
+
+The specification has no way of asking for part of a conversation: an agent
+answers `session/load` by streaming the **entire** history back as
+`session/update` notifications, and `LoadSessionResponse` carries no history,
+cursor or limit at all. The pagination in the specification belongs to
+`session/list`, which pages over sessions rather than messages. So the data
+always arrives in full and only the building of messages can be avoided.
+
+Measured on real message widgets, building costs about 2 to 3 ms and 40 KiB
+each, and about 16 widgets, so a conversation of 2000 messages took 5.7 s and
+78 MiB before this, and every viewport resize re-measured all of them, 473 ms
+at that size.
+
+While an agent replays a conversation the updates are therefore collected in
+`m_historyUpdates` and nothing is built. `flushHistoryBuffer()` then builds the
+last `s_historyRenderCap` of them, and the **Load earlier messages** button
+above the conversation displays one more batch, stating how much is still
+hidden.
+
+Displaying more rebuilds the window from the updates rather than inserting
+above it. That is the slower option, roughly a second per press for a batch of
+300, but it is the only one that keeps the handlers correct: they coalesce
+streamed chunks into the message they belong to by looking at the newest
+message, which inserting older messages above it would break. The scroll
+position is restored afterwards, anchored to the message that used to be the
+first one, because Qt does not anchor by itself; a measured prepend left the
+scroll value at 0 while the content grew by 3000 pixels.
+
+Three things to know when touching this:
+
+- **Updates arriving live are collected too.** Otherwise rebuilding the window
+  would lose everything that happened since the session was loaded.
+- **Rebuilding must not look like the agent doing something now.**
+  `m_renderingHistory` suppresses the updates that carry the state of the
+  session, `usage_update`, `current_mode_update`, `config_option_update` and
+  the command lists, since replaying them applies the state the session had
+  back then, and it stops `noteTurnBoundary()` from interrupting a prompt turn
+  that is running while the user presses the button.
+- **The replay is ended by the response to `session/load`**, which an agent
+  sends once it replayed everything. An idle timer ends it as well, so that a
+  conversation is not left collected forever if that response never arrives.
 
 ### Agent Reasoning
 

@@ -60,8 +60,8 @@ The **apps/lib** directory contains the shared sources of the Kate and KWrite ap
 
 Close to everything beside the main functions of the two applications is implemented there.
 
-This is installed a shared library kateprivate that can be used by addons, too.
-The library isn't BC over releases, no headers to use it are installed to the system.
+This installs a shared library named kateprivate that can be used by addons, too. 
+The library isn't binary compatible (BC) across releases, and no headers to use it are installed to the system.
 
 #### apps/kate
 

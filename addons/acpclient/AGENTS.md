@@ -358,7 +358,7 @@ copied into Kate. The Kate version only shares the behavior, implemented with
 - **Agent** - Agent's text responses (green styling)
 - **Thought** - Agent's internal reasoning, collapsed by default
 - **Pending** - Placeholder with a busy indicator, shown while the agent works
-- **Queued** - User's message waiting for the agent to become free
+- **Queued** - User's message waiting for the agent to become free, struck through once cancelled
 - **System** - System messages (gray styling)
 - **Plan** - Plan/step updates (blue border, structured display)
 - **ToolCall** - Tool call notifications (orange styling)
@@ -389,11 +389,37 @@ contain a `stopReason`, which is why responses now stop at the manager.
 ### Queued Messages
 
 Sending while the agent works does not fail: the message is appended to
-`m_queuedMessages`, shown at the very bottom of the chat as a message of type
-`Queued`, and sent when the running turn ends, one message per turn. The
-placeholder and the queued messages together form the trailing part of the
-chat, which `rebuildTrailingMessages()` recreates whenever it changes, so that
-the answer being worked on always sits above the messages waiting for it.
+`m_queuedMessages` and shown at the very bottom of the chat as a message of
+type `Queued`. The placeholder and the queued messages together form the
+trailing part of the chat, which `rebuildTrailingMessages()` recreates whenever
+it changes, so that the answer being worked on always sits above the messages
+waiting for it.
+
+**The whole queue goes out as one prompt**, joined by blank lines, not one
+prompt per turn. The messages were written as one train of thought while
+waiting, so answering them one at a time would make the agent reply to each
+part without knowing the rest.
+
+**The queue does not wait for the agent to finish.** Agents refuse a second
+prompt, so the running turn has to end first, but it need not end on its own:
+`noteTurnBoundary()` interrupts it at the first point where the agent finished
+a part of its answer. Those points are a message, a reasoning block, a plan or
+a tool call appearing, which `addMessageWidget()` reports, and a tool call
+reaching a terminal status, which `handleToolCallStatusUpdate()` reports.
+Interrupting sends `session/cancel` and the queue is flushed when the agent
+answers the prompt request it is still holding, the same path the Stop button
+uses. `m_cancelRequested` keeps a turn from being cancelled more than once, and
+`m_cancellingForQueue` distinguishes this from the user pressing Stop, so the
+interrupted prompt is not marked as cancelled by the user.
+
+A queued message can be dropped before it is sent, through the context menu of
+its bubble. The bubble stays in the conversation, struck through and labelled
+`Cancelled`, so that it is clear what was dropped; it is not persisted
+anywhere. Since a cancelled bubble is no longer one of the queued widgets,
+rebuilding the trailing messages leaves it where it is. Note that the content
+label of a queued message has `Qt::NoContextMenu`, otherwise it would answer
+the right click with its own copy menu and the cancel action would be
+unreachable.
 
 The queue is dropped when the session changes or the server disconnects, since
 those messages were meant for a conversation that is gone.

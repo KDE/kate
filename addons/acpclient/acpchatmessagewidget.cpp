@@ -14,10 +14,13 @@
 #include <KLocalizedString>
 #include <KSqueezedTextLabel>
 
+#include <QAction>
 #include <QApplication>
+#include <QContextMenuEvent>
 #include <QHBoxLayout>
 #include <QJsonDocument>
 #include <QLabel>
+#include <QMenu>
 #include <QPainter>
 #include <QPalette>
 #include <QProgressBar>
@@ -220,6 +223,40 @@ void ACPChatMessageWidget::addPlanEntry(const QString &content, const QString &p
 {
     m_planEntries.append({content, priority, status});
     updateContentDisplay();
+}
+
+void ACPChatMessageWidget::setQueuedCancelled(bool cancelled)
+{
+    if (m_type != MessageType::Queued || m_queuedCancelled == cancelled) {
+        return;
+    }
+
+    m_queuedCancelled = cancelled;
+    updateContentDisplay();
+    Q_EMIT contentSizeChanged();
+}
+
+bool ACPChatMessageWidget::isQueuedCancelled() const
+{
+    return m_queuedCancelled;
+}
+
+void ACPChatMessageWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+    // Only a message that is still waiting to be sent can be cancelled
+    if (m_type != MessageType::Queued || m_queuedCancelled) {
+        QWidget::contextMenuEvent(event);
+        return;
+    }
+
+    QMenu menu(this);
+    QAction *cancelAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18nc("@action:inmenu", "Cancel Queued Message"));
+    connect(cancelAction, &QAction::triggered, this, [this]() {
+        Q_EMIT queuedMessageCancelled();
+    });
+
+    menu.exec(event->globalPos());
+    event->accept();
 }
 
 void ACPChatMessageWidget::setThoughtExpanded(bool expanded)
@@ -790,7 +827,9 @@ QColor ACPChatMessageWidget::getBorderColor() const
     case MessageType::Pending:
         return pal.color(QPalette::Mid);
     case MessageType::Queued:
-        return pal.color(QPalette::Link);
+        // A message that is still going to be sent is accented, one that was
+        // cancelled recedes into the conversation
+        return m_queuedCancelled ? pal.color(QPalette::Mid) : pal.color(QPalette::Link);
     case MessageType::System:
         return pal.color(QPalette::Mid);
     case MessageType::Plan:
@@ -882,6 +921,24 @@ void ACPChatMessageWidget::updateContentDisplay()
             QPalette errorPal = contentLabel->palette();
             errorPal.setColor(QPalette::WindowText, errorPal.color(QPalette::BrightText));
             contentLabel->setPalette(errorPal);
+        }
+
+        if (m_type == MessageType::Queued) {
+            // The whole message offers to cancel itself, so the label must not
+            // claim the right click for its own copy menu
+            contentLabel->setContextMenuPolicy(Qt::NoContextMenu);
+
+            // A cancelled message is kept so that it is clear what was dropped,
+            // struck through and toned down to say that it was never sent
+            if (m_queuedCancelled) {
+                QFont cancelledFont = contentLabel->font();
+                cancelledFont.setStrikeOut(true);
+                contentLabel->setFont(cancelledFont);
+
+                QPalette cancelledPal = contentLabel->palette();
+                cancelledPal.setColor(QPalette::WindowText, cancelledPal.color(QPalette::Mid));
+                contentLabel->setPalette(cancelledPal);
+            }
         }
 
         contentLayout->addWidget(contentLabel);
@@ -1282,7 +1339,7 @@ QString ACPChatMessageWidget::getTypeLabel() const
     case MessageType::Pending:
         return i18n("Working");
     case MessageType::Queued:
-        return i18n("Queued");
+        return m_queuedCancelled ? i18n("Cancelled") : i18n("Queued");
     case MessageType::System:
         return i18n("System");
     case MessageType::Plan:

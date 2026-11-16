@@ -346,13 +346,38 @@ private:
      * @param message Text the user wants to send
      *
      * Agents reject a prompt while they are working on the previous one, so
-     * the message is shown at the bottom of the chat and sent when the
-     * running prompt turn ends.
+     * the message is shown at the bottom of the chat and sent at the next
+     * opportunity, see noteTurnBoundary().
      */
     void queueMessage(const QString &message);
 
-    /** @brief Send the next queued message, if the agent is free */
-    void sendNextQueuedMessage();
+    /**
+     * @brief Send everything that is waiting, as one prompt
+     *
+     * Does nothing while the agent is still working. The queued messages are
+     * sent together rather than one per turn, since they were written as one
+     * train of thought while waiting.
+     */
+    void flushQueuedMessages();
+
+    /**
+     * @brief Drop a queued message without sending it
+     * @param widget Bubble of the message to drop
+     *
+     * The bubble stays in the conversation, marked as cancelled, so that it
+     * is clear what was dropped. It is not remembered beyond the session.
+     */
+    void cancelQueuedMessage(ACPChatMessageWidget *widget);
+
+    /**
+     * @brief Note that the agent reached a point where it can be interrupted
+     *
+     * Called when the agent starts or finishes a part of its answer, such as a
+     * message, a reasoning block or a tool call. If messages are waiting, the
+     * running prompt turn is cancelled here, which lets them be sent at the
+     * next of those points instead of only when the agent is done.
+     */
+    void noteTurnBoundary();
 
     /**
      * @brief Send a message and show it in the chat
@@ -506,6 +531,7 @@ private:
     QStringList m_queuedMessages; ///< Messages waiting for the agent to become free
     QList<QPointer<ACPChatMessageWidget>> m_queuedMessageWidgets; ///< Bubbles showing the queued messages
     bool m_updatingTrailingMessages = false; ///< Guards against recursing while the bottom is rebuilt
+    bool m_cancellingForQueue = false; ///< True while the running turn is cancelled to send queued messages
 
     QPointer<ACPChatMessageWidget> m_locallyShownUserMessage; ///< Message displayed when sending, awaiting its echo
     QSet<QString> m_echoedUserMessageIds; ///< IDs of user messages the agent echoed back

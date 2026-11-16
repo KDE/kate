@@ -241,6 +241,7 @@ void ACPClientChatWidget::setSessionId(const QString &sessionId)
         // Whatever the agent was working on does not belong to this session
         m_promptRunning = false;
         m_cancelRequested = false;
+        m_cancellingForQueue = false;
         removePendingMessage();
         // Messages were queued for the previous session
         clearQueuedMessages();
@@ -359,6 +360,19 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
         restoreTrailingMessages();
         m_updatingTrailingMessages = false;
     }
+
+    // A part of the answer appearing means the agent finished the part before
+    // it, which is a point at which it can be interrupted cheaply
+    switch (widget->type()) {
+    case ACPChatMessageWidget::MessageType::Agent:
+    case ACPChatMessageWidget::MessageType::Thought:
+    case ACPChatMessageWidget::MessageType::Plan:
+    case ACPChatMessageWidget::MessageType::ToolCall:
+        noteTurnBoundary();
+        break;
+    default:
+        break;
+    }
 }
 
 void ACPClientChatWidget::takeTrailingMessages()
@@ -384,6 +398,11 @@ void ACPClientChatWidget::restoreTrailingMessages()
         msgWidget->setTimestamp(QDateTime::currentDateTime());
         msgWidget->setSender(i18n("You"));
         msgWidget->setContent(message);
+
+        connect(msgWidget, &ACPChatMessageWidget::queuedMessageCancelled, this, [this, msgWidget]() {
+            cancelQueuedMessage(msgWidget);
+        });
+
         m_queuedMessageWidgets.append(msgWidget);
         addMessageWidget(msgWidget);
     }
@@ -427,24 +446,71 @@ void ACPClientChatWidget::clearQueuedMessages()
     m_queuedMessageWidgets.clear();
 }
 
-void ACPClientChatWidget::sendNextQueuedMessage()
+void ACPClientChatWidget::flushQueuedMessages()
 {
     if (m_queuedMessages.isEmpty() || m_promptRunning) {
         return;
     }
 
-    const QString message = m_queuedMessages.takeFirst();
+    // Everything that was written while waiting belongs to one thought, so it
+    // is sent as one prompt rather than one prompt per turn, which would make
+    // the agent answer each part without knowing the rest
+    const QString message = m_queuedMessages.join(QStringLiteral("\n\n"));
+    m_queuedMessages.clear();
 
-    // Drop the bubble of the queued message, deliverMessage() shows it as the
-    // user message it has become
-    if (!m_queuedMessageWidgets.isEmpty()) {
-        QPointer<ACPChatMessageWidget> widget = m_queuedMessageWidgets.takeFirst();
+    // Drop the bubbles, deliverMessage() shows the user message they became
+    for (const QPointer<ACPChatMessageWidget> &widget : std::as_const(m_queuedMessageWidgets)) {
         if (widget) {
             removeMessageWidget(widget);
         }
     }
+    m_queuedMessageWidgets.clear();
 
     deliverMessage(message);
+}
+
+void ACPClientChatWidget::cancelQueuedMessage(ACPChatMessageWidget *widget)
+{
+    const int index = m_queuedMessageWidgets.indexOf(widget);
+    if (index < 0) {
+        return;
+    }
+
+    // The bubbles and the texts are built from one another, so they share an
+    // order and the text to drop is the one at the same place
+    m_queuedMessageWidgets.removeAt(index);
+    if (index < m_queuedMessages.size()) {
+        m_queuedMessages.removeAt(index);
+    }
+
+    // Leave the bubble where it is, marked as cancelled. It is no longer part
+    // of the trailing messages, so rebuilding those does not touch it.
+    widget->setQueuedCancelled(true);
+
+    updatePromptState();
+}
+
+void ACPClientChatWidget::noteTurnBoundary()
+{
+    // Nothing to inject, or the agent is already on its way out of the turn
+    if (m_queuedMessages.isEmpty() || !m_promptRunning || m_cancelRequested) {
+        return;
+    }
+
+    if (!m_serverManager || m_sessionId.isEmpty()) {
+        return;
+    }
+
+    qCDebug(ACPCLIENT) << "Interrupting the prompt turn to send" << m_queuedMessages.size() << "queued messages";
+
+    // The agent finished a part of its answer, which is the earliest point at
+    // which interrupting it costs nothing. The queue is sent once the agent
+    // answers the prompt request it is still holding, see promptFinished().
+    m_cancellingForQueue = true;
+    m_serverManager->cancelPrompt(m_sessionId);
+
+    m_cancelRequested = true;
+    updatePromptState();
 }
 
 void ACPClientChatWidget::removeMessageWidget(ACPChatMessageWidget *widget)
@@ -978,6 +1044,7 @@ void ACPClientChatWidget::setServer(ACPClientServer *server)
                 appendMessage(QStringLiteral("System"), i18n("Server disconnected"));
                 m_promptRunning = false;
                 m_cancelRequested = false;
+                m_cancellingForQueue = false;
                 removePendingMessage();
                 clearQueuedMessages();
                 setSessionId(QString());
@@ -1052,6 +1119,7 @@ void ACPClientChatWidget::setupServerConnections()
         }
         m_promptRunning = true;
         m_cancelRequested = false;
+        m_cancellingForQueue = false;
         // Shows the placeholder, above any message still waiting to be sent
         rebuildTrailingMessages();
         updatePromptState();
@@ -1064,9 +1132,15 @@ void ACPClientChatWidget::setupServerConnections()
 
         m_promptRunning = false;
         m_cancelRequested = false;
+
+        // A turn the client cut short to get to the queue is not a turn the
+        // user cancelled, and the agent did answer up to that point
+        const bool interrupted = m_cancellingForQueue;
+        m_cancellingForQueue = false;
+
         removePendingMessage();
 
-        if (stopReason == QStringLiteral("cancelled")) {
+        if (stopReason == QStringLiteral("cancelled") && !interrupted) {
             updateLastUserMessageStatus(MessageStatus::Cancelled);
         } else if (stopReason == QStringLiteral("refusal")) {
             updateLastUserMessageStatus(MessageStatus::Error);
@@ -1076,7 +1150,7 @@ void ACPClientChatWidget::setupServerConnections()
         }
 
         updatePromptState();
-        sendNextQueuedMessage();
+        flushQueuedMessages();
     });
 
     connect(m_serverManager, &ACPClientServerManager::promptFailed, this, [this](const QString &sessionId, const QString &errorMessage) {
@@ -1086,6 +1160,7 @@ void ACPClientChatWidget::setupServerConnections()
 
         m_promptRunning = false;
         m_cancelRequested = false;
+        m_cancellingForQueue = false;
         removePendingMessage();
         updateLastUserMessageStatus(MessageStatus::Error);
         appendMessage(QStringLiteral("System"),
@@ -1093,7 +1168,7 @@ void ACPClientChatWidget::setupServerConnections()
         updatePromptState();
 
         // The turn ended, so whatever was waiting for it can go out now
-        sendNextQueuedMessage();
+        flushQueuedMessages();
     });
 
     // Connect to session configuration signals
@@ -1687,6 +1762,12 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
             }
         }
     }
+
+    // A tool call that is done is a point at which the agent can be
+    // interrupted, the same way a finished message is
+    if (status == QStringLiteral("completed") || status == QStringLiteral("failed") || status == QStringLiteral("error")) {
+        noteTurnBoundary();
+    }
 }
 
 void ACPClientChatWidget::handleUsageUpdate(const QJsonObject &update)
@@ -2119,16 +2200,27 @@ void ACPClientChatWidget::updatePromptState()
 
     if (!sessionActive) {
         m_ui->promptStatusLabel->clear();
-    } else if (!m_queuedMessages.isEmpty()) {
-        m_ui->promptStatusLabel->setText(
-            i18ncp("@info messages are waiting for the agent", "⏳ Working, %1 message queued", "⏳ Working, %1 messages queued", m_queuedMessages.size()));
-    } else if (m_promptRunning && m_cancelRequested) {
-        m_ui->promptStatusLabel->setText(i18nc("@info the agent was asked to stop", "⏳ Stopping…"));
-    } else if (m_promptRunning) {
-        m_ui->promptStatusLabel->setText(i18nc("@info the agent is working on a prompt", "⏳ Working…"));
-    } else {
-        m_ui->promptStatusLabel->setText(i18nc("@info the agent is idle and waits for a prompt", "✓ Ready"));
+        return;
     }
+
+    QString state;
+    if (m_promptRunning && m_cancelRequested) {
+        state = i18nc("@info the agent was asked to stop", "⏳ Stopping…");
+    } else if (m_promptRunning) {
+        state = i18nc("@info the agent is working on a prompt", "⏳ Working…");
+    } else {
+        state = i18nc("@info the agent is idle and waits for a prompt", "✓ Ready");
+    }
+
+    if (!m_queuedMessages.isEmpty()) {
+        state = i18ncp("@info the state of the agent and how much is waiting for it, e.g. 'Working…, 2 messages queued'",
+                       "%1, %2 message queued",
+                       "%1, %2 messages queued",
+                       state,
+                       m_queuedMessages.size());
+    }
+
+    m_ui->promptStatusLabel->setText(state);
 }
 
 bool ACPClientChatWidget::eventFilter(QObject *watched, QEvent *event)

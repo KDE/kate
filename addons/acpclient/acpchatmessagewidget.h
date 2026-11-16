@@ -194,6 +194,18 @@ public:
      */
     void setThoughtExpanded(bool expanded);
 
+    /**
+     * @brief Mark a queued message as cancelled
+     * @param cancelled true if the message will not be sent
+     *
+     * A cancelled message stays in the conversation, struck through and
+     * labelled as such, so that it is clear what was dropped.
+     */
+    void setQueuedCancelled(bool cancelled);
+
+    /** @brief Whether this queued message was cancelled */
+    bool isQueuedCancelled() const;
+
     /** @brief Get the message type */
     MessageType type() const;
 
@@ -230,9 +242,23 @@ Q_SIGNALS:
      */
     void contentSizeChanged();
 
+    /**
+     * @brief Emitted when the user asked to cancel this queued message
+     *
+     * Only emitted by messages of type Queued that are not cancelled yet.
+     */
+    void queuedMessageCancelled();
+
 protected:
     /** @brief Paint event for custom background drawing */
     void paintEvent(QPaintEvent *event) override;
+
+    /**
+     * @brief Offer the actions that apply to this message
+     *
+     * Used by queued messages, which can be cancelled before they are sent.
+     */
+    void contextMenuEvent(QContextMenuEvent *event) override;
 
 private:
     // ========================================================================
@@ -356,6 +382,12 @@ private:
     // ========================================================================
 
     bool m_thoughtExpanded = false; ///< Whether the reasoning is shown in full
+
+    // ========================================================================
+    // QUEUED MESSAGE DATA
+    // ========================================================================
+
+    bool m_queuedCancelled = false; ///< Whether this queued message was cancelled
 
     // ========================================================================
     // USAGE-SPECIFIC DATA

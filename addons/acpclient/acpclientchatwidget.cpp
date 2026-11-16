@@ -1854,6 +1854,12 @@ void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
     msgWidget->setSender(i18n("Agent"));
     msgWidget->setToolCallInfo(toolCallId, title, kind, status, command);
 
+    // A tool that changes files reports what it changed as content
+    QList<ACP::ToolCallDiff> diffs;
+    if (update[u"content"].isArray() && ACP::ACPProtocol::parseToolCallDiffs(update[u"content"].toArray(), diffs) && !diffs.isEmpty()) {
+        msgWidget->setToolCallDiffs(diffs);
+    }
+
     addMessageWidget(msgWidget);
 }
 
@@ -1930,6 +1936,14 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
     if (!toolCallId.isEmpty()) {
         for (ACPChatMessageWidget *widget : std::as_const(m_messageWidgets)) {
             if (widget->type() == ACPChatMessageWidget::MessageType::ToolCall && widget->toolCallId() == toolCallId) {
+                // A tool usually reports what it changed once it is done, so
+                // the modifications arrive with an update rather than with the
+                // call that announced it
+                QList<ACP::ToolCallDiff> diffs;
+                if (update[u"content"].isArray() && ACP::ACPProtocol::parseToolCallDiffs(update[u"content"].toArray(), diffs) && !diffs.isEmpty()) {
+                    widget->setToolCallDiffs(diffs);
+                }
+
                 // Found the ToolCall widget - update its status and content
                 widget->setToolCallStatus(toolCallId, status, contentText);
                 // Update the item size hint

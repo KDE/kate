@@ -119,6 +119,7 @@ ACPClientPlugin (KTextEditor::Plugin)
 | `acpclientchatwidget.h/.cpp` | Chat UI widget, message display, user input handling |
 | `acpchatmessagewidget.h/.cpp` | Individual message widget with rich formatting, styling |
 | `acpcollapsibletextwidget.h/.cpp` | Collapsible text block used for long tool call input and output |
+| `acpunifieddiff.h/.cpp` | Turns the before and after text of a modification into a unified diff |
 | `acpclientconfigpage.h/.cpp` | Configuration page for Kate settings |
 | `acpserverlistwidget.h/.cpp` | Server list management UI |
 | `acpsessionlistwidget.h/.cpp` | Session list management UI with context menu |
@@ -635,6 +636,39 @@ are destroyed and rebuilt whenever the message changes.
 
 Reasoning is copied as it arrived rather than rendered, since it is displayed
 as plain text and is not Markdown to begin with.
+
+### File Modifications
+
+A tool that changes a file reports what it changed in the content of its tool
+call, as the `diff` variant of `ToolCallContent`: a `path`, the `newText` and
+the `oldText`, the last of which is omitted or `null` when the file is new.
+`ACPProtocol::parseToolCallDiffs()` reads them out of a content array.
+
+Each modification is displayed with Kate's own `DiffWidget`, so that it looks
+and behaves like a diff anywhere else in Kate, with syntax highlighting and the
+side by side, unified or raw styles. The style follows the setting that widget
+shares with the rest of Kate, and its toolbar switches it per diff.
+
+Two things the protocol and the widget disagree about, which
+`ACPChatMessageWidget::createDiffWidget()` bridges:
+
+- **An agent reports texts, a diff widget displays a diff.**
+  `ACP::createUnifiedDiff()` computes one, by trimming the lines the two texts
+  share at either end and comparing the rest through a longest common
+  subsequence, which keeps a small change in a large file cheap. A change too
+  large to compare line by line is reported as a replacement instead. The
+  result is accepted as it is: the widget recognizes a file by its `--- a/`
+  and `+++ b/` lines and a change by its `@@` line, and needs no `diff --git`
+  header.
+- **A diff widget fills what it is given, a message is as tall as its
+  content.** The height is therefore derived from the number of lines in the
+  diff and capped, so a long diff scrolls inside the message rather than
+  pushing the conversation away.
+
+Modifications usually arrive with an update of a tool call rather than with the
+call itself, and an agent repeats the content of a call with every update of
+it, so `setToolCallDiffs()` compares before rebuilding. Without that the diff
+widgets would be destroyed and created again on every update.
 
 ### Accenting Failures
 

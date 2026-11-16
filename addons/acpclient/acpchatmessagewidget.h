@@ -20,6 +20,8 @@ class QPushButton;
 
 // Include for MessageStatus enum type
 #include "acpclientchatwidget.h"
+// Include for the tool call diff structure
+#include "acpclientprotocol.h"
 
 /**
  * @class ACPChatMessageWidget
@@ -137,6 +139,15 @@ public:
      * @param command Full command line for the tool call
      */
     void setToolCallCommand(const QString &command);
+
+    /**
+     * @brief Set the file modifications a tool call reported
+     * @param diffs Modifications, as the agent described them
+     *
+     * Each of them is displayed as a diff, so that what a tool changed can be
+     * read without opening the file.
+     */
+    void setToolCallDiffs(const QList<ACP::ToolCallDiff> &diffs);
 
     /**
      * @brief Set tool call status update (for ToolCallUpdate message type)
@@ -315,6 +326,14 @@ private:
     void updateStatusIcon();
 
     /**
+     * @brief Create the widget showing one file modification
+     * @param diff The modification, as the agent described it
+     * @param parent Parent widget of the result
+     * @return The widget, or nullptr if the modification changes nothing
+     */
+    QWidget *createDiffWidget(const ACP::ToolCallDiff &diff, QWidget *parent);
+
+    /**
      * @brief Whether the text of this message can be copied as a whole
      *
      * True for the messages that are written text: what the user said, what
@@ -381,6 +400,7 @@ private:
     QString m_toolStatus; ///< Current status
     QString m_toolContent; ///< Status content text
     QString m_toolCommand; ///< Full command line for tool calls
+    QList<ACP::ToolCallDiff> m_toolDiffs; ///< File modifications the tool call reported
 
     /**
      * Expansion state of the collapsible input and output blocks. The content

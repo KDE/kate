@@ -852,6 +852,37 @@ bool ACPProtocol::parseSessionConfigOptions(const QJsonArray &configOptionsArray
     return true;
 }
 
+bool ACPProtocol::parseToolCallDiffs(const QJsonArray &contentArray, QList<ToolCallDiff> &diffs)
+{
+    diffs.clear();
+
+    for (const QJsonValue &contentValue : contentArray) {
+        if (!contentValue.isObject()) {
+            continue;
+        }
+
+        const QJsonObject contentObject = contentValue.toObject();
+        if (contentObject[u"type"].toString() != QStringLiteral("diff")) {
+            continue;
+        }
+
+        ToolCallDiff diff;
+        diff.path = contentObject[u"path"].toString();
+        diff.newText = contentObject[u"newText"].toString();
+
+        // The old text is omitted or null for a file the tool created
+        const QJsonValue oldValue = contentObject[u"oldText"];
+        diff.isNewFile = !oldValue.isString();
+        diff.oldText = oldValue.toString();
+
+        if (!diff.path.isEmpty()) {
+            diffs.append(diff);
+        }
+    }
+
+    return true;
+}
+
 bool ACPProtocol::parseAvailableCommands(const QJsonArray &commandsArray, QList<AvailableCommand> &commands)
 {
     commands.clear();

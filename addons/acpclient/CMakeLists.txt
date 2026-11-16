@@ -26,6 +26,8 @@ target_sources(
     acpchatmessagewidget.cpp
     acpcollapsibletextwidget.cpp
     acpcollapsibletextwidget.h
+    acpunifieddiff.cpp
+    acpunifieddiff.h
     acpsessionlistwidget.cpp
     acpsessionlistwidget.h
     acpserverlistwidget.cpp

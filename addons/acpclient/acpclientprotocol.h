@@ -621,6 +621,30 @@ struct SessionConfigOption {
     QList<SessionConfigSelectOption> options; ///< Available values
 };
 
+/**
+ * @brief A file modification reported as the content of a tool call
+ *
+ * Agents report what they changed as the text before and after the change
+ * rather than as a diff, see the "diff" variant of ToolCallContent.
+ */
+struct ToolCallDiff {
+    QString path; ///< Absolute path of the file that was modified
+    QString oldText; ///< Content before the modification, empty for a new file
+    QString newText; ///< Content after the modification
+    bool isNewFile = false; ///< True if the file did not exist before
+
+    /**
+     * @brief Compare two modifications
+     *
+     * Agents repeat the content of a tool call with every update of it, so
+     * this tells a modification that changed from one that was only resent.
+     */
+    bool operator==(const ToolCallDiff &other) const
+    {
+        return path == other.path && oldText == other.oldText && newText == other.newText && isNewFile == other.isNewFile;
+    }
+};
+
 /** @brief A slash command advertised by the agent */
 struct AvailableCommand {
     QString name; ///< Command name without the leading slash
@@ -1064,6 +1088,14 @@ public:
      * @return true if the array was parsed (it may produce an empty list)
      */
     static bool parseSessionConfigOptions(const QJsonArray &configOptionsArray, QList<SessionConfigOption> &options);
+
+    /**
+     * @brief Parse the file modifications reported by a tool call
+     * @param contentArray The content array of a tool call or its update
+     * @param diffs Output list of the modifications found in it
+     * @return true if the array was parsed (it may produce an empty list)
+     */
+    static bool parseToolCallDiffs(const QJsonArray &contentArray, QList<ToolCallDiff> &diffs);
 
     /**
      * @brief Parse available slash commands

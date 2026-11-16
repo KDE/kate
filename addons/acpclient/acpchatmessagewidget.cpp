@@ -9,6 +9,9 @@
 #include "acpclient_debug.h"
 #include "acpclientprotocol.h"
 #include "acpcollapsibletextwidget.h"
+#include "acpunifieddiff.h"
+
+#include "diff/diffwidget.h"
 
 #include <KColorScheme>
 #include <KLocalizedString>
@@ -18,6 +21,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QContextMenuEvent>
+#include <QFontDatabase>
 #include <QHBoxLayout>
 #include <QJsonDocument>
 #include <QLabel>
@@ -339,6 +343,68 @@ void ACPChatMessageWidget::setToolCallInfo(const QString &toolCallId, const QStr
     m_toolKind = kind;
     m_toolStatus = status;
     m_toolCommand = command;
+    updateContentDisplay();
+}
+
+QWidget *ACPChatMessageWidget::createDiffWidget(const ACP::ToolCallDiff &diff, QWidget *parent)
+{
+    // Agents report a modification as the text before and after it, while the
+    // diff widget displays a unified diff, so one is computed here
+    const QByteArray unified = ACP::createUnifiedDiff(diff.path, diff.oldText, diff.newText, diff.isNewFile);
+    if (unified.isEmpty()) {
+        return nullptr;
+    }
+
+    QWidget *container = new QWidget(parent);
+    container->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    QVBoxLayout *layout = new QVBoxLayout(container);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(2);
+
+    // The diff itself names the file only inside its hunks, and a path is
+    // usually too long for the one line it would get there
+    KSqueezedTextLabel *pathLabel = new KSqueezedTextLabel(diff.path, container);
+    pathLabel->setTextElideMode(Qt::ElideLeft);
+    QFont pathFont = pathLabel->font();
+    pathFont.setBold(true);
+    pathFont.setPointSize(qMax(1, pathFont.pointSize() - 1));
+    pathLabel->setFont(pathFont);
+    layout->addWidget(pathLabel);
+
+    DiffParams params;
+    params.srcFile = diff.path;
+    params.destFile = diff.path;
+    params.tabTitle = diff.isNewFile ? i18nc("@title the file a tool created", "New file: %1", diff.path)
+                                     : i18nc("@title the file a tool changed", "Changes to %1", diff.path);
+
+    DiffWidget *diffWidget = new DiffWidget(params, container);
+    diffWidget->openDiff(unified);
+
+    // A diff widget fills whatever it is given, while a message is as tall as
+    // its content, so the height it needs is derived from the diff and capped.
+    // Longer diffs are scrolled inside the widget rather than pushing the rest
+    // of the conversation away.
+    const int diffLines = unified.count('\n');
+    const QFontMetrics metrics(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+    static constexpr int minimumDiffHeight = 120;
+    static constexpr int maximumDiffHeight = 420;
+    static constexpr int chromeHeight = 72;
+    diffWidget->setFixedHeight(qBound(minimumDiffHeight, diffLines * metrics.lineSpacing() + chromeHeight, maximumDiffHeight));
+
+    layout->addWidget(diffWidget);
+
+    return container;
+}
+
+void ACPChatMessageWidget::setToolCallDiffs(const QList<ACP::ToolCallDiff> &diffs)
+{
+    // Rebuilding the content creates the diff widgets again, which is worth
+    // avoiding for the updates that only repeat what a tool call reported
+    if (m_toolDiffs == diffs) {
+        return;
+    }
+
+    m_toolDiffs = diffs;
     updateContentDisplay();
 }
 
@@ -1156,6 +1222,13 @@ void ACPChatMessageWidget::updateContentDisplay()
                 Q_EMIT contentSizeChanged();
             });
             toolLayout->addWidget(commandWidget);
+        }
+
+        // The files the tool changed, each shown as a diff
+        for (const ACP::ToolCallDiff &diff : std::as_const(m_toolDiffs)) {
+            if (QWidget *diffWidget = createDiffWidget(diff, toolWidget)) {
+                toolLayout->addWidget(diffWidget);
+            }
         }
 
         // Third row: content if available (from tool call updates)

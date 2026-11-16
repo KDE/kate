@@ -213,6 +213,7 @@ private:
     int m_projectSearchPlaceIndex = 0;
     bool m_isSearchAsYouType = false;
     bool m_isVerticalLayout = false;
+    bool m_defaultExpandResults = false;
     QString m_resultBaseDir;
     QList<KTextEditor::MovingRange *> m_matchRanges;
     QTimer m_changeTimer;

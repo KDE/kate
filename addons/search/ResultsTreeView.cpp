@@ -10,11 +10,14 @@
 
 #include <QPushButton>
 
+#include <KLocalizedString>
 #include <KSyntaxHighlighting/Theme>
 #include <KTextEditor/Editor>
 
 ResultsTreeView::ResultsTreeView(QWidget *parent)
     : QTreeView(parent)
+    , m_expandResultsButton(new QPushButton(this))
+    , m_filterButton(new QPushButton(this))
     , m_detachButton(new QPushButton(this))
 {
     auto updateColors = [this](KTextEditor::Editor *e) {
@@ -35,15 +38,11 @@ ResultsTreeView::ResultsTreeView(QWidget *parent)
     };
 
     connect(this, &ResultsTreeView::geometryChanged, this, [this] {
-        auto topRight = viewport()->geometry().topRight();
-        topRight.rx() -= 4;
-        topRight.ry() += 4;
-        auto btnGeometry = m_detachButton->geometry();
-        btnGeometry.moveTopRight(topRight);
-        m_detachButton->setGeometry(btnGeometry);
+        updateFloatingButtonsGeometry();
     });
 
     m_detachButton->setIcon(QIcon::fromTheme(QStringLiteral("draw-arrow")));
+    m_detachButton->setToolTip(i18n("Detach"));
     m_detachButton->resize(m_detachButton->minimumSizeHint());
     connect(m_detachButton, &QAbstractButton::clicked, this, [this] {
         m_detachButton->setEnabled(false);
@@ -52,9 +51,68 @@ ResultsTreeView::ResultsTreeView(QWidget *parent)
     });
     m_detachButton->setVisible(false);
 
+    const auto btnSize = m_detachButton->size();
+
+    m_filterButton->setIcon(QIcon::fromTheme(QStringLiteral("view-filter")));
+    m_filterButton->setToolTip(i18n("Filter results"));
+    m_filterButton->setCheckable(true);
+    m_filterButton->resize(btnSize);
+    m_filterButton->setVisible(false);
+
+    m_expandResultsButton->setIcon(QIcon::fromTheme(QStringLiteral("view-list-tree"), QIcon::fromTheme(QStringLiteral("format-indent-more"))));
+    m_expandResultsButton->setToolTip(i18n("Expand results"));
+    m_expandResultsButton->setCheckable(true);
+    m_expandResultsButton->resize(btnSize);
+    m_expandResultsButton->setVisible(false);
+
+    updateFloatingButtonsGeometry();
+
     auto *e = KTextEditor::Editor::instance();
     connect(e, &KTextEditor::Editor::configChanged, this, updateColors);
     updateColors(e);
+}
+
+void ResultsTreeView::updateFloatingButtonsGeometry()
+{
+    auto topRight = viewport()->geometry().topRight();
+    topRight.rx() -= 4;
+    topRight.ry() += 4;
+
+    auto *res = qobject_cast<Results *>(parent());
+    const bool canDetach = res && !res->isDetachedToMainWindow;
+
+    int rightX = topRight.x();
+    const int topY = topRight.y();
+
+    if (canDetach) {
+        auto detachGeom = m_detachButton->geometry();
+        detachGeom.moveTopRight(QPoint(rightX, topY));
+        m_detachButton->setGeometry(detachGeom);
+        rightX = detachGeom.left() - 2;
+    }
+
+    auto filterGeom = m_filterButton->geometry();
+    filterGeom.moveTopRight(QPoint(rightX, topY));
+    m_filterButton->setGeometry(filterGeom);
+    rightX = filterGeom.left() - 2;
+
+    auto expandGeom = m_expandResultsButton->geometry();
+    expandGeom.moveTopRight(QPoint(rightX, topY));
+    m_expandResultsButton->setGeometry(expandGeom);
+}
+
+void ResultsTreeView::updateButtonsVisibility()
+{
+    auto *res = qobject_cast<Results *>(parent());
+    if (!res) {
+        return;
+    }
+    const bool hasResults = !res->isEmpty();
+    const bool hovered = underMouse();
+
+    m_detachButton->setVisible(hovered && hasResults && !res->isDetachedToMainWindow);
+    m_expandResultsButton->setVisible(hovered && hasResults);
+    m_filterButton->setVisible((hovered || m_filterButton->isChecked()) && hasResults);
 }
 
 void ResultsTreeView::initViewItemOption(QStyleOptionViewItem *option) const
@@ -74,19 +132,18 @@ void ResultsTreeView::resizeEvent(QResizeEvent *e)
 
 void ResultsTreeView::enterEvent(QEnterEvent *event)
 {
-    auto *res = qobject_cast<Results *>(parent());
-    if (!res) {
-        qWarning("ResultsTreeView::enterEvent Unexpected null parent() Results");
-        QTreeView::enterEvent(event);
-        return;
-    }
-    m_detachButton->setVisible(!res->isEmpty() && !res->isDetachedToMainWindow);
+    updateButtonsVisibility();
     QTreeView::enterEvent(event);
 }
 
 void ResultsTreeView::leaveEvent(QEvent *e)
 {
-    m_detachButton->hide();
+    const auto pos = mapFromGlobal(QCursor::pos());
+    if (rect().contains(pos)) {
+        QTreeView::leaveEvent(e);
+        return;
+    }
+    updateButtonsVisibility();
     QTreeView::leaveEvent(e);
 }
 

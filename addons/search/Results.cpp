@@ -9,6 +9,9 @@
 #include "MatchProxyModel.h"
 #include "SearchResultsDelegate.h"
 
+#include <QKeyEvent>
+#include <QPushButton>
+
 #include <KSyntaxHighlighting/Theme>
 #include <KTextEditor/Editor>
 
@@ -16,6 +19,14 @@ Results::Results(QWidget *parent)
     : QWidget(parent)
 {
     setupUi(this);
+
+    expandResultsBtn = treeView->expandResultsButton();
+    filterBtn = treeView->filterButton();
+    expandResultsBtn->setDisabled(true);
+    connect(expandResultsBtn, &QPushButton::clicked, this, &Results::expandResults);
+
+    filterBtn->setDisabled(true);
+    connect(filterBtn, &QPushButton::toggled, this, &Results::setFilterLineVisible);
 
     treeView->setItemDelegate(new SearchResultsDelegate(treeView));
     treeView->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
@@ -31,6 +42,7 @@ Results::Results(QWidget *parent)
     filterLineEdit->setVisible(false);
     filterLineEdit->setPlaceholderText(i18n("Filter…"));
     filterLineEdit->setClearButtonEnabled(true);
+    filterLineEdit->installEventFilter(this);
 
     connect(filterLineEdit, &QLineEdit::textChanged, this, [this, proxy](const QString &text) {
         proxy->setFilterText(text);
@@ -56,11 +68,39 @@ Results::Results(QWidget *parent)
 
 void Results::setFilterLineVisible(bool visible)
 {
+    filterBtn->setChecked(visible);
     filterLineEdit->setVisible(visible);
     if (!visible) {
         filterLineEdit->clear();
     } else {
         filterLineEdit->setFocus();
+    }
+    treeView->updateButtonsVisibility();
+}
+
+bool Results::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == filterLineEdit && event->type() == QEvent::KeyPress) {
+        auto *keyEvent = static_cast<QKeyEvent *>(event);
+        if (keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
+            setFilterLineVisible(false);
+            treeView->setFocus();
+            return true;
+        }
+    }
+    return QWidget::eventFilter(watched, event);
+}
+
+void Results::expandResults()
+{
+    if (auto *m = treeView->model()) {
+        const QModelIndex rootItem = m->index(0, 0);
+        if (expandResultsBtn->isChecked() || m->rowCount(rootItem) == 1) {
+            treeView->expandAll();
+        } else {
+            treeView->collapseAll();
+            treeView->expand(rootItem);
+        }
     }
 }
 

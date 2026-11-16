@@ -173,32 +173,6 @@
           </property>
          </spacer>
         </item>
-        <item>
-         <widget class="QToolButton" name="expandResults">
-          <property name="toolTip">
-           <string>Expand results</string>
-          </property>
-          <property name="text">
-           <string extracomment="When this is checked the result treeview will be expanded after a search"/>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="autoRaise">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="filterBtn">
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </item>
@@ -543,8 +517,6 @@
   <tabstop>matchCase</tabstop>
   <tabstop>smartCase</tabstop>
   <tabstop>useRegExp</tabstop>
-  <tabstop>filterBtn</tabstop>
-  <tabstop>expandResults</tabstop>
   <tabstop>newTabButton</tabstop>
   <tabstop>displayOptions</tabstop>
   <tabstop>folderRequester</tabstop>

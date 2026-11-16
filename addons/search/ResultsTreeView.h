@@ -8,6 +8,8 @@
 
 #include <QTreeView>
 
+class QPushButton;
+
 class ResultsTreeView : public QTreeView
 {
     Q_OBJECT
@@ -16,9 +18,23 @@ public:
 
     void initViewItemOption(QStyleOptionViewItem *option) const override;
 
+    QPushButton *expandResultsButton() const
+    {
+        return m_expandResultsButton;
+    }
+    QPushButton *filterButton() const
+    {
+        return m_filterButton;
+    }
+    void updateButtonsVisibility();
+
 private:
+    void updateFloatingButtonsGeometry();
+
     QColor m_fg;
-    class QPushButton *const m_detachButton;
+    QPushButton *const m_expandResultsButton;
+    QPushButton *const m_filterButton;
+    QPushButton *const m_detachButton;
 
 protected:
     void resizeEvent(QResizeEvent *) override;

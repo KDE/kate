@@ -11,6 +11,8 @@
 
 #include <QWidget>
 
+class QPushButton;
+
 class Results final : public QWidget, public Ui::Results
 {
     Q_OBJECT
@@ -28,6 +30,9 @@ public:
     MatchModel matchModel;
     bool displayFolderOptions = false;
     bool isDetachedToMainWindow = false;
+
+    QPushButton *expandResultsBtn = nullptr;
+    QPushButton *filterBtn = nullptr;
 
     // Used by katemainwindow when we try to close this widget
     Q_INVOKABLE bool shouldClose()
@@ -49,6 +54,10 @@ public:
     QModelIndex lastMatch() const;
     KTextEditor::Range matchRange(const QModelIndex &matchIndex) const;
     bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
+    void expandResults();
+
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 Q_SIGNALS:
     void requestDetachToMainWindow(Results *);

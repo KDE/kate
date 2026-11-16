@@ -371,7 +371,6 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     QIcon matchCaseIcon = QIcon::fromTheme(QStringLiteral("format-text-superscript"), QIcon::fromTheme(QStringLiteral("format-text-bold")));
     QIcon smartCaseIcon = QIcon::fromTheme(QStringLiteral("format-text-capitalize"), matchCaseIcon);
     QIcon useRegExpIcon = QIcon::fromTheme(QStringLiteral("code-context"), QIcon::fromTheme(QStringLiteral("edit-find-replace")));
-    QIcon expandResultsIcon = QIcon::fromTheme(QStringLiteral("view-list-tree"), QIcon::fromTheme(QStringLiteral("format-indent-more")));
 
     m_ui.gridLayout->setSpacing(searchUi->style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
     m_ui.gridLayout->setContentsMargins(searchUi->style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
@@ -385,8 +384,6 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     m_ui.matchCase->setIcon(matchCaseIcon);
     m_ui.smartCase->setIcon(smartCaseIcon);
     m_ui.useRegExp->setIcon(useRegExpIcon);
-    m_ui.expandResults->setIcon(expandResultsIcon);
-    m_ui.filterBtn->setIcon(QIcon::fromTheme(QStringLiteral("view-filter")));
     m_ui.searchPlaceCombo->setItemIcon(MatchModel::CurrentFile, QIcon::fromTheme(QStringLiteral("text-plain")));
     m_ui.searchPlaceCombo->setItemIcon(MatchModel::OpenFiles, QIcon::fromTheme(QStringLiteral("text-plain")));
     m_ui.searchPlaceCombo->setItemIcon(MatchModel::Folder, QIcon::fromTheme(QStringLiteral("folder")));
@@ -400,14 +397,6 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
              "exclude from the search.\n"
              "Example: \"build*\"\n"
              "If the pattern contains a '/', the whole path is checked for a match."));
-
-    m_ui.filterBtn->setToolTip(i18n("Click to filter through results"));
-    m_ui.filterBtn->setDisabled(true);
-    connect(m_ui.filterBtn, &QToolButton::toggled, this, [this](bool on) {
-        if (Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget())) {
-            res->setFilterLineVisible(on);
-        }
-    });
 
     addTab();
 
@@ -426,7 +415,6 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     connect(m_ui.folderUpButton, &QToolButton::clicked, this, &KatePluginSearchView::navigateFolderUp);
     connect(m_ui.currentFolderButton, &QToolButton::clicked, this, &KatePluginSearchView::setCurrentFolder);
-    connect(m_ui.expandResults, &QToolButton::clicked, this, &KatePluginSearchView::expandResults);
 
     connect(m_ui.searchCombo, &QComboBox::editTextChanged, &m_changeTimer, qOverload<>(&QTimer::start));
     connect(m_ui.matchCase, &QToolButton::toggled, &m_changeTimer, qOverload<>(&QTimer::start));
@@ -1150,7 +1138,8 @@ void KatePluginSearchView::startSearch()
     m_ui.useRegExp->setDisabled(true);
     m_ui.matchCase->setDisabled(true);
     m_ui.smartCase->setDisabled(true);
-    m_ui.expandResults->setDisabled(true);
+    m_searchingTab->expandResultsBtn->setDisabled(true);
+    m_searchingTab->filterBtn->setDisabled(true);
     m_ui.currentFolderButton->setDisabled(true);
 
     clearMarksAndRanges();
@@ -1412,7 +1401,6 @@ void KatePluginSearchView::searchDone()
     m_ui.useRegExp->setDisabled(false);
     m_ui.matchCase->setDisabled(false);
     m_ui.smartCase->setEnabled(!m_ui.matchCase->isChecked());
-    m_ui.expandResults->setDisabled(false);
     m_ui.currentFolderButton->setDisabled(m_ui.searchPlaceCombo->currentIndex() != MatchModel::Folder);
 
     Q_EMIT searchBusy(false);
@@ -1424,13 +1412,15 @@ void KatePluginSearchView::searchDone()
     m_ui.replaceCheckedBtn->setDisabled(m_searchingTab->matches < 1);
     m_ui.replaceButton->setDisabled(m_searchingTab->matches < 1);
     m_ui.nextButton->setDisabled(m_searchingTab->matches < 1);
-    m_ui.filterBtn->setDisabled(m_searchingTab->matches <= 1);
+    m_searchingTab->filterBtn->setDisabled(m_searchingTab->matches <= 1);
+    m_searchingTab->expandResultsBtn->setDisabled(false);
+    m_searchingTab->treeView->updateButtonsVisibility();
 
     // Set search to done. This sorts the model and collapses all items in the view
     m_searchingTab->matchModel.setSearchState(MatchModel::SearchDone);
 
     // expand the "header item " to display all files and all results if configured
-    expandResults();
+    m_searchingTab->expandResults();
 
     m_searchingTab->treeView->resizeColumnToContents(0);
 
@@ -1463,7 +1453,9 @@ void KatePluginSearchView::searchWhileTypingDone()
     m_ui.replaceCheckedBtn->setDisabled(m_searchingTab->matches < 1);
     m_ui.replaceButton->setDisabled(m_searchingTab->matches < 1);
     m_ui.nextButton->setDisabled(m_searchingTab->matches < 1);
-    m_ui.filterBtn->setDisabled(m_searchingTab->matches <= 1);
+    m_searchingTab->filterBtn->setDisabled(m_searchingTab->matches <= 1);
+    m_searchingTab->expandResultsBtn->setDisabled(false);
+    m_searchingTab->treeView->updateButtonsVisibility();
 
     m_searchingTab->treeView->expandAll();
     m_searchingTab->treeView->resizeColumnToContents(0);
@@ -1475,7 +1467,7 @@ void KatePluginSearchView::searchWhileTypingDone()
     m_searchingTab->matchModel.setSearchState(MatchModel::SearchDone);
 
     // expand the "header item " to display all files and all results if configured
-    expandResults();
+    m_searchingTab->expandResults();
 
     indicateMatch(m_searchingTab->matches > 0 ? MatchType::HasMatch : MatchType::NoMatch);
 
@@ -1612,7 +1604,8 @@ void KatePluginSearchView::replaceChecked()
     m_ui.useRegExp->setDisabled(true);
     m_ui.matchCase->setDisabled(true);
     m_ui.smartCase->setDisabled(true);
-    m_ui.expandResults->setDisabled(true);
+    res->expandResultsBtn->setDisabled(true);
+    res->filterBtn->setDisabled(true);
     m_ui.currentFolderButton->setDisabled(true);
 
     res->replaceStr = m_ui.replaceCombo->currentText();
@@ -1634,8 +1627,12 @@ void KatePluginSearchView::replaceDone()
     m_ui.useRegExp->setDisabled(false);
     m_ui.matchCase->setDisabled(false);
     m_ui.smartCase->setEnabled(!m_ui.matchCase->isChecked());
-    m_ui.expandResults->setDisabled(false);
     m_ui.currentFolderButton->setDisabled(false);
+    if (Results *currentTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget())) {
+        currentTab->expandResultsBtn->setDisabled(false);
+        currentTab->filterBtn->setDisabled(currentTab->matches <= 1);
+        currentTab->treeView->updateButtonsVisibility();
+    }
     updateMatchMarks();
 
     Q_EMIT searchBusy(false);
@@ -1779,21 +1776,8 @@ void KatePluginSearchView::syncModelRanges(Results *resultsTab)
 
 void KatePluginSearchView::expandResults()
 {
-    Results *currentTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
-    if (!currentTab) {
-        qWarning("Results not found");
-        return;
-    }
-
-    // we expand recursively if we either are told so or we have just one toplevel match item
-    auto *model = currentTab->treeView->model();
-    QModelIndex rootItem = model->index(0, 0);
-    if (m_ui.expandResults->isChecked() || model->rowCount(rootItem) == 1) {
-        currentTab->treeView->expandAll();
-    } else {
-        // first collapse all and then expand the root, much faster than collapsing all children manually
-        currentTab->treeView->collapseAll();
-        currentTab->treeView->expand(rootItem);
+    if (Results *currentTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget())) {
+        currentTab->expandResults();
     }
 }
 
@@ -2024,7 +2008,11 @@ void KatePluginSearchView::setCaseInsensitive(bool enabled)
 
 void KatePluginSearchView::setExpandResults(bool enabled)
 {
-    m_ui.expandResults->setChecked(enabled);
+    m_defaultExpandResults = enabled;
+    if (Results *currentTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget())) {
+        currentTab->expandResultsBtn->setChecked(enabled);
+        currentTab->expandResults();
+    }
 }
 
 void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
@@ -2039,7 +2027,10 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
     m_ui.smartCase->setChecked(cg.readEntry("SmartCase", false));
     m_ui.smartCase->setEnabled(!m_ui.matchCase->isChecked());
     m_ui.useRegExp->setChecked(cg.readEntry("UseRegExp", false));
-    m_ui.expandResults->setChecked(cg.readEntry("ExpandSearchResults", false));
+    m_defaultExpandResults = cg.readEntry("ExpandSearchResults", false);
+    if (Results *currentTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget())) {
+        currentTab->expandResultsBtn->setChecked(m_defaultExpandResults);
+    }
 
     int searchPlaceIndex = cg.readEntry("Place", 1);
     if (searchPlaceIndex < 0) {
@@ -2092,7 +2083,7 @@ void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
     cg.writeEntry("MatchCase", m_ui.matchCase->isChecked());
     cg.writeEntry("SmartCase", m_ui.smartCase->isChecked());
     cg.writeEntry("UseRegExp", m_ui.useRegExp->isChecked());
-    cg.writeEntry("ExpandSearchResults", m_ui.expandResults->isChecked());
+    cg.writeEntry("ExpandSearchResults", m_defaultExpandResults);
 
     cg.writeEntry("Place", m_ui.searchPlaceCombo->currentIndex());
     cg.writeEntry("Recursive", m_ui.recursiveCheckBox->isChecked());
@@ -2139,6 +2130,11 @@ void KatePluginSearchView::addTab()
     connect(res, &Results::requestDetachToMainWindow, this, &KatePluginSearchView::detachTabToMainWindow, Qt::UniqueConnection);
     res->matchModel.setDocumentManager(m_kateApp);
     connect(&res->matchModel, &MatchModel::replaceDone, this, &KatePluginSearchView::replaceDone);
+
+    res->expandResultsBtn->setChecked(m_defaultExpandResults);
+    connect(res->expandResultsBtn, &QPushButton::clicked, this, [this](bool checked) {
+        m_defaultExpandResults = checked;
+    });
 
     res->searchPlaceIndex = m_ui.searchPlaceCombo->currentIndex();
     res->useRegExp = m_ui.useRegExp->isChecked();

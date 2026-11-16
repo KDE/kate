@@ -9,6 +9,7 @@
 
 #include <QDateTime>
 #include <QJsonValue>
+#include <QPointer>
 #include <QWidget>
 
 class QLabel;
@@ -256,7 +257,7 @@ protected:
     /**
      * @brief Offer the actions that apply to this message
      *
-     * Used by queued messages, which can be cancelled before they are sent.
+     * Copying its text, and cancelling it while it is still queued.
      */
     void contextMenuEvent(QContextMenuEvent *event) override;
 
@@ -312,6 +313,18 @@ private:
      * Shows/hides the status icon and sets the appropriate symbol and color.
      */
     void updateStatusIcon();
+
+    /**
+     * @brief Whether the text of this message can be copied as a whole
+     *
+     * True for the messages that are written text: what the user said, what
+     * the agent answered and what it was reasoning about. A tool call is made
+     * of its input and its output, which carry their own text.
+     */
+    bool hasCopyableText() const;
+
+    /** @brief The content of this message with its Markdown markup rendered */
+    QString plainTextContent() const;
 
     /** @brief Get the appropriate background color for this message type */
     QColor getBackgroundColor() const;
@@ -421,6 +434,7 @@ private:
     QLabel *m_statusIconLabel; ///< Display: status icon (spinner, checkmark, etc.)
     QWidget *m_headerDetailsWidget; ///< Container for content-dependent header details
     QWidget *m_contentWidget; ///< Container for message content
+    QPointer<QLabel> m_contentLabel; ///< Label showing the text of a written message, if any
     QVBoxLayout *m_mainLayout; ///< Main widget layout
     QColor m_backgroundColor; ///< Cached background color
     QColor m_borderColor; ///< Cached border color

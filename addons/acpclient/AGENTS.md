@@ -413,13 +413,10 @@ uses. `m_cancelRequested` keeps a turn from being cancelled more than once, and
 interrupted prompt is not marked as cancelled by the user.
 
 A queued message can be dropped before it is sent, through the context menu of
-its bubble. The bubble stays in the conversation, struck through and labelled
+its bubble, see [Message Actions](#message-actions). The bubble stays in the conversation, struck through and labelled
 `Cancelled`, so that it is clear what was dropped; it is not persisted
 anywhere. Since a cancelled bubble is no longer one of the queued widgets,
-rebuilding the trailing messages leaves it where it is. Note that the content
-label of a queued message has `Qt::NoContextMenu`, otherwise it would answer
-the right click with its own copy menu and the cancel action would be
-unreachable.
+rebuilding the trailing messages leaves it where it is.
 
 The queue is dropped when the session changes or the server disconnects, since
 those messages were meant for a conversation that is gone.
@@ -559,6 +556,33 @@ Tool call input and output are not Markdown, they live in an
 `setBlockBackground()` and pads its contents through its layout margins. The
 reasoning of an agent deliberately keeps the background of its message: it is
 what the agent thought, not what it produced.
+
+### Message Actions
+
+`ACPChatMessageWidget::contextMenuEvent()` offers what applies to the message
+under the cursor:
+
+| Action | Shown for |
+|--------|-----------|
+| Copy Selection | a message whose label holds a selection |
+| Copy Message Text | written messages, with the Markdown markup rendered away |
+| Copy Message Markdown | written messages, the text exactly as it arrived |
+| Cancel Queued Message | a queued message that was not cancelled yet |
+
+Written messages are the ones carrying text of their own, which
+`hasCopyableText()` decides: what the user said, what the agent answered and
+what it was reasoning about. A tool call has no text of its own, its input and
+its output are blocks that carry theirs, so it offers nothing here and the
+event falls through to the chat, which offers to copy the conversation.
+
+The labels showing message text have `Qt::NoContextMenu`, otherwise they answer
+the right click with their own copy menu and the actions of the message are
+unreachable. That is why the menu offers the selection of the label itself:
+`m_contentLabel` is kept for that, as a `QPointer`, because the content widgets
+are destroyed and rebuilt whenever the message changes.
+
+Reasoning is copied as it arrived rather than rendered, since it is displayed
+as plain text and is not Markdown to begin with.
 
 ### Accenting Failures
 

@@ -16,6 +16,7 @@
 
 #include <QAction>
 #include <QApplication>
+#include <QClipboard>
 #include <QContextMenuEvent>
 #include <QHBoxLayout>
 #include <QJsonDocument>
@@ -241,19 +242,80 @@ bool ACPChatMessageWidget::isQueuedCancelled() const
     return m_queuedCancelled;
 }
 
+bool ACPChatMessageWidget::hasCopyableText() const
+{
+    if (m_content.isEmpty()) {
+        return false;
+    }
+
+    switch (m_type) {
+    case MessageType::User:
+    case MessageType::Queued:
+    case MessageType::Agent:
+    case MessageType::Thought:
+    case MessageType::System:
+    case MessageType::Error:
+        return true;
+    default:
+        return false;
+    }
+}
+
+QString ACPChatMessageWidget::plainTextContent() const
+{
+    // The reasoning of an agent is displayed as it arrived, the rest as
+    // Markdown, so only the latter has markup to render away
+    if (m_type == MessageType::Thought) {
+        return m_content;
+    }
+
+    QTextDocument document;
+    document.setMarkdown(m_content);
+    return document.toPlainText();
+}
+
 void ACPChatMessageWidget::contextMenuEvent(QContextMenuEvent *event)
 {
+    QMenu menu(this);
+
+    // The labels of a message leave the right click to the message, so the
+    // selection they may hold has to be offered here
+    if (m_contentLabel && m_contentLabel->hasSelectedText()) {
+        QAction *copySelection = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@action:inmenu", "Copy Selection"));
+        connect(copySelection, &QAction::triggered, this, [this]() {
+            QGuiApplication::clipboard()->setText(m_contentLabel->selectedText());
+        });
+    }
+
+    if (hasCopyableText()) {
+        QAction *copyText = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@action:inmenu", "Copy Message Text"));
+        connect(copyText, &QAction::triggered, this, [this]() {
+            QGuiApplication::clipboard()->setText(plainTextContent());
+        });
+
+        QAction *copyMarkdown = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@action:inmenu", "Copy Message Markdown"));
+        connect(copyMarkdown, &QAction::triggered, this, [this]() {
+            QGuiApplication::clipboard()->setText(m_content);
+        });
+    }
+
     // Only a message that is still waiting to be sent can be cancelled
-    if (m_type != MessageType::Queued || m_queuedCancelled) {
+    if (m_type == MessageType::Queued && !m_queuedCancelled) {
+        if (!menu.isEmpty()) {
+            menu.addSeparator();
+        }
+
+        QAction *cancelAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18nc("@action:inmenu", "Cancel Queued Message"));
+        connect(cancelAction, &QAction::triggered, this, [this]() {
+            Q_EMIT queuedMessageCancelled();
+        });
+    }
+
+    // Let the chat offer its own actions for a message that has none
+    if (menu.isEmpty()) {
         QWidget::contextMenuEvent(event);
         return;
     }
-
-    QMenu menu(this);
-    QAction *cancelAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-delete")), i18nc("@action:inmenu", "Cancel Queued Message"));
-    connect(cancelAction, &QAction::triggered, this, [this]() {
-        Q_EMIT queuedMessageCancelled();
-    });
 
     menu.exec(event->globalPos());
     event->accept();
@@ -923,11 +985,13 @@ void ACPChatMessageWidget::updateContentDisplay()
             contentLabel->setPalette(errorPal);
         }
 
-        if (m_type == MessageType::Queued) {
-            // The whole message offers to cancel itself, so the label must not
-            // claim the right click for its own copy menu
-            contentLabel->setContextMenuPolicy(Qt::NoContextMenu);
+        // The message offers to copy and to cancel itself, so the label must
+        // not claim the right click for its own menu. Its selection is offered
+        // by the menu of the message instead, see contextMenuEvent().
+        contentLabel->setContextMenuPolicy(Qt::NoContextMenu);
+        m_contentLabel = contentLabel;
 
+        if (m_type == MessageType::Queued) {
             // A cancelled message is kept so that it is clear what was dropped,
             // struck through and toned down to say that it was never sent
             if (m_queuedCancelled) {
@@ -975,6 +1039,13 @@ void ACPChatMessageWidget::updateContentDisplay()
         // is, and the chat decides whether it starts out expanded
         ACPCollapsibleTextWidget *thoughtWidget = new ACPCollapsibleTextWidget(i18n("Reasoning"), m_contentWidget);
         thoughtWidget->setCollapseMode(ACPCollapsibleTextWidget::CollapseMode::HideAll);
+
+        // The message offers to copy the whole reasoning, so the labels of the
+        // block leave the right click to it
+        const QList<QLabel *> thoughtLabels = thoughtWidget->findChildren<QLabel *>();
+        for (QLabel *label : thoughtLabels) {
+            label->setContextMenuPolicy(Qt::NoContextMenu);
+        }
         thoughtWidget->setExpanded(m_thoughtExpanded);
         thoughtWidget->setText(m_content);
         connect(thoughtWidget, &ACPCollapsibleTextWidget::expandedChanged, this, [this](bool expanded) {

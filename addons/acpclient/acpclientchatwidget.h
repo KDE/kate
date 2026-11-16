@@ -372,12 +372,21 @@ private:
     /**
      * @brief Note that the agent reached a point where it can be interrupted
      *
-     * Called when the agent starts or finishes a part of its answer, such as a
-     * message, a reasoning block or a tool call. If messages are waiting, the
+     * Called when the agent finished a part of its answer, that is a message,
+     * a reasoning block, a plan or a tool call. If messages are waiting, the
      * running prompt turn is cancelled here, which lets them be sent at the
      * next of those points instead of only when the agent is done.
+     *
+     * Does nothing while a tool call is running, so that work already under
+     * way is not abandoned.
      */
     void noteTurnBoundary();
+
+    /**
+     * @brief Whether a tool call status means the call is done
+     * @param status Status reported by the agent
+     */
+    static bool isToolCallFinished(const QString &status);
 
     /**
      * @brief Send a message and show it in the chat
@@ -532,6 +541,7 @@ private:
     QList<QPointer<ACPChatMessageWidget>> m_queuedMessageWidgets; ///< Bubbles showing the queued messages
     bool m_updatingTrailingMessages = false; ///< Guards against recursing while the bottom is rebuilt
     bool m_cancellingForQueue = false; ///< True while the running turn is cancelled to send queued messages
+    QSet<QString> m_runningToolCalls; ///< Tool calls that were started and have not reported a result yet
 
     QPointer<ACPChatMessageWidget> m_locallyShownUserMessage; ///< Message displayed when sending, awaiting its echo
     QSet<QString> m_echoedUserMessageIds; ///< IDs of user messages the agent echoed back

@@ -403,9 +403,17 @@ part without knowing the rest.
 **The queue does not wait for the agent to finish.** Agents refuse a second
 prompt, so the running turn has to end first, but it need not end on its own:
 `noteTurnBoundary()` interrupts it at the first point where the agent finished
-a part of its answer. Those points are a message, a reasoning block, a plan or
-a tool call appearing, which `addMessageWidget()` reports, and a tool call
-reaching a terminal status, which `handleToolCallStatusUpdate()` reports.
+a part of its answer. Those points are a message, a reasoning block or a plan
+appearing, which `addMessageWidget()` reports, and a tool call reaching a
+terminal status, which `handleToolCallStatusUpdate()` reports.
+
+A tool call *appearing* is deliberately not one of them, and no boundary counts
+while one is in flight: the message of a tool call shows up when the call
+starts, and the agent keeps talking while the tool runs, so interrupting at
+either point abandons work that is already under way. `m_runningToolCalls`
+holds the calls that were announced and have not reported a result yet, and
+`noteTurnBoundary()` does nothing while it is non-empty, so the queue waits for
+the last running tool to finish.
 Interrupting sends `session/cancel` and the queue is flushed when the agent
 answers the prompt request it is still holding, the same path the Stop button
 uses. `m_cancelRequested` keeps a turn from being cancelled more than once, and

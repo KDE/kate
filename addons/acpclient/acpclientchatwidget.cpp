@@ -235,6 +235,7 @@ void ACPClientChatWidget::setSessionId(const QString &sessionId)
         m_sessionId = sessionId;
         // Clear stored tool calls when session changes
         m_toolCalls.clear();
+        m_runningToolCalls.clear();
         // Echo tracking refers to messages of the previous session
         m_locallyShownUserMessage = nullptr;
         m_echoedUserMessageIds.clear();
@@ -362,12 +363,16 @@ void ACPClientChatWidget::addMessageWidget(ACPChatMessageWidget *widget)
     }
 
     // A part of the answer appearing means the agent finished the part before
-    // it, which is a point at which it can be interrupted cheaply
+    // it, which is a point at which it can be interrupted cheaply.
+    //
+    // A tool call is deliberately not one of them: its message appears when
+    // the call starts, so interrupting here would cancel the agent while the
+    // tool is running. Its own boundary is reported once it reached a terminal
+    // status, see handleToolCallStatusUpdate().
     switch (widget->type()) {
     case ACPChatMessageWidget::MessageType::Agent:
     case ACPChatMessageWidget::MessageType::Thought:
     case ACPChatMessageWidget::MessageType::Plan:
-    case ACPChatMessageWidget::MessageType::ToolCall:
         noteTurnBoundary();
         break;
     default:
@@ -490,6 +495,15 @@ void ACPClientChatWidget::cancelQueuedMessage(ACPChatMessageWidget *widget)
     updatePromptState();
 }
 
+bool ACPClientChatWidget::isToolCallFinished(const QString &status)
+{
+    // "completed" and "failed" are the terminal statuses defined by ACP,
+    // "error" is accepted as well because agents have been seen to report it.
+    // An empty status is treated as running: an agent that says nothing about
+    // a call it just announced is about to work on it.
+    return status == QStringLiteral("completed") || status == QStringLiteral("failed") || status == QStringLiteral("error");
+}
+
 void ACPClientChatWidget::noteTurnBoundary()
 {
     // Nothing to inject, or the agent is already on its way out of the turn
@@ -498,6 +512,14 @@ void ACPClientChatWidget::noteTurnBoundary()
     }
 
     if (!m_serverManager || m_sessionId.isEmpty()) {
+        return;
+    }
+
+    // Let a tool finish. The agent keeps talking while a tool runs, so a
+    // message arriving now is not a point at which it can be interrupted
+    // cheaply: cancelling would abandon work that is already under way.
+    if (!m_runningToolCalls.isEmpty()) {
+        qCDebug(ACPCLIENT) << "Not interrupting the prompt turn," << m_runningToolCalls.size() << "tool calls are still running";
         return;
     }
 
@@ -1670,6 +1692,12 @@ void ACPClientChatWidget::handleToolCallUpdate(const QJsonObject &update)
         }
     }
 
+    // The agent is about to do something, which must not be interrupted to
+    // get to the queue. Tracked until the call reports a result.
+    if (!toolCallId.isEmpty() && !isToolCallFinished(status)) {
+        m_runningToolCalls.insert(toolCallId);
+    }
+
     ACPChatMessageWidget *msgWidget = new ACPChatMessageWidget(ACPChatMessageWidget::MessageType::ToolCall, m_chatListWidget);
     msgWidget->setTimestamp(QDateTime::currentDateTime());
     msgWidget->setSender(i18n("Agent"));
@@ -1765,7 +1793,8 @@ void ACPClientChatWidget::handleToolCallStatusUpdate(const QJsonObject &update)
 
     // A tool call that is done is a point at which the agent can be
     // interrupted, the same way a finished message is
-    if (status == QStringLiteral("completed") || status == QStringLiteral("failed") || status == QStringLiteral("error")) {
+    if (isToolCallFinished(status)) {
+        m_runningToolCalls.remove(toolCallId);
         noteTurnBoundary();
     }
 }

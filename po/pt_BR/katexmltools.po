@@ -3,7 +3,7 @@
 #
 # Lisiane Sztoltz <lisiane@conectiva.com.br>, 2003.
 # Lisiane Sztoltz Teixeira <lisiane@conectiva.com.br>, 2004.
-# Marcus Gama <marcus.gama@gmail.com>, 2007, 2012.
+# Marcus Gama <marcus.gama@kde.org>, 2007, 2012.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2008, 2022.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2011, 2013, 2014.
 msgid ""

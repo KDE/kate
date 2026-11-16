@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2010, 2011, 2012, 2014.
-# SPDX-FileCopyrightText: 2010, 2012, 2026 Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>
+# SPDX-FileCopyrightText: 2010, 2012, 2026 Marcus Vinícius de Andrade Gama <marcus.gama@kde.org>
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2012, 2020, 2021, 2022, 2023.
 # SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
 # SPDX-FileCopyrightText: 2026 Marcus Gama <marcus.gama@kde.org>

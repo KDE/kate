@@ -2,10 +2,10 @@
 # Copyright (C) 2008-2015 This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Marcus Gama <marcus.gama@gmail.com>, 2008, 2009.
+# Marcus Gama <marcus.gama@kde.org>, 2008, 2009.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2010, 2011, 2014, 2015.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2010, 2018, 2020, 2021, 2022, 2023.
-# Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>, 2010, 2012.
+# Marcus Vinícius de Andrade Gama <marcus.gama@kde.org>, 2010, 2012.
 # Camila de Azevedo Moura <camilaraw@gmail.com>, 2016.
 msgid ""
 msgstr ""

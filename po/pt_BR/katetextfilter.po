@@ -3,7 +3,7 @@
 #
 # Lisiane Sztoltz <lisiane@conectiva.com.br>, 2002.
 # Fernando Boaglio <fernando@boaglio.com>, 2005.
-# Marcus Gama <marcus.gama@gmail.com>, 2007.
+# Marcus Gama <marcus.gama@kde.org>, 2007.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2009, 2018, 2021.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2013, 2015.
 # SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>

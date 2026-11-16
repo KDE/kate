@@ -4,6 +4,7 @@
  * \brief Kate Close Except/Like plugin implementation
  *
  * SPDX-FileCopyrightText: 2012 Alex Turbov <i.zaufi@gmail.com>
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * \date Thu Mar  8 08:13:43 MSK 2012 -- Initial design
  */

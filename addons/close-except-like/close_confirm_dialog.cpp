@@ -4,6 +4,7 @@
  * \brief Class \c kate::CloseConfirmDialog (implementation)
  *
  * SPDX-FileCopyrightText: 2012 Alex Turbov <i.zaufi@gmail.com>
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * \date Sun Jun 24 16:29:13 MSK 2012 -- Initial design
  */

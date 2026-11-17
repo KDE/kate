@@ -93,6 +93,10 @@
   <summary xml:lang="sa">उन्नत पाठ सम्पादक</summary>
   <summary xml:lang="sk">Pokročilý textový editor</summary>
   <summary xml:lang="sl">Napredni urejevalnik besedil</summary>
+  <summary xml:lang="sr">Напредни уређивач текста</summary>
+  <summary xml:lang="sr-Latn">Napredni uređivač teksta</summary>
+  <summary xml:lang="sr-ijekavian">Напредни уређивач текста</summary>
+  <summary xml:lang="sr-ijekavianlatin">Napredni uređivač teksta</summary>
   <summary xml:lang="sv">Avancerad texteditor</summary>
   <summary xml:lang="ta">மேம்பட்ட உரைத்திருத்தி</summary>
   <summary xml:lang="tr">Gelişmiş metin düzenleyicisi</summary>
@@ -133,6 +137,10 @@
     <p xml:lang="sa">केट् KDE द्वारा प्रोग्रामरस्य कृते द्रुतगतिः बहु-दस्तावेजः, बहु-दृश्य-पाठ-सम्पादकः अस्ति । अस्मिन् LSP (Language Server Protocol) समर्थनम्, परियोजनानि, बहु कर्सराः चयनं च, git एकीकरणं, फोल्डरव्यापी अन्वेषणं, क्षैतिजं ऊर्ध्वाधरं च विभाजनं, vi मोड्, 300+ भाषाणां कृते वाक्यविन्यासप्रकाशनं, अन्तःनिर्मितं टर्मिनल्, गतिशीलशब्दलपेटनं च इत्यादीनि वस्तूनि सन्ति बहु अधिकं। इदं Linux, BSD, Windows, MacOS इत्यत्र उपलभ्यते ।</p>
     <p xml:lang="sk">Kate je rýchly textový editor s podporou viacerých dokumentov a pohľadov pre programátorov od KDE. Ponúka funkcie ako podpora LSP (Language Server Protocol), projekty, viacnásobné kurzory a výbery, integrácia s Git, vyhľadávanie v celom priečinku, horizontálne a vertikálne rozdelenie, režim vi, zvýrazňovanie syntaxe pre viac ako 300 jazykov, vstavaný terminál, dynamické zalamovanie riadkov a mnoho ďalšieho. Je dostupný na systémoch Linux, BSD, Windows a MacOS.</p>
     <p xml:lang="sl">Kate je hiter urejevalnik besedil z več dokumenti in več pogledi za programerje od skupnosti KDE. Vsebuje stvari, kot so podpora za LSP (Language Server Protocol), projekti, več kazalcev in izbir, povezovanje git, iskanje po celotni mapi, vodoravne in navpične razcepe zaslona, način vi, osvetljevanje skladnje za 300+ jezikov, vgrajen terminal, dinamično prelivanje besed in še veliko več več. Na voljo je v sistemih Linux, BSD, Windows in MacOS.</p>
+    <p xml:lang="sr">Кејт је брз уређивач текста за програмере, из КДЕ‑а, са више докумената и више приказа. Међу његовим могућностима су подршка за ЛСП (протокол језичког сервера), пројекти, више курсора и избора, уклапање Гита, претрага кроз целе фасцикле, водоравна и усправна подела, Вијев режим, истицање синтаксе за преко 300 језика, уграђени терминал, динамички прелом редова и још много тога. Доступан је за Линукс, БСД, Виндоуз и МекОС.</p>
+    <p xml:lang="sr-Latn">Kate je brz uređivač teksta za programere, iz KDE‑a, sa više dokumenata i više prikaza. Među njegovim mogućnostima su podrška za LSP (protokol jezičkog servera), projekti, više kursora i izbora, uklapanje Gita, pretraga kroz cele fascikle, vodoravna i uspravna podela, Vijev režim, isticanje sintakse za preko 300 jezika, ugrađeni terminal, dinamički prelom redova i još mnogo toga. Dostupan je za Linux, BSD, Windows i MacOS.</p>
+    <p xml:lang="sr-ijekavian">Кејт је брз уређивач текста за програмере, из КДЕ‑а, са више докумената и више приказа. Међу његовим могућностима су подршка за ЛСП (протокол језичког сервера), пројекти, више курсора и избора, уклапање Гита, претрага кроз цијеле фасцикле, водоравна и усправна подјела, Вијев режим, истицање синтаксе за преко 300 језика, уграђени терминал, динамички прелом редова и још много тога. Доступан је за Линукс, БСД, Виндоуз и МекОС.</p>
+    <p xml:lang="sr-ijekavianlatin">Kate je brz uređivač teksta za programere, iz KDE‑a, sa više dokumenata i više prikaza. Među njegovim mogućnostima su podrška za LSP (protokol jezičkog servera), projekti, više kursora i izbora, uklapanje Gita, pretraga kroz cijele fascikle, vodoravna i uspravna podjela, Vijev režim, isticanje sintakse za preko 300 jezika, ugrađeni terminal, dinamički prelom redova i još mnogo toga. Dostupan je za Linux, BSD, Windows i MacOS.</p>
     <p xml:lang="sv">Kate är en snabb texteditor med flera dokument och vyer för programmerare av KDE. Den innehåller saker som stöd för LSP (Language Server Protocol)x, projekt, flera markörer och markeringar, integrering med git, katalogsökning, horisontell och vertikal uppdelning, vi-läge, syntaxmarkering för över 300 språk, inbyggd terminal, dynamisk radbrytning och mycket mer. Den är tillgänglig på Linux, BSD, Windows och MacOS.</p>
     <p xml:lang="tr">Kate, KDE tarafından programcılar için yapılan hızlı bir çok belgeli, çok görünümlü bir metin düzenleyicisidir. LSP (Dil Sunucusu Protokolü) desteği, projeler, çoklu imleç ve seçim, Git tümleştirmesi, klasör çapında arama, yatay ve dikey bölmeler, vi(1) kipi, 300’den fazla dil için sözdizim vurgulaması, yerleşik uçbirim, devingen sözcük kaydırma ve çok daha fazlası gibi özelliklere sahiptir. Linux, BSD, Windows ve macOS üzerinde kullanılabilirdir.</p>
     <p xml:lang="uk">Kate — швидкий текстовий редактор із підтримкою режиму декількох документів та панелей перегляду від KDE. У програмі передбачено підтримку LSP (Language Server Protocol), проєктів, декількох курсорів та областей позначення, інтеграцію з git, пошук за теками, поділ вікна на горизонтальні і вертикальні панелі, режим vi, підсвічування синтаксису понад 300 мов, вбудований термінал, динамічне перенесення рядків і багато іншого. Програмою можна користуватися у Linux, BSD, Windows і MacOS.</p>
@@ -239,8 +247,8 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sl">MDI, razdelitev oken, zavihki oken</li>
       <li xml:lang="sr">МДИ, подела прозора, прозори под језичцима</li>
       <li xml:lang="sr-Latn">MDI, podela prozora, prozori pod jezičcima</li>
-      <li xml:lang="sr-ijekavian">МДИ, подела прозора, прозори под језичцима</li>
-      <li xml:lang="sr-ijekavianlatin">MDI, podela prozora, prozori pod jezičcima</li>
+      <li xml:lang="sr-ijekavian">МДИ, подјела прозора, прозори под језичцима</li>
+      <li xml:lang="sr-ijekavianlatin">MDI, podjela prozora, prozori pod jezičcima</li>
       <li xml:lang="sv">Flerfönster, fönsterdelning, fönsterflikar</li>
       <li xml:lang="tr">MDI, pencere bölme, sekmeli pencereler</li>
       <li xml:lang="uk">Інтерфейс для одночасної роботи з багатьма документами, поділ вікна програми, можливість роботи із вкладками.</li>
@@ -293,8 +301,8 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sl">Preverjanje črkovanja</li>
       <li xml:lang="sr">провера правописа</li>
       <li xml:lang="sr-Latn">provera pravopisa</li>
-      <li xml:lang="sr-ijekavian">провера правописа</li>
-      <li xml:lang="sr-ijekavianlatin">provera pravopisa</li>
+      <li xml:lang="sr-ijekavian">провјера правописа</li>
+      <li xml:lang="sr-ijekavianlatin">provjera pravopisa</li>
       <li xml:lang="sv">Stavningskontroll</li>
       <li xml:lang="ta">சொல் திருத்தம்</li>
       <li xml:lang="tr">Yazım denetimi</li>
@@ -506,8 +514,8 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sl">Iskanje in zamenjava temelječa na regularnih izrazih</li>
       <li xml:lang="sr">тражење и замена помоћу регуларних израза</li>
       <li xml:lang="sr-Latn">traženje i zamena pomoću regularnih izraza</li>
-      <li xml:lang="sr-ijekavian">тражење и замена помоћу регуларних израза</li>
-      <li xml:lang="sr-ijekavianlatin">traženje i zamena pomoću regularnih izraza</li>
+      <li xml:lang="sr-ijekavian">тражење и замјена помоћу регуларних израза</li>
+      <li xml:lang="sr-ijekavianlatin">traženje i zamjena pomoću regularnih izraza</li>
       <li xml:lang="sv">Sök och ersätt baserad på reguljära uttryck</li>
       <li xml:lang="tr">Bul ve değiştir için düzenli ifade desteği</li>
       <li xml:lang="uk">Пошук і заміна фрагментів тексту на основі формальних виразів.</li>
@@ -545,6 +553,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">300+ भाषाणां कृते वाक्यविन्यासप्रकाशनम्</li>
       <li xml:lang="sk">Zvýrazňovanie syntaxe pre viac ako 300 jazykov</li>
       <li xml:lang="sl">Osvetljevanje skladnje za 300+ jezikov</li>
+      <li xml:lang="sr">истицање синтаксе за преко 300 језика</li>
+      <li xml:lang="sr-Latn">isticanje sintakse za preko 300 jezika</li>
+      <li xml:lang="sr-ijekavian">истицање синтаксе за преко 300 језика</li>
+      <li xml:lang="sr-ijekavianlatin">isticanje sintakse za preko 300 jezika</li>
       <li xml:lang="sv">Syntaxfärgläggning för över 300 språk</li>
       <li xml:lang="ta">300-க்கும் மேற்பட்ட நிரலாக்க மொழிகளுக்கான இலக்கணசார் முன்னிலைப்படுத்தல்</li>
       <li xml:lang="tr">300+ dil için sözdizim vurgulaması</li>
@@ -636,6 +648,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">बहुविधाः कर्सराः बहुचयनं च</li>
       <li xml:lang="sk">Viacnásobné kurzory a viacnásobné výbery</li>
       <li xml:lang="sl">Večkratne kazalke in večkratne izbire</li>
+      <li xml:lang="sr">више курсора и више избора</li>
+      <li xml:lang="sr-Latn">više kursora i više izbora</li>
+      <li xml:lang="sr-ijekavian">више курсора и више избора</li>
+      <li xml:lang="sr-ijekavianlatin">više kursora i više izbora</li>
       <li xml:lang="sv">Flera markörer och flera markeringar</li>
       <li xml:lang="ta">ஒரே நேரத்தில் பல இடஞ்சுட்டிகளும் தேர்வுகளும்</li>
       <li xml:lang="tr">Birden çok imleç ve seçim olanağı</li>
@@ -893,6 +909,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">विस्तृत प्रोटोकॉल समर्थन (http, ftp, ssh, webdav इत्यादयः)</li>
       <li xml:lang="sk">Široká podpora protokolov (http, ftp, ssh, webdav atď.)</li>
       <li xml:lang="sl">Podpora za širok nabor protokolov (http, ftp, ssh, webdav, itd.)</li>
+      <li xml:lang="sr">подршка за многобројне протоколе (ХТТП, ФТП, ССХ, вебДАВ, итд.)</li>
+      <li xml:lang="sr-Latn">podrška za mnogobrojne protokole (HTTP, FTP, SSH, WebDAV, itd.)</li>
+      <li xml:lang="sr-ijekavian">подршка за многобројне протоколе (ХТТП, ФТП, ССХ, вебДАВ, итд.)</li>
+      <li xml:lang="sr-ijekavianlatin">podrška za mnogobrojne protokole (HTTP, FTP, SSH, WebDAV, itd.)</li>
       <li xml:lang="sv">Brett protokollstöd (HTTP, FTP, SSH, WebDav, etc.)</li>
       <li xml:lang="ta">பல நெறிமுறைகளை ஆதரிக்கும் (http, ftp, ssh, webdav போன்றவை.) </li>
       <li xml:lang="tr">Geniş protokol desteği (http, ftp, ssh, webdav vb.)</li>
@@ -931,6 +951,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">प्लगिन्स् मार्गेण विस्तारणीयम्</li>
       <li xml:lang="sk">Rozšíriteľný pomocou zásuvných modulov</li>
       <li xml:lang="sl">Razširljiv prek vtičnikov</li>
+      <li xml:lang="sr">проширивост прикључцима</li>
+      <li xml:lang="sr-Latn">proširivost priključcima</li>
+      <li xml:lang="sr-ijekavian">проширивост прикључцима</li>
+      <li xml:lang="sr-ijekavianlatin">proširivost priključcima</li>
       <li xml:lang="sv">Utökningsbart via insticksprogram</li>
       <li xml:lang="ta">செருகுநிரல்களால் மேம்படுத்தக்கூடியது</li>
       <li xml:lang="tr">Eklentilerle genişletilebilir</li>
@@ -969,6 +993,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">एकीकृत टर्मिनल</li>
       <li xml:lang="sk">Integrovaný príkazový riadok</li>
       <li xml:lang="sl">Integrirani terminal</li>
+      <li xml:lang="sr">уклопљени терминал</li>
+      <li xml:lang="sr-Latn">uklopljeni terminal</li>
+      <li xml:lang="sr-ijekavian">уклопљени терминал</li>
+      <li xml:lang="sr-ijekavianlatin">uklopljeni terminal</li>
       <li xml:lang="sv">Integrerad terminal</li>
       <li xml:lang="ta">உள்ளமைந்த முனையம்</li>
       <li xml:lang="tr">Tümleşik uçbirim</li>
@@ -1060,6 +1088,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">वयं फैशनं कुर्मः</li>
       <li xml:lang="sk">Režim vi</li>
       <li xml:lang="sl">Način vi</li>
+      <li xml:lang="sr">Вијев режим</li>
+      <li xml:lang="sr-Latn">Vijev režim</li>
+      <li xml:lang="sr-ijekavian">Вијев режим</li>
+      <li xml:lang="sr-ijekavianlatin">Vijev režim</li>
       <li xml:lang="sv">Vi-läge</li>
       <li xml:lang="ta">Vi பயன்முறை</li>
       <li xml:lang="tr">vi(1) kipi</li>
@@ -1097,6 +1129,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">LSP (Language Server Protocol) इत्यस्य उपयोगेन Intellisense समर्थनम्</li>
       <li xml:lang="sk">Podpora Intellisense pomocou LSP (Language Server Protocol)</li>
       <li xml:lang="sl">Podpora za intellisense z uporabo LSP (Language Server Protocol)</li>
+      <li xml:lang="sr">подршка за паметну допуну кода помоћу протокола језичког сервера (ЛСП)</li>
+      <li xml:lang="sr-Latn">podrška za pametnu dopunu koda pomoću protokola jezičkog servera (LSP)</li>
+      <li xml:lang="sr-ijekavian">подршка за паметну допуну кода помоћу протокола језичког сервера (ЛСП)</li>
+      <li xml:lang="sr-ijekavianlatin">podrška za pametnu dopunu koda pomoću protokola jezičkog servera (LSP)</li>
       <li xml:lang="sv">Stöd för Intellisense med LSP (Language Server Protocol)</li>
       <li xml:lang="tr">LSP (Dil Sunucusu Protokolü) kullanarak Intellisense desteği</li>
       <li xml:lang="uk">Підтримка Intellisense з використанням LSP (Language Server Protocol або протоколу сервера мов)</li>
@@ -1134,6 +1170,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">DAP (Debug Adapter Protocol) समर्थनम्</li>
       <li xml:lang="sk">Podpora DAP (Debug Adapter Protocol)</li>
       <li xml:lang="sl">Podpora DAP (Debug Adapter Protocol)</li>
+      <li xml:lang="sr">подршка за протокол адаптера исправљача (ДАП)</li>
+      <li xml:lang="sr-Latn">podrška za protokol adaptera ispravljača (DAP)</li>
+      <li xml:lang="sr-ijekavian">подршка за протокол адаптера исправљача (ДАП)</li>
+      <li xml:lang="sr-ijekavianlatin">podrška za protokol adaptera ispravljača (DAP)</li>
       <li xml:lang="sv">Stöd för DAP (Debug Adapter Protocol)</li>
       <li xml:lang="tr">DAP (Hata Ayıklama Bağdaştırıcısı Protokolü) desteği</li>
       <li xml:lang="uk">Підтримка DAP (Debug Adapter Protocol або протоколу адаптації діагностики)</li>
@@ -1171,6 +1211,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">ऊर्ध्वाधर ट्याब्स्/दस्तावेजसूची</li>
       <li xml:lang="sk">Vertikálne karty/zoznam dokumentov</li>
       <li xml:lang="sl">Navpični zavihki/seznam dokumentov</li>
+      <li xml:lang="sr">усправни језичци/списак докумената</li>
+      <li xml:lang="sr-Latn">uspravni jezičci/spisak dokumenata</li>
+      <li xml:lang="sr-ijekavian">усправни језичци/списак докумената</li>
+      <li xml:lang="sr-ijekavianlatin">uspravni jezičci/spisak dokumenata</li>
       <li xml:lang="sv">Vertikala flikar och dokumentlista</li>
       <li xml:lang="ta">செங்குத்தான கீற்று/ஆவண பட்டியல்</li>
       <li xml:lang="tr">Dikey sekme/belge listesi</li>
@@ -1208,6 +1252,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">हल्के परियोजना समर्थन। केट् परियोजनारूपेण पुटं उद्घाटयितुं शक्नोति</li>
       <li xml:lang="sk">Jednoduchá podpora projektov. Kate dokáže otvárať priečinky ako projekty</li>
       <li xml:lang="sl">Lahka projektna podpora. Kate lahko odpira mape kot projekte</li>
+      <li xml:lang="sr">лагана подршка за пројекте. Кејт може да отвара фасцикле као пројекте</li>
+      <li xml:lang="sr-Latn">lagana podrška za projekte. Kate može da otvara fascikle kao projekte</li>
+      <li xml:lang="sr-ijekavian">лагана подршка за пројекте. Кејт може да отвара фасцикле као пројекте</li>
+      <li xml:lang="sr-ijekavianlatin">lagana podrška za projekte. Kate može da otvara fascikle kao projekte</li>
       <li xml:lang="sv">Lättviktigt projektstöd. Kate kan öppna kataloger som projekt.</li>
       <li xml:lang="ta">எளிய திட்டப்பணி ஆதரவு. அடைவுகளை திட்டப்பணிகளாக கேட்டில் திறக்கலாம்</li>
       <li xml:lang="tr">Hafif proje desteği. Kate, klasörleri proje olarak açabilir</li>
@@ -1245,6 +1293,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">clang-format, prettier इत्यादीनां देशीस्वरूपकानाम् उपयोगेन कोडस्वरूपणं</li>
       <li xml:lang="sk">Formátovanie kódu pomocou natívnych formátovačov ako clang-format, prettier atď.</li>
       <li xml:lang="sl">Oblikovanje kode z uporabo izvornih formatov, kot so clang-format, prettier itd.</li>
+      <li xml:lang="sr">форматирање кода помоћу наменских алатки, као што су clang-format, prettier итд.</li>
+      <li xml:lang="sr-Latn">formatiranje koda pomoću namenskih alatki, kao što su clang-format, prettier itd.</li>
+      <li xml:lang="sr-ijekavian">форматирање кода помоћу намјенских алатки, као што су clang-format, prettier итд.</li>
+      <li xml:lang="sr-ijekavianlatin">formatiranje koda pomoću namjenskih alatki, kao što su clang-format, prettier itd.</li>
       <li xml:lang="sv">Kodformatering med inbyggda formateringsverktyg såsom clang-format, prettier, etc.</li>
       <li xml:lang="tr">clang-format, prettier vb. gibi yerel biçimlendiricileri kullanarak kod biçimlendirmesi</li>
       <li xml:lang="uk">Форматування коду з використанням відповідних засобів форматування, зокрема clang-format, prettier тощо</li>
@@ -1282,6 +1334,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">सञ्चिकातन्त्रब्राउजरे निर्मितम्</li>
       <li xml:lang="sk">Vstavaný prehliadač súborového systému</li>
       <li xml:lang="sl">Vgrajeni brskalnik datotečnega sistema</li>
+      <li xml:lang="sr">уграђени прегледач фајл система</li>
+      <li xml:lang="sr-Latn">ugrađeni pregledač fajl sistema</li>
+      <li xml:lang="sr-ijekavian">уграђени прегледач фајл система</li>
+      <li xml:lang="sr-ijekavianlatin">ugrađeni pregledač fajl sistema</li>
       <li xml:lang="sv">Inbyggd filsystemsbläddrare</li>
       <li xml:lang="ta">உள்ளமை கோப்பு முறைமை உலாவி</li>
       <li xml:lang="tr">Yerleşik dosya sistemi tarayıcısı</li>
@@ -1320,6 +1376,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">CTags समर्थनम्</li>
       <li xml:lang="sk">Podpora CTags</li>
       <li xml:lang="sl">Podpora CTags</li>
+      <li xml:lang="sr">подршка за Ц‑тагс</li>
+      <li xml:lang="sr-Latn">podrška za CTags</li>
+      <li xml:lang="sr-ijekavian">подршка за Ц‑тагс</li>
+      <li xml:lang="sr-ijekavianlatin">podrška za CTags</li>
       <li xml:lang="sv">CTags-stöd</li>
       <li xml:lang="ta">CTags ஆதரவு</li>
       <li xml:lang="tr">CTags desteği</li>
@@ -1358,6 +1418,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">परियोजना विस्तृतं तथा पुटव्यापी अन्वेषणम्</li>
       <li xml:lang="sk">Vyhľadávanie v celom projekte a priečinku</li>
       <li xml:lang="sl">Iskanje po celotnem projektu in mapi</li>
+      <li xml:lang="sr">претрага кроз цео пројекат и кроз целу фасциклу</li>
+      <li xml:lang="sr-Latn">pretraga kroz ceo projekat i kroz celu fasciklu</li>
+      <li xml:lang="sr-ijekavian">претрага кроз цио пројекат и кроз цијелу фасциклу</li>
+      <li xml:lang="sr-ijekavianlatin">pretraga kroz cio projekat i kroz cijelu fasciklu</li>
       <li xml:lang="sv">Projektomfattande och katalogomfattande sökning</li>
       <li xml:lang="ta">திட்டப்பணி அல்லது அடைவு முழுவதிலும் தேடலாம்</li>
       <li xml:lang="tr">Proje çapı ve klasör çapı arama</li>
@@ -1397,6 +1461,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sa">गिट् एकीकरणम्</li>
       <li xml:lang="sk">Integrácia shellu</li>
       <li xml:lang="sl">Integracija Git-a</li>
+      <li xml:lang="sr">уклапање Гита</li>
+      <li xml:lang="sr-Latn">uklapanje Gita</li>
+      <li xml:lang="sr-ijekavian">уклапање Гита</li>
+      <li xml:lang="sr-ijekavianlatin">uklapanje Gita</li>
       <li xml:lang="sv">Git-integrering</li>
       <li xml:lang="ta">Git ஒருங்கிணைப்பு</li>
       <li xml:lang="tr">Git tümleştirmesi</li>
@@ -1454,6 +1522,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="sa">केट् इत्यनेन सह कोडं सम्पादयन्</caption>
       <caption xml:lang="sk">Úprava kódu s Kate</caption>
       <caption xml:lang="sl">Urejanje kode s Kate</caption>
+      <caption xml:lang="sr">Уређивање кода помоћу Кејт</caption>
+      <caption xml:lang="sr-Latn">Uređivanje koda pomoću Kate</caption>
+      <caption xml:lang="sr-ijekavian">Уређивање кода помоћу Кејт</caption>
+      <caption xml:lang="sr-ijekavianlatin">Uređivanje koda pomoću Kate</caption>
       <caption xml:lang="sv">Redigera kod med Kate</caption>
       <caption xml:lang="ta">கேட்டில் நிரல்தொடரை திருத்துவது</caption>
       <caption xml:lang="tr">Kate ile kod düzenleme</caption>
@@ -1500,6 +1572,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="sa">केट् किञ्चित् Git आधारित परियोजना सह</caption>
       <caption xml:lang="sk">Kate s projektom založeným na Git</caption>
       <caption xml:lang="sl">Kate z nekim projektom, ki temelji na Gitu</caption>
+      <caption xml:lang="sr">Кејт са пројектом заснованим на Гиту</caption>
+      <caption xml:lang="sr-Latn">Kate sa projektom zasnovanim na Gitu</caption>
+      <caption xml:lang="sr-ijekavian">Кејт са пројектом заснованим на Гиту</caption>
+      <caption xml:lang="sr-ijekavianlatin">Kate sa projektom zasnovanim na Gitu</caption>
       <caption xml:lang="sv">Kate med något Git-baserat projekt</caption>
       <caption xml:lang="ta">Git திட்டப்பணியில் கேட்</caption>
       <caption xml:lang="tr">Git tabanlı bir proje ile Kate</caption>
@@ -1545,6 +1621,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="sa">विभक्तदृष्ट्या सह केट्</caption>
       <caption xml:lang="sk">Kate s rozdeleným pohľadom</caption>
       <caption xml:lang="sl">Kate z deljenim pogledom</caption>
+      <caption xml:lang="sr">Кејт са подељеним приказом</caption>
+      <caption xml:lang="sr-Latn">Kate sa podeljenim prikazom</caption>
+      <caption xml:lang="sr-ijekavian">Кејт са подијељеним приказом</caption>
+      <caption xml:lang="sr-ijekavianlatin">Kate sa podijeljenim prikazom</caption>
       <caption xml:lang="sv">Kate med delad vy</caption>
       <caption xml:lang="ta">பிரிந்த காட்சிமுறையுடன் கேட்</caption>
       <caption xml:lang="tr">Bölünmüş görünüm ile Kate</caption>
@@ -1590,6 +1670,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="sa">केट् डार्क मोड् मध्ये</caption>
       <caption xml:lang="sk">Kate v tmavom režime</caption>
       <caption xml:lang="sl">Kate v temnem načinu</caption>
+      <caption xml:lang="sr">Кејт у тамном режиму</caption>
+      <caption xml:lang="sr-Latn">Kate u tamnom režimu</caption>
+      <caption xml:lang="sr-ijekavian">Кејт у тамном режиму</caption>
+      <caption xml:lang="sr-ijekavianlatin">Kate u tamnom režimu</caption>
       <caption xml:lang="sv">Kate i mörkt läge</caption>
       <caption xml:lang="ta">கருமையான நிறத்திட்டத்துடன் கேட்</caption>
       <caption xml:lang="tr">Koyu kipte Kate</caption>
@@ -1634,6 +1718,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="sa">केट् इत्यनेन सह नूतनं Git शाखां रचयन्तु</caption>
       <caption xml:lang="sk">Vytvorenie novej vetvy Git pomocou Kate</caption>
       <caption xml:lang="sl">S Kate ustvari novo vejo Git</caption>
+      <caption xml:lang="sr">Стварање нове гит гране помоћу Кејт</caption>
+      <caption xml:lang="sr-Latn">Stvaranje nove git grane pomoću Kate</caption>
+      <caption xml:lang="sr-ijekavian">Стварање нове гит гране помоћу Кејт</caption>
+      <caption xml:lang="sr-ijekavianlatin">Stvaranje nove git grane pomoću Kate</caption>
       <caption xml:lang="sv">Skapa en ny gren i Git med Kate</caption>
       <caption xml:lang="ta">கேட்டால் புதிய git கிளையை உருவாக்குவது</caption>
       <caption xml:lang="tr">Kate ile yeni bir Git dalı oluştur</caption>
@@ -1677,6 +1765,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ru">Новый модуль «Отметки Git» показывает на полях редактора добавленные, изменённые и удалённые строки.</li>
           <li xml:lang="sk">Pridané, upravené a odstránené riadky uvidíte na okrajoch editora vďaka novému pluginu Dekorácie Gitu.</li>
           <li xml:lang="sl">Oglejte si dodane, spremenjene in odstranjene vrstice v robovih urejevalnika z novim vtičnikom Git Decorations.</li>
+          <li xml:lang="sr">Приказ додатих, измењених и уклоњених редова на маргинама уређивача, помоћу новог прикључка за гит ознаке.</li>
+          <li xml:lang="sr-Latn">Prikaz dodatih, izmenjenih i uklonjenih redova na marginama uređivača, pomoću novog priključka za git oznake.</li>
+          <li xml:lang="sr-ijekavian">Приказ додатих, измијењених и уклоњених редова на маргинама уређивача, помоћу новог прикључка за гит ознаке.</li>
+          <li xml:lang="sr-ijekavianlatin">Prikaz dodatih, izmijenjenih i uklonjenih redova na marginama uređivača, pomoću novog priključka za git oznake.</li>
           <li xml:lang="tr">Yeni Git Dekorasyonları eklentisi ile, düzenleyici kenar boşluklarında eklenen, değişiklik yapılan ve kaldırılan satırları görün.</li>
           <li xml:lang="uk">Реалізовано перегляд доданих, змінених та вилучених рядків на полях редактора за допомогою нового додатка декорування Git.</li>
           <li>Upload files, folders, or entire projects over SFTP with the new Deployment plugin, with transfer progress and a sidebar for browsing and editing remote files.</li>
@@ -1696,6 +1788,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ru">Новый модуль «Развёртывание» загружает файлы, папки и целые проекты по SFTP, показывает ход передачи и предоставляет боковую панель для просмотра и редактирования удалённых файлов.</li>
           <li xml:lang="sk">Nahrávajte súbory, priečinky alebo celé projekty cez SFTP novým pluginom Nasadenie, s priebehom prenosu a bočným panelom na prehliadanie a úpravu vzdialených súborov.</li>
           <li xml:lang="sl">Naložite datoteke, mape ali celotne projekte prek SFTP-ja z novim vtičnikom Deployment, ki prikazuje napredek prenosa in stransko vrstico za brskanje in urejanje oddaljenih datotek.</li>
+          <li xml:lang="sr">Отпремање фајлова, фасцикли или целих пројеката преко СФТП‑а, помоћу новог прикључка за развијање, уз напредак преноса и бочну траку за прегледање и уређивање удаљених фајлова.</li>
+          <li xml:lang="sr-Latn">Otpremanje fajlova, fascikli ili celih projekata preko SFTP‑a, pomoću novog priključka za razvijanje, uz napredak prenosa i bočnu traku za pregledanje i uređivanje udaljenih fajlova.</li>
+          <li xml:lang="sr-ijekavian">Отпремање фајлова, фасцикли или цијелих пројеката преко СФТП‑а, помоћу новог прикључка за развијање, уз напредак преноса и бочну траку за прегледање и уређивање удаљених фајлова.</li>
+          <li xml:lang="sr-ijekavianlatin">Otpremanje fajlova, fascikli ili cijelih projekata preko SFTP‑a, pomoću novog priključka za razvijanje, uz napredak prenosa i bočnu traku za pregledanje i uređivanje udaljenih fajlova.</li>
           <li xml:lang="tr">Yeni Konuşlandırma eklentisi ile SFTP üzerinden dosyalar, klasörler veya bütün bir halde projeleri karşıya yükleyin; uzak dosyalara göz atmak ve onları düzenlemek için kenar çubuğunu kullanın ve aktarım ilerlemelerini görün.</li>
           <li xml:lang="uk">Реалізовано вивантаження файлів, тек або цілих проєктів за допомогою SFTP і нового додатка розгортання; доступний показ поступу передавання, а також бічна панель для перегляду і редагування віддалених файлів.</li>
           <li>Open files and selected lines on GitHub, GitLab, or Forgejo, or copy their links, with support for custom Git host mappings globally and per project.</li>
@@ -1715,6 +1811,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ru">Файлы и выделенные строки можно открыть на GitHub, GitLab или Forgejo либо скопировать ссылки на них; поддерживаются собственные сопоставления узлов Git — общие и для отдельных проектов.</li>
           <li xml:lang="sk">Otvárajte súbory a vybrané riadky na GitHube, GitLabe alebo Forgejo, prípadne kopírujte odkazy na ne, s podporou vlastných priradení serverov Gitu globálne aj pre jednotlivé projekty.</li>
           <li xml:lang="sl">Odprite datoteke in izbrane vrstice na platformah GitHub, GitLab ali Forgejo oziroma kopirajte povezave do njih; podprto je določanje preslikav za poljubne gostitelje Git, tako na globalni ravni kot na ravni posameznega projekta.</li>
+          <li xml:lang="sr">Отварање фајлова и изабраних редова на сервисима Гитхаб, GitLab и Forgejo, или копирање веза до њих, уз подршку за посебна пресликавања гит домаћина, глобално и по пројекту.</li>
+          <li xml:lang="sr-Latn">Otvaranje fajlova i izabranih redova na servisima GitHub, GitLab i Forgejo, ili kopiranje veza do njih, uz podršku za posebna preslikavanja git domaćina, globalno i po projektu.</li>
+          <li xml:lang="sr-ijekavian">Отварање фајлова и изабраних редова на сервисима Гитхаб, GitLab и Forgejo, или копирање веза до њих, уз подршку за посебна пресликавања гит домаћина, глобално и по пројекту.</li>
+          <li xml:lang="sr-ijekavianlatin">Otvaranje fajlova i izabranih redova na servisima GitHub, GitLab i Forgejo, ili kopiranje veza do njih, uz podršku za posebna preslikavanja git domaćina, globalno i po projektu.</li>
           <li xml:lang="tr">Dosyaları ve seçili satırları Github, GitLab veya Forgejo ile açın veya onların bağlantılarını kopyalayın. Global ve proje başına özel Git makine eşlemleri desteklenir.</li>
           <li xml:lang="uk">Реалізовано відкриття файлів і вибраних рядків на GitHub, GitLab або Forgejo — або копіювання посилань на них; передбачено підтримку нетипових прив'язок для Git-вузлів як на загальному рівні, так і для окремих проєктів.</li>
           <li>Follow relative file links with the Open Link plugin, now enabled by default, with improved recognition of file paths and URLs.</li>
@@ -1734,6 +1834,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ru">Модуль «Открытие ссылок», теперь включённый по умолчанию, позволяет переходить по относительным ссылкам на файлы и лучше распознаёт пути к файлам и URL-адреса.</li>
           <li xml:lang="sk">Nasledujte relatívne odkazy na súbory pluginom Otvoriť odkaz, ktorý je teraz predvolene zapnutý a lepšie rozpoznáva cesty k súborom a URL.</li>
           <li xml:lang="sl">Sledite relativnim povezavam do datotek prek vtičnika Open Link – ki je zdaj privzeto omogočen – ter izboljšanim prepoznavanjem poti do datotek in spletnih naslovov.</li>
+          <li xml:lang="sr">Праћење релативних веза ка фајловима помоћу прикључка за отварање веза, који је сада подразумевано укључен, уз боље препознавање путања фајлова и УРЛ‑ова.</li>
+          <li xml:lang="sr-Latn">Praćenje relativnih veza ka fajlovima pomoću priključka za otvaranje veza, koji je sada podrazumevano uključen, uz bolje prepoznavanje putanja fajlova i URL‑ova.</li>
+          <li xml:lang="sr-ijekavian">Праћење релативних веза ка фајловима помоћу прикључка за отварање веза, који је сада подразумијевано укључен, уз боље препознавање путања фајлова и УРЛ‑ова.</li>
+          <li xml:lang="sr-ijekavianlatin">Praćenje relativnih veza ka fajlovima pomoću priključka za otvaranje veza, koji je sada podrazumijevano uključen, uz bolje prepoznavanje putanja fajlova i URL‑ova.</li>
           <li xml:lang="tr">Bağlantı Aç eklentisi ile göreceli dosya bağlantılarını açın; öntanımlı olarak etkindir ve dosya yollarını ve URL’leri daha iyi tanır.</li>
           <li xml:lang="uk">Реалізовано перехід за відносними посиланнями на файли за допомогою додатка відкриття посилань (тепер типово увімкненого), у якому покращено розпізнавання шляхів до файлів і адрес.</li>
           <li>Keep the editor responsive during project code completion by looking up matches in the background.</li>
@@ -1753,6 +1857,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ru">Редактор не задерживается при автодополнении кода по проекту: совпадения ищутся в фоновом режиме.</li>
           <li xml:lang="sk">Editor ostáva pri dopĺňaní kódu projektu responzívny, lebo zhody sa vyhľadávajú na pozadí.</li>
           <li xml:lang="sl">Poskrbi, da bo urejevalnik med dokončevanjem kode v projektu ostal odziven, tako da se iskanje ujemanj izvaja v ozadju.</li>
+          <li xml:lang="sr">Одзиван уређивач током допуне кода у пројекту, јер се поклапања траже у позадини.</li>
+          <li xml:lang="sr-Latn">Odzivan uređivač tokom dopune koda u projektu, jer se poklapanja traže u pozadini.</li>
+          <li xml:lang="sr-ijekavian">Одзиван уређивач током допуне кода у пројекту, јер се поклапања траже у позадини.</li>
+          <li xml:lang="sr-ijekavianlatin">Odzivan uređivač tokom dopune koda u projektu, jer se poklapanja traže u pozadini.</li>
           <li xml:lang="tr">Eşleşmelere arka planda erişerek, kod tamamlama sırasında düzenleyiciyi daha yanıt verir bir durumda tutun.</li>
           <li xml:lang="uk">Забезпечено стабільну швидкодію редактора під час автодоповнення коду в проєкті шляхом виконання пошуку збігів у фоновому режимі.</li>
           <li>Format Perl files with perltidy and CMake files with gersemi.</li>
@@ -1772,6 +1880,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ru">Форматирование файлов Perl с помощью perltidy и файлов CMake с помощью gersemi.</li>
           <li xml:lang="sk">Formátovanie súborov Perl pomocou perltidy a súborov CMake pomocou gersemi.</li>
           <li xml:lang="sl">Oblikuje datoteke Perl z orodjem perltidy, datoteke CMake pa z orodjem gersemi.</li>
+          <li xml:lang="sr">Форматирање фајлова перла помоћу perltidy и фајлова Ц‑мејка помоћу gersemi.</li>
+          <li xml:lang="sr-Latn">Formatiranje fajlova Perla pomoću perltidy i fajlova CMakea pomoću gersemi.</li>
+          <li xml:lang="sr-ijekavian">Форматирање фајлова перла помоћу perltidy и фајлова Ц‑мејка помоћу gersemi.</li>
+          <li xml:lang="sr-ijekavianlatin">Formatiranje fajlova Perla pomoću perltidy i fajlova CMakea pomoću gersemi.</li>
           <li xml:lang="tr">Perl dosyalarını perltidy ve CMake dosyalarını da gersemi ile biçimlendirin.</li>
           <li xml:lang="uk">Реалізовано форматування файлів Perl за допомогою perltidy, а файли CMake — за допомогою gersemi.</li>
         </ul>

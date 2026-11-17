@@ -343,8 +343,8 @@
       <li xml:lang="sl">Dopolnjevanje besed</li>
       <li xml:lang="sr">допуна речи</li>
       <li xml:lang="sr-Latn">dopuna reči</li>
-      <li xml:lang="sr-ijekavian">допуна речи</li>
-      <li xml:lang="sr-ijekavianlatin">dopuna reči</li>
+      <li xml:lang="sr-ijekavian">допуна ријечи</li>
+      <li xml:lang="sr-ijekavianlatin">dopuna riječi</li>
       <li xml:lang="sv">Ordkomplettering</li>
       <li xml:lang="ta">உரைநிரப்பல்</li>
       <li xml:lang="tr">Sözcük tamamlama</li>
@@ -574,6 +574,10 @@
       <caption xml:lang="sa">KWrite इत्यनेन कोडं सम्पादयन्</caption>
       <caption xml:lang="sk">Úprava kódu s Kwrite</caption>
       <caption xml:lang="sl">Urejanje kode s KWrite</caption>
+      <caption xml:lang="sr">Уређивање кода помоћу К‑писања</caption>
+      <caption xml:lang="sr-Latn">Uređivanje koda pomoću K‑pisanja</caption>
+      <caption xml:lang="sr-ijekavian">Уређивање кода помоћу К‑писања</caption>
+      <caption xml:lang="sr-ijekavianlatin">Uređivanje koda pomoću K‑pisanja</caption>
       <caption xml:lang="sv">Redigera kod med Kwrite</caption>
       <caption xml:lang="ta">கேரைட்டில் நிரல்தொடரை திருத்துவது</caption>
       <caption xml:lang="tr">KWrite ile kod düzenleme</caption>

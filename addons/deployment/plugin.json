@@ -18,6 +18,10 @@
         "Description[ru]": "Отправка файлов проекта по SFTP и просмотр удалённого узла",
         "Description[sk]": "Nahrať súbory projektu cez SFTP a prehliadať vzdialený počítač",
         "Description[sl]": "Prenesite tja projektne datoteke prek protokola SFTP in brskajte po oddaljenem gostitelju",
+        "Description[sr@ijekavian]": "Отпрема фајлове пројекта преко СФТП‑а и омогућава прегледање удаљеног домаћина",
+        "Description[sr@ijekavianlatin]": "Otprema fajlove projekta preko SFTP‑a i omogućava pregledanje udaljenog domaćina",
+        "Description[sr@latin]": "Otprema fajlove projekta preko SFTP‑a i omogućava pregledanje udaljenog domaćina",
+        "Description[sr]": "Отпрема фајлове пројекта преко СФТП‑а и омогућава прегледање удаљеног домаћина",
         "Description[tr]": "Proje dosyalarını SFTP üzerinden karşıya yükleyin ve uzak makineye göz atın",
         "Description[uk]": "Вивантаження файлів проєкту за допомогою SFTP і навігація віддаленим вузлом",
         "Name": "Deployment",
@@ -38,6 +42,10 @@
         "Name[ru]": "Развёртывание",
         "Name[sk]": "Nasadenie",
         "Name[sl]": "Uvedba",
+        "Name[sr@ijekavian]": "Развијање",
+        "Name[sr@ijekavianlatin]": "Razvijanje",
+        "Name[sr@latin]": "Razvijanje",
+        "Name[sr]": "Развијање",
         "Name[tr]": "Konuşlandırma",
         "Name[uk]": "Розгортання"
     }

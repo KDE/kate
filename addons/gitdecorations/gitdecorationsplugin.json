@@ -17,6 +17,10 @@
         "Description[ru]": "Показ отметок изменений Git на полях редактора",
         "Description[sk]": "Zobrazuje indikátory zmien Gitu na okrajoch editora",
         "Description[sl]": "Prikazuje indikatorje sprememb Git na robovih urejevalnika",
+        "Description[sr@ijekavian]": "Приказује гит ознаке измијена на маргинама уређивача",
+        "Description[sr@ijekavianlatin]": "Prikazuje git oznake izmijena na marginama uređivača",
+        "Description[sr@latin]": "Prikazuje git oznake izmena na marginama uređivača",
+        "Description[sr]": "Приказује гит ознаке измена на маргинама уређивача",
         "Description[tr]": "Düzenleyici kenar boşluklarında Git değişiklik göstergelerini gösterin",
         "Description[uk]": "Показує індикатори змін у Git на полях редактора",
         "Name": "Git Decorations",
@@ -36,6 +40,10 @@
         "Name[ru]": "Отметки Git",
         "Name[sk]": "Dekorácie Gitu",
         "Name[sl]": "Git dekoracije",
+        "Name[sr@ijekavian]": "Гит ознаке",
+        "Name[sr@ijekavianlatin]": "Git oznake",
+        "Name[sr@latin]": "Git oznake",
+        "Name[sr]": "Гит ознаке",
         "Name[tr]": "Git Dekorasyonları",
         "Name[uk]": "Декорування Git"
     }

@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>org.kde.kate.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>LGPL-2.1+</project_license>
+  <project_license>LGPL-2.1-or-later</project_license>
   <developer_name translate="no">KDE</developer_name>
   <name>Kate</name>
   <name xml:lang="ar">كيت</name>
@@ -1478,6 +1478,8 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kate</url>
   <url type="help">https://docs.kde.org/?application=kate</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kate&amp;source=appdata</url>
+  <url type="vcs-browser">https://invent.kde.org/utilities/kate</url>
+  <url type="contribute">https://community.kde.org/Get_Involved</url>
   <screenshots>
     <screenshot type="default">
       <caption>Editing code with Kate</caption>

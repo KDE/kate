@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>org.kde.kwrite.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>LGPL-2.1+</project_license>
+  <project_license>LGPL-2.1-or-later</project_license>
   <developer id="org.kde">
     <name translate="no">KDE</name>
     <url>https://kde.org</url>
@@ -529,6 +529,8 @@
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kwrite</url>
   <url type="help">https://docs.kde.org/?application=kwrite</url>
   <url type="donation">https://www.kde.org/community/donations/?app=kwrite&amp;source=appdata</url>
+  <url type="vcs-browser">https://invent.kde.org/utilities/kate</url>
+  <url type="contribute">https://community.kde.org/Get_Involved</url>
   <screenshots>
     <screenshot type="default">
       <caption>Editing code with KWrite</caption>

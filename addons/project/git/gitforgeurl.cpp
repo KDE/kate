@@ -268,7 +268,7 @@ QList<GitForge::HostMapping> GitForge::effectiveHostMappings(const QList<HostMap
     return mappings;
 }
 
-QList<QPair<GitForge::Provider, QUrl>> GitForge::providerApiUrls(const QUrl &webBaseUrl)
+QList<std::pair<GitForge::Provider, QUrl>> GitForge::providerApiUrls(const QUrl &webBaseUrl)
 {
     if (!validWebBase(webBaseUrl)) {
         return {};

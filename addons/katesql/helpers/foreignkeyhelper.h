@@ -7,15 +7,16 @@
 #pragma once
 
 #include <QMap>
-#include <QPair>
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QString>
 
+#include <utility>
+
 /**
  * Type alias for a foreign key reference: (referenced table, referenced column).
  */
-using ColumnReference = QPair<QString, QString>;
+using ColumnReference = std::pair<QString, QString>;
 
 /**
  * Type alias for foreign keys of a single table: maps column name to its reference.

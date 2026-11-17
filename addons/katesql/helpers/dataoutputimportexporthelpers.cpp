@@ -31,7 +31,7 @@ void DataOutputImportExportHelpers::exportData(const QAbstractItemModel *model,
 {
     std::vector<int> columns;
     std::vector<int> rows;
-    QHash<QPair<int, int>, QString> snapshot;
+    QHash<std::pair<int, int>, QString> snapshot;
 
     snapshot.reserve(selectedIndexes.count());
 
@@ -48,16 +48,16 @@ void DataOutputImportExportHelpers::exportData(const QAbstractItemModel *model,
         {
             const QString data = escapeString(indexData.toString(), numbersQuoteChar, EscapeChar);
             if (numbersQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
-                snapshot[qMakePair(row, col)] = numbersQuoteChar + data + numbersQuoteChar;
+                snapshot[std::make_pair(row, col)] = numbersQuoteChar + data + numbersQuoteChar;
             } else {
-                snapshot[qMakePair(row, col)] = data;
+                snapshot[std::make_pair(row, col)] = data;
             }
         } else {
             const QString data = escapeString(indexData.toString(), stringsQuoteChar, EscapeChar);
             if (stringsQuoteChar != KateSQLConstants::Export::DefaultValues::NoQuotingChar) {
-                snapshot[qMakePair(row, col)] = stringsQuoteChar + data + stringsQuoteChar;
+                snapshot[std::make_pair(row, col)] = stringsQuoteChar + data + stringsQuoteChar;
             } else {
-                snapshot[qMakePair(row, col)] = data;
+                snapshot[std::make_pair(row, col)] = data;
             }
         }
     }
@@ -103,7 +103,7 @@ void DataOutputImportExportHelpers::exportData(const QAbstractItemModel *model,
             }
 
             for (int col = minCol; col <= maxCol; ++col) {
-                stream << snapshot.value(qMakePair(row, col));
+                stream << snapshot.value(std::make_pair(row, col));
 
                 if (col < maxCol) {
                     stream << fieldDelimiter;

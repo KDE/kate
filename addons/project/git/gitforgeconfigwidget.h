@@ -11,6 +11,8 @@
 #include <QPointer>
 #include <QWidget>
 
+#include <utility>
+
 class QComboBox;
 class QLabel;
 class QLineEdit;
@@ -43,7 +45,7 @@ private:
     QLabel *m_detectionStatus;
     QPointer<QComboBox> m_detectionTarget;
     QPointer<QLineEdit> m_detectionUrlEdit;
-    QList<QPair<GitForge::Provider, QUrl>> m_pendingProbes;
+    QList<std::pair<GitForge::Provider, QUrl>> m_pendingProbes;
     QString m_detectionUrlText;
     QString m_detectionProviderName;
     bool m_detecting = false;

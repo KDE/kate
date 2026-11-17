@@ -8,12 +8,12 @@
 
 #include <QByteArray>
 #include <QList>
-#include <QPair>
 #include <QString>
 #include <QUrl>
 #include <QVariantMap>
 
 #include <optional>
+#include <utility>
 
 namespace GitForge
 {
@@ -56,7 +56,7 @@ QString providerName(Provider provider);
 std::optional<Provider> providerFromName(const QString &name);
 std::optional<HostMapping> hostMapping(const QString &host, Provider provider, const QUrl &webBaseUrl);
 QList<HostMapping> effectiveHostMappings(const QList<HostMapping> &globalMappings, const QVariantMap &projectMap);
-QList<QPair<Provider, QUrl>> providerApiUrls(const QUrl &webBaseUrl);
+QList<std::pair<Provider, QUrl>> providerApiUrls(const QUrl &webBaseUrl);
 bool isProviderApiResponse(Provider provider, int statusCode, const QByteArray &body);
 QList<HostMapping> defaultHostMappings();
 } // namespace GitForge

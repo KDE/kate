@@ -13,6 +13,8 @@
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Range>
 
+#include <utility>
+
 namespace KTextEditor
 {
 class View;
@@ -37,5 +39,5 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
 
 private:
-    QPair<int, int> m_matches = {0, 0};
+    std::pair<int, int> m_matches = {0, 0};
 };

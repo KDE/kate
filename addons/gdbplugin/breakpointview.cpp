@@ -1056,7 +1056,7 @@ public:
         }
 
         // Collect ranges to remove
-        QList<QPair<int, int>> removalRanges;
+        QList<std::pair<int, int>> removalRanges;
         {
             int currentStart = -1;
             for (int i = 0; i < oldCount; ++i) {

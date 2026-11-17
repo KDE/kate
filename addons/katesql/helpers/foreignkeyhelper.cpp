@@ -41,7 +41,7 @@ void ForeignKeyHelper::insertForeignKey(DatabaseForeignKeys &result,
                                         const QString &refColumn)
 {
     if (!table.isEmpty() && !column.isEmpty() && !refTable.isEmpty() && !refColumn.isEmpty()) {
-        result[table][column] = qMakePair(refTable, refColumn);
+        result[table][column] = std::make_pair(refTable, refColumn);
     }
 }
 

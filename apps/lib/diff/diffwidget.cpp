@@ -863,7 +863,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     // Highlighting data for modified lines
     std::vector<LineHighlight> leftHlts;
     std::vector<LineHighlight> rightHlts;
-    // QList<QPair<int, HunkData>> hunkDatas; // lineNo => HunkData
+    // QList<std::pair<int, HunkData>> hunkDatas; // lineNo => HunkData
 
     // Line numbers that will be shown in the editor
     std::vector<int> lineNumsA;

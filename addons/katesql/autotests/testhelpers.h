@@ -20,6 +20,7 @@ SPDX-License-Identifier: LGPL-2.0-only
 #include <QVariant>
 
 #include <string>
+#include <utility>
 
 #include "../helpers/dataoutputimportexporthelpers.h"
 
@@ -213,9 +214,9 @@ static QString defaultGrid(int rows, int cols)
 }
 
 // Parse "r,c;r,c;..." into a list of (row,col) pairs.
-static QList<QPair<int, int>> parseSelection(const QString &selection)
+static QList<std::pair<int, int>> parseSelection(const QString &selection)
 {
-    QList<QPair<int, int>> result;
+    QList<std::pair<int, int>> result;
     const auto parts = selection.split(QLatin1Char(GridLineDelim));
     for (const QString &part : parts) {
         const auto rc = part.split(QLatin1Char(GridFieldDelim));

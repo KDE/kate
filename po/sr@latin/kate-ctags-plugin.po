@@ -1,12 +1,13 @@
 # Translation of kate-ctags-plugin.po into Serbian.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2009, 2010, 2011, 2014, 2015.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2015-10-16 19:04+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
@@ -252,34 +253,32 @@ msgstr "skup"
 
 # rewrite-msgid: /executable/process/
 #: gotosymbolmodel.cpp:67
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "CTags executable not found."
-msgstr "Proces CTagsa se srušio."
+msgstr "Izvršni fajl CTagsa nije nađen."
 
 # rewrite-msgid: /executable/process/
 #: gotosymbolmodel.cpp:80
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "CTags executable failed to execute."
-msgstr "Proces CTagsa se srušio."
+msgstr "Ne mogu da pokrenem izvršni fajl CTagsa."
 
 #: gotosymbolmodel.cpp:148
-#, fuzzy, kde-format
-#| msgid "CTags database file"
+#, kde-format
 msgid "CTags was unable to parse this file."
-msgstr "Fajl baze podataka CTagsa"
+msgstr "CTags ne može da raščlani ovaj fajl."
 
 #: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
 msgstr ""
+"Fajl oznaka nije nađen. Napravite ga ručno ili pomoću priključka CTagsa"
 
 #: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
-msgstr ""
+msgstr "Fajl za „%1“ nije nađen."
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:36
@@ -370,10 +369,9 @@ msgid "CTags Settings"
 msgstr "Postavke CTagsa"
 
 #: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:561
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "Neuspelo izvršavanje „%1“. Izlazno stanje: %2"
+msgstr "Ne mogu da izvršim naredbu. Greška: %1, izlazni kod: %2"
 
 # rewrite-msgid: /executable/process/
 #: kate_ctags_plugin.cpp:239
@@ -409,13 +407,13 @@ msgstr "Potraži tekući tekst"
 #: kate_ctags_view.cpp:81
 #, kde-format
 msgid "Configure ..."
-msgstr ""
+msgstr "Podesi..."
 
 #: kate_ctags_view.cpp:96
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
-msgstr ""
+msgstr "Podešavanje priključka CTagsa"
 
 #: kate_ctags_view.cpp:107 kate_ctags_view.cpp:196
 #, kde-format
@@ -445,12 +443,12 @@ msgstr "Izaberite nov ili postojeći fajl baze podataka."
 #: kate_ctags_view.cpp:147
 #, kde-format
 msgid "Go To Local Symbol"
-msgstr ""
+msgstr "Idi na lokalni simbol"
 
 #: kate_ctags_view.cpp:152
 #, kde-format
 msgid "Go To Global Symbol"
-msgstr ""
+msgstr "Idi na globalni simbol"
 
 #: kate_ctags_view.cpp:325 kate_ctags_view.cpp:358
 #, kde-format
@@ -464,20 +462,11 @@ msgstr "Nema fascikli niti fajlova za indeksiranje"
 
 # rewrite-msgid: /executable/process/
 #: kate_ctags_view.cpp:576
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "The CTags executable crashed"
-msgstr "Proces CTagsa se srušio."
+msgstr "Proces CTagsa se srušio"
 
 #: kate_ctags_view.cpp:578
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1: %2"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "Naredba CTagsa izašla je sa kodom %1: %2"
-
-#~ msgid "Failed to run \"%1\". exitStatus = %2"
-#~ msgstr "Neuspelo izvršavanje „%1“. Izlazno stanje: %2"
-
-# rewrite-msgid: /CTag/CTags/
-#~ msgid "Kate CTag"
-#~ msgstr "Katein CTags"
+msgstr "Naredba CTagsa završila je sa kodom %2: %1"

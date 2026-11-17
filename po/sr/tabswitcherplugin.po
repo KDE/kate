@@ -1,12 +1,13 @@
 # Translation of tabswitcherplugin.po into Serbian.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2014.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: tabswitcherplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2014-09-19 22:54+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -51,19 +52,15 @@ msgstr "Отвара списак за обратно кретање кроз п
 #: tabswitcher.cpp:118
 #, kde-format
 msgid "Close View"
-msgstr ""
+msgstr "Затвори приказ"
 
 #: tabswitcher.cpp:121 tabswitcher.cpp:122
-#, fuzzy, kde-format
-#| msgid "Opens a list to walk through the list of last used views."
+#, kde-format
 msgid "Closes the selected view in the list of last used views."
-msgstr "Отвара списак за кретање кроз последње коришћене приказе."
+msgstr "Затвара изабрани приказ у списку последње коришћених приказа."
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:6
 #, kde-format
 msgid "&Go"
-msgstr ""
-
-#~ msgid "&View"
-#~ msgstr "&Приказ"
+msgstr "Кр&етање"

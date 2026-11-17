@@ -1,12 +1,13 @@
 # Translation of katexmlcheck.po into Serbian.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2016, 2017.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-18 00:46+0000\n"
-"PO-Revision-Date: 2017-09-28 17:56+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -19,10 +20,9 @@ msgstr ""
 "X-Environment: kde\n"
 
 #: plugin_katexmlcheck.cpp:90
-#, fuzzy, kde-format
-#| msgid "Kate XML check"
+#, kde-format
 msgid "XML Check"
-msgstr "Кејтина провера ИксМЛ‑а"
+msgstr "Провера ИксМЛ‑а"
 
 #: plugin_katexmlcheck.cpp:95
 #, kde-format
@@ -32,26 +32,25 @@ msgstr "Овери ИксМЛ"
 #: plugin_katexmlcheck.cpp:125
 #, kde-format
 msgid "Validate process crashed"
-msgstr ""
+msgstr "Процес овере се срушио"
 
 #: plugin_katexmlcheck.cpp:125 plugin_katexmlcheck.cpp:143
 #: plugin_katexmlcheck.cpp:203 plugin_katexmlcheck.cpp:228
 #: plugin_katexmlcheck.cpp:248 plugin_katexmlcheck.cpp:331
-#, fuzzy, kde-format
-#| msgid "Kate XML check"
+#, kde-format
 msgid "XMLCheck"
-msgstr "Кејтина провера ИксМЛ‑а"
+msgstr "Провера ИксМЛ‑а"
 
 #: plugin_katexmlcheck.cpp:139
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
-msgstr ""
+msgstr "Није нађен DOCTYPE, биће проверена само доброформираност."
 
 #: plugin_katexmlcheck.cpp:141
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
-msgstr ""
+msgstr "„%1“ није нађен, биће проверена само доброформираност."
 
 #: plugin_katexmlcheck.cpp:227
 #, kde-format
@@ -59,16 +58,13 @@ msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Грешка:</b> Не могу да направим привремени фајл „%1“."
 
 #: plugin_katexmlcheck.cpp:246
-#, fuzzy, kde-format
-#| msgid ""
-#| "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
-#| "installed. It is part of libxml2."
+#, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
-"<b>Грешка:</b> Не могу да извршим <tt>xmllint</tt>. Проверите да ли је ова "
-"наредба инсталирана (део пакета <tt>libxml2</tt>)."
+"<b>Грешка:</b> Не могу да нађем xmllint. Проверите да ли је ова наредба "
+"инсталирана (део пакета libxml2)."
 
 #: plugin_katexmlcheck.cpp:329
 #, kde-format
@@ -84,22 +80,3 @@ msgstr ""
 #, kde-format
 msgid "&XML"
 msgstr "&ИксМЛ"
-
-#~ msgid "XML Checker Output"
-#~ msgstr "Испис овере ИксМЛ‑а|/|$[својства аку 'Излаз овере ИксМЛ‑а']"
-
-# >> @title:column
-#~ msgid "#"
-#~ msgstr "#"
-
-# >> @title:column
-#~ msgid "Line"
-#~ msgstr "ред"
-
-# >> @title:column
-#~ msgid "Column"
-#~ msgstr "колона"
-
-# >> @title:column
-#~ msgid "Message"
-#~ msgstr "порука"

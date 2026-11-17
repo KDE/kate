@@ -1,12 +1,13 @@
 # Translation of katesymbolviewer.po into Serbian.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2007, 2009, 2010, 2013.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2013-09-08 14:16+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
@@ -113,25 +114,22 @@ msgid "SymbolViewer"
 msgstr "Prikazivač simbola"
 
 #: plugin_katesymbolviewer.cpp:75
-#, fuzzy, kde-format
-#| msgid "List/Tree Mode"
+#, kde-format
 msgid "Tree Mode"
-msgstr "Režim spiska/stabla"
+msgstr "Režim stabla"
 
 #: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Expand Tree"
-msgstr ""
+msgstr "Raširi stablo"
 
 #: plugin_katesymbolviewer.cpp:79
-#, fuzzy, kde-format
-#| msgid "Show Structures"
+#, kde-format
 msgid "Show Sorted"
-msgstr "Prikaži strukture"
+msgstr "Prikaži poređano"
 
 #: plugin_katesymbolviewer.cpp:88
-#, fuzzy, kde-format
-#| msgid "Show Params"
+#, kde-format
 msgid "Show Parameters"
 msgstr "Prikaži parametre"
 
@@ -143,7 +141,7 @@ msgstr "Spisak simbola|/|$[svojstva aku 'Spisak simbola']"
 #: plugin_katesymbolviewer.cpp:133
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "Filter…"
 
 #: plugin_katesymbolviewer.cpp:143
 #, kde-format
@@ -158,15 +156,14 @@ msgid "Position"
 msgstr "položaj"
 
 #: plugin_katesymbolviewer.cpp:361
-#, fuzzy, kde-format
-#| msgid "Sorry. Language not supported yet"
+#, kde-format
 msgid "Sorry, not supported yet!"
-msgstr "Izvinite, jezik još uvek nije podržan."
+msgstr "Izvinite, još nije podržano!"
 
 #: plugin_katesymbolviewer.cpp:365
 #, kde-format
 msgid "File type: %1"
-msgstr ""
+msgstr "Tip fajla: %1"
 
 #: plugin_katesymbolviewer.cpp:476
 #, kde-format
@@ -225,10 +222,9 @@ msgid "&Settings"
 msgstr "&Podešavanje"
 
 #: xml_parser.cpp:25
-#, fuzzy, kde-format
-#| msgid "Show Pragmas"
+#, kde-format
 msgid "Show Tags"
-msgstr "Prikaži pragme"
+msgstr "Prikaži oznake"
 
 #: xslt_parser.cpp:22
 #, kde-format
@@ -259,6 +255,3 @@ msgstr "Promenljive"
 #, kde-format
 msgid "Templates"
 msgstr "Šabloni"
-
-#~ msgid "Show Globals"
-#~ msgstr "Prikaži globalne"

@@ -1,13 +1,14 @@
 # Translation of katesql.po into Serbian.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2010, 2011, 2012, 2014, 2015, 2017.
 # Dalibor Djuric <daliborddjuric@gmail.com>, 2011.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-15 03:18+0000\n"
-"PO-Revision-Date: 2017-09-28 17:56+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr@ijekavianlatin\n"
 "MIME-Version: 1.0\n"
@@ -156,16 +157,12 @@ msgid "Connection name:"
 msgstr "Ime veze:"
 
 #: dataoutputwidget.cpp:93 katesqlview.cpp:47
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgid "SQL"
 msgstr "SQL"
 
 #: dataoutputwidget.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu Context menu"
-#| msgid "Refresh"
+#, kde-format
 msgctxt "@action:intoolbar"
 msgid "Refresh"
 msgstr "Osvježi"
@@ -210,49 +207,49 @@ msgstr "Sistemski lokalitet"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Paste"
-msgstr ""
+msgstr "Nalijepi"
 
 #: dataoutputwidget.cpp:191
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Set Null"
-msgstr ""
+msgstr "Postavi na prazno"
 
 #: dataoutputwidget.cpp:201
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Insert Row"
-msgstr ""
+msgstr "Ubaci vrstu"
 
 #: dataoutputwidget.cpp:211
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Remove Selected Rows"
-msgstr ""
+msgstr "Ukloni izabrane vrste"
 
 #: dataoutputwidget.cpp:221
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Duplicate Selected Rows"
-msgstr ""
+msgstr "Dupliraj izabrane vrste"
 
 #: dataoutputwidget.cpp:231
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Undo"
-msgstr ""
+msgstr "Opozovi"
 
 #: dataoutputwidget.cpp:241
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Save"
-msgstr ""
+msgstr "Sačuvaj"
 
 #: dataoutputwidget.cpp:251
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Make this column presentable for related tables"
-msgstr ""
+msgstr "Koristi ovu kolonu za prikaz u povezanim tabelama"
 
 #: dataoutputwidget.cpp:254
 #, kde-format
@@ -261,24 +258,27 @@ msgid ""
 "Warning! For columns without a unique constraint we cannot guarantee a "
 "correct copy-pasting (when the column is shown instead of the foreign key)"
 msgstr ""
+"Upozorenje! Za kolone bez ograničenja jedinstvenosti ne možemo da "
+"garantujemo ispravno kopiranje i naljepljivanje (kad se kolona prikazuje "
+"umjesto stranog ključa)"
 
 #: dataoutputwidget.cpp:265
 #, kde-format
 msgctxt "@label"
 msgid "Where:"
-msgstr ""
+msgstr "Gdje:"
 
 #: dataoutputwidget.cpp:273
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "id > 0"
-msgstr ""
+msgstr "id > 0"
 
 #: dataoutputwidget.cpp:274
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Enter SQL WHERE clause to filter data"
-msgstr ""
+msgstr "Unesite SQL odredbu WHERE za filtriranje podataka"
 
 #: dataoutputwidget.cpp:730
 #, kde-kuit-format
@@ -287,12 +287,10 @@ msgid "Unable to open file <filename>%1</filename>"
 msgstr "Ne mogu da otvorim fajl <filename>%1</filename>."
 
 #: dataoutputwidget.cpp:750
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "Unable to connect to database.<nl/><message>%1</message>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "Failed to save changes: <message>%1</message>"
-msgstr "Ne mogu da se povežem sa bazom.<nl/><message>%1</message>"
+msgstr "Ne mogu da sačuvam izmjene: <message>%1</message>"
 
 #: exportwizard.cpp:27
 #, kde-format
@@ -333,14 +331,9 @@ msgid "File"
 msgstr "Fajl"
 
 #: exportwizard.cpp:54
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|vrednosti razdvojene zarezima\n"
-"*|svi fajlovi"
+msgstr "vrijednosti razdvojene zarezima"
 
 #: exportwizard.cpp:96
 #, kde-format
@@ -422,25 +415,25 @@ msgstr "Sačuvaj i obnovi veze u Kateinoj sesiji"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable table for Browse Data"
-msgstr ""
+msgstr "Uključi uredivu tabelu pri pregledu podataka"
 
 #: katesqlconfigpage.cpp:31
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable editable relational tables"
-msgstr ""
+msgstr "Uključi uredive relacione tabele"
 
 #: katesqlconfigpage.cpp:32
 #, kde-format
 msgctxt "@option:check"
 msgid "Experimental"
-msgstr ""
+msgstr "Eksperimentalno"
 
 #: katesqlconfigpage.cpp:38
 #, kde-format
 msgctxt "@option:check"
 msgid "Treat a blank line as a statement break"
-msgstr ""
+msgstr "Prazan red smatraj prelomom iskaza"
 
 #: katesqlconfigpage.cpp:40
 #, kde-format
@@ -449,18 +442,16 @@ msgid "Output Customization"
 msgstr "Prilagođavanje izlaza"
 
 #: katesqlconfigpage.cpp:47
-#, fuzzy, kde-format
-#| msgctxt "@action:intoolbar"
-#| msgid "Use system locale"
+#, kde-format
 msgctxt "@option:check"
 msgid "Use system defaults"
-msgstr "Sistemski lokalitet"
+msgstr "Koristi sistemske podrazumijevane vrijednosti"
 
 #: katesqlconfigpage.cpp:48
 #, kde-format
 msgctxt "@action:button"
 msgid "Reset to System Defaults"
-msgstr ""
+msgstr "Resetuj na sistemske podrazumijevane vrijednosti"
 
 #: katesqlconfigpage.cpp:86
 #, kde-format
@@ -475,41 +466,31 @@ msgid "SQL ConfigPage Settings"
 msgstr "Postavke postavne stranice za SQL"
 
 #: katesqlview.cpp:54
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
 #: katesqlview.cpp:60
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "SQL Schema Browser"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
-msgstr "Pregledač SQL šema"
+msgstr "SQL šema"
 
 #: katesqlview.cpp:145
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Dodaj vezu..."
 
 #: katesqlview.cpp:150
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove connection"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
 msgstr "Ukloni vezu"
 
 #: katesqlview.cpp:155
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Edit connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Uredi vezu..."
@@ -527,9 +508,7 @@ msgid "Connection"
 msgstr "Veza"
 
 #: katesqlview.cpp:170
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run query"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "Izvrši upit"
@@ -553,20 +532,16 @@ msgid "Background Color"
 msgstr "boja pozadine"
 
 #: outputstylewidget.cpp:39
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Text Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Text Color"
-msgstr "boja teksta"
+msgstr "boja teksta za izmjene"
 
 #: outputstylewidget.cpp:40
-#, fuzzy, kde-format
-#| msgctxt "@title:column"
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:column"
 msgid "Changed Background Color"
-msgstr "boja pozadine"
+msgstr "boja pozadine za izmjene"
 
 #: outputstylewidget.cpp:49
 #, kde-format
@@ -619,7 +594,7 @@ msgstr "Izlaz SQL podataka"
 #: schemabrowserwidget.cpp:26
 #, kde-format
 msgid "Filter tables and views..."
-msgstr ""
+msgstr "Filtriraj tabele i poglede..."
 
 #: schemawidget.cpp:45
 #, kde-format
@@ -649,7 +624,7 @@ msgstr "Sistemske tabele"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr ""
+msgstr "Pregledaj podatke"
 
 #: schemawidget.cpp:367
 #, kde-format
@@ -690,7 +665,7 @@ msgstr "Osvježi"
 #: sqlmanager.cpp:335
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Neuspjela priprema iskaza"
 
 #: sqlmanager.cpp:336
 #, kde-format
@@ -698,12 +673,14 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>Priprema upita nije uspjela, uz sljedeću grešku: %1</p><p>Želite li da "
+"nastavite bez pripreme upita?</p>"
 
 #: sqlmanager.cpp:366
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
-msgstr "Upit uspešno dovršen"
+msgstr "Upit uspješno dovršen"
 
 #: sqlmanager.cpp:369 sqlmanager.cpp:407 sqlmanager.cpp:468
 #, kde-format
@@ -742,10 +719,3 @@ msgstr "Traka SQL povezivanja"
 #, kde-format
 msgid "SQL Toolbar"
 msgstr "SQL traka"
-
-#~ msgid "Kate SQL Plugin"
-#~ msgstr "Katein priključak za SQL"
-
-#~ msgctxt "@title:window"
-#~ msgid "SQL Results"
-#~ msgstr "SQL rezultati"

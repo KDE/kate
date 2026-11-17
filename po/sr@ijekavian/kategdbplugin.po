@@ -1,13 +1,14 @@
 # Translation of kategdbplugin.po into Serbian.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2010, 2011, 2012, 2013, 2014.
 # Dalibor Djuric <daliborddjuric@gmail.com>, 2011.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-22 00:53+0000\n"
-"PO-Revision-Date: 2014-12-20 11:52+0100\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr@ijekavian\n"
 "MIME-Version: 1.0\n"
@@ -25,50 +26,46 @@ msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr ""
+"Сесија исправљања је у току. Покрените је поново или зауставите текућу "
+"сесију."
 
 #: breakpointview.cpp:363
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Преломна тачка"
+msgstr "Преломне тачке на редовима"
 
 #: breakpointview.cpp:365
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "Уметни преломну тачку"
+msgstr "Преломне тачке на функцијама"
 
 #: breakpointview.cpp:367
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "Уметни преломну тачку"
+msgstr "Преломне тачке на изузецима"
 
 #: breakpointview.cpp:426
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "потврђена"
 
 #: breakpointview.cpp:426 breakpointview.cpp:431
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "на чекању"
 
 #: breakpointview.cpp:989
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "Уметни преломну тачку"
+msgstr "Додај преломну тачку на функцији…"
 
 #: breakpointview.cpp:993
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Преломна тачка"
+msgstr "Очисти све преломне тачке на функцијама"
 
 #: breakpointview.cpp:1000
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Уклони преломну тачку"
 
@@ -80,24 +77,22 @@ msgstr "Преломна тачка"
 #: breakpointview.cpp:1588
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "ред %1 већ има преломну тачку"
 
 #: breakpointview.cpp:1596
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "Преломна тачка"
+msgstr "Нема постављених преломних тачака"
 
 #: breakpointview.cpp:1655
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "Уметни преломну тачку"
+msgstr "Додавање преломне тачке на функцији"
 
 #: breakpointview.cpp:1656
 #, kde-format
 msgid "Function name:"
-msgstr ""
+msgstr "Име функције:"
 
 #: configview.cpp:92
 #, kde-format
@@ -117,7 +112,7 @@ msgstr "Обриши циљ"
 #: configview.cpp:104
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Поново учитај циљеве из launch.json"
 
 # >> executable file
 #: configview.cpp:109
@@ -133,7 +128,7 @@ msgstr "Радна фасцикла:"
 #: configview.cpp:137
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "ИД процеса:"
 
 #: configview.cpp:142
 #, kde-format
@@ -166,13 +161,13 @@ msgstr "Преусмјери У/И исправљаног програма у з
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Није задат извршни циљ"
 
 #: configview.cpp:407
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr ""
+msgstr "Лош ИД процеса"
 
 #: configview.cpp:529 configview.cpp:542
 #, kde-format
@@ -181,370 +176,360 @@ msgstr "Циљ %1"
 
 # >> executable file
 #: configview.cpp:765
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Извршни:"
+msgstr "Избор извршног фајла"
 
 #: configview.cpp:778
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "Радна фасцикла:"
+msgstr "Избор радне фасцикле"
 
 #: dap/client.cpp:208
 #, kde-format
 msgid "the incompatible server did not honor the specification"
-msgstr ""
+msgstr "несагласан сервер се није придржавао спецификације"
 
 #: dapbackend.cpp:187
 #, kde-format
 msgid "DAP backend '%1' failed"
-msgstr ""
+msgstr "ДАП позадина „%1“ није успјела"
 
 #: dapbackend.cpp:238
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "програм окончан"
 
 #: dapbackend.cpp:243
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Не могу да окончам. Присилно гасим..."
 
 #: dapbackend.cpp:254
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "захтијевам прекид везе"
 
 #: dapbackend.cpp:269
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "захтијевам гашење"
 
 #: dapbackend.cpp:294
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "ДАП позадина: %1"
 
 #: dapbackend.cpp:303
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "заустављено (%1)."
 
 #: dapbackend.cpp:311
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "Активна нит: %1 (све нити заустављене)."
 
 #: dapbackend.cpp:313
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "Активна нит: %1."
 
 #: dapbackend.cpp:318
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr "Преломна тачка"
+msgstr "Досегнуте преломне тачке:"
 
 #: dapbackend.cpp:344
 #, kde-format
 msgid "(continued) thread %1"
-msgstr ""
+msgstr "(настављена) нит %1"
 
 #: dapbackend.cpp:346
 #, kde-format
 msgid "all threads continued"
-msgstr ""
+msgstr "све нити настављене"
 
 #: dapbackend.cpp:353
 #, kde-format
 msgid "(running)"
-msgstr ""
+msgstr "(извршава се)"
 
 #: dapbackend.cpp:404
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "*** веза са сервером затворена ***"
 
 #: dapbackend.cpp:411
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "програм је завршио са кодом %1"
 
 #: dapbackend.cpp:433
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** чекам радње корисника ***"
 
 #: dapbackend.cpp:438
 #, kde-format
 msgid "error on response: %1"
-msgstr ""
+msgstr "грешка у одговору: %1"
 
 #: dapbackend.cpp:454
 #, kde-format
 msgid "important"
-msgstr ""
+msgstr "важно"
 
 #: dapbackend.cpp:457
 #, kde-format
 msgid "telemetry"
-msgstr ""
+msgstr "телеметрија"
 
 #: dapbackend.cpp:476
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "исправљам процес [%1] %2"
 
 #: dapbackend.cpp:478
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "исправљам процес %1"
 
 #: dapbackend.cpp:481
 #, kde-format
 msgid "Start method: %1"
-msgstr ""
+msgstr "Начин покретања: %1"
 
 # >> @item:inlistbox
 #: dapbackend.cpp:496
-#, fuzzy, kde-format
-#| msgid "Thread %1"
+#, kde-format
 msgid "thread %1"
 msgstr "нит %1"
 
 #: dapbackend.cpp:577
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint set"
-msgstr "Преломна тачка"
+msgstr "преломна тачка постављена"
 
 #: dapbackend.cpp:611
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "(%1) breakpoint"
-msgstr "Преломна тачка"
+msgstr "(%1) преломна тачка"
 
 #: dapbackend.cpp:629
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "<није израчунато>"
 
 #: dapbackend.cpp:651
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "могућности сервера"
 
 #: dapbackend.cpp:653
 #, kde-format
 msgid "supported"
-msgstr ""
+msgstr "подржано"
 
 #: dapbackend.cpp:653
 #, kde-format
 msgid "unsupported"
-msgstr ""
+msgstr "неподржано"
 
 #: dapbackend.cpp:656
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "conditional breakpoints"
-msgstr "Уметни преломну тачку"
+msgstr "условне преломне тачке"
 
 #: dapbackend.cpp:657
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "function breakpoints"
-msgstr "Уметни преломну тачку"
+msgstr "преломне тачке на функцијама"
 
 #: dapbackend.cpp:658
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "преломне тачке са условом броја погодака"
 
 #: dapbackend.cpp:659
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "тачке биљежења"
 
 #: dapbackend.cpp:659
 #, kde-format
 msgid "modules request"
-msgstr ""
+msgstr "захтјев за модулима"
 
 #: dapbackend.cpp:660
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "захтјев за циљевима скока"
 
 #: dapbackend.cpp:661
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "захтјев за окончање"
 
 #: dapbackend.cpp:662
 #, kde-format
 msgid "terminate debuggee"
-msgstr ""
+msgstr "окончавање исправљаног програма"
 
 #: dapbackend.cpp:665
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "Уметни преломну тачку"
+msgstr "филтери преломних тачака на изузецима"
 
 #: dapbackend.cpp:812
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "синтаксна грешка: израз није нађен"
 
 #: dapbackend.cpp:831 dapbackend.cpp:867 dapbackend.cpp:907 dapbackend.cpp:942
 #: dapbackend.cpp:979 dapbackend.cpp:1016 dapbackend.cpp:1053
 #: dapbackend.cpp:1144 dapbackend.cpp:1198
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "синтаксна грешка: %1"
 
 #: dapbackend.cpp:839 dapbackend.cpp:875 dapbackend.cpp:1151
 #: dapbackend.cpp:1206
 #, kde-format
 msgid "invalid line: %1"
-msgstr ""
+msgstr "лош ред: %1"
 
 #: dapbackend.cpp:847 dapbackend.cpp:852 dapbackend.cpp:883 dapbackend.cpp:888
 #: dapbackend.cpp:1176 dapbackend.cpp:1181 dapbackend.cpp:1214
 #: dapbackend.cpp:1219
 #, kde-format
 msgid "file not specified: %1"
-msgstr ""
+msgstr "фајл није задат: %1"
 
 #: dapbackend.cpp:919 dapbackend.cpp:954 dapbackend.cpp:991 dapbackend.cpp:1028
 #: dapbackend.cpp:1065
 #, kde-format
 msgid "invalid thread id: %1"
-msgstr ""
+msgstr "лош ИД нити: %1"
 
 #: dapbackend.cpp:925 dapbackend.cpp:960 dapbackend.cpp:997 dapbackend.cpp:1034
 #: dapbackend.cpp:1071
 #, kde-format
 msgid "thread id not specified: %1"
-msgstr ""
+msgstr "ИД нити није задат: %1"
 
 #: dapbackend.cpp:1082
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "Доступне наредбе:"
 
 #: dapbackend.cpp:1161
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "сервер не подржава условне преломне тачке"
 
 #: dapbackend.cpp:1169
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "сервер не подржава преломне тачке са условом броја погодака"
 
 #: dapbackend.cpp:1231
 #, kde-format
 msgid "Current thread: "
-msgstr ""
+msgstr "Текућа нит: "
 
 #: dapbackend.cpp:1236 dapbackend.cpp:1243 dapbackend.cpp:1264
 #, kde-format
 msgid "none"
-msgstr ""
+msgstr "нема"
 
 #: dapbackend.cpp:1239
 #, kde-format
 msgid "Current frame: "
-msgstr ""
+msgstr "Текући оквир: "
 
 #: dapbackend.cpp:1246
 #, kde-format
 msgid "Session state: "
-msgstr ""
+msgstr "Стање сесије: "
 
 #: dapbackend.cpp:1249
 #, kde-format
 msgid "initializing"
-msgstr ""
+msgstr "припрема се"
 
 #: dapbackend.cpp:1252
 #, kde-format
 msgid "running"
-msgstr ""
+msgstr "извршава се"
 
 #: dapbackend.cpp:1255
 #, kde-format
 msgid "stopped"
-msgstr ""
+msgstr "заустављена"
 
 #: dapbackend.cpp:1258
 #, kde-format
 msgid "terminated"
-msgstr ""
+msgstr "окончана"
 
 #: dapbackend.cpp:1261
 #, kde-format
 msgid "disconnected"
-msgstr ""
+msgstr "без везе"
 
 #: dapbackend.cpp:1319
 #, kde-format
 msgid "command not found"
-msgstr ""
+msgstr "наредба није нађена"
 
 #: dapbackend.cpp:1354
 #, kde-format
 msgid "missing thread id"
-msgstr ""
+msgstr "недостаје ИД нити"
 
 #: dapbackend.cpp:1507
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "Текући оквир [%3]: %1:%2 (%4)"
 
 # >> @title:menu
 #: debugconfigpage.cpp:57 debugconfigpage.cpp:62
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "Исправљање"
+msgstr "Исправљач"
 
 #: launch_json_reader.cpp:41
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "Не могу да рашчланим .vscodelaunch.json/ у %1. "
 
 #: launch_json_reader.cpp:52
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " на %1:%2"
 
 #: localsview.cpp:39
 #, kde-format
 msgid "type"
-msgstr ""
+msgstr "тип"
 
 #: localsview.cpp:48
 #, kde-format
 msgid "indexed items"
-msgstr ""
+msgstr "индексиране ставке"
 
 #: localsview.cpp:51
 #, kde-format
 msgid "named items"
-msgstr ""
+msgstr "именоване ставке"
 
 #: localsview.cpp:67 localsview.cpp:68
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Учитавам..."
 
 # >> @title:column
 #: localsview.cpp:117
@@ -555,7 +540,7 @@ msgstr "симбол"
 #: localsview.cpp:118
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "тип"
 
 # >> @title:column
 #: localsview.cpp:119
@@ -565,22 +550,19 @@ msgstr "вриједност"
 
 # >> @title:column
 #: localsview.cpp:325
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "симбол"
+msgstr "Копирај симбол"
 
 #: localsview.cpp:340
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Копирај циљ"
+msgstr "Копирај вриједност"
 
 #: plugin_kategdb.cpp:112
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Кејтин ГДБ"
+msgstr "Кејтин исправљач"
 
 #: plugin_kategdb.cpp:116
 #, kde-format
@@ -599,16 +581,15 @@ msgid "Locals and Stack"
 msgstr "Локалне и стек"
 
 #: plugin_kategdb.cpp:128
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Преломна тачка"
+msgstr "Преломне тачке"
 
 #: plugin_kategdb.cpp:215
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>Не могу да отворим фајл:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:229
 #, kde-format
@@ -636,10 +617,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "Преломна тачка или прелом"
 
 #: plugin_kategdb.cpp:264
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "Преломна тачка"
+msgstr "Очисти све преломне тачке"
 
 #: plugin_kategdb.cpp:269
 #, kde-format
@@ -667,26 +647,24 @@ msgid "Restart Debugging"
 msgstr "Поново покрени исправљање"
 
 #: plugin_kategdb.cpp:304
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Излаз ГДБ‑а"
+msgstr "Очисти излаз"
 
 #: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "Вруће поново учитај"
 
 #: plugin_kategdb.cpp:319
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "Вруће поново покрени"
 
 #: plugin_kategdb.cpp:328
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "Укључи вруће поновно учитавање при уписивању"
 
 #: plugin_kategdb.cpp:337 plugin_kategdb.cpp:356
 #, kde-format
@@ -702,7 +680,7 @@ msgstr "Испиши вриједност"
 #: plugin_kategdb.cpp:407
 #, kde-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Грешка: %1"
 
 #: plugin_kategdb.cpp:438
 #, kde-format
@@ -710,10 +688,9 @@ msgid "Insert breakpoint"
 msgstr "Уметни преломну тачку"
 
 #: plugin_kategdb.cpp:444
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Уклони преломну тачку"
+msgstr "Укључи/искључи преломну тачку"
 
 #: plugin_kategdb.cpp:559
 #, kde-format
@@ -721,12 +698,10 @@ msgid "Execution point"
 msgstr "Извршна тачка"
 
 #: plugin_kategdb.cpp:668
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "Излаз ГДБ‑а"
+msgstr "Исправљачки излаз"
 
 #: plugin_kategdb.cpp:669
 #, kde-format
@@ -749,14 +724,13 @@ msgstr "бр."
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "функција"
 
 #: stackframe_model.cpp:99
-#, fuzzy, kde-format
-#| msgid "Local application"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "локални програм"
+msgstr "локација"
 
 # >> @item:inlistbox
 #: stackview.cpp:96 stackview.cpp:128
@@ -765,20 +739,19 @@ msgid "Thread %1"
 msgstr "нит %1"
 
 #: stackview.cpp:167
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Копирај циљ"
+msgstr "Копирај траг стека"
 
 #: stackview.cpp:186
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Отвори локацију"
 
 #: stackview.cpp:193
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Копирај локацију"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
@@ -788,75 +761,6 @@ msgstr "&Исправљање"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:33
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "Прикључак за ГДБ"
-
-#, fuzzy
-#~| msgctxt "Tab label"
-#~| msgid "Settings"
-#~ msgid "Settings File:"
-#~ msgstr "Поставке"
-
-#, fuzzy
-#~| msgid "Breakpoint"
-#~ msgid "breakpoint cleared"
-#~ msgstr "Преломна тачка"
-
-#~ msgctxt "Column label"
-#~ msgid "Frame"
-#~ msgstr "оквир"
-
-#~ msgid "GDB command"
-#~ msgstr "Наредба ГДБ‑а"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "Source file search paths"
-#~ msgstr "Путање тражења изворних фајлова"
-
-#~ msgid "Remote TCP"
-#~ msgstr "удаљени ТЦП"
-
-#~ msgid "Remote Serial Port"
-#~ msgstr "удаљени серијски порт"
-
-#~ msgid "Host"
-#~ msgstr "Домаћин"
-
-#~ msgid "Port"
-#~ msgstr "Порт"
-
-#~ msgid "Baud"
-#~ msgstr "Бауда"
-
-#~ msgid "solib-absolute-prefix"
-#~ msgstr "solib-absolute-prefix"
-
-#~ msgid "solib-search-path"
-#~ msgstr "solib-search-path"
-
-#~ msgid "Custom Init Commands"
-#~ msgstr "Посебне припремне наредбе"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Напредне поставке"
-
-#~ msgid "Could not start debugger process"
-#~ msgstr "Не могу да покренем процес исправљача"
-
-#~ msgid "*** gdb exited normally ***"
-#~ msgstr "*** ГДБ завршио нормално ***"
-
-#, fuzzy
-#~| msgid "Target %1"
-#~ msgid "Host: %1. Target: %1"
-#~ msgstr "Циљ %1"
-
-#~ msgid "popup_breakpoint"
-#~ msgstr "popup_breakpoint"
-
-#~ msgid "popup_run_to_cursor"
-#~ msgstr "popup_run_to_cursor"
+msgstr "Прикључак за исправљање"

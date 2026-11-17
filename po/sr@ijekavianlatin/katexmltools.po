@@ -2,13 +2,14 @@
 # Toplica Tanaskovic <toptan@kde.org.yu>, 2003.
 # Bojan Bozovic <bole89@infosky.net>, 2003.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2007, 2013, 2014, 2017.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-15 00:46+0000\n"
-"PO-Revision-Date: 2017-09-28 17:56+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr@ijekavianlatin\n"
 "MIME-Version: 1.0\n"
@@ -21,10 +22,9 @@ msgstr ""
 "X-Environment: kde\n"
 
 #: plugin_katexmltools.cpp:117
-#, fuzzy, kde-format
-#| msgid "Kate XML Tools"
+#, kde-format
 msgid "XML Tools"
-msgstr "Kateine XML alatke"
+msgstr "XML alatke"
 
 #: plugin_katexmltools.cpp:120
 #, kde-format
@@ -39,12 +39,12 @@ msgstr "&Zatvori element"
 #: plugin_katexmltools.cpp:128
 #, kde-format
 msgid "Assign Meta &DTD..."
-msgstr "&Dodeli meta-DTD..."
+msgstr "&Dodijeli meta-DTD..."
 
 #: plugin_katexmltools.cpp:440
 #, kde-format
 msgid "Assign Meta DTD in XML Format"
-msgstr "Dodeli meta-DTD u XML formatu"
+msgstr "Dodijeli meta-DTD u XML formatu"
 
 #: plugin_katexmltools.cpp:446
 #, kde-format
@@ -81,7 +81,7 @@ msgstr "XML entiteti"
 #: plugin_katexmltools.cpp:995
 #, kde-format
 msgid "XML attribute values"
-msgstr "vrednosti XML atributa"
+msgstr "vrijednosti XML atributa"
 
 # >> @item
 #: plugin_katexmltools.cpp:997
@@ -113,7 +113,8 @@ msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr ""
-"Fajl ‘%1’ ne može da se raščlani. Proverite da li je fajl dobroformirani XML."
+"Fajl ‘%1’ ne može da se raščlani. Provjerite da li je fajl dobroformirani "
+"XML."
 
 #: pseudo_dtd.cpp:52
 #, kde-format
@@ -124,7 +125,8 @@ msgid ""
 "You can produce such files with dtdparse. See the Kate Plugin documentation "
 "for more information."
 msgstr ""
-"Fajl ‘%1’ nije u očekivanom formatu. Proverite da li je fajl sledećeg tipa:\n"
+"Fajl ‘%1’ nije u očekivanom formatu. Provjerite da li je fajl sljedećeg "
+"tipa:\n"
 "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
 "Ovakve fajlove možete praviti naredbom dtdparse. Pogledajte dokumentaciju "
 "ovog priključka za detalje."

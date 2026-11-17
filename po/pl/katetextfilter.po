@@ -1,5 +1,5 @@
 # translation of katetextfilter.po to Polish
-# Version: $Revision: 1747160 $
+# Version: $Revision$
 # translation of katetextfilter.po to
 # Copyright (C) 2002, 2005, 2007, 2010 Free Software Foundation, Inc.
 # Marcin Giedz <mgiedz@elka.pw.edu.pl>, 2002.

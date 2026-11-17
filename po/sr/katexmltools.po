@@ -2,13 +2,14 @@
 # Toplica Tanaskovic <toptan@kde.org.yu>, 2003.
 # Bojan Bozovic <bole89@infosky.net>, 2003.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2007, 2013, 2014, 2017.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-15 00:46+0000\n"
-"PO-Revision-Date: 2017-09-28 17:56+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -21,10 +22,9 @@ msgstr ""
 "X-Environment: kde\n"
 
 #: plugin_katexmltools.cpp:117
-#, fuzzy, kde-format
-#| msgid "Kate XML Tools"
+#, kde-format
 msgid "XML Tools"
-msgstr "Кејтине ИксМЛ алатке"
+msgstr "ИксМЛ алатке"
 
 #: plugin_katexmltools.cpp:120
 #, kde-format

@@ -2,13 +2,14 @@
 # Toplica Tanaskovic <toptan@kde.org.yu>, 2003, 2004.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2003, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016.
 # Dalibor Djuric <daliborddjuric@gmail.com>, 2010, 2011.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-11 00:55+0000\n"
-"PO-Revision-Date: 2016-11-28 01:31+0100\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr@latin\n"
 "MIME-Version: 1.0\n"
@@ -24,14 +25,12 @@ msgstr ""
 #: katefiletree.cpp:315
 #, kde-format
 msgid "Open..."
-msgstr ""
+msgstr "Otvori..."
 
 #: katefiletree.cpp:319
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "Otvori pomoću"
+msgstr "Otvaranje fajla"
 
 #: katefiletree.cpp:326
 #, kde-format
@@ -56,12 +55,10 @@ msgid "Close the current document."
 msgstr "Zatvori tekući dokument."
 
 #: katefiletree.cpp:334
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Expand recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
-msgstr "Proširi rekurzivno"
+msgstr "Raširi rekurzivno"
 
 #: katefiletree.cpp:336
 #, kde-format
@@ -69,9 +66,7 @@ msgid "Expand the file list sub tree recursively."
 msgstr "Proširuje podstablo spiska fajlova rekurzivno."
 
 #: katefiletree.cpp:338
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Collapse recursively"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Sažmi rekurzivno"
@@ -94,36 +89,32 @@ msgstr "Zatvara druge dokumente iz ove fascikle."
 
 # >> @item:inmenu Sort by
 #: katefiletree.cpp:347
-#, fuzzy, kde-format
-#| msgid "Opening Order"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
-msgstr "redosledu otvaranja"
+msgstr "Otvori obuhvatajuću fasciklu"
 
 #: katefiletree.cpp:349
 #, kde-format
 msgid "Open the folder this file is located in."
-msgstr ""
+msgstr "Otvara fasciklu u kojoj se nalazi ovaj fajl."
 
 #: katefiletree.cpp:351
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopiraj lokaciju"
 
 #: katefiletree.cpp:353
-#, fuzzy, kde-format
-#| msgid "Copy the filename of the file."
+#, kde-format
 msgid "Copy path and filename to the clipboard."
-msgstr "Kopira ime fajla."
+msgstr "Kopira putanju i ime fajla u klipbord."
 
 #: katefiletree.cpp:355
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename File"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Preimenuj fajl"
+msgstr "Preimenuj..."
 
 #: katefiletree.cpp:357
 #, kde-format
@@ -142,11 +133,10 @@ msgstr "Prikaži pregled pred štampanje tekućeg dokumenta"
 
 # >> @title:window
 #: katefiletree.cpp:365
-#, fuzzy, kde-format
-#| msgid "Delete file?"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
-msgstr "Obrisati fajl?"
+msgstr "Obriši"
 
 # rewrite-msgid: /storage/disk/
 #: katefiletree.cpp:367
@@ -215,7 +205,7 @@ msgstr "Poređaj po redosledu otvaranja"
 #: katefiletree.cpp:404 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
-msgstr ""
+msgstr "posebnom redosledu"
 
 #: katefiletree.cpp:421
 #, kde-format
@@ -237,19 +227,17 @@ msgstr "Otvori pomoću"
 #: katefiletree.cpp:445
 #, kde-format
 msgid "Show Git History"
-msgstr ""
+msgstr "Prikaži git istorijat"
 
 #: katefiletree.cpp:457
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Dokumenti|/|$[svojstva aku 'Dokumente']"
+msgstr "Oslobodi dokument"
 
 #: katefiletree.cpp:459
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Dokumenti|/|$[svojstva aku 'Dokumente']"
+msgstr "Prikači dokument"
 
 #: katefiletree.cpp:507
 #, kde-format
@@ -330,17 +318,17 @@ msgstr "&Prikaži punu putanju"
 #: katefiletreeconfigpage.cpp:93
 #, kde-format
 msgid "Show &Toolbar"
-msgstr ""
+msgstr "Prikaži &traku alatki"
 
 #: katefiletreeconfigpage.cpp:96
 #, kde-format
 msgid "Show Close Button On Hovering"
-msgstr ""
+msgstr "Prikaži dugme za zatvaranje pri lebdenju"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr ""
+msgstr "Srednji klik zatvara dokumente"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -382,6 +370,8 @@ msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr ""
+"Kad je uključeno, iznad spiska dokumenata prikazuje se traka alatki sa "
+"radnjama kao što je „Sačuvaj“."
 
 #: katefiletreeconfigpage.cpp:154 katefiletreeplugin.cpp:130
 #: katefiletreeplugin.cpp:137
@@ -396,13 +386,11 @@ msgid "Configure Documents"
 msgstr "Podešavanje dokumenata"
 
 #: katefiletreemodel.cpp:498
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr "Otvori pomoću"
+msgstr "Otvoreni vidžeti"
 
 #: katefiletreemodel.cpp:649
 #, kde-format
@@ -412,10 +400,9 @@ msgid ""
 msgstr "<p><b>%1</b></p><p>Neki drugi program je izmenio dokument.</p>"
 
 #: katefiletreeplugin.cpp:173
-#, fuzzy, kde-format
-#| msgid "&Other..."
+#, kde-format
 msgid "Filter…"
-msgstr "&Drugi..."
+msgstr "Filter…"
 
 #: katefiletreeplugin.cpp:245
 #, kde-format
@@ -428,15 +415,14 @@ msgid "Next Document"
 msgstr "Sledeći dokument"
 
 #: katefiletreeplugin.cpp:257
-#, fuzzy, kde-format
-#| msgid "&Show Active"
+#, kde-format
 msgid "&Show Active Document"
-msgstr "Prikaži &aktivni"
+msgstr "Prikaži &aktivni dokument"
 
 #: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Sačuvaj"
 
 #: katefiletreeplugin.cpp:264
 #, kde-format
@@ -446,11 +432,10 @@ msgstr "Sačuvaj tekući dokument"
 #: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Sačuvaj kao"
 
 #: katefiletreeplugin.cpp:270
-#, fuzzy, kde-format
-#| msgid "Save current document under new name"
+#, kde-format
 msgid "Save the current document under a new name"
 msgstr "Sačuvaj tekući dokument pod novim imenom"
 
@@ -458,58 +443,4 @@ msgstr "Sačuvaj tekući dokument pod novim imenom"
 #: ui.rc:7
 #, kde-format
 msgid "&Go"
-msgstr ""
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Toplica Tanasković,Časlav Ilić"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "toptan@kde.org.yu,caslav.ilic@gmx.net"
-
-#, fuzzy
-#~| msgctxt "@action:inmenu"
-#~| msgid "Copy Filename"
-#~ msgctxt "@action:inmenu"
-#~ msgid "Copy File Path"
-#~ msgstr "Kopiraj ime fajla"
-
-#~ msgid "Application '%1' not found."
-#~ msgstr "Program „%1“ nije nađen.|/|Program „$[nom %1]“ nije nađen!"
-
-#~ msgid "Application not found"
-#~ msgstr "Program nije nađen"
-
-# >> @title:window
-#~ msgid "Rename file"
-#~ msgstr "Preimenovanje fajla"
-
-#~ msgid "New file name"
-#~ msgstr "Novo ime fajla"
-
-#~ msgid "File \"%1\" could not be moved to \"%2\""
-#~ msgstr "Fajl „%1“ ne može da se premesti u „%2“."
-
-# rewrite-msgid: /storage/disk/
-#~ msgid "Do you really want to delete file \"%1\" from storage?"
-#~ msgstr "Želite li zaista da obrišete fajl „%1“ sa diska?"
-
-# >> @title:window
-#~ msgid "Delete file?"
-#~ msgstr "Obrisati fajl?"
-
-#~ msgid "File \"%1\" could not be deleted."
-#~ msgstr "Fajl „%1“ ne može da se obriše."
-
-#~ msgid "Kate File Tree"
-#~ msgstr "Kateino stablo fajlova"
-
-#~ msgid "Save Current Document"
-#~ msgstr "Sačuvaj tekući dokument"
-
-#~ msgid "Save Current Document As"
-#~ msgstr "Sačuvaj tekući dokument kao"
-
-#~ msgid "&View"
-#~ msgstr "Pri&kaz"
+msgstr "Kr&etanje"

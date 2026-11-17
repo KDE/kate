@@ -3,13 +3,14 @@
 # Bojan Bozovic <bole89@infosky.net>, 2003.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2005, 2007, 2009, 2013, 2015, 2017.
 # Slobodan Simic <slsimic@gmail.com>, 2005.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-22 16:04+0000\n"
-"PO-Revision-Date: 2017-09-28 17:56+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr@ijekavianlatin\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +35,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:142
 #, kde-format
 msgid "Failed to start process"
-msgstr ""
+msgstr "Ne mogu da pokrenem proces"
 
 #: plugin_katetextfilter.cpp:156
 #, kde-format
@@ -66,13 +67,13 @@ msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
 "with the output of the specified shell command.</p></qt>"
 msgstr ""
-"<qt><p>Upotreba: <tt>textfilter NAREDBA</tt></p><p>Zamenjuje izabrani tekst "
+"<qt><p>Upotreba: <tt>textfilter NAREDBA</tt></p><p>Zamjenjuje izabrani tekst "
 "izlazom zadate naredbe školjke.</p></qt>"
 
 #: plugin_katetextfilter.cpp:266
 #, kde-format
 msgid "&Filter Through Command..."
-msgstr ""
+msgstr "&Filtriraj kroz naredbu..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, TextFilterWidget)
 #: textfilterwidget.ui:14
@@ -90,13 +91,13 @@ msgstr "Unesite naredbu kroz koju treba &provući izabrani tekst:"
 #: textfilterwidget.ui:39
 #, kde-format
 msgid "Open results in a new document"
-msgstr ""
+msgstr "Otvori rezultate u novom dokumentu"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:46
 #, kde-format
 msgid "Copy the result to clipboard leaving a document unchanged."
-msgstr "Kopiraj rezultat u klipbord, bez izmena nad dokumentom"
+msgstr "Kopiraj rezultat u klipbord, bez izmijena nad dokumentom"
 
 #. i18n: ectx: property (text), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:49

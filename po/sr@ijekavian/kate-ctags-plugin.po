@@ -1,12 +1,13 @@
 # Translation of kate-ctags-plugin.po into Serbian.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2009, 2010, 2011, 2014, 2015.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-07 00:47+0000\n"
-"PO-Revision-Date: 2015-10-16 19:04+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr@ijekavian\n"
 "MIME-Version: 1.0\n"
@@ -252,34 +253,32 @@ msgstr "скуп"
 
 # rewrite-msgid: /executable/process/
 #: gotosymbolmodel.cpp:67
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "CTags executable not found."
-msgstr "Процес Ц‑тагса се срушио."
+msgstr "Извршни фајл Ц‑тагса није нађен."
 
 # rewrite-msgid: /executable/process/
 #: gotosymbolmodel.cpp:80
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "CTags executable failed to execute."
-msgstr "Процес Ц‑тагса се срушио."
+msgstr "Не могу да покренем извршни фајл Ц‑тагса."
 
 #: gotosymbolmodel.cpp:148
-#, fuzzy, kde-format
-#| msgid "CTags database file"
+#, kde-format
 msgid "CTags was unable to parse this file."
-msgstr "Фајл базе података Ц‑тагса"
+msgstr "Ц‑тагс не може да рашчлани овај фајл."
 
 #: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
 msgstr ""
+"Фајл ознака није нађен. Направите га ручно или помоћу прикључка Ц‑тагса"
 
 #: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
-msgstr ""
+msgstr "Фајл за „%1“ није нађен."
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:36
@@ -334,7 +333,7 @@ msgstr "Фајл базе података Ц‑тагса"
 #: kate_ctags.ui:215
 #, kde-format
 msgid "Revert to the default command"
-msgstr "Врати на подразумевану наредбу"
+msgstr "Врати на подразумијевану наредбу"
 
 #. i18n: ectx: property (text), widget (QToolButton, resetCMD)
 #: kate_ctags.ui:218
@@ -370,10 +369,9 @@ msgid "CTags Settings"
 msgstr "Поставке Ц‑тагса"
 
 #: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:561
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "Неуспјело извршавање „%1“. Излазно стање: %2"
+msgstr "Не могу да извршим наредбу. Грешка: %1, излазни код: %2"
 
 # rewrite-msgid: /executable/process/
 #: kate_ctags_plugin.cpp:239
@@ -409,13 +407,13 @@ msgstr "Потражи текући текст"
 #: kate_ctags_view.cpp:81
 #, kde-format
 msgid "Configure ..."
-msgstr ""
+msgstr "Подеси..."
 
 #: kate_ctags_view.cpp:96
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
-msgstr ""
+msgstr "Подешавање прикључка Ц‑тагса"
 
 #: kate_ctags_view.cpp:107 kate_ctags_view.cpp:196
 #, kde-format
@@ -445,12 +443,12 @@ msgstr "Изаберите нов или постојећи фајл базе п
 #: kate_ctags_view.cpp:147
 #, kde-format
 msgid "Go To Local Symbol"
-msgstr ""
+msgstr "Иди на локални симбол"
 
 #: kate_ctags_view.cpp:152
 #, kde-format
 msgid "Go To Global Symbol"
-msgstr ""
+msgstr "Иди на глобални симбол"
 
 #: kate_ctags_view.cpp:325 kate_ctags_view.cpp:358
 #, kde-format
@@ -464,20 +462,11 @@ msgstr "Нема фасцикли нити фајлова за индексир�
 
 # rewrite-msgid: /executable/process/
 #: kate_ctags_view.cpp:576
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "The CTags executable crashed"
-msgstr "Процес Ц‑тагса се срушио."
+msgstr "Процес Ц‑тагса се срушио"
 
 #: kate_ctags_view.cpp:578
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1: %2"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "Наредба Ц‑тагса изашла је са кодом %1: %2"
-
-#~ msgid "Failed to run \"%1\". exitStatus = %2"
-#~ msgstr "Неуспјело извршавање „%1“. Излазно стање: %2"
-
-# rewrite-msgid: /CTag/CTags/
-#~ msgid "Kate CTag"
-#~ msgstr "Кејтин Ц‑тагс"
+msgstr "Наредба Ц‑тагса завршила је са кодом %2: %1"

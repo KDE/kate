@@ -1074,7 +1074,15 @@ static QList<LSPDiagnostic> parseDiagnosticsArray(const rapidjson::Value &result
             continue;
         }
         auto range = parseRange(it->value);
-        auto severity = static_cast<LSPDiagnosticSeverity>(GetIntValue(diag, "severity"));
+        // The spec leaves an omitted severity to the client: show it as an error, as other
+        // clients do. It used to become -1 (GetIntValue's default), which is no severity at
+        // all: the diagnostic was listed in the tool view without icon, marks or highlighting
+        // (e.g. asm-lsp sends none). Out-of-range values are treated the same way.
+        const int severityValue = GetIntValue(diag, "severity", 0);
+        const auto severity =
+            (severityValue >= static_cast<int>(LSPDiagnosticSeverity::Error) && severityValue <= static_cast<int>(LSPDiagnosticSeverity::Hint))
+            ? static_cast<LSPDiagnosticSeverity>(severityValue)
+            : LSPDiagnosticSeverity::Error;
 
         const auto &codeValue = GetJsonValueForKey(diag, "code");
         QString code;

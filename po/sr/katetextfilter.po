@@ -3,13 +3,14 @@
 # Bojan Bozovic <bole89@infosky.net>, 2003.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2005, 2007, 2009, 2013, 2015, 2017.
 # Slobodan Simic <slsimic@gmail.com>, 2005.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-09-22 16:04+0000\n"
-"PO-Revision-Date: 2017-09-28 17:56+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +35,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:142
 #, kde-format
 msgid "Failed to start process"
-msgstr ""
+msgstr "Не могу да покренем процес"
 
 #: plugin_katetextfilter.cpp:156
 #, kde-format
@@ -72,7 +73,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:266
 #, kde-format
 msgid "&Filter Through Command..."
-msgstr ""
+msgstr "&Филтрирај кроз наредбу..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, TextFilterWidget)
 #: textfilterwidget.ui:14
@@ -90,7 +91,7 @@ msgstr "Унесите наредбу кроз коју треба &провућ
 #: textfilterwidget.ui:39
 #, kde-format
 msgid "Open results in a new document"
-msgstr ""
+msgstr "Отвори резултате у новом документу"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:46

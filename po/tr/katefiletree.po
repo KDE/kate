@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-11 00:55+0000\n"
-"PO-Revision-Date: 2026-11-10 21:38+0300\n"
+"PO-Revision-Date: 2026-11-16 18:34+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -125,7 +125,7 @@ msgstr "Seçili belgeyi yazdırın."
 #: katefiletree.cpp:363
 #, kde-format
 msgid "Show print preview of current document"
-msgstr "Geçerli belgenin baskı önizlemesini göster"
+msgstr "Geçerli belgenin baskı ön izlemesini göster"
 
 #: katefiletree.cpp:365
 #, kde-format

@@ -1,12 +1,13 @@
 # Translation of katebuild-plugin.po into Serbian.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2017.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-14 00:51+0000\n"
-"PO-Revision-Date: 2017-09-28 17:56+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -21,12 +22,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Часлав Илић,Немања Хиршл"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "caslav.ilig@gmx.net,nemhirsl@gmail.com"
 
 #. i18n: ectx: attribute (title), widget (QWidget, buildOutput)
 #: build.ui:36
@@ -36,8 +37,7 @@ msgstr "Излаз"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Again"
 msgstr "Изгради поново"
 
@@ -48,46 +48,42 @@ msgid "Cancel"
 msgstr "Одустани"
 
 #: buildconfig.cpp:53
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build & Run"
-msgstr "Изгради поново"
+msgstr "Градња и покретање"
 
 #: buildconfig.cpp:59
 #, kde-format
 msgid "Build & Run Settings"
-msgstr ""
+msgstr "Поставке градње и покретања"
 
 #: buildconfig.cpp:112
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Delete selected entries"
-msgstr "Изгради изабрани циљ"
+msgstr "Обриши изабране уносе"
 
 #: buildconfig.cpp:117
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Обриши све уносе"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
+#, kde-format
 msgid "General Settings"
-msgstr "Поставке циља"
+msgstr "Опште поставке"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "Додај грешке и упозорења у дијагностику"
 
 #. i18n: ectx: property (text), widget (QCheckBox, autoSwitchToOutput)
 #: buildconfigwidget.ui:57
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "Аутоматски пређи на окно излаза при извршавању изабраног циља"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:77
@@ -96,18 +92,20 @@ msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
 msgstr ""
+"Ако редови излаза почињу са [ #  ## ]/ или [ ## % ], последњи се приказује "
+"као порука."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
 #, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
-msgstr ""
+msgstr "Прикажи напредак градње као поруку кад је окно излаза скривено"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "Дозвољене и блокиране наредбе"
 
 #: plugin_katebuild.cpp:266 plugin_katebuild.cpp:273 plugin_katebuild.cpp:757
 #: plugin_katebuild.cpp:1003 plugin_katebuild.cpp:1016
@@ -121,26 +119,24 @@ msgid "Select Target..."
 msgstr "Изабери циљ..."
 
 #: plugin_katebuild.cpp:281
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build Selected Target"
 msgstr "Изгради изабрани циљ"
 
 #: plugin_katebuild.cpp:286
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and Run Selected Target"
-msgstr "Изгради изабрани циљ"
+msgstr "Изгради и покрени изабрани циљ"
 
 #: plugin_katebuild.cpp:291
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Компилуј текући фајл"
 
 #: plugin_katebuild.cpp:292
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
-msgstr ""
+msgstr "Покушај да компилујеш текући фајл тражењем фајла compile_commands.json"
 
 #: plugin_katebuild.cpp:297
 #, kde-format
@@ -150,19 +146,19 @@ msgstr "Заустави"
 #: plugin_katebuild.cpp:302
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Учитај циљеве из фасцикле градње Ц‑мејка"
 
 #: plugin_katebuild.cpp:306
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "Фокусирај следећи језичак улево"
 
 #: plugin_katebuild.cpp:326
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "Фокусирај следећи језичак удесно"
 
 #: plugin_katebuild.cpp:359
 #, kde-format
@@ -176,12 +172,13 @@ msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
+"<b>Фајл није нађен:</b> %1<br/><b>Путање претраге:</b><br/>%2<br/>Покушајте "
+"да додате путању претраге у поље „Радна фасцикла“"
 
 #: plugin_katebuild.cpp:505
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Information"
-msgstr "Изгради поново"
+msgstr "Подаци о градњи"
 
 #: plugin_katebuild.cpp:764
 #, kde-format
@@ -197,7 +194,7 @@ msgstr "Фајл ‘%1’ није локални. Удаљени фајлови
 #: plugin_katebuild.cpp:844
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "Стварање фасцикле"
 
 #: plugin_katebuild.cpp:847
 #, kde-format
@@ -205,11 +202,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"Подешена радна фасцикла <b>%1</b> за скуп циљева <b>%2</b> не постоји.<br/"
+"><br/>Направити фасциклу?"
 
 #: plugin_katebuild.cpp:855
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "Не могу да направим фасциклу <b>%1</b>"
 
 #: plugin_katebuild.cpp:880
 #, kde-format
@@ -217,20 +216,19 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Неуспело извршавање „%1“. Излазно стање: %2"
 
 #: plugin_katebuild.cpp:896
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "Градња <b>%1</b> отказана"
+msgstr "Градња <b>%1: %2</b> отказана"
 
 #: plugin_katebuild.cpp:1002
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Није нађен фајл compile_commands.json за фајл „%1“. "
 
 #: plugin_katebuild.cpp:1015
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Није нађена наредба компиловања за фајл „%1“ у „%2“. "
 
 #: plugin_katebuild.cpp:1034
 #, kde-format
@@ -238,6 +236,8 @@ msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Не могу да извршим замену „%f“. Нема отвореног фајла или је текући фајл "
+"неименован!"
 
 #: plugin_katebuild.cpp:1038
 #, kde-format
@@ -245,6 +245,8 @@ msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Не могу да извршим замену „%d“. Нема отвореног фајла или је текући фајл "
+"неименован!"
 
 #: plugin_katebuild.cpp:1042
 #, kde-format
@@ -252,11 +254,13 @@ msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Не могу да извршим замену „%n“. Нема отвореног фајла или је текући фајл "
+"неименован!"
 
 #: plugin_katebuild.cpp:1053
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr ""
+msgstr "Не могу да извршим замену пројекта (%B). Нема отвореног пројекта!"
 
 #: plugin_katebuild.cpp:1066
 #, kde-format
@@ -264,18 +268,18 @@ msgid "Already building..."
 msgstr "Већ се гради..."
 
 #: plugin_katebuild.cpp:1104
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Није задат локални фајл или фасцикла за градњу."
+msgstr ""
+"Не могу да извршим: %1: %2 Радна фасцикла није постављена.\n"
+"Није задат локални фајл или фасцикла за градњу."
 
 #: plugin_katebuild.cpp:1225
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Градим циљ <b>%1</b>..."
+msgstr "Градим циљ <b>%1: %2</b>..."
 
 #: plugin_katebuild.cpp:1262
 #, kde-format
@@ -283,16 +287,18 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
+"Не могу да учитам циљеве, фајл %1 не садржи исправан унос CMAKE_COMMAND!"
 
 #: plugin_katebuild.cpp:1275
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Не могу да упишем фајлове упита за File API Ц‑мејка за фасциклу градње %1!"
 
 #: plugin_katebuild.cpp:1281
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Не могу да покренем Ц‑мејк (%2) за фасциклу градње %1!"
 
 #: plugin_katebuild.cpp:1290
 #, kde-format
@@ -300,11 +306,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Не могу да генеришем фајлове одговора за File API Ц‑мејка за фасциклу градње "
+"%1 (помоћу %2)!"
 
 #: plugin_katebuild.cpp:1415
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "Прикључак за градњу жели да изврши програм"
 
 #: plugin_katebuild.cpp:1418
 #, kde-format
@@ -314,19 +322,22 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"Кејтин прикључак за градњу треба да изврши спољашњу наредбу да би прочитао "
+"циљеве из стабла градње.<br/><br/>Пуна командна линија је:<br/><br/><b>%1</"
+"b><br/><br/>Наставити и дозволити извршавање ове наредбе?<br/><br/>Избор се "
+"може изменити на страници поставе прикључка."
 
 #: plugin_katebuild.cpp:1450
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "<title>Make Results:</title><nl/>%1"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
-msgstr "<title>Резултати справљања:</title><nl/>%1"
+msgstr "<title>Градња окончана:</title>%1"
 
 #: plugin_katebuild.cpp:1513
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
+"Градња <b>%1: %2</b> окончана. Грешака: %3, упозорења: %4, напомена: %5"
 
 #: plugin_katebuild.cpp:1525
 #, kde-format
@@ -347,21 +358,18 @@ msgstr[2] "Нађено %1 упозорења."
 msgstr[3] "Нађено %1 упозорење."
 
 #: plugin_katebuild.cpp:1532
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "Нађена %1 грешка."
-msgstr[1] "Нађене %1 грешке."
-msgstr[2] "Нађено %1 грешака."
-msgstr[3] "Нађена %1 грешка."
+msgstr[0] "Нађена %1 напомена."
+msgstr[1] "Нађене %1 напомене."
+msgstr[2] "Нађено %1 напомена."
+msgstr[3] "Нађена %1 напомена."
 
 #: plugin_katebuild.cpp:1536
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "Градња није успела."
+msgstr "Градња отказана."
 
 #: plugin_katebuild.cpp:1540
 #, kde-format
@@ -377,19 +385,16 @@ msgstr "Градња окончана без проблема."
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
+"Градња <b>%1: %2 отказана</b>. Грешака: %3, упозорења: %4, напомена: %5"
 
 #: plugin_katebuild.cpp:1831
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "грешка"
 
 #: plugin_katebuild.cpp:1834
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "упозорење"
@@ -398,7 +403,7 @@ msgstr "упозорење"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "напомена|информација"
 
 #: plugin_katebuild.cpp:1840
 #, kde-format
@@ -409,7 +414,7 @@ msgstr "недефинисан упућивач"
 #: plugin_katebuild.cpp:2144
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "Не могу да сачувам циљеве градње у: %1"
 
 #: TargetHtmlDelegate.cpp:48
 #, kde-format
@@ -418,20 +423,19 @@ msgid "<B>T:</B> %1"
 msgstr "<B>Ц:</B> %1"
 
 #: TargetHtmlDelegate.cpp:50
-#, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
+#, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Фас:</B> %1"
 
 #: TargetHtmlDelegate.cpp:95
-#, fuzzy, kde-format
-#| msgid "Leave empty to use the directory of the current document."
+#, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
 "Add search directories by adding paths separated by ';'"
-msgstr "Оставите празно да би се узела фасцикла текућег документа."
+msgstr ""
+"Оставите празно да би се узела фасцикла текућег документа.\n"
+"Фасцикле за претрагу додајте као путање раздвојене са „;“"
 
 #: TargetHtmlDelegate.cpp:102
 #, kde-format
@@ -440,14 +444,12 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Задајте:\n"
+"„%B“ за основну фасциклу пројекта\n"
+"„%b“ за име основне фасцикле пројекта"
 
 #: TargetHtmlDelegate.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -459,7 +461,9 @@ msgstr ""
 "Задајте:\n"
 "„%f“ за текући фајл\n"
 "„%d“ за фасциклу текућег фајла\n"
-"„%n“ за име текућег фајла без наставка"
+"„%n“ за име текућег фајла без наставка\n"
+"„%B“ за основну фасциклу текућег пројекта\n"
+"„%w“ за радну фасциклу циља"
 
 #: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, kde-format
@@ -469,12 +473,12 @@ msgstr "Скуп циљева"
 #: TargetModel.cpp:566
 #, kde-format
 msgid "Projects"
-msgstr ""
+msgstr "Пројекти"
 
 #: TargetModel.cpp:566
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "Сесија"
 
 # >> @title:column
 #: TargetModel.cpp:678
@@ -485,17 +489,17 @@ msgstr "наредба / име скупа-циљева"
 #: TargetModel.cpp:681
 #, kde-format
 msgid "Build Command / Working Directory"
-msgstr ""
+msgstr "наредба за градњу / радна фасцикла"
 
 #: TargetModel.cpp:684
 #, kde-format
 msgid "Run Command"
-msgstr ""
+msgstr "наредба за покретање"
 
 #: targets.cpp:28
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
-msgstr ""
+msgstr "Филтрирајте циљеве, стрелицама бирајте, а Enter‑ом извршите"
 
 #: targets.cpp:32
 #, kde-format
@@ -503,16 +507,14 @@ msgid "Create new set of targets"
 msgstr "Направи нови скуп циљева"
 
 #: targets.cpp:36
-#, fuzzy, kde-format
-#| msgid "Copy command or target set"
+#, kde-format
 msgid "Clone command or target set"
-msgstr "Копирај наредбу или скуп циљева"
+msgstr "Клонирај наредбу или скуп циљева"
 
 #: targets.cpp:40
-#, fuzzy, kde-format
-#| msgid "Delete current set of targets"
+#, kde-format
 msgid "Delete current target or current set of targets"
-msgstr "Обриши текући скуп циљева"
+msgstr "Обриши текући циљ или текући скуп циљева"
 
 #: targets.cpp:45
 #, kde-format
@@ -525,52 +527,47 @@ msgid "Build selected target"
 msgstr "Изгради изабрани циљ"
 
 #: targets.cpp:53
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and run selected target"
-msgstr "Изгради изабрани циљ"
+msgstr "Изгради и покрени изабрани циљ"
 
 #: targets.cpp:57
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target up"
-msgstr "Изгради изабрани циљ"
+msgstr "Помери изабрани циљ нагоре"
 
 #: targets.cpp:61
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target down"
-msgstr "Изгради изабрани циљ"
+msgstr "Помери изабрани циљ надоле"
 
 #: targets.cpp:203
 #, kde-format
 msgid "Copy"
-msgstr ""
+msgstr "Копирај"
 
 #: targets.cpp:207
 #, kde-format
 msgid "Cut"
-msgstr ""
+msgstr "Исеци"
 
 #: targets.cpp:211
 #, kde-format
 msgid "Paste after"
-msgstr ""
+msgstr "Налепи после"
 
 #: targets.cpp:229 targets.cpp:256
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
-msgstr "Изгради поново"
+msgstr "Наредба за градњу"
 
 # rewrite-msgid: /Config/Configure/
 #: targets.cpp:255
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
-msgstr "Подеси"
+msgstr "Подешавање"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -580,10 +577,9 @@ msgstr "&Градња"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:23
-#, fuzzy, kde-format
-#| msgid "Kate Build Plugin"
+#, kde-format
 msgid "Build Plugin Toolbar"
-msgstr "Кејтин прикључак за градњу"
+msgstr "Трака прикључка за градњу"
 
 #: UrlInserter.cpp:31
 #, kde-format
@@ -595,117 +591,3 @@ msgstr "Уметни путању"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Избор фасцикле за уметање"
-
-#~ msgid "No target available for building."
-#~ msgstr "Нема циљева за градњу."
-
-# >> @title:column
-#~ msgid "Working Directory / Command"
-#~ msgstr "радна фасцикла / наредба"
-
-#~ msgid "Clean"
-#~ msgstr "Очисти"
-
-# rewrite-msgid: /ConfigClean/Clean Configuration/
-#~ msgid "ConfigClean"
-#~ msgstr "Очисти подешавање"
-
-# >> @item:inlistbox
-#~ msgid "Project Plugin Targets"
-#~ msgstr "циљеви пројектног прикључка"
-
-#~ msgid "build"
-#~ msgstr "изгради"
-
-#~ msgid "clean"
-#~ msgstr "очисти"
-
-#~ msgid "quick"
-#~ msgstr "брзо"
-
-#~ msgid "Show:"
-#~ msgstr "Прикажи:"
-
-#~ msgctxt "Header for the file name column"
-#~ msgid "File"
-#~ msgstr "фајл"
-
-#~ msgctxt "Header for the line number column"
-#~ msgid "Line"
-#~ msgstr "ред"
-
-#~ msgctxt "Header for the error message column"
-#~ msgid "Message"
-#~ msgstr "порука"
-
-#~ msgid "Build Output"
-#~ msgstr "Излаз градње"
-
-#~ msgid "Build Default Target"
-#~ msgstr "Изгради подразумевани циљ"
-
-#~ msgid "Build Previous Target"
-#~ msgstr "Изгради претходни циљ"
-
-#~ msgid "Next Error"
-#~ msgstr "Следећа грешка"
-
-#~ msgid "Previous Error"
-#~ msgstr "Претходна грешка"
-
-#~ msgid "config"
-#~ msgstr "подешавање"
-
-#, fuzzy
-#~| msgctxt "The same word as 'make' uses to mark an error."
-#~| msgid "error"
-#~ msgid "Error"
-#~ msgstr "грешка"
-
-#, fuzzy
-#~| msgctxt "The same word as 'make' uses to mark a warning."
-#~| msgid "warning"
-#~ msgid "Warning"
-#~ msgstr "упозорење"
-
-#~ msgid "Building <b>%1</b> completed."
-#~ msgstr "Градња <b>%1</b> завршена."
-
-#~ msgid "Building <b>%1</b> had errors."
-#~ msgstr "Грешке при грађењу <b>%1</b>."
-
-#~ msgid "Building <b>%1</b> had warnings."
-#~ msgstr "Упозорења при грађењу <b>%1</b>."
-
-# >> @item
-#~ msgid "Only Errors"
-#~ msgstr "само грешке"
-
-# >> @item
-#~ msgid "Errors and Warnings"
-#~ msgstr "грешке и упозорења"
-
-# >> @item
-#~ msgid "Parsed Output"
-#~ msgstr "рашчлањени излаз"
-
-# >> @item
-#~ msgid "Full Output"
-#~ msgstr "пуни излаз"
-
-#~ msgid "Select build target"
-#~ msgstr "Избор циља градње"
-
-#~ msgid "Filter"
-#~ msgstr "Филтер"
-
-#~ msgid ""
-#~ "Check the check-box to make the command the default for the target-set."
-#~ msgstr ""
-#~ "Попуните кућицу да би наредба била подразумевана за дати скуп циљева."
-
-#~ msgid "Active target-set:"
-#~ msgstr "Активни скуп циљева:"
-
-#~ msgid "Select active target set"
-#~ msgstr "Изабери активни скуп циљева"

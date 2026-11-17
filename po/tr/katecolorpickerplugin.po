@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2026-10-19 12:03+0300\n"
+"PO-Revision-Date: 2026-11-16 18:34+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #: colorpickerconfigpage.cpp:34
 #, kde-format
 msgid "Show preview for known color names"
-msgstr "Bilinen renkler için önizlemeyi göster"
+msgstr "Bilinen renkler için ön izlemeyi göster"
 
 #: colorpickerconfigpage.cpp:36
 #, kde-format
@@ -37,7 +37,7 @@ msgstr ""
 #: colorpickerconfigpage.cpp:39
 #, kde-format
 msgid "Place preview after text color"
-msgstr "Metin renginden sonra önizlemeyi getir"
+msgstr "Metin renginden sonra ön izlemeyi getir"
 
 #: colorpickerconfigpage.cpp:53
 #, kde-format

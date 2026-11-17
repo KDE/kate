@@ -1,12 +1,13 @@
 # Translation of katesnippetsplugin.po into Serbian.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2012, 2014, 2015, 2016, 2017.
+# Nemanja Hiršl <nemhirsl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-07-04 00:47+0000\n"
-"PO-Revision-Date: 2017-09-28 17:56+0200\n"
-"Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
+"PO-Revision-Date: 2026-11-16 09:41+0100\n"
+"Last-Translator: Nemanja Hiršl <nemhirsl@gmail.com>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr@ijekavian\n"
 "MIME-Version: 1.0\n"
@@ -21,29 +22,29 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Часлав Илић"
+msgstr "Часлав Илић,Немања Хиршл"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "caslav.ilic@gmx.net"
+msgstr "caslav.ilic@gmx.net,nemhirsl@gmail.com"
 
 # >> @title:window
 #: editrepository.cpp:80 editrepository.cpp:125
 #, kde-format
 msgid "Edit Snippet Repository %1"
-msgstr "Уређивање ризнице исечака %1"
+msgstr "Уређивање ризнице исјечака %1"
 
 # >> @title:window
 #: editrepository.cpp:82
 #, kde-format
 msgid "Create New Snippet Repository"
-msgstr "Стварање нове ризнице исечака"
+msgstr "Стварање нове ризнице исјечака"
 
 #: editrepository.cpp:141
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
-msgstr "<i>оставите празно за исечке опште намене</i>"
+msgstr "<i>оставите празно за исјечке опште намјене</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
@@ -95,6 +96,8 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"Текст за уметање у документ (посебна поља видите у <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">приручнику</a>)."
 
 #: editsnippet.cpp:79
 #, kde-format
@@ -102,17 +105,18 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"јаваскрипт код за израчунавање (детаље видите у <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-script\">приручнику</a>)."
 
 #: editsnippet.cpp:86
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "текстуални шаблон"
 
 #: editsnippet.cpp:87
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "Script"
-msgstr "&Скрипте"
+msgstr "скрипта"
 
 #: editsnippet.cpp:99
 #, kde-format
@@ -121,123 +125,120 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"јаваскрипт функције заједничке свим исјечцима у овој ризници (видите <a href="
+"\"help:/kate/kate-application-plugin-snippets.html#snippet-input-library"
+"\">приручник</a>)."
 
 #: editsnippet.cpp:103
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"Необавезан опис за приказ у облачићима. Можете користити основно ХТМЛ "
+"форматирање."
 
 # >> @title:window
 # rewrite-msgid: /in /in repository/
 #: editsnippet.cpp:125 editsnippet.cpp:218
 #, kde-format
 msgid "Edit Snippet %1 in %2"
-msgstr "Уређивање исечка %1 из ризнице %2"
+msgstr "Уређивање исјечка %1 из ризнице %2"
 
 # >> @title:window
 #: editsnippet.cpp:138
 #, kde-format
 msgid "Create New Snippet in Repository %1"
-msgstr "Стварање новог исечка у ризници %1"
+msgstr "Стварање новог исјечка у ризници %1"
 
 #: editsnippet.cpp:188
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
-msgstr ""
+msgstr "Имена исјечака са размацима можда неће добро радити у допуни"
 
 #: editsnippet.cpp:230
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
-msgstr ""
-"Исечак садржи несачуване измене. Желите ли да наставите и изгубите све "
-"измене?"
+msgstr "Исјечак садржи несачуване измјене. Желите ли да одбаците све измјене?"
 
 #: editsnippet.cpp:231
 #, kde-format
 msgid "Warning - Unsaved Changes"
-msgstr "Упозорење — несачуване измене"
+msgstr "Упозорење — несачуване измјене"
 
 #: editsnippet.cpp:233
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Настави уређивање"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
-#, fuzzy, kde-format
-#| msgid "will be shown in the completion list"
+#, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr "Види се у списку допуна"
+msgstr "Име које се види у списку допуна (обавезно)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "&Snippet"
+#, kde-format
 msgid "Snippet Mode:"
-msgstr "&Исечак"
+msgstr "Режим исјечка:"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "Пречица са тастатуре:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
 #, kde-format
 msgid "&Snippet"
-msgstr "&Исечак"
+msgstr "&Исјечак"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "S&cript Library"
-msgstr "&Скрипте"
+msgstr "Библиотека &скрипти"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Опис"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
 #, kde-format
 msgid "Test this snippet"
-msgstr "Испробај овај исечак"
+msgstr "Испробај овај исјечак"
 
 #: katesnippetglobal.cpp:101
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
-msgstr "%1‑исечци"
+msgstr "%1‑исјечци"
 
 #: katesnippets.cpp:42 katesnippets.cpp:50 snippetcompletionmodel.cpp:43
 #: snippetview.cpp:76 snippetview.cpp:202
 #, kde-format
 msgid "Snippets"
-msgstr "Исечци"
+msgstr "Исјечци"
 
 #: katesnippets.cpp:61
 #, kde-format
 msgid "Create Snippet"
-msgstr "Направи исечак"
+msgstr "Направи исјечак"
 
 #: snippet.cpp:22
 #, kde-format
 msgid "<empty snippet>"
-msgstr "(празан исечак)"
+msgstr "(празан исјечак)"
 
 #: snippet.cpp:91
 #, kde-format
 msgid "insert snippet %1"
-msgstr "уметни исечак %1"
+msgstr "уметни исјечак %1"
 
 #: snippet.cpp:108
 #, kde-format
@@ -245,6 +246,8 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Кејт мора бити компилована према библиотеци KTextEditor издања 6.15.0 или "
+"новијег да би користила ову врсту исјечака."
 
 #: snippetrepository.cpp:45
 #, kde-format
@@ -252,18 +255,14 @@ msgid "<empty repository>"
 msgstr "(празна ризница)"
 
 #: snippetrepository.cpp:232
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have edited a data file not located in your personal data directory; "
-#| "as such, a renamed clone of the original data file has been created "
-#| "within your personal data directory."
+#, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
 "directory; as such, a copy of the original file has been created within your "
 "personal data directory."
 msgstr ""
-"Уредили сте фајл изван своје корисничке фасцикле. Зато је преименована "
-"копија изворног фајла направљена у вашој корисничкој фасцикли."
+"Уредили сте фајл ризнице исјечака изван своје корисничке фасцикле. Зато је "
+"копија изворног фајла направљена у вашој фасцикли корисничких података."
 
 #: snippetrepository.cpp:238
 #, kde-format
@@ -273,7 +272,7 @@ msgstr "Излазни фајл ‘%1’ не може да се отвори з
 #: snippetrepository.cpp:273
 #, kde-format
 msgid "Cannot open snippet repository %1."
-msgstr "Не могу да отворим ризницу исечака %1."
+msgstr "Не могу да отворим ризницу исјечака %1."
 
 #: snippetrepository.cpp:280
 #, kde-format
@@ -285,7 +284,7 @@ msgstr ""
 #: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
-msgstr "Лош ИксМЛ фајл исечака: %1"
+msgstr "Лош ИксМЛ фајл исјечака: %1"
 
 #: snippetrepository.cpp:360
 #, kde-format
@@ -293,7 +292,7 @@ msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
 msgstr ""
-"Ризница је искључена, садржани исечци неће бити нуђени током допуне коде."
+"Ризница је искључена, садржани исјечци неће бити нуђени током допуне кода."
 
 #: snippetrepository.cpp:363
 #, kde-format
@@ -303,7 +302,7 @@ msgstr "Важи за све типове фајлова"
 #: snippetrepository.cpp:365
 #, kde-format
 msgid "Applies to the following filetypes: %1"
-msgstr "Важи за следеће типове фајлова: %1"
+msgstr "Важи за сљедеће типове фајлова: %1"
 
 #: snippetview.cpp:93
 #, kde-format
@@ -323,27 +322,27 @@ msgstr "Уклони ризницу"
 #: snippetview.cpp:109
 #, kde-format
 msgid "Add Snippet"
-msgstr "Додај исечак"
+msgstr "Додај исјечак"
 
 #: snippetview.cpp:112
 #, kde-format
 msgid "Edit Snippet"
-msgstr "Уреди исечак"
+msgstr "Уреди исјечак"
 
 #: snippetview.cpp:115
 #, kde-format
 msgid "Remove Snippet"
-msgstr "Уклони исечак"
+msgstr "Уклони исјечак"
 
 #: snippetview.cpp:121
 #, kde-format
 msgid "Get New Snippets"
-msgstr "Добави нове исечке"
+msgstr "Добави нове исјечке"
 
 #: snippetview.cpp:210
 #, kde-format
 msgid "Snippet: %1"
-msgstr "Исечак: %1"
+msgstr "Исјечак: %1"
 
 #: snippetview.cpp:218
 #, kde-format
@@ -353,19 +352,19 @@ msgstr "Ризница: %1"
 #: snippetview.cpp:283
 #, kde-format
 msgid "Do you really want to delete the snippet \"%1\"?"
-msgstr "Желите ли заиста да обришете исечак „%1“?"
+msgstr "Желите ли заиста да обришете исјечак „%1“?"
 
 #: snippetview.cpp:327
 #, kde-format
 msgid ""
 "Do you really want to delete the repository \"%1\" with all its snippets?"
-msgstr "Желите ли заиста да обришете ризницу „%1“ са свим њеним исечцима?"
+msgstr "Желите ли заиста да обришете ризницу „%1“ са свим њеним исјечцима?"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)
 #: snippetview.ui:35
 #, kde-format
 msgid "Define filter here"
-msgstr "Овде дефинишете филтер."
+msgstr "Овдје дефинишете филтер."
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, filterText)
 #: snippetview.ui:38
@@ -378,74 +377,3 @@ msgstr "Филтер..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Алатке"
-
-# |, no-check-markup
-#~ msgid ""
-#~ "The text your snippet will insert into the document. <a href=\"A snippet "
-#~ "can contain editable fields. They can be cycled by pressing Tab. The "
-#~ "following expressions can be used in the template text to create fields: "
-#~ "<br><tt>${field_name}</tt> creates a simple, editable field. All "
-#~ "subsequent occurrences of the same field_name create fields which mirror "
-#~ "the contents of the first during editing.<br><tt>${field_name=default}</"
-#~ "tt> can be used to specify a default value for the field. <tt>default</"
-#~ "tt> can be any JavaScript expression.<br>Use <tt>${field_name=text}</tt> "
-#~ "to specify a fixed string as default value.<br><tt>${func(other_field1, "
-#~ "other_field2, ...)}</tt> can be used to create a field which evaluates a "
-#~ "JavaScript function on each edit and contains its contents. See the "
-#~ "Scripts tab for more information.<br><tt>${cursor}</tt> can be used to "
-#~ "mark the end position of the cursor after everything else was filled in."
-#~ "\">More...</a>"
-#~ msgstr ""
-#~ "Текст који ће исечак уметнути у документ. <a href=\"Исечак може да садржи "
-#~ "уредљива поља. Кроз њих се пролази притискањем Tab‑а. У шаблону текста "
-#~ "могу се употребити наредни изрази за стварање поља: <br /><tt>${ime_polja}"
-#~ "</tt> ствара једноставно, уредљиво поље. Свако наредно појављивање "
-#~ "<tt>ime_polja</tt> ствара поље које одговара садржају првог током "
-#~ "уређивања.<br /><tt>${ime_polja=podrazumevano}</tt> може да се употреби "
-#~ "за навођење подразумеване вредности поља. <tt>podrazumevano</tt> може "
-#~ "бити било који јаваскриптни израз.<br />Користите <tt>${ime_polja=tekst}</"
-#~ "tt> да задате фиксну ниску за подразумевану вредности.<br /><tt>"
-#~ "${funkcija(drugo_polje_1, drugo_polje_2, ...)}</tt> служи за стварање "
-#~ "поља које израчунава јаваскриптну функцију при сваком уређивању и умеће "
-#~ "њен садржај. Погледајте језичак „Скрипте“ за више детаља.<br /><tt>"
-#~ "${cursor}</tt> служи за обележавање крајњег положаја курсора пошто све "
-#~ "остало буде попуњено.\">Више...</a>"
-
-#~ msgid ""
-#~ "Write down JavaScript helper functions to use in your snippets here. <a "
-#~ "href=\"All JavaScript functions should return the contents you want to "
-#~ "place in a template field as a string.<br>Functions are called in a scope "
-#~ "which contains the contents of all editable template fields as local "
-#~ "variables. For example in a snippet containing <tt>${field}</tt>, a "
-#~ "variable called <tt>field</tt> will be present which contains the up-to-"
-#~ "date contents of the template field. Those variables can either be used "
-#~ "in the function statically or passed as arguments, by using the <tt>"
-#~ "${func(field)}</tt> or <tt>${field2=func(field)}</tt> syntax in the "
-#~ "snippet string.<br>You can use the kate scripting API to get the selected "
-#~ "text, full text, file name and more by using the appropriate methods of "
-#~ "the <tt>document</tt> and <tt>view</tt> objects. Refer to the scripting "
-#~ "API documentation for more information.\">More...</a>"
-#~ msgstr ""
-#~ "Овде упишите помоћне јаваскриптне функције за коришћење у исечцима. <a "
-#~ "href=\"Све јаваскриптне фунцкије треба да враћају садржај који се умеће "
-#~ "као ниска на месту шаблонског поља.&lt;br&gt;Функције се позивају у "
-#~ "досегу који обухвата садржај свих уредљивих шаблонски поља као локалних "
-#~ "променљивих. На пример, у исечку који садржи &lt;tt&gt;${polje}&lt;/"
-#~ "tt&gt;, променљива &lt;tt&gt;field&lt;/tt&gt; биће присутна и имати "
-#~ "вредност ажурног садржаја тог шаблонског поља. Ове променљиве могу да се "
-#~ "користе статички у функцији или прослеђују као аргументи, помоћу синтаксе "
-#~ "&lt;tt&gt;${funkcija(polje)}&lt;/tt&gt; или &lt;tt&gt;"
-#~ "${polje_2=funkcija(polje)}&lt;/tt&gt; у ниски исечка.&lt;br&gt;Можете "
-#~ "користити Кејтин скриптни АПИ за добављање изабраног текста, целог "
-#~ "текста, имена фајла, и тако даље, преко одговарајућих метода објеката &lt;"
-#~ "tt&gt;document&lt;/tt&gt; и &lt;tt&gt;view&lt;/tt&gt;. Више детаља "
-#~ "потражите у документацији скриптног АПИ‑ја.\">Више...</a>"
-
-#~ msgid "Snippet name cannot contain spaces"
-#~ msgstr "Име исечка не може да садржи размаке."
-
-#~ msgid "Snippets tool view"
-#~ msgstr "Алатни приказ исечака"
-
-#~ msgid "Publish Repository"
-#~ msgstr "Објави ризницу"

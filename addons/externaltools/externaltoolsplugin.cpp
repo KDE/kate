@@ -45,7 +45,7 @@ static QList<KateExternalTool> readDefaultTools()
 
     QList<KateExternalTool> tools;
     for (const auto &file : entries) {
-        KConfig config(dir.absoluteFilePath(file));
+        KConfig config(dir.absoluteFilePath(file), KConfig::SimpleConfig);
         KConfigGroup cg = config.group(QStringLiteral("General"));
 
         KateExternalTool tool;
@@ -80,7 +80,7 @@ void KateExternalToolsPlugin::migrateConfig()
     const QString oldFile = QStandardPaths::locate(QStandardPaths::ApplicationsLocation, QStringLiteral("externaltools"));
 
     if (!oldFile.isEmpty()) {
-        KConfig oldConf(oldFile);
+        KConfig oldConf(oldFile, KConfig::SimpleConfig);
         KConfigGroup oldGroup(&oldConf, QStringLiteral("Global"));
 
         const bool isFirstRun = oldGroup.readEntry("firststart", true);
@@ -95,7 +95,7 @@ void KateExternalToolsPlugin::migrateConfig()
                 continue;
             }
 
-            KConfig newConfig(newConfPath);
+            KConfig newConfig(newConfPath, KConfig::SimpleConfig);
             KConfigGroup newGroup = newConfig.group(QStringLiteral("General"));
             oldGroup.copyTo(&newGroup, KConfig::Persistent);
         }
@@ -159,7 +159,7 @@ void KateExternalToolsPlugin::removeTools(const std::vector<KateExternalTool *> 
 void KateExternalToolsPlugin::save(KateExternalTool *tool, const QString &oldName)
 {
     const QString name = KateExternalTool::configFileName(tool->name);
-    KConfig config(toolsConfigDir() + name);
+    KConfig config(toolsConfigDir() + name, KConfig::SimpleConfig);
     KConfigGroup cg = config.group(QStringLiteral("General"));
     tool->save(cg);
 
@@ -184,7 +184,7 @@ void KateExternalToolsPlugin::reload()
         QDir dir(toolsConfigDir());
         const QStringList entries = dir.entryList(QDir::NoDotAndDotDot | QDir::Files);
         for (const auto &file : entries) {
-            KConfig config(dir.absoluteFilePath(file));
+            KConfig config(dir.absoluteFilePath(file), KConfig::SimpleConfig);
             KConfigGroup cg = config.group(QStringLiteral("General"));
 
             auto t = new KateExternalTool();

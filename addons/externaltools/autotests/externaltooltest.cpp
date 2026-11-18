@@ -27,7 +27,7 @@ void ExternalToolTest::cleanupTestCase()
 
 void ExternalToolTest::testLoadSave()
 {
-    KConfig config;
+    KConfig config(QString(), KConfig::SimpleConfig);
     KConfigGroup cg(&config, QStringLiteral("tool"));
 
     KateExternalTool tool;

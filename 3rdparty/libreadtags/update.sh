@@ -6,4 +6,5 @@ curl https://raw.githubusercontent.com/universal-ctags/libreadtags/refs/heads/ma
 curl https://raw.githubusercontent.com/universal-ctags/libreadtags/refs/heads/master/readtags.h > readtags.h
 
 # avoid unused parameters
-sed s/unused//g -i readtags.c
+sed 's/return isPseudoTagLine (file->name.buffer);/(void) unused; return isPseudoTagLine (file->name.buffer);/g' -i readtags.c
+sed 's/return (nameComparison (file) == 0);/(void) unused; return (nameComparison (file) == 0);/g' -i readtags.c

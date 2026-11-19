@@ -846,9 +846,9 @@ static tagResult readPseudoTags (tagFile *const file, tagFileInfo *const info)
 	return result;
 }
 
-static int doesFilePointPseudoTag (tagFile *const file, void *)
+static int doesFilePointPseudoTag (tagFile *const file, void *unused)
 {
-	return isPseudoTagLine (file->name.buffer);
+	(void) unused; return isPseudoTagLine (file->name.buffer);
 }
 
 static tagResult gotoFirstLogicalTag (tagFile *const file)
@@ -1183,9 +1183,9 @@ static tagResult findSequentialFull (tagFile *const file,
 	return result;
 }
 
-static int nameAcceptable (tagFile *const file, void *)
+static int nameAcceptable (tagFile *const file, void *unused)
 {
-	return (nameComparison (file) == 0);
+	(void) unused; return (nameComparison (file) == 0);
 }
 
 static tagResult findSequential (tagFile *const file)

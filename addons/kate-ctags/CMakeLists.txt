@@ -16,7 +16,7 @@ target_sources(katectagsplugin PRIVATE ${DEBUG_SOURCES})
 target_sources(
   katectagsplugin
   PRIVATE
-    readtags.c
+    ${CMAKE_SOURCE_DIR}/3rdparty/libreadtags/readtags.c
     tags.cpp
     ctagskinds.cpp
     kate_ctags_view.cpp

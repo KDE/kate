@@ -15,11 +15,6 @@
 #include "asyncjob.h"
 #include "hostprocess.h"
 
-/**
- * include ctags reading
- */
-#include "ctags/readtags.c"
-
 using tagFilePtr = std::shared_ptr<tagFile>;
 
 class KateProjectIndex::KateProjectIndexPrivate

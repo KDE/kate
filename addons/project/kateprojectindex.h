@@ -20,7 +20,7 @@
 /**
  * ctags reading
  */
-#include "ctags/readtags.h"
+#include "libreadtags/readtags.h"
 
 /**
  * Class representing the index of a project.

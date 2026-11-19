@@ -10,7 +10,7 @@
 
 namespace ctags
 {
-#include "readtags.h"
+#include "libreadtags/readtags.h"
 }
 
 #include "ctagskinds.h"

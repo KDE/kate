@@ -57,6 +57,8 @@ target_sources(
     git/gitforgeconfigwidget.cpp
 
     plugin.qrc
+
+    ${CMAKE_SOURCE_DIR}/3rdparty/libreadtags/readtags.c
 )
 
 install(FILES kateproject.example DESTINATION ${KDE_INSTALL_DATADIR}/kateproject)

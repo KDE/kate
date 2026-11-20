@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-29 00:56+0000\n"
+"POT-Creation-Date: 2026-11-20 01:17+0000\n"
 "PO-Revision-Date: 2024-11-16 12:55+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -397,44 +397,51 @@ msgid ""
 "format with a 'servers' sub-object."
 msgstr ""
 
-#: lspclientservermanager.cpp:950
+#: lspclientservermanager.cpp:874
+#, kde-format
+msgid ""
+"Found old LSP command format for '%1', please migrate to a JSON array of "
+"strings."
+msgstr ""
+
+#: lspclientservermanager.cpp:975
 #, fuzzy, kde-format
 #| msgid "Failed to find server binary: %1"
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Failed to find server binary: %1"
 
-#: lspclientservermanager.cpp:953 lspclientservermanager.cpp:1018
+#: lspclientservermanager.cpp:978 lspclientservermanager.cpp:1041
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Please check your PATH for the binary"
 
-#: lspclientservermanager.cpp:954 lspclientservermanager.cpp:1019
+#: lspclientservermanager.cpp:979 lspclientservermanager.cpp:1042
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "See also %1 for installation or details"
 
-#: lspclientservermanager.cpp:1015
+#: lspclientservermanager.cpp:1038
 #, fuzzy, kde-format
 #| msgid "Failed to start server: %1"
 msgid "Failed to start server '%1' for language '%2'"
 msgstr "Failed to start server: %1"
 
-#: lspclientservermanager.cpp:1023
+#: lspclientservermanager.cpp:1046
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Started server %2: %1"
 
-#: lspclientservermanager.cpp:1105
+#: lspclientservermanager.cpp:1128
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Failed to parse server configuration '%1': no JSON object"
 
-#: lspclientservermanager.cpp:1108
+#: lspclientservermanager.cpp:1131
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Failed to parse server configuration '%1': %2"
 
-#: lspclientservermanager.cpp:1112
+#: lspclientservermanager.cpp:1135
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Failed to read server configuration: %1"

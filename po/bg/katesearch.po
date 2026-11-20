@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Yasen Pramatarov <yasen@lindeas.com>, 2011.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Mincho Kondarev <mkondarev@yahoo.de>
+# SPDX-FileCopyrightText: 2022-2026 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-14 01:07+0000\n"
-"PO-Revision-Date: 2026-04-02 22:56+0200\n"
+"PO-Revision-Date: 2026-11-19 22:47+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.03.70\n"
+"X-Generator: Lokalize 26.08.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: KateSearchCommand.cpp:88
@@ -246,7 +246,7 @@ msgstr "Зачитане на регистъра"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, smartCase)
 #: search.ui:134
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Smart case: Case-sensitive only when search pattern contains uppercase "
 "characters"

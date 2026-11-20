@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-14 01:07+0000\n"
+"POT-Creation-Date: 2026-11-20 01:17+0000\n"
 "PO-Revision-Date: 2026-09-21 22:50+0200\n"
 "Last-Translator: Shinjo Park <peremen@gmail.com>\n"
 "Language-Team: Korean\n"
@@ -170,7 +170,7 @@ msgid " [read only]"
 msgstr " [읽기 전용]"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
-#: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:600 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "필터…"
@@ -187,7 +187,7 @@ msgid "Copy Location"
 msgstr "위치 복사"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -202,7 +202,7 @@ msgstr "이름 변경됨: %1 => %2"
 msgid "Invalid hash"
 msgstr "잘못된 해시"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "Git 저장소에 %1이(가) 없습니다."
@@ -595,13 +595,13 @@ msgstr "삭제된 파일 %1"
 msgid "No differences found"
 msgstr "차이점을 찾을 수 없음"
 
-#: lib/filehistorywidget.cpp:279
+#: lib/filehistorywidget.cpp:280
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "잘못된 날짜: %1"
 
-#: lib/filehistorywidget.cpp:513
+#: lib/filehistorywidget.cpp:608
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -629,29 +629,29 @@ msgstr ""
 "를 지정하면 해당하는 모든 단어가 있는 메시지만 표시됩니다.</li></ul>필터를 적"
 "용하려면 <b>Enter</b> 키를 누르십시오."
 
-#: lib/filehistorywidget.cpp:575
+#: lib/filehistorywidget.cpp:671
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "파일 기록을 가져올 수 없음: PATH에서 git 실행 파일을 찾을 수 없음"
 
-#: lib/filehistorywidget.cpp:601
+#: lib/filehistorywidget.cpp:697
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "파일 기록을 가져올 수 없음: %1"
 
-#: lib/filehistorywidget.cpp:616
+#: lib/filehistorywidget.cpp:712
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "커밋 해시 복사"
 
-#: lib/filehistorywidget.cpp:624
+#: lib/filehistorywidget.cpp:720
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "전체 커밋 표시"
 
-#: lib/filehistorywidget.cpp:760
+#: lib/filehistorywidget.cpp:856
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"

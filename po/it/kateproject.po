@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-10 01:01+0000\n"
-"PO-Revision-Date: 2026-10-27 15:46+0100\n"
+"PO-Revision-Date: 2026-11-11 15:39+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 26.08.2\n"
+"X-Generator: Lokalize 26.08.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -908,17 +908,19 @@ msgstr "«Vai a simbolo» multiprogetto"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Window Title"
-msgstr ""
+msgstr "Titolo della finestra"
 
 #: kateprojectconfigpage.cpp:119
 #, kde-format
 msgid "Prefix window title with project name"
-msgstr ""
+msgstr "Aggiungi il nome del progetto prima del titolo della finestra"
 
 #: kateprojectconfigpage.cpp:121
 #, kde-format
 msgid "Show the current project's name before the existing window title."
 msgstr ""
+"Mostra il nome del progetto corrente prima del titolo della finestra "
+"esistente."
 
 #: kateprojectconfigpage.cpp:131
 #, kde-format

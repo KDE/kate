@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-29 00:56+0000\n"
+"POT-Creation-Date: 2026-11-20 01:17+0000\n"
 "PO-Revision-Date: 2026-11-04 18:44+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -399,43 +399,56 @@ msgstr ""
 "«%1»: effettua la migrazione al nuovo formato utilizzando il sotto-oggetto "
 "“servers”."
 
-#: lspclientservermanager.cpp:950
+#: lspclientservermanager.cpp:874
+#, fuzzy, kde-format
+#| msgid ""
+#| "Found old LSP config format for language '%1', please migrate to the new "
+#| "format with a 'servers' sub-object."
+msgid ""
+"Found old LSP command format for '%1', please migrate to a JSON array of "
+"strings."
+msgstr ""
+"È stato rilevato un vecchio formato di configurazione LSP per il linguaggio "
+"«%1»: effettua la migrazione al nuovo formato utilizzando il sotto-oggetto "
+"“servers”."
+
+#: lspclientservermanager.cpp:975
 #, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Impossibile trovare il binario del server «%1» per la lingua «%2»"
 
-#: lspclientservermanager.cpp:953 lspclientservermanager.cpp:1018
+#: lspclientservermanager.cpp:978 lspclientservermanager.cpp:1041
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Controlla il PATH del binario"
 
-#: lspclientservermanager.cpp:954 lspclientservermanager.cpp:1019
+#: lspclientservermanager.cpp:979 lspclientservermanager.cpp:1042
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Per i dettagli sull'installazione, vedi anche %1"
 
-#: lspclientservermanager.cpp:1015
+#: lspclientservermanager.cpp:1038
 #, kde-format
 msgid "Failed to start server '%1' for language '%2'"
 msgstr "Impossibile avviare il binario del server «%1» per la lingua «%2»"
 
-#: lspclientservermanager.cpp:1023
+#: lspclientservermanager.cpp:1046
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Server avviato %2: %1"
 
-#: lspclientservermanager.cpp:1105
+#: lspclientservermanager.cpp:1128
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Impossibile elaborare la configurazione del server «%1»: nessun oggetto JSON"
 
-#: lspclientservermanager.cpp:1108
+#: lspclientservermanager.cpp:1131
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Impossibile elaborare la configurazione del server «%1»: %2"
 
-#: lspclientservermanager.cpp:1112
+#: lspclientservermanager.cpp:1135
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Impossibile leggere la configurazione del server: %1"

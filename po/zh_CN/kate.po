@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-14 01:07+0000\n"
+"POT-Creation-Date: 2026-11-20 01:17+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -172,7 +172,7 @@ msgid " [read only]"
 msgstr " [只读]"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
-#: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:600 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "过滤…"
@@ -189,7 +189,7 @@ msgid "Copy Location"
 msgstr "复制位置"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -204,7 +204,7 @@ msgstr "已重命名 %1 => %2"
 msgid "Invalid hash"
 msgstr "哈希无效"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 不存在于 git 仓库中。"
@@ -594,13 +594,13 @@ msgstr "已删除文件 %1"
 msgid "No differences found"
 msgstr "未发现差异"
 
-#: lib/filehistorywidget.cpp:279
+#: lib/filehistorywidget.cpp:280
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "无效的日期：%1"
 
-#: lib/filehistorywidget.cpp:513
+#: lib/filehistorywidget.cpp:608
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -625,30 +625,30 @@ msgstr ""
 "要过滤消息，只需输入搜索条件。如果输入了多个搜索条件，则仅显示匹配所有搜索条"
 "件的消息。</li></ul>要触发过滤，请按 <b>回车</b> 键。"
 
-#: lib/filehistorywidget.cpp:575
+#: lib/filehistorywidget.cpp:671
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "无法获取文件历史：可执行文件 git 无法在环境变量 PATH 指定的位置中找到。"
 
-#: lib/filehistorywidget.cpp:601
+#: lib/filehistorywidget.cpp:697
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "无法获取文件历史：%1"
 
-#: lib/filehistorywidget.cpp:616
+#: lib/filehistorywidget.cpp:712
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "复制提交哈希值"
 
-#: lib/filehistorywidget.cpp:624
+#: lib/filehistorywidget.cpp:720
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "显示完整提交"
 
-#: lib/filehistorywidget.cpp:760
+#: lib/filehistorywidget.cpp:856
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"

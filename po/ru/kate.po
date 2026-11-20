@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-14 01:07+0000\n"
+"POT-Creation-Date: 2026-11-20 01:17+0000\n"
 "PO-Revision-Date: 2026-11-14 08:47+0200\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -196,7 +196,7 @@ msgid " [read only]"
 msgstr " [только для чтения]"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
-#: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:600 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Фильтр…"
@@ -213,7 +213,7 @@ msgid "Copy Location"
 msgstr "Копировать расположение"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -228,7 +228,7 @@ msgstr "Переименован %1 → %2"
 msgid "Invalid hash"
 msgstr "Недопустимый хеш"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "«%1» не существует в репозитории git."
@@ -630,13 +630,13 @@ msgstr "Удалённый файл %1"
 msgid "No differences found"
 msgstr "Различия не обнаружены"
 
-#: lib/filehistorywidget.cpp:279
+#: lib/filehistorywidget.cpp:280
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Недопустимая дата: %1"
 
-#: lib/filehistorywidget.cpp:513
+#: lib/filehistorywidget.cpp:608
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -665,31 +665,31 @@ msgstr ""
 "поисковых запросов, будут показаны те сообщения, которые соответствуют им "
 "всем.</li></ul>Чтобы активировать фильтр, нажмите клавишу <b>Ввод</b>."
 
-#: lib/filehistorywidget.cpp:575
+#: lib/filehistorywidget.cpp:671
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Не удалось получить историю файла: исполняемый файл git не найден в "
 "каталогах, перечисленных в переменной PATH"
 
-#: lib/filehistorywidget.cpp:601
+#: lib/filehistorywidget.cpp:697
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Не удалось получить историю файла: %1"
 
-#: lib/filehistorywidget.cpp:616
+#: lib/filehistorywidget.cpp:712
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Копировать хеш фиксации"
 
-#: lib/filehistorywidget.cpp:624
+#: lib/filehistorywidget.cpp:720
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Показать фиксацию полностью"
 
-#: lib/filehistorywidget.cpp:760
+#: lib/filehistorywidget.cpp:856
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"

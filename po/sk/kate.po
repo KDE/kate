@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-14 01:07+0000\n"
+"POT-Creation-Date: 2026-11-20 01:17+0000\n"
 "PO-Revision-Date: 2026-09-14 20:10+0200\n"
 "Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -179,7 +179,7 @@ msgid " [read only]"
 msgstr " [iba na čítanie]"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
-#: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:600 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Filtrovať..."
@@ -196,7 +196,7 @@ msgid "Copy Location"
 msgstr "Kopírovať umiestnenie"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -211,7 +211,7 @@ msgstr "Renamed %1 => %2"
 msgid "Invalid hash"
 msgstr "Neplatný hash"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 neexistuje v git repo."
@@ -610,13 +610,13 @@ msgstr "Vymazaný súbor %1"
 msgid "No differences found"
 msgstr "Nenašli sa žiadne rozdiely"
 
-#: lib/filehistorywidget.cpp:279
+#: lib/filehistorywidget.cpp:280
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Invalid date: %1"
 
-#: lib/filehistorywidget.cpp:513
+#: lib/filehistorywidget.cpp:608
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -644,31 +644,31 @@ msgstr ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 
-#: lib/filehistorywidget.cpp:575
+#: lib/filehistorywidget.cpp:671
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Nepodarilo sa získať históriu súborov: spustiteľný súbor git sa nenašiel v "
 "PATH"
 
-#: lib/filehistorywidget.cpp:601
+#: lib/filehistorywidget.cpp:697
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Nepodarilo sa získať históriu súborov: %1"
 
-#: lib/filehistorywidget.cpp:616
+#: lib/filehistorywidget.cpp:712
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Kopírovať hash začlenenia"
 
-#: lib/filehistorywidget.cpp:624
+#: lib/filehistorywidget.cpp:720
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Zobraziť úplne začlenenie"
 
-#: lib/filehistorywidget.cpp:760
+#: lib/filehistorywidget.cpp:856
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
@@ -1383,13 +1383,14 @@ msgstr "Max počet diagnostics allowed in the Diagnostics toolview."
 #: lib/kateconfigdialog.cpp:409
 #, kde-format
 msgid "Show diagnostic messages at the end of the line"
-msgstr ""
+msgstr "Zobraziť diagnostické správy na konci riadku"
 
 #: lib/kateconfigdialog.cpp:411
 #, kde-format
 msgid ""
 "Show the message of the most severe diagnostic of a line after its text."
 msgstr ""
+"Za textom riadku zobrazí správu najzávažnejšej diagnostiky daného riadku."
 
 #: lib/kateconfigdialog.cpp:415 lib/texthint/hintview.cpp:25
 #, kde-format

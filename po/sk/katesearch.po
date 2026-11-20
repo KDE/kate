@@ -272,6 +272,8 @@ msgid ""
 "Smart case: Case-sensitive only when search pattern contains uppercase "
 "characters"
 msgstr ""
+"Inteligentné rozlišovanie veľkosti: rozlišovať veľkosť písmen, iba ak vzor "
+"obsahuje veľké písmená"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
 #: search.ui:150

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-14 01:07+0000\n"
+"POT-Creation-Date: 2026-11-20 01:17+0000\n"
 "PO-Revision-Date: 2026-10-16 07:02+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -172,7 +172,7 @@ msgid " [read only]"
 msgstr " (მხოლოდ-კითხვადი)"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
-#: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:600 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "გაფილტვრა…"
@@ -189,7 +189,7 @@ msgid "Copy Location"
 msgstr "მდებარეობის კოპირება"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -204,7 +204,7 @@ msgstr "სახელი გადაერქვა %1 => %2"
 msgid "Invalid hash"
 msgstr "არასწორი ჰეში"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 Git-ის რეპოში არ არსებობს."
@@ -600,13 +600,13 @@ msgstr "წაშლილია ფაილი %1"
 msgid "No differences found"
 msgstr "სხვაობები აღმოჩენილი არაა"
 
-#: lib/filehistorywidget.cpp:279
+#: lib/filehistorywidget.cpp:280
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "არასწორი თარიღი: %1"
 
-#: lib/filehistorywidget.cpp:513
+#: lib/filehistorywidget.cpp:608
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -635,30 +635,30 @@ msgstr ""
 "შეტყობინებები, რომელიც ყველა მათგანს შეიცავს.</li></ul>გაფილტვრის დასაწყებად "
 "დააჭირეთ ღილაკს <b>Enter</b>."
 
-#: lib/filehistorywidget.cpp:575
+#: lib/filehistorywidget.cpp:671
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "ფაილის ისტორიის მიღება ჩავარდა: გამშვები ფაილი git PATH-ში აღმოჩენილი არაა"
 
-#: lib/filehistorywidget.cpp:601
+#: lib/filehistorywidget.cpp:697
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "შეცდომა ფაილის ისტორიის მიღებისას: %1"
 
-#: lib/filehistorywidget.cpp:616
+#: lib/filehistorywidget.cpp:712
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "კომიტის ჰეშის კოპირება"
 
-#: lib/filehistorywidget.cpp:624
+#: lib/filehistorywidget.cpp:720
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "სრული კომიტის ჩვენება"
 
-#: lib/filehistorywidget.cpp:760
+#: lib/filehistorywidget.cpp:856
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"

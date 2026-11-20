@@ -904,17 +904,17 @@ msgstr "Cross-Project Goto Symbol"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Window Title"
-msgstr ""
+msgstr "Titulok okna"
 
 #: kateprojectconfigpage.cpp:119
 #, kde-format
 msgid "Prefix window title with project name"
-msgstr ""
+msgstr "Pridať názov projektu pred titulok okna"
 
 #: kateprojectconfigpage.cpp:121
 #, kde-format
 msgid "Show the current project's name before the existing window title."
-msgstr ""
+msgstr "Zobrazí názov aktuálneho projektu pred existujúcim titulkom okna."
 
 #: kateprojectconfigpage.cpp:131
 #, kde-format

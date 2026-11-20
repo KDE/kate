@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-14 01:07+0000\n"
-"PO-Revision-Date: 2026-10-19 15:55+0200\n"
+"POT-Creation-Date: 2026-11-20 01:17+0000\n"
+"PO-Revision-Date: 2026-11-19 22:47+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 26.08.2\n"
+"X-Generator: Lokalize 26.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -175,7 +175,7 @@ msgid " [read only]"
 msgstr " [само за четене]"
 
 #: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
-#: lib/filehistorywidget.cpp:505 lib/kateconfigplugindialogpage.cpp:109
+#: lib/filehistorywidget.cpp:600 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Филтър..."
@@ -192,7 +192,7 @@ msgid "Copy Location"
 msgstr "Копиране на местоположението"
 
 #: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -207,7 +207,7 @@ msgstr "Преименувано %1 => %2"
 msgid "Invalid hash"
 msgstr "Невалиден хеш"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:741
+#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1s не съществува в хранилището на git."
@@ -604,13 +604,13 @@ msgstr "Изтрити файлове %1"
 msgid "No differences found"
 msgstr "Няма разлики"
 
-#: lib/filehistorywidget.cpp:279
+#: lib/filehistorywidget.cpp:280
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Невалидна дата: %1"
 
-#: lib/filehistorywidget.cpp:513
+#: lib/filehistorywidget.cpp:608
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -640,31 +640,31 @@ msgstr ""
 "показани съобщения, съответстващи на всички термини за търсене.</li></ul>За "
 "да задействате филтъра, натиснете клавиша <b>Enter</b>."
 
-#: lib/filehistorywidget.cpp:575
+#: lib/filehistorywidget.cpp:671
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Неуспешно получаване на историята на файловете: изпълнимият файл на git не е "
 "открит в PATH"
 
-#: lib/filehistorywidget.cpp:601
+#: lib/filehistorywidget.cpp:697
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Неуспешно получаване на историята на файловете: %1"
 
-#: lib/filehistorywidget.cpp:616
+#: lib/filehistorywidget.cpp:712
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Копиране на хеша на commit"
 
-#: lib/filehistorywidget.cpp:624
+#: lib/filehistorywidget.cpp:720
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Показване на целия commit"
 
-#: lib/filehistorywidget.cpp:760
+#: lib/filehistorywidget.cpp:856
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
@@ -1383,12 +1383,12 @@ msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "Максимален брой на диагностики, разрешени в toolview на Диагностика."
 
 #: lib/kateconfigdialog.cpp:409
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show diagnostic messages at the end of the line"
 msgstr "Показване на диагностични съобщения в края на реда"
 
 #: lib/kateconfigdialog.cpp:411
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Show the message of the most severe diagnostic of a line after its text."
 msgstr ""

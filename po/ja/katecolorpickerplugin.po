@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2026-08-01 23:02+0900\n"
+"PO-Revision-Date: 2026-11-11 17:01+0900\n"
 "Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
@@ -14,6 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
+"X-Generator: Lokalize 26.08.3\n"
 
 #: colorpickerconfigpage.cpp:34
 #, kde-format
@@ -21,18 +22,14 @@ msgid "Show preview for known color names"
 msgstr "既知の色名のプレビューを表示する"
 
 #: colorpickerconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgid ""
-#| "Also show the color picker for known color names (e.g. skyblue).\n"
-#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-#| "colors."
+#, kde-format
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
 "See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
 "既知の色名 (例: skyblue) に対してもカラーピッカーを表示します。\n"
-"色の一覧については https://www.w3.org/TR/SVG11/types.html#ColorKeywords をご"
-"覧ください。"
+"色の一覧については https://www.w3.org/TR/css-color-4/#named-colors をご覧くだ"
+"さい。"
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format

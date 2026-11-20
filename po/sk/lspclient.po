@@ -394,6 +394,8 @@ msgid ""
 "Found old LSP config format for language '%1', please migrate to the new "
 "format with a 'servers' sub-object."
 msgstr ""
+"Pre jazyk '%1' sa našiel starý formát konfigurácie LSP, migrujte ho, prosím, "
+"na nový formát s podobjektom 'servers'."
 
 #: lspclientservermanager.cpp:950
 #, kde-format

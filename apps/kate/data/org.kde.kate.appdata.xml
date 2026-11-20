@@ -1758,6 +1758,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="fr">Consultez les lignes ajoutées, modifiées et supprimées dans les marges de l'éditeur avec le nouveau module Git Decorations.</li>
           <li xml:lang="ia">Vide lineas addite, modificate, e removite in le margines del editor  con le nove plugin Git Decorations.</li>
           <li xml:lang="it">Visualizza le righe aggiunte, modificate e rimosse nei margini dell'editor con la nuova estensione Git Decorations.</li>
+          <li xml:lang="ja">新しい「Git インジケーター表示」プラグインで追加/変更/削除された行を確認できるように</li>
           <li xml:lang="ka">იხილეთ დამატებული, შეცვლილი და წაშლილი ხაზები რედაქტორის მინდვრებში ახალი დამატებით Git Decorations.</li>
           <li xml:lang="nl">Bekijk toegevoegde, gewijzigde en verwijderde regels in de kantlijnen van de bewerker met de nieuwe Git decoraties-plugin.</li>
           <li xml:lang="pt-BR">Visualize linhas adicionadas, modificadas e removidas nas margens do editor com o novo plugin Git Decorations.</li>
@@ -1781,6 +1782,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="he">העלאת קבצים, תיקיות או מיזמים שלמים דרך SFTP עם תוסף ההטמעה החדש, עם מצב ההעברה וסרגל צד לעיון ועריכת קבצים מרוחקים.</li>
           <li xml:lang="ia">Carga files, dossiers, o projectos integre via SFTP con le nove plugin de  displicamento, con progresso de transferentia e un barra lateral pro  percurrer e editar files remote.</li>
           <li xml:lang="it">Carica file, cartelle o interi progetti tramite SFTP con la nuova estensione Deployment, che include un indicatore di avanzamento del trasferimento e una barra laterale per esplorare e modificare i file remoti.</li>
+          <li xml:lang="ja">新しい「デプロイ」プラグインにより、SFTP を介したファイル/フォルダやプロジェクト全体のアップロード (進捗バー対応) に加え、リモートのファイルの閲覧や編集をサイドバーから行えるように</li>
           <li xml:lang="ka">ატვირთეთ ფაილები, საქაღალდეები, ან მთელი პროექტები SFTP-ით ახალ გაშლის დამატებასთან ერთად, გადაცემის მიმდინარეობასთან და გვერდით პანელთან ერთად, რომლებიც დაშორებული ფაილების დასათვალიერებლად და ჩასასწორებლად გამოიყენება.</li>
           <li xml:lang="nl">Upload bestanden, mappen of volledige projecten via SFTP met de nieuwe Deployment-plugin; inclusief voortgangsindicatie voor overdrachten en een zijbalk voor het doorbladeren en bewerken van bestanden op de externe server.</li>
           <li xml:lang="pt-BR">Envie arquivos, pastas ou projetos inteiros via SFTP com o novo plugin de implantação, que conta com indicador de progresso de transferência e uma barra lateral para navegar e editar arquivos remotos.</li>
@@ -1803,6 +1805,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="fr">Ouvrez les fichiers et les lignes sélectionnées sur GitHub, GitLab ou Forgejo, ou copiez leurs liens, avec la prise en charge des mappages d'hôtes Git personnalisés à l'échelle mondiale et par projet.</li>
           <li xml:lang="ia">Aperir files e lineas seligite in GitHub, GitLab, o Forgejo, o copiar lor ligamines, con supporto pro mappages de host Git personalisate globalmente e per projecto.</li>
           <li xml:lang="it">Apri file e righe selezionate su GitHub, GitLab o Forgejo, oppure copiane i collegamenti; il sistema supporta le associazioni personalizzate degli host Git, configurabili a livello globale o per singolo progetto.</li>
+          <li xml:lang="ja">グローバル＆プロジェクト毎カスタム Git ホストファイルマッピングに対応＆ファイルや選択行を GitHub, GitLab, Forgejo 内で開いたりリンクをコピーできるように</li>
           <li xml:lang="ka">გახსენით ფაილები და მონიშნული ხაზები GitHub-ზე, GitLab-ზე, ან Forgejo-ზე, ან დააკოპირეთ მათი ბმულები მორგებული Git ჰოსტის ასახვების მხარდაჭერით გლობალურად, ან თითოეული პროექტისთვის.</li>
           <li xml:lang="nl">Open bestanden en geselecteerde regels op GitHub, GitLab of Forgejo of kopieer de bijbehorende koppelingen; ondersteuning voor aangepaste Git-hostkoppelingen is beschikbaar, zowel globaal als per project.</li>
           <li xml:lang="pt-BR">Abra arquivos e linhas selecionadas no GitHub, GitLab ou Forgejo — ou copie seus respectivos links — com suporte para mapeamentos personalizados de hosts Git, tanto de forma global quanto por projeto.</li>
@@ -1826,6 +1829,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="he">מעקב אחר קישורי קבצים יחסיים עם תוסף פתיחת הקישורים, פעיל מעתה כברירת מחדל, עם זיהוי נתיבי קבצים וכתובות משופר.</li>
           <li xml:lang="ia">Seque ligamines de file relative con le plugin Open Link, ora activate  per defecto, con recognoscimento meliorate de percursos de file e URLs.</li>
           <li xml:lang="it">Segui i collegamenti ai file relativi con l'estensione Open Link, ora abilitata in modo predefinito, con un migliore riconoscimento dei percorsi dei file e degli URL.</li>
+          <li xml:lang="ja">相対ファイルリンクを追跡する「リンクを開く」プラグインが標準で有効になり、ファイルパスや URL の認識処理が改善</li>
           <li xml:lang="ka">მიჰყევით ფარდობით ფაილის ბმულებს ბმულის გახსნის დამატებით, რომელიც ახლა ნაგულისხმევადაა ჩართული და აქვს გაუმჯობესებული მხარდაჭერა ფაილის ბილიკებისა და URL-ების ამოსაცნობად.</li>
           <li xml:lang="nl">Volg relatieve bestandskoppelingen met de Open Link-plugin, die nu standaard is ingeschakeld en beschikt over een verbeterde herkenning van bestandspaden en URL's.</li>
           <li xml:lang="pt-BR">Siga links de arquivos relativos com o plugin Open Link — agora habilitado por padrão —, que conta com um reconhecimento aprimorado de caminhos de arquivo e URLs.</li>
@@ -1849,6 +1853,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="he">להשאיר את העורך זמין במהלך השלמת קוד במיזם על ידי חיפוש התאמות ברקע.</li>
           <li xml:lang="ia">Mantene le editor responsive durante le completamento de codice del projecto per cercar correspondentias in le fundo (secunde plano).</li>
           <li xml:lang="it">Mantieni l'editor reattivo durante il completamento del codice del progetto, eseguendo la ricerca delle corrispondenze in background.</li>
+          <li xml:lang="ja">キーワード検索をバックグラウンド処理で行うことでスムーズなコード補完を実現</li>
           <li xml:lang="ka">რედაქტორის ცოცხლად დატოვება პროექტის კოდის დასრულებისას დამთხვევების ფონურად ძებნით.</li>
           <li xml:lang="nl">Zorg dat de bewerker responsief blijft tijdens het aanvullen van projectcode door overeenkomsten op de achtergrond op te zoeken.</li>
           <li xml:lang="pt-BR">Mantenha o editor responsivo durante a conclusão de código do projeto, realizando a busca por correspondências em segundo plano.</li>
@@ -1872,6 +1877,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="he">עיצוב קובצי Perl עם perltidy וקובצי CMake עם gersemi.</li>
           <li xml:lang="ia">Formata files Perl con perltidy e files CMake con gersemi.</li>
           <li xml:lang="it">Formatta i file Perl con perltidy e i file CMake con gersemi.</li>
+          <li xml:lang="ja">perltidy で Perl ファイル、gersemi で CMake ファイルをフォーマットできるように</li>
           <li xml:lang="ka">დააფორმატეთ Perl-ის ფაილები perltidy-ით და CMake-ის ფაილები gersemi-ით.</li>
           <li xml:lang="nl">Formatteer Perl-bestanden met perltidy en CMake-bestanden met gersemi.</li>
           <li xml:lang="pt-BR">Formate arquivos Perl com o perltidy e arquivos CMake com o gersemi.</li>

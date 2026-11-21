@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-20 01:17+0000\n"
-"PO-Revision-Date: 2026-10-29 16:09+0200\n"
+"PO-Revision-Date: 2026-11-20 08:13+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -400,16 +400,13 @@ msgstr ""
 "перенесіть дані у новий формат з підлеглим об'єктом «servers»."
 
 #: lspclientservermanager.cpp:874
-#, fuzzy, kde-format
-#| msgid ""
-#| "Found old LSP config format for language '%1', please migrate to the new "
-#| "format with a 'servers' sub-object."
+#, kde-format
 msgid ""
 "Found old LSP command format for '%1', please migrate to a JSON array of "
 "strings."
 msgstr ""
-"Виявлено застарілий формат налаштувань LSP для мови «%1». Будь ласка "
-"перенесіть дані у новий формат з підлеглим об'єктом «servers»."
+"Виявлено застарілий формат команд LSP для «%1», будь ласка, переформатуйте "
+"дані у масив рядків JSON."
 
 #: lspclientservermanager.cpp:975
 #, kde-format

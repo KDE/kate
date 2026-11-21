@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-20 01:17+0000\n"
-"PO-Revision-Date: 2026-11-07 22:32+0200\n"
+"PO-Revision-Date: 2026-11-20 12:15+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -401,16 +401,13 @@ msgstr ""
 "новия формат с под-обект 'servers'."
 
 #: lspclientservermanager.cpp:874
-#, fuzzy, kde-format
-#| msgid ""
-#| "Found old LSP config format for language '%1', please migrate to the new "
-#| "format with a 'servers' sub-object."
+#, kde-format
 msgid ""
 "Found old LSP command format for '%1', please migrate to a JSON array of "
 "strings."
 msgstr ""
-"Открит е стар формат на LSP конфигурацията за език '%1'; моля, преминете към "
-"новия формат с под-обект 'servers'."
+"Открит е стар формат на LSP конфигурацията за „%1“, моля, преминете към JSON "
+"масив от низове."
 
 #: lspclientservermanager.cpp:975
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-20 00:56+0000\n"
-"PO-Revision-Date: 2026-11-13 13:52+0200\n"
+"PO-Revision-Date: 2026-11-20 11:04+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <kde-l10n-he@kde.org>\n"
 "Language: he\n"
@@ -51,13 +51,14 @@ msgstr "בסיס המיזם חייב להיות תיקייה קיימת"
 #: deploymentconfig.cpp:157
 #, kde-format
 msgid "deployment localRoot must not contain traversal"
-msgstr ""
+msgstr "תיקיית המקור המקומית (localRoot) לא יכולה להכיל נסיגות (..)"
 
 #: deploymentconfig.cpp:165
 #, kde-format
 msgid ""
 "deployment localRoot must be an existing directory inside the project base"
 msgstr ""
+"תיקיית המקור המקומית (localRoot) חייב להיות תיקייה קיימת בתוך בסיס המיזם"
 
 #: deploymentconfig.cpp:170
 #, kde-format
@@ -229,14 +230,14 @@ msgstr "העלאה למארח מרוחק"
 #: deploymentplugin.cpp:467
 #, kde-format
 msgid "Open or select a Kate project before configuring deployment."
-msgstr ""
+msgstr "יש לפתוח או לבחור מיזם Kate לפני הגדרת ההטמעה."
 
 #: deploymentplugin.cpp:472
 #, kde-format
 msgid ""
 "Deployment configuration requires a file-backed <filename>.kateproject</"
 "filename>."
-msgstr ""
+msgstr "הגדרות הטמעה דורשות <filename>‎.kateproject</filename> מגובה בקבצים."
 
 #: deploymentplugin.cpp:487
 #, kde-format
@@ -281,7 +282,7 @@ msgstr "העברת הטמעה כבר רצה."
 #: deploymentplugin.cpp:586
 #, kde-format
 msgid "Cannot upload %1 because its remote version is open in Kate."
-msgstr ""
+msgstr "לא ניתן להעלות את %1 כיוון שהגרסה המרוחקת שלו פתוחה ב־Kate."
 
 #: deploymentplugin.cpp:596
 #, kde-format
@@ -292,10 +293,10 @@ msgstr "לא נבחרו קבצים שאפשר להטמיע."
 #, kde-format
 msgid "Queued one file for upload."
 msgid_plural "Queued %1 files for upload."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "קובץ אחד ממתין לשליחה."
+msgstr[1] "שני קבצים ממתינים לשליחה."
+msgstr[2] "%1 קבצים ממתינים לשליחה."
+msgstr[3] "%1 קבצים ממתינים לשליחה."
 
 #: deploymentplugin.cpp:620 deploymentplugin.cpp:674
 #, kde-format
@@ -337,7 +338,7 @@ msgstr "לא מחובר"
 #, kde-format
 msgid ""
 "The SFTP KIO worker is not installed or does not support directory listing."
-msgstr ""
+msgstr "סוכן הפעילות של KIO ל־SFTP לא מותקן או שאינו תומך בהצגת תוכן תיקיות."
 
 #: deploymentplugin.cpp:801
 #, kde-format

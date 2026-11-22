@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-14 01:07+0000\n"
-"PO-Revision-Date: 2026-04-26 21:43+0200\n"
+"PO-Revision-Date: 2026-11-21 23:53+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
@@ -226,7 +226,7 @@ msgstr "대소문자 구분"
 msgid ""
 "Smart case: Case-sensitive only when search pattern contains uppercase "
 "characters"
-msgstr ""
+msgstr "똑똑한 대소문자: 패턴에 대문자가 포함되어 있을 경우에만 대소문자 구분"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
 #: search.ui:150

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-10 01:01+0000\n"
-"PO-Revision-Date: 2026-10-03 23:15+0200\n"
+"PO-Revision-Date: 2026-11-21 23:53+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -697,19 +697,17 @@ msgstr "오류"
 #: kateproject.cpp:317
 #, kde-format
 msgid "'%1' is not a valid file name."
-msgstr ""
+msgstr "'%1'은(는) 올바른 파일 이름이 아닙니다."
 
 #: kateproject.cpp:328
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "A file named '%1' already exists."
-msgstr "파일 이름이 이미 존재함"
+msgstr "이름이 '%1'인 파일이 이미 존재합니다."
 
 #: kateproject.cpp:350
-#, fuzzy, kde-format
-#| msgid "Failed to create file: %1, Error: %2"
+#, kde-format
 msgid "Failed to rename '%1' to '%2': %3"
-msgstr "파일을 만들 수 없음: %1, 오류: %2"
+msgstr "'%1' 파일의 이름을 '%2'(으)로 변경할 수 없음: %3"
 
 #: kateproject.cpp:459
 #, kde-format
@@ -896,17 +894,17 @@ msgstr "교차 프로젝트 심볼로 이동"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Window Title"
-msgstr ""
+msgstr "창 제목"
 
 #: kateprojectconfigpage.cpp:119
 #, kde-format
 msgid "Prefix window title with project name"
-msgstr ""
+msgstr "창 제목 앞에 프로젝트 이름 덧붙이기"
 
 #: kateprojectconfigpage.cpp:121
 #, kde-format
 msgid "Show the current project's name before the existing window title."
-msgstr ""
+msgstr "현재 프로젝트 이름을 창 제목 앞에 표시합니다."
 
 #: kateprojectconfigpage.cpp:131
 #, kde-format
@@ -1110,7 +1108,7 @@ msgstr ""
 #: kateprojectplugin.cpp:793
 #, kde-format
 msgid "File path relative to the project directory"
-msgstr ""
+msgstr "프로젝트 디렉터리에 상대적인 파일 경로"
 
 #: kateprojectpluginview.cpp:66
 #, kde-format
@@ -1336,7 +1334,7 @@ msgstr "디렉터리를 찾을 수 없음: %1"
 #: kateprojectworker.cpp:318
 #, kde-format
 msgid "Invalid regex pattern in exclude_patterns %1"
-msgstr ""
+msgstr "exclude_patterns %1에 잘못된 정규 표현식 패턴"
 
 #: kateprojectworker.cpp:804
 #, kde-format
@@ -1380,10 +1378,9 @@ msgstr ""
 "종료합니다."
 
 #: stashdialog.cpp:142 stashdialog.cpp:204
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgid "Failed to run git: %1"
-msgstr "커밋할 수 없음: %1"
+msgstr "git을 실행할 수 없음: %1"
 
 #: stashdialog.cpp:168
 #, kde-format
@@ -1398,7 +1395,7 @@ msgstr "변경 사항을 스태시했습니다."
 #: stashdialog.cpp:189
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "불러오는 중..."
 
 #: stashdialog.cpp:198
 #, kde-format

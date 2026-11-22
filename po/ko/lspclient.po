@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-20 01:17+0000\n"
-"PO-Revision-Date: 2026-02-04 00:36+0100\n"
+"PO-Revision-Date: 2026-11-21 23:54+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:357
 #, kde-format
@@ -393,6 +393,8 @@ msgid ""
 "Found old LSP config format for language '%1', please migrate to the new "
 "format with a 'servers' sub-object."
 msgstr ""
+"'%1' 언어의 오래된 LSP 설정 형식을 찾았습니다. 'servers' 하위 객체를 사용하"
+"는 새 형식으로 이전하십시오."
 
 #: lspclientservermanager.cpp:874
 #, kde-format
@@ -400,6 +402,8 @@ msgid ""
 "Found old LSP command format for '%1', please migrate to a JSON array of "
 "strings."
 msgstr ""
+"'%1' 언어의 오래된 LSP 명령 형식을 찾았습니다. 문자열의 JSON 배열로 이전하십"
+"시오."
 
 #: lspclientservermanager.cpp:975
 #, kde-format

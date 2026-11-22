@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-04 01:07+0000\n"
-"PO-Revision-Date: 2026-09-21 22:50+0200\n"
-"Last-Translator: Shinjo Park <peremen@gmail.com>\n"
-"Language-Team: Korean\n"
+"PO-Revision-Date: 2026-11-21 23:51+0100\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 26.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1481,6 +1481,8 @@ msgid ""
 "File \"%1\" is already open in another document. Please close that document "
 "first if you want to overwrite it or choose a different name."
 msgstr ""
+"\"%1\" 파일이 다른 문서에서 열려 있습니다. 해당 파일을 덮어쓰려면 먼저 문서"
+"를 닫거나, 다른 이름을 지정하십시오."
 
 #: lib/katefileactions.cpp:130
 #, kde-format
@@ -1632,10 +1634,9 @@ msgid "Copy Filename"
 msgstr "파일 이름 복사"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "클립보드에 현재 파일 경로를 복사합니다."
+msgstr "클립보드에 현재 파일의 파일 이름을 복사합니다."
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
@@ -1643,10 +1644,9 @@ msgid "&Open Containing Folder"
 msgstr "포함하는 폴더 열기(&O)"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "현재 탭 오른쪽에 새 탭 열기"
+msgstr "현재 파일이 포함된 폴더를 엽니다."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format

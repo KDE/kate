@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-20 00:56+0000\n"
-"PO-Revision-Date: 2026-11-20 11:04+0200\n"
+"PO-Revision-Date: 2026-11-21 07:59+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <kde-l10n-he@kde.org>\n"
 "Language: he\n"
@@ -51,19 +51,21 @@ msgstr "בסיס המיזם חייב להיות תיקייה קיימת"
 #: deploymentconfig.cpp:157
 #, kde-format
 msgid "deployment localRoot must not contain traversal"
-msgstr "תיקיית המקור המקומית (localRoot) לא יכולה להכיל נסיגות (..)"
+msgstr "תיקיית המקור המקומית (localRoot) של ההטמעה לא יכולה להכיל נסיגות (..)"
 
 #: deploymentconfig.cpp:165
 #, kde-format
 msgid ""
 "deployment localRoot must be an existing directory inside the project base"
 msgstr ""
-"תיקיית המקור המקומית (localRoot) חייב להיות תיקייה קיימת בתוך בסיס המיזם"
+"תיקיית המקור המקומית (localRoot) של ההטמעה חייבת להיות תיקייה קיימת בתוך "
+"בסיס המיזם"
 
 #: deploymentconfig.cpp:170
 #, kde-format
 msgid "deployment remoteRoot must be an absolute path without traversal"
 msgstr ""
+"תיקיית המקור המרוחק (remoteRoot) של ההטמעה חייבת להיות נתיב מוחלט בלי נסיגות"
 
 #: deploymentconfig.cpp:182
 #, kde-format
@@ -93,7 +95,7 @@ msgstr ""
 #: deploymentplugin.cpp:136
 #, kde-format
 msgid "One project-relative glob per line"
-msgstr ""
+msgstr "אפשר עד מסנן אחד שקשור למיזם בשורה"
 
 #: deploymentplugin.cpp:138
 #, kde-format

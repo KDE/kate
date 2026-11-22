@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Shinjo Park <kde@peremen.name>, 2021.
+# SPDX-FileCopyrightText: 2021, 2026 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-19 00:50+0000\n"
-"PO-Revision-Date: 2021-05-16 20:35+0200\n"
+"PO-Revision-Date: 2026-11-21 23:51+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 20.12.3\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: colorpickerconfigpage.cpp:34
 #, kde-format
@@ -23,18 +23,14 @@ msgid "Show preview for known color names"
 msgstr "알려진 색 이름의 미리 보기 표시"
 
 #: colorpickerconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgid ""
-#| "Also show the color picker for known color names (e.g. skyblue).\n"
-#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-#| "colors."
+#, kde-format
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
 "See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
 "알려진 색 이름의 미리 보기를 표시합니다(예: skyblue).\n"
-"색 목록을 보려면 https://www.w3.org/TR/SVG11/types.html#ColorKeywords 페이지"
-"를 참조하십시오."
+"색 목록을 보려면 https://www.w3.org/TR/css-color-4/#named-colors 페이지를 참"
+"조하십시오."
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format

@@ -53,10 +53,9 @@ public:
             return;
         }
         QDataStream stream(&save);
-        QMap<QString, QStringList> data;
         stream << m_args;
         auto ret = save.commit();
-        qCDebug(LibKateExec) << "save exec config" << data << ret;
+        qCDebug(LibKateExec) << "save exec config" << m_args << ret;
     }
 
     void update(QString name, QStringList args)

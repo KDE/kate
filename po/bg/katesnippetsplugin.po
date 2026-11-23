@@ -1,0 +1,380 @@
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2026 Mincho Kondarev <mkondarev@yahoo.de>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-07-04 00:47+0000\n"
+"PO-Revision-Date: 2026-11-22 19:17+0100\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 26.08.3\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Минчо Кондарев"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "mkondarev@yahoo.de"
+
+#: editrepository.cpp:80 editrepository.cpp:125
+#, kde-format
+msgid "Edit Snippet Repository %1"
+msgstr "Редактиране на хранилището за снипети %1"
+
+#: editrepository.cpp:82
+#, kde-format
+msgid "Create New Snippet Repository"
+msgstr "Създаване на ново хранилище за снипети"
+
+#: editrepository.cpp:141
+#, kde-format
+msgid "<i>leave empty for general purpose snippets</i>"
+msgstr "<i>оставете празно за общи снипети</i>"
+
+#. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
+#. i18n: ectx: property (text), widget (QLabel, snippetName)
+#: editrepository.ui:29 editsnippet.ui:37
+#, kde-format
+msgid "Name:"
+msgstr "Име:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoNamespaceLabel)
+#: editrepository.ui:36
+#, kde-format
+msgid "Namespace:"
+msgstr "Пространство от имена:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoLicenseLabel)
+#: editrepository.ui:43
+#, kde-format
+msgid "&License:"
+msgstr "&Лиценз:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoAuthorsLabel)
+#: editrepository.ui:56
+#, kde-format
+msgid "&Authors:"
+msgstr "&Автори:"
+
+#. i18n: ectx: property (text), widget (QLabel, repoFileTypesLabel)
+#: editrepository.ui:69
+#, kde-format
+msgid "&File types:"
+msgstr "&Типове файлове:"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNameEdit)
+#: editrepository.ui:96
+#, kde-format
+msgid "A short name for the repository"
+msgstr "Кратко име на хранилището"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNamespaceEdit)
+#: editrepository.ui:103
+#, kde-format
+msgid "Prefix to show in code completion"
+msgstr "Префикс за показване при автоматично допълване на кода"
+
+#: editsnippet.cpp:73
+#, kde-format
+msgid ""
+"Text to insert into the document (see the <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
+"special fields)."
+msgstr ""
+"Текст за вмъкване в документа (вижте <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-template\">ръководството</a> за "
+"специалните полета)."
+
+#: editsnippet.cpp:79
+#, kde-format
+msgid ""
+"JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
+msgstr ""
+"JavaScript код за изпълнение (вижте <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">ръководството</a> за "
+"подробности)."
+
+#: editsnippet.cpp:86
+#, kde-format
+msgid "Text template"
+msgstr "Шаблон за текст"
+
+#: editsnippet.cpp:87
+#, kde-format
+msgid "Script"
+msgstr "Скрипт"
+
+#: editsnippet.cpp:99
+#, kde-format
+msgid ""
+"JavaScript functions shared between all snippets in this repository (see the "
+"<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">handbook</a>)."
+msgstr ""
+"JavaScript функции, споделени между всички снипети в това хранилище (вижте "
+"<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">ръководството</a>)."
+
+#: editsnippet.cpp:103
+#, kde-format
+msgid ""
+"Optional description to show in tooltips. You may use basic HTML formatting."
+msgstr ""
+"Опционално описание за показване в подсказките. Може да се използва базово "
+"HTML форматиране."
+
+#: editsnippet.cpp:125 editsnippet.cpp:218
+#, kde-format
+msgid "Edit Snippet %1 in %2"
+msgstr "Редакция на снипет %1 в %2"
+
+#: editsnippet.cpp:138
+#, kde-format
+msgid "Create New Snippet in Repository %1"
+msgstr "Създаване на нов снипет в хранилище %1"
+
+#: editsnippet.cpp:188
+#, kde-format
+msgid "Snippet names with spaces may not work well in completions"
+msgstr ""
+"Имената на снипети с интервали може да не работят правилно при автоматичното "
+"допълване"
+
+#: editsnippet.cpp:230
+#, kde-format
+msgid ""
+"The snippet contains unsaved changes. Do you want to discard all changes?"
+msgstr ""
+"Снипетът съдържа незапазени промени. Желаете ли отхвърлянето на всички "
+"промени?"
+
+#: editsnippet.cpp:231
+#, kde-format
+msgid "Warning - Unsaved Changes"
+msgstr "Предупреждение - незапазени промени"
+
+#: editsnippet.cpp:233
+#, kde-format
+msgid "Continue editing"
+msgstr "Продължаване на редактирането"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
+#: editsnippet.ui:44
+#, kde-format
+msgid "Name to be shown in the completion list (required)"
+msgstr "Име за показване в списъка с автоматично допълване (задължително)"
+
+#. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
+#: editsnippet.ui:55
+#, kde-format
+msgid "Snippet Mode:"
+msgstr "Режим на снипет:"
+
+#. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
+#: editsnippet.ui:78
+#, kde-format
+msgid "Keyboard shortcut:"
+msgstr "Клавишна комбинация:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
+#: editsnippet.ui:100
+#, kde-format
+msgid "&Snippet"
+msgstr "&Снипет"
+
+#. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
+#: editsnippet.ui:117
+#, kde-format
+msgid "S&cript Library"
+msgstr "Библиотека със скрипт&ове"
+
+#. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
+#: editsnippet.ui:131
+#, kde-format
+msgid "Description"
+msgstr "Описание"
+
+#. i18n: ectx: property (text), widget (QPushButton, dotest_button)
+#: editsnippet.ui:151
+#, kde-format
+msgid "Test this snippet"
+msgstr "Тестване на този снипет"
+
+#: katesnippetglobal.cpp:101
+#, kde-format
+msgctxt "Autogenerated repository name for a programming language"
+msgid "%1 snippets"
+msgstr "%1 снипета"
+
+#: katesnippets.cpp:42 katesnippets.cpp:50 snippetcompletionmodel.cpp:43
+#: snippetview.cpp:76 snippetview.cpp:202
+#, kde-format
+msgid "Snippets"
+msgstr "Снипети"
+
+#: katesnippets.cpp:61
+#, kde-format
+msgid "Create Snippet"
+msgstr "Създаване на снипет"
+
+#: snippet.cpp:22
+#, kde-format
+msgid "<empty snippet>"
+msgstr "<празен снипет>"
+
+#: snippet.cpp:91
+#, kde-format
+msgid "insert snippet %1"
+msgstr "вмъкване на снипет %1"
+
+#: snippet.cpp:108
+#, kde-format
+msgid ""
+"Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
+"use this type of snippet."
+msgstr ""
+"Kate трябва да бъде компилиран с KTExtEditor версия 6.15.0 или по-нова, за "
+"използване на този тип снипети."
+
+#: snippetrepository.cpp:45
+#, kde-format
+msgid "<empty repository>"
+msgstr "<празно хранилище>"
+
+#: snippetrepository.cpp:232
+#, kde-format
+msgid ""
+"You have edited a snippet repository file not located in your personal "
+"directory; as such, a copy of the original file has been created within your "
+"personal data directory."
+msgstr ""
+"Редактирахте файл на хранилище за снипети (snippet), който не се намира във "
+"вашата лична директория; поради това копие на оригиналния файл беше "
+"създадено във вашата директория за лични данни."
+
+#: snippetrepository.cpp:238
+#, kde-format
+msgid "Output file '%1' could not be opened for writing"
+msgstr "Изходният файл '%1' не можа да бъде отворен за запис"
+
+#: snippetrepository.cpp:273
+#, kde-format
+msgid "Cannot open snippet repository %1."
+msgstr "Не може да се отвори хранилището за снипети %1."
+
+#: snippetrepository.cpp:280
+#, kde-format
+msgid ""
+"<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
+msgstr "<qt>Открита е грешка <b>%4</b><br /> във файл %1 на ред %2/%3</qt>"
+
+#: snippetrepository.cpp:291
+#, kde-format
+msgid "Invalid XML snippet file: %1"
+msgstr "Невалиден XML файл с снипети: %1"
+
+#: snippetrepository.cpp:360
+#, kde-format
+msgid ""
+"Repository is disabled, the contained snippets will not be shown during code-"
+"completion."
+msgstr ""
+"Репозиторият е деактивиран; съдържащите се в него снипети няма да се "
+"показват при автоматичното допълване на код."
+
+#: snippetrepository.cpp:363
+#, kde-format
+msgid "Applies to all filetypes"
+msgstr "Прилагане към всички типове файлове"
+
+#: snippetrepository.cpp:365
+#, kde-format
+msgid "Applies to the following filetypes: %1"
+msgstr "Прилага се за следните типове файлове: %1"
+
+#: snippetview.cpp:93
+#, kde-format
+msgid "Add Repository"
+msgstr "Добавяне на хранилище"
+
+#: snippetview.cpp:96
+#, kde-format
+msgid "Edit Repository"
+msgstr "Редактиране на хранилище"
+
+#: snippetview.cpp:99
+#, kde-format
+msgid "Remove Repository"
+msgstr "Премахване на хранилището"
+
+#: snippetview.cpp:109
+#, kde-format
+msgid "Add Snippet"
+msgstr "Добавяне на снипет"
+
+#: snippetview.cpp:112
+#, kde-format
+msgid "Edit Snippet"
+msgstr "Редактиране на снипет"
+
+#: snippetview.cpp:115
+#, kde-format
+msgid "Remove Snippet"
+msgstr "Премахване на снипет"
+
+#: snippetview.cpp:121
+#, kde-format
+msgid "Get New Snippets"
+msgstr "Изтегляне на нови снипети"
+
+#: snippetview.cpp:210
+#, kde-format
+msgid "Snippet: %1"
+msgstr "Снипет: %1"
+
+#: snippetview.cpp:218
+#, kde-format
+msgid "Repository: %1"
+msgstr "Хранилище: %1"
+
+#: snippetview.cpp:283
+#, kde-format
+msgid "Do you really want to delete the snippet \"%1\"?"
+msgstr "Наистина ли искате да изтриете снипет „%1“?"
+
+#: snippetview.cpp:327
+#, kde-format
+msgid ""
+"Do you really want to delete the repository \"%1\" with all its snippets?"
+msgstr ""
+"Наистина ли искате да изтриете хранилището „%1“ с всички негови снипети?"
+
+#. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)
+#: snippetview.ui:35
+#, kde-format
+msgid "Define filter here"
+msgstr "Дефиниране на филтър тук"
+
+#. i18n: ectx: property (placeholderText), widget (KLineEdit, filterText)
+#: snippetview.ui:38
+#, kde-format
+msgid "Filter..."
+msgstr "Филтър..."
+
+#. i18n: ectx: Menu (tools)
+#: ui.rc:6
+#, kde-format
+msgid "&Tools"
+msgstr "&Инструменти"

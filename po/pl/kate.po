@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision$
+# Version: $Revision: 1753892 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011-2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-04 01:07+0000\n"
-"PO-Revision-Date: 2026-09-27 21:07+0200\n"
+"PO-Revision-Date: 2026-11-22 08:28+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 26.08.0\n"
+"X-Generator: Lokalize 26.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1522,6 +1522,8 @@ msgid ""
 "File \"%1\" is already open in another document. Please close that document "
 "first if you want to overwrite it or choose a different name."
 msgstr ""
+"Plik \"%1\" jest już otwarty w innym dokumencie. Najpierw zamknij ten "
+"dokument, jeśli chcesz go zastąpić lub nadaj inną nazwę."
 
 #: lib/katefileactions.cpp:130
 #, kde-format
@@ -1674,8 +1676,7 @@ msgid "Copy Filename"
 msgstr "Skopiuj nazwę pliku"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
 msgstr "Kopiuje ścieżkę do bieżącego pliku do schowka."
 
@@ -1685,10 +1686,9 @@ msgid "&Open Containing Folder"
 msgstr "&Otwórz katalog zawierający"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "Nową kartę otwórz po prawo od bieżącej"
+msgstr "Otwiera katalog zawierający bieżący plik."
 
 #: lib/katemainwindow.cpp:491
 #, kde-format
@@ -2800,10 +2800,9 @@ msgid "Wildcard Filtering"
 msgstr "Filtrowanie po znakach wieloznacznych"
 
 #: lib/quickopen/katequickopenlineedit.cpp:129
-#, fuzzy, kde-format
-#| msgid "&Match Mode:"
+#, kde-format
 msgid "Match Folder Names"
-msgstr "Tryb &dopasowywania:"
+msgstr "Dopasuj nazwy katalogów"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format

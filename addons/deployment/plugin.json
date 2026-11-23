@@ -15,6 +15,7 @@
         "Description[ka]": "ატვირთეთ პროექტის ფაილები SFTP-ით და დაათვალიერეთ დაშორებული ჰოსტი",
         "Description[ko]": "SFTP로 프로젝트 파일을 업로드하고 원격 호스트 탐색",
         "Description[nl]": "Projectbestanden uploaden over SFTP en op de externe host bladeren",
+        "Description[pl]": "Wysyłanie plików projektu przez SFTP i przeglądanie zdalnych serwerów",
         "Description[pt_BR]": "Envia arquivos de projeto via SFTP e navega pelo host remoto",
         "Description[ru]": "Отправка файлов проекта по SFTP и просмотр удалённого узла",
         "Description[sk]": "Nahrať súbory projektu cez SFTP a prehliadať vzdialený počítač",
@@ -25,6 +26,7 @@
         "Description[sr]": "Отпрема фајлове пројекта преко СФТП‑а и омогућава прегледање удаљеног домаћина",
         "Description[tr]": "Proje dosyalarını SFTP üzerinden karşıya yükleyin ve uzak makineye göz atın",
         "Description[uk]": "Вивантаження файлів проєкту за допомогою SFTP і навігація віддаленим вузлом",
+        "Description[zh_CN]": "通过 SFTP 上传项目文件并浏览远程主机",
         "Name": "Deployment",
         "Name[ar]": "النشر",
         "Name[bg]": "Разгръщане",
@@ -40,6 +42,7 @@
         "Name[ka]": "განლაგება",
         "Name[ko]": "배포",
         "Name[nl]": "Deployment",
+        "Name[pl]": "Wgrywanie",
         "Name[pt_BR]": "Implantação",
         "Name[ru]": "Развёртывание",
         "Name[sk]": "Nasadenie",
@@ -49,6 +52,7 @@
         "Name[sr@latin]": "Razvijanje",
         "Name[sr]": "Развијање",
         "Name[tr]": "Konuşlandırma",
-        "Name[uk]": "Розгортання"
+        "Name[uk]": "Розгортання",
+        "Name[zh_CN]": "部署"
     }
 }

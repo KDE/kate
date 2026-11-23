@@ -15,6 +15,7 @@
         "Description[ka]": "აჩვენებს Git-ის ცვლილების მაჩვენებლებს რედაქტორის მინდვრებზე",
         "Description[ko]": "Git 변경 표시기를 편집기 여백에 표시",
         "Description[nl]": "Toont Git-wijzigingsindicatoren in de marges van de bewerker.",
+        "Description[pl]": "Wyświetla wskaźniki zmian w Gicie na marginesach edytora",
         "Description[pt_BR]": "Exibir indicadores de alterações do Git nas margens do editor",
         "Description[ru]": "Показ отметок изменений Git на полях редактора",
         "Description[sk]": "Zobrazuje indikátory zmien Gitu na okrajoch editora",
@@ -25,6 +26,7 @@
         "Description[sr]": "Приказује гит ознаке измена на маргинама уређивача",
         "Description[tr]": "Düzenleyici kenar boşluklarında Git değişiklik göstergelerini gösterin",
         "Description[uk]": "Показує індикатори змін у Git на полях редактора",
+        "Description[zh_CN]": "在编辑器边距中显示 Git 变更指示符",
         "Name": "Git Decorations",
         "Name[ar]": "زخارف غت",
         "Name[bg]": "Декорации на Git",
@@ -40,6 +42,7 @@
         "Name[ka]": "Git-ის დეკორაციები",
         "Name[ko]": "Git 장식",
         "Name[nl]": "Git-decoraties",
+        "Name[pl]": "Git ozdobny",
         "Name[pt_BR]": "Decorações do Git",
         "Name[ru]": "Отметки Git",
         "Name[sk]": "Dekorácie Gitu",
@@ -49,6 +52,7 @@
         "Name[sr@latin]": "Git oznake",
         "Name[sr]": "Гит ознаке",
         "Name[tr]": "Git Dekorasyonları",
-        "Name[uk]": "Декорування Git"
+        "Name[uk]": "Декорування Git",
+        "Name[zh_CN]": "Git 修饰"
     }
 }

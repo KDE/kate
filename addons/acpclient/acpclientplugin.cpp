@@ -84,7 +84,7 @@ QObject *ACPClientPlugin::createView(KTextEditor::MainWindow *mainWindow)
 void ACPClientPlugin::showMessage(MessageType level, const QString &msg)
 {
     const auto icon = QIcon::fromTheme(QStringLiteral("internet-services"));
-    Utils::showMessage(msg, icon, i18n("Keyboard Macros"), level);
+    Utils::showMessage(msg, icon, i18n("ACP Client"), level);
 }
 
 int ACPClientPlugin::configPages() const

@@ -1880,6 +1880,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ja">perltidy で Perl ファイル、gersemi で CMake ファイルをフォーマットできるように</li>
           <li xml:lang="ka">დააფორმატეთ Perl-ის ფაილები perltidy-ით და CMake-ის ფაილები gersemi-ით.</li>
           <li xml:lang="nl">Formatteer Perl-bestanden met perltidy en CMake-bestanden met gersemi.</li>
+          <li xml:lang="pl">Formatuj pliki Perla przy użyciu perltidy oraz pliki CMake przy użyciu gersemi.</li>
           <li xml:lang="pt-BR">Formate arquivos Perl com o perltidy e arquivos CMake com o gersemi.</li>
           <li xml:lang="ru">Форматирование файлов Perl с помощью perltidy и файлов CMake с помощью gersemi.</li>
           <li xml:lang="sk">Formátovanie súborov Perl pomocou perltidy a súborov CMake pomocou gersemi.</li>

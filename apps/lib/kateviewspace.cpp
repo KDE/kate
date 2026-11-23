@@ -1187,11 +1187,9 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     aCloseAllTabs->setEnabled(m_tabBar->documentList().size() > 1);
     connect(aCloseAllTabs, &QAction::triggered, this, [this] {
         QTimer::singleShot(0, this, [this]() {
-            // TODO simplify this, we can just iterate 0..tabBar->count();
-            const auto tabDocuments = m_tabBar->documentList();
-            for (auto docOrWid : tabDocuments) {
-                int idx = m_tabBar->documentIdx(docOrWid);
-                closeTabRequest(idx);
+            // Close all tabs
+            while (m_tabBar->count() > 0) {
+                closeTabRequest(0);
             }
         });
     });

@@ -1349,13 +1349,13 @@ msgstr "诊断工具视图允许的最大诊断数量。"
 #: lib/kateconfigdialog.cpp:409
 #, kde-format
 msgid "Show diagnostic messages at the end of the line"
-msgstr ""
+msgstr "行尾显示诊断消息"
 
 #: lib/kateconfigdialog.cpp:411
 #, kde-format
 msgid ""
 "Show the message of the most severe diagnostic of a line after its text."
-msgstr ""
+msgstr "在每行文本之后显示该行最严重的诊断信息。"
 
 #: lib/kateconfigdialog.cpp:415 lib/texthint/hintview.cpp:25
 #, kde-format
@@ -1490,6 +1490,8 @@ msgid ""
 "File \"%1\" is already open in another document. Please close that document "
 "first if you want to overwrite it or choose a different name."
 msgstr ""
+"文件“%1”已在另一个文档中打开。 如果您想要覆盖该文档，请先关闭该文档或选择一个"
+"不同的。"
 
 #: lib/katefileactions.cpp:130
 #, kde-format
@@ -1640,10 +1642,9 @@ msgid "Copy Filename"
 msgstr "复制文件名"
 
 #: lib/katemainwindow.cpp:478
-#, fuzzy, kde-format
-#| msgid "Copies the file path of the current file to clipboard."
+#, kde-format
 msgid "Copies the file name of the current file to clipboard."
-msgstr "复制当前文件的路径到剪贴板。"
+msgstr "复制当前文件的文件名到剪贴板。"
 
 #: lib/katemainwindow.cpp:482 lib/welcomeview/welcomeview.cpp:275
 #, kde-format
@@ -1651,10 +1652,9 @@ msgid "&Open Containing Folder"
 msgstr "打开所在文件夹(&O)"
 
 #: lib/katemainwindow.cpp:487
-#, fuzzy, kde-format
-#| msgid "Open new tabs to the right of the current tab"
+#, kde-format
 msgid "Opens containing folder of the current file."
-msgstr "在当前标签页右侧打开新标签页"
+msgstr "打开当前文件所在的文件夹。"
 
 #: lib/katemainwindow.cpp:491
 #, kde-format
@@ -2725,7 +2725,7 @@ msgstr "通配符过滤"
 #: lib/quickopen/katequickopenlineedit.cpp:129
 #, kde-format
 msgid "Match Folder Names"
-msgstr ""
+msgstr "匹配文件夹名"
 
 #: lib/quickopen/katequickopenmodel.cpp:174
 #, kde-format

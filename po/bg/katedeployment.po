@@ -1,0 +1,382 @@
+# Bulgarian translations for kate package.
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Automatically generated, 2026.
+#
+# SPDX-FileCopyrightText: 2026 Mincho Kondarev <mkondarev@yahoo.de>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-10-20 00:56+0000\n"
+"PO-Revision-Date: 2026-11-22 18:13+0100\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 26.08.3\n"
+
+#: deploymentconfig.cpp:108
+#, kde-format
+msgid "deployment must be an object"
+msgstr "разгръщането трябва да бъде обект"
+
+#: deploymentconfig.cpp:123
+#, kde-format
+msgid "deployment host must not be empty"
+msgstr "Хостът за разгръщане не трябва да бъде празен"
+
+#: deploymentconfig.cpp:126 deploymentconfig.cpp:130 deploymentconfig.cpp:193
+#, kde-format
+msgid "deployment host is invalid"
+msgstr "Хостът за разгръщане е невалиден"
+
+#: deploymentconfig.cpp:139
+#, kde-format
+msgid "deployment port must be between 1 and 65535"
+msgstr "портът за разгръщане трябва да бъде между 1 и 65535"
+
+#: deploymentconfig.cpp:145
+#, kde-format
+msgid "project base must not be empty"
+msgstr "базата на проекта не трябва да бъде празна"
+
+#: deploymentconfig.cpp:150
+#, kde-format
+msgid "project base must be an existing directory"
+msgstr "базата на проекта трябва да бъде съществуваща директория"
+
+#: deploymentconfig.cpp:157
+#, kde-format
+msgid "deployment localRoot must not contain traversal"
+msgstr "Локалният корен на разгръщането не трябва да съдържа traversal"
+
+#: deploymentconfig.cpp:165
+#, kde-format
+msgid ""
+"deployment localRoot must be an existing directory inside the project base"
+msgstr ""
+"локалният корен (localRoot) на разгръщането трябва да бъде съществуваща "
+"директория в основната папка на проекта"
+
+#: deploymentconfig.cpp:170
+#, kde-format
+msgid "deployment remoteRoot must be an absolute path without traversal"
+msgstr ""
+"дистанционният корен (remoteRoot) на разгръщането трябва да бъде абсолютен "
+"път без обхождане на директории (traversal)"
+
+#: deploymentconfig.cpp:182
+#, kde-format
+msgid "deployment exclude entries must be strings"
+msgstr "записите за изключване при разгръщане трябва да бъдат низове"
+
+#: deploymentconfig.cpp:187
+#, kde-format
+msgid "deployment exclude must be a list of strings"
+msgstr "Изключванията при разгръщане трябва да бъдат списък от низове"
+
+#: deploymentplugin.cpp:115
+#, kde-format
+msgctxt "@title:window"
+msgid "Configure Deployment"
+msgstr "Конфигурация на разгръщането"
+
+#: deploymentplugin.cpp:119
+#, kde-format
+msgid ""
+"Configure the SFTP destination for <filename>%1</filename>. Authentication "
+"is handled by KIO."
+msgstr ""
+"Конфигуриране на SFTP дестинацията за <filename>%1</filename>. "
+"Автентификацията се управлява от KIO."
+
+#: deploymentplugin.cpp:136
+#, kde-format
+msgid "One project-relative glob per line"
+msgstr "По един glob относно проекта на ред"
+
+#: deploymentplugin.cpp:138
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Host:"
+msgstr "Хост:"
+
+#: deploymentplugin.cpp:139
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Port:"
+msgstr "Порт:"
+
+#: deploymentplugin.cpp:140
+#, kde-format
+msgctxt "@label:textbox"
+msgid "User:"
+msgstr "Потребител:"
+
+#: deploymentplugin.cpp:141
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Local root:"
+msgstr "Локален корен:"
+
+#: deploymentplugin.cpp:142
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Remote root:"
+msgstr "Дистанционен корен:"
+
+#: deploymentplugin.cpp:143
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Exclude:"
+msgstr "Изключване:"
+
+#: deploymentplugin.cpp:170
+#, kde-format
+msgctxt "@title:window"
+msgid "Invalid Deployment Configuration"
+msgstr "Невалидна конфигурация за разгръщане"
+
+#: deploymentplugin.cpp:210 deploymentplugin.cpp:853
+#, kde-format
+msgid "Deployment"
+msgstr "Разгръщане"
+
+#: deploymentplugin.cpp:214
+#, kde-format
+msgctxt "@action"
+msgid "Upload Current File"
+msgstr "Качване на текущия файл"
+
+#: deploymentplugin.cpp:219
+#, kde-format
+msgctxt "@action"
+msgid "Upload Project"
+msgstr "Качване на проект"
+
+#: deploymentplugin.cpp:223 deploymentplugin.cpp:661
+#, kde-format
+msgctxt "@action"
+msgid "Cancel Deployment Transfers"
+msgstr "Отказ на трансфери за разгръщане"
+
+#: deploymentplugin.cpp:227
+#, kde-format
+msgctxt "@action"
+msgid "Configure Deployment..."
+msgstr "Конфигуриране на разгръщане..."
+
+#: deploymentplugin.cpp:231
+#, kde-format
+msgctxt "@action"
+msgid "Browse Remote Host"
+msgstr "Преглед на отдалечен хост"
+
+#: deploymentplugin.cpp:238
+#, kde-format
+msgid "Remote Host"
+msgstr "Дистанционен хост"
+
+#: deploymentplugin.cpp:261
+#, kde-format
+msgctxt "@action"
+msgid "Deployment Root"
+msgstr "Корен на разгръщане"
+
+#: deploymentplugin.cpp:275
+#, kde-format
+msgid "File Transfer"
+msgstr "Трансфер на файлове"
+
+#: deploymentplugin.cpp:281
+#, kde-format
+msgctxt "@action:button"
+msgid "Cancel"
+msgstr "Отказ"
+
+#: deploymentplugin.cpp:282
+#, kde-format
+msgctxt "@action:button"
+msgid "Clear"
+msgstr "Изчистване"
+
+#: deploymentplugin.cpp:323
+#, kde-format
+msgid "Loading %1..."
+msgstr "Зареждане на %1..."
+
+#: deploymentplugin.cpp:328
+#, kde-format
+msgid "Connected to %1"
+msgstr "Свързано с %1"
+
+#: deploymentplugin.cpp:335
+#, kde-format
+msgid "Failed to list %1 (KIO error %2): %3"
+msgstr "Грешка при изброяване на %1 (KIO грешка %2): %3"
+
+#: deploymentplugin.cpp:427
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload Folder to Remote Host"
+msgstr "Качване на папка в отдалечен хост"
+
+#: deploymentplugin.cpp:427
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload to Remote Host"
+msgstr "Качване в отдалечен хост"
+
+#: deploymentplugin.cpp:467
+#, kde-format
+msgid "Open or select a Kate project before configuring deployment."
+msgstr ""
+"Отваряне или избор на проект в Kate преди конфигуриране на внедряването."
+
+#: deploymentplugin.cpp:472
+#, kde-format
+msgid ""
+"Deployment configuration requires a file-backed <filename>.kateproject</"
+"filename>."
+msgstr ""
+"Конфигурацията за разгръщане изисква файл <filename>.kateproject</filename>."
+
+#: deploymentplugin.cpp:487
+#, kde-format
+msgid "Could not read <filename>%1</filename>."
+msgstr "Не може да се прочете <filename>%1</filename>."
+
+#: deploymentplugin.cpp:493
+#, kde-format
+msgid "Could not update malformed JSON in <filename>%1</filename>: %2"
+msgstr "Неуспешно обновяване на неправилен JSON в <filename>%1</filename>: %2"
+
+#: deploymentplugin.cpp:502
+#, kde-format
+msgid "Could not write <filename>%1</filename>."
+msgstr "Не можа да се запише <filename>%1</filename>."
+
+#: deploymentplugin.cpp:508
+#, kde-format
+msgid "Saved deployment configuration to %1"
+msgstr "Запазване на конфигурацията за разгръщане в %1"
+
+#: deploymentplugin.cpp:520
+#, kde-format
+msgid "The current document is not a local file."
+msgstr "Текущият документ не е локален файл."
+
+#: deploymentplugin.cpp:555
+#, kde-format
+msgid "The file could not be saved before upload."
+msgstr "Файлът не можа да бъде запазен преди качването."
+
+#: deploymentplugin.cpp:571
+#, kde-format
+msgid "Deployment is not configured for this project."
+msgstr "Разполагането не е конфигурирано за този проект."
+
+#: deploymentplugin.cpp:575
+#, kde-format
+msgid "A deployment transfer is already running."
+msgstr "Вече се изпълнява трансфер за разгръщане."
+
+#: deploymentplugin.cpp:586
+#, kde-format
+msgid "Cannot upload %1 because its remote version is open in Kate."
+msgstr ""
+"Не може да се качи %1, тъй като отдалечената му версия е отворена в Kate."
+
+#: deploymentplugin.cpp:596
+#, kde-format
+msgid "No deployable files were selected."
+msgstr "Не са избрани файлове за внедряване."
+
+#: deploymentplugin.cpp:602
+#, kde-format
+msgid "Queued one file for upload."
+msgid_plural "Queued %1 files for upload."
+msgstr[0] "Опашка за качване на един файл."
+msgstr[1] "Опашка за качване на %1 файла."
+
+#: deploymentplugin.cpp:620 deploymentplugin.cpp:674
+#, kde-format
+msgid "The remote file is open in Kate."
+msgstr "Дистанционният файл е отворен в Kate."
+
+#: deploymentplugin.cpp:629
+#, kde-format
+msgid "Uploading %1 to %2"
+msgstr "Качване на %1 в %2"
+
+#: deploymentplugin.cpp:657
+#, kde-format
+msgctxt "@action"
+msgid "Cancel Deployment Transfers (%1%)"
+msgstr "Отказ на трансфери за разгръщане (%1%)"
+
+#: deploymentplugin.cpp:697
+#, kde-format
+msgid "Failed to upload %1: %2"
+msgstr "Грешка при качване на %1: %2"
+
+#: deploymentplugin.cpp:699
+#, kde-format
+msgid "Uploaded %1"
+msgstr "Качен %1"
+
+#: deploymentplugin.cpp:720
+#, kde-format
+msgid "Cancelled deployment transfers."
+msgstr "Отказани трансфери за разгръщане."
+
+#: deploymentplugin.cpp:754
+#, kde-format
+msgid "Not connected"
+msgstr "Не е свързано"
+
+#: deploymentplugin.cpp:772
+#, kde-format
+msgid ""
+"The SFTP KIO worker is not installed or does not support directory listing."
+msgstr ""
+"SFTP KIO worker не е инсталиран или не поддържа изброяване на директории."
+
+#: deploymentplugin.cpp:801
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Remote File"
+msgstr "Отваряне на отдалечен файл"
+
+#: deploymentplugin.cpp:809
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Mapped Local File"
+msgstr "Отваряне на картографиран локален файл"
+
+#: deploymentplugin.cpp:815
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Upload Mapped Local File"
+msgstr "Качване на свързан локален файл"
+
+#: deploymentplugin.cpp:823
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Remote URL"
+msgstr "Копиране на отдалечен URL адрес"
+
+#: deploymentplugin.cpp:827
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Remote Path"
+msgstr "Копиране на отдалечен път"
+
+#: deploymentplugin.cpp:837
+#, kde-format
+msgid "No mapped local file exists for %1."
+msgstr "Няма съответстващ локален файл за %1."

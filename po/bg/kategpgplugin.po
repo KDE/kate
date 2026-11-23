@@ -1,0 +1,235 @@
+# Bulgarian translations for kate package.
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Automatically generated, 2026.
+#
+# SPDX-FileCopyrightText: 2026 Mincho Kondarev <mkondarev@yahoo.de>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-06-07 00:48+0000\n"
+"PO-Revision-Date: 2026-11-22 18:30+0100\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 26.08.3\n"
+
+#: gpgmeppwrapper.cpp:83
+#, kde-format
+msgid "Error! No keys found..."
+msgstr "Грешка! Не са намерени ключове..."
+
+#: gpgmeppwrapper.cpp:133 gpgmeppwrapper.cpp:135
+#, kde-format
+msgid "Error finding key: "
+msgstr "Грешка при търсене на ключ: "
+
+#: gpgmeppwrapper.cpp:223 gpgmeppwrapper.cpp:225
+#, kde-format
+msgid "Error in symmetric encryption: "
+msgstr "Грешка при симетрично криптиране: "
+
+#: gpgmeppwrapper.cpp:241 gpgmeppwrapper.cpp:243
+#, kde-format
+msgid "Encryption Failed: "
+msgstr "Грешка при криптиране: "
+
+#: kategpgplugin.cpp:70
+#, kde-format
+msgid "GPG Plugin"
+msgstr "Допълнение за GPG"
+
+#: kategpgplugin.cpp:75
+#, kde-format
+msgid "GPG Decrypt current document"
+msgstr "Декриптиране на текущия документ с GPG"
+
+#: kategpgplugin.cpp:76
+#, kde-format
+msgid "GPG Encrypt current document"
+msgstr "Криптиране на текущия документ с GPG"
+
+#: kategpgplugin.cpp:80
+#, kde-format
+msgid "<b>GPG Plugin Settings</b>"
+msgstr "<b>Настройки на GPG плъгина</b>"
+
+#: kategpgplugin.cpp:83
+#, kde-format
+msgid "Key ID"
+msgstr "ID на ключ"
+
+# [проверка] правопис: имейлови
+#: kategpgplugin.cpp:84
+#, kde-format
+msgid "A search string used to filter keys by available email addresses"
+msgstr "Низ за търсене за филтриране на ключове по налични имейлови адреси"
+
+#: kategpgplugin.cpp:87
+#, kde-format
+msgid "Selected GPG Key finerprint for encryption"
+msgstr "Избран GPG отпечатък на ключ за криптиране"
+
+# [проверка] правопис: Имейл
+#: kategpgplugin.cpp:88
+#, kde-format
+msgid "<b>To: Email address used for encryption</b>"
+msgstr "<b>До: Имейл адрес, използван за криптиране</b>"
+
+# [проверка] правопис: имейл
+#: kategpgplugin.cpp:97
+#, kde-format
+msgid ""
+"Select an email address to which to encrypt.\n"
+"Only mail addresses associated with your currently selected\n"
+"key fingerprint are available."
+msgstr ""
+"Избор на имейл адрес за криптиране.\n"
+"Достъпни са само имейл адреси, свързани с текущия избран отпечатък на ключа."
+
+#: kategpgplugin.cpp:101
+#, kde-format
+msgid ""
+"This is your currently selected GPG key fingerprint that will be used for "
+"encryption."
+msgstr ""
+"Това е текущият избран отпечатък на GPG ключ, който ще бъде използван за "
+"криптиране."
+
+#: kategpgplugin.cpp:104
+#, kde-format
+msgid "Enable symmetric encryption"
+msgstr "Включване на симетрично криптиране"
+
+#: kategpgplugin.cpp:107
+#, kde-format
+msgid "Show only keys for which a private key is available"
+msgstr "Показване само на ключове с наличен частен ключ"
+
+#: kategpgplugin.cpp:110
+#, kde-format
+msgid "Hide Expired Keys"
+msgstr "Скриване на изтекли ключове"
+
+# [проверка] правопис: Декриптирано
+#: kategpgplugin.cpp:223
+#, kde-format
+msgid "  Decrypted  "
+msgstr "  Декриптирано  "
+
+#: kategpgplugin.cpp:229
+#, kde-format
+msgid "  Encrypted  "
+msgstr "  Криптирано  "
+
+#: kategpgplugin.cpp:320 kategpgplugin.cpp:451
+#, kde-format
+msgid "Error Decrypting Text! No fingerprint selected..."
+msgstr "Грешка при декриптиране на текста! Няма избран цифров отпечатък..."
+
+#: kategpgplugin.cpp:326 kategpgplugin.cpp:456
+#, kde-format
+msgid ""
+"Error Decrypting Text!\n"
+"No matching fingerprint found!\n"
+"Or this is not a GPG encrypted text..."
+msgstr ""
+"Грешка при декриптиране на текста!\n"
+"Не е намерен съвпадащ отпечатък!\n"
+"Или това не е GPG криптиран текст..."
+
+#: kategpgplugin.cpp:334 kategpgplugin.cpp:464
+#, kde-format
+msgid "Error Decrypting Text!\n"
+msgstr "Грешка при декриптиране на текста!\n"
+
+#: kategpgplugin.cpp:416 kategpgplugin.cpp:503
+#, kde-format
+msgid ""
+"Error Encrypting Text!\n"
+"No fingerprint selected..."
+msgstr ""
+"Грешка при криптиране на текста!\n"
+"Не е избран цифров отпечатък..."
+
+# [проверка] граматика: ГРЕШКА: Несъгласуване по число - "отпечатък" трябва да
+# е "отпечатъци".
+#: kategpgplugin.cpp:423 kategpgplugin.cpp:547
+#, kde-format
+msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
+msgstr ""
+"Грешка при криптиране на текста! Не е намерен съответстващ отпечатък...\n"
+
+#: kategpgplugin.cpp:427 kategpgplugin.cpp:551
+#, kde-format
+msgid "Error Encrypting Text!"
+msgstr "Грешка при криптиране на текста!"
+
+#: kategpgplugin.cpp:443 kategpgplugin.cpp:490
+#, kde-format
+msgid "Error! No views available..."
+msgstr "Грешка! Няма налични изгледи..."
+
+#: kategpgplugin.cpp:447
+#, kde-format
+msgid "Error Decrypting Text! Document is empty..."
+msgstr "Грешка при декриптиране на текста! Документът е празен..."
+
+#: kategpgplugin.cpp:495
+#, kde-format
+msgid "Error Encrypting Text! No document available..."
+msgstr "Грешка при криптиране на текста! Няма наличен документ..."
+
+#: kategpgplugin.cpp:499
+#, kde-format
+msgid "Error Encrypting Text! Document is empty..."
+msgstr "Грешка при криптиране на текста! Документът е празен..."
+
+# [проверка] правопис: Откришен
+#: kategpgplugin.cpp:507
+#, kde-format
+msgid ""
+"Attempted double encryption detected! Encrypting twice is disabled for now..."
+msgstr ""
+"Открит е опит за двойно криптиране! Двойното криптиране е временно "
+"деактивирано..."
+
+#: kategpgplugin.cpp:528
+#, kde-format
+msgid "Save Encrypted File As"
+msgstr "Запазване на криптиран файл като"
+
+#: kategpgplugin.cpp:530
+#, kde-format
+msgid "GPG Files (*.gpg *.asc)"
+msgstr "GPG файлове (*.gpg *.asc)"
+
+#: kategpgplugin.cpp:619
+#, kde-format
+msgid "Key Fingerprint"
+msgstr "Отпечатък на ключа"
+
+#: kategpgplugin.cpp:619
+#, kde-format
+msgid "Creation Date"
+msgstr "Дата на създаване"
+
+#: kategpgplugin.cpp:619
+#, kde-format
+msgid "Expiry Date"
+msgstr "Дата на изтичане"
+
+#: kategpgplugin.cpp:619
+#, kde-format
+msgid "Key Length"
+msgstr "Дължина на ключа"
+
+#: kategpgplugin.cpp:619
+#, kde-format
+msgid "User IDs"
+msgstr "Потребителски идентификатори"

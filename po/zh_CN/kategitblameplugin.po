@@ -59,6 +59,3 @@ msgstr "Git blame，显示提交失败。"
 #, kde-format
 msgid "&Tools"
 msgstr "工具(&T)"
-
-#~ msgid "Git"
-#~ msgstr "Git"

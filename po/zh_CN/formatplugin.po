@@ -83,12 +83,12 @@ msgstr "%1 没有安装。请安装它以格式化此文档！"
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 crashed"
-msgstr ""
+msgstr "%1 已崩溃"
 
 #: Formatters.cpp:154
 #, kde-format
 msgid "%1 failed with exit code %2"
-msgstr ""
+msgstr "%1 已失败，退出代码为 %2"
 
 #: Formatters.cpp:286
 #, kde-format

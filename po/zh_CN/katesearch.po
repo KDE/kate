@@ -227,7 +227,7 @@ msgstr "区分大小写"
 msgid ""
 "Smart case: Case-sensitive only when search pattern contains uppercase "
 "characters"
-msgstr ""
+msgstr "智能大小写：仅当搜索模式包含大写字母时区分大小写"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
 #: search.ui:150

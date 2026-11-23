@@ -1,0 +1,611 @@
+# Bulgarian translations for kate package.
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Automatically generated, 2026.
+#
+# SPDX-FileCopyrightText: 2026 Mincho Kondarev <mkondarev@yahoo.de>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-10-14 00:51+0000\n"
+"PO-Revision-Date: 2026-11-22 18:10+0100\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 26.08.3\n"
+
+# [проверка] правопис: Кондарев
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Минчо Кондарев"
+
+# [проверка] граматика: ГРЕШКА: Липсва съгласуване по род и число.
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "mkondarev@yahoo.de"
+
+#. i18n: ectx: attribute (title), widget (QWidget, buildOutput)
+#: build.ui:36
+#, kde-format
+msgid "Output"
+msgstr "Изход"
+
+#. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
+#: build.ui:56
+#, kde-format
+msgid "Build Again"
+msgstr "Повторно изграждане"
+
+#. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
+#: build.ui:66
+#, kde-format
+msgid "Cancel"
+msgstr "Отказ"
+
+#: buildconfig.cpp:53
+#, kde-format
+msgid "Build & Run"
+msgstr "Компилиране и изпълнение"
+
+#: buildconfig.cpp:59
+#, kde-format
+msgid "Build & Run Settings"
+msgstr "Настройки за компилиране и изпълнение&"
+
+#: buildconfig.cpp:112
+#, kde-format
+msgid "Delete selected entries"
+msgstr "Изтриване на избраните записи"
+
+#: buildconfig.cpp:117
+#, kde-format
+msgid "Delete all entries"
+msgstr "Изтриване на всички записи"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: buildconfigwidget.ui:33
+#, kde-format
+msgid "General Settings"
+msgstr "Общи настройки"
+
+#. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
+#: buildconfigwidget.ui:50
+#, kde-format
+msgid "Add errors and warnings to Diagnostics"
+msgstr "Добавяне на грешки и предупреждения към Диагностика"
+
+#. i18n: ectx: property (text), widget (QCheckBox, autoSwitchToOutput)
+#: buildconfigwidget.ui:57
+#, kde-format
+msgid "Automatically switch to output pane on executing the selected target"
+msgstr ""
+"Автоматично превключване към панела за изход при изпълнение на избраната цел"
+
+# [проверка] граматика: ГРЕШКА: Несъгласуване по число – „редове“ и
+# „последния“
+# трябва да са в единствено число.
+#. i18n: ectx: property (toolTip), widget (QCheckBox, u_showProgressCB)
+#: buildconfigwidget.ui:77
+#, no-c-format, kde-format
+msgid ""
+"If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
+"a message."
+msgstr ""
+"Ако изходните редове започват с [ # / ## ] или [ ## % ], показване на "
+"последния като съобщение."
+
+#. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
+#: buildconfigwidget.ui:80
+#, kde-format
+msgid "Show build progress as a message when the output pane is hidden"
+msgstr ""
+"Показване на прогреса на компилацията като съобщение, когато панелът с "
+"изхода е скрит"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_4)
+#: buildconfigwidget.ui:106
+#, kde-format
+msgid "Allowed && Blocked Commands"
+msgstr "Разрешени && блокирани команди"
+
+#: plugin_katebuild.cpp:266 plugin_katebuild.cpp:273 plugin_katebuild.cpp:757
+#: plugin_katebuild.cpp:1003 plugin_katebuild.cpp:1016
+#, kde-format
+msgid "Build"
+msgstr "Компилиране"
+
+#: plugin_katebuild.cpp:276
+#, kde-format
+msgid "Select Target..."
+msgstr "Избор на цел..."
+
+#: plugin_katebuild.cpp:281
+#, kde-format
+msgid "Build Selected Target"
+msgstr "Изграждане на избраната цел"
+
+#: plugin_katebuild.cpp:286
+#, kde-format
+msgid "Build and Run Selected Target"
+msgstr "Компилиране и изпълнение на избраната цел"
+
+#: plugin_katebuild.cpp:291
+#, kde-format
+msgid "Compile Current File"
+msgstr "Компилиране на текущия файл"
+
+#: plugin_katebuild.cpp:292
+#, kde-format
+msgid "Try to compile the current file by searching a compile_commands.json"
+msgstr ""
+"Опит за компилиране на текущия файл чрез търсене на compile_commands.json"
+
+#: plugin_katebuild.cpp:297
+#, kde-format
+msgid "Stop"
+msgstr "Спиране"
+
+#: plugin_katebuild.cpp:302
+#, kde-format
+msgid "Load targets from CMake Build Dir"
+msgstr "Зареждане на цели от директорията за компилиране на CMake"
+
+# [проверка] правопис: таб
+#: plugin_katebuild.cpp:306
+#, kde-format
+msgctxt "Left is also left in RTL mode"
+msgid "Focus Next Tab to the Left"
+msgstr "Фокусиране на следващия раздел вляво"
+
+# [проверка] граматика: ГРЕШКА: "раздел" е м.р., а "фокус" е м.р. и изисква
+# пълен член.
+#: plugin_katebuild.cpp:326
+#, kde-format
+msgctxt "Right is right also in RTL mode"
+msgid "Focus Next Tab to the Right"
+msgstr "Фокусиране на следващия раздел вдясно"
+
+#: plugin_katebuild.cpp:359
+#, kde-format
+msgctxt "Tab label"
+msgid "Target Settings"
+msgstr "Настройки на целта"
+
+#: plugin_katebuild.cpp:408
+#, kde-format
+msgid ""
+"<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
+"search path to the \"Working Directory\""
+msgstr ""
+"<b>Файл не е намерен:</b> %1<br><b>Пътища за търсене:</b><br>%2<br>Опит за "
+"добавяне на път за търсене в „Работна директория“"
+
+#: plugin_katebuild.cpp:505
+#, kde-format
+msgid "Build Information"
+msgstr "Информация за компилиране"
+
+#: plugin_katebuild.cpp:764
+#, kde-format
+msgid "There is no file or directory specified for building."
+msgstr "Не е указан файл или директория за компилиране."
+
+# [проверка] правопис: Нелокалните
+#: plugin_katebuild.cpp:768
+#, kde-format
+msgid ""
+"The file \"%1\" is not a local file. Non-local files cannot be compiled."
+msgstr ""
+"Файлът \"%1\" не е локален файл. Нелокалните файлове не могат да бъдат "
+"компилирани."
+
+#: plugin_katebuild.cpp:844
+#, kde-format
+msgid "Create directory"
+msgstr "Създаване на директория"
+
+#: plugin_katebuild.cpp:847
+#, kde-format
+msgid ""
+"The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
+"not exist.<br><br>Create the directory?"
+msgstr ""
+"Конфигурираната работна директория <b>%1</b> за целевата група <b>%2</b> не "
+"съществува.<br><br>Създаване на директорията?"
+
+#: plugin_katebuild.cpp:855
+#, kde-format
+msgid "Failed to create the directory <b>%1</b>"
+msgstr "Грешка при създаването на директорията <b>%1</b>"
+
+#: plugin_katebuild.cpp:880
+#, kde-format
+msgid "Failed to run \"%1\". exitStatus = %2"
+msgstr "Грешка при изпълнение на \"%1\". exitStatus = %2"
+
+#: plugin_katebuild.cpp:896
+#, kde-format
+msgid "Building <b>%1: %2</b> cancelled"
+msgstr "Прекъсване на изграждането на <b>%1: %2</b>"
+
+#: plugin_katebuild.cpp:1002
+#, kde-format
+msgid "Did not find a compile_commands.json for file \"%1\". "
+msgstr "Не е намерен compile_commands.json за файл \"%1\". "
+
+#: plugin_katebuild.cpp:1015
+#, kde-format
+msgid "Did not find a compile command for file \"%1\" in \"%2\". "
+msgstr "Не е намерена команда за компилиране на файл \"%1\" в \"%2\". "
+
+#: plugin_katebuild.cpp:1034
+#, kde-format
+msgid ""
+"Cannot make \"%f\" substitution. No open file or the current file is "
+"untitled!"
+msgstr ""
+"Невъзможно е заместването на \"%f\". Няма отворен файл или текущият файл е "
+"безименен!"
+
+#: plugin_katebuild.cpp:1038
+#, kde-format
+msgid ""
+"Cannot make \"%d\" substitution. No open file or the current file is "
+"untitled!"
+msgstr ""
+"Невъзможно е заместването на \"%d\". Няма отворен файл или текущият файл е "
+"безименен!"
+
+#: plugin_katebuild.cpp:1042
+#, kde-format
+msgid ""
+"Cannot make \"%n\" substitution. No open file or the current file is "
+"untitled!"
+msgstr ""
+"Невъзможно е заместване на \"%n\". Няма отворен файл или текущият файл е "
+"безимен!"
+
+#: plugin_katebuild.cpp:1053
+#, kde-format
+msgid "Cannot make project substitution (%B). No open project!"
+msgstr "Не може да се направи замяна на проекта (%B). Няма отворен проект!"
+
+#: plugin_katebuild.cpp:1066
+#, kde-format
+msgid "Already building..."
+msgstr "Вече се изгражда..."
+
+#: plugin_katebuild.cpp:1104
+#, kde-format
+msgid ""
+"Cannot execute: %1: %2 No working directory set.\n"
+"There is no local file or directory specified for building."
+msgstr ""
+"Не може да се изпълни: %1: %2 Не е зададена работна директория.\n"
+"Няма указан локален файл или директория за компилиране."
+
+#: plugin_katebuild.cpp:1225
+#, kde-format
+msgid "Building target <b>%1: %2</b> ..."
+msgstr "Компилиране на целта <b>%1: %2</b> ..."
+
+#: plugin_katebuild.cpp:1262
+#, kde-format
+msgid ""
+"Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
+"entry !"
+msgstr ""
+"Не може да се заредят целите; файлът %1 не съдържа подходящ запис "
+"CMAKE_COMMAND!"
+
+# [проверка] граматика: ГРЕШКА: Неправилно съгласуване по число и член –
+# „файлове“ трябва да е „файл“.
+#: plugin_katebuild.cpp:1275
+#, kde-format
+msgid "Could not write CMake File API query files for build directory %1 !"
+msgstr ""
+"Не успя създаването на файлове за заявка на CMake File API за директорията "
+"за компилация %1!"
+
+#: plugin_katebuild.cpp:1281
+#, kde-format
+msgid "Could not run CMake (%2) for build directory %1 !"
+msgstr "Не може да се изпълни CMake (%2) за директория за компилация %1!"
+
+#: plugin_katebuild.cpp:1290
+#, kde-format
+msgid ""
+"Generating CMake File API reply files for build directory %1 failed (using "
+"%2) !"
+msgstr ""
+"Грешка при генериране на файлове за отговор на CMake File API за "
+"директорията на компилацията %1 (използване на %2) !"
+
+# [проверка] правопис: Плугинът
+#: plugin_katebuild.cpp:1415
+#, kde-format
+msgid "Build plugin wants to execute program"
+msgstr "Плъгинът за компилиране иска да изпълни програма"
+
+# [проверка] правопис: Плугинът, плугина
+#: plugin_katebuild.cpp:1418
+#, kde-format
+msgid ""
+"The Kate build plugin needs to execute an external command to read the "
+"targets from the build tree.<br><br>The full command line is:<br><br><b>%1</"
+"b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
+"altered via the config page of the plugin."
+msgstr ""
+"Плъгинът за компилиране на Kate трябва да изпълни външна команда, за да "
+"прочете целите от дървото на компилиране.<br><br>Пълният команден ред е:"
+"<br><br><b>%1</b><br><br>Продължаване и разрешение за изпълнение на тази "
+"команда?<br><br>Изборът може да бъде променен чрез страницата с настройки на "
+"плъгина."
+
+#: plugin_katebuild.cpp:1450
+#, kde-kuit-format
+msgctxt "@info"
+msgid "<title>Build Finished:</title>%1"
+msgstr "<title>Компилирането приключи:</title>%1"
+
+#: plugin_katebuild.cpp:1513
+#, kde-format
+msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
+msgstr ""
+"Компилиране на <b>%1: %2</b> завършено. %3 грешки, %4 предупреждения, %5 "
+"бележки"
+
+# [проверка] правопис: Найдена, Найдени
+#: plugin_katebuild.cpp:1525
+#, kde-format
+msgid "Found one error."
+msgid_plural "Found %1 errors."
+msgstr[0] "Намерена е една грешка."
+msgstr[1] "Намерени са %1 грешки."
+
+#: plugin_katebuild.cpp:1529
+#, kde-format
+msgid "Found one warning."
+msgid_plural "Found %1 warnings."
+msgstr[0] "Намерено е едно предупреждение."
+msgstr[1] "Намерени са %1 предупреждения."
+
+# [проверка] правопис: Найдена, Найдени
+#: plugin_katebuild.cpp:1532
+#, kde-format
+msgid "Found one note."
+msgid_plural "Found %1 notes."
+msgstr[0] "Намерена е една бележка."
+msgstr[1] "Намерени са %1 бележки."
+
+#: plugin_katebuild.cpp:1536
+#, kde-format
+msgid "Build canceled."
+msgstr "Компилирането е отменено."
+
+#: plugin_katebuild.cpp:1540
+#, kde-format
+msgid "Build failed."
+msgstr "Грешка при компилацията."
+
+#: plugin_katebuild.cpp:1542
+#, kde-format
+msgid "Build completed without problems."
+msgstr "Компилацията приключи без проблеми."
+
+#: plugin_katebuild.cpp:1546
+#, kde-format
+msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
+msgstr ""
+"Компилация на <b>%1: %2 отменена</b>. %3 грешка(и), %4 предупреждение(и), %5 "
+"бележка(и)"
+
+#: plugin_katebuild.cpp:1831
+#, kde-format
+msgctxt "The same word as 'gcc' uses for an error."
+msgid "error"
+msgstr "грешка"
+
+#: plugin_katebuild.cpp:1834
+#, kde-format
+msgctxt "The same word as 'gcc' uses for a warning."
+msgid "warning"
+msgstr "предупреждение"
+
+#: plugin_katebuild.cpp:1837
+#, kde-format
+msgctxt "The same words as 'gcc' uses for note or info."
+msgid "note|info"
+msgstr "забележка|информация"
+
+#: plugin_katebuild.cpp:1840
+#, kde-format
+msgctxt "The same word as 'ld' uses to mark an ..."
+msgid "undefined reference"
+msgstr "неопределена референция"
+
+#: plugin_katebuild.cpp:2144
+#, kde-format
+msgid "Cannot save build targets in: %1"
+msgstr "Няма възможност за запис на цели за компилация в: %1"
+
+#: TargetHtmlDelegate.cpp:48
+#, kde-format
+msgctxt "T as in Target set"
+msgid "<B>T:</B> %1"
+msgstr "<B>Цел:</B> %1"
+
+#: TargetHtmlDelegate.cpp:50
+#, kde-format
+msgctxt "Dir as in working Directory"
+msgid "<B>Dir:</B> %1"
+msgstr "<B>Директория:</B> %1"
+
+#: TargetHtmlDelegate.cpp:95
+#, kde-format
+msgid ""
+"Leave empty to use the directory of the current document.\n"
+"Add search directories by adding paths separated by ';'"
+msgstr ""
+"Оставете празно, за да се използва директорията на текущия документ.\n"
+"Добавяне на директории за търсене чрез добавяне на пътища, разделени със ';'"
+
+#: TargetHtmlDelegate.cpp:102
+#, kde-format
+msgid ""
+"Use:\n"
+"\"%B\" for project base directory\n"
+"\"%b\" for name of project base directory"
+msgstr ""
+"Употреба:\n"
+"\"%B\" за базова директория на проекта\n"
+"\"%b\" за името на базовата директория на проекта"
+
+#: TargetHtmlDelegate.cpp:106
+#, kde-format
+msgid ""
+"Use:\n"
+"\"%f\" for current file\n"
+"\"%d\" for directory of current file\n"
+"\"%n\" for current file name without suffix\n"
+"\"%B\" for current project's base directory\n"
+"\"%w\" for the working directory of the target"
+msgstr ""
+"Използване:\n"
+"\"%f\" за текущ файл\n"
+"\"%d\" за директория на текущия файл\n"
+"\"%n\" за име на текущия файл без разширение\n"
+"\"%B\" за базова директория на текущия проект\n"
+"\"%w\" за работна директория на целта"
+
+#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
+#, kde-format
+msgid "Target Set"
+msgstr "Целева група"
+
+#: TargetModel.cpp:566
+#, kde-format
+msgid "Projects"
+msgstr "Проекти"
+
+#: TargetModel.cpp:566
+#, kde-format
+msgid "Session"
+msgstr "Сесия"
+
+#: TargetModel.cpp:678
+#, kde-format
+msgid "Command/Target-set Name"
+msgstr "Име на команда/целева група"
+
+#: TargetModel.cpp:681
+#, kde-format
+msgid "Build Command / Working Directory"
+msgstr "Команда за компилиране / Работна директория"
+
+#: TargetModel.cpp:684
+#, kde-format
+msgid "Run Command"
+msgstr "Изпълнение на команда"
+
+#: targets.cpp:28
+#, kde-format
+msgid "Filter targets, use arrow keys to select, Enter to execute"
+msgstr ""
+"Филтриране на цели, използване на стрелките за избор, Enter за изпълнение"
+
+#: targets.cpp:32
+#, kde-format
+msgid "Create new set of targets"
+msgstr "Създаване на нов набор от цели"
+
+#: targets.cpp:36
+#, kde-format
+msgid "Clone command or target set"
+msgstr "Команда за клониране или набор от цели"
+
+#: targets.cpp:40
+#, kde-format
+msgid "Delete current target or current set of targets"
+msgstr "Изтриване на текущата цел или текущия набор от цели"
+
+#: targets.cpp:45
+#, kde-format
+msgid "Add new target"
+msgstr "Добавяне на нова цел"
+
+#: targets.cpp:49
+#, kde-format
+msgid "Build selected target"
+msgstr "Изграждане на избраната цел"
+
+#: targets.cpp:53
+#, kde-format
+msgid "Build and run selected target"
+msgstr "Компилиране и стартиране на избраната цел"
+
+#: targets.cpp:57
+#, kde-format
+msgid "Move selected target up"
+msgstr "Преместване на избраната цел нагоре"
+
+#: targets.cpp:61
+#, kde-format
+msgid "Move selected target down"
+msgstr "Преместване на избраната цел надолу"
+
+#: targets.cpp:203
+#, kde-format
+msgid "Copy"
+msgstr "Копиране"
+
+#: targets.cpp:207
+#, kde-format
+msgid "Cut"
+msgstr "Изрязване"
+
+#: targets.cpp:211
+#, kde-format
+msgid "Paste after"
+msgstr "Поставяне след"
+
+#: targets.cpp:229 targets.cpp:256
+#, kde-format
+msgctxt "Name/Label for a compilation or build command"
+msgid "Build Command"
+msgstr "Команда за компилиране"
+
+#: targets.cpp:255
+#, kde-format
+msgctxt "Name/Label for a command to configure a build"
+msgid "Configure"
+msgstr "Конфигуриране"
+
+#. i18n: ectx: Menu (Build Menubar)
+#: ui.rc:6
+#, kde-format
+msgid "&Build"
+msgstr "&Компилиране"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, kde-format
+msgid "Build Plugin Toolbar"
+msgstr "Лента с инструменти за изграждане на плъгини"
+
+#: UrlInserter.cpp:31
+#, kde-format
+msgid "Insert path"
+msgstr "Вмъкване на път"
+
+#: UrlInserter.cpp:50
+#, kde-format
+msgid "Select directory to insert"
+msgstr "Избор на директория за вмъкване"

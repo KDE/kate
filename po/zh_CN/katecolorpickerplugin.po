@@ -20,20 +20,16 @@ msgstr ""
 #: colorpickerconfigpage.cpp:34
 #, kde-format
 msgid "Show preview for known color names"
-msgstr "显示颜色名称的预览"
+msgstr "显示具名颜色的预览"
 
 #: colorpickerconfigpage.cpp:36
-#, fuzzy, kde-format
-#| msgid ""
-#| "Also show the color picker for known color names (e.g. skyblue).\n"
-#| "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
-#| "colors."
+#, kde-format
 msgid ""
 "Also show the color picker for known color names (e.g. skyblue).\n"
 "See https://www.w3.org/TR/css-color-4/#named-colors for the list of colors."
 msgstr ""
-"同时为知名颜色显示拾色器 (例如 skyblue - 天蓝).\n"
-"具体颜色名称列表请参考： https://www.w3.org/TR/SVG11/types.html#ColorKeywords"
+"同时为具名颜色显示拾色器 (例如 skyblue - 天蓝).\n"
+"具名颜色列表请参考： https://www.w3.org/TR/css-color-4/#named-colors"
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format

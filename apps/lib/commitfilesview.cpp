@@ -30,6 +30,7 @@
 #include <QTreeView>
 #include <QUrl>
 #include <QVBoxLayout>
+#include <QVarLengthArray>
 
 #include <KColorScheme>
 #include <KFuzzyMatcher>

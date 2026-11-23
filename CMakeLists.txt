@@ -83,6 +83,9 @@ ecm_set_disabled_deprecation_versions(
 
 # be more strict with some Qt constructs
 add_definitions(-DQT_NO_CONTEXTLESS_CONNECT)
+if(KF6_VERSION VERSION_GREATER_EQUAL "6.33.0")
+    add_definitions(-DQT_LEAN_HEADERS=2)
+endif()
 
 option(ENABLE_PCH "Enable PCH support" ON)
 if (ENABLE_PCH)

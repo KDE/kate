@@ -8,6 +8,8 @@
 #pragma once
 
 #include <QHash>
+#include <QMap>
+#include <QObject>
 #include <QRunnable>
 #include <QSet>
 #include <QVariant>

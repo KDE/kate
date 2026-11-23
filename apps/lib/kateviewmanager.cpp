@@ -33,6 +33,7 @@
 #include <QFileDialog>
 #include <QScrollBar>
 #include <QTimer>
+#include <QVarLengthArray>
 
 // END Includes
 

@@ -36,6 +36,7 @@
 #include <QTimer>
 #include <QToolButton>
 #include <QToolTip>
+#include <QVarLengthArray>
 #include <QWhatsThis>
 
 enum {

@@ -32,6 +32,7 @@
 #include <QToolButton>
 #include <QToolTip>
 #include <QVBoxLayout>
+#include <QVarLengthArray>
 #include <QWidget>
 
 #include <KColorScheme>

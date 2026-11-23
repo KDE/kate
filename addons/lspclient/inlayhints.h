@@ -10,6 +10,7 @@
 #include <QPointer>
 #include <QString>
 #include <QTimer>
+#include <QVarLengthArray>
 
 #include <KTextEditor/InlineNoteProvider>
 #include <KTextEditor/MovingRange>

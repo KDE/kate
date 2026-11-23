@@ -11,6 +11,7 @@
 #include "diagnosticview.h"
 
 #include <QStandardItem>
+#include <QVarLengthArray>
 
 enum {
     DiagnosticItem_File = QStandardItem::UserType + 1,

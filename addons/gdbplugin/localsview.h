@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <QHash>
 #include <QWidget>
 
 namespace dap

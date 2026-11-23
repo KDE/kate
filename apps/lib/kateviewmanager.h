@@ -11,6 +11,7 @@
 #include "kateprivate_export.h"
 #include "katesplitter.h"
 
+#include <QHash>
 #include <QList>
 #include <QPointer>
 #include <QUrl>

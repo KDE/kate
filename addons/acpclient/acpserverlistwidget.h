@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <QMap>
 #include <QWidget>
 
 #include "acpclientserver.h"

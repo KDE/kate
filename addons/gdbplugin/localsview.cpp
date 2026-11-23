@@ -17,6 +17,7 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QVBoxLayout>
+#include <QVarLengthArray>
 
 namespace
 {

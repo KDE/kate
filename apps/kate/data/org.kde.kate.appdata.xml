@@ -1774,6 +1774,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="sr-ijekavianlatin">Prikaz dodatih, izmijenjenih i uklonjenih redova na marginama uređivača, pomoću novog priključka za git oznake.</li>
           <li xml:lang="tr">Yeni Git Dekorasyonları eklentisi ile, düzenleyici kenar boşluklarında eklenen, değişiklik yapılan ve kaldırılan satırları görün.</li>
           <li xml:lang="uk">Реалізовано перегляд доданих, змінених та вилучених рядків на полях редактора за допомогою нового додатка декорування Git.</li>
+          <li xml:lang="zh-CN">通过全新的 Git 装饰插件，在编辑器边距中查看新增、修改和删除的代码行。</li>
           <li>Upload files, folders, or entire projects over SFTP with the new Deployment plugin, with transfer progress and a sidebar for browsing and editing remote files.</li>
           <li xml:lang="ar">ارفع الملفات والمجلدات أو المشاريع كاملة عبر SFTP باستخدام ملحق النشر الجديد، مع تقدّم النقل وشريط جانبي لتصفح الملفات البعيدة وتحريرها.</li>
           <li xml:lang="bg">Качване на файлове, папки или цели проекти чрез SFTP с новия плъгин за разгръщане (Deployment), с индикатор за прогреса на трансфера и страничен панел за разглеждане и редактиране на отдалечени файлове.</li>
@@ -1798,6 +1799,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="sr-ijekavianlatin">Otpremanje fajlova, fascikli ili cijelih projekata preko SFTP‑a, pomoću novog priključka za razvijanje, uz napredak prenosa i bočnu traku za pregledanje i uređivanje udaljenih fajlova.</li>
           <li xml:lang="tr">Yeni Konuşlandırma eklentisi ile SFTP üzerinden dosyalar, klasörler veya bütün bir halde projeleri karşıya yükleyin; uzak dosyalara göz atmak ve onları düzenlemek için kenar çubuğunu kullanın ve aktarım ilerlemelerini görün.</li>
           <li xml:lang="uk">Реалізовано вивантаження файлів, тек або цілих проєктів за допомогою SFTP і нового додатка розгортання; доступний показ поступу передавання, а також бічна панель для перегляду і редагування віддалених файлів.</li>
+          <li xml:lang="zh-CN">通过全新的部署插件，使用 SFTP 上传文件、文件夹或整个项目，支持传输进度显示，并可通过侧边栏浏览和编辑远程文件。</li>
           <li>Open files and selected lines on GitHub, GitLab, or Forgejo, or copy their links, with support for custom Git host mappings globally and per project.</li>
           <li xml:lang="ar">افتح الملفات والأسطر المحددة على GitHub أو GitLab أو Forgejo، أو انسخ روابطها، مع دعم تعيينات مضيفي Git المخصصة عالميًا ولكل مشروع.</li>
           <li xml:lang="bg">Отваряне на файлове и избрани редове в GitHub, GitLab или Forgejo, или копиране на техните връзки, с поддръжка на персонализирани карти за Git хостове глобално и за отделни проекти.</li>
@@ -1822,6 +1824,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="sr-ijekavianlatin">Otvaranje fajlova i izabranih redova na servisima GitHub, GitLab i Forgejo, ili kopiranje veza do njih, uz podršku za posebna preslikavanja git domaćina, globalno i po projektu.</li>
           <li xml:lang="tr">Dosyaları ve seçili satırları Github, GitLab veya Forgejo ile açın veya onların bağlantılarını kopyalayın. Global ve proje başına özel Git makine eşlemleri desteklenir.</li>
           <li xml:lang="uk">Реалізовано відкриття файлів і вибраних рядків на GitHub, GitLab або Forgejo — або копіювання посилань на них; передбачено підтримку нетипових прив'язок для Git-вузлів як на загальному рівні, так і для окремих проєктів.</li>
+          <li xml:lang="zh-CN">在 GitHub、GitLab 或 Forgejo 上打开文件和选定的代码行，或复制其链接，支持全局及按项目自定义 Git 托管平台映射。</li>
           <li>Follow relative file links with the Open Link plugin, now enabled by default, with improved recognition of file paths and URLs.</li>
           <li xml:lang="ar">اتبع روابط الملفات النسبية باستخدام ملحق فتح الرابط، المفعّل مبدئيًا الآن، مع تحسين التعرف على مسارات الملفات وعناوين URL.</li>
           <li xml:lang="bg">Следене на относителни връзки към файлове с плъгина „Отваряне на връзки“, който вече е активиран по подразбиране, с подобрено разпознаване на пътища до файлове и URL адреси.</li>
@@ -1846,6 +1849,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="sr-ijekavianlatin">Praćenje relativnih veza ka fajlovima pomoću priključka za otvaranje veza, koji je sada podrazumijevano uključen, uz bolje prepoznavanje putanja fajlova i URL‑ova.</li>
           <li xml:lang="tr">Bağlantı Aç eklentisi ile göreceli dosya bağlantılarını açın; öntanımlı olarak etkindir ve dosya yollarını ve URL’leri daha iyi tanır.</li>
           <li xml:lang="uk">Реалізовано перехід за відносними посиланнями на файли за допомогою додатка відкриття посилань (тепер типово увімкненого), у якому покращено розпізнавання шляхів до файлів і адрес.</li>
+          <li xml:lang="zh-CN">默认启用“打开链接”插件，通过它跟随相对文件链接，并增强了对文件路径和 URL 的识别能力。</li>
           <li>Keep the editor responsive during project code completion by looking up matches in the background.</li>
           <li xml:lang="ar">حافظ على استجابة المحرر أثناء إكمال شيفرة المشروع بالبحث عن المطابقات في الخلفية.</li>
           <li xml:lang="bg">Поддържане на бързата реакция на редактора по време на допълване на кода на проекта чрез търсене на съвпадения във фонов режим.</li>
@@ -1870,6 +1874,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="sr-ijekavianlatin">Odzivan uređivač tokom dopune koda u projektu, jer se poklapanja traže u pozadini.</li>
           <li xml:lang="tr">Eşleşmelere arka planda erişerek, kod tamamlama sırasında düzenleyiciyi daha yanıt verir bir durumda tutun.</li>
           <li xml:lang="uk">Забезпечено стабільну швидкодію редактора під час автодоповнення коду в проєкті шляхом виконання пошуку збігів у фоновому режимі.</li>
+          <li xml:lang="zh-CN">在项目代码补全时，通过后台查找匹配项，保持编辑器的响应速度。</li>
           <li>Format Perl files with perltidy and CMake files with gersemi.</li>
           <li xml:lang="ar">نسّق ملفات Perl باستخدام perltidy وملفات CMake باستخدام gersemi.</li>
           <li xml:lang="bg">Форматиране на Perl файлове с perltidy и на CMake файлове с gersemi.</li>
@@ -1884,6 +1889,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="ja">perltidy で Perl ファイル、gersemi で CMake ファイルをフォーマットできるように</li>
           <li xml:lang="ka">დააფორმატეთ Perl-ის ფაილები perltidy-ით და CMake-ის ფაილები gersemi-ით.</li>
           <li xml:lang="nl">Formatteer Perl-bestanden met perltidy en CMake-bestanden met gersemi.</li>
+          <li xml:lang="pl">Formatuj pliki Perla przy użyciu perltidy oraz pliki CMake przy użyciu gersemi.</li>
           <li xml:lang="pt-BR">Formate arquivos Perl com o perltidy e arquivos CMake com o gersemi.</li>
           <li xml:lang="ru">Форматирование файлов Perl с помощью perltidy и файлов CMake с помощью gersemi.</li>
           <li xml:lang="sk">Formátovanie súborov Perl pomocou perltidy a súborov CMake pomocou gersemi.</li>
@@ -1894,6 +1900,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="sr-ijekavianlatin">Formatiranje fajlova Perla pomoću perltidy i fajlova CMakea pomoću gersemi.</li>
           <li xml:lang="tr">Perl dosyalarını perltidy ve CMake dosyalarını da gersemi ile biçimlendirin.</li>
           <li xml:lang="uk">Реалізовано форматування файлів Perl за допомогою perltidy, а файли CMake — за допомогою gersemi.</li>
+          <li xml:lang="zh-CN">使用 perltidy 格式化 Perl 文件，使用 gersemi 格式化 CMake 文件。</li>
         </ul>
       </description>
     </release>

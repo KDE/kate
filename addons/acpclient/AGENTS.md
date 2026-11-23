@@ -918,16 +918,12 @@ Then enable the plugin via:
 
 ### Known Issues & TODOs
 
-| Location | Issue | Priority |
-|----------|-------|----------|
-| Session compaction | Not fully implemented | Low |
-| System prompt | Structure in place but not used in session requests | Low |
-| Elicitation | Capability structure added but not implemented | Low |
-| MCP HTTP/SSE transport | Capabilities defined but not implemented | Low |
-| `acpclientpluginview.cpp:151` | Implement session manager dialog | Medium |
-| `acpclientpluginview.cpp:157` | Implement server configuration dialog | Medium |
-| `acpclientpluginview.cpp:162` | Implement tool palette | Low |
-| `acpclientplugin.cpp:106` | `message->show()` call is commented out | Low |
+| Feature | Issue | Priority |
+|---------|-------|----------|
+| Session compaction | The client declines the capability, and `compaction_update` / `compaction_summary_chunk` are not handled | Low |
+| System prompt | The agent's support for it is parsed, but no system prompt is ever sent | Low |
+| Elicitation | Only an empty capability structure exists, requests from the agent are not handled | Low |
+| MCP servers | `mcpServers` is always sent empty, so agents get no MCP servers of any transport | Low |
 
 ## File Structure
 

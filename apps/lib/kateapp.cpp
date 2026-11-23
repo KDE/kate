@@ -581,7 +581,8 @@ bool KateApp::startupKate()
     // support +xyz line number as first argument
     KTextEditor::Cursor firstLineNumberArgument = UrlInfo::parseLineNumberArgumentAndRemoveIt(args);
 
-    for (UrlInfo info : std::as_const(args)) {
+    for (const QString &arg : std::as_const(args)) {
+        UrlInfo info(arg);
         // this file is no local dir, open it, else warn
         if (!info.url.isLocalFile() || KNetworkMounts::self()->isOptionEnabledForPath(info.url.toLocalFile(), KNetworkMounts::LowSideEffectsOptimizations)
             || !QFileInfo(info.url.toLocalFile()).isDir()) {

@@ -26,7 +26,7 @@ public:
      *
      * @param path path passed on e.g. command line to parse into an URL
      */
-    UrlInfo(QString path)
+    explicit UrlInfo(QString path)
         : cursor(KTextEditor::Cursor::invalid())
     {
         QString currentDirPath = QDir::current().absolutePath();

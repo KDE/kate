@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-20 01:17+0000\n"
+"POT-Creation-Date: 2026-11-24 01:09+0000\n"
 "PO-Revision-Date: 2004-06-30 15:15+0100\n"
 "Last-Translator: KD at KGyfieithu <kyfieithu@dotmon.com>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -1031,12 +1031,12 @@ msgstr "Cymorth hyfryd iawn"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Pawb sydd wedi cyfrannu a rwy wedi anghofio eu crybwyll"
 
-#: lib/kateapp.cpp:601
+#: lib/kateapp.cpp:602
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:694
+#: lib/kateapp.cpp:695
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2703,35 +2703,35 @@ msgstr "Cau'r tab cyfredol"
 msgid "Close All &Tabs"
 msgstr "Cau'r Tab Cyfredol"
 
-#: lib/kateviewspace.cpp:1219
+#: lib/kateviewspace.cpp:1217
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "&Dogfen"
 
-#: lib/kateviewspace.cpp:1224
+#: lib/kateviewspace.cpp:1222
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1265
+#: lib/kateviewspace.cpp:1263
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document"
 msgstr "Cydweddu efelychydd &terfynell â'r ddogfen weithredol"
 
-#: lib/kateviewspace.cpp:1271
+#: lib/kateviewspace.cpp:1269
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document Using"
 msgstr "Cydweddu efelychydd &terfynell â'r ddogfen weithredol"
 
-#: lib/kateviewspace.cpp:1279
+#: lib/kateviewspace.cpp:1277
 #, fuzzy, kde-format
 msgid "Unpin Document"
 msgstr "Dogfennau"
 
-#: lib/kateviewspace.cpp:1281
+#: lib/kateviewspace.cpp:1279
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

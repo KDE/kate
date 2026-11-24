@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-20 01:17+0000\n"
+"POT-Creation-Date: 2026-11-24 01:09+0000\n"
 "PO-Revision-Date: 2026-11-21 23:51+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1028,12 +1028,12 @@ msgstr "매우 좋은 도움말"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "여기에 언급하지 않았지만 기여를 해 준 많은 좋은 사람"
 
-#: lib/kateapp.cpp:601
+#: lib/kateapp.cpp:602
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "프로젝트 플러그인이 활성화되어 있어야만 폴더를 열 수 있음"
 
-#: lib/kateapp.cpp:694
+#: lib/kateapp.cpp:695
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2644,32 +2644,32 @@ msgstr "다른 탭 닫기(&O)"
 msgid "Close All &Tabs"
 msgstr "모든 탭 닫기(&T)"
 
-#: lib/kateviewspace.cpp:1219
+#: lib/kateviewspace.cpp:1217
 #, kde-format
 msgid "D&etach Document"
 msgstr "문서 떼내기(&E)"
 
-#: lib/kateviewspace.cpp:1224
+#: lib/kateviewspace.cpp:1222
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "현재 문서를 새 창으로 열고 현재 창에 열린 문서 닫기"
 
-#: lib/kateviewspace.cpp:1265
+#: lib/kateviewspace.cpp:1263
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "활성 문서와 비교"
 
-#: lib/kateviewspace.cpp:1271
+#: lib/kateviewspace.cpp:1269
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "다음을 사용하여 활성 문서와 비교"
 
-#: lib/kateviewspace.cpp:1279
+#: lib/kateviewspace.cpp:1277
 #, kde-format
 msgid "Unpin Document"
 msgstr "문서 고정 해제"
 
-#: lib/kateviewspace.cpp:1281
+#: lib/kateviewspace.cpp:1279
 #, kde-format
 msgid "Pin Document"
 msgstr "문서 고정"

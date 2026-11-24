@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-20 01:17+0000\n"
+"POT-Creation-Date: 2026-11-24 01:09+0000\n"
 "PO-Revision-Date: 2013-08-28 04:47+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -1059,12 +1059,12 @@ msgstr "Өте жақсы анықтамасы"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Бүкіл үлесін қосқан бірақ осында аталмаған адамдар"
 
-#: lib/kateapp.cpp:601
+#: lib/kateapp.cpp:602
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:694
+#: lib/kateapp.cpp:695
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2763,37 +2763,37 @@ msgstr "Қалғандарын жабу"
 msgid "Close All &Tabs"
 msgstr "Бүкілін жа&бу"
 
-#: lib/kateviewspace.cpp:1219
+#: lib/kateviewspace.cpp:1217
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Келесі құжат"
 
-#: lib/kateviewspace.cpp:1224
+#: lib/kateviewspace.cpp:1222
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1265
+#: lib/kateviewspace.cpp:1263
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "Назардағы құжатты жабу."
 
-#: lib/kateviewspace.cpp:1271
+#: lib/kateviewspace.cpp:1269
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "Назардағы құжатты жабу."
 
-#: lib/kateviewspace.cpp:1279
+#: lib/kateviewspace.cpp:1277
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Unpin Document"
 msgstr "Құжаттарды ашу"
 
-#: lib/kateviewspace.cpp:1281
+#: lib/kateviewspace.cpp:1279
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

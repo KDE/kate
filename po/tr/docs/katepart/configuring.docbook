@@ -24,7 +24,7 @@
 > edebilirsiniz. <guilabel
 >Görünüş</guilabel
 >, <guilabel
->Yazıtipleri ve Renkler</guilabel
+>Yazı Tipleri ve Renkler</guilabel
 >, <guilabel
 >Düzenleme</guilabel
 >, <guilabel
@@ -37,7 +37,7 @@
 <title
 >Düzenleyici Bileşeni Yapılandırması</title>
 <para
->Bu grup, &kappname; uygulamasının düzenleyici bileşeni ile ilgili tüm sayfaları içerir. Buradaki ayarların çoğu öntanımlılardır; bunlar, <link linkend="pref-open-save-modes-filetypes"
+>Bu grup, &kappname; uygulamasının düzenleyici bileşeni ile ilgili tüm sayfaları içerir. Buradaki ayarların çoğu varsayılanlardır; bunlar, <link linkend="pref-open-save-modes-filetypes"
 >bir dosya türü tanımlayarak</link
 >, <link linkend="config-variables"
 >Belge Değişkenleri</link
@@ -54,17 +54,17 @@
 <varlistentry>
 <term
 ><guilabel
->Düzenleyici yazıtipi</guilabel
+>Düzenleyici yazı tipi</guilabel
 ></term>
 <listitem>
 <para
->Burada düzenleyici metninin yazıtipini seçebilirsiniz. Sisteminizde bulunan herhangi bir yazıtipi arasından seçim yapabilir ve öntanımlı bir boyut belirleyebilirsiniz. İletişim kutusunun altında örnek bir metin görüntülenir, böylece seçimlerinizin etkisini görebilirsiniz. </para>
+>Burada düzenleyici metninin yazı tipini seçebilirsiniz. Sisteminizde bulunan herhangi bir yazı tipi arasından seçim yapabilir ve varsayılan bir boyut belirleyebilirsiniz. İletişim kutusunun altında örnek bir metin görüntülenir, böylece seçimlerinizin etkisini görebilirsiniz. </para>
 <para
->Yazıtipi seçimi üzerine daha fazla bilgi almak için <emphasis
+>Yazı tipi seçimi üzerine daha fazla bilgi almak için <emphasis
 >&kde; Temelleri</emphasis
 > belgelendirmesinin <ulink url="help:/fundamentals/fonts.html"
 ><emphasis
->Yazıtipleri Seçmek</emphasis
+>Yazı Tipleri Seçmek</emphasis
 ></ulink
 > bölümüne bakın.</para>
 </listitem>
@@ -152,7 +152,7 @@
 <varlistentry>
 <term
 ><guilabel
->Eşleşen açık ayraç önizlemesini göster </guilabel
+>Eşleşen açık ayraç ön izlemesini göster </guilabel
 ></term>
 <listitem
 ><para
@@ -310,7 +310,7 @@
 ></term>
 <listitem
 ><para
->Bu değer, yazıtipinin öntanımlı satır yüksekliğiyle çarpılacaktır. 1,0 değeri, öntanımlı yüksekliğin kullanılacağı anlamına gelir.</para
+>Bu değer, yazı tipinin varsayılan satır yüksekliğiyle çarpılacaktır. 1,0 değeri, varsayılan yüksekliğin kullanılacağı anlamına gelir.</para
 ></listitem
 ></varlistentry>
 </variablelist>
@@ -341,11 +341,11 @@
 <varlistentry>
 <term
 ><guilabel
->Üzerine gelindiğinde katlanmış kodun önizlemesini göster </guilabel
+>Üzerine gelindiğinde katlanmış kodun ön izlemesini göster </guilabel
 ></term>
 <listitem
 ><para
->İşaretlenirse katlanmış bir bölgenin üzerine gelindiğinde, katlanmış metnin bir önizlemesi açılır pencerede gösterilir.</para
+>İşaretlenirse katlanmış bir bölgenin üzerine gelindiğinde, katlanmış metnin bir ön izlemesi açılır pencerede gösterilir.</para
 ></listitem>
 </varlistentry>
 </variablelist>
@@ -434,11 +434,11 @@
 <varlistentry>
 <term
 ><guilabel
->Sarma çubuğu üzerine gelindiğinde önizleme göster</guilabel
+>Sarma çubuğu üzerine gelindiğinde ön izleme göster</guilabel
 ></term>
 <listitem
 ><para
->Bu seçenek işaretlenirse ve sarma çubuğu üzerinde fare imleciyle gezinirseniz imleç konumu çevresinde geçerli belgenin birkaç satırının yer aldığı küçük bir metin önizlemesi görüntülenecektir. Bu, belgenin başka bir bölümüne tez geçiş yapmanızı sağlar.</para>
+>Bu seçenek işaretlenirse ve sarma çubuğu üzerinde fare imleciyle gezinirseniz imleç konumu çevresinde geçerli belgenin birkaç satırının yer aldığı küçük bir metin ön izlemesi görüntülenecektir. Bu, belgenin başka bir bölümüne tez geçiş yapmanızı sağlar.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -534,7 +534,7 @@
 <para
 >İletişim kutusunun bu bölümü, sahip olduğunuz herhangi bir renk temasındaki tüm renkleri yapılandırmanıza ve yeni temalar oluşturmanıza, var olan temaları silmenize veya yalnızca <guilabel
 >Sistem renk şemasını izle</guilabel
->’menize olanak tanır. Her şemada renkler ve normal ve vurgulanan metin biçemleri için ayarlar bulunur. </para>
+>’menize olanak tanır. Her şemada renkler ve normal ve vurgulanan metin stilleri için ayarlar bulunur. </para>
 
 <para
 >&kappname; sizin için o anda etkin olan temayı önceden seçecektir, eğer farklı bir tema üzerinde çalışmak istiyorsanız <guilabel
@@ -593,7 +593,7 @@
 > <guimenuitem
 >Düzenleyiciyi Yapılandır…</guimenuitem
 ></menuchoice
-> menüsündeki Düzenleme sekmesinde tanımlandığı üzere sözcük kaydırma sütununda dikey bir çizgi çizilecektir. Lütfen sözcük kaydırma işaretçisinin yalnızca eş aralıklı bir yazıtipi kullanıyorsanız çizileceğini unutmayın.</para>
+> menüsündeki Düzenleme sekmesinde tanımlandığı üzere sözcük kaydırma sütununda dikey bir çizgi çizilecektir. Lütfen sözcük kaydırma işaretçisinin yalnızca eş aralıklı bir yazı tipi kullanıyorsanız çizileceğini unutmayın.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -614,7 +614,7 @@
 <varlistentry>
 <term
 ><guilabel
->Öntanımlı giriş kipi</guilabel
+>Varsayılan giriş kipi</guilabel
 ></term
 > <listitem
 ><para
@@ -848,11 +848,11 @@
 <varlistentry>
 <term
 ><guilabel
->Öntanımlı girintileme kipi:</guilabel
+>Varsayılan girintileme kipi:</guilabel
 ></term>
 <listitem>
 <para
->Öntanımlı olarak kullanmak istediğiniz girintileme kipini seçin. Burada, <userinput
+>Varsayılan olarak kullanmak istediğiniz girintileme kipini seçin. Burada, <userinput
 >Yok</userinput
 > veya <userinput
 >Normal</userinput
@@ -1396,9 +1396,9 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Kaydı yedeklemek, &kappname; uygulamasının diskteki dosyayı (dosyanın önceden kaydedilen sürümünü) yeni değişiklikleri kaydetmeden önce &lt;önek&gt;&lt;dosya-adı&gt;&lt;sonek&gt; olarak kaydetmesini sağlar. Yedekleme dosyası, kaydederken bir şeyler ters giderse veya daha sonra dosyanın önceki sürümünü kurtarmak isterseniz çalışmanızı kurtarmanıza yardımcı olabilir. Sonek öntanımlı olarak <emphasis role="bold"
+>Kaydı yedeklemek, &kappname; uygulamasının diskteki dosyayı (dosyanın önceden kaydedilen sürümünü) yeni değişiklikleri kaydetmeden önce &lt;önek&gt;&lt;dosya-adı&gt;&lt;sonek&gt; olarak kaydetmesini sağlar. Yedekleme dosyası, kaydederken bir şeyler ters giderse veya daha sonra dosyanın önceki sürümünü kurtarmak isterseniz çalışmanızı kurtarmanıza yardımcı olabilir. Sonek varsayılan olarak <emphasis role="bold"
 >~</emphasis
-> yapılır ve önek öntanımlı olarak boştur. </para>
+> yapılır ve önek varsayılan olarak boştur. </para>
 <variablelist>
 <varlistentry>
 <term
@@ -1454,7 +1454,7 @@ Remove selected Add new mapping Import from vimrc file-->
 >’yı seçerek takas dosyalarının eşzamanlamasını devre dışı bırakabilir; ancak bu daha çok veri kaybına neden olur.</para>
 <para
 >Takas dosyası etkinleştirildiğinde, <guilabel
->Etkin, Öntanımlı Dizinde Depola</guilabel
+>Etkin, Varsayılan Dizinde Depola</guilabel
 > ve <guilabel
 >Etkin, Özel Dizinde Depola</guilabel
 > adındaki iki kip arasından seçim yapılabilir. </para>
@@ -1467,7 +1467,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Öntanımlı olarak takas dosyaları, dosyayla aynı klasöre kaydedilir. Takas dosyası kipi için <guilabel
+>Varsayılan olarak takas dosyaları, dosyayla aynı klasöre kaydedilir. Takas dosyası kipi için <guilabel
 >Etkin, Özel Dizinde Depola</guilabel
 > seçildiğinde, takas dosyaları belirtilen klasörde oluşturulur. Bu, gereksiz ağ trafiğini önlemek amacıyla ağ dosya sistemleri için kullanışlıdır.</para>
 </listitem>
@@ -1494,7 +1494,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <title
 >Kipler ve Dosya Türleri</title>
 <para
->Bu sayfa, belirtilen &MIME; türlerindeki belgeler için öntanımlı yapılandırmayı geçersiz kılmanıza olanak tanır. Düzenleyici bir belge yüklediğinde, bunun tanımlanmış dosya türlerinden biri için dosya maskeleri veya &MIME; türleriyle eşleşip eşleşmediğini deneyecek ve eğer öyleyse tanımlanan değişkenleri uygulayacaktır. Daha fazla dosya türü eşleşirse en yüksek önceliğe sahip olan kullanılır. </para>
+>Bu sayfa, belirtilen &MIME; türlerindeki belgeler için varsayılan yapılandırmayı geçersiz kılmanıza olanak tanır. Düzenleyici bir belge yüklediğinde, bunun tanımlanmış dosya türlerinden biri için dosya maskeleri veya &MIME; türleriyle eşleşip eşleşmediğini deneyecek ve eğer öyleyse tanımlanan değişkenleri uygulayacaktır. Daha fazla dosya türü eşleşirse en yüksek önceliğe sahip olan kullanılır. </para>
 <variablelist>
 <varlistentry>
 <term
@@ -1747,7 +1747,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></listitem>
 <listitem
 ><para
->INTEGER — herhangi bir tamsayı</para
+>INTEGER — herhangi bir tam sayı</para
 ></listitem>
 <listitem
 ><para
@@ -1905,7 +1905,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Yazım denetimi için kullanılan öntanımlı sözlüğü ayarlar.</para>
+>Yazım denetimi için kullanılan varsayılan sözlüğü ayarlar.</para>
 <para
 >&kate; 3.4 (&kde; 4.4) sürümünden beri</para
 ></listitem>
@@ -1977,7 +1977,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Düzenleyici kenarlığında katlama önizlemesini etkinleştirin.</para
+>Düzenleyici kenarlığında katlama ön izlemesini etkinleştirin.</para
 ></listitem>
 </varlistentry>
 
@@ -1992,7 +1992,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Belgenin yazıtipi boyutunu punto türünden ayarlayın.</para
+>Belgenin yazı tipi boyutunu punto türünden ayarlayın.</para
 ></listitem>
 </varlistentry>
 
@@ -2007,7 +2007,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Belgenin yazıtipini ayarlayın. Değer, geçerli bir yazıtipi adı olmalıdır; örneğin, <userinput
+>Belgenin yazı tipini ayarlayın. Değer, geçerli bir yazı tipi adı olmalıdır; örneğin, <userinput
 >courier</userinput
 >.</para
 ></listitem>
@@ -2311,7 +2311,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Sarma çubuğu önizlemesini gösterin.</para
+>Sarma çubuğu ön izlemesini gösterin.</para
 ></listitem>
 </varlistentry>
 

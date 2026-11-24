@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-20 01:17+0000\n"
+"POT-Creation-Date: 2026-11-24 01:09+0000\n"
 "PO-Revision-Date: 2026-11-14 10:51+0100\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1048,14 +1048,14 @@ msgstr "Velmi pěkná nápověda"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Všichni ostatní, kteří přispěli a zapomněl jsem je se o nich zmínit"
 
-#: lib/kateapp.cpp:601
+#: lib/kateapp.cpp:602
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 "Složky nyní mohou být otevřeny pouze pokud je zapnutý projektový zásuvný "
 "modul"
 
-#: lib/kateapp.cpp:694
+#: lib/kateapp.cpp:695
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2708,32 +2708,32 @@ msgstr "Zavřít &ostatní karty"
 msgid "Close All &Tabs"
 msgstr "Zavřít &všechny karty"
 
-#: lib/kateviewspace.cpp:1219
+#: lib/kateviewspace.cpp:1217
 #, kde-format
 msgid "D&etach Document"
 msgstr "&Odpojit dokument"
 
-#: lib/kateviewspace.cpp:1224
+#: lib/kateviewspace.cpp:1222
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Otevře dokument v novém okně a zavře jej v aktuálním okně"
 
-#: lib/kateviewspace.cpp:1265
+#: lib/kateviewspace.cpp:1263
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Porovnat s aktivním dokumentem"
 
-#: lib/kateviewspace.cpp:1271
+#: lib/kateviewspace.cpp:1269
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Porovnat s aktivním dokumentem pomocí"
 
-#: lib/kateviewspace.cpp:1279
+#: lib/kateviewspace.cpp:1277
 #, kde-format
 msgid "Unpin Document"
 msgstr "Odepnout dokument"
 
-#: lib/kateviewspace.cpp:1281
+#: lib/kateviewspace.cpp:1279
 #, kde-format
 msgid "Pin Document"
 msgstr "Připnout dokument"

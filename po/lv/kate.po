@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-20 01:17+0000\n"
+"POT-Creation-Date: 2026-11-24 01:09+0000\n"
 "PO-Revision-Date: 2025-11-07 18:21+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -1054,12 +1054,12 @@ msgid "All people who have contributed and I have forgotten to mention"
 msgstr ""
 "Visi cilvēki, kuri ir snieguši palīdzību un kurus esmu aizmirsis pieminēt"
 
-#: lib/kateapp.cpp:601
+#: lib/kateapp.cpp:602
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Mapes var atvērt tikai pēc projektu spraudņa ieslēgšanas"
 
-#: lib/kateapp.cpp:694
+#: lib/kateapp.cpp:695
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -2698,32 +2698,32 @@ msgstr "Aizvērt &pārējās cilnes"
 msgid "Close All &Tabs"
 msgstr "Aizvērt &visas cilnes"
 
-#: lib/kateviewspace.cpp:1219
+#: lib/kateviewspace.cpp:1217
 #, kde-format
 msgid "D&etach Document"
 msgstr "A&tdalīt dokumentu"
 
-#: lib/kateviewspace.cpp:1224
+#: lib/kateviewspace.cpp:1222
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Atver dokumentu jaunā logā un to aizver pašreizējā logā"
 
-#: lib/kateviewspace.cpp:1265
+#: lib/kateviewspace.cpp:1263
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Salīdzināt ar aktīvo dokumentu"
 
-#: lib/kateviewspace.cpp:1271
+#: lib/kateviewspace.cpp:1269
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Salīdzināt ar aktīvo dokumentu, izmantojot"
 
-#: lib/kateviewspace.cpp:1279
+#: lib/kateviewspace.cpp:1277
 #, kde-format
 msgid "Unpin Document"
 msgstr "Noņemt dokumenta piespraudi"
 
-#: lib/kateviewspace.cpp:1281
+#: lib/kateviewspace.cpp:1279
 #, kde-format
 msgid "Pin Document"
 msgstr "Piespraust dokumentu"

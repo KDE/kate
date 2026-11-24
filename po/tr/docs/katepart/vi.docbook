@@ -56,7 +56,7 @@
 >Edit</guimenu
 > menüsündeki <guimenuitem
 >Vi Giriş Kipi</guimenuitem
-> ögesinden de açılabilir/kapatılabilir. (Öntanımlı kısayol düğmesi: <keycombo action="simul"
+> ögesinden de açılabilir/kapatılabilir. (Varsayılan kısayol düğmesi: <keycombo action="simul"
 >&Meta;&Ctrl;<keycap
 >V</keycap
 ></keycombo
@@ -137,7 +137,7 @@
 >&Ctrl;<keycap
 >R</keycap
 ></keycombo
-> kısayolu öntanımlı olarak &kappname;’in değiştir işlevi için ayrılmıştır (ara ve değiştir). Öntanımlı olarak Vi kipi, &kappname;’in kısayollarını geçersiz kılmaz (bu, <menuchoice
+> kısayolu varsayılan olarak &kappname;’in değiştir işlevi için ayrılmıştır (ara ve değiştir). Varsayılan olarak Vi kipi, &kappname;’in kısayollarını geçersiz kılmaz (bu, <menuchoice
 ><guimenu
 >Ayarlar</guimenu
 ><guimenuitem
@@ -256,7 +256,7 @@
 <para
 ><emphasis
 >Normal Kip</emphasis
->, bir belgede gezinmek veya belgeyi düzenlemek için komutlar girmenize olanak tanır ve öntanımlı kiptir. &Esc; düğmesine basarak başka herhangi bir kipten bu kipe geri dönebilirsiniz. </para
+>, bir belgede gezinmek veya belgeyi düzenlemek için komutlar girmenize olanak tanır ve varsayılan kiptir. &Esc; düğmesine basarak başka herhangi bir kipten bu kipe geri dönebilirsiniz. </para
 ></listitem>
 <listitem>
 <para

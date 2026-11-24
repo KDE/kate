@@ -456,7 +456,7 @@
 ></term>
 <listitem
 ><para
->&kate;, tercih ettiğiniz oturumu seçmenizi veya kaydedilmemişse öntanımlı oturumu yüklemenizi sağlayan küçük bir iletişim kutusu görüntüleyecektir. Bu, öntanımlı davranıştır. Çok sayıda farklı oturumu sık sık kullanıyorsanız yararlıdır.</para
+>&kate;, tercih ettiğiniz oturumu seçmenizi veya kaydedilmemişse varsayılan oturumu yüklemenizi sağlayan küçük bir iletişim kutusu görüntüleyecektir. Bu, varsayılan davranıştır. Çok sayıda farklı oturumu sık sık kullanıyorsanız yararlıdır.</para
 ></listitem>
 </varlistentry>
 </variablelist>

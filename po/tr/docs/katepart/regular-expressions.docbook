@@ -1016,7 +1016,7 @@ doğrudan uyumlu değildir.</synopsis>
 >Açgözlülük</title>
 
 <para
->En çok değere sahip olmayan niceleyiciler kullanılırken, düzenli ifadeler aranan dizinin olabildiğince büyük bölümüyle eşleşmeye öntanımlıdır, buna genellikle <emphasis
+>En çok değere sahip olmayan niceleyiciler kullanılırken, düzenli ifadeler aranan dizinin olabildiğince büyük bölümüyle eşleşmeye varsayılandır, buna genellikle <emphasis
 >açgözlü</emphasis
 > davranış denir.</para>
 
@@ -1025,7 +1025,7 @@ doğrudan uyumlu değildir.</synopsis>
 >açgözlülüğü kapatmanın</quote
 > yollarını sağlar; ancak grafiksel bir ortamda bu özelliğe erişmenizi sağlamak arayüzün sorumluluğundadır. Örneğin, düzenli ifade araması sağlayan bir arama iletişim kutusunda <quote
 >En az eşleşme</quote
-> etiketli bir onay kutusu bulunabilir ve ayrıca açgözlülüğün öntanımlı davranış olup olmadığının belirtilmesi gerekir.</para>
+> etiketli bir onay kutusu bulunabilir ve ayrıca açgözlülüğün varsayılan davranış olup olmadığının belirtilmesi gerekir.</para>
 
 </sect2>
 

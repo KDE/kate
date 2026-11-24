@@ -76,7 +76,7 @@
 ><guimenuitem
 >Yorum</guimenuitem
 ></menuchoice
-> menü ögesini veya ilgili klavye kısayolu dizisini kullanın; öntanımlı kısayol: <keycombo action="simul"
+> menü ögesini veya ilgili klavye kısayolu dizisini kullanın; varsayılan kısayol: <keycombo action="simul"
 >&Ctrl;<keycap
 >D</keycap
 ></keycombo
@@ -93,7 +93,7 @@
 ><guimenuitem
 >Yorumları Kaldır</guimenuitem
 ></menuchoice
-> menü ögesini veya ilgili klavye kısayolu dizisini kullanın; öntanımlı kısayol: <keycombo action="simul"
+> menü ögesini veya ilgili klavye kısayolu dizisini kullanın; varsayılan kısayol: <keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >D</keycap
 ></keycombo
@@ -112,7 +112,7 @@
 ><guimenuitem
 >Komut Satırına Geç</guimenuitem
 ></menuchoice
-> ögesini veya klavye kısayolunu (öntanımlı kısayol: <keycombo action="simul"
+> ögesini veya klavye kısayolunu (varsayılan kısayol: <keycombo action="simul"
 ><keycap
 >F7</keycap
 ></keycombo
@@ -173,7 +173,7 @@
 >TAMSAYI</term>
 <listitem
 ><para
->Bir tamsayı.</para
+>Bir tam sayı.</para
 ></listitem>
 </varlistentry>
 
@@ -195,7 +195,7 @@
 >Düzenleyiciyi Yapılandırmak için Komutlar</title>
 
 <para
->Bu komutlar düzenleyici bileşeni tarafından sağlanır ve etkin belgeyi ve yalnızca görüntülemeyi yapılandırmanıza olanak tanır. Girinti gibi öntanımlı ayarlardan farklı bir ayar kullanmak istiyorsanız bu kullanışlıdır. </para>
+>Bu komutlar düzenleyici bileşeni tarafından sağlanır ve etkin belgeyi ve yalnızca görüntülemeyi yapılandırmanıza olanak tanır. Girinti gibi varsayılan ayarlardan farklı bir ayar kullanmak istiyorsanız bu kullanışlıdır. </para>
 
 <variablelist>
 
@@ -994,9 +994,9 @@
 <term>
 <indexterm
 ><primary
->sed biçeminde değiştirme</primary>
+>sed stilinde değiştirme</primary>
 <secondary
->sed biçeminde arama</secondary
+>sed stilinde arama</secondary
 ></indexterm
 ><command
 >s///[ig]</command
@@ -1311,7 +1311,7 @@
 <para
 >Bu komut, seçilen bloktaki veya belgenin tamamındaki satırları, argüman olarak verilen normal bir ifadeyle verilen sütunda hizalar.</para>
 <para
->Boş bir dizgi verirseniz öntanımlı olarak ilk boş olmayan karaktere hizalanır.</para>
+>Boş bir dizgi verirseniz varsayılan olarak ilk boş olmayan karaktere hizalanır.</para>
 <para
 >Dizginin bir yakalaması varsa yakalanan eşleşmeye girintili olacaktır.</para>
 <para
@@ -1541,7 +1541,7 @@
 ><guimenuitem
 >Sonrakini Bul</guimenuitem
 ></menuchoice
-> ile bulunabilir (öntanımlı kısayol: <keycap
+> ile bulunabilir (varsayılan kısayol: <keycap
 >F3</keycap
 >).</para>
 <para

@@ -1847,7 +1847,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
           <li xml:lang="sr-Latn">Praćenje relativnih veza ka fajlovima pomoću priključka za otvaranje veza, koji je sada podrazumevano uključen, uz bolje prepoznavanje putanja fajlova i URL‑ova.</li>
           <li xml:lang="sr-ijekavian">Праћење релативних веза ка фајловима помоћу прикључка за отварање веза, који је сада подразумијевано укључен, уз боље препознавање путања фајлова и УРЛ‑ова.</li>
           <li xml:lang="sr-ijekavianlatin">Praćenje relativnih veza ka fajlovima pomoću priključka za otvaranje veza, koji je sada podrazumijevano uključen, uz bolje prepoznavanje putanja fajlova i URL‑ova.</li>
-          <li xml:lang="tr">Bağlantı Aç eklentisi ile göreceli dosya bağlantılarını açın; öntanımlı olarak etkindir ve dosya yollarını ve URL’leri daha iyi tanır.</li>
+          <li xml:lang="tr">Bağlantı Aç eklentisi ile göreceli dosya bağlantılarını açın; varsayılan olarak etkindir ve dosya yollarını ve URL’leri daha iyi tanır.</li>
           <li xml:lang="uk">Реалізовано перехід за відносними посиланнями на файли за допомогою додатка відкриття посилань (тепер типово увімкненого), у якому покращено розпізнавання шляхів до файлів і адрес.</li>
           <li xml:lang="zh-CN">默认启用“打开链接”插件，通过它跟随相对文件链接，并增强了对文件路径和 URL 的识别能力。</li>
           <li>Keep the editor responsive during project code completion by looking up matches in the background.</li>

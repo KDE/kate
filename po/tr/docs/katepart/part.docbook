@@ -248,7 +248,7 @@
 > <guimenuitem
 >Kopyala</guimenuitem
 ></menuchoice
-> menü ögesini veya klavye kısayolunu kullanın (öntanımlı olarak <keycombo action="simul"
+> menü ögesini veya klavye kısayolunu kullanın (varsayılan olarak <keycombo action="simul"
 >&Ctrl;<keycap
 >C</keycap
 ></keycombo
@@ -263,7 +263,7 @@
 > <guimenuitem
 >Seçimi Kaldır</guimenuitem
 ></menuchoice
-> menü ögesini veya klavye kısayolunu kullanın (öntanımlı olarak <keycombo action="simul"
+> menü ögesini veya klavye kısayolunu kullanın (varsayılan olarak <keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >A</keycap
 ></keycombo
@@ -285,7 +285,7 @@
 > <guimenuitem
 >Blok Seçim Kipi</guimenuitem
 ></menuchoice
-> menü ögesiyle açılıp kapatılabilir. Öntanımlı klavye kısayolu: <keycombo action="simul"
+> menü ögesiyle açılıp kapatılabilir. Varsayılan klavye kısayolu: <keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >B</keycap
 ></keycombo
@@ -302,7 +302,7 @@
 >Seçimin Üzerine Yaz etkinleştirilirse seçime metin yazmak veya yapıştırmak, seçili metnin değiştirilmesine neden olur. Etkinleştirilmezse metin imlecinin konumuna yeni metin eklenir.</para>
 
 <para
->Seçimin Üzerine Yaz öntanımlı olarak etkindir.</para>
+>Seçimin Üzerine Yaz varsayılan olarak etkindir.</para>
 
 <para
 >Bu seçeneğin ayarını değiştirmek için <link linkend="config-dialog"
@@ -322,7 +322,7 @@
 >Kalıcı Seçim etkinleştirildiğinde, karakterler girmek veya imleci hareket ettirmek seçimin kaldırılmasına neden olmaz. Bu, imleci seçimden uzaklaştırıp metin yazabileceğiniz anlamına gelir.</para>
 
 <para
->Kalıcı Seçim öntanımlı olarak devre dışıdır.</para>
+>Kalıcı Seçim varsayılan olarak devre dışıdır.</para>
 
 <para
 >Kalıcı Seçim, <link linkend="config-dialog"
@@ -896,7 +896,7 @@
 >Satır Değişiklik Göstergeleri</title>
 
 <para
->&kappname;’in satır değişikliği göstergeleri, bir dosyada en son neleri değiştirdiğinizi kolayca görmenizi sağlar. Öntanımlı olarak, kaydedilen değişiklikler belgenin solundaki yeşil bir çubukla gösterilirken, kaydedilmemiş değişiklikler turuncu bir çubukla gösterilir.</para>
+>&kappname;’in satır değişikliği göstergeleri, bir dosyada en son neleri değiştirdiğinizi kolayca görmenizi sağlar. Varsayılan olarak, kaydedilen değişiklikler belgenin solundaki yeşil bir çubukla gösterilirken, kaydedilmemiş değişiklikler turuncu bir çubukla gösterilir.</para>
 
 <para>
 <mediaobject>
@@ -912,10 +912,10 @@
 <para
 >Kullanılan renkleri, <link linkend="prefcolors"
 ><guilabel
->Yazıtipleri ve Renkler</guilabel
+>Yazı Tipleri ve Renkler</guilabel
 > yapılandırma panelinden</link
 > değiştirebilir veya bu özelliği <guilabel
->Appearance</guilabel
+>Görünüş</guilabel
 > yapılandırma panelinin <link linkend="appearance-borders"
 ><guilabel
 >Kenarlıklar</guilabel
@@ -929,7 +929,7 @@
 >Sarma Çubuğu Mini Haritası</title>
 
 <para
->&kappname;’in Sarma Çubuğu Mini Haritası, sarma çubuğu yerine belgenin önizlemesini görüntüler. Belgenin o anda görünen kısmı vurgulanır. </para>
+>&kappname;’in Sarma Çubuğu Mini Haritası, sarma çubuğu yerine belgenin ön izlemesini görüntüler. Belgenin o anda görünen kısmı vurgulanır. </para>
 
 <para>
 <mediaobject>
@@ -937,7 +937,7 @@
 ><imagedata format="PNG" fileref="minimap.png"/></imageobject>
 <caption
 ><para
->Sarma Çubuğu Mini Haritası, &kate; kaynak kodunun bir önizlemesini gösterirken. </para
+>Sarma Çubuğu Mini Haritası, &kate; kaynak kodunun bir ön izlemesini gösterirken. </para
 ></caption>
 </mediaobject>
 </para>

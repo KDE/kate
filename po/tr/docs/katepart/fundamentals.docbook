@@ -20,7 +20,7 @@
 <para
 >Kısayolların birçoğu, <link linkend="settings-help-menu"
 >Ayarlar</link
-> menüsünden yapılandırılabilir. Öntanımlı olarak &katepart;, aşağıdaki kısayolları tanır:</para>
+> menüsünden yapılandırılabilir. Varsayılan olarak &katepart;, aşağıdaki kısayolları tanır:</para>
 <informaltable>
 <tgroup cols="2">
 <tbody>
@@ -1034,7 +1034,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Yazıtipini küçültün.</para
+>Yazı tipini küçültün.</para
 ></entry>
 </row>
 <row>
@@ -1052,7 +1052,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Yazıtipini büyütün.</para
+>Yazı tipini büyütün.</para
 ></entry>
 </row>
 <row>

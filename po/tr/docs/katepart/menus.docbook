@@ -1026,7 +1026,7 @@ depends on the <link linkend="pref-edit-indent"
 <para
 >Bu komut, seçili bloktaki veya belgenin tamamındaki satırları, size sorulacak düzenli bir ifadeyle verilen sütunda hizalar.</para>
 <para
->Boş bir dizgi verirseniz öntanımlı olarak ilk boş olmayan karaktere hizalanır.</para>
+>Boş bir dizgi verirseniz varsayılan olarak ilk boş olmayan karaktere hizalanır.</para>
 <para
 >Dizginin bir yakalaması varsa yakalanan eşleşmeye girintili olacaktır.</para>
 <para
@@ -1191,12 +1191,12 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Görünüm</guimenu
 > <guimenuitem
->Yazıtipini Büyüt</guimenuitem
+>Yazı Tipini Büyüt</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Bu, görüntü yazıtipi puntosunu artırır.</para
+>Bu, görüntü yazı tipi puntosunu artırır.</para
 ></listitem>
 </varlistentry>
 
@@ -1212,12 +1212,12 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Görünüm</guimenu
 > <guimenuitem
->Yazıtipini Küçült</guimenuitem
+>Yazı Tipini Küçült</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Bu, görüntü yazıtipi puntosunu azaltır.</para
+>Bu, görüntü yazı tipi puntosunu azaltır.</para
 ></listitem>
 </varlistentry>
 
@@ -1282,7 +1282,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenuitem
 >Düzenleyiciyi Yapılandır…</guimenuitem
 ></menuchoice
-> iletişim kutusunun Düzenleme sekmesinde tanımlandığı üzere sözcük kaydırma sütununda dikey bir çizgi çizer. Lütfen sözcük kaydırma imleyicisinin yalnızca eş aralıklı bir yazıtipi kullanıyorsanız çizileceğini unutmayın.</para>
+> iletişim kutusunun Düzenleme sekmesinde tanımlandığı üzere sözcük kaydırma sütununda dikey bir çizgi çizer. Lütfen sözcük kaydırma imleyicisinin yalnızca eş aralıklı bir yazı tipi kullanıyorsanız çizileceğini unutmayın.</para>
 </listitem>
 </varlistentry>
 
@@ -1816,7 +1816,7 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem>
 <para
->Etkin belge için tercih ettiğiniz girintileme biçemini seçin. Bu, yalnızca geçerli belgeniz için <menuchoice
+>Etkin belge için tercih ettiğiniz girintileme stilini seçin. Bu, yalnızca geçerli belgeniz için <menuchoice
 > <guimenu
 >Ayarlar</guimenu
 ><guimenuitem
@@ -1845,7 +1845,7 @@ depends on the <link linkend="pref-edit-indent"
 > </menuchoice
 > iletişim kutusunun <guilabel
 >Aç/Kaydet</guilabel
-> sayfasında ayarlanan öntanımlı kodlamayı, geçerli belgeniz için geçersiz kılabilirsiniz. Burada ayarladığınız kodlama, yalnızca geçerli belgeniz için geçerli olur.</para>
+> sayfasında ayarlanan varsayılan kodlamayı, geçerli belgeniz için geçersiz kılabilirsiniz. Burada ayarladığınız kodlama, yalnızca geçerli belgeniz için geçerli olur.</para>
 </listitem>
 </varlistentry>
 
@@ -2807,8 +2807,8 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 ></term>
 <listitem
 ><para
->Bu menü, kullanılabilir renk şemalarını listeler. Geçerli görünümün şemasını buradan değiştirebilirsiniz; öntanımlı şemayı değiştirmek için yapılandırma iletişim kutusunun <ulink url="help:/katepart/config-dialog-editor.html#prefcolors"
->Yazıtipleri ve Renkler</ulink
+>Bu menü, kullanılabilir renk şemalarını listeler. Geçerli görünümün şemasını buradan değiştirebilirsiniz; varsayılan şemayı değiştirmek için yapılandırma iletişim kutusunun <ulink url="help:/katepart/config-dialog-editor.html#prefcolors"
+>Yazı Tipleri ve Renkler</ulink
 > sayfasını kullanmanız gerekmektedir.</para>
 </listitem>
 </varlistentry>

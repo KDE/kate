@@ -1575,12 +1575,12 @@
 > <guimenu
 >Görünüm</guimenu
 > <guimenuitem
->Yazıtipini Büyüt</guimenuitem
+>Yazı Tipini Büyüt</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Bu, görüntü yazıtipi puntosunu artırır.</para
+>Bu, görüntü yazı tipi puntosunu artırır.</para
 ></listitem>
 </varlistentry>
 
@@ -1596,12 +1596,12 @@
 > <guimenu
 >Görünüm</guimenu
 > <guimenuitem
->Yazıtipini Küçült</guimenuitem
+>Yazı Tipini Küçült</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Bu, görüntü yazıtipi puntosunu azaltır.</para
+>Bu, görüntü yazı tipi puntosunu azaltır.</para
 ></listitem>
 </varlistentry>
 
@@ -1616,8 +1616,8 @@
 ></term>
 <listitem
 ><para
->Bu menü, kullanılabilir renk şemalarını listeler. Geçerli görünümün şemasını buradan değiştirebilirsiniz; öntanımlı şemayı değiştirmek için yapılandırma iletişim kutusunun <ulink url="help:/katepart/config-dialog-editor.html#prefcolors"
->Yazıtipleri ve Renkler</ulink
+>Bu menü, kullanılabilir renk şemalarını listeler. Geçerli görünümün şemasını buradan değiştirebilirsiniz; varsayılan şemayı değiştirmek için yapılandırma iletişim kutusunun <ulink url="help:/katepart/config-dialog-editor.html#prefcolors"
+>Yazı Tipleri ve Renkler</ulink
 > sayfasını kullanmanız gerekir.</para>
 </listitem>
 </varlistentry>
@@ -1679,7 +1679,7 @@
 ><para
 ><ulink url="help:/katepart/config-dialog-editor.html#pref-wrap-words-at"
 >Yapılandırma iletişim kutusunda</ulink
-> yapılandırıldığı şekliyle sarma genişliğinin konumunu gösteren dikey bir çizginin görünümünü değiştirir. Bu özellik, gerçek eş aralıklı bir yazıtipi kullanmanızı gerektirir. </para>
+> yapılandırıldığı şekliyle sarma genişliğinin konumunu gösteren dikey bir çizginin görünümünü değiştirir. Bu özellik, gerçek eş aralıklı bir yazı tipi kullanmanızı gerektirir. </para>
 </listitem>
 </varlistentry>
 
@@ -2157,7 +2157,7 @@
 <listitem>
 <para
 >Etkin belgeniz için istediğiniz <ulink url="help:/katepart/kate-part-autoindent.html"
->girintileme biçemini</ulink
+>girintileme stilini</ulink
 > seçin. Bu, yalnızca geçerli belgeniz için <menuchoice
 > <guimenu
 >Ayarlar</guimenu

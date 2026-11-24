@@ -46,7 +46,7 @@
 >Genel Bakış</title>
 
 <para
->Sözdizim Vurgulama, dosyanın amacına göre dizinin işlevine bağlı olarak düzenleyicinin metni kendiliğinden farklı biçemlerde/renklerde görüntülemesini sağlayan şeydir. Örneğin program kaynak kodunda, denetim ifadeleri kalın harflerle gösterilebilirken, veri türleri ve yorumlar metnin geri kalanından farklı renkler alır. Bu, metnin okunabilirliğini büyük ölçüde artırır ve böylece yazarın daha verimli ve üretken olmasına yardımcı olur.</para>
+>Sözdizim Vurgulama, dosyanın amacına göre dizinin işlevine bağlı olarak düzenleyicinin metni kendiliğinden farklı stillerde/renklerde görüntülemesini sağlayan şeydir. Örneğin program kaynak kodunda, denetim ifadeleri kalın harflerle gösterilebilirken, veri türleri ve yorumlar metnin geri kalanından farklı renkler alır. Bu, metnin okunabilirliğini büyük ölçüde artırır ve böylece yazarın daha verimli ve üretken olmasına yardımcı olur.</para>
 
 <mediaobject>
 <imageobject
@@ -90,17 +90,17 @@
 > menüsünden elle bir vurgulama türü seçebilirsiniz.</para>
 
 <para
->Sözdizim vurgulamaları tarafından kullanılan biçemler ve renkler <link linkend="config-dialog"
+>Sözdizim vurgulamaları tarafından kullanılan stiller ve renkler <link linkend="config-dialog"
 >yapılandırma iletişim kutusunun</link
 > <link linkend="prefcolors-highlighting-text-styles"
->Vurgulanan Metin Biçemleri</link
+>Vurgulanan Metin Stilleri</link
 > sekmesinden düzenlenebilirken, &MIME; türleri ve kullanması gereken dosya uzantıları ise <link linkend="pref-open-save-modes-filetypes"
 >Kipler ve Dosya Türleri</link
 > sekmesinden ayarlanır.</para>
 
 <note>
 <para
->Sözdizim vurgulama, doğru metnin okunabilirliğini artırmak için vardır; ancak metninizi doğrulamak için ona güvenemezsiniz. Kullandığınız biçime bağlı olarak metni sözdizimi için işaretlemek zordur ve bazı durumlarda sözdizimi kurallarının yazarları metnin %98’i doğru şekilde oluşturulursa gurur duyacaktır; ancak çoğunlukla yanlış %2’yi görmek için nadir bir biçeme gereksiniminiz vardır.</para>
+>Sözdizim vurgulama, doğru metnin okunabilirliğini artırmak için vardır; ancak metninizi doğrulamak için ona güvenemezsiniz. Kullandığınız biçime bağlı olarak metni sözdizimi için işaretlemek zordur ve bazı durumlarda sözdizimi kurallarının yazarları metnin %98’i doğru şekilde oluşturulursa gurur duyacaktır; ancak çoğunlukla yanlış %2’yi görmek için nadir bir stile gereksiniminiz vardır.</para>
 </note>
 
 </sect2>
@@ -122,7 +122,7 @@
 >Bir dosyayı açtığınızda &kappname; düzenleyicisinin yaptığı ilk şeylerden biri, dosya için hangi sözdizim tanımının kullanılacağını algılamaktır. Dosya metnini okurken ve siz dosyaya bir şeyler yazarken, sözdizim vurgulama sistemi, sözdizim tanımıyla tanımlanan kuralları kullanarak metni çözümleyecek ve farklı bağlamların ve biçimlerin başladığı ve bittiği yerleri imleyecektir.</para>
 
 <para
->Belgeye bir şeyler yazdığınızda, yeni metin anında çözümlenir ve imlenir; böylece, bir bağlamın başlangıcı veya sonu olarak imlenen bir karakteri silerseniz çevreleyen metnin biçemi buna göre değişir.</para>
+>Belgeye bir şeyler yazdığınızda, yeni metin anında çözümlenir ve imlenir; böylece, bir bağlamın başlangıcı veya sonu olarak imlenen bir karakteri silerseniz çevreleyen metnin stili buna göre değişir.</para>
 
 <para
 >&kappname; Sözdizim Vurgulama Sistemi tarafından kullanılan sözdizim tanımları &XML; dosyalarıdır ve şunları içerir: <itemizedlist>
@@ -136,7 +136,7 @@
 ></listitem>
 <listitem
 ><para
->Biçem ögesi tanımları</para
+>Stil ögesi tanımları</para
 ></listitem>
 </itemizedlist>
 </para>
@@ -153,7 +153,7 @@
 <para
 >Algılama kuralları, vurgulama algılama sisteminin kalbidir. Kural, çözümlenen metinle eşleştirilecek bir dizi, karakter veya <link linkend="regular-expressions"
 >düzenli ifadedir</link
->. Metnin eşleşen kısmı için hangi biçemin kullanılacağı hakkında bilgi içerir. Sistemin çalışma bağlamını ya açıkça belirtilen bir bağlama ya da metin tarafından kullanılan önceki bağlama çevirebilir.</para>
+>. Metnin eşleşen kısmı için hangi stilin kullanılacağı hakkında bilgi içerir. Sistemin çalışma bağlamını ya açıkça belirtilen bir bağlama ya da metin tarafından kullanılan önceki bağlama çevirebilir.</para>
 
 <para
 >Kurallar bağlam gruplarında düzenlenir. Bir bağlam grubu, biçim içindeki ana metin kavramları için kullanılır; örneğin, alıntılanan metin dizileri veya program kaynak kodundaki yorum blokları. Bu, vurgulama sisteminin gerekli olmadığında tüm kurallar arasında döngü yapmasına gerek kalmamasını ve metindeki bazı karakter dizilerinin geçerli bağlama bağlı olarak farklı şekilde ele alınabilmesini sağlar. </para>
@@ -165,13 +165,13 @@
 
 <sect3 id="highlight-context-styles-keywords">
 <title
->Bağlam Biçemleri ve Anahtar Sözcükler</title>
+>Bağlam Stilleri ve Anahtar Sözcükler</title>
 
 <para
->Bazı programlama dillerinde tamsayılar, derleyici (kaynak kodunu ikili yürütülebilir dosyaya dönüştüren program) tarafından kayan noktalı sayılardan farklı şekilde ele alınır ve tırnak içine alınan bir dizi içinde özel bir anlama sahip karakterler olabilir. Bu gibi durumlarda, metni okurken kolayca tespit edilebilmeleri için onları çevreden farklı kılmak mantıklıdır. Dolayısıyla, özel bağlamları temsil etmeseler bile sözdizim vurgulama sistemi tarafından bu şekilde görülebilirler, böylece farklı sunum için imlenebilirler.</para>
+>Bazı programlama dillerinde tam sayılar, derleyici (kaynak kodunu ikili yürütülebilir dosyaya dönüştüren program) tarafından kayan noktalı sayılardan farklı şekilde ele alınır ve tırnak içine alınan bir dizi içinde özel bir anlama sahip karakterler olabilir. Bu gibi durumlarda, metni okurken kolayca tespit edilebilmeleri için onları çevreden farklı kılmak mantıklıdır. Dolayısıyla, özel bağlamları temsil etmeseler bile sözdizim vurgulama sistemi tarafından bu şekilde görülebilirler, böylece farklı sunum için imlenebilirler.</para>
 
 <para
->Bir sözdizim tanımı, kullanıldığı biçimin kavramlarını kapsayacak kadar çok sayıda biçem içerebilir.</para>
+>Bir sözdizim tanımı, kullanıldığı biçimin kavramlarını kapsayacak kadar çok sayıda stil içerebilir.</para>
 
 <para
 >Pek çok biçimde belirli bir kavramı temsil eden sözcük listeleri bulunur. Örneğin, programlama dillerinde, denetim ifadeleri bir kavramdır, veri türü adları başka bir kavramdır ve dilin yerleşik işlevleri üçüncüsüdür. &kappname; Sözdizim Vurgulama Sistemi, metin biçimlerinin kavramlarını vurgulamak amacıyla metindeki sözcükleri tespit etmek ve imlemek için bu tür listeleri kullanabilir.</para>
@@ -180,18 +180,18 @@
 
 <sect3 id="kate-highlight-system-default-styles">
 <title
->Öntanımlı Biçemler</title>
+>Varsayılan Stiller</title>
 
 <para
->&kappname;’de bir C++ kaynak dosyası, bir &Java; kaynak dosyası ve bir &HTML; belgesi açarsanız biçimler farklı olsa ve dolayısıyla özel işlem için farklı sözcükler seçilse bile, kullanılan renklerin aynı olduğunu göreceksiniz. Bunun nedeni, &kappname;’in ayrı ayrı sözdizimi tanımları tarafından kullanılan, önceden tanımlanmış bir Öntanımlı Biçemler listesine sahip olmasıdır.</para>
+>&kappname;’de bir C++ kaynak dosyası, bir &Java; kaynak dosyası ve bir &HTML; belgesi açarsanız biçimler farklı olsa ve dolayısıyla özel işlem için farklı sözcükler seçilse bile, kullanılan renklerin aynı olduğunu göreceksiniz. Bunun nedeni, &kappname;’in ayrı ayrı sözdizimi tanımları tarafından kullanılan, önceden tanımlanmış bir Varsayılan Stiller listesine sahip olmasıdır.</para>
 
 <para
->Bu, farklı metin biçimlerindeki benzer kavramların tanınmasını kolaylaştırır. Örneğin, yorumlar hemen hemen her programlama, komut dosyası veya biçimlendirme dilinde bulunur ve tüm dillerde aynı biçem kullanılarak oluşturulduklarında, bunları metin içinde bunların ne olduğunu tanımlamaya çalışmakla vakit kaybetmezsiniz.</para>
+>Bu, farklı metin biçimlerindeki benzer kavramların tanınmasını kolaylaştırır. Örneğin, yorumlar hemen hemen her programlama, komut dosyası veya biçimlendirme dilinde bulunur ve tüm dillerde aynı stil kullanılarak oluşturulduklarında, bunları metin içinde bunların ne olduğunu tanımlamaya çalışmakla vakit kaybetmezsiniz.</para>
 
 <tip>
 <para
->Bir sözdizim tanımındaki tüm biçemler, öntanımlı biçemlerden birini kullanır. Birkaç sözdizim tanımı, öntanımlılardan daha çok biçem kullanır; bu nedenle, bir biçimi sık sık kullanıyorsanız bazı kavramların aynı biçemi kullanıp kullanmadığını görmek için yapılandırma iletişim kutusunu açmanız faydalı olabilir. Örneğin, diziler için yalnızca bir öntanımlı biçem vardır; ancak Perl programlama dili iki tür diziyle çalıştığından, bunları biraz farklı olacak şekilde yapılandırarak vurgulamayı geliştirebilirsiniz. Tüm <link linkend="kate-highlight-default-styles"
->kullanılabilir öntanımlı biçemler</link
+>Bir sözdizim tanımındaki tüm stiller, varsayılan stillerden birini kullanır. Birkaç sözdizim tanımı, varsayılanlardan daha çok stil kullanır; bu nedenle, bir biçimi sık sık kullanıyorsanız bazı kavramların aynı stili kullanıp kullanmadığını görmek için yapılandırma iletişim kutusunu açmanız faydalı olabilir. Örneğin, diziler için yalnızca bir varsayılan stil vardır; ancak Perl programlama dili iki tür diziyle çalıştığından, bunları biraz farklı olacak şekilde yapılandırarak vurgulamayı geliştirebilirsiniz. Tüm <link linkend="kate-highlight-default-styles"
+>kullanılabilir varsayılan stiller</link
 > daha sonra açıklanacaktır.</para>
 </tip>
 
@@ -208,7 +208,7 @@
 >Genel Bakış</title>
 
 <para
->&kappname;, &kde-frameworks;’ten Syntax-Highlighting kitaplığını kullanır. &kappname; ile verilen öntanımlı &XML; vurgulama dosyaları, Syntax-Highlighting tarafından öntanımlı olarak derlenirler. </para>
+>&kappname;, &kde-frameworks;’ten Syntax-Highlighting kitaplığını kullanır. &kappname; ile verilen varsayılan &XML; vurgulama dosyaları, Syntax-Highlighting tarafından varsayılan olarak derlenirler. </para>
 
 <para
 >Bu bölüm, &XML; Vurgu Tanımı biçimine genel bir bakış sunar. Küçük bir örneğe dayanarak ana bileşenleri, bunların anlamlarını ve kullanımlarını açıklayacağız. Bir sonraki bölümde vurgu algılama kurallarının ayrıntılarına girilecektir.</para>
@@ -382,7 +382,7 @@
 <para
 ><userinput
 >version</userinput
->, tanım dosyasının geçerli revizyonunu bir tamsayı türünden belirtir. Vurgu tanımı dosyasını değiştirdiğinizde bu sayıyı artırdığınızdan emin olun.</para>
+>, tanım dosyasının geçerli revizyonunu bir tam sayı türünden belirtir. Vurgu tanımı dosyasını değiştirdiğinizde bu sayıyı artırdığınızdan emin olun.</para>
 <para
 ><userinput
 >kateversion</userinput
@@ -419,7 +419,7 @@
 <para
 ><userinput
 >indenter</userinput
->, öntanımlı olarak hangi girintileyicinin kullanılacağını tanımlar. Kullanılabilir girintileyiciler: <emphasis
+>, varsayılan olarak hangi girintileyicinin kullanılacağını tanımlar. Kullanılabilir girintileyiciler: <emphasis
 >ada, normal, cstyle, cmake, haskell, latex, lilypond, lisp, lua, pascal, python, replicode, ruby</emphasis
 > ve <emphasis
 >xml</emphasis
@@ -476,7 +476,7 @@
 <para
 ><userinput
 >contexts</userinput
-> ögesi tüm bağlamları içerir. İlk bağlam, öntanımlı olarak, vurgulamanın başlangıcıdır. <emphasis
+> ögesi tüm bağlamları içerir. İlk bağlam, varsayılan olarak, vurgulamanın başlangıcıdır. <emphasis
 >Normal Text</emphasis
 > adlı bağlamda iki adet kural vardır: <emphasis
 >somename</emphasis
@@ -486,7 +486,7 @@
 <para
 >Üçüncü kısımsa <userinput
 >itemDatas</userinput
-> ögesidir. Bağlamlar ve kurallar tarafından gereksinim duyulan tüm renk ve yazıtipi biçemlerini içerir. Bu örnekte, <userinput
+> ögesidir. Bağlamlar ve kurallar tarafından gereksinim duyulan tüm renk ve yazı tipi stillerini içerir. Bu örnekte, <userinput
 >itemData</userinput
 > <emphasis
 >Normal Text</emphasis
@@ -606,7 +606,7 @@
 <para
 ><userinput
 >attribute</userinput
->, hiçbir kural eşleşmediğinde veya bir kural özniteliği belirtilmediğinde bir karakter için kullanılacak biçemi tanımlar. Sonraki durumda, kuralın <emphasis
+>, hiçbir kural eşleşmediğinde veya bir kural özniteliği belirtilmediğinde bir karakter için kullanılacak stili tanımlar. Sonraki durumda, kuralın <emphasis
 >context</emphasis
 >’inde belirtilen <emphasis
 >attribute</emphasis
@@ -629,19 +629,19 @@
 >IncludeRules</userinput
 > kuralları ile aynı tarzdadır; &eg;, <userinput
 >SomeContext##JavaScript</userinput
->. Bağlam anahtarları ek olarak <xref linkend="kate-highlight-rules-detailled"/> içinde açıklanırlar. Öntanımlı: #stay.</para>
+>. Bağlam anahtarları ek olarak <xref linkend="kate-highlight-rules-detailled"/> içinde açıklanırlar. Varsayılan: #stay.</para>
 <para
 ><userinput
 >lineEmptyContext</userinput
 >, boş bir satıra rastlandığındaki bağlamı tanımlar. Bağlam anahtarlarının terminolojisi daha önce <emphasis
 >lineEndContext</emphasis
->’te açıklananla aynıdır. Öntanımlı: #stay.</para>
+>’te açıklananla aynıdır. Varsayılan: #stay.</para>
 <para
 ><userinput
 >fallthroughContext</userinput
 >, hiçbir kural eşleşmediğinde geçiş yapılacak sonraki bağlamı belirtir. Bağlam anahtarlarının terminolojisi daha önce <emphasis
 >lineEndContext</emphasis
->’te açıklananla aynıdır. Öntanımlı: #stay.</para>
+>’te açıklananla aynıdır. Varsayılan: #stay.</para>
 <para
 ><userinput
 >fallthrough</userinput
@@ -655,7 +655,7 @@
 >fallthrough</userinput
 > değerinin <emphasis
 >true</emphasis
-> olacağı anlaşılır. Öntanımlı: <emphasis
+> olacağı anlaşılır. Varsayılan: <emphasis
 >false</emphasis
 >.</para>
 <para
@@ -665,7 +665,7 @@
 >general</emphasis
 > grubunun <emphasis
 >folding</emphasis
-> ögesinde tanımlanmıştır. Öntanımlı: <emphasis
+> ögesinde tanımlanmıştır. Varsayılan: <emphasis
 >false</emphasis
 >.</para>
 </listitem>
@@ -678,7 +678,7 @@
 >itemData</userinput
 > ögesi, <userinput
 >itemDatas</userinput
-> grubundadır. Yazıtipi biçemini ve renklerini tanımlar. Böylece, kendi biçemlerinizi ve renklerinizi tanımlamanız olanaklıdır. Ancak biz yine de öntanımlı biçemlere sadık kalmanızı öneririz; böyle yaparsanız kullanıcı farklı dillerde de aynı renkleri görür. Bazen başka bir şansınız olmaz ve yazıtipi/renk özniteliklerini değiştirmeniz gerekebilir. name ve defStyleNum öznitelikleri zorunludur, diğerleri isteğe bağlıdır. Kullanılabilir öznitelikler şunlardır:</term>
+> grubundadır. Yazı tipi stilini ve renklerini tanımlar. Böylece, kendi stillerinizi ve renklerinizi tanımlamanız olanaklıdır. Ancak biz yine de varsayılan stillere sadık kalmanızı öneririz; böyle yaparsanız kullanıcı farklı dillerde de aynı renkleri görür. Bazen başka bir şansınız olmaz ve yazı tipi/renk özniteliklerini değiştirmeniz gerekebilir. name ve defStyleNum öznitelikleri zorunludur, diğerleri isteğe bağlıdır. Kullanılabilir öznitelikler şunlardır:</term>
 
 <listitem>
 <para
@@ -690,7 +690,7 @@
 <para
 ><userinput
 >defStyleNum</userinput
->, hangi öntanımlı biçemin kullanılacağını tanımlar. Kullanılabilir öntanımlı biçemler ilerde daha ayrıntılı açıklanır.</para>
+>, hangi varsayılan stilin kullanılacağını tanımlar. Kullanılabilir varsayılan stiller ilerde daha ayrıntılı açıklanır.</para>
 <para
 ><userinput
 >color</userinput
@@ -769,7 +769,7 @@
 >wordWrapDeliminator</userinput
 >, ardından bir satır kaydırma oluşabilecek karakterleri tanımlar.</para>
 <para
->Öntanımlı sınırlandırıcılar ve sözcük kaydırma sınırlandırıcıları şunlardır: <userinput
+>Varsayılan sınırlandırıcılar ve sözcük kaydırma sınırlandırıcıları şunlardır: <userinput
 >.():!+,-&lt;=&gt;%&amp;*/;?[]^{|}~\</userinput
 >, boşluk (<userinput
 >' '</userinput
@@ -854,7 +854,7 @@
 <para
 ><userinput
 >position</userinput
->, tek satırlık yorumun nereye eklendiğini tanımlar. Öntanımlı olarak, tek satırlık yorum satırın başında 0. sütuna koyulur; ancak <emphasis
+>, tek satırlık yorumun nereye eklendiğini tanımlar. Varsayılan olarak, tek satırlık yorum satırın başında 0. sütuna koyulur; ancak <emphasis
 >position="afterwhitespace"</emphasis
 > kullanırsanız yorum, ilk boş olmayan karakterden sonra sağa doğru boşluk bırakılarak eklenir. Bu; örneğin, Python veya YAML gibi girintilemenin önemli olduğu diller için kullanışlıdır. Bu öznitelik isteğe bağlıdır ve tek olası değeri <emphasis
 >afterwhitespace</emphasis
@@ -879,7 +879,7 @@
 >indentationsensitive</userinput
 > <emphasis
 >true</emphasis
-> ise kod katlama imleyicileri girintileme tabanlı olarak eklenir. Örnek olarak yine Python verilebilir. Genelde öntanımlı olarak <emphasis
+> ise kod katlama imleyicileri girintileme tabanlı olarak eklenir. Örnek olarak yine Python verilebilir. Genelde varsayılan olarak <emphasis
 >false</emphasis
 > olduğundan pek ayarlamanıza gerek olmaz.</para>
 </listitem>
@@ -902,7 +902,7 @@
 <para
 ><userinput
 >regexpr</userinput
->, boş bir satır olarak davranılacak bir düzenli ifade tanımlar. Öntanımlı olarak, boş satırlar hiçbir karakter içermezler, dolayısıyla, bu ek boş satırlar ekler; örneğin, boşluklar içeren satırların da boş satırlar olarak kabul edilmesini istiyorsanız yararlıdır. Çoğu sözdizim tanımında bu özniteliği ayarlamanız gerekmez.</para>
+>, boş bir satır olarak davranılacak bir düzenli ifade tanımlar. Varsayılan olarak, boş satırlar hiçbir karakter içermezler, dolayısıyla, bu ek boş satırlar ekler; örneğin, boşluklar içeren satırların da boş satırlar olarak kabul edilmesini istiyorsanız yararlıdır. Çoğu sözdizim tanımında bu özniteliği ayarlamanız gerekmez.</para>
 </listitem>
 </varlistentry>
 
@@ -941,15 +941,15 @@
 
 <sect3 id="kate-highlight-default-styles">
 <title
->Kullanılabilir Öntanımlı Biçemler</title>
+>Kullanılabilir Varsayılan Stiller</title>
 <para
->Öntanımlı Biçemler daha önce <link linkend="kate-highlight-system-default-styles"
+>Varsayılan Stiller daha önce <link linkend="kate-highlight-system-default-styles"
 >hâlihazırda kısa bir özet olarak</link
-> açıklammıştı: Öntanımlı biçemler, önceden tanımlanan yazıtipi ve renk biçemleridir.</para>
+> açıklammıştı: Varsayılan stiller, önceden tanımlanan yazı tipi ve renk stilleridir.</para>
 <variablelist>
 <varlistentry>
 <term
->Genel öntanımlı biçemler:</term>
+>Genel varsayılan stiller:</term>
 <listitem>
 <para
 >Özel bir vurgulama gerekmediğinde <userinput
@@ -996,7 +996,7 @@
 
 <varlistentry>
 <term
->Dizi ile ilgili öntanımlı biçemler:</term>
+>Dizi ile ilgili varsayılan stiller:</term>
 <listitem>
 <para
 ><userinput
@@ -1027,7 +1027,7 @@
 
 <varlistentry>
 <term
->Sayı ile ilgili öntanımlı biçemler:</term>
+>Sayı ile ilgili varsayılan stiller:</term>
 <listitem>
 <para
 ><userinput
@@ -1054,7 +1054,7 @@
 
 <varlistentry>
 <term
->Yorum ve belgelendirmeyle ilgili öntanımlı biçemler:</term>
+>Yorum ve belgelendirmeyle ilgili varsayılan stiller:</term>
 <listitem>
 <para
 ><userinput
@@ -1081,7 +1081,7 @@
 
 <varlistentry>
 <term
->Diğer öntanımlı biçemler:</term>
+>Diğer varsayılan stiller:</term>
 <listitem>
 <para
 ><userinput
@@ -1119,7 +1119,7 @@
 >Bu bölüm, sözdizim algılama kurallarını tanımlar.</para>
 
 <para
->Her kural, sınandıkları dizinin başlangıcındaki sıfır veya daha fazla karakterle eşleşebilir. Kural eşleşirse eşleşen karakterlere kural tarafından tanımlanan biçem veya <emphasis
+>Her kural, sınandıkları dizinin başlangıcındaki sıfır veya daha fazla karakterle eşleşebilir. Kural eşleşirse eşleşen karakterlere kural tarafından tanımlanan stil veya <emphasis
 >öznitelik</emphasis
 > atanır ve bir kural, geçerli bağlamın değiştirilmesini isteyebilir.</para>
 
@@ -1132,7 +1132,7 @@
 <para
 ><emphasis
 >attribute</emphasis
->, eşleşen karakterlerle kullanılacak biçemi ada göre tanımlar ve <emphasis
+>, eşleşen karakterlerle kullanılacak stili ada göre tanımlar ve <emphasis
 >context</emphasis
 > ise buradan sonra kullanılacak bağlamı tanımlar.</para>
 
@@ -1219,7 +1219,7 @@
 >attribute</emphasis
 >: Bir tanımlı ile <emphasis
 >itemData</emphasis
-> eşlemlenen öznitelik. Öntanımlı: <emphasis
+> eşlemlenen öznitelik. Varsayılan: <emphasis
 >context</emphasis
 > özniteliğinde tanımlanan <emphasis
 >attribute</emphasis
@@ -1229,19 +1229,19 @@
 <para
 ><emphasis
 >context</emphasis
->: Kural eşleşirse vurgulama sisteminin geçiş yapacağı bağlamı belirtir. Öntanımlı: #stay.</para>
+>: Kural eşleşirse vurgulama sisteminin geçiş yapacağı bağlamı belirtir. Varsayılan: #stay.</para>
 </listitem>
 <listitem>
 <para
 ><emphasis
 >beginRegion</emphasis
->: Bir kod katlama bloku başlatın. Öntanımlı: Ayarsız.</para>
+>: Bir kod katlama bloku başlatın. Varsayılan: Ayarsız.</para>
 </listitem>
 <listitem>
 <para
 ><emphasis
 >endRegion</emphasis
->: Bir kod katlama blokunu kapatın. Öntanımlı: Ayarsız.</para>
+>: Bir kod katlama blokunu kapatın. Varsayılan: Ayarsız.</para>
 </listitem>
 <listitem>
 <para
@@ -1249,7 +1249,7 @@
 >lookAhead</emphasis
 >: <emphasis
 >true</emphasis
-> ise vurgulama sistemi eşleşmelerin uzunluğunu dikkate almaz.Öntanımlı: <emphasis
+> ise vurgulama sistemi eşleşmelerin uzunluğunu dikkate almaz.Varsayılan: <emphasis
 >false</emphasis
 >.</para>
 </listitem>
@@ -1257,7 +1257,7 @@
 <para
 ><emphasis
 >firstNonSpace</emphasis
->: Dizi, satırdaki ilk boşluk olmayan karakterse eşleşir. Öntanımlı: <emphasis
+>: Dizi, satırdaki ilk boşluk olmayan karakterse eşleşir. Varsayılan: <emphasis
 >false</emphasis
 >.</para>
 </listitem>
@@ -1265,7 +1265,7 @@
 <para
 ><emphasis
 >column</emphasis
->: Yalnızca sütun eşleşirse eşleşir. Öntanımlı: Ayarsız.</para>
+>: Yalnızca sütun eşleşirse eşleşir. Varsayılan: Ayarsız.</para>
 </listitem>
 </itemizedlist>
 
@@ -1273,7 +1273,7 @@
 <title
 >Devingen kurallar</title>
 <para
->Bazı kurallar, öntanımlı olarak <emphasis
+>Bazı kurallar, varsayılan olarak <emphasis
 >false</emphasis
 > olan isteğe bağlı Boole türündeki <userinput
 >dynamic</userinput
@@ -1572,7 +1572,7 @@
 >String</userinput
 > özniteliği, eşleştirilecek diziyi tanımlar. <userinput
 >insensitive</userinput
-> özniteliği öntanımlı olarak <emphasis
+> özniteliği varsayılan olarak <emphasis
 >false</emphasis
 >’tur ve dizi karşılaştırma işlevine geçirilir. Değer <emphasis
 >true</emphasis
@@ -1599,7 +1599,7 @@
 >String</userinput
 > özniteliği, eşleştirilecek diziyi tanımlar. <userinput
 >insensitive</userinput
-> özniteliği öntanımlı olarak <emphasis
+> özniteliği varsayılan olarak <emphasis
 >false</emphasis
 >’tur ve dizi karşılaştırma işlevine geçirilir. Değer <emphasis
 >true</emphasis
@@ -1624,13 +1624,13 @@
 <para
 ><userinput
 >insensitive</userinput
-> öntanımlı olarak <emphasis
+> varsayılan olarak <emphasis
 >false</emphasis
 >’tur ve düzenli ifade işletkesine geçirilir.</para>
 <para
 ><userinput
 >minimal</userinput
-> öntanımlı olarak <emphasis
+> varsayılan olarak <emphasis
 >false</emphasis
 >’tur ve düzenli ifade işletkesine geçirilir.</para>
 <para
@@ -1657,7 +1657,7 @@
 >String</userinput
 > özniteliği, adıyla anahtar sözcük listesini tanımlar. Bu ada sahip bir liste var olmalıdır.</para>
 <para
->Vurgulama sistemi, anahtar sözcük kurallarını oldukça eniyilenmiş bir biçimde işler. Bu, eşleştirilecek tüm anahtar sözcüklerin, örtük biçimde (öntanımlı sınırlandırıcılar) veya <emphasis
+>Vurgulama sistemi, anahtar sözcük kurallarını oldukça eniyilenmiş bir biçimde işler. Bu, eşleştirilecek tüm anahtar sözcüklerin, örtük biçimde (varsayılan sınırlandırıcılar) veya <emphasis
 >keywords</emphasis
 > etiketinin <emphasis
 >additionalDeliminator</emphasis
@@ -1682,7 +1682,7 @@
 >Int</term>
 <listitem>
 <para
->Bir tamsayıyı algılar (şu düzenli ifade gibi: <userinput
+>Bir tam sayıyı algılar (şu düzenli ifade gibi: <userinput
 >\b[0-9]+</userinput
 >).</para>
 <para
@@ -1830,7 +1830,7 @@
 <para
 ><userinput
 >char</userinput
-> isteğe bağlı eşleştirilecek karakterdir, öntanımlısı ise ters eğik çizgidir (<userinput
+> isteğe bağlı eşleştirilecek karakterdir, varsayılanı ise ters eğik çizgidir (<userinput
 >'\'</userinput
 >). &kde; 4.13 sürümünden bu yana eklidir.</para>
 <para
@@ -1984,7 +1984,7 @@
 </listitem>
 <listitem>
 <para
->Olabildiğince öntanımlı biçemleri kullanın. Böylece, kullanıcı tanıdık bir ortam bulacaktır.</para>
+>Olabildiğince varsayılan stilleri kullanın. Böylece, kullanıcı tanıdık bir ortam bulacaktır.</para>
 </listitem>
 <listitem>
 <para
@@ -2021,7 +2021,7 @@
 </listitem>
 <listitem>
 <para
->Kate’de, yerleşik komut satırını (öntanımlı kısayolu <userinput
+>Kate’de, yerleşik komut satırını (varsayılan kısayolu <userinput
 >F7</userinput
 >) ve <command
 >reload-highlighting</command
@@ -2029,7 +2029,7 @@
 </listitem>
 <listitem>
 <para
->Bir sözdizimi sınamak ve biçemi ve metnin her bir kısmıyla ilgili bölgeleri görüntülemek için <userinput
+>Bir sözdizimi sınamak ve stili ve metnin her bir kısmıyla ilgili bölgeleri görüntülemek için <userinput
 >ksyntaxhighlighter6</userinput
 > (eski sürümlerde <userinput
 >kate-syntax-highlighter</userinput
@@ -2083,8 +2083,8 @@
 <listitem
 ><para
 ><emphasis
->Öntanımlı biçemler öznitelikleri</emphasis
-> ile sözdizim vurgulamada kullanılan metin biçemi. Örneğin, metin rengi ve seçili metin rengi.</para
+>Varsayılan stiller öznitelikleri</emphasis
+> ile sözdizim vurgulamada kullanılan metin stili. Örneğin, metin rengi ve seçili metin rengi.</para
 ></listitem>
 <listitem
 ><para
@@ -2109,7 +2109,7 @@
 >Kafa karışıklığını önlemek adına, aşağıdakiler kapsam dışında bırakılmıştır: <itemizedlist>
 <listitem
 ><para
->Yazıtipi türü ve yazıtipi puntosu.</para
+>Yazı tipi türü ve yazı tipi puntosu.</para
 ></listitem>
 <listitem
 ><para
@@ -2451,7 +2451,7 @@
 ><userinput
 >text-styles</userinput
 >: Zorunlu. Değer, sözdizim vurgulamanın <emphasis
->öntanımlı metin biçemi</emphasis
+>varsayılan metin stili</emphasis
 > öznitelikleriyle bir nesnedir. Her bir öznitelik; örneğin, kendi <emphasis
 >metin rengini</emphasis
 >, <emphasis
@@ -2460,7 +2460,7 @@
 >kalın</emphasis
 > veya <emphasis
 >yatık</emphasis
-> olup olmadığını tanımlar. Metin biçemlerine <link linkend="kate-highlight-default-styles"
+> olup olmadığını tanımlar. Metin stillerine <link linkend="kate-highlight-default-styles"
 >&XML; sözdizim vurgulama dosyalarından</link
 > başvurulabilir.</para>
 <para
@@ -2471,13 +2471,13 @@
 ><para
 ><userinput
 >custom-styles</userinput
->: İsteğe bağlı. Belirli sözdizim vurgulama tanımlarının öznitelekleri için metin biçemlerini tanımları. Örneğin, <userinput
+>: İsteğe bağlı. Belirli sözdizim vurgulama tanımlarının öznitelekleri için metin stillerini tanımları. Örneğin, <userinput
 >Python</userinput
 > veya <userinput
 >Markdown</userinput
 > vurgulama tanımlarında, <userinput
 >text-styles</userinput
-> içinde tanımlı metin biçemini geçersiz kılacak bir metin biçemi tanımlayabilirsiniz.</para>
+> içinde tanımlı metin stilini geçersiz kılacak bir metin stili tanımlayabilirsiniz.</para>
 <para
 >Ayrıntılı bilgi için <xref linkend="color-themes-custom-styles"/> bölümüne bakın.</para>
 </listitem>
@@ -2552,7 +2552,7 @@
             "selected-text-color" : "#00316e"
         },
         <replaceable
->Diğer metin biçemi anahtarları…</replaceable>
+>Diğer metin stili anahtarları…</replaceable>
 
     },
     "custom-styles": {
@@ -2601,7 +2601,7 @@
 ><userinput
 >revizyon</userinput
 >: Tema dosyasının geçerli revizyonunu belirten bir <emphasis
->tamsayı</emphasis
+>tam sayı</emphasis
 >’dır. Bir renk teması dosyasını güncellediğinizde bu sayıyı artırdığınızdan emin olun. Bu zorunludur.</para
 ></listitem>
 
@@ -3294,17 +3294,17 @@
 <sect3 id="color-themes-text-styles">
 
 <title
->Öntanımlı Metin Biçemleri</title>
+>Varsayılan Metin Stilleri</title>
 
 <para
->Öntanımlı metin biçemleri, vurgulanan metin biçemleri tarafından devralınır ve bu, düzenleyicinin metni çok tutarlı bir biçimde sunmasına olanak tanır; örneğin, yorum metni, KSyntaxHighlighting’in vurgulayabildiği hemen hemen tüm metin biçimlerinde aynı biçemi kullanır. </para>
+>Varsayılan metin stilleri, vurgulanan metin stilleri tarafından devralınır ve bu, düzenleyicinin metni çok tutarlı bir biçimde sunmasına olanak tanır; örneğin, yorum metni, KSyntaxHighlighting’in vurgulayabildiği hemen hemen tüm metin biçimlerinde aynı stili kullanır. </para>
 
 <note>
 <para
->Bu metin biçemlerine, <link linkend="highlight"
+>Bu metin stillerine, <link linkend="highlight"
 >sözdizim vurgulama</link
 > &XML; tanım dosyalarında kullanılan <userinput
->öntanımlı biçemlerden</userinput
+>varsayılan stillerden</userinput
 > başvurulabilir; örneğin, <quote
 >Normal</quote
 > özniteliği, &XML;  dosyalarındaki <quote
@@ -3333,9 +3333,9 @@
 > anahtarının değeri bir <emphasis
 >object</emphasis
 >’e sahiptir; burada her anahtar, sözdizim vurgulama tanımlarında kullanılanlara eşdeğer olan bir <emphasis
->öntanımlı metin biçeminin</emphasis
+>varsayılan metin stilinin</emphasis
 > adına karşılık gelir. Burada, zorunlu olan <userinput
->kullanılabilir tüm metin biçemi anahtarları</userinput
+>kullanılabilir tüm metin stili anahtarları</userinput
 > aşağıda listelenmiştir. </para>
 
 <programlisting
@@ -3358,7 +3358,7 @@
         "selected-text-color" : "#452886"
     },
     <replaceable
->Diğer metin biçemi anahtarları…</replaceable>
+>Diğer metin stili anahtarları…</replaceable>
 }
 </programlisting>
 
@@ -3367,7 +3367,7 @@
 
 <term
 ><emphasis
->Öntanımlı metin biçeminin</emphasis
+>Varsayılan metin stilinin</emphasis
 > her bir anahtarının bir &JSON; nesnesi olan değerleri vardır; buralarda; örneğin, <emphasis
 >color</emphasis
 >, <emphasis
@@ -3403,7 +3403,7 @@
 >bold</userinput
 >: Metnin kalın olup olmadığını belirten bir <emphasis
 >Boole</emphasis
-> değeridir. Bu anahtar isteğe bağlıdır, öntanımlı değer <userinput
+> değeridir. Bu anahtar isteğe bağlıdır, varsayılan değer <userinput
 >false</userinput
 >’tur.</para>
 
@@ -3412,7 +3412,7 @@
 >italic</userinput
 >: Metnin yatık olup olmadığını belirten bir <emphasis
 >Boole</emphasis
-> değeridir. Bu anahtar isteğe bağlıdır, öntanımlı değer <userinput
+> değeridir. Bu anahtar isteğe bağlıdır, varsayılan değer <userinput
 >false</userinput
 >’tur.</para>
 
@@ -3421,7 +3421,7 @@
 >underline</userinput
 >: Metnin altı çizili olup olmadığını belirten bir <emphasis
 >Boole</emphasis
-> değeridir. Bu anahtar isteğe bağlıdır, öntanımlı değer <userinput
+> değeridir. Bu anahtar isteğe bağlıdır, varsayılan değer <userinput
 >false</userinput
 >’tur.</para>
 
@@ -3430,7 +3430,7 @@
 >strike-through</userinput
 >: Metnin üzeri çizili olup olmadığını belirten bir <emphasis
 >Boole</emphasis
-> değeridir. Bu anahtar isteğe bağlıdır, öntanımlı değer <userinput
+> değeridir. Bu anahtar isteğe bağlıdır, varsayılan değer <userinput
 >false</userinput
 >’tur.</para>
 
@@ -3439,14 +3439,14 @@
 >background-color</userinput
 >: Metnin arka planının belirler; örneğin, yorumlardaki uyarılar için kullanılır. Değer, onaltılık renk koduna sahip bir <emphasis
 >dizidir</emphasis
->. Bu anahtar isteğe bağlıdır ve öntanımlı olarak bir arka plan yoktur.</para>
+>. Bu anahtar isteğe bağlıdır ve varsayılan olarak bir arka plan yoktur.</para>
 
 <para
 ><userinput
 >selected-background-color</userinput
 >: Metnin seçiliyken arka planının belirler. Değer, onaltılık renk koduna sahip bir <emphasis
 >dizidir</emphasis
->. Bu anahtar isteğe bağlıdır ve öntanımlı olarak bir arka plan yoktur.</para>
+>. Bu anahtar isteğe bağlıdır ve varsayılan olarak bir arka plan yoktur.</para>
 
 </listitem>
 </varlistentry>
@@ -3457,12 +3457,12 @@
 >KTextEditor renk temalarını yönetmek için kullanılan arayüzde</link
 >, bu öznitelikler <userinput
 ><guilabel
->Öntanımlı Metin Biçemleri</guilabel
+>Varsayılan Metin Stilleri</guilabel
 ></userinput
-> sekmesinde değiştirilebilir. Biçem listesindeki ad, öge için yapılandırılan biçemi kullanır ve bir biçemi yapılandırırken size anında bir önizleme sağlar. Her biçem, ortak özelliklerin yanı sıra ön plan ve arka plan renklerini de seçmenize olanak tanır. Bir arka plan rengini kaldırmak için bağlam menüsünü kullanmak üzere sağ tıklayın.</para>
+> sekmesinde değiştirilebilir. Stil listesindeki ad, öge için yapılandırılan stili kullanır ve bir stili yapılandırırken size anında bir ön izleme sağlar. Her stil, ortak özelliklerin yanı sıra ön plan ve arka plan renklerini de seçmenize olanak tanır. Bir arka plan rengini kaldırmak için bağlam menüsünü kullanmak üzere sağ tıklayın.</para>
 
 <para
->Kullanılabilir metin biçemi anahtarları aşağıda listelenmiştir; <link linkend="color-themes-json"
+>Kullanılabilir metin stili anahtarları aşağıda listelenmiştir; <link linkend="color-themes-json"
 >&JSON; dosyasında</link
 > kullanılan anahtarlar <emphasis
 >kalın</emphasis
@@ -3480,22 +3480,22 @@
 <para
 ><userinput
 >Normal</userinput
->: Özel vurgulama olmadan normal metin ve kaynak kodu için öntanımlı metin biçemi.</para>
+>: Özel vurgulama olmadan normal metin ve kaynak kodu için varsayılan metin stili.</para>
 
 <para
 ><userinput
 >Keyword</userinput
->: Yerleşik dil anahtar sözcükleri için metin biçemi.</para>
+>: Yerleşik dil anahtar sözcükleri için metin stili.</para>
 
 <para
 ><userinput
 >Function</userinput
->: İşlev tanımları ve çağrıları için metin biçemi.</para>
+>: İşlev tanımları ve çağrıları için metin stili.</para>
 
 <para
 ><userinput
 >Variable</userinput
->: Kullanılabiliyorsa değişkenler için metin biçemi. Örneğin, PHP/Perl değişkenleri genellikle bir <userinput
+>: Kullanılabiliyorsa değişkenler için metin stili. Örneğin, PHP/Perl değişkenleri genellikle bir <userinput
 >$</userinput
 > ile başlar, bundan dolayı <userinput
 >$foo</userinput
@@ -3522,7 +3522,7 @@
 >yield</emphasis
 >, <emphasis
 >continue</emphasis
->, vb. gibi denetim akışı anahtar sözcükleri için metin biçemi.</para>
+>, vb. gibi denetim akışı anahtar sözcükleri için metin stili.</para>
 
 <para
 ><userinput
@@ -3537,29 +3537,29 @@
 >/</userinput
 >, <userinput
 >%</userinput
->, vb. gibi işleçler için metin biçemi.</para>
+>, vb. gibi işleçler için metin stili.</para>
 
 <para
 ><userinput
 >BuiltIn</userinput
 > (<guilabel
 >Yerleşik</guilabel
->): Yerleşik dil sınıfları, işlevleri ve nesneleri için metin biçemi.</para>
+>): Yerleşik dil sınıfları, işlevleri ve nesneleri için metin stili.</para>
 
 <para
 ><userinput
 >Extension</userinput
->: İyi bilinen uzantılar; örneğin, &Qt; sınıfları, C++ işlevleri/makroları vb. için metin biçemi.</para>
+>: İyi bilinen uzantılar; örneğin, &Qt; sınıfları, C++ işlevleri/makroları vb. için metin stili.</para>
 
 <para
 ><userinput
 >Preprocessor</userinput
->: Önişlemci ifadeleri veya makro tanımları için metin biçemi.</para>
+>: Önişlemci ifadeleri veya makro tanımları için metin stili.</para>
 
 <para
 ><userinput
 >Attribute</userinput
->: Ek açıklamalar veya işlevlerin veya nesnelerin öznitelikleri için metin biçemi; örneğin, Java’daki <userinput
+>: Ek açıklamalar veya işlevlerin veya nesnelerin öznitelikleri için metin stili; örneğin, Java’daki <userinput
 >@override</userinput
 > veya C++’daki <userinput
 >__declspec(…)</userinput
@@ -3590,33 +3590,33 @@
 >void</emphasis
 >, <emphasis
 >u64</emphasis
->, vb. gibi yerleşik veri türleri için metin biçemi.</para>
+>, vb. gibi yerleşik veri türleri için metin stili.</para>
 
 <para
 ><userinput
 >DecVal</userinput
 > (<guilabel
 >Ondalık/Değer</guilabel
->): Ondalık değerler için metin biçemi.</para>
+>): Ondalık değerler için metin stili.</para>
 
 <para
 ><userinput
 >BaseN</userinput
 > (<guilabel
->N Tabanlı Tamsayı</guilabel
->): 10’dan başka bir tabanlı sayılar için metin biçemi.</para>
+>N Tabanlı Tam Sayı</guilabel
+>): 10’dan başka bir tabanlı sayılar için metin stili.</para>
 
 <para
 ><userinput
 >Float</userinput
 > (<guilabel
 >Kayan Noktalı</guilabel
->): Kayan noktalı sayılar için metin biçemi.</para>
+>): Kayan noktalı sayılar için metin stili.</para>
 
 <para
 ><userinput
 >Constant</userinput
->: Dil sabitleri ve kullanıcı tanımlı sabitler için metin biçemi; örneğin, Python’daki <emphasis
+>: Dil sabitleri ve kullanıcı tanımlı sabitler için metin stili; örneğin, Python’daki <emphasis
 >True</emphasis
 >, <emphasis
 >False</emphasis
@@ -3643,7 +3643,7 @@
 >Karakter</guilabel
 >): <userinput
 >'x'</userinput
-> gibi tekli karakterler için metin biçemi.</para>
+> gibi tekli karakterler için metin stili.</para>
 
 <para
 ><userinput
@@ -3654,7 +3654,7 @@
 ><userinput
 >esenlikler\n</userinput
 ></quote
-> ve değiştirmeler veya düzenli ifade işleçleri gibi özel anlamlı diğer karakterler için metin biçemi.</para>
+> ve değiştirmeler veya düzenli ifade işleçleri gibi özel anlamlı diğer karakterler için metin stili.</para>
 
 <para
 ><userinput
@@ -3663,14 +3663,14 @@
 ><userinput
 >merhaba dünya</userinput
 ></quote
-> gibi diziler için metin biçemi.</para>
+> gibi diziler için metin stili.</para>
 
 <para
 ><userinput
 >VerbatimString</userinput
 > (<guilabel
 >Gerçek Dizi</guilabel
->): Gerçek veya ham diziler için metin biçemi; örneğin, Perl, CoffeeScript belgelerindeki gibi <userinput
+>): Gerçek veya ham diziler için metin stili; örneğin, Perl, CoffeeScript belgelerindeki gibi <userinput
 >'ham \ters eğik çizgi'</userinput
 > veya Python veya HERE belgelerindeki <userinput
 >r'\ham'</userinput
@@ -3681,14 +3681,14 @@
 >SpecialString</userinput
 > (<guilabel
 >Özel Dizi</guilabel
->): Özel diziler için metin biçemi; örneğin, ECMAScript düzenli ifadeleri, &latex; matematik kipi, SQL, vb.</para>
+>): Özel diziler için metin stili; örneğin, ECMAScript düzenli ifadeleri, &latex; matematik kipi, SQL, vb.</para>
 
 <para
 ><userinput
 >Import</userinput
 > (<guilabel
 >Import’lar, Modüller, Include’lar</guilabel
->): Include’lar, import’lar, modüller veya &latex; paketleri için metin biçemi.</para>
+>): Include’lar, import’lar, modüller veya &latex; paketleri için metin stili.</para>
 </listitem>
 </varlistentry>
 
@@ -3701,12 +3701,12 @@
 <para
 ><userinput
 >Comment</userinput
->: Normal yorumlar için metin biçemi.</para>
+>: Normal yorumlar için metin stili.</para>
 
 <para
 ><userinput
 >Documentation</userinput
->: API belgelendirmesini yansıtan yorumlar için metin biçemi; örneğin, <userinput
+>: API belgelendirmesini yansıtan yorumlar için metin stili; örneğin, <userinput
 >/** doxygen yorumları */</userinput
 > veya <userinput
 >"""docstrings"""</userinput
@@ -3715,7 +3715,7 @@
 <para
 ><userinput
 >Annotation</userinput
->: Yorumlardaki ek açıklamalar veya belgelendirme komutları için metin biçemi; örneğin, Doxygen veya JavaDoc için <userinput
+>: Yorumlardaki ek açıklamalar veya belgelendirme komutları için metin stili; örneğin, Doxygen veya JavaDoc için <userinput
 >@param</userinput
 >.</para>
 
@@ -3724,7 +3724,7 @@
 >CommentVar</userinput
 > (<guilabel
 >Yorum Değişkeni</guilabel
->): Yukarıdaki komutlarda bir yorumda kullanılan değişken adlarına başvuran metin biçemi; örneğin, Doxygen veya JavaDoc’ta <quote
+>): Yukarıdaki komutlarda bir yorumda kullanılan değişken adlarına başvuran metin stili; örneğin, Doxygen veya JavaDoc’ta <quote
 ><userinput
 >@param foobar</userinput
 ></quote
@@ -3741,26 +3741,26 @@
 >//BEGIN</userinput
 > ve <userinput
 >//END</userinput
-> ile tanımlanan bölge imleyicilerine yönelik metin biçemi.</para>
+> ile tanımlanan bölge imleyicilerine yönelik metin stili.</para>
 
 <para
 ><userinput
 >Information</userinput
->: Bilgi, notlar ve ipuçları için metin biçemi; örneğin, Doxygen <userinput
+>: Bilgi, notlar ve ipuçları için metin stili; örneğin, Doxygen <userinput
 >@note</userinput
 > anahtar sözcüğü gibi.</para>
 
 <para
 ><userinput
 >Warning</userinput
->: Uyarılar için metin biçemi; örneğin, Doxygen’deki <userinput
+>: Uyarılar için metin stili; örneğin, Doxygen’deki <userinput
 >@warning</userinput
 > anahtar sözcüğü gibi.</para>
 
 <para
 ><userinput
 >Alert</userinput
->: Yorumlardaki özel sözcükler için metin biçemi; örneğin, <userinput
+>: Yorumlardaki özel sözcükler için metin stili; örneğin, <userinput
 >TODO</userinput
 >, <userinput
 >FIXME</userinput
@@ -3781,12 +3781,12 @@
 <para
 ><userinput
 >Error</userinput
->: Hata vurgulaması ve yanlış sözdizimi belirten metin biçemi.</para>
+>: Hata vurgulaması ve yanlış sözdizimi belirten metin stili.</para>
 
 <para
 ><userinput
 >Others</userinput
->: Diğer öntanımlı biçemlerden hiçbiriyle eşleşmeyen öznitelikler için metin biçemi.</para>
+>: Diğer varsayılan stillerden hiçbiriyle eşleşmeyen öznitelikler için metin stili.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -3796,14 +3796,14 @@
 <sect3 id="color-themes-custom-styles">
 
 <title
->Özel Vurgulama Metin Biçemleri</title>
+>Özel Vurgulama Metin Stilleri</title>
 
 <para
 >Burada, <link linkend="color-themes-text-styles"
 >önceki bölümde</link
 > açıklanan <userinput
->öntanımlı metin biçemini</userinput
-> geçersiz kılarak, belirli bir sözdizim vurgulama tanımı için metin biçemleri oluşturabilirsiniz. </para>
+>varsayılan metin stilini</userinput
+> geçersiz kılarak, belirli bir sözdizim vurgulama tanımı için metin stilleri oluşturabilirsiniz. </para>
 
 <para
 ><link linkend="color-themes-json"
@@ -3819,7 +3819,7 @@
 >itemData</userinput
 > ögesinde</link
 > tanımlı <userinput
->biçem öznitelikleri adına</userinput
+>stil öznitelikleri adına</userinput
 > başvuran bir <emphasis
 >nesnedir</emphasis
 >. İlgili değer, <emphasis
@@ -3842,7 +3842,7 @@
 >bir önceki bölümde</link
 > tanımlanmıştır. Bu değerlerin her biri isteğe bağlıdır; eğer yoklarsa <userinput
 >text-styles</userinput
-> içinde tanımlı biçem kümesi değerlendirilir. </para>
+> içinde tanımlı stil kümesi değerlendirilir. </para>
 
 <para
 >Örneğin bu kod parçasında, <quote
@@ -3851,13 +3851,13 @@
 >Type Modifiers</quote
 > ve <quote
 >Standard Classes</quote
-> öznitelikleri için özel bir metin biçemi vardır. Karşılık gelen <quote
+> öznitelikleri için özel bir metin stili vardır. Karşılık gelen <quote
 >isocpp.xml</quote
 > &XML; dosyasında tanımlı <quote
 >Standard Classes</quote
 > özniteliği <userinput
 >BuiltIn</userinput
-> (veya dsBuiltIn) öntanımlı biçemini kullanır. Bu öznitelikte, yalnızca <userinput
+> (veya dsBuiltIn) varsayılan stilini kullanır. Bu öznitelikte, yalnızca <userinput
 >text-color</userinput
 > değerinin yeni <quote
 >#6431b3</quote
@@ -3883,7 +3883,7 @@
 
 <listitem>
 <para
->Bu metin biçemlerinin, &XML; dosyalarını vurgulayan sözdizimde tanımlanan öznitelik adlarıyla ilişkili olduğunu dikkate almalısınız. Bir XML dosyası güncellenirse ve bazı nitelikler yeniden adlandırılırsa veya kaldırılırsa temada tanımlanan özel biçem artık geçerli olmayacaktır.</para>
+>Bu metin stillerinin, &XML; dosyalarını vurgulayan sözdizimde tanımlanan öznitelik adlarıyla ilişkili olduğunu dikkate almalısınız. Bir XML dosyası güncellenirse ve bazı nitelikler yeniden adlandırılırsa veya kaldırılırsa temada tanımlanan özel stil artık geçerli olmayacaktır.</para>
 </listitem>
 
 <listitem>
@@ -3903,9 +3903,9 @@
 >KTextEditor tema yönetim arayüzünde</link
 >, bu öznitelikler <userinput
 ><guilabel
->Vurgulama Metin Biçemleri</guilabel
+>Vurgulama Metin Stilleri</guilabel
 ></userinput
-> sekmesinde yapılandırılabilir. Öntanımlı olarak düzenleyici, geçerli belgenin vurgulamasını önceden seçer. Pek çok vurgunun, biçem listesindeki gruplar tarafından temsil edilen diğer vurguları içerdiğini fark edeceksiniz. Örneğin, öne çıkanların çoğu <quote
+> sekmesinde yapılandırılabilir. Varsayılan olarak düzenleyici, geçerli belgenin vurgulamasını önceden seçer. Pek çok vurgunun, stil listesindeki gruplar tarafından temsil edilen diğer vurguları içerdiğini fark edeceksiniz. Örneğin, öne çıkanların çoğu <quote
 >Alert</quote
 > vurgusunu içe aktarır ve birçok kaynak kodu biçimi de <quote
 >Doxygen</quote
@@ -3963,21 +3963,21 @@
 >.theme</userinput
 > dosyasına dışa aktarabilir veya başka <userinput
 >.theme</userinput
-> dosyalarından içe aktarabilirsiniz. Her bir temanın metin renkleri ve biçemleri için ayarları vardır. </para>
+> dosyalarından içe aktarabilirsiniz. Her bir temanın metin renkleri ve stilleri için ayarları vardır. </para>
 
 <para
->Öntanımlı olarak yerleşik temalar değiştirilemez. Bunu yapmak için bunları kopyalamanız ve onlara yeni bir ad vermeniz gerekir.</para>
+>Varsayılan olarak yerleşik temalar değiştirilemez. Bunu yapmak için bunları kopyalamanız ve onlara yeni bir ad vermeniz gerekir.</para>
 
 <para
 >Bir temayı metin düzenleyicinizde kalıcı olarak kullanmak için öncelikle onu iletişim kutusunun altındaki <guilabel
 ><replaceable
 >Uygulama</replaceable
-> için öntanımlı tema</guilabel
+> için varsayılan tema</guilabel
 > bölümünde seçmeli ve <guibutton
 >Uygula</guibutton
 > veya <guibutton
 >Tamam</guibutton
-> düğmelerine basmalısınız. Öntanımlı olarak, <userinput
+> düğmelerine basmalısınız. Varsayılan olarak, <userinput
 ><guilabel
 >Kendiliğinden seçim</guilabel
 ></userinput
@@ -4089,14 +4089,14 @@
 <sect4 id="prefcolors-normal-text-styles">
 
 <title
->Öntanımlı Metin Biçemleri</title>
+>Varsayılan Metin Stilleri</title>
 
 <para
->Öntanımlı metin biçemleri, vurgulanan metin biçemleri tarafından devralınır ve bu, düzenleyicinin metni çok tutarlı bir biçimde sunmasına olanak tanır; örneğin, yorum metni, KSyntaxHighlighting’in vurgulayabildiği hemen hemen tüm metin biçimlerinde aynı biçemi kullanır.</para>
+>Varsayılan metin stilleri, vurgulanan metin stilleri tarafından devralınır ve bu, düzenleyicinin metni çok tutarlı bir biçimde sunmasına olanak tanır; örneğin, yorum metni, KSyntaxHighlighting’in vurgulayabildiği hemen hemen tüm metin biçimlerinde aynı stili kullanır.</para>
 <para
->Biçem listesindeki ad, öge için yapılandırılan biçemi kullanır ve bir biçemi yapılandırırken size anında bir önizleme sağlar. </para>
+>Stil listesindeki ad, öge için yapılandırılan stili kullanır ve bir stili yapılandırırken size anında bir ön izleme sağlar. </para>
 <para
->Her biçem, ortak özelliklerin yanı sıra ön plan ve arka plan renklerini de seçmenize olanak tanır. Bir arka plan rengini kaldırmak için bağlam menüsünü kullanmak üzere sağ tıklayın.</para>
+>Her stil, ortak özelliklerin yanı sıra ön plan ve arka plan renklerini de seçmenize olanak tanır. Bir arka plan rengini kaldırmak için bağlam menüsünü kullanmak üzere sağ tıklayın.</para>
 <para
 >Bu bölümün öznitelikleri <xref linkend="color-themes-text-styles"/> bölümünde ayrıntılı olarak açıklanmıştır.</para>
 
@@ -4105,18 +4105,18 @@
 <sect4 id="prefcolors-highlighting-text-styles">
 
 <title
->Metin Vurgulama Biçemleri</title>
+>Metin Vurgulama Stilleri</title>
 
 <para
->Burada, belirli bir vurgu tanımı tarafından kullanılan metin biçemlerini düzenleyebilirsiniz. Düzenleyici, geçerli belgenizin kullandığı vurguyu önceden seçer. Farklı bir vurgu üzerinde çalışmak için biçem listesinin üzerindeki <guilabel
+>Burada, belirli bir vurgu tanımı tarafından kullanılan metin stillerini düzenleyebilirsiniz. Düzenleyici, geçerli belgenizin kullandığı vurguyu önceden seçer. Farklı bir vurgu üzerinde çalışmak için stil listesinin üzerindeki <guilabel
 >Vurgula</guilabel
 > çoklu kutusundan birini seçin. </para>
 <para
->Biçem listesindeki ad, öge için yapılandırılan biçemi kullanır ve bir biçemi yapılandırırken size anında bir önizleme sağlar. </para>
+>Stil listesindeki ad, öge için yapılandırılan stili kullanır ve bir stili yapılandırırken size anında bir ön izleme sağlar. </para>
 <para
->Her biçem, ortak özelliklerin yanı sıra ön plan ve arka plan renklerini de seçmenize olanak tanır. Bir arka plan rengini kaldırmak için bağlam menüsünü kullanmak üzere sağ tıklayın. Ayrıca bir biçemin, öge için kullanılan öntanımlı biçeme eşit olup olmadığını görebilir ve değilse bunu buna ayarlayabilirsiniz.</para>
+>Her stil, ortak özelliklerin yanı sıra ön plan ve arka plan renklerini de seçmenize olanak tanır. Bir arka plan rengini kaldırmak için bağlam menüsünü kullanmak üzere sağ tıklayın. Ayrıca bir stilin, öge için kullanılan varsayılan stile eşit olup olmadığını görebilir ve değilse bunu buna ayarlayabilirsiniz.</para>
 <para
->Pek çok vurgunun, biçem listesindeki gruplar tarafından temsil edilen diğer vurguları içerdiğini fark edeceksiniz. Örneğin, çoğu vurgu, Uyarı vurgusunu içe aktarır ve birçok kaynak kodu biçimi, Doxygen vurgusunu içe aktarır. Bu gruplardaki renkleri düzenlemek, yalnızca düzenlenen vurgu biçiminde kullanıldığında biçemleri etkiler. </para>
+>Pek çok vurgunun, stil listesindeki gruplar tarafından temsil edilen diğer vurguları içerdiğini fark edeceksiniz. Örneğin, çoğu vurgu, Uyarı vurgusunu içe aktarır ve birçok kaynak kodu biçimi, Doxygen vurgusunu içe aktarır. Bu gruplardaki renkleri düzenlemek, yalnızca düzenlenen vurgu biçiminde kullanıldığında stilleri etkiler. </para>
 
 </sect4>
 
@@ -4183,7 +4183,7 @@
 > ve <quote
 >ControlFlow</quote
 > <link linkend="color-themes-text-styles"
->metin biçemleri</link
+>metin stilleri</link
 > için kalın metin kullanın.</para
 ></listitem>
 
@@ -4194,18 +4194,18 @@
 > ve <quote
 >RegionMarker</quote
 > dışındaki herhangi bir <link linkend="color-themes-text-styles"
->metin biçeminde</link
+>metin stilinde</link
 > arka plan rengi kullanmayın.</para
 ></listitem>
 </itemizedlist>
 
 <para
->Çoğu sözdizim vurgulayıcı, öntanımlı <quote
+>Çoğu sözdizim vurgulayıcı, varsayılan <quote
 >Esinti Açık</quote
 > ve <quote
 >Esinti Koyu</quote
 > temalarında güzel görünmesi için tasarlanmıştır; dolayısıyla, tutarlılığı korumanın bir başka yolu da <link linkend="color-themes-text-styles"
->metin biçemlerinde</link
+>metin stillerinde</link
 > benzer renkler kullanmaktır; örneğin, <quote
 >Preprocessor</quote
 > ve <quote
@@ -4337,8 +4337,8 @@ var katescript = {
 ><literal
 >required-syntax-style</literal
 > [isteğe bağlı]: Sözdizim vurgulama dosyalarında belirtilen <literal
->biçem</literal
-> ile eşleşen gerekli sözdizim biçemi. Bu, belgedeki belirli vurgulama bilgilerine dayanan girintileyiciler için önemlidir. Gerekli bir sözdizim biçemi belirtilirse girintileyici yalnızca uygun vurgulayıcı etkin olduğunda kullanılabilir. Bu, girintileyicinin beklenen vurgulama şeması olmadan kullanılmasından kaynaklanan <quote
+>stil</literal
+> ile eşleşen gerekli sözdizim stili. Bu, belgedeki belirli vurgulama bilgilerine dayanan girintileyiciler için önemlidir. Gerekli bir sözdizim stili belirtilirse girintileyici yalnızca uygun vurgulayıcı etkin olduğunda kullanılabilir. Bu, girintileyicinin beklenen vurgulama şeması olmadan kullanılmasından kaynaklanan <quote
 >tanımsız davranışı</quote
 > önler. Örneğin, Ruby girintileyicisi bunu, <filename
 >ruby.js</filename
@@ -4350,7 +4350,7 @@ var katescript = {
 ><para
 ><literal
 >indent-languages</literal
-> [isteğe bağlı]: Girintileyicinin düzgünce girintileyebildiği sözdizim biçemlerinin &JSON; dizilişi; &eg;: <literal
+> [isteğe bağlı]: Girintileyicinin düzgünce girintileyebildiği sözdizim stillerinin &JSON; dizilişi; &eg;: <literal
 >["c++", "java"]</literal
 >. </para
 ></listitem>
@@ -4358,7 +4358,7 @@ var katescript = {
 ><para
 ><literal
 >priority</literal
-> [isteğe bağlı]: Vurgulanan belirli bir dosya için birden fazla girintileyici uygunsa öncelik, öntanımlı girintileyici olarak hangi girintileyicinin seçileceğine karar verir. </para
+> [isteğe bağlı]: Vurgulanan belirli bir dosya için birden fazla girintileyici uygunsa öncelik, varsayılan girintileyici olarak hangi girintileyicinin seçileceğine karar verir. </para
 ></listitem>
 </itemizedlist>
 </para>
@@ -4421,7 +4421,7 @@ function indent(line, indentWidth, ch)
 ></itemizedlist
 ><function
 >indent()</function
-> işlevinin döndürdüğü değer, satırın nasıl girintileneceğini belirtir. Dönüş değeri basit bir tamsayıysa aşağıdaki gibi değerlendirilir:<itemizedlist
+> işlevinin döndürdüğü değer, satırın nasıl girintileneceğini belirtir. Dönüş değeri basit bir tam sayıysa aşağıdaki gibi değerlendirilir:<itemizedlist
 ><listitem
 ><para
 >return value <literal
@@ -4465,7 +4465,7 @@ function indent(line, indentWidth, ch)
 > işlevi [8, 15] değerini döndürür. Sonuç olarak, 8. sütuna girinti yapmak için iki sekme eklenir ve ikinci parametreyi birincinin altına hizalamak için 7 boşluk eklenir, böylece dosya farklı bir sekme genişliğinde görüntülenirse hizalı kalır. </para>
 
 <para
->Öntanımlı bir &kde; kurulumu, &kappname; uygulamasını birkaç girintileyici ile kurar. Karşılık gelen &javascript; kaynak kodu <filename
+>Varsayılan bir &kde; kurulumu, &kappname; uygulamasını birkaç girintileyici ile kurar. Karşılık gelen &javascript; kaynak kodu <filename
 >$<envar
 >XDG_DATA_DIRS</envar
 >/katepart5/script/indentation</filename
@@ -4733,7 +4733,7 @@ var katescript = {
 ><para
 ><literal
 >shortcut</literal
-> [isteğe bağlı]: Burada verilen kısayol, öntanımlı kısayoldur. Örnek: <literal
+> [isteğe bağlı]: Burada verilen kısayol, varsayılan kısayoldur. Örnek: <literal
 >Kontrol+Seçenek+T</literal
 >. Daha fazla ayrıntı için <ulink url="https://doc.qt.io/qt-5/qt.html#Key-enum"
 >&Qt; belgelendirmesine</ulink
@@ -6056,7 +6056,7 @@ void view.setVirtualCursorPosition(<parameter
 >erim</replaceable
 >’deki satırları hizalar. Boş bir <replaceable
 >dizgi</replaceable
-> ile öntanımlı olarak ilk boş olmayan karaktere hizalanır. Dizginin bir yakalaması varsa yakalanan eşleşmeye girintili olacaktır. </para>
+> ile varsayılan olarak ilk boş olmayan karaktere hizalanır. Dizginin bir yakalaması varsa yakalanan eşleşmeye girintili olacaktır. </para>
 <para
 ><emphasis
 >Örnekler:</emphasis
@@ -7755,7 +7755,7 @@ int document.defStyleNum(<parameter
 ></term>
 <listitem
 ><para
->Verilen imleç konumunda kullanılan öntanımlı biçemi döndürür. </para
+>Verilen imleç konumunda kullanılan varsayılan stili döndürür. </para
 ></listitem>
 </varlistentry>
 
@@ -7781,7 +7781,7 @@ bool document.isCode(<parameter
 ></term>
 <listitem
 ><para
->Verilen imleç konumundaki öznitelik aşağıdaki biçemlerin tümüne eşit değilse <literal
+>Verilen imleç konumundaki öznitelik aşağıdaki stillerin tümüne eşit değilse <literal
 >true</literal
 > değerini döndürür: <literal
 >dsComment</literal

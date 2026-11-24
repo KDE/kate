@@ -95,7 +95,7 @@
 <para
 ><link linkend="kate-application-plugin-colorpicker"
 >Renk Seçicisi</link
-> — Bilinen renkler için önizlemeyi gösterin.</para>
+> — Bilinen renkler için ön izlemeyi gösterin.</para>
 </listitem>
 <listitem>
 <para
@@ -112,8 +112,8 @@
 <listitem>
 <para
 ><link linkend="kate-application-plugin-preview"
->Belge Önizlemesi</link
-> — Belgeyi hedef biçimde önizleyin.</para>
+>Belge Ön İzlemesi</link
+> — Belgeyi hedef biçimde ön izleyin.</para>
 </listitem>
 <listitem>
 <para
@@ -324,7 +324,7 @@
     <para
 ><userinput
 >Yok</userinput
->, bu öntanımlıdır, aracın tetikleyisinin olmadığı anlamına gelir.</para>
+>, bu varsayılandır, aracın tetikleyisinin olmadığı anlamına gelir.</para>
     <para
 ><userinput
 >Kaydetme Öncesi</userinput
@@ -372,8 +372,8 @@
 
 <para
 ><guilabel
->Öntanımlılar</guilabel
-> düğmesi yalnızca Kate ile birlikte gönderilen araçlar için görünür. Tıklandığında, aracın tüm ayarları öntanımlı (diğer bir deyişle fabrika) değerlerine döndürülür. </para>
+>Varsayılanlar</guilabel
+> düğmesi yalnızca Kate ile birlikte gönderilen araçlar için görünür. Tıklandığında, aracın tüm ayarları varsayılan (diğer bir deyişle fabrika) değerlerine döndürülür. </para>
 
 </sect2>
 
@@ -579,12 +579,12 @@
 
 <sect2 id="kate-application-plugin-external-tools-defaults">
 <title
->Öntanımlı Araçların Listesi</title>
+>Varsayılan Araçların Listesi</title>
 
 <para
->Öntanımlı olarak çeşitli araçlar sağlanır. Ancak, daha yararlı araçlarınız varsa lütfen bunları <ulink url="https://invent.kde.org/utilities/kate"
+>Varsayılan olarak çeşitli araçlar sağlanır. Ancak, daha yararlı araçlarınız varsa lütfen bunları <ulink url="https://invent.kde.org/utilities/kate"
 >GitLab projemize</ulink
-> gönderin, böylece onları bu listeye ekleyebiliriz. Tüm öntanımlı araçlar öntanımlı olarak liste görünümünde görünür. Bununla birlikte, kategori ve hatta araçların silinmesi de dahil olmak üzere tüm araçlar beğeninize göre değiştirilebilir. Silinen araçlar, yukarıda anlatıldığı gibi yapılandırma sayfasındaki <guibutton
+> gönderin, böylece onları bu listeye ekleyebiliriz. Tüm varsayılan araçlar varsayılan olarak liste görünümünde görünür. Bununla birlikte, kategori ve hatta araçların silinmesi de dahil olmak üzere tüm araçlar beğeninize göre değiştirilebilir. Silinen araçlar, yukarıda anlatıldığı gibi yapılandırma sayfasındaki <guibutton
 >Ekle</guibutton
 > düğmesine basılarak yeniden eklenebilir. </para>
 
@@ -894,16 +894,16 @@
 
 <variablelist>
 <title
->Qt Quick 2 Önizlemesi (qmlscene)</title>
+>Qt Quick 2 Ön İzlemesi (qmlscene)</title>
 
 <varlistentry>
 <term
->Geçerli qml dosyasını qmlscene’de önizler.</term>
+>Geçerli qml dosyasını qmlscene’de ön izler.</term>
 <listitem>
 <para
 ><userinput
 >Ad</userinput
->: Qt Quick 2 Önizlemesi (qmlscene)</para>
+>: Qt Quick 2 Ön İzlemesi (qmlscene)</para>
 <para
 ><userinput
 >Yürütülebilir</userinput
@@ -1573,7 +1573,7 @@
 >Giriş</title>
 
 <para
->Bu eklenti, metindeki renklere satır içi renk önizlemesi/seçicisi ekler (&eg;, <literal
+>Bu eklenti, metindeki renklere satır içi renk ön izlemesi/seçicisi ekler (&eg;, <literal
 >#FFFFFF</literal
 >, <literal
 >white</literal
@@ -1603,7 +1603,7 @@
 <varlistentry>
 <term
 ><guilabel
->Bilinen renkler için önizlemeyi göster</guilabel
+>Bilinen renkler için ön izlemeyi göster</guilabel
 ></term>
 <listitem>
 <para
@@ -1618,11 +1618,11 @@
 <varlistentry>
 <term
 ><guilabel
->Metin renginden sonra önizlemeyi getir</guilabel
+>Metin renginden sonra ön izlemeyi getir</guilabel
 ></term>
 <listitem>
 <para
->Satır içi önizlemenin metinde metin renginden sonra gelip gelmeyeceği.</para>
+>Satır içi ön izlemenin metinde metin renginden sonra gelip gelmeyeceği.</para>
 </listitem>
 </varlistentry>
 
@@ -1767,7 +1767,7 @@
 </mediaobject>
 </screenshot>
 <para
->Başka bir CTags veri tabanı dosyası seçin, CTags komutunu yapılandırın veya öntanımlı komuta geri dönün.</para>
+>Başka bir CTags veri tabanı dosyası seçin, CTags komutunu yapılandırın veya varsayılan komuta geri dönün.</para>
 </listitem>
 </varlistentry>
 
@@ -1786,7 +1786,7 @@
 >CTags</guimenu
 > menüsündeki eylemlerden birini seçersiniz.</para>
 <para
->Öntanımlı olarak, <guimenu
+>Varsayılan olarak, <guimenu
 >CTags</guimenu
 > menüsündeki eylemlerde atanan klavye kısayolları yoktur. Kendi kısayollarınızı yapılandırmak için <ulink url="help:/fundamentals/shortcuts.html"
 >klavye kısayolları düzenleyicisini</ulink
@@ -1885,16 +1885,16 @@
 <!-- https://frinring.wordpress.com/2017/08/21/look-what-you-have-donewwdo/-->
 <sect1 id="kate-application-plugin-preview">
 <title
->Belge Önizlemesi Eklentisi</title>
+>Belge Ön İzlemesi Eklentisi</title>
 
 <sect2 id="preview-introduction">
 <title
 >Giriş</title>
 <para
->Eklenti, hâlihazırda düzenlenen metin belgesinin kenar çubuğunda son biçiminin canlı önizlemesini sağlar. Örneğin, bir &Markdown; metni veya &SVG; görseli düzenlerken, çıktı, kaynak metnin yanında anında görünür. </para>
+>Eklenti, hâlihazırda düzenlenen metin belgesinin kenar çubuğunda son biçiminin canlı ön izlemesini sağlar. Örneğin, bir &Markdown; metni veya &SVG; görseli düzenlerken, çıktı, kaynak metnin yanında anında görünür. </para>
 
 <para
->Görüntüleme için eklenti, şu anda belgenin &MIME; türü için tercih edilen olarak seçili &kparts; eklentisini kullanır. Bu tür için &kparts; eklentisi yoksa önizleme olanaklı değildir. </para>
+>Görüntüleme için eklenti, şu anda belgenin &MIME; türü için tercih edilen olarak seçili &kparts; eklentisini kullanır. Bu tür için &kparts; eklentisi yoksa ön izleme olanaklı değildir. </para>
 
 <para
 >Tercih edilen eklentiyi değiştirmek için &systemsettings; içindeki <guilabel
@@ -1958,12 +1958,12 @@
 > <guisubmenu
 >Araç Görünümleri</guisubmenu
 > <guimenuitem
->Önizleme</guimenuitem
+>Ön İzleme</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
->Kenar çubuğunda, &kate;’in belge önizlemesinin görüntülenmesini açar/kapatır.</para>
+>Kenar çubuğunda, &kate;’in belge ön izlemesinin görüntülenmesini açar/kapatır.</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -1973,19 +1973,19 @@
 <title
 >Arayüz</title>
 <para
->Önizleme penceresinin üstündeki düğmeler şu eylemleri sağlar: </para>
+>Ön izleme penceresinin üstündeki düğmeler şu eylemleri sağlar: </para>
 <itemizedlist>
 <listitem>
 <para
->Önizlemeyi belirli bir belgeye kilitleyin. Bu seçeneğin seçilmesi, odağın aynı &kate; penceresindeki başka bir belgenin görünümüne değiştirilmesi durumunda önizlemenin o belgeyi takip etmemesini; ancak bu belgenin önizlemesini sürdürmesini sağlar.</para>
+>Ön izlemeyi belirli bir belgeye kilitleyin. Bu seçeneğin seçilmesi, odağın aynı &kate; penceresindeki başka bir belgenin görünümüne değiştirilmesi durumunda ön izlemenin o belgeyi takip etmemesini; ancak bu belgenin ön izlemesini sürdürmesini sağlar.</para>
 </listitem>
 <listitem>
 <para
->Geçerli belge içeriğinin önizlemesinin güncellemelerini etkinleştir veya devre dışı bırak</para>
+>Geçerli belge içeriğinin ön izlemesinin güncellemelerini etkinleştir veya devre dışı bırak</para>
 </listitem>
 <listitem>
 <para
->Geçerli belge içeriğinin önizlemesini elle güncelle</para>
+>Geçerli belge içeriğinin ön izlemesini elle güncelle</para>
 </listitem>
 <listitem>
 <para
@@ -2423,7 +2423,7 @@ folder if possible.</para
 </simplelist>
 
 <para
->Öntanımlı olarak Belgeler Listesi, o anda açık olan tüm belgeleri çevreleyen klasör yapısını görüntüleyen <guimenuitem
+>Varsayılan olarak Belgeler Listesi, o anda açık olan tüm belgeleri çevreleyen klasör yapısını görüntüleyen <guimenuitem
 >Ağaç Kipi</guimenuitem
 >’nde görünür. Ayrıca tüm açık belgelerin basit bir listesini görüntüleyen <guimenuitem
 >Liste Kipi</guimenuitem
@@ -2493,11 +2493,11 @@ folder if possible.</para
 </para>
 
 <para
->Belge listesi öntanımlı olarak, en yeni belgelerin girdilerini bir arka plan rengiyle gölgeleyerek geçmişinizi görselleştirecektir. Belge düzenlenmişse fazladan bir renk eklenir. En yeni belge en güçlü renge sahiptir, böylece üzerinde çalıştığınız belgeleri kolayca bulabilirsiniz. Bu özellik, yapılandırma iletişim kutusunun <link linkend="config-dialog-documents"
+>Belge listesi varsayılan olarak, en yeni belgelerin girdilerini bir arka plan rengiyle gölgeleyerek geçmişinizi görselleştirecektir. Belge düzenlenmişse fazladan bir renk eklenir. En yeni belge en güçlü renge sahiptir, böylece üzerinde çalıştığınız belgeleri kolayca bulabilirsiniz. Bu özellik, yapılandırma iletişim kutusunun <link linkend="config-dialog-documents"
 >Belgeler</link
 > sayfasında devre dışı bırakılabilir.</para>
 <para
->&kate; penceresindeki belge listesinin öntanımlı konumu düzenleme alanının soludur.</para>
+>&kate; penceresindeki belge listesinin varsayılan konumu düzenleme alanının soludur.</para>
 
 </sect2>
 
@@ -3196,7 +3196,7 @@ folder if possible.</para
 >Yapılandırma</title>
 
 <para
->Eklentinin yapılandırma sayfası, seçilebilecek “hata ayıklayıcı profillerini” tanımlar. Öntanımlı yapılandırma (JSON) burada gösterilir ve benzer biçimde kullanıcı tarafından sağlanan bir yapılandırmayla “üzerine ekleme” yapılabilir. Örnek bir alıntı aşağıdaki gibidir: </para>
+>Eklentinin yapılandırma sayfası, seçilebilecek “hata ayıklayıcı profillerini” tanımlar. Varsayılan yapılandırma (JSON) burada gösterilir ve benzer biçimde kullanıcı tarafından sağlanan bir yapılandırmayla “üzerine ekleme” yapılabilir. Örnek bir alıntı aşağıdaki gibidir: </para>
 
 <screen
 >{
@@ -3273,7 +3273,7 @@ folder if possible.</para
 > içinde de bulunmalıdır). </para>
 
 <para
->Çeşitli aşamalarda geçersiz kılma/birleştirme işlemleri uygulanır; kullanıcı yapılandırması (dosyadan yüklenir) (içsel) öntanımlı yapılandırmayı geçersiz kılar ve <literal
+>Çeşitli aşamalarda geçersiz kılma/birleştirme işlemleri uygulanır; kullanıcı yapılandırması (dosyadan yüklenir) (içsel) varsayılan yapılandırmayı geçersiz kılar ve <literal
 >.kateproject</literal
 > proje yapılandırmasındaki “dap” girişi de sırayla geçersiz kılar. </para>
 
@@ -3518,7 +3518,7 @@ folder if possible.</para
 >Projeleri Kendiliğinden Yüklemek</title>
 
 <para
->Proje eklentisinin kendiliğinden yükleme özelliği vardır. Dosya listesini sürüm denetim sisteminden okuyabilirsiniz. Bu amaçla, ilgili sürüm denetim sistemi için kendiliğinden yüklemenin ayarlarda etkinleştirilmesi gerekir (öntanımlı olarak etkindir): </para>
+>Proje eklentisinin kendiliğinden yükleme özelliği vardır. Dosya listesini sürüm denetim sisteminden okuyabilirsiniz. Bu amaçla, ilgili sürüm denetim sistemi için kendiliğinden yüklemenin ayarlarda etkinleştirilmesi gerekir (varsayılan olarak etkindir): </para>
 
 <screenshot id="screenshot-project-configure">
 <screeninfo
@@ -3779,7 +3779,7 @@ kate /klasöre/olan/yol
 >cppcheck</command
 > kullanarak bir durağan kod çözümlemesi başlatmak için <guilabel
 >Çözümlemeyi Başlat</guilabel
->’a tıklayın. Bu; dosya adı, satır numarası, öncelik (biçem, uyarı vb.) ve bulunan sorunu görüntüleyecektir.</para>
+>’a tıklayın. Bu; dosya adı, satır numarası, öncelik (stil, uyarı vb.) ve bulunan sorunu görüntüleyecektir.</para>
 <para
 >Kaynak dosyadaki ilgili satıra atlamak için listeden bir öge seçin.</para>
 </listitem>
@@ -3957,7 +3957,7 @@ context menu Project->Lookup:xxx
 ></term>
 <listitem
 ><para
->SSH kullanıcı adı. Boş bırakılırsa KIO kendi öntanımlı değerini kullanır.</para
+>SSH kullanıcı adı. Boş bırakılırsa KIO kendi varsayılan değerini kullanır.</para
 ></listitem>
 </varlistentry>
 
@@ -3970,7 +3970,7 @@ context menu Project->Lookup:xxx
 ><para
 >Yerel dizin içeriği <literal
 >remoteRoot</literal
-> konumuna eşlemlenir. Göreceli bir yol, proje ana dizininden çözümlenir. Öntanımlı değer proje ana dizinidir. Dizin var olmalı ve projenin içinde yer almalıdır.</para
+> konumuna eşlemlenir. Göreceli bir yol, proje ana dizininden çözümlenir. Varsayılan değer proje ana dizinidir. Dizin var olmalı ve projenin içinde yer almalıdır.</para
 ></listitem>
 </varlistentry>
 
@@ -4029,7 +4029,7 @@ context menu Project->Lookup:xxx
 >&Ctrl;&Alt;<keycap
 >S</keycap
 ></keycombo
-> öntanımlı kısayoluna sahiptir. <guimenuitem
+> varsayılan kısayoluna sahiptir. <guimenuitem
 >Projeyi Yükle</guimenuitem
 >, etkin projedeki tüm dışlanmamış dosyaları karşıya yükler. Proje dosyasının bağam menüsünde bir <guimenuitem
 >Uzak Makineye Yükle</guimenuitem
@@ -4463,10 +4463,10 @@ Projects Replicode run / stop-->
 >LSP İstemcisi Sembolü Ana Hattı</title>
 
 <para
->Öntanımlı olarak semboller belgedeki oluşumlarına göre sıralanır; ancak sıralamayı abecesel olacak biçimde değiştirebilirsiniz. Bunu yapmak için araç görünümüne sağ tıklayın ve “Abecesel Olarak Sırala” seçeneğini işaretleyin. </para>
+>Varsayılan olarak semboller belgedeki oluşumlarına göre sıralanır; ancak sıralamayı abecesel olacak biçimde değiştirebilirsiniz. Bunu yapmak için araç görünümüne sağ tıklayın ve “Abecesel Olarak Sırala” seçeneğini işaretleyin. </para>
 
 <para
->Araç görünümü, sembolleri öntanımlı olarak ağaç kipinde gösterir; ancak bağlam menüsünü kullanarak bunu bir listeye değiştirebilirsiniz. </para>
+>Araç görünümü, sembolleri varsayılan olarak ağaç kipinde gösterir; ancak bağlam menüsünü kullanarak bunu bir listeye değiştirebilirsiniz. </para>
 </sect3>
 
 <sect3 id="lspclient-global-go-to-symbol">
@@ -4505,81 +4505,84 @@ Projects Replicode run / stop-->
 >Yapılandırma</title>
 
 <para
->Eklentinin yapılandırma sayfası çoğunlukla yukarıdaki menü ögelerinin bazılarının kalıcı olarak yapılandırılmasına izin verir. Ancak Sunucu Yapılandırması dosyasını belirtmek için ek bir girdi daha vardır. Bu, başlatılacak LSP sunucusunu belirtmek (ve ardından stdin/stdout üzerinden iletişim kurmak) için kullanılabilecek bir &JSON; dosyasıdır. Kolaylık sağlamak amacıyla, eklentinin yapılandırma sayfasında incelenebilecek bazı öntanımlı yapılandırmalar eklenmiştir. Aşağıdaki açıklamaya yardımcı olmak için burada bu yapılandırmadan bir alıntı verilmiştir: </para>
+>Eklentinin yapılandırma sayfası çoğunlukla yukarıdaki menü ögelerinin bazılarının kalıcı olarak yapılandırılmasına izin verir. Ancak Sunucu Yapılandırması dosyasını belirtmek için ek bir girdi daha vardır. Bu, başlatılacak LSP sunucusunu belirtmek (ve ardından stdin/stdout üzerinden iletişim kurmak) için kullanılabilecek bir &JSON; dosyasıdır. Kolaylık sağlamak amacıyla, eklentinin yapılandırma sayfasında incelenebilecek bazı varsayılan yapılandırmalar eklenmiştir. Aşağıdaki açıklamaya yardımcı olmak için burada bu yapılandırmadan bir alıntı verilmiştir: </para>
 
 <screen
 >{
     "servers": {
-        "bibtex": {
-            "use": "latex",
-            "highlightingModeRegex": "^BibTeX$"
-        },
         "c": {
-            "command": ["clangd", "-log=error", "--background-index"],
-            "commandDebug": ["clangd", "-log=verbose", "--background-index"],
-            "url": "https://clang.llvm.org/extra/clangd/",
-            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
+            "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$",
+            "servers" : {
+                "clangd" : {
+                    "command": ["clangd", "-log=error", "--background-index", "--limit-results=500", "--completion-style=bundled"],
+                    "commandDebug": ["clangd", "-log=verbose", "--background-index"],
+                    "url": "https://clangd.llvm.org"
+                }
+            }
         },
         "cpp": {
             "use": "c",
             "highlightingModeRegex": "^(C\\+\\+|ISO C\\+\\+|Objective-C\\+\\+)$"
         },
-        "d": {
-            "command": ["dls", "--stdio"],
-            "url": "https://github.com/d-language-server/dls",
-            "highlightingModeRegex": "^D$"
-        },
-        "fortran": {
-            "command": ["fortls"],
-            "rootIndicationFileNames": [".fortls"],
-            "url": "https://github.com/hansec/fortran-language-server",
-            "highlightingModeRegex": "^Fortran.*$"
-        },
-        "javascript": {
-            "command": ["typescript-language-server", "--stdio"],
-            "rootIndicationFileNames": ["package.json", "package-lock.json"],
-            "url": "https://github.com/theia-ide/typescript-language-server",
-            "highlightingModeRegex": "^JavaScript.*$",
-            "documentLanguageId": false
-        },
-        "latex": {
-            "command": ["texlab"],
-            "url": "https://texlab.netlify.com/",
-            "highlightingModeRegex": "^LaTeX$"
-        },
-        "go": {
-            "command": ["go-langserver"],
-            "commandDebug": ["go-langserver", "-trace"],
-            "url": "https://github.com/sourcegraph/go-langserver",
-            "highlightingModeRegex": "^Go$"
+        "dart": {
+            "highlightingModeRegex": "^Dart$",
+            "servers" : {
+                "dart-language-server" : {
+                    "command": ["dart", "language-server"],
+                    "rootIndicationFileNames": ["pubspec.yaml", "pubspec.lock"],
+                    "settings": {
+                        "dart": {
+                            "analysisExcludedFolders": ["%{ENV:HOME}/flutter"]
+                        }
+                    },
+                    "url": "https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec",
+                    "useWorkspace": true
+                }
+            }
         },
         "python": {
-            "command": ["python3", "-m", "pyls", "--check-parent-process"],
-            "url": "https://github.com/palantir/python-language-server",
-            "highlightingModeRegex": "^Python$"
+            "highlightingModeRegex": "^Python$",
+            "servers" : {
+                "pylsp" : {
+                    "command": ["pylsp", "--check-parent-process"],
+                    "priority": 10,
+                    "url": "https://github.com/python-lsp/python-lsp-server"
+                },
+                "pyrefly" : {
+                    "command": ["pyrefly", "lsp"],
+                    "disabled": true,
+                    "rootIndicationFileNames": ["pyproject.toml"],
+                    "url": "https://github.com/facebook/pyrefly"
+                }
+            }
         },
-        "rust": {
-            "command": ["rls"],
-            "path": ["%{ENV:HOME}/.cargo/bin", "%{ENV:USERPROFILE}/.cargo/bin"],
-            "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
-            "url": "https://github.com/rust-lang/rls",
-            "highlightingModeRegex": "^Rust$"
-        },
-        "ocaml": {
-            "command": ["ocamlmerlin-lsp"],
-            "url": "https://github.com/ocaml/merlin",
-            "highlightingModeRegex": "^Objective Caml.*$"
+        "rst": {
+            "highlightingModeRegex": "^reStructuredText$",
+            "servers" : {
+                "esbonio" : {
+                    "command": ["python", "-m", "esbonio"],
+                    "initializationOptions": {
+                        "server": {
+                            "completion": {
+                                "preferredInsertBehavior": "insert"
+                            }
+                        }
+                    },
+                    "rootIndicationFileNames": ["conf.py"],
+                    "url": "https://github.com/swyddfa/esbonio"
+                }
+            }
         }
     }
 }
 </screen>
 
 <para
->Her “komutun” bir diziliş veya dizi olabileceğini unutmayın (bu durumda bir dizilişe bölünmüştür). Ayrıca, üst düzey bir “global” girdi (“server”ın yanında) da dikkate alınır (aşağıya bakınız). Belirtilen ikili dosya olağan şekilde aranır; örneğin, <literal
+>“disabled” özniteliğini “true” olarak ayarlayarak bir sunucuyu etkin olarak devre dışı bırakabilirsiniz. Bu, varsayılan ayarlarla gönderilen sunucuların devre dışı bırakılmasına olanak tanır. Birden fazla sunucu belirtilirse önceliklerine ve adlarına göre başlatılacaklardır. En yüksek öncelik kazanacaktır; herhangi bir “priority” tam sayı özniteliği ayarlanmadıysa varsayılan öncelik 0’dır. “command” bir diziliş olacaktır ve ilk ögenin yürütülecek ikili dosya olduğu kabul edilecektir. İsteğe bağlı olarak, komut dizilişlerinden oluşan “fallbackCommands” (ve “fallbackCommandsDebug”) dizilişleri de belirtilebilir; birincil ikili dosya bulunamadığı takdirde, bu yedek komutlar sırasıyla denenir. Ayrıca, üst düzey bir “global” giriş (“server”ın yanında) da dikkate alınır (aşağıya bakınız). Belirtilen ikili dosya olağan şekilde aranır, ör. <literal
 >PATH</literal
 > kullanarak. Özel bir konuma kurulursa ikincisinin genişletilmesi gerekebilir. Veya alternatif olarak, olağan <literal
 >PATH</literal
-> içindeki bir konumda bir sembolik bağlantı veya bir sarmalayıcı betik kullanılabilir. Yukarıda gösterildiği gibi standart konumlardan sonra aranacak bir “yol” da belirtilebilir. </para>
+> içindeki bir konumda bir sembolik bağlantısı veya sarmalayıcı betiği kullanılabilir. Yukarıda gösterildiği gibi standart konumlardan sonra aranacak bir “path” de belirtilebilir. </para>
 
 <para
 >“command”, “root” ve “path” içindeki tüm girdiler değişken genişletmeye tabidir. </para>
@@ -4594,7 +4597,7 @@ Projects Replicode run / stop-->
 >Üzerine yazma veya birleştirmenin çeşitli aşamaları uygulanır; <itemizedlist>
 <listitem>
 <para
->kullanıcı yapılandırması (dosyadan yüklenen), öntanımlı (içsel) yapılandırmanın üzerine yazar</para>
+>kullanıcı yapılandırması (dosyadan yüklenen), varsayılan (içsel) yapılandırmanın üzerine yazar</para>
 </listitem>
 <listitem>
 <para
@@ -4620,7 +4623,7 @@ Projects Replicode run / stop-->
 >Genel olarak, bir sunucu için o kadar da önemli olmadığından kökü belirtmeden bırakmanız önerilir (ancak sizin için aynı durum geçerli olmayabilir). Daha az sayıda sunucu örneği açıkça daha verimlidir ve aynı zamanda birçok ayrı örneğin görünümünden “daha geniş” bir görünüme sahiptirler. </para>
 
 <para
->Yukarıda belirtildiği gibi, çeşitli girdiler değişken genişlemeye tabidir. Bunun “sarmalayıcı betik” yaklaşımlarıyla birleştirilmiş uygun bir uygulaması, birçok duruma göre özelleştirmeye olanak tanır. Örneğin, her biri kendi virtualenv kurulumuna sahip birden fazla projeden (örn. git depoları) oluşan bir python geliştirme senaryosunu düşünün. Öntanımlı yapılandırma kullanıldığında python dil sunucusu sanal ortamdan haberdar olmayacaktır. Ancak aşağıdaki yaklaşımla bu sorun çözülebilir. İlk olarak, LSP İstemcisi eklentisinin “Kullanıcı Sunucu Ayarları”na aşağıdaki parça girilebilir: </para>
+>Yukarıda belirtildiği gibi, çeşitli girdiler değişken genişlemeye tabidir. Bunun “sarmalayıcı betik” yaklaşımlarıyla birleştirilmiş uygun bir uygulaması, birçok duruma göre özelleştirmeye olanak tanır. Örneğin, her biri kendi virtualenv kurulumuna sahip birden fazla projeden (örn. git depoları) oluşan bir python geliştirme senaryosunu düşünün. Varsayılan yapılandırma kullanıldığında python dil sunucusu sanal ortamdan haberdar olmayacaktır. Ancak aşağıdaki yaklaşımla bu sorun çözülebilir. İlk olarak, LSP İstemcisi eklentisinin “Kullanıcı Sunucu Ayarları”na aşağıdaki parça girilebilir: </para>
 <screen
 >{
         "servers":
@@ -4751,7 +4754,7 @@ exec myserver
 >Belirli bir dil için (özel) bir LSP sunucusunun nasıl yapılandırılacağını açıklamak bir şeydir, sunucunun sorunsuz çalışmasını sağlamak başka bir şeydir. Şans eseri genellikle durum ikincisidir. Ancak bazen “aptalca” bir yanlış yapılandırma veya sunucunun kendisiyle ilgili daha temel bir sorun nedeniyle sorunlar ortaya çıkabilir. İkincisi, &kate; Çıktı sekmesinde bildirildiği gibi, genellikle sunucuyu başlatmaya yönelik birkaç girişim olarak kendini gösterebilir. Ancak ikincisi, ayrıntılı tanı sağlamaktan ziyade yalnızca üst düzey iletileri veya ilerlemeyi iletmeyi amaçlamaktadır ve aslında başka bir süreç (LSP sunucusu) için bu daha da azdır. </para>
 
 <para
->Bunu tanılamanın genel yolu, öntanımlı olarak ayarlanmadığı sürece (bazı dosyalara veya standart hatalara) (ek) günlüğe kaydetmeyi olanaklı kılan (dil sunucusunun) başlangıç komutuna bazı bayrak(lar) eklemektir. Eğer &kate; daha sonra komut satırında başlatılırsa neyin yanlış gittiğine dair daha fazla görüş elde edilebilir. </para>
+>Bunu tanılamanın genel yolu, varsayılan olarak ayarlanmadığı sürece (bazı dosyalara veya standart hatalara) (ek) günlüğe kaydetmeyi olanaklı kılan (dil sunucusunun) başlangıç komutuna bazı bayrak(lar) eklemektir. Eğer &kate; daha sonra komut satırında başlatılırsa neyin yanlış gittiğine dair daha fazla görüş elde edilebilir. </para>
 
 <para
 >&kate;’in LSP istemcisi ile LSP sunucusu arasındaki protokol alışverişini incelemek de bilgilendirici olabilir. Yine, ikincisinin genellikle bunun izini sürmenin yolları vardır. LSP istemcisi ayrıca &kate;, <literal
@@ -5693,7 +5696,7 @@ when finished.</para
 ></term>
 <listitem
 ><para
->Parçacık deposunun uygulanmasını istediğiniz dosya türlerini seçin. Öntanımlı olarak <quote
+>Parçacık deposunun uygulanmasını istediğiniz dosya türlerini seçin. Varsayılan olarak <quote
 ></quote
 > olarak ayarlanmıştır, böylece depo tüm dosyalara uygulanır. Örneğin bunu <userinput
 >C++</userinput
@@ -5824,9 +5827,9 @@ when finished.</para
 >${<replaceable
 >field_name=default</replaceable
 >}</userinput
->, alan için öntanımlı bir değer ayarlar. <replaceable
+>, alan için varsayılan bir değer ayarlar. <replaceable
 >default</replaceable
-> bir &javascript; ifadesidir. Öntanımlı değer olarak sabit bir dizi belirtmek için tırnak işaretleri (<userinput
+> bir &javascript; ifadesidir. Varsayılan değer olarak sabit bir dizi belirtmek için tırnak işaretleri (<userinput
 >${<replaceable
 >field_name</replaceable
 >=<replaceable
@@ -5836,15 +5839,15 @@ when finished.</para
 
 <tip>
 <para
->Öntanımlı değerleri kullanırken (<userinput
+>Varsayılan değerleri kullanırken (<userinput
 >${<replaceable
 >field_name=default</replaceable
 >}</userinput
->), parçacık belgeye yerleştirildiğinde öntanımlı değerin anında değerlendirildiğini ve alanlar sonradan değiştiğinde güncellenmediğini aklınızda tutun.</para>
+>), parçacık belgeye yerleştirildiğinde varsayılan değerin anında değerlendirildiğini ve alanlar sonradan değiştiğinde güncellenmediğini aklınızda tutun.</para>
 <para
->Değerlendirilen öntanımlı değerden önce tanımlanmışlarsa öntanımlı değerlerdeki diğer alanlara da başvurabilirsiniz. Ancak bu, yalnızca bu alanların öntanımlı değerine erişmenizi sağlar.</para>
+>Değerlendirilen varsayılan değerden önce tanımlanmışlarsa varsayılan değerlerdeki diğer alanlara da başvurabilirsiniz. Ancak bu, yalnızca bu alanların varsayılan değerine erişmenizi sağlar.</para>
 <para
->Özel bir öntanımlı değer tanımlanmamışsa öntanımlı değer bir alanın adıdır.</para>
+>Özel bir varsayılan değer tanımlanmamışsa varsayılan değer bir alanın adıdır.</para>
 </tip>
 
 <para
@@ -5916,7 +5919,7 @@ when finished.</para
 >fields.alanım</userinput
 > veya <userinput
 >fields["alanım"]</userinput
-> kullanın. Bir alanın öntanımlı değeri olarak bir işlev kullanırken yalnızca daha önce metinde tanımlanmış alanlar kullanılabilirdir.</para
+> kullanın. Bir alanın varsayılan değeri olarak bir işlev kullanırken yalnızca daha önce metinde tanımlanmış alanlar kullanılabilirdir.</para
 ></listitem>
 <listitem
 ><para
@@ -5934,7 +5937,7 @@ when finished.</para
 ><para
 >İşlev alanları (örneğin, <userinput
 >${func()}</userinput
->), herhangi bir alanın içeriği değiştirildiğinde her zaman yeniden değerlendirilirler. Ancak, bu, öntanımlı değerlerdeki işlev çağrılarına işlemez: Onlar, parçacık belgeye yerleştirildiğinde yalnızca bir kez değerlendirilirler.</para>
+>), herhangi bir alanın içeriği değiştirildiğinde her zaman yeniden değerlendirilirler. Ancak, bu, varsayılan değerlerdeki işlev çağrılarına işlemez: Onlar, parçacık belgeye yerleştirildiğinde yalnızca bir kez değerlendirilirler.</para>
 </listitem>
 <listitem
 ><para
@@ -5982,7 +5985,7 @@ when finished.</para
 >Kullanım örneği</term>
 <listitem
 ><para
->Aşağıdaki örnek, seçili metni veya —eğer seçim yoksa— öntanımlı metni künyelere saran bir betiği çağırır (<userinput
+>Aşağıdaki örnek, seçili metni veya —eğer seçim yoksa— varsayılan metni künyelere saran bir betiği çağırır (<userinput
 >Betik</userinput
 > parçacık türünde):</para>
 <para>
@@ -6853,7 +6856,7 @@ VALUES ("<replaceable
 ><imagedata fileref="symbolviewer-settings.png" format="PNG"/></imageobject>
 <caption
 ><para
->Öntanımlı ayrıştırıcı seçeneklerini seç</para
+>Varsayılan ayrıştırıcı seçeneklerini seç</para
 ></caption>
 </mediaobject>
 </screenshot>
@@ -6885,7 +6888,7 @@ VALUES ("<replaceable
 > seçeneği etkinleştirilirse görüntülendiğine veya geçerli belge değiştiğinde olanaklıysa geçerli belgenin dizinine geçer.</para>
 
 <para
->&kate; dosyasındaki öntanımlı konumu en altta, düzenleme alanının altındadır.</para>
+>&kate; dosyasındaki varsayılan konumu en altta, düzenleme alanının altındadır.</para>
 
 <para
 >&konsole;’u onun &RMB; menüsünü kullanarak yapılandırabilirsiniz; daha fazla bilgi için <ulink url="help:/konsole/index.html"
@@ -7033,7 +7036,7 @@ VALUES ("<replaceable
 ><para
 >Bu, <envar
 >EDITOR</envar
-> çevre değişkenini, yerleşik uçbirimde çalışan ve bir dosyayı kendiliğinden bir düzenleyicide açan programların, bunları kabuğunuzda yapılandırılan öntanımlı düzenleyici yerine &kate;’de açmasını sağlayacak şekilde ayarlar. Dosyayı &kate;’de kapatana kadar uçbirimi kullanmayı sürdüremezsiniz, böylece çağıran program, dosyayı düzenlemeyi bitirdiğinizin farkında olacaktır.</para
+> çevre değişkenini, yerleşik uçbirimde çalışan ve bir dosyayı kendiliğinden bir düzenleyicide açan programların, bunları kabuğunuzda yapılandırılan varsayılan düzenleyici yerine &kate;’de açmasını sağlayacak şekilde ayarlar. Dosyayı &kate;’de kapatana kadar uçbirimi kullanmayı sürdüremezsiniz, böylece çağıran program, dosyayı düzenlemeyi bitirdiğinizin farkında olacaktır.</para
 ></listitem>
 </varlistentry>
 
@@ -7281,7 +7284,7 @@ VALUES ("<replaceable
 >meta DTD</quote
 > olarak adlandıracağız. Bazı meta DTD’ler sağlanır. Aynı zamanda <guimenuitem
 >Meta DTD Ata…</guimenuitem
-> ögesini seçtiğinizdeki öntanımlı klasör olan <userinput
+> ögesini seçtiğinizdeki varsayılan klasör olan <userinput
 ><command
 >qtpaths</command
 > <option

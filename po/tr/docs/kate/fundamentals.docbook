@@ -114,7 +114,7 @@
 </informalexample>
 
 <para
->Geçici dosyalar dizinini değiştirmek için (öntanımlı olarak <filename class="directory"
+>Geçici dosyalar dizinini değiştirmek için (varsayılan olarak <filename class="directory"
 >/tmp</filename
 >) &kate;’i başlatmadan önce <envar
 >TMPDIR</envar
@@ -437,7 +437,7 @@
 >Tez Başlat</link
 >, &kate;’in daha güçlü özelliklerini yapılandırmanızı sağlayan dört basit seçeneği nasıl değiştireceğinizi gösterir. <link linkend="keystroke-commands"
 > Kısayollar</link
->, fare kullanmak istemeyen ve kullanmayanlar için öntanımlı klavye kısayollarını gösterir. </para>
+>, fare kullanmak istemeyen ve kullanmayanlar için varsayılan klavye kısayollarını gösterir. </para>
 
 <sect2 id="quick-start">
 <title
@@ -492,7 +492,7 @@
 <para
 >&kate;’in düğme vuruşu komutlarının (kısayollarının) çoğu <link linkend="settings-help-menu"
 >Ayarlar</link
-> menüsü ile yapılandırılabilirdir. Öntanımlı olarak &kate; aşağıdaki düğme bağıntılarını izler. </para>
+> menüsü ile yapılandırılabilirdir. Varsayılan olarak &kate; aşağıdaki düğme bağıntılarını izler. </para>
 
 <informaltable>
 <tgroup cols="2">
@@ -813,7 +813,7 @@ action="simul"
 > &kate; Ana Penceresi, araç görünümlerini içeren kenar çubuklarının eklendiği standart bir &kde; uygulaması penceresidir. Tüm ortak menüleri ve daha fazlasını içeren bir menü çubuğuna ve yaygın olarak kullanılan komutlara erişim sağlayan bir araç çubuğuna sahiptir.</para>
 
 <para
->Pencerenin en önemli kısmı; belgelerinizle çalışabileceğiniz, öntanımlı olarak tek bir metin düzenleyicisi bileşeninin görüntülendiği düzenleme alanıdır.</para>
+>Pencerenin en önemli kısmı; belgelerinizle çalışabileceğiniz, varsayılan olarak tek bir metin düzenleyicisi bileşeninin görüntülendiği düzenleme alanıdır.</para>
 
 <para
 >Pencerenin yerleştirilebilme yetenekleri, ayarlar iletişim kutusunda etkinleştirilen herhangi bir eklentinin araç pencereleri için kullanılır.</para>
@@ -865,7 +865,7 @@ action="simul"
 >Oturumları Kullanmak</title>
 
 <para
->Oturumlar, &kate;’in birden çok dosya listesini ve &GUI; yapılandırmasını saklamanıza olanak sağlamasıdır. İstediğiniz sayıda adlı oturuma sahip olabilirsiniz ve yalnızca bir kez kullanmak istediğiniz dosyalar için adsız veya anonim oturumlar kullanabilirsiniz. Şu anda &kate;, açık dosyaların listesini ve oturumdaki genel pencere yapılandırmasını kaydedebilir; &kate;’in gelecekteki sürümleri, oturumlara kaydedilebilecek daha fazla özellik ekleyebilir. Oturumların kullanılmaya başlanmasıyla &kate; ayrıca, öntanımlı davranış olarak eskiden olduğu gibi uygulamanın yalnızca bir örneğini açmak yerine istediğiniz sayıda örneğini açmanıza da olanak tanır.</para>
+>Oturumlar, &kate;’in birden çok dosya listesini ve &GUI; yapılandırmasını saklamanıza olanak sağlamasıdır. İstediğiniz sayıda adlı oturuma sahip olabilirsiniz ve yalnızca bir kez kullanmak istediğiniz dosyalar için adsız veya anonim oturumlar kullanabilirsiniz. Şu anda &kate;, açık dosyaların listesini ve oturumdaki genel pencere yapılandırmasını kaydedebilir; &kate;’in gelecekteki sürümleri, oturumlara kaydedilebilecek daha fazla özellik ekleyebilir. Oturumların kullanılmaya başlanmasıyla &kate; ayrıca, varsayılan davranış olarak eskiden olduğu gibi uygulamanın yalnızca bir örneğini açmak yerine istediğiniz sayıda örneğini açmanıza da olanak tanır.</para>
 
 <para
 >Oturumlar üç alanda desteklenir: <itemizedlist>
@@ -899,8 +899,8 @@ action="simul"
 
 <para
 >Yeni bir oturum başlatılırken, <guilabel
->Öntanımlı Oturum</guilabel
->’un &GUI; yapılandırması yüklenir. Pencere yapılandırmasını öntanımlı oturuma kaydetmek için yapılandırma iletişim kutusunun oturum yapılandırma sayfasında pencere yapılandırmasını kaydetmeyi etkinleştirmeniz ve ardından öntanımlı oturumu yüklemeniz, pencereyi istediğiniz gibi ayarlamanız ve oturumu yeniden kaydetmeniz gerekir.</para>
+>Varsayılan Oturum</guilabel
+>’un &GUI; yapılandırması yüklenir. Pencere yapılandırmasını varsayılan oturuma kaydetmek için yapılandırma iletişim kutusunun oturum yapılandırma sayfasında pencere yapılandırmasını kaydetmeyi etkinleştirmeniz ve ardından varsayılan oturumu yüklemeniz, pencereyi istediğiniz gibi ayarlamanız ve oturumu yeniden kaydetmeniz gerekir.</para>
 
 <para
 >Ad verilmiş bir oturum yüklendiğinde &kate;, oturum adını pencere başlığının başlangıcında görüntüleyecektir. Bu dizi, <quote
@@ -916,7 +916,7 @@ action="simul"
 >--start <replaceable
 >ad</replaceable
 ></option
-> seçeneği ile açarken veya bir oturum, oturum seçicisinden seçilmişse belirtilen oturum, komut satırında belirtilen dosyaların yüklenmesinden önce yüklenir. Komut satırından dosyaları yeni, adsız bir oturum ile açmak için yapılandırma iletişim kutusunun oturum sayfasında &kate;’i öntanımlı olarak yeni bir oturum başlatması için yapılandırın veya <option
+> seçeneği ile açarken veya bir oturum, oturum seçicisinden seçilmişse belirtilen oturum, komut satırında belirtilen dosyaların yüklenmesinden önce yüklenir. Komut satırından dosyaları yeni, adsız bir oturum ile açmak için yapılandırma iletişim kutusunun oturum sayfasında &kate;’i varsayılan olarak yeni bir oturum başlatması için yapılandırın veya <option
 >--start</option
 > seçeneğini boş bir diziyle kullanın: <replaceable
 >''</replaceable
@@ -954,7 +954,7 @@ action="simul"
 <para
 >Tez Aç’ı kullanmak çok basittir. Açtığınızda, açmak istediğiniz dosyanın adını veya adının bir kısmını yazmanız yeterlidir; Tez Aç, yazdıklarınıza göre listeyi süzer. &Enter; düğmesine basmak seçili dosyayı açar, &Esc; ise Tez Aç’ı gizler. </para>
 <para
->Öntanımlı olarak, süzme sırasında yalnızca dosya adı eşleştirilir. Yolu eşleştirmek isterseniz yazılan metinde bir "/" olmalıdır. Örneğin: "belge/indeks", "belge" klasöründe "indeks" içeren tüm belgelerle eşleşecektir. </para>
+>Varsayılan olarak, süzme sırasında yalnızca dosya adı eşleştirilir. Yolu eşleştirmek isterseniz yazılan metinde bir "/" olmalıdır. Örneğin: "belge/indeks", "belge" klasöründe "indeks" içeren tüm belgelerle eşleşecektir. </para>
 <para
 >hâlihazırda açık olan belgeler kalın harflerle vurgulanır ve iletişim kutusu açıldığında en üstte listelenir. Ayrıca, Tez Aç görüntülendiğinde önceki açık belge hâlihazırda seçilidir, böylece yalnızca &Enter; düğmesine basabilirsiniz ve bu sizi o belgeye götürecektir. </para>
 

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-10-14 00:51+0000\n"
-"PO-Revision-Date: 2026-11-22 19:15+0100\n"
+"PO-Revision-Date: 2026-11-24 22:24+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -192,7 +192,7 @@ msgstr "Не е указан файл или директория за комп�
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
-"Файлът \"%1\" не е локален файл. Нелокалните файлове не могат да бъдат "
+"Файлът „%1“ не е локален файл. Нелокалните файлове не могат да бъдат "
 "компилирани."
 
 #: plugin_katebuild.cpp:844
@@ -217,7 +217,7 @@ msgstr "Грешка при създаването на директорията
 #: plugin_katebuild.cpp:880
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "Грешка при изпълнение на \"%1\". exitStatus = %2"
+msgstr "Грешка при изпълнение на „%1“. exitStatus = %2"
 
 #: plugin_katebuild.cpp:896
 #, kde-format
@@ -227,12 +227,12 @@ msgstr "Прекъсване на изграждането на <b>%1: %2</b>"
 #: plugin_katebuild.cpp:1002
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr "Не е намерен compile_commands.json за файл \"%1\". "
+msgstr "Не е намерен compile_commands.json за файл „%1“. "
 
 #: plugin_katebuild.cpp:1015
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr "Не е намерена команда за компилиране на файл \"%1\" в \"%2\". "
+msgstr "Не е намерена команда за компилиране на файл „%1“ в „%2“. "
 
 #: plugin_katebuild.cpp:1034
 #, kde-format

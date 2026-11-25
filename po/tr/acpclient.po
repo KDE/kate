@@ -1,0 +1,444 @@
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2026 Emir SARI <emir_sari@icloud.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-11-24 01:09+0000\n"
+"PO-Revision-Date: 2026-11-24 17:29+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
+"Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 26.08.2\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Emir SARI"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "emir_sari@îcloud.com"
+
+#: acpchatmessagewidget.cpp:249 acpchatmessagewidget.cpp:841
+#, kde-format
+msgid "Allow"
+msgstr "İzin Ver"
+
+#: acpchatmessagewidget.cpp:252 acpchatmessagewidget.cpp:849
+#, kde-format
+msgid "Reject"
+msgstr "Reddet"
+
+#: acpchatmessagewidget.cpp:659
+#, kde-format
+msgid "Tool Update:"
+msgstr "Araç güncellemesi:"
+
+#: acpchatmessagewidget.cpp:715
+#, kde-format
+msgid "Usage:"
+msgstr "Kullanım:"
+
+#: acpchatmessagewidget.cpp:893
+#, kde-format
+msgid "User"
+msgstr "Kullanıcı"
+
+#: acpchatmessagewidget.cpp:895 acpclientchatwidget.cpp:946
+#: acpclientchatwidget.cpp:969 acpclientchatwidget.cpp:1000
+#: acpclientchatwidget.cpp:1015 acpclientchatwidget.cpp:1107
+#, kde-format
+msgid "Agent"
+msgstr "Aracı"
+
+#: acpchatmessagewidget.cpp:897
+#, kde-format
+msgid "System"
+msgstr "Sistem"
+
+#: acpchatmessagewidget.cpp:899
+#, kde-format
+msgid "Plan"
+msgstr "Plan"
+
+#: acpchatmessagewidget.cpp:901
+#, kde-format
+msgid "Tool Call"
+msgstr "Araç Çağrısı"
+
+#: acpchatmessagewidget.cpp:903
+#, kde-format
+msgid "Tool Update"
+msgstr "Araç Güncellemesi"
+
+#: acpchatmessagewidget.cpp:905
+#, kde-format
+msgid "Usage"
+msgstr "Kullanım"
+
+#: acpchatmessagewidget.cpp:907
+#, kde-format
+msgid "Permission Request"
+msgstr "İzin İsteği"
+
+#: acpchatmessagewidget.cpp:909 acpserverlistwidget.cpp:141
+#, kde-format
+msgid "Error"
+msgstr "Hata"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ACPChatWidget)
+#: acpclientchat.ui:14 acpclientpluginview.cpp:70
+#, kde-format
+msgid "ACP Chat"
+msgstr "ACP Sohbeti"
+
+#. i18n: ectx: property (text), widget (QLabel, sessionLabel)
+#: acpclientchat.ui:31 acpclientchatwidget.cpp:1229
+#, kde-format
+msgid "ACP Chat: No active session"
+msgstr "ACP sohbeti: Etkin oturum yok"
+
+#. i18n: ectx: property (text), widget (QPushButton, newSessionButton)
+#: acpclientchat.ui:57 acpsessionlistwidget.cpp:46
+#, kde-format
+msgid "New Session"
+msgstr "Yeni Oturum"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, newSessionButton)
+#: acpclientchat.ui:63
+#, kde-format
+msgid "Start a new ACP chat session"
+msgstr "Yeni bir ACP sohbet oturumu başlat"
+
+#. i18n: ectx: property (text), widget (QPushButton, endSessionButton)
+#: acpclientchat.ui:70
+#, kde-format
+msgid "End Session"
+msgstr "Oturumu Sonlandır"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, endSessionButton)
+#: acpclientchat.ui:76
+#, kde-format
+msgid "End the current ACP session"
+msgstr "Geçerli ACP oturumunu sonlandır"
+
+#. i18n: ectx: property (text), widget (QPushButton, clearChatButton)
+#: acpclientchat.ui:86
+#, kde-format
+msgid "Clear"
+msgstr "Temizle"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, clearChatButton)
+#: acpclientchat.ui:92
+#, kde-format
+msgid "Clear the chat history"
+msgstr "Sohbet geçmişini temizle"
+
+#. i18n: ectx: property (placeholderText), widget (QTextEdit, messageInput)
+#: acpclientchat.ui:137 acpclientchatwidget.cpp:69
+#, kde-format
+msgid ""
+"Type your message here... (Ctrl+Enter to send, Shift+Enter for new line)"
+msgstr ""
+"İletinizi buraya yazın… (Göndermek için Kontrol+Giriş, yeni satır için Üst "
+"Karakter+Giriş)"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, sendButton)
+#: acpclientchat.ui:163
+#, kde-format
+msgid "Send message (Ctrl+Enter)"
+msgstr "İletiyi gönder (Kontrol+Giriş)"
+
+#: acpclientchatwidget.cpp:108 acpclientchatwidget.cpp:159
+#: acpclientchatwidget.cpp:805
+#, kde-format
+msgid "No ACP server manager available"
+msgstr "Kullanılabilir ACP sunucusu yöneticisi yok"
+
+#: acpclientchatwidget.cpp:114 acpclientchatwidget.cpp:165
+#, kde-format
+msgid "No active ACP server. Please connect to an agent first."
+msgstr "Etkin ACP sunucusu yok. Lütfen önce bir aracıya bağlanın."
+
+#: acpclientchatwidget.cpp:132
+#, kde-format
+msgid "New ACP session started: %1"
+msgstr "Yeni ACP oturumu başlatıldı: %1"
+
+#: acpclientchatwidget.cpp:138
+#, kde-format
+msgid "Creating new ACP session..."
+msgstr "Yeni ACP oturumu oluşturuluyor…"
+
+#: acpclientchatwidget.cpp:175
+#, kde-format
+msgid "Using session: %1"
+msgstr "Kullanılan oturum: %1"
+
+#: acpclientchatwidget.cpp:185 acpclientchatwidget.cpp:780
+#, kde-format
+msgid "You"
+msgstr "Siz"
+
+#: acpclientchatwidget.cpp:651 acpclientchatwidget.cpp:904
+#: acpclientchatwidget.cpp:906 acpclientchatwidget.cpp:909
+#: acpclientchatwidget.cpp:911 acpclientchatwidget.cpp:924
+#, kde-format
+msgid "ACP Agent"
+msgstr "ACP Aracısı"
+
+#: acpclientchatwidget.cpp:696
+#, kde-format
+msgid "Server disconnected"
+msgstr "Sunucu bağlantısı kesildi"
+
+#: acpclientchatwidget.cpp:749
+#, kde-format
+msgid "Session loaded: %1"
+msgstr "Yüklenen oturum: %1"
+
+#: acpclientchatwidget.cpp:757
+#, kde-format
+msgid "Session resumed: %1"
+msgstr "Sürdürülen oturum: %1"
+
+#: acpclientchatwidget.cpp:793
+#, kde-format
+msgid "No active session. Please start a new session first."
+msgstr "Etkin oturum yok. Lütfen önce yeni bir oturum oluşturun."
+
+#: acpclientchatwidget.cpp:810
+#, kde-format
+msgid "No active session to end"
+msgstr "Sonlandırılacak etkin oturum yok"
+
+#: acpclientchatwidget.cpp:836
+#, kde-format
+msgid "Error [%1]: %2"
+msgstr "Hata [%1]: %2"
+
+#: acpclientchatwidget.cpp:911
+#, kde-format
+msgid "Error: %1"
+msgstr "Hata: %1"
+
+#: acpclientchatwidget.cpp:1218
+#, kde-format
+msgid "Tokens: %1 / %2"
+msgstr "Jetonlar: %1/%2"
+
+#: acpclientchatwidget.cpp:1232
+#, kde-format
+msgid "ACP Chat: Session %1"
+msgstr "ACP sohbeti: Oturum %1"
+
+#: acpclientchatwidget.cpp:1258
+#, kde-format
+msgid "Copy All"
+msgstr "Tümünü Kopyala"
+
+#: acpclientconfigpage.cpp:32
+#, kde-format
+msgid "User Server Settings"
+msgstr "Sunucu Ayarlarını Kullan"
+
+#: acpclientconfigpage.cpp:33
+#, kde-format
+msgid "Default Server Settings"
+msgstr "Varsayılan Sunucu Ayarları"
+
+#. i18n: ectx: Menu (acp_client)
+#: acpclientconfigpage.cpp:47 ui.rc:7
+#, kde-format
+msgid "ACP Client"
+msgstr "ACP İstemcisi"
+
+#: acpclientconfigpage.cpp:52
+#, kde-format
+msgid "Agent Client Protocol Client Configuration"
+msgstr "Aracı İstemci Protokolü İstemcisi Yapılandırması"
+
+#: acpclientplugin.cpp:84
+#, kde-format
+msgid "Keyboard Macros"
+msgstr "Klavye Makroları"
+
+#: acpclientpluginview.cpp:33
+#, kde-format
+msgid "Agent Client Protocol"
+msgstr "Aracı İstemci Protokolü"
+
+#: acpclientpluginview.cpp:79
+#, kde-format
+msgid "Servers"
+msgstr "Sunucular"
+
+#: acpclientpluginview.cpp:84 acpsessionlistwidget.cpp:37
+#, kde-format
+msgid "Sessions"
+msgstr "Oturumlar"
+
+#: acpclientpluginview.cpp:89
+#, kde-format
+msgid "Chat"
+msgstr "Sohbet"
+
+#: acpclientservermanager.cpp:53
+#, kde-format
+msgid "Failed to parse server configuration '%1': no JSON object"
+msgstr "“%1” sunucu yapılandırması ayrıştırılamadı: JSON nesnesi yok"
+
+#: acpclientservermanager.cpp:56
+#, kde-format
+msgid "Failed to parse server configuration '%1': %2"
+msgstr "“%1” sunucu yapılandırması ayrıştırılamadı: %2"
+
+#: acpclientservermanager.cpp:60
+#, kde-format
+msgid "Failed to read server configuration: %1"
+msgstr "Sunucu yapılandırması okunamadı: %1"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ACPConfigWidget)
+#: acpconfigwidget.ui:14
+#, kde-format
+msgid "ACP Client Configuration"
+msgstr "ACP İstemcisi Yapılandırması"
+
+#. i18n: ectx: attribute (title), widget (QWidget, clientSettingsTab)
+#: acpconfigwidget.ui:36
+#, kde-format
+msgid "Client Settings"
+msgstr "İstemci Ayarları"
+
+#. i18n: ectx: property (text), widget (QLabel, descriptionLabel)
+#: acpconfigwidget.ui:54
+#, kde-format
+msgid "Configure Agent Client Protocol (ACP) agents for Kate."
+msgstr "Kate için olan Aracı İstemci Protokolü (ACP) aracılarını yapılandırın."
+
+#. i18n: ectx: property (text), widget (QLabel, toolCallPermissionLabel)
+#: acpconfigwidget.ui:66
+#, kde-format
+msgid "Tool call permission:"
+msgstr "Araç çağrısı izni:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:74
+#, kde-format
+msgid "Ask each time"
+msgstr "Her zaman sor"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:79
+#, kde-format
+msgid "Allow all"
+msgstr "Tümüne izin ver"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:84
+#, kde-format
+msgid "Deny all"
+msgstr "Tümünü reddet"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Actions"
+msgstr "Eylemler"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Status"
+msgstr "Durum"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Name"
+msgstr "Ad"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Command"
+msgstr "Komut"
+
+#: acpserverlistwidget.cpp:83
+#, kde-format
+msgid "No servers available"
+msgstr "Kullanılabilir sunucu yok"
+
+#: acpserverlistwidget.cpp:111
+#, kde-format
+msgid "Start"
+msgstr "Başlat"
+
+#: acpserverlistwidget.cpp:113
+#, kde-format
+msgid "Stop"
+msgstr "Durdur"
+
+#: acpserverlistwidget.cpp:129
+#, kde-format
+msgid "Disconnected"
+msgstr "Bağlantı kesildi"
+
+#: acpserverlistwidget.cpp:132
+#, kde-format
+msgid "Connecting..."
+msgstr "Bağlanıyor…"
+
+#: acpserverlistwidget.cpp:135
+#, kde-format
+msgid "Initializing..."
+msgstr "İlklendiriliyor…"
+
+#: acpserverlistwidget.cpp:138
+#, kde-format
+msgid "Connected"
+msgstr "Bağlı"
+
+#: acpserverlistwidget.cpp:144
+#, kde-format
+msgid "Unknown"
+msgstr "Bilinmiyor"
+
+#: acpsessionlistwidget.cpp:52
+#, kde-format
+msgid "Reload session list"
+msgstr "Önce oturumu yeniden yükleyin"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Updated"
+msgstr "Güncellendi"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Title"
+msgstr "Başlık"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Working Directory"
+msgstr "Çalışma Dizini"
+
+#: acpsessionlistwidget.cpp:112
+#, kde-format
+msgid "No sessions available"
+msgstr "Kullanılabilir oturum yok"
+
+#: acpsessionlistwidget.cpp:223
+#, kde-format
+msgid "Resume Session"
+msgstr "Oturumu Sürdür"
+
+#: acpsessionlistwidget.cpp:228
+#, kde-format
+msgid "Delete Session"
+msgstr "Oturumu Sil"

@@ -1,0 +1,448 @@
+# Translation of acpclient.po to Catalan
+# Copyright (C) 2026 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
+# SPDX-FileCopyrightText: 2026 Josep M. Ferrer <txemaq@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-11-24 01:09+0000\n"
+"PO-Revision-Date: 2026-11-24 09:46+0100\n"
+"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 25.04.0\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Josep M. Ferrer"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "txemaq@gmail.com"
+
+#: acpchatmessagewidget.cpp:249 acpchatmessagewidget.cpp:841
+#, kde-format
+msgid "Allow"
+msgstr "Permet"
+
+#: acpchatmessagewidget.cpp:252 acpchatmessagewidget.cpp:849
+#, kde-format
+msgid "Reject"
+msgstr "Rebutja"
+
+#: acpchatmessagewidget.cpp:659
+#, kde-format
+msgid "Tool Update:"
+msgstr "Actualització de l'eina:"
+
+#: acpchatmessagewidget.cpp:715
+#, kde-format
+msgid "Usage:"
+msgstr "Ús:"
+
+#: acpchatmessagewidget.cpp:893
+#, kde-format
+msgid "User"
+msgstr "Usuari"
+
+#: acpchatmessagewidget.cpp:895 acpclientchatwidget.cpp:946
+#: acpclientchatwidget.cpp:969 acpclientchatwidget.cpp:1000
+#: acpclientchatwidget.cpp:1015 acpclientchatwidget.cpp:1107
+#, kde-format
+msgid "Agent"
+msgstr "Agent"
+
+#: acpchatmessagewidget.cpp:897
+#, kde-format
+msgid "System"
+msgstr "Sistema"
+
+#: acpchatmessagewidget.cpp:899
+#, kde-format
+msgid "Plan"
+msgstr "Pla"
+
+#: acpchatmessagewidget.cpp:901
+#, kde-format
+msgid "Tool Call"
+msgstr "Invocació d'eina"
+
+#: acpchatmessagewidget.cpp:903
+#, kde-format
+msgid "Tool Update"
+msgstr "Actualització d'eina"
+
+#: acpchatmessagewidget.cpp:905
+#, kde-format
+msgid "Usage"
+msgstr "Ús"
+
+#: acpchatmessagewidget.cpp:907
+#, kde-format
+msgid "Permission Request"
+msgstr "Sol·licitud de permís"
+
+#: acpchatmessagewidget.cpp:909 acpserverlistwidget.cpp:141
+#, kde-format
+msgid "Error"
+msgstr "Error"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ACPChatWidget)
+#: acpclientchat.ui:14 acpclientpluginview.cpp:70
+#, kde-format
+msgid "ACP Chat"
+msgstr "Xat d'ACP"
+
+#. i18n: ectx: property (text), widget (QLabel, sessionLabel)
+#: acpclientchat.ui:31 acpclientchatwidget.cpp:1229
+#, kde-format
+msgid "ACP Chat: No active session"
+msgstr "Xat d'ACP: no hi ha cap sessió activa"
+
+#. i18n: ectx: property (text), widget (QPushButton, newSessionButton)
+#: acpclientchat.ui:57 acpsessionlistwidget.cpp:46
+#, kde-format
+msgid "New Session"
+msgstr "Sessió nova"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, newSessionButton)
+#: acpclientchat.ui:63
+#, kde-format
+msgid "Start a new ACP chat session"
+msgstr "Inicia una sessió nova de xat d'ACP"
+
+#. i18n: ectx: property (text), widget (QPushButton, endSessionButton)
+#: acpclientchat.ui:70
+#, kde-format
+msgid "End Session"
+msgstr "Finalitza la sessió"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, endSessionButton)
+#: acpclientchat.ui:76
+#, kde-format
+msgid "End the current ACP session"
+msgstr "Finalitza la sessió actual d'ACP"
+
+#. i18n: ectx: property (text), widget (QPushButton, clearChatButton)
+#: acpclientchat.ui:86
+#, kde-format
+msgid "Clear"
+msgstr "Neteja"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, clearChatButton)
+#: acpclientchat.ui:92
+#, kde-format
+msgid "Clear the chat history"
+msgstr "Neteja l'historial de xat"
+
+#. i18n: ectx: property (placeholderText), widget (QTextEdit, messageInput)
+#: acpclientchat.ui:137 acpclientchatwidget.cpp:69
+#, kde-format
+msgid ""
+"Type your message here... (Ctrl+Enter to send, Shift+Enter for new line)"
+msgstr ""
+"Escriviu el missatge aquí... (Ctrl+Retorn per a enviar, Maj+Retorn per a una "
+"línia nova)"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, sendButton)
+#: acpclientchat.ui:163
+#, kde-format
+msgid "Send message (Ctrl+Enter)"
+msgstr "Envieu el missatge (Ctrl+Retorn)"
+
+#: acpclientchatwidget.cpp:108 acpclientchatwidget.cpp:159
+#: acpclientchatwidget.cpp:805
+#, kde-format
+msgid "No ACP server manager available"
+msgstr "No hi ha disponible cap gestor de servidor d'ACP"
+
+#: acpclientchatwidget.cpp:114 acpclientchatwidget.cpp:165
+#, kde-format
+msgid "No active ACP server. Please connect to an agent first."
+msgstr "No hi ha cap servidor d'ACP actiu. Connecteu-vos primer a un agent."
+
+#: acpclientchatwidget.cpp:132
+#, kde-format
+msgid "New ACP session started: %1"
+msgstr "S'ha iniciat una sessió nova d'ACP: %1"
+
+#: acpclientchatwidget.cpp:138
+#, kde-format
+msgid "Creating new ACP session..."
+msgstr "S'està creant una sessió nova..."
+
+#: acpclientchatwidget.cpp:175
+#, kde-format
+msgid "Using session: %1"
+msgstr "Ús de la sessió: %1"
+
+#: acpclientchatwidget.cpp:185 acpclientchatwidget.cpp:780
+#, kde-format
+msgid "You"
+msgstr "Vós"
+
+#: acpclientchatwidget.cpp:651 acpclientchatwidget.cpp:904
+#: acpclientchatwidget.cpp:906 acpclientchatwidget.cpp:909
+#: acpclientchatwidget.cpp:911 acpclientchatwidget.cpp:924
+#, kde-format
+msgid "ACP Agent"
+msgstr "Agent d'ACP"
+
+#: acpclientchatwidget.cpp:696
+#, kde-format
+msgid "Server disconnected"
+msgstr "Servidor desconnectat"
+
+#: acpclientchatwidget.cpp:749
+#, kde-format
+msgid "Session loaded: %1"
+msgstr "Sessió carregada: %1"
+
+#: acpclientchatwidget.cpp:757
+#, kde-format
+msgid "Session resumed: %1"
+msgstr "Sessió represa: %1"
+
+#: acpclientchatwidget.cpp:793
+#, kde-format
+msgid "No active session. Please start a new session first."
+msgstr "No hi ha cap sessió activa. Inicieu primer una sessió nova."
+
+#: acpclientchatwidget.cpp:810
+#, kde-format
+msgid "No active session to end"
+msgstr "No hi ha cap sessió activa a finalitzar"
+
+#: acpclientchatwidget.cpp:836
+#, kde-format
+msgid "Error [%1]: %2"
+msgstr "Error [%1]: %2"
+
+#: acpclientchatwidget.cpp:911
+#, kde-format
+msgid "Error: %1"
+msgstr "Error: %1"
+
+#: acpclientchatwidget.cpp:1218
+#, kde-format
+msgid "Tokens: %1 / %2"
+msgstr "Segments textuals: %1 / %2"
+
+#: acpclientchatwidget.cpp:1232
+#, kde-format
+msgid "ACP Chat: Session %1"
+msgstr "Xat d'ACP: sessió %1"
+
+#: acpclientchatwidget.cpp:1258
+#, kde-format
+msgid "Copy All"
+msgstr "Copia-ho tot"
+
+#: acpclientconfigpage.cpp:32
+#, kde-format
+msgid "User Server Settings"
+msgstr "Usa la configuració del servidor"
+
+#: acpclientconfigpage.cpp:33
+#, kde-format
+msgid "Default Server Settings"
+msgstr "Configuració predeterminada del servidor"
+
+#. i18n: ectx: Menu (acp_client)
+#: acpclientconfigpage.cpp:47 ui.rc:7
+#, kde-format
+msgid "ACP Client"
+msgstr "Client d'ACP"
+
+#: acpclientconfigpage.cpp:52
+#, kde-format
+msgid "Agent Client Protocol Client Configuration"
+msgstr "Configuració del client del protocol de client d'agent"
+
+#: acpclientplugin.cpp:84
+#, kde-format
+msgid "Keyboard Macros"
+msgstr "Macros de teclat"
+
+#: acpclientpluginview.cpp:33
+#, kde-format
+msgid "Agent Client Protocol"
+msgstr "Protocol de client d'agent"
+
+#: acpclientpluginview.cpp:79
+#, kde-format
+msgid "Servers"
+msgstr "Servidors"
+
+#: acpclientpluginview.cpp:84 acpsessionlistwidget.cpp:37
+#, kde-format
+msgid "Sessions"
+msgstr "Sessions"
+
+#: acpclientpluginview.cpp:89
+#, kde-format
+msgid "Chat"
+msgstr "Xat"
+
+#: acpclientservermanager.cpp:53
+#, kde-format
+msgid "Failed to parse server configuration '%1': no JSON object"
+msgstr ""
+"Ha fallat en analitzar la configuració del servidor «%1»: no és un objecte "
+"JSON"
+
+#: acpclientservermanager.cpp:56
+#, kde-format
+msgid "Failed to parse server configuration '%1': %2"
+msgstr "Ha fallat en analitzar la configuració del servidor «%1»: %2"
+
+#: acpclientservermanager.cpp:60
+#, kde-format
+msgid "Failed to read server configuration: %1"
+msgstr "Ha fallat en llegir la configuració del servidor: %1"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ACPConfigWidget)
+#: acpconfigwidget.ui:14
+#, kde-format
+msgid "ACP Client Configuration"
+msgstr "Configuració del client d'ACP"
+
+#. i18n: ectx: attribute (title), widget (QWidget, clientSettingsTab)
+#: acpconfigwidget.ui:36
+#, kde-format
+msgid "Client Settings"
+msgstr "Configuració del client"
+
+#. i18n: ectx: property (text), widget (QLabel, descriptionLabel)
+#: acpconfigwidget.ui:54
+#, kde-format
+msgid "Configure Agent Client Protocol (ACP) agents for Kate."
+msgstr "Configura agents del Protocol de client d'agent (ACP) per al Kate."
+
+#. i18n: ectx: property (text), widget (QLabel, toolCallPermissionLabel)
+#: acpconfigwidget.ui:66
+#, kde-format
+msgid "Tool call permission:"
+msgstr "Permís d'invocació d'eina:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:74
+#, kde-format
+msgid "Ask each time"
+msgstr "Pregunta cada cop"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:79
+#, kde-format
+msgid "Allow all"
+msgstr "Permet tot"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:84
+#, kde-format
+msgid "Deny all"
+msgstr "Denega tot"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Actions"
+msgstr "Accions"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Status"
+msgstr "Estat"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Name"
+msgstr "Nom"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Command"
+msgstr "Ordre"
+
+#: acpserverlistwidget.cpp:83
+#, kde-format
+msgid "No servers available"
+msgstr "No hi ha cap servidor disponible"
+
+#: acpserverlistwidget.cpp:111
+#, kde-format
+msgid "Start"
+msgstr "Inicia"
+
+#: acpserverlistwidget.cpp:113
+#, kde-format
+msgid "Stop"
+msgstr "Atura"
+
+#: acpserverlistwidget.cpp:129
+#, kde-format
+msgid "Disconnected"
+msgstr "Desconnectat"
+
+#: acpserverlistwidget.cpp:132
+#, kde-format
+msgid "Connecting..."
+msgstr "S'està connectant..."
+
+#: acpserverlistwidget.cpp:135
+#, kde-format
+msgid "Initializing..."
+msgstr "S'està inicialitzant..."
+
+#: acpserverlistwidget.cpp:138
+#, kde-format
+msgid "Connected"
+msgstr "Connectat"
+
+#: acpserverlistwidget.cpp:144
+#, kde-format
+msgid "Unknown"
+msgstr "Desconegut"
+
+#: acpsessionlistwidget.cpp:52
+#, kde-format
+msgid "Reload session list"
+msgstr "Recarrega la llista de sessions"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Updated"
+msgstr "Actualitzat"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Title"
+msgstr "Títol"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Working Directory"
+msgstr "Directori de treball"
+
+#: acpsessionlistwidget.cpp:112
+#, kde-format
+msgid "No sessions available"
+msgstr "No hi ha cap sessió disponible"
+
+#: acpsessionlistwidget.cpp:223
+#, kde-format
+msgid "Resume Session"
+msgstr "Reprèn la sessió"
+
+#: acpsessionlistwidget.cpp:228
+#, kde-format
+msgid "Delete Session"
+msgstr "Suprimeix la sessió"

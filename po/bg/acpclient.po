@@ -1,0 +1,445 @@
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2026 Mincho Kondarev <mkondarev@yahoo.de>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-11-24 01:09+0000\n"
+"PO-Revision-Date: 2026-11-24 22:07+0100\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 26.08.3\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Минчо Кондарев"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "mkondarev@yahoo.de"
+
+#: acpchatmessagewidget.cpp:249 acpchatmessagewidget.cpp:841
+#, kde-format
+msgid "Allow"
+msgstr "Разрешаване"
+
+#: acpchatmessagewidget.cpp:252 acpchatmessagewidget.cpp:849
+#, kde-format
+msgid "Reject"
+msgstr "Отхвърляне"
+
+#: acpchatmessagewidget.cpp:659
+#, kde-format
+msgid "Tool Update:"
+msgstr "Обновяване на инструмента:"
+
+#: acpchatmessagewidget.cpp:715
+#, kde-format
+msgid "Usage:"
+msgstr "Употреба:"
+
+#: acpchatmessagewidget.cpp:893
+#, kde-format
+msgid "User"
+msgstr "Потребител"
+
+#: acpchatmessagewidget.cpp:895 acpclientchatwidget.cpp:946
+#: acpclientchatwidget.cpp:969 acpclientchatwidget.cpp:1000
+#: acpclientchatwidget.cpp:1015 acpclientchatwidget.cpp:1107
+#, kde-format
+msgid "Agent"
+msgstr "Агент"
+
+#: acpchatmessagewidget.cpp:897
+#, kde-format
+msgid "System"
+msgstr "Система"
+
+#: acpchatmessagewidget.cpp:899
+#, kde-format
+msgid "Plan"
+msgstr "План"
+
+#: acpchatmessagewidget.cpp:901
+#, kde-format
+msgid "Tool Call"
+msgstr "Извикване на инструмент"
+
+#: acpchatmessagewidget.cpp:903
+#, kde-format
+msgid "Tool Update"
+msgstr "Обновяване на инструмента"
+
+#: acpchatmessagewidget.cpp:905
+#, kde-format
+msgid "Usage"
+msgstr "Употреба"
+
+#: acpchatmessagewidget.cpp:907
+#, kde-format
+msgid "Permission Request"
+msgstr "Заявка за разрешение"
+
+#: acpchatmessagewidget.cpp:909 acpserverlistwidget.cpp:141
+#, kde-format
+msgid "Error"
+msgstr "Грешка"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ACPChatWidget)
+#: acpclientchat.ui:14 acpclientpluginview.cpp:70
+#, kde-format
+msgid "ACP Chat"
+msgstr "Чат на ACP"
+
+#. i18n: ectx: property (text), widget (QLabel, sessionLabel)
+#: acpclientchat.ui:31 acpclientchatwidget.cpp:1229
+#, kde-format
+msgid "ACP Chat: No active session"
+msgstr "ACP чат: Няма активна сесия"
+
+#. i18n: ectx: property (text), widget (QPushButton, newSessionButton)
+#: acpclientchat.ui:57 acpsessionlistwidget.cpp:46
+#, kde-format
+msgid "New Session"
+msgstr "Нова сесия"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, newSessionButton)
+#: acpclientchat.ui:63
+#, kde-format
+msgid "Start a new ACP chat session"
+msgstr "Стартиране на нова ACP чат сесия"
+
+#. i18n: ectx: property (text), widget (QPushButton, endSessionButton)
+#: acpclientchat.ui:70
+#, kde-format
+msgid "End Session"
+msgstr "Край на сесия"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, endSessionButton)
+#: acpclientchat.ui:76
+#, kde-format
+msgid "End the current ACP session"
+msgstr "Прекратяване на текущата ACP сесия"
+
+#. i18n: ectx: property (text), widget (QPushButton, clearChatButton)
+#: acpclientchat.ui:86
+#, kde-format
+msgid "Clear"
+msgstr "Изчистване"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, clearChatButton)
+#: acpclientchat.ui:92
+#, kde-format
+msgid "Clear the chat history"
+msgstr "Изчистване на историята на чата"
+
+#. i18n: ectx: property (placeholderText), widget (QTextEdit, messageInput)
+#: acpclientchat.ui:137 acpclientchatwidget.cpp:69
+#, kde-format
+msgid ""
+"Type your message here... (Ctrl+Enter to send, Shift+Enter for new line)"
+msgstr ""
+"Въвеждане на съобщение тук... (Ctrl+Enter за изпращане, Shift+Enter за нов "
+"ред)"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, sendButton)
+#: acpclientchat.ui:163
+#, kde-format
+msgid "Send message (Ctrl+Enter)"
+msgstr "Изпращане на съобщение (Ctrl+Enter)"
+
+#: acpclientchatwidget.cpp:108 acpclientchatwidget.cpp:159
+#: acpclientchatwidget.cpp:805
+#, kde-format
+msgid "No ACP server manager available"
+msgstr "Няма наличен ACP мениджър на сървъра"
+
+#: acpclientchatwidget.cpp:114 acpclientchatwidget.cpp:165
+#, kde-format
+msgid "No active ACP server. Please connect to an agent first."
+msgstr "Няма активен ACP сървър. Моля, свържете се с агент първо."
+
+#: acpclientchatwidget.cpp:132
+#, kde-format
+msgid "New ACP session started: %1"
+msgstr "Старт на нова ACP сесия: %1"
+
+#: acpclientchatwidget.cpp:138
+#, kde-format
+msgid "Creating new ACP session..."
+msgstr "Създаване на нова ACP сесия..."
+
+#: acpclientchatwidget.cpp:175
+#, kde-format
+msgid "Using session: %1"
+msgstr "Използване на сесия: %1"
+
+#: acpclientchatwidget.cpp:185 acpclientchatwidget.cpp:780
+#, kde-format
+msgid "You"
+msgstr "Вие"
+
+#: acpclientchatwidget.cpp:651 acpclientchatwidget.cpp:904
+#: acpclientchatwidget.cpp:906 acpclientchatwidget.cpp:909
+#: acpclientchatwidget.cpp:911 acpclientchatwidget.cpp:924
+#, kde-format
+msgid "ACP Agent"
+msgstr "ACP агент"
+
+#: acpclientchatwidget.cpp:696
+#, kde-format
+msgid "Server disconnected"
+msgstr "Сървърът е прекъснат"
+
+#: acpclientchatwidget.cpp:749
+#, kde-format
+msgid "Session loaded: %1"
+msgstr "Сесията е заредена: %1"
+
+#: acpclientchatwidget.cpp:757
+#, kde-format
+msgid "Session resumed: %1"
+msgstr "Сесията е възобновена: %1"
+
+#: acpclientchatwidget.cpp:793
+#, kde-format
+msgid "No active session. Please start a new session first."
+msgstr "Няма активна сесия. Моля, първо стартирайте нова сесия."
+
+#: acpclientchatwidget.cpp:810
+#, kde-format
+msgid "No active session to end"
+msgstr "Няма активна сесия за прекратяване"
+
+#: acpclientchatwidget.cpp:836
+#, kde-format
+msgid "Error [%1]: %2"
+msgstr "Грешка [%1]: %2"
+
+#: acpclientchatwidget.cpp:911
+#, kde-format
+msgid "Error: %1"
+msgstr "Грешка: %1"
+
+#: acpclientchatwidget.cpp:1218
+#, kde-format
+msgid "Tokens: %1 / %2"
+msgstr "Токени: %1 / %2"
+
+#: acpclientchatwidget.cpp:1232
+#, kde-format
+msgid "ACP Chat: Session %1"
+msgstr "ACP чат: Сесия %1"
+
+#: acpclientchatwidget.cpp:1258
+#, kde-format
+msgid "Copy All"
+msgstr "Копиране на всички"
+
+#: acpclientconfigpage.cpp:32
+#, kde-format
+msgid "User Server Settings"
+msgstr "Потребителски настройки на сървър"
+
+#: acpclientconfigpage.cpp:33
+#, kde-format
+msgid "Default Server Settings"
+msgstr "Стандартни настройки на сървър"
+
+#. i18n: ectx: Menu (acp_client)
+#: acpclientconfigpage.cpp:47 ui.rc:7
+#, kde-format
+msgid "ACP Client"
+msgstr "Клиент на ACP"
+
+#: acpclientconfigpage.cpp:52
+#, kde-format
+msgid "Agent Client Protocol Client Configuration"
+msgstr "Конфигурация на клиента за Agent Client Protocol"
+
+#: acpclientplugin.cpp:84
+#, kde-format
+msgid "Keyboard Macros"
+msgstr "Клавиатурни макроси"
+
+#: acpclientpluginview.cpp:33
+#, kde-format
+msgid "Agent Client Protocol"
+msgstr "Протокол за клиентски агенти"
+
+#: acpclientpluginview.cpp:79
+#, kde-format
+msgid "Servers"
+msgstr "Сървъри"
+
+#: acpclientpluginview.cpp:84 acpsessionlistwidget.cpp:37
+#, kde-format
+msgid "Sessions"
+msgstr "Сесии"
+
+#: acpclientpluginview.cpp:89
+#, kde-format
+msgid "Chat"
+msgstr "Чат"
+
+#: acpclientservermanager.cpp:53
+#, kde-format
+msgid "Failed to parse server configuration '%1': no JSON object"
+msgstr ""
+"Неуспешно анализиране на конфигурацията на сървъра „%1“: няма JSON обект"
+
+#: acpclientservermanager.cpp:56
+#, kde-format
+msgid "Failed to parse server configuration '%1': %2"
+msgstr "Неуспешно анализиране на конфигурацията на сървъра „%1“: %2"
+
+#: acpclientservermanager.cpp:60
+#, kde-format
+msgid "Failed to read server configuration: %1"
+msgstr "Неуспешно четене на конфигурацията на сървъра: %1"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ACPConfigWidget)
+#: acpconfigwidget.ui:14
+#, kde-format
+msgid "ACP Client Configuration"
+msgstr "Конфигурация на ACP клиент"
+
+#. i18n: ectx: attribute (title), widget (QWidget, clientSettingsTab)
+#: acpconfigwidget.ui:36
+#, kde-format
+msgid "Client Settings"
+msgstr "Настройки на клиент"
+
+#. i18n: ectx: property (text), widget (QLabel, descriptionLabel)
+#: acpconfigwidget.ui:54
+#, kde-format
+msgid "Configure Agent Client Protocol (ACP) agents for Kate."
+msgstr "Конфигуриране на агенти за Agent Client Protocol (ACP) за Kate."
+
+#. i18n: ectx: property (text), widget (QLabel, toolCallPermissionLabel)
+#: acpconfigwidget.ui:66
+#, kde-format
+msgid "Tool call permission:"
+msgstr "Разрешение за извикване на инструмент:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:74
+#, kde-format
+msgid "Ask each time"
+msgstr "Винаги да се пита"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:79
+#, kde-format
+msgid "Allow all"
+msgstr "Разрешаване на всички"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:84
+#, kde-format
+msgid "Deny all"
+msgstr "Отказ на всички"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Actions"
+msgstr "Действия"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Status"
+msgstr "Състояние"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Name"
+msgstr "Име"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Command"
+msgstr "Команда"
+
+#: acpserverlistwidget.cpp:83
+#, kde-format
+msgid "No servers available"
+msgstr "Няма налични сървъри"
+
+#: acpserverlistwidget.cpp:111
+#, kde-format
+msgid "Start"
+msgstr "Начало"
+
+#: acpserverlistwidget.cpp:113
+#, kde-format
+msgid "Stop"
+msgstr "Спиране"
+
+#: acpserverlistwidget.cpp:129
+#, kde-format
+msgid "Disconnected"
+msgstr "Прекъснат"
+
+#: acpserverlistwidget.cpp:132
+#, kde-format
+msgid "Connecting..."
+msgstr "Свързване..."
+
+#: acpserverlistwidget.cpp:135
+#, kde-format
+msgid "Initializing..."
+msgstr "Инициализиране…"
+
+#: acpserverlistwidget.cpp:138
+#, kde-format
+msgid "Connected"
+msgstr "Свързан"
+
+#: acpserverlistwidget.cpp:144
+#, kde-format
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: acpsessionlistwidget.cpp:52
+#, kde-format
+msgid "Reload session list"
+msgstr "Презареждане на списъка със сесии"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Updated"
+msgstr "Обновено"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Title"
+msgstr "Заглавие"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Working Directory"
+msgstr "Работна директория:"
+
+#: acpsessionlistwidget.cpp:112
+#, kde-format
+msgid "No sessions available"
+msgstr "Няма налични сесии"
+
+#: acpsessionlistwidget.cpp:223
+#, kde-format
+msgid "Resume Session"
+msgstr "Възобновяване на сесията"
+
+#: acpsessionlistwidget.cpp:228
+#, kde-format
+msgid "Delete Session"
+msgstr "Премахване на сесия"

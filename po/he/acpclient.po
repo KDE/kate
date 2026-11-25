@@ -1,0 +1,444 @@
+# Copyright (C) 2026 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2026 Yaron Shahrabani <sh.yaron@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2026-11-24 01:09+0000\n"
+"PO-Revision-Date: 2026-11-24 09:26+0200\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: Hebrew <kde-l10n-he@kde.org>\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Lokalize 26.08.3\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "צוות התרגום של KDE ישראל"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde-l10n-he@kde.org"
+
+#: acpchatmessagewidget.cpp:249 acpchatmessagewidget.cpp:841
+#, kde-format
+msgid "Allow"
+msgstr "הסכמה"
+
+#: acpchatmessagewidget.cpp:252 acpchatmessagewidget.cpp:849
+#, kde-format
+msgid "Reject"
+msgstr "סירוב"
+
+#: acpchatmessagewidget.cpp:659
+#, kde-format
+msgid "Tool Update:"
+msgstr "עדכון כלי:"
+
+#: acpchatmessagewidget.cpp:715
+#, kde-format
+msgid "Usage:"
+msgstr "שימוש:"
+
+#: acpchatmessagewidget.cpp:893
+#, kde-format
+msgid "User"
+msgstr "משתמש"
+
+#: acpchatmessagewidget.cpp:895 acpclientchatwidget.cpp:946
+#: acpclientchatwidget.cpp:969 acpclientchatwidget.cpp:1000
+#: acpclientchatwidget.cpp:1015 acpclientchatwidget.cpp:1107
+#, kde-format
+msgid "Agent"
+msgstr "סוכן"
+
+#: acpchatmessagewidget.cpp:897
+#, kde-format
+msgid "System"
+msgstr "מערכת"
+
+#: acpchatmessagewidget.cpp:899
+#, kde-format
+msgid "Plan"
+msgstr "תוכנית"
+
+#: acpchatmessagewidget.cpp:901
+#, kde-format
+msgid "Tool Call"
+msgstr "קריאה לכלי"
+
+#: acpchatmessagewidget.cpp:903
+#, kde-format
+msgid "Tool Update"
+msgstr "עדכון כלי"
+
+#: acpchatmessagewidget.cpp:905
+#, kde-format
+msgid "Usage"
+msgstr "ניצולת"
+
+#: acpchatmessagewidget.cpp:907
+#, kde-format
+msgid "Permission Request"
+msgstr "בקשת הרשאה"
+
+#: acpchatmessagewidget.cpp:909 acpserverlistwidget.cpp:141
+#, kde-format
+msgid "Error"
+msgstr "שגיאה"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ACPChatWidget)
+#: acpclientchat.ui:14 acpclientpluginview.cpp:70
+#, kde-format
+msgid "ACP Chat"
+msgstr "שיחת ACP"
+
+#. i18n: ectx: property (text), widget (QLabel, sessionLabel)
+#: acpclientchat.ui:31 acpclientchatwidget.cpp:1229
+#, kde-format
+msgid "ACP Chat: No active session"
+msgstr "שיחת ACP: אין הפעלה פעילה"
+
+#. i18n: ectx: property (text), widget (QPushButton, newSessionButton)
+#: acpclientchat.ui:57 acpsessionlistwidget.cpp:46
+#, kde-format
+msgid "New Session"
+msgstr "הפעלה חדשה"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, newSessionButton)
+#: acpclientchat.ui:63
+#, kde-format
+msgid "Start a new ACP chat session"
+msgstr "הקמת הפעלת שיחת ACP חדשה"
+
+#. i18n: ectx: property (text), widget (QPushButton, endSessionButton)
+#: acpclientchat.ui:70
+#, kde-format
+msgid "End Session"
+msgstr "סיום ההפעלה"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, endSessionButton)
+#: acpclientchat.ui:76
+#, kde-format
+msgid "End the current ACP session"
+msgstr "סיום הפעלת ה־ACP הנוכחית"
+
+#. i18n: ectx: property (text), widget (QPushButton, clearChatButton)
+#: acpclientchat.ui:86
+#, kde-format
+msgid "Clear"
+msgstr "פינוי"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, clearChatButton)
+#: acpclientchat.ui:92
+#, kde-format
+msgid "Clear the chat history"
+msgstr "פינוי היסטוריית השיחה"
+
+#. i18n: ectx: property (placeholderText), widget (QTextEdit, messageInput)
+#: acpclientchat.ui:137 acpclientchatwidget.cpp:69
+#, kde-format
+msgid ""
+"Type your message here... (Ctrl+Enter to send, Shift+Enter for new line)"
+msgstr ""
+"נא להקליד את ההודעה שלך כאן (Ctrl+Enter לשליחה, Shift+Enter לשורה חדשה)"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, sendButton)
+#: acpclientchat.ui:163
+#, kde-format
+msgid "Send message (Ctrl+Enter)"
+msgstr "שליחת הודעה (Ctrl+Enter)"
+
+#: acpclientchatwidget.cpp:108 acpclientchatwidget.cpp:159
+#: acpclientchatwidget.cpp:805
+#, kde-format
+msgid "No ACP server manager available"
+msgstr "אין מנהל שרתי ACP זמין"
+
+#: acpclientchatwidget.cpp:114 acpclientchatwidget.cpp:165
+#, kde-format
+msgid "No active ACP server. Please connect to an agent first."
+msgstr "אין שרת ACP פעיל. נא להתחבר לסוכן תחילה."
+
+#: acpclientchatwidget.cpp:132
+#, kde-format
+msgid "New ACP session started: %1"
+msgstr "הפעלת ACP חדשה החלה: %1"
+
+#: acpclientchatwidget.cpp:138
+#, kde-format
+msgid "Creating new ACP session..."
+msgstr "נוצרת הפעלת ACP חדשה…"
+
+#: acpclientchatwidget.cpp:175
+#, kde-format
+msgid "Using session: %1"
+msgstr "שימוש בהפעלה: %1"
+
+#: acpclientchatwidget.cpp:185 acpclientchatwidget.cpp:780
+#, kde-format
+msgid "You"
+msgstr "אני"
+
+#: acpclientchatwidget.cpp:651 acpclientchatwidget.cpp:904
+#: acpclientchatwidget.cpp:906 acpclientchatwidget.cpp:909
+#: acpclientchatwidget.cpp:911 acpclientchatwidget.cpp:924
+#, kde-format
+msgid "ACP Agent"
+msgstr "סוכן ACP"
+
+#: acpclientchatwidget.cpp:696
+#, kde-format
+msgid "Server disconnected"
+msgstr "השרת מנותק"
+
+#: acpclientchatwidget.cpp:749
+#, kde-format
+msgid "Session loaded: %1"
+msgstr "הפעלה נטענה: %1"
+
+#: acpclientchatwidget.cpp:757
+#, kde-format
+msgid "Session resumed: %1"
+msgstr "הפעלה חודשה: %1"
+
+#: acpclientchatwidget.cpp:793
+#, kde-format
+msgid "No active session. Please start a new session first."
+msgstr "אין הפעלה פעילה. נא להקים הפעלה תחילה."
+
+#: acpclientchatwidget.cpp:810
+#, kde-format
+msgid "No active session to end"
+msgstr "אין הפעלה פעילה לסיום"
+
+#: acpclientchatwidget.cpp:836
+#, kde-format
+msgid "Error [%1]: %2"
+msgstr "שגיאה [%1]: %2"
+
+#: acpclientchatwidget.cpp:911
+#, kde-format
+msgid "Error: %1"
+msgstr "שגיאה: %1"
+
+#: acpclientchatwidget.cpp:1218
+#, kde-format
+msgid "Tokens: %1 / %2"
+msgstr "אסימונים: %1 / %2"
+
+#: acpclientchatwidget.cpp:1232
+#, kde-format
+msgid "ACP Chat: Session %1"
+msgstr "שיחת ACP: הפעלה %1"
+
+#: acpclientchatwidget.cpp:1258
+#, kde-format
+msgid "Copy All"
+msgstr "העתקה של הכול"
+
+#: acpclientconfigpage.cpp:32
+#, kde-format
+msgid "User Server Settings"
+msgstr "הגדרות משתמש לשרת"
+
+#: acpclientconfigpage.cpp:33
+#, kde-format
+msgid "Default Server Settings"
+msgstr "הגדרות ברירת מחדל לשרת"
+
+#. i18n: ectx: Menu (acp_client)
+#: acpclientconfigpage.cpp:47 ui.rc:7
+#, kde-format
+msgid "ACP Client"
+msgstr "לקוח ACP"
+
+#: acpclientconfigpage.cpp:52
+#, kde-format
+msgid "Agent Client Protocol Client Configuration"
+msgstr "הגדרות לקוח פרוטוקול לקוח סוכן"
+
+#: acpclientplugin.cpp:84
+#, kde-format
+msgid "Keyboard Macros"
+msgstr "תסריטי מאקרו למקלדת"
+
+#: acpclientpluginview.cpp:33
+#, kde-format
+msgid "Agent Client Protocol"
+msgstr "פרוטוקול לקוח סוכן"
+
+#: acpclientpluginview.cpp:79
+#, kde-format
+msgid "Servers"
+msgstr "שרתים"
+
+#: acpclientpluginview.cpp:84 acpsessionlistwidget.cpp:37
+#, kde-format
+msgid "Sessions"
+msgstr "הפעלות"
+
+#: acpclientpluginview.cpp:89
+#, kde-format
+msgid "Chat"
+msgstr "שיחה"
+
+#: acpclientservermanager.cpp:53
+#, kde-format
+msgid "Failed to parse server configuration '%1': no JSON object"
+msgstr "פיענוח הגדרות השרת נכשל ‚%1’: ‏ לא עצם JSON"
+
+#: acpclientservermanager.cpp:56
+#, kde-format
+msgid "Failed to parse server configuration '%1': %2"
+msgstr "פיענוח הגדרות השרת נכשל ‚%1’: ‏%2"
+
+#: acpclientservermanager.cpp:60
+#, kde-format
+msgid "Failed to read server configuration: %1"
+msgstr "קריאת הגדרות השרת נכשלה: %1"
+
+#. i18n: ectx: property (windowTitle), widget (QWidget, ACPConfigWidget)
+#: acpconfigwidget.ui:14
+#, kde-format
+msgid "ACP Client Configuration"
+msgstr "הגדרות לקוח ACP"
+
+#. i18n: ectx: attribute (title), widget (QWidget, clientSettingsTab)
+#: acpconfigwidget.ui:36
+#, kde-format
+msgid "Client Settings"
+msgstr "הגדרות לקוח"
+
+#. i18n: ectx: property (text), widget (QLabel, descriptionLabel)
+#: acpconfigwidget.ui:54
+#, kde-format
+msgid "Configure Agent Client Protocol (ACP) agents for Kate."
+msgstr "הגדרת סוכני פרוטוקול לקוח סוכן (ACP) ל־Kate."
+
+#. i18n: ectx: property (text), widget (QLabel, toolCallPermissionLabel)
+#: acpconfigwidget.ui:66
+#, kde-format
+msgid "Tool call permission:"
+msgstr "הרשאת קריאה לכלים:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:74
+#, kde-format
+msgid "Ask each time"
+msgstr "לשאול בכל פעם"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:79
+#, kde-format
+msgid "Allow all"
+msgstr "להסכים להכול"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, toolCallPermissionComboBox)
+#: acpconfigwidget.ui:84
+#, kde-format
+msgid "Deny all"
+msgstr "לסרב להכול"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Actions"
+msgstr "פעולות"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Status"
+msgstr "מצב"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Name"
+msgstr "שם"
+
+#: acpserverlistwidget.cpp:39
+#, kde-format
+msgid "Command"
+msgstr "פקודה"
+
+#: acpserverlistwidget.cpp:83
+#, kde-format
+msgid "No servers available"
+msgstr "אין שרתים זמינים"
+
+#: acpserverlistwidget.cpp:111
+#, kde-format
+msgid "Start"
+msgstr "התחלה"
+
+#: acpserverlistwidget.cpp:113
+#, kde-format
+msgid "Stop"
+msgstr "עצירה"
+
+#: acpserverlistwidget.cpp:129
+#, kde-format
+msgid "Disconnected"
+msgstr "מנותק"
+
+#: acpserverlistwidget.cpp:132
+#, kde-format
+msgid "Connecting..."
+msgstr "מתחבר..."
+
+#: acpserverlistwidget.cpp:135
+#, kde-format
+msgid "Initializing..."
+msgstr "אתחול..."
+
+#: acpserverlistwidget.cpp:138
+#, kde-format
+msgid "Connected"
+msgstr "מחובר"
+
+#: acpserverlistwidget.cpp:144
+#, kde-format
+msgid "Unknown"
+msgstr "לא ידוע"
+
+#: acpsessionlistwidget.cpp:52
+#, kde-format
+msgid "Reload session list"
+msgstr "ריענון רשימת הפעלות"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Updated"
+msgstr "עודכנה"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Title"
+msgstr "כותרת"
+
+#: acpsessionlistwidget.cpp:69
+#, kde-format
+msgid "Working Directory"
+msgstr "תיקיית עבודה"
+
+#: acpsessionlistwidget.cpp:112
+#, kde-format
+msgid "No sessions available"
+msgstr "אין הפעלות זמינות"
+
+#: acpsessionlistwidget.cpp:223
+#, kde-format
+msgid "Resume Session"
+msgstr "חידוש הפעלה"
+
+#: acpsessionlistwidget.cpp:228
+#, kde-format
+msgid "Delete Session"
+msgstr "מחיקת הפעלה"

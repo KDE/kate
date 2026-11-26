@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/kategitblameplugin.pot\n"
-"X-Crowdin-File-ID: 44755\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/kategitblameplugin.pot\n"
+"X-Crowdin-File-ID: 51764\n"
 
 #: kategitblameplugin.cpp:89
 #, kde-format
@@ -59,6 +59,3 @@ msgstr "Git blame，显示提交失败。"
 #, kde-format
 msgid "&Tools"
 msgstr "工具(&T)"
-
-#~ msgid "Git"
-#~ msgstr "Git"

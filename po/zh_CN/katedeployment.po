@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/katedeployment.pot\n"
-"X-Crowdin-File-ID: 60531\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/katedeployment.pot\n"
+"X-Crowdin-File-ID: 60629\n"
 
 #: deploymentconfig.cpp:108
 #, kde-format

@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/kateproject.pot\n"
-"X-Crowdin-File-ID: 44739\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/kateproject.pot\n"
+"X-Crowdin-File-ID: 50948\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -125,7 +125,7 @@ msgstr "活动分支：%1"
 #: git/gitforgeconfigwidget.cpp:32
 #, kde-format
 msgid "Detect Service"
-msgstr ""
+msgstr "检测服务"
 
 #: git/gitforgeconfigwidget.cpp:37
 #, kde-format
@@ -134,106 +134,107 @@ msgid ""
 "host is taken from the clone URL; the website URL is used to open repository "
 "links in a browser."
 msgstr ""
+"将 Git 远程主机映射到其对应的 Forgejo、GitHub 或 GitLab 网站。远程主机信息来"
+"自克隆 URL，网站 URL 用于在浏览器中打开仓库链接。"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Git Remote Host"
-msgstr ""
+msgstr "Git 远程主机"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Hosting Service"
-msgstr ""
+msgstr "托管服务"
 
 #: git/gitforgeconfigwidget.cpp:45
 #, kde-format
 msgid "Website URL"
-msgstr ""
+msgstr "网站 URL"
 
 #: git/gitforgeconfigwidget.cpp:46
 #, kde-format
 msgid "Host from the Git clone URL, optionally followed by its SSH port"
-msgstr ""
+msgstr "来自 Git 克隆 URL 的主机，可选后跟其 SSH 端口"
 
 #: git/gitforgeconfigwidget.cpp:47
 #, kde-format
 msgid "Forgejo, GitHub, or GitLab software running on the server"
-msgstr ""
+msgstr "运行在服务器上的 Forgejo、GitHub 或 GitLab 软件"
 
 #: git/gitforgeconfigwidget.cpp:48
 #, kde-format
 msgid "HTTP or HTTPS address used to open repository links in a web browser"
-msgstr ""
+msgstr "用于在网页浏览器中打开仓库链接的 HTTP 或 HTTPS 地址"
 
 #: git/gitforgeconfigwidget.cpp:56
 #, kde-format
 msgid "Add Mapping"
-msgstr ""
+msgstr "添加映射"
 
 #: git/gitforgeconfigwidget.cpp:57
-#, fuzzy, kde-format
-#| msgid "Remove Selected Files"
+#, kde-format
 msgid "Remove Selected Mapping"
-msgstr "移除所选文件"
+msgstr "移除选中的映射"
 
 #: git/gitforgeconfigwidget.cpp:61
 #, kde-format
 msgid ""
 "Try to identify Forgejo, GitHub, or GitLab from the selected mapping's "
 "website URL"
-msgstr ""
+msgstr "尝试根据所选映射的网站 URL 识别 Forgejo、GitHub 或 GitLab"
 
 #: git/gitforgeconfigwidget.cpp:107
 #, kde-format
 msgctxt "Git hosting service, such as Forgejo, GitHub, or GitLab"
 msgid "The hosting service in row %1 is invalid."
-msgstr ""
+msgstr "位于第 %1 行的托管服务无效。"
 
 #: git/gitforgeconfigwidget.cpp:112
 #, kde-format
 msgid "The Git remote host or website URL in row %1 is invalid."
-msgstr ""
+msgstr "位于第 %1 行中的 Git 远程主机或网站 URL 无效。"
 
 #: git/gitforgeconfigwidget.cpp:139
 #, kde-format
 msgid "git.example.com or git.example.com:2222"
-msgstr ""
+msgstr "git.example.com 或 git.example.com:2222"
 
 #: git/gitforgeconfigwidget.cpp:157
 #, kde-format
 msgid "https://git.example.com"
-msgstr ""
+msgstr "https://git.example.com"
 
 #: git/gitforgeconfigwidget.cpp:174
 #, kde-format
 msgid "Select a mapping to detect its hosting service."
-msgstr ""
+msgstr "选择一个映射以检测其托管服务。"
 
 #: git/gitforgeconfigwidget.cpp:181
 #, kde-format
 msgid ""
 "Enter a valid HTTP or HTTPS website URL before detecting the hosting service."
-msgstr ""
+msgstr "在检测托管服务之前，请输入一个有效的 HTTP 或 HTTPS 网站 URL。"
 
 #: git/gitforgeconfigwidget.cpp:192
 #, kde-format
 msgid "Detecting…"
-msgstr ""
+msgstr "正在检测…"
 
 #: git/gitforgeconfigwidget.cpp:238
 #, kde-format
 msgid "Detected %1."
-msgstr ""
+msgstr "已检测到 %1。"
 
 #: git/gitforgeconfigwidget.cpp:240
 #, kde-format
 msgid "The mapping changed; the detection result was ignored."
-msgstr ""
+msgstr "映射已更改；检测结果已被忽略。"
 
 #: git/gitforgeconfigwidget.cpp:242
 #, kde-format
 msgid "Service could not be detected; select it manually."
-msgstr ""
+msgstr "无法检测到服务；请手动选择。"
 
 #: git/gitstatus.cpp:159
 #, kde-format
@@ -692,19 +693,17 @@ msgstr "错误"
 #: kateproject.cpp:317
 #, kde-format
 msgid "'%1' is not a valid file name."
-msgstr ""
+msgstr "“%1”不是有效的文件名。"
 
 #: kateproject.cpp:328
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "A file named '%1' already exists."
-msgstr "文件名已存在"
+msgstr "已存在一个文件名为“%1”的文件。"
 
 #: kateproject.cpp:350
-#, fuzzy, kde-format
-#| msgid "Failed to create file: %1, Error: %2"
+#, kde-format
 msgid "Failed to rename '%1' to '%2': %3"
-msgstr "创建文件失败：%1，错误：%2"
+msgstr "重命名“%1”为“%2”失败：%3"
 
 #: kateproject.cpp:459
 #, kde-format
@@ -732,7 +731,7 @@ msgstr "项目补全"
 #: kateprojectconfigpage.cpp:31
 #, kde-format
 msgid "General"
-msgstr ""
+msgstr "常规"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
@@ -918,7 +917,7 @@ msgstr "Git 状态视图中的双击操作"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git Hosting"
-msgstr ""
+msgstr "Git 托管"
 
 #: kateprojectconfigpage.cpp:190 kateprojectpluginview.cpp:76
 #, kde-format
@@ -1083,7 +1082,7 @@ msgstr ""
 #: kateprojectplugin.cpp:780
 #, kde-format
 msgid "File path relative to the project directory"
-msgstr ""
+msgstr "相对于项目目录的文件路径"
 
 #: kateprojectpluginview.cpp:66
 #, kde-format
@@ -1178,18 +1177,18 @@ msgstr "转到：%1"
 #: kateprojectpluginview.cpp:244 kateprojecttreeviewcontextmenu.cpp:189
 #, kde-format
 msgid "Git Hosting"
-msgstr ""
+msgstr "Git 托管"
 
 #: kateprojectpluginview.cpp:248 kateprojectpluginview.cpp:892
 #: kateprojectpluginview.cpp:922
 #, kde-format
 msgid "Open on Git Hosting Service"
-msgstr ""
+msgstr "在 Git 托管服务中打开"
 
 #: kateprojectpluginview.cpp:249 kateprojectpluginview.cpp:888
 #, kde-format
 msgid "Copy Git Hosting Link"
-msgstr ""
+msgstr "复制 Git 托管链接"
 
 #: kateprojectpluginview.cpp:331
 #, kde-format
@@ -1199,18 +1198,17 @@ msgstr "项目索引"
 #: kateprojectpluginview.cpp:887 kateprojecttreeviewcontextmenu.cpp:190
 #, kde-format
 msgid "Detecting Git hosting service…"
-msgstr ""
+msgstr "正在检测 Git 托管服务…"
 
 #: kateprojectpluginview.cpp:919 kateprojecttreeviewcontextmenu.cpp:203
 #, kde-format
 msgid "Open on %1"
-msgstr ""
+msgstr "在 %1 中打开"
 
 #: kateprojectpluginview.cpp:920 kateprojecttreeviewcontextmenu.cpp:206
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgid "Copy %1 Link"
-msgstr "复制位置"
+msgstr "复制 %1 链接"
 
 #: kateprojectpluginview.cpp:985
 #, kde-format
@@ -1310,7 +1308,7 @@ msgstr "无法找到目录：%1"
 #: kateprojectworker.cpp:318
 #, kde-format
 msgid "Invalid regex pattern in exclude_patterns %1"
-msgstr ""
+msgstr "exclude_patterns %1 中有无效的正则表达式模式"
 
 #: kateprojectworker.cpp:804
 #, kde-format
@@ -1349,10 +1347,9 @@ msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "输入以过滤，按 Enter 键以弹出暂存，按 Esc 键以离开。"
 
 #: stashdialog.cpp:142 stashdialog.cpp:204
-#, fuzzy, kde-format
-#| msgid "Failed to commit: %1"
+#, kde-format
 msgid "Failed to run git: %1"
-msgstr "提交失败：%1"
+msgstr "运行 git 失败：%1"
 
 #: stashdialog.cpp:168
 #, kde-format
@@ -1367,7 +1364,7 @@ msgstr "更改已暂存。"
 #: stashdialog.cpp:189
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "正在加载..."
 
 #: stashdialog.cpp:198
 #, kde-format
@@ -1565,8 +1562,3 @@ msgstr "项目(&P)"
 #, kde-format
 msgid "Project Plugin"
 msgstr "项目插件"
-
-#, fuzzy
-#~| msgid "Failed to get stash list. Error: "
-#~ msgid "Failed to get the git status"
-#~ msgstr "获取暂存列表失败。错误："

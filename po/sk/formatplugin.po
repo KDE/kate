@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: formatplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-15 00:49+0000\n"
+"POT-Creation-Date: 2026-11-25 16:26+0000\n"
 "PO-Revision-Date: 2023-12-09 09:24+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: FormatApply.h:22 FormatApply.h:40 FormatApply.h:45 FormatPlugin.cpp:88
 #: FormatPlugin.cpp:234 Formatters.cpp:286 Formatters.cpp:306
-#: Formatters.cpp:329 Formatters.cpp:361
+#: Formatters.cpp:329 Formatters.cpp:363
 #, kde-format
 msgid "Format"
 msgstr "Formát"
@@ -105,7 +105,7 @@ msgstr "Neznámy formatterForPython: %1"
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Neznámy formatterForYaml: %1, používa sa náhradný yamlfmt"
 
-#: Formatters.cpp:361
+#: Formatters.cpp:363
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Nepodarilo sa spustiť formátovač. Nepodporovaný jazyk %1"

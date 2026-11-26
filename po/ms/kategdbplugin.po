@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-22 00:53+0000\n"
+"POT-Creation-Date: 2026-11-26 01:09+0000\n"
 "PO-Revision-Date: 2011-06-23 22:47+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
 "Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
@@ -507,47 +507,47 @@ msgctxt "at line no:column no"
 msgid " at %1:%2"
 msgstr ""
 
-#: localsview.cpp:39
+#: localsview.cpp:40
 #, kde-format
 msgid "type"
 msgstr ""
 
-#: localsview.cpp:48
+#: localsview.cpp:49
 #, kde-format
 msgid "indexed items"
 msgstr ""
 
-#: localsview.cpp:51
+#: localsview.cpp:52
 #, kde-format
 msgid "named items"
 msgstr ""
 
-#: localsview.cpp:67 localsview.cpp:68
+#: localsview.cpp:68 localsview.cpp:69
 #, kde-format
 msgid "Loading..."
 msgstr ""
 
-#: localsview.cpp:117
+#: localsview.cpp:118
 #, fuzzy, kde-format
 msgid "Symbol"
 msgstr "Simbol"
 
-#: localsview.cpp:118
+#: localsview.cpp:119
 #, kde-format
 msgid "Type"
 msgstr ""
 
-#: localsview.cpp:119
+#: localsview.cpp:120
 #, fuzzy, kde-format
 msgid "Value"
 msgstr "Nilai"
 
-#: localsview.cpp:325
+#: localsview.cpp:326
 #, fuzzy, kde-format
 msgid "Copy Symbol"
 msgstr "Simbol"
 
-#: localsview.cpp:340
+#: localsview.cpp:341
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Copy Value"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-24 01:09+0000\n"
+"POT-Creation-Date: 2026-11-26 01:09+0000\n"
 "PO-Revision-Date: 2026-03-29 21:57+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -180,51 +180,51 @@ msgstr "KWrite - Testu-editorea"
 msgid " [read only]"
 msgstr " [irakurtzeko soilik]"
 
-#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
-#: lib/filehistorywidget.cpp:600 lib/kateconfigplugindialogpage.cpp:109
+#: lib/commitfilesview.cpp:475 lib/diagnostics/diagnosticview.cpp:553
+#: lib/filehistorywidget.cpp:601 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "...iragazi"
 
-#: lib/commitfilesview.cpp:499 lib/kateviewmanager.cpp:369
-#: lib/kateviewmanager.cpp:371
+#: lib/commitfilesview.cpp:500 lib/kateviewmanager.cpp:370
+#: lib/kateviewmanager.cpp:372
 #, kde-format
 msgid "Open File"
 msgstr "Ireki fitxategia"
 
-#: lib/commitfilesview.cpp:505 lib/katemainwindow.cpp:463
+#: lib/commitfilesview.cpp:506 lib/katemainwindow.cpp:463
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopiatu kokalekua"
 
-#: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
+#: lib/commitfilesview.cpp:529 lib/commitfilesview.cpp:646
+#: lib/commitfilesview.cpp:652 lib/filehistorywidget.cpp:838
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:625
+#: lib/commitfilesview.cpp:626
 #, kde-format
 msgid "Renamed %1 => %2"
 msgstr "Berrizendatuta %1 => %2"
 
-#: lib/commitfilesview.cpp:645
+#: lib/commitfilesview.cpp:646
 #, kde-format
 msgid "Invalid hash"
 msgstr "Hash baliogabea"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
+#: lib/commitfilesview.cpp:652 lib/filehistorywidget.cpp:838
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 ez da existitzen «git» gordetegi batean."
 
-#: lib/commitfilesview.cpp:661
+#: lib/commitfilesview.cpp:662
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
 msgstr "Finkatu %1"
 
-#: lib/commitfilesview.cpp:674
+#: lib/commitfilesview.cpp:675
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
@@ -267,7 +267,7 @@ msgid "&View"
 msgstr "&Ikuspegia"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:153
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:154
 #, kde-format
 msgid "Split View"
 msgstr "Zatitu ikuspegia"
@@ -609,13 +609,13 @@ msgstr "Ezabatutako fitxategia %1"
 msgid "No differences found"
 msgstr "Ez da ezberdintasunik aurkitu"
 
-#: lib/filehistorywidget.cpp:280
+#: lib/filehistorywidget.cpp:281
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Data baliogabea: %1"
 
-#: lib/filehistorywidget.cpp:608
+#: lib/filehistorywidget.cpp:609
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -644,31 +644,31 @@ msgstr ""
 "datozen mezuak erakutsiko dira.</li></ul>Iragazkia eragiteko, sakatu "
 "<b>Sartu</b> tekla."
 
-#: lib/filehistorywidget.cpp:671
+#: lib/filehistorywidget.cpp:672
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Fitxategi-historia lortzea huts egin du: «git» exekutagarria ez da «PATH»ean "
 "aurkitu"
 
-#: lib/filehistorywidget.cpp:697
+#: lib/filehistorywidget.cpp:698
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Fitxategi-historia lortzea huts egin du: %1"
 
-#: lib/filehistorywidget.cpp:712
+#: lib/filehistorywidget.cpp:713
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Kopiatu finkapenaren Hash-a"
 
-#: lib/filehistorywidget.cpp:720
+#: lib/filehistorywidget.cpp:721
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Erakutsi finkapen osoa"
 
-#: lib/filehistorywidget.cpp:856
+#: lib/filehistorywidget.cpp:857
 #, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
@@ -1911,12 +1911,12 @@ msgstr "Iltzatu/Iltzagetu dokumentu aktiboa"
 msgid "Open Next Pinned Document"
 msgstr "Ireki iltzatutako hurrengo dokumentua"
 
-#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:72
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Joan aurreko kokalekura"
 
-#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:83
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:84
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Joan hurrengo kokalekura."
@@ -2366,32 +2366,32 @@ msgctxt "@menu:action"
 msgid "Copy Item"
 msgstr "Kopiatu fitxategi-izena"
 
-#: lib/kateviewmanager.cpp:150
+#: lib/kateviewmanager.cpp:151
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "Zatitu &bertikalki"
 
-#: lib/kateviewmanager.cpp:154
+#: lib/kateviewmanager.cpp:155
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "Zatitu uneko ikuspegi aktiboa bertikalki bi ikuspegitan."
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:159
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "Zatitu &horizontalki"
 
-#: lib/kateviewmanager.cpp:162
+#: lib/kateviewmanager.cpp:163
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "Zatitu uneko ikuspegi aktiboa horizontalki bi ikuspegitan."
 
-#: lib/kateviewmanager.cpp:166
+#: lib/kateviewmanager.cpp:167
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "Mugitu dokumentua zatiketa bertikal berrira"
 
-#: lib/kateviewmanager.cpp:170
+#: lib/kateviewmanager.cpp:171
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
@@ -2400,12 +2400,12 @@ msgstr ""
 "Zatitu uneko ikuspegi aktiboa bertikalki bi ikuspegitan eta mugitu uneko "
 "dokumentu aktiboa eskuineko ikuspegira."
 
-#: lib/kateviewmanager.cpp:175
+#: lib/kateviewmanager.cpp:176
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "Mugitu dokumentua zatiketa horizontal berrira"
 
-#: lib/kateviewmanager.cpp:179
+#: lib/kateviewmanager.cpp:180
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
@@ -2414,188 +2414,188 @@ msgstr ""
 "Zatitu uneko ikuspegi aktiboa horizontalki bi ikuspegitan eta mugitu uneko "
 "dokumentu aktiboa azpiko ikuspegira."
 
-#: lib/kateviewmanager.cpp:184
+#: lib/kateviewmanager.cpp:185
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "It&xi uneko ikuspegia"
 
-#: lib/kateviewmanager.cpp:188
+#: lib/kateviewmanager.cpp:189
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "Itxi une honetan aktibo dagoen ikuspegi zatia"
 
-#: lib/kateviewmanager.cpp:192
+#: lib/kateviewmanager.cpp:193
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "Itxi ikuspegi ez-aktiboak"
 
-#: lib/kateviewmanager.cpp:195
+#: lib/kateviewmanager.cpp:196
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "Itxi ikuspegi guztiak aktibo dagoena ezik"
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:200
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "Itxi ikuspegi ez-aktiboak"
 
-#: lib/kateviewmanager.cpp:203
+#: lib/kateviewmanager.cpp:204
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "Ezkutatu ikuspegi guztiak aktibo dagoena ezik"
 
-#: lib/kateviewmanager.cpp:206
+#: lib/kateviewmanager.cpp:207
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "Txandakatu orientazioa"
 
-#: lib/kateviewmanager.cpp:209
+#: lib/kateviewmanager.cpp:210
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "Uneko ikuspegi zatituaren orientazioa txandakatzen du"
 
-#: lib/kateviewmanager.cpp:212
+#: lib/kateviewmanager.cpp:213
 #, kde-format
 msgid "Next Split View"
 msgstr "Hurrengo ikuspegi zatitua"
 
-#: lib/kateviewmanager.cpp:217
+#: lib/kateviewmanager.cpp:218
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "Egin aktibo hurrengo ikuspegi zatitua."
 
-#: lib/kateviewmanager.cpp:220
+#: lib/kateviewmanager.cpp:221
 #, kde-format
 msgid "Previous Split View"
 msgstr "Aurreko ikuspegi zatitua"
 
-#: lib/kateviewmanager.cpp:225
+#: lib/kateviewmanager.cpp:226
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "Egin aktibo aurreko ikuspegi zatitua."
 
-#: lib/kateviewmanager.cpp:228
+#: lib/kateviewmanager.cpp:229
 #, kde-format
 msgid "Left Split View"
 msgstr "Ezkerreko zatiketa ikuspegia"
 
-#: lib/kateviewmanager.cpp:233
+#: lib/kateviewmanager.cpp:234
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
 msgstr "Egin ikuspegi zatitua intuitiboki ezkerrean aktiboa."
 
-#: lib/kateviewmanager.cpp:236
+#: lib/kateviewmanager.cpp:237
 #, kde-format
 msgid "Right Split View"
 msgstr "Eskuineko ikuspegi zatitua"
 
-#: lib/kateviewmanager.cpp:241
+#: lib/kateviewmanager.cpp:242
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
 msgstr "Egin ikuspegi zatitua intuitiboki eskuinean aktiboa."
 
-#: lib/kateviewmanager.cpp:244
+#: lib/kateviewmanager.cpp:245
 #, kde-format
 msgid "Upward Split View"
 msgstr "Goranzko ikuspegi zatitua"
 
-#: lib/kateviewmanager.cpp:249
+#: lib/kateviewmanager.cpp:250
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
 msgstr "Egin ikuspegi zatitua intuitiboki goranzkoa aktiboa."
 
-#: lib/kateviewmanager.cpp:252
+#: lib/kateviewmanager.cpp:253
 #, kde-format
 msgid "Downward Split View"
 msgstr "Beheranzko ikuspegi zatitua"
 
-#: lib/kateviewmanager.cpp:257
+#: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
 msgstr "Egin ikuspegi zatitua intuitiboki beheranzkoa aktiboa."
 
-#: lib/kateviewmanager.cpp:260
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "Eraman zatitzailea eskuinera"
 
-#: lib/kateviewmanager.cpp:263
+#: lib/kateviewmanager.cpp:264
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "Eraman uneko ikuspegiaren zatitzailea eskuinera"
 
-#: lib/kateviewmanager.cpp:266
+#: lib/kateviewmanager.cpp:267
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "Eraman zatitzailea ezkerrera"
 
-#: lib/kateviewmanager.cpp:269
+#: lib/kateviewmanager.cpp:270
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "Eraman uneko ikuspegiaren zatitzailea ezkerrera"
 
-#: lib/kateviewmanager.cpp:272
+#: lib/kateviewmanager.cpp:273
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "Eraman zatitzailea gora"
 
-#: lib/kateviewmanager.cpp:275
+#: lib/kateviewmanager.cpp:276
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "Eraman uneko ikuspegiaren zatitzailea gora"
 
-#: lib/kateviewmanager.cpp:278
+#: lib/kateviewmanager.cpp:279
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "Eraman zatitzailea behera"
 
-#: lib/kateviewmanager.cpp:281
+#: lib/kateviewmanager.cpp:282
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "Eraman uneko ikuspegiaren zatitzailea behera"
 
-#: lib/kateviewmanager.cpp:284
+#: lib/kateviewmanager.cpp:285
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "Fokuratu Nabigatze-barra"
 
-#: lib/kateviewmanager.cpp:285
+#: lib/kateviewmanager.cpp:286
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "Fokuratu Nabigatze-barra"
 
-#: lib/kateviewmanager.cpp:292
+#: lib/kateviewmanager.cpp:293
 #, kde-format
 msgid "Welcome Page"
 msgstr "Ongietorri orria"
 
-#: lib/kateviewmanager.cpp:297
+#: lib/kateviewmanager.cpp:298
 #, kde-format
 msgid "Show the welcome page"
 msgstr "Erakutsi ongietorri orria"
 
-#: lib/kateviewmanager.cpp:303
+#: lib/kateviewmanager.cpp:304
 #, kde-format
 msgid "Toggle Scroll Synchronization"
 msgstr "Txandakatu kiribiltze-sinkronizazioa"
 
-#: lib/kateviewmanager.cpp:304
+#: lib/kateviewmanager.cpp:305
 #, kde-format
 msgid "Toggle scroll synchronization for the current view"
 msgstr "Txandakatu kiribiltze-sinkronizazioa uneko ikuspegirako"
 
-#: lib/kateviewmanager.cpp:314
+#: lib/kateviewmanager.cpp:315
 #, kde-format
 msgid "Detach Active Document"
 msgstr "Bereizi dokumentu aktiboa"
 
-#: lib/kateviewmanager.cpp:315
+#: lib/kateviewmanager.cpp:316
 #, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
 msgstr "Dokumentu aktiboa leiho berri batean ireki eta uneko leihoan ixten du"
 
-#: lib/kateviewmanager.cpp:390
+#: lib/kateviewmanager.cpp:391
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2606,56 +2606,56 @@ msgstr ""
 "ul><p>Jarraitu nahi duzu?</p><p><strong>Kontu izan Katek denbora batez "
 "erantzuteari utzi diezaiokeela fitxategi handiak irekitzean.</strong></p>"
 
-#: lib/kateviewmanager.cpp:393
+#: lib/kateviewmanager.cpp:394
 #, kde-format
 msgid "Opening Large File"
 msgstr "Fitxategi handia irekitzea"
 
-#: lib/kateviewmanager.cpp:596
+#: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 ezin du karpetarik ireki"
 
-#: lib/kateviewmanager.cpp:612
+#: lib/kateviewmanager.cpp:613
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Karpetak irekitzeko plugina ez da aurkitu"
 
-#: lib/kateviewmanager.cpp:618
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 "Karpetak ireki ahal izateko, <b>%1</b> plugina gaitu behar da. Hura gaitu?"
 
-#: lib/kateviewmanager.cpp:621
+#: lib/kateviewmanager.cpp:622
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Ireki karpeta"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:623
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Gaitu"
 
-#: lib/kateviewmanager.cpp:629
+#: lib/kateviewmanager.cpp:630
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> plugina gaitzea huts egin du"
 
-#: lib/kateviewmanager.cpp:650
+#: lib/kateviewmanager.cpp:651
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "'%1' fitxategia ez da existitzen"
 
-#: lib/kateviewspace.cpp:108
+#: lib/kateviewspace.cpp:109
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "Sinkronizatu kiribiltzea"
 
-#: lib/kateviewspace.cpp:110
+#: lib/kateviewspace.cpp:111
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
@@ -2663,23 +2663,23 @@ msgstr ""
 "Sinkronizatu ikuspegi zatitu honetako kiribiltzea sinkronizatutako beste "
 "ikuspegi zatitu batzuekin"
 
-#: lib/kateviewspace.cpp:132
+#: lib/kateviewspace.cpp:133
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:137 lib/kateviewspace.cpp:270
+#: lib/kateviewspace.cpp:138 lib/kateviewspace.cpp:271
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Klik egin hemen «Bizkor ireki» ikuspegira aldatzeko."
 
-#: lib/kateviewspace.cpp:154
+#: lib/kateviewspace.cpp:155
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Kontrolatu ikuspegi azaleraren zatitzea"
 
-#: lib/kateviewspace.cpp:271
+#: lib/kateviewspace.cpp:272
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2694,47 +2694,47 @@ msgstr[1] ""
 "Une honetan, irekitako %1 dokumentu gehiago daude. Irekitako dokumentu "
 "guztiak ikusteko, aldatu «Bizkor ireki» ikuspegira hemen klik eginez."
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1166
 #, kde-format
 msgid "&Close Tab"
 msgstr "It&xi fitxa"
 
-#: lib/kateviewspace.cpp:1172
+#: lib/kateviewspace.cpp:1173
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "Itxi &beste fitxak"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1187
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "Itxi fitxa guz&tiak"
 
-#: lib/kateviewspace.cpp:1217
+#: lib/kateviewspace.cpp:1218
 #, kde-format
 msgid "D&etach Document"
 msgstr "B&ereizi dokumentua"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1223
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Dokumentua leiho berri batean irekitzen du eta uneko leihoan ixten du"
 
-#: lib/kateviewspace.cpp:1263
+#: lib/kateviewspace.cpp:1264
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Konparatu dokumentu aktiboarekin"
 
-#: lib/kateviewspace.cpp:1269
+#: lib/kateviewspace.cpp:1270
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Konparatu dokumentu aktiboarekin hau erabiliz,"
 
-#: lib/kateviewspace.cpp:1277
+#: lib/kateviewspace.cpp:1278
 #, kde-format
 msgid "Unpin Document"
 msgstr "Iltzagetu dokumentua"
 
-#: lib/kateviewspace.cpp:1279
+#: lib/kateviewspace.cpp:1280
 #, kde-format
 msgid "Pin Document"
 msgstr "Iltzatu dokumentua"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: l 10n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-11-26 01:09+0000\n"
 "PO-Revision-Date: 2014-03-15 01:53+0200\n"
 "Last-Translator: Liudas Ališauskas <liudas@aksioma.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -59,6 +59,25 @@ msgstr "Vieta"
 msgctxt "option:check"
 msgid "Do not ask again"
 msgstr "Daugiau nebeklausti"
+
+#. i18n: ectx: property (windowTitle), widget (QDialog, CloseConfirmDialog)
+#: close_confirm_dialog.ui:14
+#, kde-format
+msgid "Dialog"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, icon)
+#. i18n: ectx: property (text), widget (QLabel, text)
+#: close_confirm_dialog.ui:25 close_confirm_dialog.ui:38
+#, kde-format
+msgid "TextLabel"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_dont_ask_again)
+#: close_confirm_dialog.ui:56
+#, kde-format
+msgid "CheckBox"
+msgstr ""
 
 #: close_except_plugin.cpp:73
 #, kde-format

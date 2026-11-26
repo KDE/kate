@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-24 01:09+0000\n"
+"POT-Creation-Date: 2026-11-26 01:09+0000\n"
 "PO-Revision-Date: 2025-09-16 15:43+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -161,51 +161,51 @@ msgstr "KWrite - စာသားတည်းဖြတ်ကိရိယာ"
 msgid " [read only]"
 msgstr " [ဖတ်၍သာရ]"
 
-#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
-#: lib/filehistorywidget.cpp:600 lib/kateconfigplugindialogpage.cpp:109
+#: lib/commitfilesview.cpp:475 lib/diagnostics/diagnosticview.cpp:553
+#: lib/filehistorywidget.cpp:601 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "စီစစ်…"
 
-#: lib/commitfilesview.cpp:499 lib/kateviewmanager.cpp:369
-#: lib/kateviewmanager.cpp:371
+#: lib/commitfilesview.cpp:500 lib/kateviewmanager.cpp:370
+#: lib/kateviewmanager.cpp:372
 #, kde-format
 msgid "Open File"
 msgstr "ဖိုင်ဖွင့်မည်"
 
-#: lib/commitfilesview.cpp:505 lib/katemainwindow.cpp:463
+#: lib/commitfilesview.cpp:506 lib/katemainwindow.cpp:463
 #, kde-format
 msgid "Copy Location"
 msgstr "တည်နေရာကူးယူ"
 
-#: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
+#: lib/commitfilesview.cpp:529 lib/commitfilesview.cpp:646
+#: lib/commitfilesview.cpp:652 lib/filehistorywidget.cpp:838
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:625
+#: lib/commitfilesview.cpp:626
 #, kde-format
 msgid "Renamed %1 => %2"
 msgstr ""
 
-#: lib/commitfilesview.cpp:645
+#: lib/commitfilesview.cpp:646
 #, kde-format
 msgid "Invalid hash"
 msgstr "မမှန်သောhash"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
+#: lib/commitfilesview.cpp:652 lib/filehistorywidget.cpp:838
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 သည်git repoတွင် မရှိပါ။"
 
-#: lib/commitfilesview.cpp:661
+#: lib/commitfilesview.cpp:662
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
 msgstr "အပ်နှံချက် %1"
 
-#: lib/commitfilesview.cpp:674
+#: lib/commitfilesview.cpp:675
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
@@ -248,7 +248,7 @@ msgid "&View"
 msgstr "&မြင်ကွင်း"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:153
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:154
 #, kde-format
 msgid "Split View"
 msgstr "မြင်ကွင်းအခွဲ"
@@ -589,13 +589,13 @@ msgstr "ဖျက်ခဲ့သောဖိုင် %1"
 msgid "No differences found"
 msgstr "ကွာခြားချက်မတွေ့ပါ"
 
-#: lib/filehistorywidget.cpp:280
+#: lib/filehistorywidget.cpp:281
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "ရက်စွဲမမှန်ပါ - %1"
 
-#: lib/filehistorywidget.cpp:608
+#: lib/filehistorywidget.cpp:609
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -612,29 +612,29 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:671
+#: lib/filehistorywidget.cpp:672
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:697
+#: lib/filehistorywidget.cpp:698
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "ဖိုင်မှတ်တမ်း မရယူနိုင်ခဲ့ပါ - %1"
 
-#: lib/filehistorywidget.cpp:712
+#: lib/filehistorywidget.cpp:713
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "အပ်နှံချက်hashကူးယူ"
 
-#: lib/filehistorywidget.cpp:720
+#: lib/filehistorywidget.cpp:721
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "အပ်နှံချက်အပြည့်အစုံပြမည်"
 
-#: lib/filehistorywidget.cpp:856
+#: lib/filehistorywidget.cpp:857
 #, fuzzy, kde-format
 #| msgctxt "@title:tab"
 #| msgid "File History - %1"
@@ -1829,12 +1829,12 @@ msgstr "သက်ဝင်မှတ်တမ်းစာအုပ်များ
 msgid "Open Next Pinned Document"
 msgstr "နောက်ထပ် တွဲထားသောမှတ်တမ်းစာအုပ် ဖွင့်မည်"
 
-#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:72
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "ယခင်နေရာသို့သွား"
 
-#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:83
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:84
 #, kde-format
 msgid "Go to Next Location"
 msgstr "နောက်နေရာသို့သွား"
@@ -2265,232 +2265,232 @@ msgctxt "@menu:action"
 msgid "Copy Item"
 msgstr "ဖိုင်အမည်ကူး"
 
-#: lib/kateviewmanager.cpp:150
+#: lib/kateviewmanager.cpp:151
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "&ဒေါင်လိုက်အခွဲ"
 
-#: lib/kateviewmanager.cpp:154
+#: lib/kateviewmanager.cpp:155
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr ""
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:159
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "&ရေပြင်ညီအခွဲ"
 
-#: lib/kateviewmanager.cpp:162
+#: lib/kateviewmanager.cpp:163
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr ""
 
-#: lib/kateviewmanager.cpp:166
+#: lib/kateviewmanager.cpp:167
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "မှတ်တမ်းစာအုပ်ကို ဒေါင်လိုက်အခွဲမြင်ကွင်းသို့ရွှေ့"
 
-#: lib/kateviewmanager.cpp:170
+#: lib/kateviewmanager.cpp:171
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
 msgstr ""
 
-#: lib/kateviewmanager.cpp:175
+#: lib/kateviewmanager.cpp:176
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "မှတ်တမ်းစာအုပ်ကို ရေပြင်ညီအခွဲမြင်ကွင်းသို့ရွှေ့"
 
-#: lib/kateviewmanager.cpp:179
+#: lib/kateviewmanager.cpp:180
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
 "currently active document to view below."
 msgstr ""
 
-#: lib/kateviewmanager.cpp:184
+#: lib/kateviewmanager.cpp:185
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "လက်ရှိမြင်ကွင်း&ပိတ်မည်"
 
-#: lib/kateviewmanager.cpp:188
+#: lib/kateviewmanager.cpp:189
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "လက်ရှိသက်ဝင်မြင်ကွင်းအခွဲပိတ်မည်"
 
-#: lib/kateviewmanager.cpp:192
+#: lib/kateviewmanager.cpp:193
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "သက်ဝင်မနေသောမြင်ကွင်းများပိတ်"
 
-#: lib/kateviewmanager.cpp:195
+#: lib/kateviewmanager.cpp:196
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "သက်ဝင်မြင်ကွင်းမှလွဲ၍ကျန်တာပိတ်"
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:200
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "သက်ဝင်မနေသောမြင်ကွင်းများဖျောက်"
 
-#: lib/kateviewmanager.cpp:203
+#: lib/kateviewmanager.cpp:204
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "သက်ဝင်မြင်ကွင်းမှလွဲ၍ကျန်တာဖျောက်"
 
-#: lib/kateviewmanager.cpp:206
+#: lib/kateviewmanager.cpp:207
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "ရုပ်ပြပုံစံခလုတ်"
 
-#: lib/kateviewmanager.cpp:209
+#: lib/kateviewmanager.cpp:210
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "လက်ရှိမြင်ကွင်းအခွဲ၏ရုပ်ပြပုံစံ ပြောင်းလဲပေးသည်"
 
-#: lib/kateviewmanager.cpp:212
+#: lib/kateviewmanager.cpp:213
 #, kde-format
 msgid "Next Split View"
 msgstr "နောက်မြင်ကွင်းအခွဲ"
 
-#: lib/kateviewmanager.cpp:217
+#: lib/kateviewmanager.cpp:218
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr ""
 
-#: lib/kateviewmanager.cpp:220
+#: lib/kateviewmanager.cpp:221
 #, kde-format
 msgid "Previous Split View"
 msgstr "ယခင်မြင်ကွင်းအခွဲ"
 
-#: lib/kateviewmanager.cpp:225
+#: lib/kateviewmanager.cpp:226
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr ""
 
-#: lib/kateviewmanager.cpp:228
+#: lib/kateviewmanager.cpp:229
 #, kde-format
 msgid "Left Split View"
 msgstr "ဘယ်မြင်ကွင်းအခွဲ"
 
-#: lib/kateviewmanager.cpp:233
+#: lib/kateviewmanager.cpp:234
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
 msgstr ""
 
-#: lib/kateviewmanager.cpp:236
+#: lib/kateviewmanager.cpp:237
 #, kde-format
 msgid "Right Split View"
 msgstr "ညာမြင်ကွင်းအခွဲ"
 
-#: lib/kateviewmanager.cpp:241
+#: lib/kateviewmanager.cpp:242
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
 msgstr ""
 
-#: lib/kateviewmanager.cpp:244
+#: lib/kateviewmanager.cpp:245
 #, kde-format
 msgid "Upward Split View"
 msgstr "အပေါ်မြင်ကွင်းအခွဲ"
 
-#: lib/kateviewmanager.cpp:249
+#: lib/kateviewmanager.cpp:250
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
 msgstr ""
 
-#: lib/kateviewmanager.cpp:252
+#: lib/kateviewmanager.cpp:253
 #, kde-format
 msgid "Downward Split View"
 msgstr "အောက်မြင်ကွင်းအခွဲ"
 
-#: lib/kateviewmanager.cpp:257
+#: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
 msgstr ""
 
-#: lib/kateviewmanager.cpp:260
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "ခွဲတန်း ညာရွှေ့"
 
-#: lib/kateviewmanager.cpp:263
+#: lib/kateviewmanager.cpp:264
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "လက်ရှိမြင်ကွင်း၏ခွဲတန်းကို ညာဘက်သို့ရွှေ့"
 
-#: lib/kateviewmanager.cpp:266
+#: lib/kateviewmanager.cpp:267
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "ခွဲတန်း ဘယ်ရွှေ့"
 
-#: lib/kateviewmanager.cpp:269
+#: lib/kateviewmanager.cpp:270
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "လက်ရှိမြင်ကွင်း၏ခွဲတန်းကို ဘယ်ဘက်သို့ရွှေ့"
 
-#: lib/kateviewmanager.cpp:272
+#: lib/kateviewmanager.cpp:273
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "ခွဲတန်း အပေါ်တင်"
 
-#: lib/kateviewmanager.cpp:275
+#: lib/kateviewmanager.cpp:276
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "လက်ရှိမြင်ကွင်း၏ခွဲတန်းကို အပေါ်တင်"
 
-#: lib/kateviewmanager.cpp:278
+#: lib/kateviewmanager.cpp:279
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "ခွဲတန်း အောက်ချ"
 
-#: lib/kateviewmanager.cpp:281
+#: lib/kateviewmanager.cpp:282
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "လက်ရှိမြင်ကွင်း၏ခွဲတန်းကို အောက်ချ"
 
-#: lib/kateviewmanager.cpp:284
+#: lib/kateviewmanager.cpp:285
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "လမ်းညွှန်တန်းကိုအာရုံစိုက်"
 
-#: lib/kateviewmanager.cpp:285
+#: lib/kateviewmanager.cpp:286
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "လမ်းညွှန်တန်းကိုအာရုံစိုက်"
 
-#: lib/kateviewmanager.cpp:292
+#: lib/kateviewmanager.cpp:293
 #, kde-format
 msgid "Welcome Page"
 msgstr "ကြိုဆိုစာမျက်နှာ"
 
-#: lib/kateviewmanager.cpp:297
+#: lib/kateviewmanager.cpp:298
 #, kde-format
 msgid "Show the welcome page"
 msgstr "ကြိုဆိုစာမျက်နှာပြမည်"
 
-#: lib/kateviewmanager.cpp:303
+#: lib/kateviewmanager.cpp:304
 #, kde-format
 msgid "Toggle Scroll Synchronization"
 msgstr "လှိမ့်ဆွဲမှုစည်းချက်ညီစေမည် ပိတ်/ဖွင့်"
 
-#: lib/kateviewmanager.cpp:304
+#: lib/kateviewmanager.cpp:305
 #, kde-format
 msgid "Toggle scroll synchronization for the current view"
 msgstr "လက်ရှိမြင်ကွင်းအတွက် လှိမ့်ဆွဲမှုစည်းချက်ညီစေမည် ပိတ်/ဖွင့်"
 
-#: lib/kateviewmanager.cpp:314
+#: lib/kateviewmanager.cpp:315
 #, kde-format
 msgid "Detach Active Document"
 msgstr "သက်ဝင်မှတ်တမ်းစာအုပ်ကို သီးသန့်ခွဲထားမည်"
 
-#: lib/kateviewmanager.cpp:315
+#: lib/kateviewmanager.cpp:316
 #, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:390
+#: lib/kateviewmanager.cpp:391
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2498,77 +2498,77 @@ msgid ""
 "some time when opening large files.</strong></p>"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:393
+#: lib/kateviewmanager.cpp:394
 #, kde-format
 msgid "Opening Large File"
 msgstr "ကြီးမားသောဖိုင်ကိုဖွင့်နေပါသည်"
 
-#: lib/kateviewmanager.cpp:596
+#: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 သည်ဖိုင်တွဲများမဖွင့်နိုင်ပါ"
 
-#: lib/kateviewmanager.cpp:612
+#: lib/kateviewmanager.cpp:613
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "ဖိုင်တွဲဖွင့်ရန်လိုသော ပလပ်ဂင်မရှိပါ"
 
-#: lib/kateviewmanager.cpp:618
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:621
+#: lib/kateviewmanager.cpp:622
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "ဖိုင်တွဲဖွင့်"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:623
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "သုံး"
 
-#: lib/kateviewmanager.cpp:629
+#: lib/kateviewmanager.cpp:630
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "ပလပ်ဂင် <b>%1</b> ကို သုံးမရပါ"
 
-#: lib/kateviewmanager.cpp:650
+#: lib/kateviewmanager.cpp:651
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "ဖိုင် '%1' မရှိပါ"
 
-#: lib/kateviewspace.cpp:108
+#: lib/kateviewspace.cpp:109
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "ဆွဲရွှေ့မှု စည်းချက်ညီရန်"
 
-#: lib/kateviewspace.cpp:110
+#: lib/kateviewspace.cpp:111
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
 
-#: lib/kateviewspace.cpp:132
+#: lib/kateviewspace.cpp:133
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:137 lib/kateviewspace.cpp:270
+#: lib/kateviewspace.cpp:138 lib/kateviewspace.cpp:271
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "အလျင်အမြန်ဖွင့်မြင်ကွင်းသို့ပြောင်းရန် ဤနေရာကိုနှိပ်ပါ။"
 
-#: lib/kateviewspace.cpp:154
+#: lib/kateviewspace.cpp:155
 #, kde-format
 msgid "Control view space splitting"
 msgstr "ကြည့်ရှုနေရာချထားမှု စီမံရန်"
 
-#: lib/kateviewspace.cpp:271
+#: lib/kateviewspace.cpp:272
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2578,50 +2578,50 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1166
 #, fuzzy, kde-format
 #| msgid "Close Tab"
 msgid "&Close Tab"
 msgstr "တပ်ဘ်ပိတ်"
 
-#: lib/kateviewspace.cpp:1172
+#: lib/kateviewspace.cpp:1173
 #, fuzzy, kde-format
 #| msgid "Close Others"
 msgid "Close &Other Tabs"
 msgstr "အခြားဟာများပိတ်မည်"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1187
 #, fuzzy, kde-format
 #| msgid "Close All"
 msgid "Close All &Tabs"
 msgstr "အားလုံးပိတ်"
 
-#: lib/kateviewspace.cpp:1217
+#: lib/kateviewspace.cpp:1218
 #, kde-format
 msgid "D&etach Document"
 msgstr "မှတ်တမ်းစာအုပ်&ခွာမည်"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1223
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "ဝင်းဒိုးအသစ်တွင် မှတ်တမ်းစာအုပ်ကိုဖွင့်၍ လက်ရှိဝင်းဒိုးတွင်ပိတ်မည်"
 
-#: lib/kateviewspace.cpp:1263
+#: lib/kateviewspace.cpp:1264
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "သက်ဝင်မှတ်တမ်းစာအုပ်ဖြင့်နိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1269
+#: lib/kateviewspace.cpp:1270
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "နောက်ပါကိုအသုံးပြု၍သက်ဝင်မှတ်တမ်းစာအုပ်ဖြင့်နိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1277
+#: lib/kateviewspace.cpp:1278
 #, kde-format
 msgid "Unpin Document"
 msgstr "မှတ်တမ်းစာအုပ်ကိုမတွဲတော့ပါ"
 
-#: lib/kateviewspace.cpp:1279
+#: lib/kateviewspace.cpp:1280
 #, kde-format
 msgid "Pin Document"
 msgstr "မှတ်တမ်းစာအုပ်ကိုတွဲထားမည်"

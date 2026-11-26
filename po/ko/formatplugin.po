@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-15 00:49+0000\n"
+"POT-Creation-Date: 2026-11-25 16:26+0000\n"
 "PO-Revision-Date: 2026-11-21 23:50+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: FormatApply.h:22 FormatApply.h:40 FormatApply.h:45 FormatPlugin.cpp:88
 #: FormatPlugin.cpp:234 Formatters.cpp:286 Formatters.cpp:306
-#: Formatters.cpp:329 Formatters.cpp:361
+#: Formatters.cpp:329 Formatters.cpp:363
 #, kde-format
 msgid "Format"
 msgstr "형식 지정"
@@ -106,7 +106,7 @@ msgstr "알 수 없는 formatterForPython: %1"
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "알 수 없는 formatterForYaml: %1, yamlfmt으로 대체됨"
 
-#: Formatters.cpp:361
+#: Formatters.cpp:363
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "형식 지정 도구를 실행할 수 없습니다. 지원하지 않는 언어: %1"

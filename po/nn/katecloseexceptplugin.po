@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-11-26 01:09+0000\n"
 "PO-Revision-Date: 2020-04-28 19:33+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@nuug.no>\n"
@@ -58,6 +58,25 @@ msgstr "Plassering"
 msgctxt "option:check"
 msgid "Do not ask again"
 msgstr "Ikkje spør igjen"
+
+#. i18n: ectx: property (windowTitle), widget (QDialog, CloseConfirmDialog)
+#: close_confirm_dialog.ui:14
+#, kde-format
+msgid "Dialog"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, icon)
+#. i18n: ectx: property (text), widget (QLabel, text)
+#: close_confirm_dialog.ui:25 close_confirm_dialog.ui:38
+#, kde-format
+msgid "TextLabel"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_dont_ask_again)
+#: close_confirm_dialog.ui:56
+#, kde-format
+msgid "CheckBox"
+msgstr ""
 
 #: close_except_plugin.cpp:73
 #, kde-format

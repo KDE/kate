@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-22 00:53+0000\n"
+"POT-Creation-Date: 2026-11-26 01:09+0000\n"
 "PO-Revision-Date: 2026-01-05 10:35+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -510,47 +510,47 @@ msgctxt "at line no:column no"
 msgid " at %1:%2"
 msgstr " %1:%2(e)n"
 
-#: localsview.cpp:39
+#: localsview.cpp:40
 #, kde-format
 msgid "type"
 msgstr "mota"
 
-#: localsview.cpp:48
+#: localsview.cpp:49
 #, kde-format
 msgid "indexed items"
 msgstr "indexatutako elementuak"
 
-#: localsview.cpp:51
+#: localsview.cpp:52
 #, kde-format
 msgid "named items"
 msgstr "izendatutako elementuak"
 
-#: localsview.cpp:67 localsview.cpp:68
+#: localsview.cpp:68 localsview.cpp:69
 #, kde-format
 msgid "Loading..."
 msgstr "Zamatzen..."
 
-#: localsview.cpp:117
+#: localsview.cpp:118
 #, kde-format
 msgid "Symbol"
 msgstr "Ikurra"
 
-#: localsview.cpp:118
+#: localsview.cpp:119
 #, kde-format
 msgid "Type"
 msgstr "Mota"
 
-#: localsview.cpp:119
+#: localsview.cpp:120
 #, kde-format
 msgid "Value"
 msgstr "Balioa"
 
-#: localsview.cpp:325
+#: localsview.cpp:326
 #, kde-format
 msgid "Copy Symbol"
 msgstr "Kopiatu ikurra"
 
-#: localsview.cpp:340
+#: localsview.cpp:341
 #, kde-format
 msgid "Copy Value"
 msgstr "Kopiatu balioa"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-22 00:53+0000\n"
+"POT-Creation-Date: 2026-11-26 01:09+0000\n"
 "PO-Revision-Date: 2025-11-07 18:23+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -518,47 +518,47 @@ msgctxt "at line no:column no"
 msgid " at %1:%2"
 msgstr ""
 
-#: localsview.cpp:39
+#: localsview.cpp:40
 #, kde-format
 msgid "type"
 msgstr "tips"
 
-#: localsview.cpp:48
+#: localsview.cpp:49
 #, kde-format
 msgid "indexed items"
 msgstr "indeksētie vienumi"
 
-#: localsview.cpp:51
+#: localsview.cpp:52
 #, kde-format
 msgid "named items"
 msgstr "nosauktie vienumi"
 
-#: localsview.cpp:67 localsview.cpp:68
+#: localsview.cpp:68 localsview.cpp:69
 #, kde-format
 msgid "Loading..."
 msgstr "Ielādē..."
 
-#: localsview.cpp:117
+#: localsview.cpp:118
 #, kde-format
 msgid "Symbol"
 msgstr "Simbols"
 
-#: localsview.cpp:118
+#: localsview.cpp:119
 #, kde-format
 msgid "Type"
 msgstr "Tips"
 
-#: localsview.cpp:119
+#: localsview.cpp:120
 #, kde-format
 msgid "Value"
 msgstr "Vērtība"
 
-#: localsview.cpp:325
+#: localsview.cpp:326
 #, kde-format
 msgid "Copy Symbol"
 msgstr "Kopēt simbolu"
 
-#: localsview.cpp:340
+#: localsview.cpp:341
 #, kde-format
 msgid "Copy Value"
 msgstr "Kopēt vērtību"

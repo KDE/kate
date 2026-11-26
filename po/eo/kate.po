@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-24 01:09+0000\n"
+"POT-Creation-Date: 2026-11-26 01:09+0000\n"
 "PO-Revision-Date: 2025-03-23 07:29+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -169,51 +169,51 @@ msgstr "KWrite - Tekstredaktilo"
 msgid " [read only]"
 msgstr "[nurlegebla]"
 
-#: lib/commitfilesview.cpp:474 lib/diagnostics/diagnosticview.cpp:553
-#: lib/filehistorywidget.cpp:600 lib/kateconfigplugindialogpage.cpp:109
+#: lib/commitfilesview.cpp:475 lib/diagnostics/diagnosticview.cpp:553
+#: lib/filehistorywidget.cpp:601 lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Filtrilo…"
 
-#: lib/commitfilesview.cpp:499 lib/kateviewmanager.cpp:369
-#: lib/kateviewmanager.cpp:371
+#: lib/commitfilesview.cpp:500 lib/kateviewmanager.cpp:370
+#: lib/kateviewmanager.cpp:372
 #, kde-format
 msgid "Open File"
 msgstr "Malfermi dosieron"
 
-#: lib/commitfilesview.cpp:505 lib/katemainwindow.cpp:463
+#: lib/commitfilesview.cpp:506 lib/katemainwindow.cpp:463
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopii Lokon"
 
-#: lib/commitfilesview.cpp:528 lib/commitfilesview.cpp:645
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
+#: lib/commitfilesview.cpp:529 lib/commitfilesview.cpp:646
+#: lib/commitfilesview.cpp:652 lib/filehistorywidget.cpp:838
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:625
+#: lib/commitfilesview.cpp:626
 #, kde-format
 msgid "Renamed %1 => %2"
 msgstr ""
 
-#: lib/commitfilesview.cpp:645
+#: lib/commitfilesview.cpp:646
 #, kde-format
 msgid "Invalid hash"
 msgstr "Nevalida haketkodo"
 
-#: lib/commitfilesview.cpp:651 lib/filehistorywidget.cpp:837
+#: lib/commitfilesview.cpp:652 lib/filehistorywidget.cpp:838
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 ne ekzistas en git-repo."
 
-#: lib/commitfilesview.cpp:661
+#: lib/commitfilesview.cpp:662
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
 msgstr "Enmeti %1"
 
-#: lib/commitfilesview.cpp:674
+#: lib/commitfilesview.cpp:675
 #, kde-format
 msgctxt "@title:tab"
 msgid "Stash %1"
@@ -256,7 +256,7 @@ msgid "&View"
 msgstr "&Surekranigi"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:153
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:154
 #, kde-format
 msgid "Split View"
 msgstr "Dividita Perspektivo"
@@ -603,14 +603,14 @@ msgstr "Forigita dosiero %1"
 msgid "No differences found"
 msgstr "Neniuj diferencoj trovitaj"
 
-#: lib/filehistorywidget.cpp:280
+#: lib/filehistorywidget.cpp:281
 #, fuzzy, kde-format
 #| msgid "Invalid hash"
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Nevalida haketkodo"
 
-#: lib/filehistorywidget.cpp:608
+#: lib/filehistorywidget.cpp:609
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -627,29 +627,29 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:671
+#: lib/filehistorywidget.cpp:672
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "Malsukcesis akiri dosierhistorion: git rulebla ne trovita en PATH"
 
-#: lib/filehistorywidget.cpp:697
+#: lib/filehistorywidget.cpp:698
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Malsukcesis akiri dosierhistorion: %1"
 
-#: lib/filehistorywidget.cpp:712
+#: lib/filehistorywidget.cpp:713
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Kopii Enmet-Haketaĵon (hash)"
 
-#: lib/filehistorywidget.cpp:720
+#: lib/filehistorywidget.cpp:721
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Montri Plenan Enmeton"
 
-#: lib/filehistorywidget.cpp:856
+#: lib/filehistorywidget.cpp:857
 #, fuzzy, kde-format
 #| msgctxt "@title:tab"
 #| msgid "File History - %1"
@@ -1890,12 +1890,12 @@ msgstr "Malkroĉi Aktivan Dokumenton"
 msgid "Open Next Pinned Document"
 msgstr "&Remalfermi Lastatempe Fermitajn Dokumento(j)n"
 
-#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:71
+#: lib/katemainwindow.cpp:682 lib/kateviewspace.cpp:72
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Iri al Antaŭa Loko"
 
-#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:83
+#: lib/katemainwindow.cpp:691 lib/kateviewspace.cpp:84
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Iri al Sekva Loko"
@@ -2347,32 +2347,32 @@ msgctxt "@menu:action"
 msgid "Copy Item"
 msgstr "Kopii Dosiernomon"
 
-#: lib/kateviewmanager.cpp:150
+#: lib/kateviewmanager.cpp:151
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "Dividi Ve&rtikale"
 
-#: lib/kateviewmanager.cpp:154
+#: lib/kateviewmanager.cpp:155
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "Duonigas vertikale la aktualan rigardon."
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:159
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "Dividi &Horizontale"
 
-#: lib/kateviewmanager.cpp:162
+#: lib/kateviewmanager.cpp:163
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "Duonigas horizontale la aktualan rigardon."
 
-#: lib/kateviewmanager.cpp:166
+#: lib/kateviewmanager.cpp:167
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "Movu Dokumenton al Nova Vertikala Divido"
 
-#: lib/kateviewmanager.cpp:170
+#: lib/kateviewmanager.cpp:171
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
@@ -2381,12 +2381,12 @@ msgstr ""
 "Dividu la nuntempe aktivan vidon vertikale en du vidojn kaj movu la nuntempe "
 "aktivan dokumenton al dekstra vidpunkto."
 
-#: lib/kateviewmanager.cpp:175
+#: lib/kateviewmanager.cpp:176
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "Movi Dokumenton al Nova Horizontala Divido"
 
-#: lib/kateviewmanager.cpp:179
+#: lib/kateviewmanager.cpp:180
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
@@ -2395,182 +2395,182 @@ msgstr ""
 "Dividi la nuntempe aktivan vidon horizontale en du vidojn kaj movi la "
 "nuntempe aktivan dokumenton por vidi sube."
 
-#: lib/kateviewmanager.cpp:184
+#: lib/kateviewmanager.cpp:185
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "Fermi la aktualan rigard&on"
 
-#: lib/kateviewmanager.cpp:188
+#: lib/kateviewmanager.cpp:189
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "Fermi la nuntempe aktivan dividitan vidon"
 
-#: lib/kateviewmanager.cpp:192
+#: lib/kateviewmanager.cpp:193
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "Fermi Neaktivajn Vidojn"
 
-#: lib/kateviewmanager.cpp:195
+#: lib/kateviewmanager.cpp:196
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "Fermi ĉiun vidon krom la aktiva"
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:200
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "Kaŝi Neaktivajn Vidojn"
 
-#: lib/kateviewmanager.cpp:203
+#: lib/kateviewmanager.cpp:204
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "Kaŝi ĉiun vidon krom la aktiva"
 
-#: lib/kateviewmanager.cpp:206
+#: lib/kateviewmanager.cpp:207
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "Baskuligi Orientiĝon"
 
-#: lib/kateviewmanager.cpp:209
+#: lib/kateviewmanager.cpp:210
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "Ŝaltas la orientiĝon de la nuna dividita vido"
 
-#: lib/kateviewmanager.cpp:212
+#: lib/kateviewmanager.cpp:213
 #, kde-format
 msgid "Next Split View"
 msgstr "Sekva Split View"
 
-#: lib/kateviewmanager.cpp:217
+#: lib/kateviewmanager.cpp:218
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "Aktivigas la sekvan rigardon."
 
-#: lib/kateviewmanager.cpp:220
+#: lib/kateviewmanager.cpp:221
 #, kde-format
 msgid "Previous Split View"
 msgstr "Antaŭa Split View"
 
-#: lib/kateviewmanager.cpp:225
+#: lib/kateviewmanager.cpp:226
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "Aktivigas la antaŭan dividitan rigardon."
 
-#: lib/kateviewmanager.cpp:228
+#: lib/kateviewmanager.cpp:229
 #, kde-format
 msgid "Left Split View"
 msgstr "Maldekstren Dividi Vidigon"
 
-#: lib/kateviewmanager.cpp:233
+#: lib/kateviewmanager.cpp:234
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
 msgstr "Fari la dividitan vidon intuicie maldekstre la aktivan."
 
-#: lib/kateviewmanager.cpp:236
+#: lib/kateviewmanager.cpp:237
 #, kde-format
 msgid "Right Split View"
 msgstr "Dekstren Dividi Vidigon"
 
-#: lib/kateviewmanager.cpp:241
+#: lib/kateviewmanager.cpp:242
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
 msgstr "Fari la dividitan vidon intuicie dekstre la aktivan."
 
-#: lib/kateviewmanager.cpp:244
+#: lib/kateviewmanager.cpp:245
 #, kde-format
 msgid "Upward Split View"
 msgstr "Supren Dividi Vidigon"
 
-#: lib/kateviewmanager.cpp:249
+#: lib/kateviewmanager.cpp:250
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
 msgstr "Fari la dividitan vidon intuicie supren la aktivan."
 
-#: lib/kateviewmanager.cpp:252
+#: lib/kateviewmanager.cpp:253
 #, kde-format
 msgid "Downward Split View"
 msgstr "Malsupren Dividi Vidigon"
 
-#: lib/kateviewmanager.cpp:257
+#: lib/kateviewmanager.cpp:258
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
 msgstr "Fari la dividitan vidon intuicie malsupren la aktivan."
 
-#: lib/kateviewmanager.cpp:260
+#: lib/kateviewmanager.cpp:261
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "Movi Disigilon Dekstren"
 
-#: lib/kateviewmanager.cpp:263
+#: lib/kateviewmanager.cpp:264
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "Movi la disigilon de la nuna vido dekstren"
 
-#: lib/kateviewmanager.cpp:266
+#: lib/kateviewmanager.cpp:267
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "Movi Disigilon Maldekstren"
 
-#: lib/kateviewmanager.cpp:269
+#: lib/kateviewmanager.cpp:270
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "Movi la disigilon de la nuna vido maldekstren"
 
-#: lib/kateviewmanager.cpp:272
+#: lib/kateviewmanager.cpp:273
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "Movi Disigilon Supren"
 
-#: lib/kateviewmanager.cpp:275
+#: lib/kateviewmanager.cpp:276
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "Movi la disigilon de la nuna vido supren"
 
-#: lib/kateviewmanager.cpp:278
+#: lib/kateviewmanager.cpp:279
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "Movi Disigilon Malsupren"
 
-#: lib/kateviewmanager.cpp:281
+#: lib/kateviewmanager.cpp:282
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "Movi la disigilon de la nuna vido malsupren"
 
-#: lib/kateviewmanager.cpp:284
+#: lib/kateviewmanager.cpp:285
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "Fokusa Navigadobreto"
 
-#: lib/kateviewmanager.cpp:285
+#: lib/kateviewmanager.cpp:286
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "Fokusi la navigadstangon"
 
-#: lib/kateviewmanager.cpp:292
+#: lib/kateviewmanager.cpp:293
 #, kde-format
 msgid "Welcome Page"
 msgstr "Bonvena Paĝo"
 
-#: lib/kateviewmanager.cpp:297
+#: lib/kateviewmanager.cpp:298
 #, kde-format
 msgid "Show the welcome page"
 msgstr "Montri la bonvenan paĝon"
 
-#: lib/kateviewmanager.cpp:303
+#: lib/kateviewmanager.cpp:304
 #, kde-format
 msgid "Toggle Scroll Synchronization"
 msgstr "Baskuligi Ruluman Sinkronigon"
 
-#: lib/kateviewmanager.cpp:304
+#: lib/kateviewmanager.cpp:305
 #, kde-format
 msgid "Toggle scroll synchronization for the current view"
 msgstr "Baskuligi ruluman sinkronigon por la nuna vido"
 
-#: lib/kateviewmanager.cpp:314
+#: lib/kateviewmanager.cpp:315
 #, kde-format
 msgid "Detach Active Document"
 msgstr "Malkroĉi Aktivan Dokumenton"
 
-#: lib/kateviewmanager.cpp:315
+#: lib/kateviewmanager.cpp:316
 #, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
@@ -2578,7 +2578,7 @@ msgstr ""
 "Malfermas la aktivan dokumenton en nova fenestro kaj fermas ĝin en la nuna "
 "fenestro"
 
-#: lib/kateviewmanager.cpp:390
+#: lib/kateviewmanager.cpp:391
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2589,22 +2589,22 @@ msgstr ""
 "vi volas daŭrigi?</p><p><strong>Atentu, ke kate povas ĉesu respondi dum "
 "kelka tempo malfermante grandajn dosierojn.</strong></p>"
 
-#: lib/kateviewmanager.cpp:393
+#: lib/kateviewmanager.cpp:394
 #, kde-format
 msgid "Opening Large File"
 msgstr "Malfermante Grandan Dosieron"
 
-#: lib/kateviewmanager.cpp:596
+#: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 ne povas malfermi dosierujojn"
 
-#: lib/kateviewmanager.cpp:612
+#: lib/kateviewmanager.cpp:613
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "La kromaĵo necesa por malfermi dosierujojn ne estis trovita"
 
-#: lib/kateviewmanager.cpp:618
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2612,57 +2612,57 @@ msgstr ""
 "Por malfermi dosierujojn, la kromprogramo <b>%1</b> devas esti ebligita. Ĉu "
 "ebligi ĝin?"
 
-#: lib/kateviewmanager.cpp:621
+#: lib/kateviewmanager.cpp:622
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Malfermi Dosierujon"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:623
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Ebligi"
 
-#: lib/kateviewmanager.cpp:629
+#: lib/kateviewmanager.cpp:630
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Malsukcesis aktivigi aldonaĵon <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:650
+#: lib/kateviewmanager.cpp:651
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr ""
 
-#: lib/kateviewspace.cpp:108
+#: lib/kateviewspace.cpp:109
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "Sinkronigi Rulumadon"
 
-#: lib/kateviewspace.cpp:110
+#: lib/kateviewspace.cpp:111
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
 "Sinkronigi rulumon de ĉi dividita vido kun aliaj sinkronigitaj divid-vidoj"
 
-#: lib/kateviewspace.cpp:132
+#: lib/kateviewspace.cpp:133
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:137 lib/kateviewspace.cpp:270
+#: lib/kateviewspace.cpp:138 lib/kateviewspace.cpp:271
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Klaku ĉi tie por ŝanĝi al la Rapida Malferma vido."
 
-#: lib/kateviewspace.cpp:154
+#: lib/kateviewspace.cpp:155
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Stiri vidspacdividon"
 
-#: lib/kateviewspace.cpp:271
+#: lib/kateviewspace.cpp:272
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2677,52 +2677,52 @@ msgstr[1] ""
 "Aktuale estas %1 pliaj dokumentoj malfermataj. Por vidi ĉiujn malfermajn "
 "dokumentojn, ŝanĝu al la Rapid-Malferma vido klakante ĉi tie."
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1166
 #, fuzzy, kde-format
 #| msgid "Close Tab"
 msgid "&Close Tab"
 msgstr "Fermi Langeton"
 
-#: lib/kateviewspace.cpp:1172
+#: lib/kateviewspace.cpp:1173
 #, fuzzy, kde-format
 #| msgid "Close Others"
 msgid "Close &Other Tabs"
 msgstr "Fermi Aliajn"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1187
 #, fuzzy, kde-format
 #| msgid "Close All"
 msgid "Close All &Tabs"
 msgstr "Fermi Ĉiujn"
 
-#: lib/kateviewspace.cpp:1217
+#: lib/kateviewspace.cpp:1218
 #, kde-format
 msgid "D&etach Document"
 msgstr "Malkroĉi Dokum&enton"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1223
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Malfermas la dokumenton en nova fenestro kaj fermas ĝin en la nuna fenestro"
 
-#: lib/kateviewspace.cpp:1263
+#: lib/kateviewspace.cpp:1264
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Kompari kun Aktiva Dokumento"
 
-#: lib/kateviewspace.cpp:1269
+#: lib/kateviewspace.cpp:1270
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Kompari kun Aktiva Dokumenta Uzado"
 
-#: lib/kateviewspace.cpp:1277
+#: lib/kateviewspace.cpp:1278
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Unpin Document"
 msgstr "Dokumentoj"
 
-#: lib/kateviewspace.cpp:1279
+#: lib/kateviewspace.cpp:1280
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

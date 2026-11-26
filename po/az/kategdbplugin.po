@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-10-22 00:53+0000\n"
+"POT-Creation-Date: 2026-11-26 01:09+0000\n"
 "PO-Revision-Date: 2023-06-30 16:09+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -519,48 +519,48 @@ msgctxt "at line no:column no"
 msgid " at %1:%2"
 msgstr ""
 
-#: localsview.cpp:39
+#: localsview.cpp:40
 #, kde-format
 msgid "type"
 msgstr "növ"
 
-#: localsview.cpp:48
+#: localsview.cpp:49
 #, kde-format
 msgid "indexed items"
 msgstr "indekslənmiş elementlər"
 
-#: localsview.cpp:51
+#: localsview.cpp:52
 #, kde-format
 msgid "named items"
 msgstr "adlandırılmış elementlər"
 
-#: localsview.cpp:67 localsview.cpp:68
+#: localsview.cpp:68 localsview.cpp:69
 #, kde-format
 msgid "Loading..."
 msgstr ""
 
-#: localsview.cpp:117
+#: localsview.cpp:118
 #, kde-format
 msgid "Symbol"
 msgstr "Simvol"
 
-#: localsview.cpp:118
+#: localsview.cpp:119
 #, kde-format
 msgid "Type"
 msgstr ""
 
-#: localsview.cpp:119
+#: localsview.cpp:120
 #, kde-format
 msgid "Value"
 msgstr "Dəyər"
 
-#: localsview.cpp:325
+#: localsview.cpp:326
 #, fuzzy, kde-format
 #| msgid "Symbol"
 msgid "Copy Symbol"
 msgstr "Simvol"
 
-#: localsview.cpp:340
+#: localsview.cpp:341
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Value"

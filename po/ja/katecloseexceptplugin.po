@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecloseexceptplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-11-26 01:09+0000\n"
 "PO-Revision-Date: 2026-08-01 23:02+0900\n"
 "Last-Translator: Mint <5602mint@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -54,6 +54,25 @@ msgstr "場所"
 msgctxt "option:check"
 msgid "Do not ask again"
 msgstr "次回から確認しない"
+
+#. i18n: ectx: property (windowTitle), widget (QDialog, CloseConfirmDialog)
+#: close_confirm_dialog.ui:14
+#, kde-format
+msgid "Dialog"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, icon)
+#. i18n: ectx: property (text), widget (QLabel, text)
+#: close_confirm_dialog.ui:25 close_confirm_dialog.ui:38
+#, kde-format
+msgid "TextLabel"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, m_dont_ask_again)
+#: close_confirm_dialog.ui:56
+#, kde-format
+msgid "CheckBox"
+msgstr ""
 
 #: close_except_plugin.cpp:73
 #, kde-format

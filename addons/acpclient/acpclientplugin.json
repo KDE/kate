@@ -2,21 +2,29 @@
     "KPlugin": {
         "Description": "Agent Client Protocol Client",
         "Description[bg]": "Клиент за Language Server Protocol",
+        "Description[ca@valencia]": "Client del protocol de client d'agent (ACP)",
         "Description[ca]": "Client del protocol de client d'agent (ACP)",
+        "Description[es]": "Cliente del protocolo agente-cliente",
         "Description[he]": "לקוח פרוטוקול לקוח סוכן",
+        "Description[ka]": "აგენტის კლიენტის პროტოკოლის კლიენტი",
         "Description[nl]": "Protocol-client van Agent-client",
         "Description[pt_BR]": "Cliente de Protocolo Agente-Cliente",
         "Description[ru]": "Клиент Agent Client Protocol (протокол взаимодействия редактора с ИИ-агентами)",
         "Description[tr]": "Aracı İstemci Protokolü istemcisi",
         "Description[uk]": "Клієнт протоколу клієнтів агентів",
+        "Description[zh_CN]": "智能体客户端协议客户端",
         "Name": "ACP Client",
         "Name[bg]": "Клиент на ACP",
+        "Name[ca@valencia]": "Client d'ACP",
         "Name[ca]": "Client d'ACP",
+        "Name[es]": "Cliente ACP",
         "Name[he]": "לקוח ACP",
+        "Name[ka]": "ACP კლიენტი",
         "Name[nl]": "ACP-client",
         "Name[pt_BR]": "Cliente ACP",
         "Name[ru]": "Клиент ACP",
         "Name[tr]": "ACP İstemcisi",
-        "Name[uk]": "Клієнт ACP"
+        "Name[uk]": "Клієнт ACP",
+        "Name[zh_CN]": "ACP 客户端"
     }
 }

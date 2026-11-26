@@ -475,8 +475,10 @@ void ACPClientServerManager::setSessionConfigOption(const QString &sessionId, co
 
 void ACPClientServerManager::listSessions()
 {
+    // no active server => no sessions!
     ACPClientServer *server = activeServer();
     if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
+        Q_EMIT sessionListReceived({});
         return;
     }
 

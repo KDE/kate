@@ -26,6 +26,7 @@
         "Description[sr]": "Отпрема фајлове пројекта преко СФТП‑а и омогућава прегледање удаљеног домаћина",
         "Description[tr]": "Proje dosyalarını SFTP üzerinden karşıya yükleyin ve uzak makineye göz atın",
         "Description[uk]": "Вивантаження файлів проєкту за допомогою SFTP і навігація віддаленим вузлом",
+        "Description[zh_CN]": "通过 SFTP 上传项目文件并浏览远程主机",
         "Name": "Deployment",
         "Name[ar]": "النشر",
         "Name[bg]": "Разгръщане",
@@ -51,6 +52,7 @@
         "Name[sr@latin]": "Razvijanje",
         "Name[sr]": "Развијање",
         "Name[tr]": "Konuşlandırma",
-        "Name[uk]": "Розгортання"
+        "Name[uk]": "Розгортання",
+        "Name[zh_CN]": "部署"
     }
 }

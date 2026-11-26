@@ -26,6 +26,7 @@
         "Description[sr]": "Приказује гит ознаке измена на маргинама уређивача",
         "Description[tr]": "Düzenleyici kenar boşluklarında Git değişiklik göstergelerini gösterin",
         "Description[uk]": "Показує індикатори змін у Git на полях редактора",
+        "Description[zh_CN]": "在编辑器边距中显示 Git 变更指示符",
         "Name": "Git Decorations",
         "Name[ar]": "زخارف غت",
         "Name[bg]": "Декорации на Git",
@@ -51,6 +52,7 @@
         "Name[sr@latin]": "Git oznake",
         "Name[sr]": "Гит ознаке",
         "Name[tr]": "Git Dekorasyonları",
-        "Name[uk]": "Декорування Git"
+        "Name[uk]": "Декорування Git",
+        "Name[zh_CN]": "Git 修饰"
     }
 }

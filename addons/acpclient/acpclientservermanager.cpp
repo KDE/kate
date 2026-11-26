@@ -477,7 +477,6 @@ void ACPClientServerManager::listSessions()
 {
     ACPClientServer *server = activeServer();
     if (!server || server->state() != ACPClientServer::ServerState::Initialized) {
-        Q_EMIT errorOccurred(tr("No active ACP server available"));
         return;
     }
 

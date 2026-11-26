@@ -94,9 +94,7 @@ void ACPClientPluginView::setupUI()
     showChatToolView();
 
     // Query session list once UI is set up
-    if (m_serverManager->activeServer()) {
-        m_serverManager->listSessions();
-    }
+    m_serverManager->listSessions();
 }
 
 void ACPClientPluginView::showChatToolView()
@@ -184,17 +182,13 @@ void ACPClientPluginView::showChatToolView()
         m_serverManager->deleteSession(sessionId);
 
         // Reload session list after deletion
-        if (m_serverManager->activeServer()) {
-            m_serverManager->listSessions();
-        }
+        m_serverManager->listSessions();
     });
 
     // Connect reload signal
     connect(m_sessionListWidget, &ACPSessionListWidget::reloadRequested, this, [this]() {
         qCDebug(ACPCLIENT) << "Reloading session list";
-        if (m_serverManager->activeServer()) {
-            m_serverManager->listSessions();
-        }
+        m_serverManager->listSessions();
     });
 
     // Connect new session signal
@@ -216,11 +210,8 @@ void ACPClientPluginView::showChatToolView()
     connect(m_serverManager, &ACPClientServerManager::sessionListReceived, this, &ACPClientPluginView::onSessionListReceived);
 
     // Connect to active server changed to auto-query sessions when server becomes available
-    connect(m_serverManager, &ACPClientServerManager::activeServerChanged, this, [this](ACPClientServer *server) {
-        if (server) {
-            // Query session list when an active server is set
-            m_serverManager->listSessions();
-        }
+    connect(m_serverManager, &ACPClientServerManager::activeServerChanged, this, [this](ACPClientServer *) {
+        m_serverManager->listSessions();
     });
 }
 

@@ -8,6 +8,7 @@
 
 #include <KLocalizedString>
 
+#include <QFontDatabase>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QToolButton>
@@ -118,7 +119,7 @@ void ACPCollapsibleTextWidget::setMonospace(bool monospace)
 {
     QFont textFont = font();
     if (monospace) {
-        textFont = QFont(QStringLiteral("monospace"));
+        textFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
         textFont.setPointSize(textFont.pointSize() - 1);
     }
 

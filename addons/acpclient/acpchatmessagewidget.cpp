@@ -580,19 +580,7 @@ static QColor mixColors(const QColor &base, const QColor &accent, qreal weight)
 /** @brief Whether a piece of text was rendered as code by the Markdown parser */
 static bool isCodeFormat(const QTextCharFormat &format)
 {
-    const QFont font = format.font();
-    if (font.fixedPitch()) {
-        return true;
-    }
-
-    const QStringList families = font.families();
-    for (const QString &family : families) {
-        if (family.compare(QStringLiteral("monospace"), Qt::CaseInsensitive) == 0) {
-            return true;
-        }
-    }
-
-    return false;
+    return format.font().fixedPitch();
 }
 
 /**
@@ -709,8 +697,7 @@ static QString markdownWithHighlightedCode(const QString &markdown, const QColor
         cell.setFormat(cellFormat);
 
         QTextCharFormat codeFormat;
-        codeFormat.setFontFamilies({QStringLiteral("monospace")});
-        codeFormat.setFontFixedPitch(true);
+        codeFormat.setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
         QTextCursor cellCursor = cell.firstCursorPosition();
         cellCursor.setCharFormat(codeFormat);
@@ -1341,7 +1328,7 @@ void ACPChatMessageWidget::updateContentDisplay()
         if (!toolInfo.isEmpty()) {
             QLabel *commandLabel = new QLabel(toolInfo, permissionWidget);
             // Use a monospace font
-            QFont monoFont(QStringLiteral("monospace"));
+            QFont monoFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
             monoFont.setPointSize(monoFont.pointSize() - 1);
             commandLabel->setFont(monoFont);
             // Use alternate background for command display with proper text color

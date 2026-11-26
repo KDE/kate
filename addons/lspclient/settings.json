@@ -58,6 +58,7 @@
             "servers" : {
                 "neocmakelsp" : {
                     "command": ["neocmakelsp", "stdio"],
+                    "rootIndicationFileNames": [".git", ".neocmake.toml", ".neocmakelint.toml"],
                     "url": "https://github.com/neocmakelsp/neocmakelsp"
                 }
             }

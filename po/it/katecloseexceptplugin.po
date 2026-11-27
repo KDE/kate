@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecloseexceptplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-26 01:09+0000\n"
+"POT-Creation-Date: 2026-11-27 01:08+0000\n"
 "PO-Revision-Date: 2016-06-28 15:11+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -29,31 +29,31 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "nicola@nxnt.org"
 
-#: close_confirm_dialog.cpp:66
+#: close_confirm_dialog.cpp:67
 #, kde-format
 msgctxt "@title:window"
 msgid "Close files confirmation"
 msgstr "Conferma chiusura file"
 
-#: close_confirm_dialog.cpp:72
+#: close_confirm_dialog.cpp:73
 #, kde-format
 msgctxt "@label:listbox"
 msgid "You are about to close the following documents:"
 msgstr "Stai per chiudere i seguenti documenti:"
 
-#: close_confirm_dialog.cpp:75
+#: close_confirm_dialog.cpp:76
 #, kde-format
 msgctxt "@title:column"
 msgid "Document"
 msgstr "Documento"
 
-#: close_confirm_dialog.cpp:75
+#: close_confirm_dialog.cpp:76
 #, kde-format
 msgctxt "@title:column"
 msgid "Location"
 msgstr "Posizione"
 
-#: close_confirm_dialog.cpp:87
+#: close_confirm_dialog.cpp:88
 #, kde-format
 msgctxt "option:check"
 msgid "Do not ask again"
@@ -78,55 +78,55 @@ msgstr ""
 msgid "CheckBox"
 msgstr ""
 
-#: close_except_plugin.cpp:73
+#: close_except_plugin.cpp:74
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
 msgstr "Mostra conferma"
 
-#: close_except_plugin.cpp:74
+#: close_except_plugin.cpp:75
 #, kde-format
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
 msgstr "Chiudi tranne"
 
-#: close_except_plugin.cpp:75
+#: close_except_plugin.cpp:76
 #, kde-format
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
 msgstr "Chiudi simili"
 
-#: close_except_plugin.cpp:78
+#: close_except_plugin.cpp:79
 #, kde-format
 msgid "Close Except/Like Plugin"
 msgstr "Estensione di chiusura per gruppo"
 
-#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
+#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
 msgstr "Errore"
 
-#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
+#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
 msgstr "Nessun file da chiudere..."
 
-#: close_except_plugin.cpp:260
+#: close_except_plugin.cpp:261
 #, kde-format
 msgctxt "@title:window"
 msgid "Done"
 msgstr "Fatto"
 
-#: close_except_plugin.cpp:260
+#: close_except_plugin.cpp:261
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
 msgstr[0] "%1 file chiuso"
 msgstr[1] "%1 file chiusi"
 
-#: close_except_plugin.cpp:273
+#: close_except_plugin.cpp:274
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"

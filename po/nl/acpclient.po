@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-11-24 01:09+0000\n"
+"POT-Creation-Date: 2026-11-27 01:08+0000\n"
 "PO-Revision-Date: 2026-11-24 23:26+0100\n"
 "Last-Translator: freek <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -27,81 +27,154 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "freekdekruijf@kde.nl"
 
-#: acpchatmessagewidget.cpp:249 acpchatmessagewidget.cpp:841
+#: acpchatmessagewidget.cpp:288
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Selection"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:295
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Message Text"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:300
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Message Markdown"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:312
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Cancel Queued Message"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:377
+#, kde-format
+msgctxt "@title the file a tool created"
+msgid "New file: %1"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:378
+#, kde-format
+msgctxt "@title the file a tool changed"
+msgid "Changes to %1"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:450 acpchatmessagewidget.cpp:1395
 #, kde-format
 msgid "Allow"
 msgstr "Toestaan"
 
-#: acpchatmessagewidget.cpp:252 acpchatmessagewidget.cpp:849
+#: acpchatmessagewidget.cpp:453 acpchatmessagewidget.cpp:1403
 #, kde-format
 msgid "Reject"
 msgstr "Afwijzen"
 
-#: acpchatmessagewidget.cpp:659
+#: acpchatmessagewidget.cpp:1080
 #, kde-format
-msgid "Tool Update:"
-msgstr "Bijwerken van hulpmiddel:"
+msgid "Waiting for the agent…"
+msgstr ""
 
-#: acpchatmessagewidget.cpp:715
+#: acpchatmessagewidget.cpp:1093
+#, kde-format
+msgid "Reasoning"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:1202
+#, kde-format
+msgid "Input"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:1223 acpchatmessagewidget.cpp:1248
+#, kde-format
+msgid "Output"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:1269
 #, kde-format
 msgid "Usage:"
 msgstr "Gebruik:"
 
-#: acpchatmessagewidget.cpp:893
+#: acpchatmessagewidget.cpp:1465
 #, kde-format
 msgid "User"
 msgstr "Gebruiker"
 
-#: acpchatmessagewidget.cpp:895 acpclientchatwidget.cpp:946
-#: acpclientchatwidget.cpp:969 acpclientchatwidget.cpp:1000
-#: acpclientchatwidget.cpp:1015 acpclientchatwidget.cpp:1107
+#: acpchatmessagewidget.cpp:1467 acpclientchatwidget.cpp:687
+#: acpclientchatwidget.cpp:1584 acpclientchatwidget.cpp:1606
+#: acpclientchatwidget.cpp:1637 acpclientchatwidget.cpp:1677
+#: acpclientchatwidget.cpp:1756 acpclientchatwidget.cpp:1854
 #, kde-format
 msgid "Agent"
 msgstr "Agent"
 
-#: acpchatmessagewidget.cpp:897
+#. i18n: ectx: property (text), widget (QToolButton, showThinkingButton)
+#: acpchatmessagewidget.cpp:1469 acpclientchat.ui:86
+#, kde-format
+msgid "Thinking"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:1471
+#, kde-format
+msgid "Working"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:1473
+#, kde-format
+msgid "Cancelled"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:1473
+#, kde-format
+msgid "Queued"
+msgstr ""
+
+#: acpchatmessagewidget.cpp:1475
 #, kde-format
 msgid "System"
 msgstr "Systeem"
 
-#: acpchatmessagewidget.cpp:899
+#: acpchatmessagewidget.cpp:1477
 #, kde-format
 msgid "Plan"
 msgstr "Plan"
 
-#: acpchatmessagewidget.cpp:901
+#: acpchatmessagewidget.cpp:1479
 #, kde-format
 msgid "Tool Call"
 msgstr "Aanroep van hulpmiddel"
 
-#: acpchatmessagewidget.cpp:903
+#: acpchatmessagewidget.cpp:1481
 #, kde-format
 msgid "Tool Update"
 msgstr "Bijwerken van hulpmiddel"
 
-#: acpchatmessagewidget.cpp:905
+#: acpchatmessagewidget.cpp:1483
 #, kde-format
 msgid "Usage"
 msgstr "Gebruik"
 
-#: acpchatmessagewidget.cpp:907
+#: acpchatmessagewidget.cpp:1485
 #, kde-format
 msgid "Permission Request"
 msgstr "Verzoek om toestemming"
 
-#: acpchatmessagewidget.cpp:909 acpserverlistwidget.cpp:141
+#: acpchatmessagewidget.cpp:1487 acpserverlistwidget.cpp:141
 #, kde-format
 msgid "Error"
 msgstr "Fout"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ACPChatWidget)
-#: acpclientchat.ui:14 acpclientpluginview.cpp:70
+#: acpclientchat.ui:14 acpclientpluginview.cpp:109
 #, kde-format
 msgid "ACP Chat"
 msgstr "ACP-chat"
 
 #. i18n: ectx: property (text), widget (QLabel, sessionLabel)
-#: acpclientchat.ui:31 acpclientchatwidget.cpp:1229
+#: acpclientchat.ui:31 acpclientchatwidget.cpp:2346
 #, kde-format
 msgid "ACP Chat: No active session"
 msgstr "ACP-chat: geen actieve sessie"
@@ -130,20 +203,39 @@ msgstr "Sessie beëindigen"
 msgid "End the current ACP session"
 msgstr "Beëindig de huidige ACP-sessie"
 
+#. i18n: ectx: property (toolTip), widget (QToolButton, showThinkingButton)
+#: acpclientchat.ui:92
+#, kde-format
+msgid "Show the reasoning of the agent expanded instead of collapsed"
+msgstr ""
+
 #. i18n: ectx: property (text), widget (QPushButton, clearChatButton)
-#: acpclientchat.ui:86
+#: acpclientchat.ui:108
 #, kde-format
 msgid "Clear"
 msgstr "Wissen"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, clearChatButton)
-#: acpclientchat.ui:92
+#: acpclientchat.ui:114
 #, kde-format
 msgid "Clear the chat history"
 msgstr "Wis de chatgeschiedenis"
 
+#. i18n: ectx: property (text), widget (QPushButton, loadEarlierButton)
+#: acpclientchat.ui:150
+#, kde-format
+msgid "Load earlier messages"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, loadEarlierButton)
+#: acpclientchat.ui:156
+#, kde-format
+msgid ""
+"Display more of the conversation, which is only built as far back as needed"
+msgstr ""
+
 #. i18n: ectx: property (placeholderText), widget (QTextEdit, messageInput)
-#: acpclientchat.ui:137 acpclientchatwidget.cpp:69
+#: acpclientchat.ui:202 acpclientchatwidget.cpp:156
 #, kde-format
 msgid ""
 "Type your message here... (Ctrl+Enter to send, Shift+Enter for new line)"
@@ -151,142 +243,289 @@ msgstr ""
 "Typ uw bericht hier... (Ctrl+Enter om te verzenden, Shift+Enter voor nieuwe "
 "regel)"
 
+#. i18n: ectx: property (text), widget (QToolButton, commandsButton)
+#: acpclientchat.ui:230
+#, fuzzy, kde-format
+#| msgid "Command"
+msgid "/ Commands"
+msgstr "Commando"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, commandsButton)
+#: acpclientchat.ui:233
+#, kde-format
+msgid "Insert a slash command"
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QPushButton, sendButton)
+#: acpclientchat.ui:258
+#, kde-format
+msgid "Send"
+msgstr ""
+
 #. i18n: ectx: property (toolTip), widget (QPushButton, sendButton)
-#: acpclientchat.ui:163
+#: acpclientchat.ui:264
 #, kde-format
 msgid "Send message (Ctrl+Enter)"
 msgstr "Bericht verzenden (Ctrl+Enter)"
 
-#: acpclientchatwidget.cpp:108 acpclientchatwidget.cpp:159
-#: acpclientchatwidget.cpp:805
+#. i18n: ectx: property (text), widget (QPushButton, cancelPromptButton)
+#: acpclientchat.ui:283 acpserverlistwidget.cpp:113
+#, kde-format
+msgid "Stop"
+msgstr "Stoppen"
+
+#. i18n: ectx: property (toolTip), widget (QPushButton, cancelPromptButton)
+#: acpclientchat.ui:289
+#, kde-format
+msgid "Stop the agent working on the current prompt"
+msgstr ""
+
+#: acpclientchatwidget.cpp:210 acpclientchatwidget.cpp:281
+#: acpclientchatwidget.cpp:1421
 #, kde-format
 msgid "No ACP server manager available"
 msgstr "Geen ACP-serverbeheerder beschikbaar"
 
-#: acpclientchatwidget.cpp:114 acpclientchatwidget.cpp:165
+#: acpclientchatwidget.cpp:216 acpclientchatwidget.cpp:287
 #, kde-format
 msgid "No active ACP server. Please connect to an agent first."
 msgstr "Geen actieve ACP-server. Verbind eerst met een agent."
 
-#: acpclientchatwidget.cpp:132
+#: acpclientchatwidget.cpp:234
 #, kde-format
 msgid "New ACP session started: %1"
 msgstr "Nieuwe ACP-sessie gestart: %1"
 
-#: acpclientchatwidget.cpp:138
+#: acpclientchatwidget.cpp:240
 #, kde-format
 msgid "Creating new ACP session..."
 msgstr "Nieuwe ACP-sessie wordt aangemaakt..."
 
-#: acpclientchatwidget.cpp:175
+#: acpclientchatwidget.cpp:301
 #, kde-format
 msgid "Using session: %1"
 msgstr "Gebruik van sessie: %1"
 
-#: acpclientchatwidget.cpp:185 acpclientchatwidget.cpp:780
+#: acpclientchatwidget.cpp:314 acpclientchatwidget.cpp:424
+#: acpclientchatwidget.cpp:1382 acpclientchatwidget.cpp:1743
 #, kde-format
 msgid "You"
 msgstr "U"
 
-#: acpclientchatwidget.cpp:651 acpclientchatwidget.cpp:904
-#: acpclientchatwidget.cpp:906 acpclientchatwidget.cpp:909
-#: acpclientchatwidget.cpp:911 acpclientchatwidget.cpp:924
+#: acpclientchatwidget.cpp:607
+#, kde-format
+msgctxt "@action:button"
+msgid "Load earlier message (%1 hidden)"
+msgid_plural "Load earlier messages (%1 hidden)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: acpclientchatwidget.cpp:1132 acpclientchatwidget.cpp:1502
+#: acpclientchatwidget.cpp:1504 acpclientchatwidget.cpp:1507
+#: acpclientchatwidget.cpp:1509 acpclientchatwidget.cpp:1522
 #, kde-format
 msgid "ACP Agent"
 msgstr "ACP-agent"
 
-#: acpclientchatwidget.cpp:696
+#: acpclientchatwidget.cpp:1183
 #, kde-format
 msgid "Server disconnected"
 msgstr "Serververbinding verbroken"
 
-#: acpclientchatwidget.cpp:749
+#: acpclientchatwidget.cpp:1245
 #, kde-format
 msgid "Session loaded: %1"
 msgstr "Sessie geladen: %1"
 
-#: acpclientchatwidget.cpp:757
+#: acpclientchatwidget.cpp:1256
 #, kde-format
 msgid "Session resumed: %1"
 msgstr "Sessie hervat: %1"
 
-#: acpclientchatwidget.cpp:793
+#: acpclientchatwidget.cpp:1313
+#, kde-format
+msgid "The agent rejected the prompt"
+msgstr ""
+
+#: acpclientchatwidget.cpp:1313
+#, kde-format
+msgid "The agent rejected the prompt: %1"
+msgstr ""
+
+#: acpclientchatwidget.cpp:1395
 #, kde-format
 msgid "No active session. Please start a new session first."
 msgstr "Geen actieve sessie. Start eerst een nieuwe sessie."
 
-#: acpclientchatwidget.cpp:810
+#: acpclientchatwidget.cpp:1426
 #, kde-format
 msgid "No active session to end"
 msgstr "Geen actieve sessie om te beëindigen"
 
-#: acpclientchatwidget.cpp:836
+#: acpclientchatwidget.cpp:1452
 #, kde-format
 msgid "Error [%1]: %2"
 msgstr "Fout [%1]: %2"
 
-#: acpclientchatwidget.cpp:911
+#: acpclientchatwidget.cpp:1509
 #, kde-format
 msgid "Error: %1"
 msgstr "Fout: %1"
 
-#: acpclientchatwidget.cpp:1218
+#: acpclientchatwidget.cpp:1986
 #, kde-format
 msgid "Tokens: %1 / %2"
 msgstr "Tokens: %1 / %2"
 
-#: acpclientchatwidget.cpp:1232
+#: acpclientchatwidget.cpp:2031
+#, kde-format
+msgctxt "@label:listbox name of a session setting"
+msgid "%1:"
+msgstr ""
+
+#: acpclientchatwidget.cpp:2119
+#, fuzzy, kde-format
+#| msgid "Agent"
+msgctxt "@label:listbox the mode the agent operates in"
+msgid "Agent"
+msgstr "Agent"
+
+#: acpclientchatwidget.cpp:2120
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select the agent mode, for example build or plan"
+msgstr ""
+
+#: acpclientchatwidget.cpp:2134
+#, kde-format
+msgctxt "@label:listbox the model the agent uses"
+msgid "Model"
+msgstr ""
+
+#: acpclientchatwidget.cpp:2135
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Select the model used by the agent"
+msgstr ""
+
+#: acpclientchatwidget.cpp:2249
+#, kde-format
+msgid "Input: %1"
+msgstr ""
+
+#: acpclientchatwidget.cpp:2349
 #, kde-format
 msgid "ACP Chat: Session %1"
 msgstr "ACP-chat: sessie %1"
 
-#: acpclientchatwidget.cpp:1258
+#: acpclientchatwidget.cpp:2390
+#, kde-format
+msgctxt "@action:button add the message to the queue"
+msgid "Queue"
+msgstr ""
+
+#: acpclientchatwidget.cpp:2391
+#, kde-format
+msgctxt "@action:button send the message to the agent"
+msgid "Send"
+msgstr ""
+
+#: acpclientchatwidget.cpp:2392
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Queue message, it is sent when the agent is done (Ctrl+Enter)"
+msgstr ""
+
+#: acpclientchatwidget.cpp:2393
+#, fuzzy, kde-format
+#| msgid "Send message (Ctrl+Enter)"
+msgctxt "@info:tooltip"
+msgid "Send message (Ctrl+Enter)"
+msgstr "Bericht verzenden (Ctrl+Enter)"
+
+#: acpclientchatwidget.cpp:2402
+#, kde-format
+msgctxt "@info the agent was asked to stop"
+msgid "⏳ Stopping…"
+msgstr ""
+
+#: acpclientchatwidget.cpp:2404
+#, kde-format
+msgctxt "@info the agent is working on a prompt"
+msgid "⏳ Working…"
+msgstr ""
+
+#: acpclientchatwidget.cpp:2406
+#, kde-format
+msgctxt "@info the agent is idle and waits for a prompt"
+msgid "✓ Ready"
+msgstr ""
+
+#: acpclientchatwidget.cpp:2411
+#, kde-format
+msgctxt ""
+"@info the state of the agent and how much is waiting for it, e.g. 'Working…, "
+"2 messages queued'"
+msgid "%1, %2 message queued"
+msgid_plural "%1, %2 messages queued"
+msgstr[0] ""
+msgstr[1] ""
+
+#: acpclientchatwidget.cpp:2426
 #, kde-format
 msgid "Copy All"
 msgstr "Alles kopiëren"
 
-#: acpclientconfigpage.cpp:32
+#: acpclientconfigpage.cpp:33
 #, kde-format
 msgid "User Server Settings"
 msgstr "Serverinstellingen van gebruiker"
 
-#: acpclientconfigpage.cpp:33
+#: acpclientconfigpage.cpp:34
 #, kde-format
 msgid "Default Server Settings"
 msgstr "Standaard serverinstellingen"
 
 #. i18n: ectx: Menu (acp_client)
-#: acpclientconfigpage.cpp:47 ui.rc:7
+#: acpclientconfigpage.cpp:53 acpclientplugin.cpp:87 ui.rc:7
 #, kde-format
 msgid "ACP Client"
 msgstr "ACP-client"
 
-#: acpclientconfigpage.cpp:52
+#: acpclientconfigpage.cpp:58
 #, kde-format
 msgid "Agent Client Protocol Client Configuration"
 msgstr "Client-configuratie van protocol voor agent-client"
 
-#: acpclientplugin.cpp:84
-#, kde-format
-msgid "Keyboard Macros"
-msgstr "Toetsenbordmacro's"
-
-#: acpclientpluginview.cpp:33
+#: acpclientpluginview.cpp:34
 #, kde-format
 msgid "Agent Client Protocol"
 msgstr "Protocol voor agent-client"
 
-#: acpclientpluginview.cpp:79
+#: acpclientpluginview.cpp:84
+#, kde-format
+msgctxt "@info"
+msgid "ACP: %1"
+msgstr ""
+
+#: acpclientpluginview.cpp:84
+#, fuzzy, kde-format
+#| msgid "ACP Client"
+msgctxt "@info"
+msgid "ACP Client"
+msgstr "ACP-client"
+
+#: acpclientpluginview.cpp:118
 #, kde-format
 msgid "Servers"
 msgstr "Servers"
 
-#: acpclientpluginview.cpp:84 acpsessionlistwidget.cpp:37
+#: acpclientpluginview.cpp:123 acpsessionlistwidget.cpp:37
 #, kde-format
 msgid "Sessions"
 msgstr "Sessies"
 
-#: acpclientpluginview.cpp:89
+#: acpclientpluginview.cpp:128
 #, kde-format
 msgid "Chat"
 msgstr "Chat"
@@ -305,6 +544,42 @@ msgstr "Serverconfiguratie ontleden is mislukt: '%1': %2"
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Serverconfiguratie lezen is mislukt: %1"
+
+#: acpcollapsibletextwidget.cpp:236
+#, kde-format
+msgctxt "@action:button size of a text block"
+msgid "%1 line"
+msgid_plural "%1 lines"
+msgstr[0] ""
+msgstr[1] ""
+
+#: acpcollapsibletextwidget.cpp:237
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Click to collapse the text"
+msgstr ""
+
+#: acpcollapsibletextwidget.cpp:237
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Click to show the whole text"
+msgstr ""
+
+#: acpcollapsibletextwidget.cpp:264
+#, kde-format
+msgctxt "@action:button"
+msgid "… %1 more line …"
+msgid_plural "… %1 more lines …"
+msgstr[0] ""
+msgstr[1] ""
+
+#: acpcollapsibletextwidget.cpp:269
+#, kde-format
+msgctxt "@action:button"
+msgid "… %1 more character …"
+msgid_plural "… %1 more characters …"
+msgstr[0] ""
+msgstr[1] ""
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, ACPConfigWidget)
 #: acpconfigwidget.ui:14
@@ -348,6 +623,32 @@ msgstr "Allen toestaan"
 msgid "Deny all"
 msgstr "Alles weigeren"
 
+#. i18n: ectx: property (text), widget (QCheckBox, logMessagesCheckBox)
+#: acpconfigwidget.ui:107
+#, kde-format
+msgid "Log ACP messages to the output view"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, logMessagesCheckBox)
+#: acpconfigwidget.ui:110
+#, kde-format
+msgid ""
+"Write every message exchanged with an agent, and the startup, exit and error "
+"output of the agent process, to Kate's output view."
+msgstr ""
+
+#. i18n: ectx: property (text), widget (QCheckBox, prettyPrintLogCheckBox)
+#: acpconfigwidget.ui:117
+#, kde-format
+msgid "Pretty print the logged JSON"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, prettyPrintLogCheckBox)
+#: acpconfigwidget.ui:120
+#, kde-format
+msgid "Log messages indented over several lines instead of on a single line."
+msgstr ""
+
 #: acpserverlistwidget.cpp:39
 #, kde-format
 msgid "Actions"
@@ -377,11 +678,6 @@ msgstr "Geen servers beschikbaar"
 #, kde-format
 msgid "Start"
 msgstr "Starten"
-
-#: acpserverlistwidget.cpp:113
-#, kde-format
-msgid "Stop"
-msgstr "Stoppen"
 
 #: acpserverlistwidget.cpp:129
 #, kde-format
@@ -442,3 +738,9 @@ msgstr "Sessie hervatten"
 #, kde-format
 msgid "Delete Session"
 msgstr "Sessie verwijderen"
+
+#~ msgid "Tool Update:"
+#~ msgstr "Bijwerken van hulpmiddel:"
+
+#~ msgid "Keyboard Macros"
+#~ msgstr "Toetsenbordmacro's"

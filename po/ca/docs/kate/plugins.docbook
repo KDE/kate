@@ -7652,6 +7652,12 @@ VALUES ("<replaceable
 >perltidy</command
 ></para
 ></listitem>
+<listitem
+><para
+>Markdown - <command
+>prettier</command
+></para
+></listitem>
 
 <listitem
 ><para

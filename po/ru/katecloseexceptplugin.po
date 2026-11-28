@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-27 01:08+0000\n"
-"PO-Revision-Date: 2016-08-28 13:08+0300\n"
-"Last-Translator: Alexander Potashev <aspotashev@gmail.com>\n"
+"PO-Revision-Date: 2026-11-27 07:57+0200\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -63,20 +63,20 @@ msgstr "Больше не спрашивать"
 #: close_confirm_dialog.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr ""
+msgstr "Диалог"
 
 #. i18n: ectx: property (text), widget (QLabel, icon)
 #. i18n: ectx: property (text), widget (QLabel, text)
 #: close_confirm_dialog.ui:25 close_confirm_dialog.ui:38
 #, kde-format
 msgid "TextLabel"
-msgstr ""
+msgstr "Текстовая метка"
 
 #. i18n: ectx: property (text), widget (QCheckBox, m_dont_ask_again)
 #: close_confirm_dialog.ui:56
 #, kde-format
 msgid "CheckBox"
-msgstr ""
+msgstr "Флажок"
 
 #: close_except_plugin.cpp:74
 #, kde-format
